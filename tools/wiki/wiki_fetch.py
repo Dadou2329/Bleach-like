@@ -20,6 +20,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -40,23 +41,54 @@ INFOBOX_KEYS = [
 ]
 
 
-def api_get(params, retries=4):
+def api_get(params, retries=6):
+    """GET api.php with backoff. Fandom rate-limits bursts (HTTP 429), especially when several
+    fetchers share one User-Agent, so honour Retry-After and back off exponentially (max 60 s)."""
     params = dict(params)
     params.setdefault("format", "json")
     params.setdefault("formatversion", "2")
     url = API + "?" + urllib.parse.urlencode(params)
-    delay = 2
+    delay = 2.0
     for attempt in range(retries + 1):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=60) as r:
                 return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if attempt == retries:
+                raise
+            wait = delay
+            if e.code == 429:
+                retry_after = e.headers.get("Retry-After")
+                if retry_after and retry_after.isdigit():
+                    wait = max(wait, float(retry_after))
+            print(f"  retry {attempt + 1} after HTTP {e.code}; sleeping {wait:.0f}s", file=sys.stderr)
+            time.sleep(wait)
+            delay = min(delay * 2, 60)
         except Exception as e:  # network hiccup: back off
             if attempt == retries:
                 raise
             print(f"  retry {attempt + 1} after error: {e}", file=sys.stderr)
             time.sleep(delay)
-            delay *= 2
+            delay = min(delay * 2, 60)
+
+
+def fetch_wikitext(title):
+    """Return (resolved_title, wikitext) or (None, error). Tries action=parse first, then the
+    lighter query/revisions endpoint, which keeps working when parse is throttled."""
+    try:
+        d = api_get({"action": "parse", "page": title, "prop": "wikitext", "redirects": "1"})
+        if "error" not in d:
+            return d["parse"]["title"], d["parse"]["wikitext"]
+        err = d["error"].get("info", "error")
+    except Exception as e:  # throttled or failed: fall back below
+        err = str(e)
+    d = api_get({"action": "query", "prop": "revisions", "rvprop": "content", "rvslots": "main",
+                 "titles": title, "redirects": "1"})
+    pages = d.get("query", {}).get("pages", [])
+    if pages and "revisions" in pages[0]:
+        return pages[0]["title"], pages[0]["revisions"][0]["slots"]["main"]["content"]
+    return None, err
 
 
 def search(q):
@@ -215,17 +247,18 @@ def infobox(lead):
         k = m.group(1).strip().lower()
         if k in INFOBOX_KEYS and m.group(2).strip():
             v = clean(m.group(2)).replace("\n", " / ")
+            # the page-tab template also has a bare numeric |height= (tab bar height), skip it
+            if k == "height" and "cm" not in v:
+                continue
             if v:
                 rows.append(f"- {k}: {v}")
     return "\n".join(rows)
 
 
 def fetch(title, all_sections=False):
-    d = api_get({"action": "parse", "page": title, "prop": "wikitext", "redirects": "1"})
-    if "error" in d:
-        return None, d["error"].get("info", "error")
-    real = d["parse"]["title"]
-    wt = d["parse"]["wikitext"]
+    real, wt = fetch_wikitext(title)
+    if real is None:
+        return None, wt
     secs = split_sections(wt)
     lines = [f"# {real}", f"Source: https://bleach.fandom.com/wiki/{urllib.parse.quote(real.replace(' ', '_'))}", ""]
     ib = infobox(secs[0][2])
@@ -260,6 +293,8 @@ def main():
     ap.add_argument("--out", default="wiki_out")
     ap.add_argument("--all-sections", action="store_true")
     ap.add_argument("--search")
+    ap.add_argument("--delay", type=float, default=1.0,
+                    help="seconds between pages (raise it when several fetchers run in parallel)")
     a = ap.parse_args()
     if a.search:
         for t in search(a.search):
@@ -280,7 +315,7 @@ def main():
         with open(p, "w", encoding="utf-8") as f:
             f.write(text)
         print(f"OK {real} -> {p} ({len(text)} chars)")
-        time.sleep(0.3)
+        time.sleep(a.delay)
 
 
 if __name__ == "__main__":

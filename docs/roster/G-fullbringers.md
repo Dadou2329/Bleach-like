@@ -325,7 +325,7 @@ Every dossier below inherits this layer; dossiers only list deviations.
   - *Enhanced Dollhouse*
     - **Addiction Shot (アディクション・ショット)** — she points her arm, the "R" lights up on the gauntlet's round plate, a heart flies from her fist and sticks; she calls the target's name and admits them → sealed into an object of her choice (Rukia → plush) [M]. `[Projectile(homing)] [Status] [NEW: Polymorph]`
     - **Human Container** (unnamed) — stabs a target with the gauntlet; the "R" glows and light pours from the wound; she **hides inside them**. The host keeps control but she has **limited control**, can read their **thoughts** and is **undetectable** (no reiatsu, no body); the host faints when she enters and when she leaves; to exit, door-like markings (a sideways "H" with rivet dots) open on the host's chest and launch her out [M]. She used it to shield Rukia and Ichigo from Tsukishima's killing cut. `[Sensing/Stealth] [NEW: Possession] [NEW: KnowledgeReveal]`
-  - *Other*: Bringer Light (drops from rooftops, cuts off fleeing Rukia, vanishes at the end) [M]; senses spiritually aware humans such as Tatsuki [M]; **Mr. Pork contract** — she handed him a phone; he must turn up within 15 minutes of her call [M] `[Summon]`.
+  - *Other*: Bringer Light — cuts off the fleeing bunny-Rukia [M], drops from a rooftop [A-ep 354], vanishes from a rooftop at the end [A-ep 366]; senses spiritually aware humans such as Tatsuki [M]; **Mr. Pork contract** — she handed him a phone; he must turn up within 15 minutes of her call [M] `[Summon]`.
 - **Passives & weaknesses:**
   - Only things she finds **cute** qualify — and an enemy who doesn't find something cute can simply cut it (Rukia vs the cabinet) → Love Gun objects and containers have HP; breaking a container frees everyone.
   - **Sneeze = release all**; [X] thick dust from destruction gives a small per-second chance of an involuntary sneeze.
@@ -339,7 +339,7 @@ Every dossier below inherits this layer; dossiers only list deviations.
   5. *Doughnut table* — inside Yukio's game with Orihime (quiet social scene).
   6. *Padded toy room* (chat room) vs Rukia: plush flood, heart cabinet, Addiction Shot → bunny-Rukia, Bringer Light stomp, Kidō backfire, Tsukishiro freezing her foot, sneeze release, then she vanishes **into Rukia**.
   7. *Bursting out* of Rukia's chest to take Tsukishima's killing cut.
-  8. *Farewell* — thanks everyone from a rooftop and vanishes with Bringer Light.
+  8. *Farewell* — slips out of Urahara's shop, silently thanks everyone from a rooftop and vanishes (with Bringer Light in the anime [A-ep 366]).
   9. *TYBW* — the Valley-of-Screams room ride into the Royal Realm with Yukio; she scolds Orihime.
 - **Kit proposal:**
   - *Form 1 — Dollhouse + Love Gun*
@@ -575,7 +575,7 @@ Every dossier below inherits this layer; dossiers only list deviations.
 - **Forms & states (ordered):** single form; state **Wrapped / Unwrapped**; hidden **luck odds**.
 - **Abilities (complete):**
   - **Jackpot Knuckle** — anything that comes into contact with the knuckle has its probability bent toward a "jackpot" [M]: his punch "just happened" to land at the exact angle where Ginjō's sword guard "just happened" to be weak, and broke it [M]; one weak punch snaps a **tree** in half [M]; a **coin** he flicked "just happened" to hit a chandelier that "just happened" to hang loose → it fell between Ginjō and Ichigo [M]; his punches dislocated Ikkaku's shoulder, snapped a tendon in his finger and broke **Hōzukimaru's blade** off [M]; a two-fisted punch to the body badly hurt Ikkaku [M]. `[MeleeArc(smash)] [Environmental] [NEW: LuckRNG] [NEW: WeakPoint] [NEW: WeaponBreak]`
-  - **Diminishing returns** — repeated jackpots on the same target lower his odds; good luck in general lowers them, bad luck (injuries included) raises them; the odds reset every midnight [M][KO]. `[NEW: LuckRNG]`
+  - **Diminishing returns** — repeated jackpots on the same target lower his odds; good luck in general lowers them, bad luck (injuries included) raises them [M]; the odds reset every midnight [KO]. `[NEW: LuckRNG]`
   - **Endurance** — kept fighting through heavy hits; grabbed Ikkaku's leg after being knocked out [M]. `[Bind]`
   - Spiritual awareness; **no Bringer Light / air movement** (he yelled at Ikkaku to stop "flying") [M].
 - **Passives & weaknesses:** weak, unskilled punches without luck (Ikkaku: they couldn't snap a wooden sword); per-target luck decay; can't bring himself to fight a girl he finds pretty (Orihime floored him just by turning around) [M]; grounded.

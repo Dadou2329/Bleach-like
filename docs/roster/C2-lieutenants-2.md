@@ -370,7 +370,7 @@ Conventions used below
   - − **Inexperienced swordswoman:** her first wound froze her with fear and pain (legs wouldn't move). − Low resistance to crushing reiatsu (Yamamoto's pressure stopped her breathing). − No Zanpakutō before TYBW.
 - **Signature moments to recreate:**
   1. Soul Society — flower-petal entrance for Kyōraku (comedy), watching him fight Chad, then charging the reiatsu palm to finish Chad.
-  2. Reaching for her sword-hand to help vs Yamamoto → crushed by his reiatsu; Kyōraku shields and carries her off.
+  2. Reaching into her robe to join Kyōraku and Ukitake against Yamamoto → his reiatsu paralyses her and stops her breath; Kyōraku shields her and carries her clear.
   3. **TYBW — Hakudan Keppeki vs Haschwalth** (he reads her skill; slowly absorbs it; the hex wall reveal).
   4. **Wahrwelt — keeping pace with Kyōraku through Lille's sniping**; finding him fallen; Kageoni pocket dimension; Kyōkotsu's girl pulls the wrapped sword from her mask; Nanao takes the curse by choice; she bursts out of the shadow on Lille's forehead.
   5. **Nanao vs Lille** — severs his hand → fear-freeze from her leg wound → Kyōraku rises from her shadow, hand on hers → **Trompete reflected** → Lille shatters into golden rain; she collapses.
@@ -380,7 +380,7 @@ Conventions used below
     - Shift: Shunpo (expert; longer chain in TYBW skin).
     - LMB: reiatsu-palm strikes with a book-bash finisher (Heat the Soul gave her book + palm — game precedent); forward = palm lunge, back = launcher palm, air = palm slam, sprint = fan swat dash. Hold LMB: **Reiatsu Palm** (dense charge → point-blank burst).
     - **Q `Byakurai`** (anime) — instant thin lightning bolt.
-    - **E `Hakudan Keppeki`** — place the white wall: total block vs Quincy-tagged powers (incl. Blut, Heilig Pfeil, Sklavelei drain only slowly erodes it), strong shield vs everything else; timed duration.
+    - **E `Hakudan Keppeki`** — place the white wall: total block vs Quincy-tagged powers (Heilig Pfeil, Blut-backed blows, Schrift effects) — only Quincy reishi absorption (Sklavelei-style) slowly erodes it; strong normal shield vs everything else; timed duration.
     - **R `Hex Wall`** — multi-plate barrier; each plate breaks separately; unbroken plates slowly regrow (*extrapolation*).
     - **F `Kaidō`** — AoE heal (several allies at once).
     - **Z `Hyapporankan`** (anime) — rain of ~100 pinning rods.
@@ -429,7 +429,7 @@ Conventions used below
   3. **Death → Hachigō Nemuri** — successor respawn (child).
 - **Abilities (complete):**
   - *Bio-augmentation (canon)*
-    - `Enhanced endurance` — built to survive what kills normal souls (Mayuri's slash through her, his stomping; organs swapped for tougher artificial ones by Mayuri). [passive]
+    - `Enhanced endurance` — built to survive what kills normal souls (Mayuri's blade through her during the Uryū fight, his stomping afterwards; Mayuri also swaps her organs for tougher artificial ones). [passive]
     - `Enhanced strength` — dug out Szayelaporro's hidden lab barehanded; hurls large stone blocks; lifts a big column overhead; erected the Garganta pillars alone. [Grab/Throw] `[NEW: LiftWorldChunk]`
     - `Enhanced speed / reaction` — snatched Mayuri out of Bambietta's bomb radius; **caught a Heilig Pfeil with one hand** mid-flight. [Mobility, Absorb/Reflect(catch)] `[NEW: ProjectileCatch]`
     - `Poison immunity` — same blood as Mayuri (immune to Konjiki Ashisogi Jizō). [passive]
@@ -451,8 +451,8 @@ Conventions used below
   - + Poison immunity; + revivable by Mayuri; + drug payloads punish anything that absorbs/devours her.
   - − Obeys orders: stands by until called (AI idle rule); − overdrive ends in collapse; − **died** when the pieces of a Pernida clone grew eyes, drove nerves into her, swelled her flesh and **burst her apart** — Mayuri saved only the brain.
 - **Signature moments to recreate:**
-  1. SS — grabs Uryū's arrow and tackles him; Mayuri slashes through her; she gives Uryū the antidote from under her armband.
-  2. Hueco Mundo — Szayelaporro's Gabriel reborn out of her mouth (she's left a withered husk; *anime softens it to pink vapour*) → Superhuman Drug backfires on him → Mayuri revives her → she tears open the lab door.
+  1. SS — grabs Uryū's arrow and tackles him as a distraction; Mayuri's swing cuts Uryū's arm and opens a deep gash across her back; later she gives Uryū the antidote from under her armband.
+  2. Hueco Mundo — Szayelaporro's Gabriel reborn out of her mouth (she's left a withered husk; *anime softens it to pink vapour*) → Superhuman Drug backfires on him → Mayuri revives her → she digs open his hidden lab with her bare hands.
   3. FKT — erects the Garganta pillars alone and stands on top as the focus to send Ichigo home.
   4. TYBW — Bambietta's zombie bombs: she yanks Mayuri clear, throws the Reishi fixers.
   5. **vs Pernida** — Heilig Pfeil catch + self-amputation; Hojiku-Zai; Nerve-Freezing Agent injection; **eyes go white**: leap through Pernida's palm with Mayuri; 6% soul → Gikon Jūrinjū through a clone and the city behind it; nerves burst her; Mayuri retrieves her brain → 10 years later, Hachigō Nemuri.

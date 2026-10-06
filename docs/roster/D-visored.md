@@ -278,7 +278,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
     - V: `Tekken Barrage` — Sandbag Beat → 3 s sustained-detonation pin → final launch that drills through structures.
   - **G:** mask (strength/durability emphasis). **C:** a wind-explosion flare that blows loose voxels outward.
   - **Tab wheel:** gauntlet mode (blade / spikes / brass), Cero variants.
-- **AI notes:** short-fused drill sergeant: closes distance immediately, prefers fists, scolds allies (warns Mashiro about her mask), releases Bankai at once vs. anything strong ("this won't take much of your time"). Tries to keep contact for sustained detonation → exploitable by grabs/joint locks. Feral boss version: roars before charging, cannot be held by low-level binds for more than ~3 s. Zombie version: no flinch, no banter.
+- **AI notes:** short-fused drill sergeant: closes distance immediately, prefers fists, scolds allies (warns Mashiro about her mask), releases Bankai at once vs. anything strong (he promises Mask it won't take long). Tries to keep contact for sustained detonation → exploitable by grabs/joint locks. Feral boss version: roars before charging, cannot be held by low-level binds for more than ~3 s. Zombie version: no flinch, no banter.
 - **Callouts:** "Futtobase, Tachikaze." · "Bankai — Tekken Tachikaze." · "Bakudantsuki." · "Sandbag Beat."
 
 ---
@@ -308,10 +308,10 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   - *Story/boss:* feral Hollowfied Mashiro.
 - **Abilities (complete):**
   - `Mashiro Kick (白キック)` — a front kick that chains into more kicks on several targets in a row; one kick breaks a Gillian's mask (masked). [MeleeArc: smash, multi-target dash]
-  - `Mashiro Super Kick (白スーパーキック)` — crouch, then an explosive upward kick; one-shot Hooleer (giant Hollow) and crashed into Gerard's chest with Kensei. [MeleeArc: smash, launch] [Blast]
+  - `Mashiro Super Kick (白スーパーキック)` — crouch, then an explosive upward kick; one-shot Hooleer (giant Hollow) and crashed into Gerard's chest with Kensei **[anime-only]**. [MeleeArc: smash, launch] [Blast]
   - `Mashiro Drop Kick (白ドロップキック)` — from high above, drops feet-first onto the target: large crater on landing, and the impact cancels a Cero being charged. [Blast: crater] (interrupt)
   - `Mashiro Super Cero (白スーパー虚閃)` — masked: kicks the air toward the target, firing a fast, wide lime Cero that follows the arc of her leg. Vs. Wonderweiss: in the manga his scream cancelled it; in the anime it collided with his Cero and both dissipated. [Beam] [NEW: ArcBeam]
-  - `Brawling` — spinning back-kick to the head, grabs a face and slams it into the ground, punches (Wonderweiss; Hisagi "obey the Super Lieutenant"). [Grab/Throw] [MeleeArc]
+  - `Brawling` — spinning back-kick to the head, grabs a face and slams it into the ground, punches (Wonderweiss; and Hisagi, punched for not obeying the "Super Lieutenant"). [Grab/Throw] [MeleeArc]
   - `Durability (masked)` — thrown through several city blocks of buildings and came out fine.
   - `Shunpo / mobility` — fast, leaping, airborne fighter.
   - `Henshin (変身)` — dons the mask by shouting, no gesture; needed no training at all; 15 h outside combat, minutes vs. a strong foe. [Transform] [Stance]
@@ -326,7 +326,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   2. **Hooleer one-shot:** after the Gillian sweep, Kensei "gives" her the giant — Super Kick, geyser of blood, raining chunks.
   3. **vs. Wonderweiss:** Drop Kick cancels his Cero → victory pose → he twitches → spin kick → face-slam → he rips her scarf (enrage) → Super Cero vs. his Cero → **mask cracks mid-punch** → Kensei saves her.
   4. **TYBW training:** ambushes Hisagi on Kensei's order, flashes her "Super" badge.
-  5. **Gerard:** Super Kick into the giant's chest beside Kensei's Bankai.
+  5. **Gerard [anime-only]:** Super Kick into the giant's chest beside Kensei's Bankai.
 - **Kit proposal:**
   - **Shift:** Shunpo as two bouncy hops; double-tap with lock-on = behind (the Rose ambush).
   - LMB: kick chain (front kick, roundhouse, spinning heel, axe kick). Forward = flying side kick · back = rising crescent kick (launcher) · air = flutter kicks · down-air = mini drop kick · sprint = sliding kick.
@@ -470,7 +470,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   4. **vs. Aizen:** his whip is caught; Aizen yanks him in and cuts him, then hogties Love with Kinshara.
   5. **TYBW vs. NaNaNa Najahkoop:** mourning Izuru — "my guitar is already crying" (short confrontation).
   6. **vs. Mask De Masculine:** whip bisects James; Bankai; Sea Drift drowns Mask, Prometheus burns him; Ein Heldenleben interrupted — Mask bursts his own eardrums, Star Flash through Rose's chest (scripted loss); Renji arrives.
-  7. **Gerard:** whips the giant's face to save Hinamori; later embeds Kinshara in his chest.
+  7. **Gerard:** whips the giant's face to save Hinamori; later embeds Kinshara in his chest **[anime-only]**.
 - **Kit proposal:**
   - **Shift:** Shunpo; double-tap with lock-on = behind.
   - **Sealed**
@@ -523,7 +523,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
     - `Zanjutsu (expert)` — fought feral Kensei one-on-one without releasing and blocked a spiritually charged blow with the sealed blade. [MeleeArc: cut] [Shield]
     - `Strength / durability / endurance` — took a point-blank charged attack from Kensei with minor injuries; kept fighting through wolf explosions; overpowered the Primera Espada. [Stance]
     - `Shunpo (expert)` — keeps up with the captains, a bit slower than Shinji. [Mobility]
-    - `Reading the opponent` — calls Starrk's likely moves and his emotional state, and plans around it ("if he falters, exploit it; if he rages, finish him before he blows; either way, strike first"). [Sensing] (AI behavior)
+    - `Reading the opponent` — calls Starrk's likely moves and his emotional state, and plans around it: exploit a foe who falters after losing an ally, finish an enraged one before he snaps — and above all, strike first. [Sensing] (AI behavior)
   - *Shikai — Tengumaru (fire)*
     - `Club combat` — huge crushing swings that smash an Espada into the town below; the club **blocks and seems to dispel Ceros**. [MeleeArc: smash] [Shield] [Absorb/Reflect/Redirect: disperse beams]
     - `Hifuki no Kozuchi (火吹の小槌, "Fire-Blowing Gavel")` — swings the club up so it bursts into flame, points it down and fires a **huge fireball** from the tip; on impact it explodes outward far enough to **cave in buildings near the center**, and a **towering column of fire** keeps burning at ground zero. [Projectile: orb, explode] [Blast] [Field: heat] [Environmental: set fires]
@@ -531,7 +531,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
     - `Strength & durability` — brutal raw strength; he still needed the mask to safely meet a real Cero (he went to mask up when Hollow Ichigo aimed one at him). [Stance]
     - `Kagamibiraki (鏡開, "Mirror Opening")` — drives his fingertips into a Menos Grande's head/torso and **rips it in half** with sheer strength. [Grab/Throw] [NEW: BodySplit]
     - `Cero (cyan) from the mask`. [Beam]
-  - *Joke canon:* "my mask only lasts three minutes — I'm a hero, y'see" (Ultraman gag) → hook for his mask HUD.
+  - *Joke canon:* he tells Starrk his mask only lasts three minutes because he's a hero (an Ultraman gag) → hook for his mask HUD (a blinking color-timer).
 - **Passives & weaknesses:**
   - Passive *Strike First*: the first hit he lands on a target that hasn't attacked him yet deals +30% (ext., from his doctrine).
   - Passive *Shades*: immune to flash-blind effects while the sunglasses are on (ext.).
@@ -678,7 +678,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   - *Hollow mask*
     - `Strength & speed` — overwhelmed Ichigo; cracked Shikai Zangetsu and tore a chunk out of it; broke a Gillian's mask in one strike. [Stance]
     - `Reiatsu blast` — focuses pink energy into a blast that knocks targets away. [Blast]
-    - `Cero (red)` — from the mask's open mouth; can be **held as a sweeping beam** that cuts through several targets in one pass; **triple Cero**: charges one at the mouth and one in each palm and fires all three together (Gerard's face). [Beam: sustained, sweep] [NEW: BeamMerge]
+    - `Cero (red)` — from the mask's open mouth; can be **held as a sweeping beam** that cuts through several targets in one pass; **triple Cero**: charges one at the mouth and one in each palm and fires all three together at Gerard's face (as depicted in the TYBW anime; the manga-based plot summary only says "a Cero" — verify). [Beam: sustained, sweep] [NEW: BeamMerge]
   - *Record:* longest inner-Hollow battle of the eight — 69 min 2 s.
 - **Passives & weaknesses:**
   - Passive *Short Fuse*: taking damage or being taunted builds Rage (+damage, +speed) — but at full Rage the AI/player dash is uncancellable for 0.5 s (canon: Aizen's taunt → reckless charge → Gin bisects her).
@@ -691,7 +691,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   5. **Fake Karakura:** Suikawari through a Gillian's head; sustained Cero sweeps through the horde.
   6. **vs. Harribel** with Lisa and Hitsugaya (bickering with Hitsugaya about height first).
   7. **Aizen's taunt → Gin's bisection** (story QTE you cannot win).
-  8. **Gerard:** calls him bald ("I'm not bald"), triple Cero to the face as a distraction for the Visored ambush.
+  8. **Gerard:** calls him bald (he insists he isn't), masked Cero to the face — a triple Cero in the anime — as the distraction for the Visored ambush.
   9. **Epilogue:** chases little Kazui out of her house — he "runs like the wind".
 - **Kit proposal:**
   - **Shift:** Shunpo — short, very fast, chainable darts; double-tap with lock-on = behind.
