@@ -603,7 +603,7 @@ execution pits, now garbage dumps) exist — Ganju nearly falls into a deep pit 
 | | Renji vs **Byakuya** (Bankai debut) | under an archway on the way to the hill |
 | | Aizen vs Hitsugaya | Central 46 compound / Seijōtōkyorin |
 | TYBW 1st invasion | Blue-fire reishi pillars erupt; Kira shot by Bazz-B near the 3rd Division; Yamamoto vs **Driscoll**, **Royd**, **Yhwach** (1st Division destroyed); Byakuya vs **Äs Nödt** (6th Division); Hitsugaya vs **Cang Du**; Ichigo vs **Yhwach** in the rubble | `seireitei_tybw` |
-| TYBW 2nd invasion | Seireitei replaced by the Wandenreich city: Rukia & Byakuya vs Äs Nödt, Renji vs Mask, Kenpachi vs **Gremmy** (imagined meteor), Komamura vs Bambietta, Suì-Fēng vs BG9, Hitsugaya & Rangiku vs Bazz-B, Mayuri vs Pernida | `seireitei_tybw` / `wandenreich` |
+| TYBW 2nd invasion | Seireitei replaced by the Wandenreich city: Rukia & Byakuya vs Äs Nödt, Renji vs Mask, Kenpachi vs **Gremmy** (imagined meteor), Komamura vs Bambietta, Suì-Fēng vs BG9, Hitsugaya & Rangiku vs Bazz-B | `seireitei_tybw` / `wandenreich` |
 | Hell (2021) | Konsō Reisai for Ukitake; black Jigoku no Rinki blobs drift around the grave | rebuilt Seireitei |
 
 **Must-haves.** White plaster walls everywhere forming long corridors and dead ends · dark blue-grey tiled
@@ -850,7 +850,7 @@ Yoruichi_Shihōin_vs._Suì-Fēng.
 **Canon.** The 8th and last level of the Central Great Underground Prison: a voided space cut off from the
 world except for a **main tower** (entrance/exit); its darkness feels endless. Reserved for criminals who can't
 be executed. Aizen sits there bound by black seal straps; **19 keyholes in the floor** undo them (Shunsui may use
-up to 3; the master key is sealed in his chest). Unohana gets it as the arena to train Kenpachi; an **elevator**
+up to 3; the key to Muken is sealed inside his chest so the gates lock forever if he dies). Unohana gets it as the arena to train Kenpachi; an **elevator**
 reaches the floor; the space contains **pillars**, and the fight leaves it full of blood and Minazuki's liquid.
 
 **Build.** 128 × 64 × 128 m @0.125 · floor `#0B0B0D` (very dark stone with faint grid seams `#15151A`) · pillars
@@ -1115,7 +1115,7 @@ story); on the roof they unlock — encourages the canon "take it outside" momen
 from the sand. Grimmjow and Ichigo fight **on top of towers** (Grimmjow blows tower tops apart with Garra de la
 Pantera; his Gran Rey Cero gouges a trench in the sand); Kenpachi vs Nnoitra happens on the sand among tall
 buildings (Kenpachi smashed into a building's side; Nnoitra slices its top off onto him; Yachiru perches on a
-broken, tilted pillar); Byakuya vs Zommari; Aizen's captains-vs-Espada farewell; Yammy's rampage. Aaroniero claims
+broken, tilted pillar); Byakuya vs Zommari; Ichigo, Kenpachi & Byakuya vs a released, giant Yammy. Aaroniero claims
 the sky lets Aizen watch everywhere — but he himself flees the light when a wall breaks open.
 
 **Build (est.).** 320 × 160 × 320 m @0.25 · fake-sky dome overhead (inner face of the shell, emissive gradient) ·
@@ -1200,8 +1200,8 @@ palace** inside an equally iced-over city of seemingly **abandoned buildings**, 
 
 **Story stages.** Sternritter assemblies; Uryū named successor · 2nd invasion fights in the city that replaced
 the Seireitei (Rukia & Byakuya vs **Äs Nödt**, Renji vs **Mask De Masculine**, Kenpachi vs **Gremmy** and his
-imagined meteor, Komamura vs **Bambietta**, Suì-Fēng vs **BG9**, Hitsugaya & Rangiku vs **Bazz-B**, Mayuri vs
-**Pernida**) · **Ichigo vs Uryū at the tower behind Silbern** while Yhwach ascends · Ryūken & Isshin's Gate of
+imagined meteor, Komamura vs **Bambietta**, Suì-Fēng vs **BG9**, Hitsugaya & Rangiku vs **Bazz-B**) · **Ichigo vs Uryū
+at the tower behind Silbern** while Yhwach ascends · Ryūken & Isshin's Gate of
 the Sun trip.
 
 **Must-haves.** Ice crusts and stalagmites on everything · blocky white city under a dark sky · Silbern's two tiers
@@ -1263,8 +1263,9 @@ tower. A **distortion** grows beneath. In the manga Wahrwelt has a normal day/ni
 perpetual darkness. Entry: Gates of the Sun, or Urahara's modified **Valley of Screams**.
 
 **Story stages.** Sado vs the guardian statues · Shunsui (+Nanao) vs **Lille Barro** (Trompete wrecks districts) ·
-Gotei & Visored vs **Gerard Valkyrie** (giant; Hitsugaya freezes him) · Mayuri vs **Pernida** · Grimmjow & Urahara
-vs **Askin** · Bazz-B vs **Haschwalth**, Uryū vs **Haschwalth** · Ichigo & Orihime vs **Yhwach** (throne room) ·
+Gotei & Visored vs **Gerard Valkyrie** (giant; Hitsugaya freezes him) · Mayuri vs **Pernida** (a gargantuan
+left arm towering over Wahrwelt's buildings) · **Askin** vs Ichigo, Grimmjow, Yoruichi & Yūshirō, then
+Urahara's Bankai (Yoruichi's electric Shunkō levels a whole block of Wahrwelt buildings; Grimmjow lands the kill) · Bazz-B vs **Haschwalth**, Uryū vs **Haschwalth** · Ichigo & Orihime vs **Yhwach** (throne room) ·
 Ichigo merged-Hollow burst **destroys Silbern** · Ichigo, Renji & Aizen vs Yhwach (final) · **Uryū's gambit**:
 Leiden Scherben detonations sever the inner ends of the five bridges, the central tower falls, Harribel's Cascada
 and Nelliel's Lanzador Verde expose the Seed, which collides with the distortion; Uryū wraps the blast in tens of
@@ -1505,7 +1506,7 @@ Jigokuchō.
 | Arrancar | Yammy & Ulquiorra → `karakura` (park) · Grimmjow's raid, rematch → `karakura` · Visored training → Visored warehouse arena |
 | Hueco Mundo | arrival, Runuganga → `hm_desert` · (anime) Gillian horde → `menos_forest` · Dordoni / Cirucci / Gantenbainne / Aaroniero / Szayelaporro → `lasnoches_halls` · Grimmjow final, Nnoitra vs Kenpachi, Byakuya vs Zommari → `lasnoches_interior` · **Ulquiorra final** → `lasnoches_dome` · Orihime intercepted → `dangai` |
 | Fake Karakura | pillar guards, captains vs Espada, Visored, Aizen → `fake_karakura` · Final Getsuga training → `dangai_fixed` · Gin vs Aizen, Ichigo vs Aizen (Mugetsu) → `karakura_ss` |
-| TYBW | Ebern → `karakura` · Ichigo & Ayon vs Quilge → `hm_desert` (ruined Las Noches) · 1st invasion (Yamamoto vs Yhwach, Byakuya vs Äs Nödt…) → `seireitei_tybw` · Kenpachi vs Unohana → `muken` · Royal Training → `reiokyu_*` · 2nd invasion fights → `wandenreich` (replaced Seireitei) · Ichigo vs Uryū at the tower → `wandenreich` · Royal Guard vs Schutzstaffel, Ichibe'e vs Yhwach → `reiokyu_vestibule` · Ichigo vs Yhwach (Greater Palace → Kirinji springs → Ichibe'e shrine) → `reiokyu_*` · Lille, Gerard, Askin, Haschwalth, final Yhwach, Uryū's gambit → `wahrwelt` |
+| TYBW | Ebern → `karakura` · Ichigo & Ayon vs Quilge → `hm_desert` (ruined Las Noches) · 1st invasion (Yamamoto vs Yhwach, Byakuya vs Äs Nödt…) → `seireitei_tybw` · Kenpachi vs Unohana → `muken` · Royal Training → `reiokyu_*` · 2nd invasion fights → `wandenreich` (replaced Seireitei) · Ichigo vs Uryū at the tower → `wandenreich` · Royal Guard vs Schutzstaffel, Ichibe'e vs Yhwach → `reiokyu_vestibule` · Ichigo vs Yhwach (Greater Palace → Kirinji springs → Ichibe'e shrine) → `reiokyu_*` · Lille, Gerard, Pernida, Askin, Haschwalth, final Yhwach, Uryū's gambit → `wahrwelt` |
 | Hell | Szayelaporro → `karakura` + `hell_gate` · Hell Verse (movie) → `hell` |
 
 ### 13.2 Recommended build order

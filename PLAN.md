@@ -39,7 +39,7 @@
 ## 0. TL;DR
 
 - **What:** a browser game (Three.js r186 + TypeScript + Vite) with a 0.125 m voxel world that can be cratered,
-  tunnelled, sliced and collapsed; ~90 playable characters across every arc (Substitute Shinigami → Hell arc),
+  tunnelled, sliced and collapsed; ≈95 playable characters across every arc (Substitute Shinigami → Hell arc),
   each with all their forms (Shikai, Bankai, Hollow mask, Resurrección, Vollständig, Fullbring…) and techniques.
 - **Feel:** fast Shunpo-style movement, air combat on reishi footholds, hitstop + screen shake + huge callouts,
   Bankai release cinematics, attacks that cut buildings in half and leave the top sliding off.
@@ -65,7 +65,7 @@
    canon mechanics: Quincy pull voxels out of buildings to form arrows (Sklaverei), Hollows dissolve into
    particles, Orihime "rejects" destruction and the voxels fly back into place.
 2. **Every character plays like the manga.** Not a 4-move moveset per character: every form, every named
-   technique, every signature trick. A character like Ichigo has 40+ abilities across ~10 forms.
+   technique, every signature trick. Ichigo alone has ~110 abilities across 20 forms in 9 era loadouts (§11.3).
 3. **Power you can see.** A Getsuga Tenshō leaves a crescent-shaped canyon. A Cero bores a tunnel through a
    building. Kenpachi's Kendō splits the ground for a hundred metres. Hitstop, shake, slow-mo, callouts, reiatsu
    pillars and dust clouds sell every hit.
@@ -499,8 +499,10 @@ Forms multiply stats. Canon peaks map to big numbers; nobody is "balanced".
 - **Reiatsu crush:** flaring near beings with much lower SPL pins (kneel), suffocates or KOs them.
 - **Defence layers:** Hierro (Arrancar), Blut Vene (Quincy), Kenpachi's raw reiatsu — damage below a threshold
   relative to the attacker's SPL is negated ("not even a scratch").
-- **Bankai theft:** Sternritter medallions can steal a Bankai (the victim's Bankai slot locks; the thief gains it).
-  Hollowfied Bankai (Ichigo) can't be stolen and poisons the medallion — canon detail kept.
+- **Bankai theft:** Sternritter medallions can steal a Bankai mid-match (the victim's Bankai form locks; the thief
+  gains it at reduced power as a data package — abilities are portable data, which also powers Ginjō's slot theft
+  and Lloyd's copies). Hollow-tainted Bankai can't be taken and poisons the thief; Bankai return when the thief
+  dies or is beaten with the owner's reiatsu; Urahara has a counter-measure.
 - **Incantations:** Kidō can be cast instantly (Eishōhaki) or **chanted** (hold, text scrolls) for bonus power;
   double incantation chains two spells.
 
@@ -526,11 +528,13 @@ Effects spawned by timelines are composable primitives (matching the research br
 `MeleeArc, Projectile, Beam, Blast, GroundWave, Slice, Field, Summon, Swarm, Construct, Transform, Stance, Bind,
 Grab/Throw, Teleport, Afterimage/Clone, Status, Heal/Reject, Absorb/Reflect, Shield, Environmental, Mobility,
 Sensing/Stealth`, each with a destruction spec (`DamageShape` mode + power). Unique mechanics are scripts that
-reuse primitives: Kyōka Suigetsu (illusory clones, hidden true position, enemies attack decoys), Sakanade
-(screen/inputs mirrored inside the field with a learnable visual cue), Enma Kōrogi (darkness dome: only sound
-cues), Katen Kyōkotsu games (rules UI: "Takaoni — the higher one wins"), The Almighty (pre-dodge, ability
-nullify, future rewrite), Book of the End (convert target to ally / "remember" doors in walls), The Visionary
-(imagination menu: meteors, liquid floor, copy fighter).
+reuse primitives (all built on the perception layer, §4.5, where relevant): Kyōka Suigetsu (illusory clones,
+hidden true position, fake terrain, enemies attack decoys), Sakanade (victims see *other fighters* at mirrored
+positions while terrain stays normal, so lock-on and reflexes betray them and deliberate play works; victims
+adapt over time; omnidirectional attacks ignore it; comfort setting), Enma Kōrogi (darkness dome: only sound
+cues), Katen Kyōkotsu games (rules UI: "Takaoni — the higher one wins"), The Almighty (future "ghosts" drive
+pre-dodge, abilities cancelled as they land, undo a death), Book of the End (convert target to ally / terrain
+"always had" a door), The Visionary (imagination menu: meteors, liquid floor, rewrite a target's properties).
 
 ### 10.5 Forms & releases
 Forms are state machines with model overrides, stat multipliers, movement profile, 6 slots, passives and
@@ -547,8 +551,8 @@ Blut, Ransōtengai, Sklaverei, Gintō, Vollständig), Fullbringer (Bringer Light
 
 ## 11. Roster plan
 
-Full dossiers: `docs/roster/*.md` (appearance & palette, forms, complete abilities, kit proposal, AI notes).
-*(Roster tiers, wave order and the exemplar kit are finalised in §11.1–11.4 from the dossiers.)*
+Full dossiers: `docs/roster/*.md` (appearance & palette, forms, complete abilities, kit proposal, AI notes,
+story set pieces, open questions). Tiers and waves below are taken from the dossiers' recommendations.
 
 ### 11.1 Packaging: era loadouts + "All Eras"
 Characters who change across the story ship as **era loadouts** chosen at character select (Ichigo has nine,
@@ -706,7 +710,7 @@ Hollow Ichigo ships separately (A tier) on the same rig with an inverted palette
 | **Camera modes & mini-inputs** | blind sight, deprivation black, mirror-shatter reveal, face-guard ADS; mash contests, rhythm prompts, charades, slot machine | M4, per character |
 | **Sensing** | reiatsu sensing, suppression/fake death, signature matching, precognition immunity, AI attracted to flares | M4 |
 
-### 11.x Kit spec template (`docs/kits/<id>.md`, produced with the `bleach-kit-design` skill)
+### 11.5 Kit spec template (`docs/kits/<id>.md`, produced with the `bleach-kit-design` skill)
 1. **Identity:** one line on how this character must *feel* (e.g. Byakuya: "noble stillness, the petals do the
    work"; Kenpachi: "no guard, every swing bigger than the last").
 2. **Forms table:** form → release command → stat multipliers → movement profile → model overrides → timers.
