@@ -482,4 +482,155 @@ Every Royal Guard dossier inherits this; dossiers only list deviations.
 - **AI notes:** cheerful; feeds allies first (raid healer/buffer — kill priority), builds the cage early to block ranged players, then partitions to isolate one player. Becomes slender and aggressive below 40% reiatsu. Throat-cut sacrifice at low HP in the raid [A-ep 392].
 - **Callouts:** no canon technique shouts; construct name **"Inochi no Ori"**; flavor: "Gatonden" dinner calls.
 
-<!-- PART3 -->
+---
+
+## 7. Kokutō (黒𠚥) — Togabito, *Bleach: The Hell Verse* antagonist **[Mv — non-canon]**
+- **Wiki:** https://bleach.fandom.com/wiki/Kokut%C5%8D · movie: https://bleach.fandom.com/wiki/Bleach:_The_Hell_Verse
+- **Roster tier:** **B (optional "Hell Verse" DLC)** — strong boss and a fun chain-sword moveset, but non-canon; keep him out of the canon story path or behind an "alternate tales" menu.
+- **Canon power (1–10): 7** (movie scale) — outclassed Bankai Ichigo one-handed, redirected a Bankai Getsuga, cut down Rukia, Renji and Uryū in one pass, and survived a point-blank Hollow Cero in his shield; only Hell-empowered Skull Clad Ichigo beat him.
+- **Body:** height not given — tall, lean, long-limbed; **≈185 cm → ≈59 voxels (est., verify)**. Silhouette keys: **upper head wrapped in black bandages** with white hair tufts escaping, **shoulder-length white hair**, **sleeveless striped white shirt**, black sash strapped at the waist, **shackles/chains at both wrists and the neck**, a curved black sword trailing a chain. Unbandaged: **horrible burns over the right side** of face and body down past the abdomen (and the right arm), **much longer hair** with the **right side in cornrows**.
+- **Palette (hex estimates):**
+  - Skin pale `#EDE7E1`; burns: dark red-brown `#6B2E25`, charred `#2A1A16`, raw cracks `#9E3A2C`.
+  - Hair white `#F2F2EE`; bandages black `#121212`; eyes (not documented — verify from film stills).
+  - Shirt white `#ECECE6` with thin black stripes `#1A1A1A` (Togabito prison pattern); sash black `#141414`; trousers likely matching stripes (verify).
+  - Chains/shackles dark iron `#3B3B42` (Hell chains glow faintly when stressed [X]).
+  - Sword black `#101010` with a zigzag fuller; glow/blast/shield **blue** `#3C78FF` (the film also shows a **purple** barrier `#8B3DFF`; the games use purple flames).
+- **Look by form/outfit:** **Bandaged** (ally phase) → **Unbandaged** (betrayal/final phase; right arm sleeve burnt away, arm aflame from lava at one point).
+- **Weapons:** curved black sword (≈ 1 m / 32 vox) with a **zigzag shape down the blade's center**, tethered to his **right hand by a chain**; he can make it **glow blue and vanish/reappear**. Left-wrist chain used as a whip.
+- **Forms & states:** 1. **Bandaged**. 2. **Unbandaged** (no power change stated; more aggressive). 3. **Unchained** (story only: when all chains break he is "free" — and Hell's chains drag him deeper).
+- **Abilities (complete) [Mv unless noted]:**
+  - `Hell Chains` — manifests the chains binding him to Hell: **whip** (left wrist), **sword tether** for long-range strikes, **chain shield** (nearly indestructible; blocked Renji's and Uryū's attacks), **latch onto a limb and swing the victim** into rocks/the ground `[Bind][Grab/Throw][Shield][NEW: ChainPhysics]`.
+  - `Remote Sword` — controls the sword through the chain; when Taikon swallowed it, he yanked the chain and dragged Taikon into lava `[Projectile: tethered][Grab/Throw]`.
+  - `Blue Blast` — energy blast from the blade that **redirected a Bankai Getsuga Tenshō** and hurled Ichigo far; pushes beams aside `[Beam][Absorb/Reflect/Redirect]`.
+  - `Energy Shield` — envelops himself in a blue (or purple) shell that took a point-blank Hollow Cero — **leaving his chains outside on purpose so they'd be cut** `[Shield]`.
+  - Speed — appears beside/behind Ichigo nonchalantly; held off Gunjō and Shuren while carrying Karin `[Mobility][Teleport]`.
+  - Strength / swordsmanship — one-handed block of a Getsuga-charged Tensa Zangetsu; sliced Taikon's energy blast; **cut Garogai in half** `[MeleeArc cut]`.
+  - Durability — shrugged off tentacle impalements and Shuren's fire; survived Skull Clad's golden Getsuga with a chest cut.
+  - Togabito regeneration — in Hell, he **revives almost instantly** (the stronger the Togabito, the faster) `[Heal/Reject: respawn]`.
+  - Hell navigation — **opens the Gates of Hell** as a portal for the group; can exit Hell without the Togabito mask/cloak (unexplained).
+  - Manipulation — engineered the whole plot (fed other Togabito the idea; kidnapped Yuzu) to make Ichigo go full Hollow and shatter his chains.
+  - *Game-only* [SR]: **Yūgokujin** (purple Getsuga-like blast), **Enra Gōmetsu** (purple-aura slash flurry ending in a shockwave), **Engoku Renge** (leap → slam → fire eruption ring), **Banyū Gōka** (purple fire burst "ignition"). [BS]: **Togabito no Akashi** (rapid slashes, paralysis), **Shin'en no Hanmon** (chains strike from every direction).
+- **Passives & weaknesses:**
+  - Passive: Togabito revival inside Hell zones.
+  - Weakness: he is **bound to Hell by his chains** — severing them all frees him, but Hell then binds him anew; Kushanāda can **grab his invisible chains** and crush him; a Hell-empowered (Skull Clad) attack broke his last chain and the earth's chains **dragged him into the depths**.
+- **Signature moments to recreate:**
+  1. Cold open: a skeleton in a pit of skulls regrowing its organs while watching Ichigo vs. Ulquiorra (lava flares above).
+  2. A **blue flash** frees Karin from Gunjō; his chains crack Shuren's mask.
+  3. **Opening the Gates of Hell**; the descent: Kushanāda chase on Level 1; Kushanāda rips his chain out of the acid ground (Level 3).
+  4. **Sword in Taikon's stomach → chain yank into lava**; dives into lava dragging Gunjō.
+  5. **Betrayal**: impales Ichigo, rips off the bandages, cuts down Rukia/Uryū/Renji, drops Yuzu into lava → Hollow Ichigo's Ceros shatter his chains.
+  6. **Lowermost level** duel: tree hung with "ripening" corpses, Rukia reborn from lava; Kokutō's chain-swing slams; Kushanāda kneel to Skull Clad Ichigo; golden Getsuga breaks the last chain → thousands of chains drag him down.
+- **Kit proposal:**
+  - Shift: **Hell-step** (short teleport-like burst; double-tap = appear beside the target, hand on their shoulder).
+  - LMB chain: one-handed curved-sword string with chain extensions; forward = impaling lunge; back = chain-yank launcher; air = whirling chain; down-air = plunging stab; sprint = chain-swing dash.
+  - Hold LMB: **Blue Blast** slash (beam; destroys light terrain).
+  - Q: **Chain Whip** (left wrist; long reach, pulls). E: **Chain Sword** (throw, steer, yank back — drags anything that caught/swallowed it). R: **Limb Latch** (grab a limb, swing the target into terrain twice). F: **Chain Wall** (shield). Z: **Redirect** (catch an incoming beam and send it elsewhere). X: **Blue Shell** (dome shield).
+  - G: **Hellfire arm** [X, from the lava scene]: right arm ignites (burn on hit).
+  - C: Hell aura (blue/purple). · T: **Unbind** (remove bandages → unbandaged form: +speed, +chain range).
+  - V: **Shin'en no Hanmon** [BS] — chains erupt from every direction around the target.
+  - Tab: game-only moves (Yūgokujin, Enra Gōmetsu, Engoku Renge, Banyū Gōka).
+- **AI notes / boss design:** courteous, then mocking; wants the player to hit him with their **strongest/rage moves** — design the boss with **5 Hell chains** that only ultimate-tier attacks can sever; each severed chain **powers him up** (he's escaping). Final phase is won only by a "Hell-blessed" attack (Skull Clad Ichigo, or a story-granted Kushanāda blessing) that breaks the last chain → scripted chain-drag finisher. In Hell he revives once if not finished by that blessed attack.
+- **Callouts:** none canon (taunts about hatred and his sister); game-only move names above.
+
+---
+
+## 8. Hell (地獄, Jigoku) — late-game content pack
+- **Wiki:** https://bleach.fandom.com/wiki/Hell · https://bleach.fandom.com/wiki/Konso · https://bleach.fandom.com/wiki/Togabito · https://bleach.fandom.com/wiki/Kushan%C4%81da · https://bleach.fandom.com/wiki/NO_BREATHES_FROM_HELL · https://bleach.fandom.com/wiki/Hollow (Jigoku no Gaki) · https://bleach.fandom.com/wiki/Szayelaporro_Granz
+- **Recommended packaging:** a canon chapter built on the **2021 one-shot** (*NO BREATHES FROM HELL*: Konsō Reisai, Jigoku no Gaki, Szayelaporro, Ukitake) + an optional **non-canon "Hell Verse"** DLC (5 Hell levels, Kushanāda, Shuren's gang, Kokutō, Skull Clad Ichigo).
+
+### 8.1 Canon status at a glance
+- **Canon [M/1S]:** the **Gates of Hell** (Shrieker arc, ch. ~5); Hell's purpose; the **Konsō Reisai**; **Jigoku no Rinki**; **Jigoku no Gaki**; the teeth-lined **maw portal**; Szayelaporro as **Jailer of Hell**; captains cast into Hell with epithets (**Yamamoto "Gotei Kaiso"**, **Unohana "Shiken"**, **Ukitake "Kamikake"**); Ukitake's giant Shikai.
+- **Non-canon [Mv + anime ep 299 filler]:** the names/designs **Kushanāda** and **Togabito** for Hell's guardians/inmates, Hell's five levels, Shuren/Gunjō/Garogai/Taikon/Murakumo, **Skull Clad**, the "Hell Kidō" extraction.
+- **Novel [N]:** Hell predates the split of the worlds; the Human World was made partly as a **"lid"** on Hell. **[KO #946]:** the Quincy afterlife connects to Soul Society somewhere near Hell.
+
+### 8.2 Rules of Hell → game rules
+- Who goes there: souls whose **human-life sins** were heinous (a Zanpakutō only cleanses sins committed *as a Hollow*) [M]; and, via the Konsō Reisai, **dead captains** whose reishi is too dense (Spirit Class 3rd or higher; lieutenants 4th–5th, average Shinigami 20th) to dissolve into Soul Society [1S]. Hell is **not** one of the Three Worlds [M].
+- **Balance** [1S]: Aizen's and Yhwach's immense reiatsu held Hell's maw shut; with both gone and Yamamoto/Unohana/Ukitake added, inmates can pry it open from inside.
+- **Transformation** [1S]: Hell reshapes the strong — an Arrancar's **Hollow hole moves outside the body** (a ring floating behind the back) and new powers appear; captains' powers grow (Ukitake's Shikai became gigantic).
+- **Death in Hell** [Mv]: chains wrap the dead and make them Togabito; they **revive endlessly** until their spirit breaks → game zone rule: **no permanent death; respawn chained** (chain debuff) after a delay `[NEW: ZoneRules]`.
+- **Atmosphere** [Mv]: Hell's air drives low-reiryoku souls mad and **forces hidden instincts out** (Ichigo's Hollow mask formed on its own) → Hollow meter auto-fills, "sanity" drain for weak NPCs `[Field]`.
+- Shinigami are **forbidden to interfere** with Hell [Mv].
+
+### 8.3 Locations (level design)
+- **Gates of Hell (地獄の門)** [M]: appear (formed of light rising from the slain sinner's wound) behind a sinner Hollow when its mask is cut: massive doors **chained shut**, each door adorned with the **bandaged head and torso of a skeleton** whose arms pull the doors open; inside, two thick **ropes hung with charms** keep them from opening fully; a huge demon (face + left arm visible, **armored upper arm**, tribal-tattooed face and arm) **skewers the soul with a blade and drags it in, laughing**; the doors shut and the whole structure **cracks and crumbles away**. → a cinematic **"Sinner's Gate" finisher** for any enemy flagged as a sinner `[Summon][Grab/Throw][NEW: ExecutionCinematic]`. Movie: a crack in the Gates leaks **miasma**; Hollow Ichigo's Cero blew a chunk off → a **trail of hellfire across Karakura's sky**; Kidō Corps contained it with two **circular barriers**; the Gates **self-repair** [Mv].
+- **Hell's maw portal** [1S]: a **circular portal like a Garganta lined with teeth**; also how inmates enter the Human World. Kazui opens one at **Takakomo Shrine** (clap ×3 → **three huge ethereal eyeballs** appear → bow ×2 → clap) [1S] `[Teleport]`.
+- **Jigoku no Rinki (地獄の燐気, "Hellish phosphor air")** [1S]: **black globules of non-reishi matter** drifting around a dead captain's grave or where a Hell denizen entered; harmless to touch, but **cut by a Zanpakutō → acid** that sizzles `[Environmental: hazard][Status: acid]`.
+- **The five levels [Mv]:**
+  1. **First Level** — a road between **floating platforms/structures** under **red miasma**; despairing Togabito watch from ledges; a horn sounds and **Kushanāda rise through the road**; dead end → leap into **violet fog**.
+  2. **Second Level** — an **ocean dotted with giant lotus- and lily-pad islands** and towers; a **Kushanāda skeleton impaled on a spike** (graveyard).
+  3. **Third Level** — a **cratered wasteland of yellow acid pools** (Kushanāda burst from them; acid overflows in waves).
+  4. **Fourth Level** — a cave staircase lined with **hundreds of tiny candle-lit shrines**, a **waterfall of yellow acid**, then a **black desert of crushed Togabito bones** studded with round stones; a **skeletal monument over a lava pit** surrounded by **finger-shaped stone pillars** (Shuren's lair; lava pools **revive** Togabito).
+  5. **Lowermost Level** — lightning in black clouds, a tower crowned by a **skull-shaped rock**, a **tree whose branches hang with rotting corpses** of the newly dead, lava that births the "ripe" dead, stalagmites, **towers of lava from which Kushanāda emerge by dozens**.
+  - Destruction notes: everything should crumble (Kushanāda smash roads; Getsuga blasts erase towers; a mushroom-cloud explosion in Level 4); acid and lava as flowing hazards `[Environmental]`.
+
+### 8.4 Bestiary (Tier C unless noted)
+- **Kushanāda (クシャナーダ)** [Mv; the Gate demon is canon M]: Hell's guardians/jailers. **Gigantic** (est. 25–40 m; build coarse and scale), **walk on all fours**, **elongated skull-like heads**, a big **armor plate on the right shoulder**; tattooed limbs (Gate demon); carry blades (Gate demon). Powers: **walk through solid structures** (intangible in Hell), extreme durability (shrugged off Zabimaru + Hakuren + Licht Wind), **eat** Togabito (who revive later), **grab normally invisible chains** to haul escapees back, impale sinners through the Gates; can **bestow "Skull Clad"** — dissolving into yellow-gold light that clads a worthy person in skull-patterned armor (Ichigo) and makes all Kushanāda treat them as friendly [Mv]. Palette (est.): body charcoal `#26242A`, skull head bone `#E6DFCF`, shoulder armor iron `#4A4038`, gold Skull Clad light `#FFD24A`. AI: patrol, rise from ground/acid/lava, slow huge swipes that crater; immune to non-ultimate attacks; can be cut in half only by ultimate-tier blasts (a Hollow-masked Getsuga) `[Summon/boss][NEW: TerrainIntangible]`.
+- **Togabito (咎人, "sinners")** [Mv]: inmates bound by **indestructible chains** (usually short-looking, actually extending far; also usable as shields/tethers). In Hell: **white garb with thin black stripes**. Outside Hell: **black cloak with white rectangular buttons**, **light-bulb-shaped mask split diagonally black/white**, white gloves and boots (hides them from Kushanāda and **dampens their power**; lose too much of it and the Kushanāda drag them back). Powers stronger than their former selves; some exceed Espada. Grunt variant: chained runners that revive at lava pools `[Summon][Bind]`.
+- **Shuren (朱蓮)** [Mv; ep 299]: leader; **purple hair** with a long fringe over the left side, white bodysuit with square patterns, black cloth on the left leg, cloak, **red chains/shackles on neck and chest**, wears the Togabito mask **on his chest** (bandages under it outside Hell). **Pyromancy** from the palms: fire bolts (explode), fire arrows (rapid), **flame javelins/lances** used as swords, a sustained flame-stream barrier, **flame doppelgängers**. Beat Resurrección Szayelaporro (ep 299) and matched Bankai Ichigo `[Projectile][Afterimage/Clone][Status: burn]` — Tier C mini-boss.
+- **Gunjō (群青)** [Mv]: tall, thin, muscular; long dark hair; **bandaged upper face** with two scars running down from the eyes; armor with vertical lines that turns black at the shins; **tentacles replace his forearms** (also sprout from eyes and chest), regrow when cut, strong enough to **shatter Sode no Shirayuki** and constrict `[Bind][Swarm]`.
+- **Garogai (我緑涯)** [Mv]: **giant, red-skinned**, yellow eyes shadowed by hair, **dark-green braided ponytail**, eight black straps over the body, shackled chains on wrists and ponytail; **detachable rocket-arm** on a chain (grapple, pummel, launch foes skyward), **green energy pulse** punch that deflects El Directo / Hikotsu Taihō; throws stone slabs to raise tidal waves; acid-resistant `[Projectile: rocket fist][GroundWave][Grab/Throw]`.
+- **Taikon (太金)** [Mv]: obese, pale-blonde hair, four dark **teardrop marks on each cheek** (one on the belly), armor with circular lines, chains at the nipples; **mouths (pink lips with teeth) open anywhere on his body**, **devour energy attacks and weapons**, then **"kiss" the energy back** as a pink blast that leaves **heart-shaped craters**; mouths everywhere for a barrage `[Absorb/Reflect/Redirect][Projectile multishot]`.
+- **Murakumo** [Mv]: fifth member, never seen (impaled by a Kushanāda and sent deep) — skip.
+- **Shrieker (as Togabito)** [anime ep 299 filler]: faster/stronger than his Hollow self; leeches hidden in his body fired as explosive projectiles through his arm wrappings — optional.
+- **Jigoku no Gaki (地獄の餓鬼, "Hell preta")** [1S]: **massive Hollows from Hell**, wildly varied shapes but sharing **large rings protruding from or forming body parts** and **thick chain patterns on their skin**; **emit no reiatsu** (they ambush even sensing-capable Shinigami); great strength (a stray severed arm crushed part of a building). In the one-shot, the lieutenants killed several in Karakura (Rindō's hawks stripped one to the bone; Yuyu's bear-head bite; Akon melted one; Kira's 7× weight crush) — killing them in Ukitake's "sight" completed his Konsō Reisai. → elite enemies invisible to the sensing UI `[NEW: no-reiatsu flag]`.
+- **Szayelaporro Granz — "Jailer of Hell" (地獄の獄吏, Jigoku no Gokuri)** [1S] — boss variant (base dossier: E2): **left eye and mask fragments gone**, Hollow hole now a **white ring floating behind his back**, **left arm reduced to charred black bones trailing dark smoke**, **broad dark-blue chain tattoos** wrapping head and torso (one link frames a **new hole in the center of his chest**, another frames the empty left eye socket with four thin lines down the cheek), body **dripping darkness** around/below the waist, a **half-cloak** on his right side, black boots, much longer pink hair (pushed back, one lock framing the right side), **ram horns that sprout from his temples at will (drawing blood)**. Powers: greatly increased reiryoku (pressured Renji, held off Ichigo), **black-crimson chains from the ground** that bind and **pierce** (Renji couldn't break them), **clairvoyance** (knew Ichika was Renji's daughter, knew the Konsō Reisai's secret), enters the Human World through a teeth-lined portal. Defeat: **Ukitake impales him from Hell with a gigantic Sōgyo no Kotowari** and drags him back through the Gates. Palette: hair `#E58AB3` (verify), tattoos `#1E2A5A`, bones `#1A1414` with smoke `#2A2A30`, ring `#F2F2EE`, chains `#3A0E12` `[Bind][Sensing][Summon: chains]`.
+- **Hell captains** [1S]: **Yamamoto "Gotei Kaiso"** (Founder of the Gotei), **Unohana "Shiken"** (Death Sword), **Ukitake "Kamikake"** (Divine Possession) — only Ukitake's **enlarged twin-blade Shikai** has been shown. Their Hell forms have **no canon designs** → keep as off-screen threats/teasers; any Hell-form design is [X].
+
+### 8.5 Konsō Reisai (魂葬礼祭) & related canon procedures [1S]
+- Performed **12 years after** a captain falls in battle: lieutenants first perform the **Jogimen Reibaku** (capture a Hollow in the Human World), then captains purify it at the grave. True purpose (a myth Shunsui half-knew): cast the captain's over-dense reishi into **Hell**. Flexible format — Ukitake's was completed when Ichigo and the lieutenants slew Jigoku no Gaki while Ukitake "watched" through Ichigo's **Substitute Badge**. A Hell Butterfly's name hints at Hell links.
+- One-shot new cast for the set piece (covered in other groups): Kazui Kurosaki, Ichika Abarai, Atau Rindō, Yuyu Yayahara, Genshirō Okikiba.
+
+### 8.6 Skull Clad (スカルクラッド) [Mv]
+- Ichigo's **Hell-granted** form (belongs in Ichigo's dossier as an optional non-canon form): a Kushanāda dissolves into gold light and **clads him in golden skull-patterned armor**; can **sever Hell's chains** (freed Rukia, Renji, Uryū), **bind enemies in chains and send them to a lower level**, fire a **golden crescent Getsuga** that carved a trench through a tower; Kushanāda kneel to him. Use as the "blessed attack" that ends Kokutō's fight.
+
+### 8.7 Hell set pieces (story mode)
+1. **Shrieker's Gate** [M] — tutorial for the sinner-execution cinematic.
+2. **Konsō Reisai night** [1S] — Jigoku no Gaki ambush the lieutenants in Karakura; Jigoku no Rinki at Ukitake's grave; Szayel's chains rise from a portal; Ukitake's giant blade from the Gates.
+3. **Kazui's shrine** [1S] — the three-eyeball ritual and a teeth-ringed maw (sequel hook; one skeleton on the Gates turns an eye toward him).
+4. **Hell Verse descent** [Mv] — Level 1 chase → Level 2 lotus ocean fights → Level 3 acid → Level 4 lava monument → Lowermost duel vs. Kokutō → escape by running up a Kushanāda's arm.
+
+---
+
+## 9. Soul King (霊王, Reiō) — true name **Adnyeus** (アドナイェウス)
+- **Wiki:** https://bleach.fandom.com/wiki/Soul_King · https://bleach.fandom.com/wiki/Fall_of_the_Soul_King · https://bleach.fandom.com/wiki/Black
+- **Roster tier:** **C — scenery / event / objective.** He **never acts or speaks** in canon (a vegetative, sealed god); making him a fighting boss would be pure invention [X]. His power fights through his "parts" and through Yhwach.
+- **Canon power:** n/a (latent 10) — his absorbed power let Yhwach rival everything; even his severed parts (left arm, heart) are Schutzstaffel-tier; his right arm held Almighty-Yhwach for minutes.
+- **Name note:** "Adnyeus" was first hidden in Sōken's journal (anime ep 372) and spoken by Yhwach in **anime ep 394**; it is also part of the Auswählen incantation [A/KO #483].
+- **Body:** humanoid; **slicked-back dark hair**, **oval eyes without eyebrows**, **each eye holding four black irises**; **no arms or legs** (amputated); sealed in a **crystal** (manga: **yellow-gold**; anime: **light blue**, turning **dark red** when he is stabbed) **hung by four wires** in a large, elegant chamber with curtains, inside the **Reiō Daidairi** cylinder. Scale is never stated — render the figure larger than life (≈ 3 m torso-to-head, crystal ≈ 6 m) for awe [X]. (His first silhouette in ch. 519 still had limbs; later appearances don't.)
+- **Palette (hex estimates):** skin pale grey-ivory `#D8D2C8`; hair `#1A1A1A`; eyes white `#F2F2F2` with four black irises `#000000`; crystal manga `#E7C55A` (50%) / anime `#9FD3F0` (45%) → damaged `#7A0E14` (60%); wires `#2A2A2A`; reiatsu **black** `#050505`.
+- **Powers (canon):** immeasurable reiatsu ("**Black**" — the chaos/colorless color; a shifting mass of darkness); **clairvoyance & precognition** (saw the Quincy persecution and his own death 1,000 years ahead); **immunity to precognition** for himself and his parts (The Almighty can't see them) and the ability to **seal** The Almighty (left arm); **Ōken bestowment** (turns Royal Guard bones into keys); **World Splitting** — he divided the Primordial Sea into the Three Worlds, creating **life and death** [M]; the anime stages it as a ritual with an unusual **ceremonial sword** [A-ep 394]. Eons before that he **repelled a "darkness"** that threatened the single original world [A-ep 394 / M ch 564 visions].
+- **Weaknesses:** sealed restraints (cannot move); **irreversible death** (nothing — not even Sōten Kisshun — can revive him).
+- **Parts with their own identities:** **left arm = Pernida Parnkgjas** ("Progress/Evolution"), **right arm = Mimihagi** ("Stillness"), **heart = hosted by Gerard Valkyrie** ("The Miracle"); Yhwach is his son (the novel leaves open whether he is a "part"). Dismemberment of the left arm dated **January 19** [KO #935]. Anime: he split the worlds himself and was then dismembered with only Ichibe'e present; novel: the **Five Noble Ancestors** betrayed, sealed and mutilated him and used his power to split the worlds.
+- **Signature set pieces:**
+  1. Ichibe'e checks on him as he **opens his eyes** [M].
+  2. Yhwach's **sword through the chest**; the crystal reddens [M/A].
+  3. **Ichigo, puppeted by his Quincy blood, bisects him diagonally** through the crystal → a **world-wide shockwave** rolls down from the palace, toppling Seireitei buildings and shaking Hueco Mundo and Karakura `[Slice][NEW: GlobalTremor]` [M].
+  4. Orihime's shield shatters trying to undo it; **Mimihagi's black hand** encases the halves; Yoruichi's seal sheets (Chizeimon, Tesshimon, Kozanmon + Sankotsu no Jufu barrier) [M].
+  5. Schutzstaffel pour their reishi swords into Yhwach's **broadsword**, the crystal **shatters**, the halves float, Yhwach **absorbs** him in a tornado of energy → a **torrent of tiny one-eyed black creatures** pours from the palace and floods the Seireitei, eating Shinigami (and ignoring Quincy) [M] `[Swarm][Environmental]`.
+- **Game use:** (1) **Reiō Daidairi chamber** level; (2) **"Protect the King"** objective with a crystal HP bar (blue → red); (3) the **one-eyed shadow flood** as a swarm event (belongs to Yhwach's kit/story); (4) optional [X] boss rush "Fragments of the King" (Pernida → Gerard → Mimihagi → Soul-King Yhwach).
+
+---
+
+## 10. Mimihagi (ミミハギ) — the Soul King's Right Arm (霊王の右腕), governor of "Stillness" (静止, Seishi)
+- **Wiki:** https://bleach.fandom.com/wiki/Mimihagi
+- **Roster tier:** **C — set piece / boss phase**; also the summon behind **Ukitake's Kamikake** (Ukitake's own dossier is in group B3).
+- **Canon power (1–10): 9** — invisible to The Almighty, kept the Three Worlds from merging while the Soul King lay dead, and physically resisted Soul-King-absorbing Yhwach for minutes.
+- **Lore:** a "fallen god" worshipped in the outer districts of **East Rukongai**; grants prayers in exchange for a body part (**anything but an eye** — it already has one); took 3-year-old Ukitake's diseased lungs, halting the disease [M]. Name etymology [KO #924]: *mi-mi-hagi-sama* ≈ "Great Lord Who Joins Bodies". Anime: carried into the Lichtreich talks infused in Ichibe'e's right fist [A-ep 390].
+- **Body / look:**
+  - **Classic form** (Ukitake's childhood) [M]: a humanoid whose **body is shaped like an arm ending in a clenched right fist**, with **one large eye on the back of the fist**, a simple **tunic**, and a large **hagoromo** (celestial feathered sash) ringing the fist from behind.
+  - **Present form** [M]: no physical body — **living darkness**: a **giant intangible black hand and arm**, an **eye that opens in the palm** (it can curve shut like an upside-down smile), or a shadow shaped like the classic form.
+  - Size: rises from the Seireitei through the **Shakonmaku** dome to the palace (km-scale stretch); in the chamber its hand engulfs the Soul King's halves (≈ 8–12 m hand, est.).
+  - Palette: darkness `#050505` with indigo edge `#1A1030`; eye sclera `#F2F2F2`, pupil `#000000`; classic form: pale skin `#E9E1D6`, white tunic `#F4F3EE`, hagoromo pale gold/cream `#F3E6C2` (verify).
+- **Abilities:**
+  - `Stillness` [M]: governs **stagnation** — halts growth, progress and change: stops an illness, keeps the Three Worlds from merging; (anime) **stops arrows mid-air and throws them back** `[Field: time-stop/stasis][Absorb/Reflect/Redirect][NEW: StatusFreezeTimers]`.
+  - `Blackness Physiology` [M]: darkness hand, **walls of darkness** that block Yhwach's attacks; **encases** objects `[Shield][Construct]`.
+  - `Repulse Rings` [M]: expanding circles of its reiatsu **blow Yhwach's blue flames back** out of the palace `[Blast]`.
+  - `Crackling Restraint` [M]: arches over Yhwach and **pins him with crackling electric reiatsu** `[Bind]`.
+  - `Consumption` [M]: tries to **swallow/absorb** Yhwach `[Grab/Throw][Absorb]`.
+  - `Precognitive immunity` + its own precognition [M] — Yhwach's pupil **cracks** when he tries to read its future `[NEW: precog-immune flag]`.
+  - `Life Extension / Kamikake` [M]: the bearer of a Mimihagi blessing can perform **Kamikake** — sacrificing the rest of their body and life to become its vessel: their **shadow turns into Mimihagi's shape**, a **large vertical eye** shadow appears on the back, a **Mimihagi tattoo** spreads over the torso, **darkness erupts from eyes and mouth**, and the hand climbs to the sky (Ukitake's prayer is a short two-line chant to "Mimihagi-sama"; paraphrase only).
+- **Weaknesses:** **Auswählen** affects it; **Yhwach pulled its eye apart** and tore it to pieces (manga: killed and absorbed with the Soul King; anime: survives through Ukitake, keeps the worlds apart, until Yhwach's fourth Auswählen strips it from Ukitake and Shunsui) [M/A]. After absorbing it, Yhwach gains a **black chain-of-eyes pattern down the left side of his face and chest** and an **inverted left eye**.
+- **Signature set pieces:** Ukitake's **Kamikake** in Urahara's lab (haori and top shed, shadow eye on his back, screams as the hand rises) [M]; the **hand bursting through the Shakonmaku**, the **palm-eye opening** over the bisected king, Yhwach's pupil cracking [M]; repulse rings vs. blue flames; crackling restraint; **Yhwach tears out its eye** [M].
+- **Boss-phase proposal:** "The Right Arm" — a giant dark hand with a palm-eye. Mechanics: Stillness zones (projectiles freeze and return; DoTs/buff timers freeze), darkness walls, grab-and-consume, repulse rings, crackling cage; the eye is the weak point (opens on a cycle); immune to precognition/lock-on prediction effects.
+
+<!-- PART4 -->

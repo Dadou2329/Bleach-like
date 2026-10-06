@@ -155,7 +155,7 @@ Every Espada in this file gets this baseline; per-character dossiers only note d
 - **Forms & states (ordered):**
   1. **Enthroned** (commander state) — seated, Fracción do the fighting, he issues orders (took command of the whole army while Aizen was sealed in Jōkaku Enjō).
   2. **Sealed, standing** — axe + Senescencia; rises once his Fracción are dead.
-  3. **Arrogante** — *"Kuchiro, Arrogante"*: axe held out, head down; red reiatsu; black-purple flames from the eye consume his flesh; wounds healed.
+  3. **Arrogante** (髑髏大帝, "skull emperor") — *"Kuchiro (朽ちろ, rot), Arrogante"*: axe held out, head down; red reiatsu; black-purple flames from the eye consume his flesh; wounds healed.
   4. **Enraged** (sub-state) — after a serious wound: far faster/stronger Respira, ranting at "insects".
   5. **Self-rot** (death state) — his own Respira inside his body: decays from within; last act = axe throw; only the crown hits the ground and shatters.
 - **Abilities (complete, grouped by form/source):**
@@ -233,7 +233,7 @@ Compact build sheets so each can be made as a summon (they all die in canon — 
 - **Forms & states (ordered):**
   1. **Sealed** — face hidden; precise ambidextrous swordplay; Ola Azul; arc Cero.
   2. **Unzipped** — reveals the "3", then the mask: "I haven't shown you my full strength" (serious state).
-  3. **Tiburón** — *"Ute, Tiburón"*: blade held point-down; a **heart-shaped surge of water** wraps her into a **spinning water cocoon** that she **cuts open from inside**; wounds heal; a sudden leap in speed and reach (Hitsugaya had prepared an ice decoy just in case).
+  3. **Tiburón** (皇鮫后, "empress shark") — *"Ute (討て, destroy/strike down), Tiburón"*: blade held point-down; a **heart-shaped surge of water** wraps her into a **spinning water cocoon** that she **cuts open from inside**; wounds heal; a sudden leap in speed and reach (Hitsugaya had prepared an ice decoy just in case).
 - **Abilities (complete, grouped by form/source):**
   - *Sealed / racial*
     - Master swordsmanship, **ambidextrous** — switches hands mid-exchange to shrink the counter window. [MeleeArc cut, NEW: HandSwapCombo]
@@ -309,8 +309,8 @@ Design: Quimera Parca should leave all three summoners **one-armed** until Ayon 
 - **Forms & states (ordered):**
   1. **Sealed, unarmed** — hands-in-pockets martial artist; Cero/Bala.
   2. **Sealed, sword drawn** — reserved for those "who must be destroyed".
-  3. **Murciélago** — *"Tozase, Murciélago"* (forbidden inside Las Noches → he first punches up through the dome); flight, Luz de la Luna, Cero Oscuras.
-  4. **Resurrección: Segunda Etapa** — declared without a separate command phrase; unique among the Espada (not even Aizen had seen it); tail, claws, despair aura, Lanza del Relámpago.
+  3. **Murciélago** (黒翼大魔, "black-winged great demon") — *"Tozase (鎖せ, enclose/shut away), Murciélago"* (forbidden inside Las Noches → he first punches up through the dome); flight, Luz de la Luna, Cero Oscuras.
+  4. **Resurrección: Segunda Etapa** (刀剣解放第二階層, "sword release, second stage") — declared without a separate command phrase; unique among the Espada (not even Aizen had seen it); tail, claws, despair aura, Lanza del Relámpago.
   5. **Regenerating** (cross-form state) — limbs and eyes regrow in seconds; brain and internal organs never do.
   6. **Dissolving** (death) — ash spreading from the extremities (the wing went first).
 - **Abilities (complete, grouped by form/source):**
@@ -401,7 +401,7 @@ Design: Quimera Parca should leave all three summoners **one-armed** until Ayon 
 - **Forms & states (ordered):**
   1. **Sealed** — chained-crescent brawler; Hierro showboating.
   2. **Eyepatch lifted** (taunt state) — reveals the hole: blows "through the eye" pass harmlessly through.
-  3. **Santa Teresa** — *"Inore, Santa Teresa"*; wounds healed (it closed Kenpachi's huge slash); 4 arms; regeneration.
+  3. **Santa Teresa** (聖哭螳螂, "holy weeping mantis") — *"Inore (祈れ, pray), Santa Teresa"*; wounds healed (it closed Kenpachi's huge slash); 4 arms; regeneration.
   4. **Six arms** — hidden pair revealed for a surprise impale.
 - **Abilities (complete, grouped by form/source):**
   - *Sealed*
