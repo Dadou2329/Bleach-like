@@ -5,10 +5,11 @@ import { Engine } from './engine';
 import { generateStage } from './maps/stage';
 import { QUALITY_HIGH, QUALITY_LOW } from './render/renderer';
 import { CharacterVisual } from './game/characterFactory';
-import { buildIchigo, buildZangetsuShikai, type IchigoForm } from './chars/ichigo';
+import { buildIchigo, buildTensaZangetsu, buildZangetsuShikai, type IchigoForm } from './chars/ichigo';
 import { Pose } from './anim/pose';
 import { Animator } from './anim/animator';
 import { ICHIGO_CLIPS, ICHIGO_STANCE } from './chars/ichigoClips';
+import { Aura, AURA_ICHIGO_BANKAI, AURA_ICHIGO_SHIKAI } from './vfx/aura';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -34,12 +35,17 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const asset = buildIchigo(form);
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
-  const sword = buildZangetsuShikai();
+  const sword = form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai();
   ch.attach('sword', sword, 'grip.R');
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
   eng.gr.scene.add(ch.object);
   const pose = new Pose(ch.rig.count);
+  const aura = new Aura(ch, form === 'bankai' ? AURA_ICHIGO_BANKAI : AURA_ICHIGO_SHIKAI, eng.glow);
+  aura.target = Number(params.get('aura') ?? 0);
+  aura.level = aura.target;
+  eng.gr.scene.add(aura.group);
+  let auraT = 0;
   const cam = eng.gr.camera;
   let yaw = 0;
   let view = params.get('view') ?? 'three';
@@ -105,6 +111,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   applyPose(0);
   eng.renderHooks.push((dt) => {
     applyPose(dt);
+    auraT += dt;
+    aura.update(dt, auraT);
     eng.gr.updateSun(origin.clone().add(new THREE.Vector3(0, 1, 0)));
   });
   document.getElementById('boot')?.remove();
@@ -135,6 +143,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
       Object.assign(loco, { vz, vx, grounded, vy });
     },
     animator: anim,
+    aura: (lv: number) => { aura.target = lv; aura.level = lv; },
+    pillar: () => aura.pillarBurst(3),
     engine: eng,
     character: ch,
     get currentView() { return view; },

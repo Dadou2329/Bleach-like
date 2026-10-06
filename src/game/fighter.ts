@@ -66,12 +66,12 @@ let FID = 0;
 
 export class Fighter {
   readonly id = ++FID;
-  readonly visual: CharacterVisual;
-  readonly anim: Animator;
+  visual: CharacterVisual;
+  anim: Animator;
   readonly body: KinematicBody;
-  readonly aura: Aura;
+  aura: Aura;
   readonly trail: SwordTrail | null;
-  readonly ghosts: AfterimagePool;
+  ghosts: AfterimagePool;
   team: number;
   name: string;
   yaw = 0;
@@ -119,7 +119,7 @@ export class Fighter {
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};
 
-  constructor(readonly def: FighterDef, readonly game: Game, team: number, pos: THREE.Vector3) {
+  constructor(public def: FighterDef, readonly game: Game, team: number, pos: THREE.Vector3) {
     this.team = team;
     this.name = def.name;
     const { asset, props } = def.build();
@@ -382,6 +382,40 @@ export class Fighter {
         if (this.bladeActive && this.bladeSpec) this.game.bladeSweep(this, this.prevBladeBase, this.prevBladeTip, this.bladeBase, this.bladeTip, this.bladeSpec);
       }
     }
+  }
+
+  /**
+   * Swap the body (form change: Bankai, Resurrección, masks): new visual/animator/aura on the same
+   * skeleton layout; locomotion phase, aura level and the running clip carry over.
+   */
+  setForm(build: { asset: CharacterAsset; props: PropDef[] }, aura: AuraStyle, blade?: FighterDef['blade']): void {
+    const scene = this.game.engine.gr.scene;
+    const old = { v: this.visual, a: this.anim, au: this.aura, g: this.ghosts };
+    old.v.object.removeFromParent();
+    old.au.group.removeFromParent();
+    old.g.group.removeFromParent();
+    this.visual = new CharacterVisual(build.asset.model, build.asset.springs, build.asset.colliders);
+    for (const p of build.props) this.visual.attach(p.key, p.model, p.socket);
+    this.anim = new Animator(this.visual.rig, this.def.stance, this.visual.springs);
+    this.anim.register(this.def.clips);
+    this.anim.loco.phase = old.a.loco.phase;
+    Object.assign(this.anim.loco.w, old.a.loco.w);
+    for (const a of old.a.active) {
+      if (a.ending) continue;
+      const inst = this.anim.play(a.clip.name, { fadeIn: 0, hold: a.hold, onEvent: a.onEvent, onEnd: a.onEnd });
+      if (inst) { inst.time = a.time; inst.weight = 1; }
+    }
+    this.aura = new Aura(this.visual, aura, this.game.engine.glow);
+    this.aura.level = old.au.level;
+    this.aura.target = old.au.target;
+    this.def = { ...this.def, aura, blade: blade ?? this.def.blade };
+    this.ghosts = new AfterimagePool(this.visual, 12);
+    this.ghosts.color.set(aura.body);
+    if (this.trail && blade) this.trail.setColor(blade.color, blade.core);
+    this.visual.object.position.copy(this.renderPos);
+    this.visual.object.rotation.y = this.yaw;
+    scene.add(this.visual.object, this.aura.group, this.ghosts.group);
+    this.bladeValid = false;
   }
 
   get blade(): { base: THREE.Vector3; tip: THREE.Vector3 } {

@@ -72,10 +72,11 @@ export function crescentMaterial(c: EnergyColors, dark = false): THREE.ShaderMat
       uBody: { value: new THREE.Color(c.body) },
       uRim: { value: new THREE.Color(c.rim) },
       uDark: { value: dark ? 1 : 0 },
+      uRimOnly: { value: !dark && c.dark ? 1 : 0 },
     },
     vertexShader: /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
     fragmentShader: /* glsl */ `
-      uniform float uTime; uniform float uA; uniform vec3 uCore; uniform vec3 uBody; uniform vec3 uRim; uniform float uDark;
+      uniform float uTime; uniform float uA; uniform vec3 uCore; uniform vec3 uBody; uniform vec3 uRim; uniform float uDark; uniform float uRimOnly;
       varying vec2 vUv;
       ${NOISE}
       void main() {
@@ -85,7 +86,7 @@ export function crescentMaterial(c: EnergyColors, dark = false): THREE.ShaderMat
         float body = smoothstep(1.0, 0.15, vUv.y + (n - 0.5) * 0.7);
         float edge = smoothstep(0.32, 0.0, vUv.y);
         if (uDark > 0.5) {
-          float a = body * horn * uA * 0.9 * smoothstep(0.0, 0.25, vUv.y + 0.1);
+          float a = body * horn * uA * 0.95;
           if (a < 0.02) discard;
           gl_FragColor = vec4(uCore, a);
           return;
@@ -93,6 +94,12 @@ export function crescentMaterial(c: EnergyColors, dark = false): THREE.ShaderMat
         vec3 col = mix(uRim, uBody, body) ;
         col = mix(col, uCore * 2.2, edge * edge);
         float a = (body * 0.75 + edge) * horn * uA;
+        if (uRimOnly > 0.5) {
+          // dark Getsuga: only a burning crimson leading edge and flickering outer lip
+          float lip = smoothstep(0.42, 0.0, vUv.y) + smoothstep(0.75, 1.0, n) * body * 0.4;
+          a = lip * horn * uA;
+          col = mix(uRim, uBody, edge) + uCore * edge * edge * 0.8;
+        }
         if (a < 0.003) discard;
         gl_FragColor = vec4(col * 2.4, a);
       }`,

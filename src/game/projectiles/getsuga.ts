@@ -47,7 +47,7 @@ export class GetsugaProjectile implements Projectile {
       const dm = crescentMaterial(o.colors, true);
       const dmesh = new THREE.Mesh(geo, dm);
       dmesh.renderOrder = 5;
-      dmesh.scale.setScalar(0.97);
+      dmesh.scale.set(0.98, 1.6, 0.98);
       this.group.add(dmesh);
       this.mats.push(dm);
     }

@@ -75,22 +75,24 @@ void main() {
   vec3 v = normalize(cameraPosition - vW);
   float facing = abs(dot(normalize(vN), v));
   float fres = 1.0 - facing;
-  float n = auNoise(vW * 4.5 + vec3(0.0, -uTime * 5.5, 0.0));
   float lv = clamp(uLevel, 0.0, 2.5);
-  float body = smoothstep(0.32, 0.85, n * 0.7 + vFlame * 0.5 + fres * 0.35);
+  // flame tongues: vertically stretched noise scrolling up, eroded into separate licks
+  vec3 q = vec3(vW.x * 3.2, vW.y * 1.1 - uTime * 3.4, vW.z * 3.2);
+  float n = auNoise(q) * 0.6 + auNoise(q * 2.3 + 7.1) * 0.4;
+  float lick = smoothstep(0.42, 0.78, n + fres * 0.25 + vFlame * 0.2);
+  float shellK = smoothstep(0.35, 1.0, lv);
   if (uDark > 0.5) {
-    // alpha-blended dark core: eroded edges
-    float a = body * smoothstep(0.0, 0.6, facing + 0.2) * smoothstep(0.35, 1.0, lv) * 0.8;
-    if (a < 0.02) discard;
+    float a = lick * smoothstep(0.3, 0.9, facing) * shellK * 0.35;
+    if (a < 0.03) discard;
     gl_FragColor = vec4(uCore, a);
     return;
   }
-  // shell only shows from a flare upward; edges carry it (overlapping limb proxies must not pile up)
-  float shellK = smoothstep(0.35, 1.0, lv);
-  float a = pow(fres, 2.6) * body * shellK * 0.75;
+  // edges carry the shell (overlapping limb proxies must not pile up in the middle)
+  float a = lick * pow(fres, 3.2) * shellK * 0.5;
   if (a < 0.004) discard;
-  vec3 col = mix(uBody, uRim, smoothstep(0.6, 1.0, fres)) + uCore * pow(facing, 3.0) * 0.4 * body;
-  gl_FragColor = vec4(col * (1.0 + lv * 0.7), a);
+  vec3 col = mix(uBody, uRim, smoothstep(0.55, 1.0, fres));
+  col += uCore * smoothstep(0.75, 1.0, n) * 0.8;
+  gl_FragColor = vec4(col * (1.1 + lv * 0.6), a);
 }`;
 
 /** Capsule proxies (bone, child bone or local end, radius) for the standard humanoid skeleton. */
@@ -160,6 +162,9 @@ export class Aura {
   style: AuraStyle;
   private pillar: THREE.Mesh;
   private pillarT = 0;
+  private pillarDur = 2.4;
+  private flames: FlameCards;
+  private darkFlames: FlameCards;
   private pillarU: Record<string, THREE.IUniform>;
   private tmpA = new THREE.Vector3();
   private tmpB = new THREE.Vector3();
@@ -169,7 +174,7 @@ export class Aura {
     const { geo, segs } = buildProxyGeometry(v);
     this.segs = segs;
     this.uniforms = {
-      uTime: { value: 0 }, uLevel: { value: 0 }, uInflate: { value: 0.13 }, uRise: { value: 0.55 },
+      uTime: { value: 0 }, uLevel: { value: 0 }, uInflate: { value: 0.11 }, uRise: { value: 0.75 },
       uCore: { value: new THREE.Color() }, uBody: { value: new THREE.Color() }, uRim: { value: new THREE.Color() }, uDark: { value: 0 },
     };
     this.darkU = { ...this.uniforms, uDark: { value: 1 }, uInflate: { value: 0.07 }, uCore: { value: new THREE.Color() } };
@@ -192,6 +197,9 @@ export class Aura {
     this.dark = mk(this.darkU, false);
     this.shell = mk(this.uniforms, true);
     v.object.add(this.dark, this.shell);
+    this.flames = new FlameCards(segs, 70, style, false);
+    this.darkFlames = new FlameCards(segs, 46, style, true);
+    this.group.add(this.darkFlames.mesh, this.flames.mesh);
     // release pillar (world space)
     this.pillarU = { uTime: { value: 0 }, uA: { value: 0 }, uCol: { value: new THREE.Color() }, uCore: { value: new THREE.Color() } };
     const pg = new THREE.CylinderGeometry(1, 1.4, 1, 32, 8, true);
@@ -234,6 +242,8 @@ export class Aura {
     (this.uniforms.uRim.value as THREE.Color).set(s.rim);
     (this.darkU.uCore.value as THREE.Color).set(s.dark ?? '#000000');
     this.dark.visible = !!s.dark;
+    this.flames?.setStyle(s, false);
+    this.darkFlames?.setStyle(s, true);
     (this.pillarU.uCol.value as THREE.Color).set(s.dark ? s.body : s.body);
     (this.pillarU.uCore.value as THREE.Color).set(s.dark ? '#ffd6dc' : s.core);
   }
@@ -249,6 +259,7 @@ export class Aura {
   /** Column of reiatsu into the sky (releases). */
   pillarBurst(seconds = 2.2): void {
     this.pillarT = seconds;
+    this.pillarDur = seconds;
     this.pillar.visible = true;
   }
 
@@ -264,6 +275,10 @@ export class Aura {
     this.darkU.uLevel.value = this.level;
     this.shell.visible = this.level > 0.36;
     this.dark.visible = this.shell.visible && !!this.style.dark;
+    const flameLv = this.level < 0.36 ? 0 : (this.level - 0.3) * 1.1;
+    this.flames.update(this.v.rig.bones, flameLv, time);
+    this.darkFlames.mesh.visible = !!this.style.dark;
+    if (this.style.dark) this.darkFlames.update(this.v.rig.bones, flameLv, time, 0.8);
     // wisps
     if (this.level > 0.1) {
       this.emitAcc += dt * (this.level < 0.4 ? this.level * 22 : 8 + this.level * 70);
@@ -293,14 +308,160 @@ export class Aura {
     // pillar
     if (this.pillarT > 0) {
       this.pillarT -= dt;
-      const a = Math.min(1, this.pillarT / 0.6) * Math.min(1, (2.2 - this.pillarT) * 5 + 0.2);
+      const el = this.pillarDur - this.pillarT;
+      const a = Math.min(1, this.pillarT / 0.6) * Math.min(1, el * 5 + 0.2);
       this.v.object.getWorldPosition(this.tmpB);
-      const grow = Math.min(1, (2.3 - this.pillarT) * 3);
+      const grow = Math.min(1, el * 3 + 0.05);
       this.pillar.position.copy(this.tmpB);
-      this.pillar.scale.set(1.6 + grow * 1.2, 260 * grow + 2, 1.6 + grow * 1.2);
+      this.pillar.scale.set(1.2 + grow * 0.9, 260 * grow + 2, 1.2 + grow * 0.9);
       this.pillarU.uTime.value = time;
       this.pillarU.uA.value = Math.max(0, a);
       if (this.pillarT <= 0) this.pillar.visible = false;
     }
+  }
+}
+
+// ---------------------------------------------------------------------------------------------- flame cards
+
+const CARD_VERT = /* glsl */ `
+attribute vec3 aPos;
+attribute vec4 aParam; // width, height, phase, intensity
+attribute vec2 aDir;   // outward horizontal direction of the anchor
+varying vec2 vUv;
+varying float vPhase;
+varying float vInt;
+void main() {
+  vUv = uv;
+  vPhase = aParam.z;
+  vec3 toCam = cameraPosition - aPos;
+  toCam.y = 0.0;
+  // silhouette weighting: flames on the edges stay, flames between camera and body fade
+  float side = abs(dot(normalize(toCam + vec3(1e-4, 0.0, 0.0)), vec3(aDir.x, 0.0, aDir.y)));
+  vInt = aParam.w * mix(1.0, 0.18, smoothstep(0.35, 0.95, side) * step(0.0, dot(toCam, vec3(aDir.x, 0.0, aDir.y))));
+  vec3 right = normalize(cross(vec3(0.0, 1.0, 0.0), normalize(toCam + vec3(1e-4, 0.0, 0.0))));
+  vec3 wp = aPos + right * (uv.x - 0.5) * aParam.x + vec3(0.0, 1.0, 0.0) * uv.y * aParam.y;
+  // push slightly toward the camera so cards sit in front of the surface they grow from
+  wp += normalize(cameraPosition - aPos) * 0.06;
+  gl_Position = projectionMatrix * viewMatrix * vec4(wp, 1.0);
+}`;
+
+const CARD_FRAG = /* glsl */ `
+uniform float uTime;
+uniform vec3 uCore;
+uniform vec3 uBody;
+uniform vec3 uRim;
+uniform float uDark;
+varying vec2 vUv;
+varying float vPhase;
+varying float vInt;
+${NOISE}
+void main() {
+  float v = vUv.y;
+  float t = uTime * 3.2 + vPhase * 17.0;
+  // sway grows with height, tongue narrows to a point
+  float sway = (auNoise(vec3(v * 3.0 - t, vPhase * 9.0, 0.0)) - 0.5) * 0.55 * v;
+  float x = vUv.x - 0.5 - sway;
+  float w = 0.5 * pow(1.0 - v, 0.75) * smoothstep(0.0, 0.18, v);
+  float n = auNoise(vec3(x * 6.0, v * 4.0 - t * 1.3, vPhase * 5.0));
+  float body = 1.0 - smoothstep(w * 0.55, w, abs(x) + (n - 0.5) * 0.18);
+  float fade = smoothstep(1.0, 0.45, v) * smoothstep(0.0, 0.08, v);
+  float a = body * fade * vInt;
+  if (a < 0.01) discard;
+  if (uDark > 0.5) {
+    gl_FragColor = vec4(uCore, a * 0.8);
+    return;
+  }
+  float hot = 1.0 - smoothstep(0.0, w * 0.6, abs(x));
+  vec3 col = mix(uRim, uBody, body);
+  col = mix(col, uCore * 1.3, hot * (1.0 - v) * 0.6);
+  gl_FragColor = vec4(col * 1.05, a * 0.7);
+}`;
+
+export class FlameCards {
+  readonly mesh: THREE.Mesh;
+  private pos: Float32Array;
+  private prm: Float32Array;
+  private dir: Float32Array;
+  private anchors: { seg: number; t: number; ang: number; h: number; ph: number }[] = [];
+  readonly uniforms: Record<string, THREE.IUniform>;
+  private tmp = new THREE.Vector3();
+
+  constructor(private segs: { bone: number; a: THREE.Vector3; b: THREE.Vector3; r: number }[], count: number, style: AuraStyle, dark: boolean) {
+    const base = new THREE.PlaneGeometry(1, 1, 1, 4);
+    base.translate(0, 0.5, 0);
+    const geo = new THREE.InstancedBufferGeometry();
+    geo.index = base.index;
+    geo.setAttribute('position', base.attributes.position);
+    geo.setAttribute('uv', base.attributes.uv);
+    this.pos = new Float32Array(count * 3);
+    this.prm = new Float32Array(count * 4);
+    this.dir = new Float32Array(count * 2);
+    geo.setAttribute('aPos', new THREE.InstancedBufferAttribute(this.pos, 3).setUsage(THREE.DynamicDrawUsage));
+    geo.setAttribute('aDir', new THREE.InstancedBufferAttribute(this.dir, 2).setUsage(THREE.DynamicDrawUsage));
+    geo.setAttribute('aParam', new THREE.InstancedBufferAttribute(this.prm, 4).setUsage(THREE.DynamicDrawUsage));
+    geo.instanceCount = count;
+    // spread anchors over the proxies, weighted by length (torso/limbs), favouring upper edges
+    const lens = segs.map((s) => s.a.distanceTo(s.b) + s.r);
+    const total = lens.reduce((x, y) => x + y, 0);
+    for (let i = 0; i < count; i++) {
+      let r = Math.random() * total, k = 0;
+      while (k < segs.length - 1 && r > lens[k]) r -= lens[k++];
+      this.anchors.push({ seg: k, t: Math.random(), ang: Math.random() * Math.PI * 2, h: 0.6 + Math.random() * 0.8, ph: Math.random() });
+    }
+    this.uniforms = {
+      uTime: { value: 0 },
+      uCore: { value: new THREE.Color(dark ? style.dark ?? '#000' : style.core) },
+      uBody: { value: new THREE.Color(style.body) },
+      uRim: { value: new THREE.Color(style.rim) },
+      uDark: { value: dark ? 1 : 0 },
+    };
+    const mat = new THREE.ShaderMaterial({
+      vertexShader: CARD_VERT,
+      fragmentShader: CARD_FRAG,
+      uniforms: this.uniforms,
+      transparent: true,
+      depthWrite: false,
+      blending: dark ? THREE.NormalBlending : THREE.AdditiveBlending,
+      side: THREE.DoubleSide,
+    });
+    this.mesh = new THREE.Mesh(geo, mat);
+    this.mesh.frustumCulled = false;
+    this.mesh.renderOrder = dark ? 4 : 7;
+  }
+
+  setStyle(style: AuraStyle, dark: boolean): void {
+    (this.uniforms.uCore.value as THREE.Color).set(dark ? style.dark ?? '#000' : style.core);
+    (this.uniforms.uBody.value as THREE.Color).set(style.body);
+    (this.uniforms.uRim.value as THREE.Color).set(style.rim);
+  }
+
+  update(bones: THREE.Bone[], level: number, time: number, scale = 1): void {
+    this.uniforms.uTime.value = time;
+    const lv = Math.max(0, level);
+    const vis = Math.min(1, lv * 1.6);
+    this.mesh.visible = vis > 0.02;
+    if (!this.mesh.visible) return;
+    const p = this.tmp;
+    this.anchors.forEach((an, i) => {
+      const s = this.segs[an.seg];
+      p.lerpVectors(s.a, s.b, an.t).applyMatrix4(bones[s.bone].matrixWorld);
+      const rr = s.r * 0.75;
+      p.x += Math.cos(an.ang) * rr;
+      p.z += Math.sin(an.ang) * rr;
+      this.dir[i * 2] = Math.cos(an.ang);
+      this.dir[i * 2 + 1] = Math.sin(an.ang);
+      p.y -= 0.05;
+      const flick = 0.75 + 0.5 * Math.sin(time * (5 + an.ph * 4) + an.ph * 40);
+      const h = (0.35 + an.h * 0.55) * (0.5 + Math.min(lv, 2.2) * 0.55) * flick * scale;
+      this.pos[i * 3] = p.x; this.pos[i * 3 + 1] = p.y; this.pos[i * 3 + 2] = p.z;
+      this.prm[i * 4] = h * 0.42;
+      this.prm[i * 4 + 1] = h;
+      this.prm[i * 4 + 2] = an.ph;
+      this.prm[i * 4 + 3] = vis * (0.55 + an.h * 0.3);
+    });
+    const g = this.mesh.geometry as THREE.InstancedBufferGeometry;
+    g.attributes.aPos.needsUpdate = true;
+    g.attributes.aParam.needsUpdate = true;
+    g.attributes.aDir.needsUpdate = true;
   }
 }

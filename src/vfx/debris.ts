@@ -25,6 +25,8 @@ export class DebrisSystem {
   private matColors: Float32Array;
   /** optional: deposit resting debris back into the world as rubble voxels */
   depositRubble = true;
+  /** veto for deposits (e.g. inside a character's body) — world-space metres */
+  depositBlocked: ((x: number, y: number, z: number) => boolean) | null = null;
   private depositBudget = 0;
 
   constructor(private world: VoxelWorld, mats: MaterialTable, capacity = 16000) {
@@ -180,6 +182,7 @@ export class DebrisSystem {
     const inv = 1 / w.vs;
     const x = Math.floor(this.px[i] * inv), y = Math.floor(this.py[i] * inv), z = Math.floor(this.pz[i] * inv);
     if (w.get(x, y, z) !== 0 || !w.isSolid(x, y - 1, z)) return;
+    if (this.depositBlocked && this.depositBlocked((x + 0.5) * w.vs, (y + 0.5) * w.vs, (z + 0.5) * w.vs)) return;
     w.set(x, y, z, this.mat[i]);
     this.depositBudget--;
   }

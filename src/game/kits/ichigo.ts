@@ -5,18 +5,18 @@ import * as THREE from 'three';
 import { FighterAction, type BladeSpec, type Fighter, type FighterDef } from '../fighter';
 import type { Game } from '../game';
 import { ICHIGO_CLIPS, ICHIGO_COMBO, ICHIGO_STANCE } from '../../chars/ichigoClips';
-import { buildIchigo, buildZangetsuShikai } from '../../chars/ichigo';
-import { AURA_ICHIGO_SHIKAI } from '../../vfx/aura';
+import { ichigoAsset, ichigoSword } from '../../chars/ichigo';
+import { AURA_ICHIGO_BANKAI, AURA_ICHIGO_SHIKAI } from '../../vfx/aura';
 import { GetsugaProjectile } from '../projectiles/getsuga';
-import { GETSUGA_BLUE } from '../../vfx/energy';
+import { GETSUGA_BLACK, GETSUGA_BLUE } from '../../vfx/energy';
 import type { AbilityInfo } from '../../ui/hud';
 
 export const ICHIGO_DEF: FighterDef = {
   id: 'ichigo',
   name: 'Kurosaki Ichigo',
   build: () => {
-    const asset = buildIchigo('shikai');
-    return { asset, props: [{ key: 'sword', model: buildZangetsuShikai(), socket: 'grip.R' }] };
+    const asset = ichigoAsset('shikai');
+    return { asset, props: [{ key: 'sword', model: ichigoSword('shikai'), socket: 'grip.R' }] };
   },
   stance: ICHIGO_STANCE,
   clips: ICHIGO_CLIPS,
@@ -342,6 +342,12 @@ export class IchigoKit {
   /** Called at the release burst. */
   onBankai(f: Fighter, g: Game): void {
     f.data.bankai = true;
+    f.setForm(
+      { asset: ichigoAsset('bankai'), props: [{ key: 'sword', model: ichigoSword('bankai'), socket: 'grip.R' }] },
+      AURA_ICHIGO_BANKAI,
+      { prop: 'sword', base: [0, 0, 0.17], tip: [0, 0, 0.92], color: '#C2304F', core: '#FF9AAE' },
+    );
+    f.data.getsugaColors = GETSUGA_BLACK;
     f.def.speed.run = 12;
     f.def.speed.sprint = 26;
     f.def.speed.dash = 14;

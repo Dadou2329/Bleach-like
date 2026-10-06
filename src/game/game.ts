@@ -57,6 +57,15 @@ export class Game {
     this.input = new Input(engine.gr.renderer.domElement);
     this.cam = new ActionCamera(engine.gr.camera, engine.world);
     engine.systems.push({ update: (dt) => this.update(dt) });
+    // rubble never settles inside a fighter
+    engine.debris.depositBlocked = (x, y, z) => {
+      for (const f of this.fighters) {
+        const p = f.body.pos;
+        const r = f.def.radius + 0.25;
+        if (Math.abs(x - p.x) < r && Math.abs(z - p.z) < r && y > p.y - 0.2 && y < p.y + f.def.height) return true;
+      }
+      return false;
+    };
     engine.renderHooks.push((dt, alpha) => this.render(dt, alpha));
   }
 

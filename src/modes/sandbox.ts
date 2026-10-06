@@ -12,6 +12,8 @@ import { HollowAI, hollowDef } from '../game/ai/hollow';
 import type { VoxelWorld } from '../voxel/world';
 import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
+import { ichigoAsset, ichigoSword } from '../chars/ichigo';
+import { buildCached } from '../game/characterFactory';
 
 function groundAt(w: VoxelWorld, x: number, z: number): number {
   const vs = w.vs;
@@ -77,6 +79,13 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
 
   document.getElementById('boot')?.remove();
   eng.start();
+  // warm the Bankai form in idle time so the release does not hitch
+  const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: (f: () => void) => void }).requestIdleCallback ?? ((f: () => void) => setTimeout(f, 1500)))(cb);
+  idle(() => {
+    const a = ichigoAsset('bankai');
+    buildCached(a.model, true);
+    buildCached(ichigoSword('bankai'), false);
+  });
   hud.showBanner('KARAKURA — TRAINING GROUNDS<br><small style="font-size:14px;letter-spacing:4px">click to capture the mouse · H for controls</small>', 4);
 
   const api = {
