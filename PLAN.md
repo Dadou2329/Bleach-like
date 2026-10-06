@@ -523,7 +523,21 @@ Blut, Ransōtengai, Sklaverei, Gintō, Vollständig), Fullbringer (Bringer Light
 Full dossiers: `docs/roster/*.md` (appearance & palette, forms, complete abilities, kit proposal, AI notes).
 *(Roster tiers, wave order and the exemplar kit are finalised in §11.1–11.4 from the dossiers.)*
 
-<!-- ROSTER_SECTION -->
+<!-- ROSTER_TABLES -->
+
+### 11.x Kit spec template (`docs/kits/<id>.md`, produced with the `bleach-kit-design` skill)
+1. **Identity:** one line on how this character must *feel* (e.g. Byakuya: "noble stillness, the petals do the
+   work"; Kenpachi: "no guard, every swing bigger than the last").
+2. **Forms table:** form → release command → stat multipliers → movement profile → model overrides → timers.
+3. **Inputs per form:** Shift style, LMB string (hit count, ranges, cancels), heavy, Q/E/R/F/Z/X, G toggle,
+   C flare behaviour, V ultimate, Tab wheel entries, context actions.
+4. **Completeness table:** every ability in the dossier → slot / wheel / passive / "merged into …" / "cinematic only".
+   Nothing silently dropped.
+5. **Timelines:** frame sketches (windup/active/recovery), hitboxes, `DamageShape` mode + power per hit.
+6. **VFX/SFX list** with colours from the dossier palette; callouts (romaji + kanji).
+7. **AI profile:** personality params, signature strings, release thresholds, boss phases.
+8. **Story hooks:** canon battles this kit must recreate.
+9. **Test plan:** headless sim scenarios + screenshots to capture.
 
 ---
 
@@ -563,7 +577,27 @@ Full dossiers: `docs/roster/*.md` (appearance & palette, forms, complete abiliti
 
 ## 13. Maps
 
-<!-- MAP_SECTION -->
+### 13.1 Map framework
+`MapDef { id, name, voxelSize, bounds, seed, materials, lighting, sky, fog, weather, postGrade, music mood,
+generate(), setPieces[], spawns[], storyHooks[] }`. Generation is deterministic per seed, runs in workers, and is
+cached (IndexedDB) by `(map, seed, generator version)`:
+1. **Layout** — 2D plan: roads/blocks/plazas (city), wall-maze graph (Seireitei), dune/rock fields (Hueco Mundo),
+   floating islands (Soul King Palace).
+2. **Terrain** — heightfield + strata (topsoil, earth, stone, bedrock) + noise; sand ripples; rock outcrops.
+3. **Structures** — shape grammars: lot → building type → floors → facade modules (windows, balconies, signs,
+   AC units, pipes) → roof (kawara tiles, onigawara ends, flat roofs with water tanks); **constructed like real
+   buildings** (floor slabs, walls, columns, beams) so they break and collapse believably.
+4. **Props** — rule-based placement + Poisson-disc scattering (utility poles + sagging wires, vending machines,
+   lanterns, benches, bicycles, cars, quartz trees, barrels…), as voxel objects that can be knocked around.
+5. **Set pieces** — hand-coded landmark builders (Kurosaki Clinic, Urahara Shop, Senzaikyū, Sōkyoku halberd,
+   Las Noches dome, the four transfer pillars of Fake Karakura, Silbern's palace).
+6. **Weathering pass** — dirt gradients near the ground, moss, cracks, sun-bleaching, puddles.
+7. **Bake** — chunks, voxel colliders, spawn points, coarse nav height grid, light probes.
+
+Beyond the playable bounds: low-resolution backdrop rings (skylines, mountains, dunes, the Seireitei skyline)
+and a soft "reishi barrier" boundary with a visual shimmer.
+
+<!-- MAP_LIST_SECTION -->
 
 ---
 
@@ -798,7 +832,8 @@ Perf overlay always available (F3).
 | # | Decision | Why |
 |---|---|---|
 | D1 | `WebGLRenderer` (WebGL2), not `WebGPURenderer` | Mature, post libs verified, works headless for my screenshot loop. Revisit at M10. |
-| D2 | World 0.125 m, props 16–24/m, characters 48/m | Look-dev comparison (`docs/research/lookdev/01–03`). |
+| D2 | World 0.125 m, props 16–24/m, characters 48/m | Look-dev comparisons (`docs/research/lookdev/01–04`): 0.25 m world reads as Minecraft; at 32/m character eyes vanish, at 48/m they read. |
+| D2b | Faces/emblems authored as voxel-space pixel art; hair from connected clumps | Rasterising tiny metric features is unreliable; naive spikes left floating voxels (`04`). |
 | D3 | Greedy meshing + vertex AO (not raymarching) | Integrates with three's lighting, shadows, post; proven in look-dev. |
 | D4 | `BatchedMesh` for chunks | Thousands of chunks in a handful of multi-draw calls (`WEBGL_multi_draw` available, even in SwiftShader). |
 | D5 | Rapier 0.21 voxel colliders + custom debris particles | Native voxel shapes for chunks/fragments; particles too numerous for rigid bodies. |
