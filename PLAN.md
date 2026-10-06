@@ -543,7 +543,7 @@ Heights in dossiers are given at 32 voxels/m (brief) — multiply by 1.5 for the
 | Hollow Ichigo | A | W1 | white Shikai/Bankai, lizard body, monochrome Full Hollow | flail-chain Zangetsu, horn Cero, "King and Horse" passive |
 | Rukia Kuchiki | S | W1 | sealed, Sode no Shirayuki dances, Hakka no Togame (TYBW) | absolute-zero freeze, Kidō specialist |
 | Uryū Ishida | S | W1 | Kojaku, Ginrei Kojaku, Letzt Stil, Seele Schneider, Sternritter "A" | Heilig Pfeil rain, Sklaverei, The Antithesis |
-| Orihime Inoue | A | W1 | Shun Shun Rikka | Santen Kesshun shields, **Sōten Kisshun restores destroyed voxels** |
+| Orihime Inoue | A (needed early) | W1 | Shun Shun Rikka, six fairies, Rokuten Shishun (anime) | Santen Kesshun shields, **Sōten Kisshun restores destroyed voxels, limbs and weapons** |
 | Yasutora "Chad" Sado | A | W1 | right arm → both arms → Fullbring arms | El Directo / La Muerte, Diablo arm |
 | Kisuke Urahara | S | W1 | cane sword, Benihime, Kannonbiraki Benihime Aratame | Kidō master, gadgets, restructure (rebuild matter) |
 | Yoruichi Shihōin | S | W1 | Onmitsukidō, Shunkō, Raijin Senki, Raijū Senpū (TYBW), cat form | Flash-goddess speed, Hakuda |
@@ -623,10 +623,11 @@ Heights in dossiers are given at 32 voxels/m (brief) — multiply by 1.5 for the
 | Lille Barro | A | W4 | X-Axis pierce-everything shots, Jilliel / God form |
 | Askin Nakk Le Vaar | A | W4 | lethal-dose poison, Gift Ball, Gift Bereich |
 | Pernida Parnkgjas | A | W4 | the Left Arm of the Soul King, nerves |
-| Gremmy Thoumeaux | A | W4 | The Visionary imagination menu (meteors, liquid floor, copy fighters) |
-| Bazz-B, Bambietta, Quilge, Äs Nödt, Candice, Liltotto, Giselle, Lloyd twins | A | W4 | Burner Finger · everything-becomes-a-bomb · Sklaverei & Jail · fear · chain lightning · **eats terrain** · zombifies roster characters · **copies any roster character** |
-| Cang Du, Mask De Masculine, NaNaNa, Driscoll, BG9, Meninas, Robert | B | W4 | iron skin · Superstar · Underbelly · stolen Sasakibe Bankai · machine · world-chunk throwing · rifle |
-| PePe, Nianzol, Berenice, Jerome, Shaz, Ebern | C | W4 | love control · deflection · objections · roar ape · regen · prologue boss |
+| Gremmy Thoumeaux | A (S-candidate) | W4 | The Visionary: ~30-entry imagination menu (meteors, liquid floor, "bones made of cookies", clones), Focus meter |
+| Bazz-B, Bambietta, Quilge, Äs Nödt, Mask De Masculine (+ James) | A | W4 | Burner Finger 1–4 escalation · **bomb-tag anything** (voxel chunks too) · Sklaverei arena absorption & Jail, Vollständig Piskiel · line-of-sight fear · cheer-powered life link |
+| Candice, Liltotto, Giselle, Lloyd twins | A | W4 | chain lightning · **eats terrain and attacks** · zombifies roster characters · **copies any roster character (model + kit)** |
+| Cang Du, BG9, PePe, Meninas, Robert | B | W4 | iron skin · tendrils · love control (turns Zanpakutō on owners) · cuts & throws world chunks · rifle |
+| Driscoll, NaNaNa, Nianzol, Berenice, Jerome, Shaz, Ebern | C | W4 | stolen Sasakibe Bankai (purple) · weak-point overlay · deflection · objections · ape roar · regen · prologue boss |
 
 **Royal Guard, Hell & others** — `I-zero-division-and-others.md`
 | Character | Tier | Wave | Signature systems |
@@ -723,7 +724,27 @@ Hollow Ichigo ships separately (A tier) on the same rig with an inverted palette
   Unohana, Hanatarō), shield timing (Santen Kesshun), tag-swap logic for AI partners.
 - **Hordes:** Hollows are lightweight agents (simplified state machines, staggered updates, 60 active budget).
 
-<!-- BESTIARY_SECTION -->
+### 12.2 Bestiary (full spec: `docs/roster/F-arrancar-and-hollows.md` §B)
+| Tier | Class | Size / density | Archetypes | First wave |
+|---|---|---|---|---|
+| T0 | Vermin (swarm) | 0.3–1.5 m, 32/m | Hueco Mundo critters | W2 |
+| T1 | Lesser Hollow | 2–6 m, 16–32/m | Brute, Biter, Hexapod, Demi-Hollow | **W0** |
+| T2 | Named-class (one gimmick) | 3–10 m, 16/m | Shrieker-type, Acidwire-type, Puppeteer, Lurer (Grand Fisher), Possessor (White) | W1 |
+| T3 | Huge Hollow / colossus | 10–35 m, 8/m | Huge Hollow, Sand Colossus (Runuganga) | W2 |
+| T4 | Menos Grande: Gillian | ~36 m (±20 %), 4/m (mask & hands 8/m) | Gillian, unique-mask Gillian, split Menos | **W0** (boss) |
+| T4+ | Carrier | ~120 m, 2/m | Hooleer (Wonderweiss's mount, disgorges Gillians) | W2 |
+| T5 | Adjuchas | 2–12 m, 16–32/m | 10 templates, Gillian commanders | W2 |
+| T6 | Vasto Lorde | 1.6–2.5 m, 32/m | multi-bar bosses | W2 |
+| Army | Calavera (Exequias) | 1.72 m | Rudbornn's skull soldiers | W2 |
+
+Shared rules: masks are sub-models with HP and crack stages (a clean cut through the mask kills T0–T2; cracks reveal
+the human face; unsplit masks regrow); the Hollow hole is a real hole projectiles pass through; acidic grabs;
+soul extraction from NPCs; regrowing limbs unless burned/frozen; **death router** (Zanpakutō → purification with a
+brief Plus, Quincy → annihilation, sinner → Gates of Hell event, Hollow killer → may eat the remains);
+**reiatsu-radar AI** (flares attract Hollows, weak ones cower before captain-level pressure), cannibalism and
+**merging into a Gillian**, leaders that command Gillians, retreat into rifts. Arrival systems: Garganta tears,
+Kūmon sky cracks (Gillian fingers prying the sky open), rift-wrap retreat, Negación extraction pillars, sand
+emergence, Hollow Bait events, Demi-Hollow transformation, Carrier disgorge, Calavera fruiting.
 
 ---
 

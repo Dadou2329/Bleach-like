@@ -949,4 +949,227 @@ Battle_in_Fugai_Forest · The_Hollowfication_Incident.
 - **Post-war / Hell arc.** Rebuilt Seireitei; Konsō Reisai at a captain's grave with floating **Jigoku no Rinki**
   black blobs (harmless until cut — then acid splash).
 
+---
+
+## 8. Hueco Mundo (虚圏)
+
+**Canon (world).** The Hollows' realm, between the Human World and Soul Society, one of the Three Worlds (the
+"paradise of sand"). **Unchanging night**; an **endless white desert** of dunes, boulders and rock formations;
+the "trees" are **quartz-like minerals**, not plants; no visible water. Its moon is always in the **opposite
+phase** to the Human World's moon. The air is reishi-rich, so weak Hollows can feed on it. Most Hollows live
+**below the surface** until something draws them out. No government — the strongest rules (a currency exists
+nowadays). Reached through the **Garganta**. Known sites: **Las Noches**, the **Forest of Menos** below the
+desert, and the **Negal Ruins** (Urahara's base in TYBW).
+
+### 8.1 The White Sands (desert) — `hm_desert`
+**Story stages.** Ichigo, Chad and Uryū arrive through Urahara's Garganta and meet Nel, Pesche, Dondochakka and
+Bawabawa (sand-worm ride) · **Runuganga**, "Guardian of the White Sands" (sand giant with a sand-castle head:
+sinkholes, sand tornadoes, endless reforming; only water/ice kills it — Rukia's *Hakuren*) · Adjuchas skirmishes ·
+TYBW: the Jagdarmee hunting Arrancar; Tres Bestias vs Quilge; **Ichigo & Ayon vs Quilge Opie** (Quilge's
+*Jail* cage) · Orihime & Chad training at the Negal Ruins · the Lanza del Relámpago explosion from the dome fight
+lands out here.
+
+**Must-haves.** Blinding white sand under a black sky · crescent moon · quartz trees · white boulders and mesas ·
+Las Noches' dome dominating the horizon.
+
+**Scale.** Canon: endless. Game: **384 × 128 × 384 m @0.25**, desert backdrop ring (dune silhouettes) and the
+Las Noches impostor (dome ~600 m wide) 2–3 km away.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Sky | `#050608` | horizon `#10131C` |
+| Moon | `#F3EFD9` | halo `#D9D6C3` |
+| Sand | `#EEECE6` | `#D9D7D2`, cool shadow `#C3C6CF`, crest `#FAFAF8` |
+| Boulders / mesas | `#C8C5BE` | `#A9A69F` `#DEDBD4` |
+| Quartz trees | `#E4E9EE` | `#C6CED8`, glints `#FFFFFF`, faint inner blue `#BFD3E6` |
+| Sand dust clouds | `#E8E6E0` | — |
+| Hollow bones (props) | `#EDE6D6` | `#CFC5B0` |
+
+**Light / sky.** Moon as key light (cool `#CFE0FF`, low elevation 25–35°, long blue-black shadows); sky ambient
+near-black `#0A0E18`; strong ground bounce from white sand (hemisphere ground `#8E8C88`) so the floor reads
+bright against the sky; distance fog `#0C0F16`; stars absent or extremely sparse (uncertain — keep it empty).
+Ambience: wind hiss, sand trickles, distant Hollow howls, nothing else. Optional sandstorm weather (`design`).
+
+**Generator** (`maps/hm_desert/generator.ts`)
+1. **Layout.** Wind vector → transverse/barchan dune field; rock outcrops (Poisson, 60–120 m apart); quartz
+   groves (clusters of 5–20 within 30–60 m, biased near "vents" where Menos Forest trunks breach); 0–2 ruins;
+   sinkhole sites; a Garganta arrival point.
+2. **Terrain.** Ridged noise along the wind (wavelength 60–200 m, amplitude 5–25 m) + ripple pattern; 8–20 m of
+   `sand_white` over uniform `rock_hm`; optional Hollow burrows (tunnels Ø 3–6 m) under dunes.
+3. **Structures.** Mesas 10–40 m (flat tops, strata), boulders 2–15 m, ruins (broken white columns Ø 1.5 m ×
+   6–15 m, stair fragments, wall stubs half-buried).
+4. **Props / quartz grammar.** Trunk = hexagonal or square prism 1–3 m wide, straight segments 2–5 m, kinks of
+   15–40° at nodes; 2–4 thinner branches per node, ending in crystal points; 6–30 m tall; no leaves. Giant
+   bone props (Menos ribcages 20–40 m, `design`).
+5. **Set pieces.** Garganta tear; **Runuganga basin** (Ø 60 m sinkhole, tornado spawners); **Quilge's Jail**
+   (cage of blue reishi bars `#79C6FF`, `construct`); **Negal Ruins** camp (pillars, stairs, monitors);
+   TYBW Jagdarmee camp (white tents with five-point crosses, `design`).
+6. **Weathering.** Sand drifts on windward faces; ripples re-form slowly after combat (`design`).
+7. **Bake.** Horizon dunes, Las Noches impostor, spawns.
+
+**Spawns.** `garganta_exit`, `ruins_center`, `dune_crest_1..4`, `quartz_grove`.
+
+**Destruction.** Sand = granular CA: craters slump to 34°, blasts throw dust curtains (visibility drop),
+giants raise sand waves; boulders/mesas carve normally; quartz shatters into glittering shards (no bending);
+very hot attacks (Cero, Ryūjin Jakka) fuse sand into glassy patches `#BFC7C9` (`design`).
+
+**Performance.** 48 × 48 × L≈1.5 → ~3.5k chunks ≈ 110 MB. Sand CA only in disturbed regions.
+
+**Gameplay hooks.** Hollows burst out of the sand (ambush spawns); sinkholes drop players into
+`menos_forest`; **Las Noches mirage** — running toward it barely shrinks the distance until a scripted arrival
+(canon: Ichigo suspects an illusion; Nel says crossing to a gate takes ~3 days); the moon phase is the inverse
+of the Karakura map's (`design` link).
+
+**Sources.** wiki/Hueco_Mundo · Template:HuecoMundoLocations · Runuganga · Ichigo_Kurosaki_&_Ayon_vs._Quilge_Opie ·
+Wandenreich_vs._The_Arrancar · Royal_Training (Negal Ruins).
+
+### 8.2 Forest of Menos (メノスの森) — `menos_forest`
+**Canon.** A region **below the desert** where ordinary Hollows hide from the Arrancar; full of huge **silvery
+quartz trees** whose tops reach the surface. Countless **Gillian** obey Adjuchas guardians under Aizen's
+command. In the anime, Runuganga's sinkhole drops the group here, they meet the stranded Shinigami **Ashido
+Kanō**, fight the guardians, and escape through a **long narrow crack in a cliff** that is sealed behind them.
+The arc was planned for the manga but cut for time (so its look is `anime-only`).
+
+**Build (est.).** 256 × 128 × 256 m @0.25 · floor of dark sand · ceiling 80–110 m up = the underside of the
+desert crust, with cracks where moonlight shafts and sand falls pour in · giant quartz trunks Ø 6–20 m, 25–40 m
+apart, branching near the top and fusing into the ceiling · cliff walls at the edges with Adjuchas nest caves and
+the escape slit (2 × 30 m) · Gillian 40–60 m tall (est.; build at 4–8 vx/m).
+
+**Palette (est.).** ambient `#1A1C22`; floor `#3A3C42` → `#2C2E33`; trunks `#B9C2CC` with faint emissive edges
+`#DCE6F0`; mist `#5A5F6B` α 0.3; moon shafts `#CFE0FF`; Gillian black `#141414` with white masks `#EDEDED`.
+
+**Hooks.** Gillian volleys of Cero from the dark; guardians (Teres Holcan & co., `anime-only`); fall in from
+the desert, escape through the slit. **Performance:** ~4.2k chunks ≈ 135 MB (trunks dominate; cap at 25).
+
+**Sources.** wiki/Forest_of_Menos · Guardians_of_the_Forest_of_Menos · Ashido_Kanō · Runuganga.
+
+### 8.3 Las Noches (虚夜宮) — exterior & dome rooftop — `lasnoches_dome`
+**Canon.** Once **Baraggan's** castle with **no roof or walls** (he called the sky his ceiling). Aizen turned it
+into a fortress visible for miles: a **main building with a domed centre**, ringed by **several large towers
+and smaller buildings**, all **white**. **Five smaller towers stand on top of the dome** (throne rooms, the Espada
+meeting hall; Aizen's rooms are in the **5th tower**, where Orihime is also held). It is as big as the Seireitei
+or bigger — Ichigo's group runs toward it to exhaustion without seeming to get closer, and Nel says getting from
+one spot to a gate takes about three days. The dome's inside simulates a **blue sky**. The halls can be
+rearranged by whoever controls them. Its walls are **not Sekkiseki**. Laws: Espada ranked 4 and above may not
+**release** inside, and no Espada may fire a **Gran Rey Cero** inside. After Aizen's defeat, the Wandenreich
+conquest leaves **more than half of it in ruins**, with a Jagdarmee camp.
+
+**Story stages (rooftop & exterior).** **Ichigo vs Ulquiorra, final fight:** Ichigo crashes up through the floor
+of the 5th tower into Orihime's room → they wreck pillars and floors (Uryū mines the floor below, Yammy falls
+through) → Ulquiorra climbs the tower face and **blasts through the dome** → on the roof, among the rooftop
+towers, Ulquiorra releases (forbidden inside), towers lose their tops, Ichigo is hurled through tower walls →
+**Segunda Etapa**; the **Lanza del Relámpago** explodes in the desert taller than the fortress → Hollowfied Ichigo
+fires a Cero down **through the dome**, a pillar of energy to the ground. Uryū brings Orihime up to the hole on a
+reishi platform. Elsewhere: Ulquiorra's **Cero Oscuras** destroys a large part of the dome (wiki: "half").
+
+**Must-haves.** Immense white dome under black sky and moon · the five rooftop towers · a hole in the dome
+**glowing with the fake blue sky below** · desert horizon.
+
+**Scale (est.).** Canon: city-sized. Game: drum radius 280–320 m, drum wall 50–70 m tall, dome cap rising another
+80–110 m (apex ~150–170 m above the sand; cap sphere radius ≈ 540 m). Shell 1.5–2 m thick (6–8 vx) with
+internal ribs (meridians + parallels, 3 m deep, every ~25 m). **Rooftop towers** (`design` arrangement): the
+5th tower near the apex + four at ~60 % radius; 18–24 m square, 50–100 m above the shell, slit windows, flat
+rimmed tops. **Outer towers**: 4–8 around the drum, 30–40 m wide, 120–200 m tall. The playable rooftop is a
+256 × 192 × 256 m sector at the crest; the rest of the dome is a LOD backdrop.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Dome / towers (moonlit) | `#F0EEE9` | `#D8D8D6` `#A9AEB8` |
+| Window slits / interiors | `#1A1C22` | `#2A2D35` |
+| Inner fake sky (seen through holes) | `#7FB6E6` | clouds `#FFFFFF`, horizon `#CFE6F5` |
+| Night sky / moon | `#050608` / `#F3EFD9` | — |
+| Orihime's cell | walls `#F2F0EB`, rug `#7A2E2E` with `#C9A45C` pattern | — |
+
+**Light.** Moon key (cool, low) + strong rim light on edges; **upward light leaking from holes** (`#BFE3FF`,
+emissive inner face of the shell) — the defining shot of the stage.
+
+**Generator** (`maps/lasnoches_dome/generator.ts`)
+1. **Layout.** Choose the sector; place the 5th tower + 2 others in-bounds; outer towers and desert as backdrop.
+2. **Terrain.** None in-bounds (shell is the ground); 60–80 m of air below the shell, then the low-res interior
+   (sand + tower tops) for the view through holes.
+3. **Structures.** Shell SDF = sphere cap ∩ drum; ribs on the inside; towers with floors every 6 m and stairs;
+   the 5th tower interior: Orihime's cell (10 × 8 m, tall window with the crescent moon, Middle-Eastern-style rug
+   facing outward), Aizen's rooms, pillared hall levels.
+4. **Props.** Rubble, rails along tower tops (`design`), Uryū's Seele Schneider mines (story).
+5. **Set pieces.** **Breach event** (a 20–30 m hole carved by a `bore` from below); **Cero Oscuras sector delete**
+   (scripted massive carve + panels falling inward); Lanza explosion VFX in the desert backdrop.
+6. **Weathering.** Clean white; hairline cracks after damage.
+7. **Bake.** Spawns; interior impostor through holes; light probes along the crest.
+
+**Spawns.** `hole_edge`, `tower5_top`, `tower5_cell`, `towerA_top`, `crest`.
+
+**Destruction.** Shell archetype (§4): panels fall inward when their ribs are cut; standing on the dome is
+always safe; towers = slender archetype (tops shear off). Material `ln_shell` H 110 (holes take real power), towers
+`ln_stone` H 90.
+
+**Performance.** ~3.6k chunks ≈ 115 MB.
+
+**Gameplay hooks.** **Release rule**: inside the dome, Espada 0–4 releases and Gran Rey Cero are locked (AI and
+story); on the roof they unlock — encourages the canon "take it outside" moment.
+
+### 8.4 Las Noches interior under the fake sky — `lasnoches_interior`
+**Canon.** Beneath the dome lies an inner world of **white sand under a simulated blue sky** with **towers** rising
+from the sand. Grimmjow and Ichigo fight **on top of towers** (Grimmjow blows tower tops apart with Garra de la
+Pantera; his Gran Rey Cero gouges a trench in the sand); Kenpachi vs Nnoitra happens on the sand among tall
+buildings (Kenpachi smashed into a building's side; Nnoitra slices its top off onto him; Yachiru perches on a
+broken, tilted pillar); Byakuya vs Zommari; Aizen's captains-vs-Espada farewell; Yammy's rampage. Aaroniero claims
+the sky lets Aizen watch everywhere — but he himself flees the light when a wall breaks open.
+
+**Build (est.).** 320 × 160 × 320 m @0.25 · fake-sky dome overhead (inner face of the shell, emissive gradient) ·
+low dunes (amp 2–5 m) · **12–15 towers** (square, round or stepped; 10–25 m wide; 40–150 m tall; flat roof
+platforms; slit windows; some hollow with stairs) placed by Poisson disc (min 35 m) with lognormal heights ·
+1–3 Espada palaces in view (white blocky complexes with colonnades and small domes) · corridor mouths in the
+drum wall.
+
+**Palette.** Sand and stone as §8.1/§8.3 but **daylit**: sand `#F4F2EC`, shadows warm-grey `#CFCBC2`; sky
+`#7FB6E6` → `#CFE6F5`, clouds `#FFFFFF`.
+
+**Light.** A warm-white directional light (`#FFF8EA`, 45°) **without a visible sun disc** (canon unclear —
+`design`), bright ambient from the sky dome, crisp shadows; feels uncanny compared with the black world outside.
+
+**Hooks.** Aaroniero's palaces are dark: any hole that lets "sky light" in cancels his abilities in the lit area
+(light/shadow zones). The interior sky is part of the shell → breaking through shows real black night.
+
+**Performance.** ~4.6k chunks ≈ 150 MB with 15 towers ≤ 20 m wide (hollow shells).
+
+### 8.5 Las Noches halls, Tres Cifras & palaces — `lasnoches_halls`
+**Canon rooms (illustrated guide).** Entrance · **Tres Cifras** (home of the demoted *Privaron Espada*, areas in
+wildly different styles: **Dordoni's**, **Cirucci's**, **Gantenbainne's**) · Starrk's resting room · Harribel's
+palace · Nelliel's former residence · Zommari's meditation room · **Szayelaporro's palace & lab** · **Aaroniero's
+palace** (dark) · the Palace of the Espada · **two throne rooms** · Aizen's rooms (5th tower) · **Tōsen's and
+Gin's control rooms** (monitors; they move the halls to steer intruders) · **Orihime's cell** · Espada
+meeting room (long table) · medical facilities and detention wings.
+
+**Story stages.** Ichigo vs **Dordoni** · Chad vs **Gantenbainne** (then cut down by Nnoitra) · Uryū vs
+**Cirucci** · Rukia vs **Aaroniero** · Renji & Uryū vs **Szayelaporro** → Mayuri vs Szayelaporro · Ichigo vs
+Ulquiorra (first fight: corridor → a Cero blasts Ichigo through the wall onto the sand) · Loly & Menoly vs Orihime,
+Grimmjow's rescue.
+
+**Corridor kit (est.).** Straight halls 8–12 m wide × 10–14 m tall, square pilasters every 6 m, polished white
+floor `#E6E4DF`, ceiling slits letting in fake-sky light or cold panel light `#F7F7F2`; junctions, long stairs,
+massive slab doors; halls 40–80 m. **Throne room:** 80 × 40 m, 40 m ceiling, colonnade, throne atop a tall
+stepped dais (~20 m). **Lab:** tubes, specimen tanks (`#7FE0C0` liquid), consoles. **Dordoni's area:** bright hall
+with a monumental staircase (est.). Each hall is its own 128 × 48 × 128 m arena @0.125.
+
+**Generator.** Room catalogue + corridor graph (A* between rooms on a 6 m grid, then widen); **reconfiguration
+set piece**: corridor segments are kinematic voxel blocks that slide/rotate when an operator triggers them
+(dynamic maze; crushers if you stand in the seam — `design`).
+
+**Destruction.** `ln_stone` (not Sekkiseki) — fully breakable; breaking an outer wall can open onto the sand
+under the fake sky.
+
+### 8.6 Hueco Mundo variants
+- **Baraggan-era Las Noches** — open-air palace with no roof or walls; bone throne on a dais; Baraggan's army of
+  Hollows; flashback stage (Aizen's arrival).
+- **Ruined Las Noches (TYBW)** — more than half the structure in ruins, Jagdarmee tents, Soldat patrols, captured
+  Arrancar; Quilge vs Tres Bestias, Ichigo & Ayon vs Quilge (the *Jail* cage), Harribel's capture.
+- **Negal Ruins (TYBW)** — broken pillars and stairs where Urahara sets up camp; Orihime rests against a pillar
+  while Chad trains.
+
+**Sources.** wiki/Las_Noches · Template:LasNoches · Ichigo_Kurosaki_vs._Ulquiorra_Cifer (+Final_Fight) ·
+Ichigo_Kurosaki_vs._Grimmjow_Jaegerjaquez:_Final_Fight · Kenpachi_Zaraki_vs._Nnoitra_Gilga · Aaroniero_Arruruerie ·
+Ulquiorra_Cifer · Cero_Oscuras · Las_Noches/Image_Gallery captions.
+
 <!-- LOCATIONS_BODY -->
