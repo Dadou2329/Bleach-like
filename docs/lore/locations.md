@@ -598,7 +598,7 @@ execution pits, now garbage dumps) exist — Ganju nearly falls into a deep pit 
 | | Chad vs **Shunsui** | open plaza (est.) |
 | | Ichigo vs **Renji** (2nd fight) | **steps up to the Senzaikyū compound**, then rooftops |
 | | Ichigo vs **Kenpachi** | walled corridors around the Senzaikyū precinct |
-| | Hitsugaya vs **Gin** (Hinamori vs Kira first) | rooftops; the **East Holy Wall** where Aizen's fake corpse hung |
+| | Hinamori vs **Kira** → Hitsugaya vs **Gin** | the **East Holy Wall** where Aizen's fake corpse hung (Hinamori's discovery), then nearby rooftops |
 | | Kenpachi vs **Tōsen & Komamura** | streets → Tōsen's Bankai dome |
 | | Renji vs **Byakuya** (Bankai debut) | under an archway on the way to the hill |
 | | Aizen vs Hitsugaya | Central 46 compound / Seijōtōkyorin |

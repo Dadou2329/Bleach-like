@@ -1036,7 +1036,7 @@ Vollständig…) + **personal kit** (dossier). The race layer fills any control 
 | **Energy projectiles** | Hadō Kidō; Zanpakutō techniques | **Cero**, **Bala**, Gran Rey Cero, Cero Oscuras | Cero + amplified Kidō | **Heilig Pfeil**, Seele Schneider, Gintō spells | Object-specific |
 | **Energy colors** | Personal Reiatsu + fixed Kidō colors | Crimson Cero default + personal colors | Personal Cero colors | Light blue (traditional); Vollständig personal colors | Green |
 | **Sensing** | Reikaku (Reiatsu perception); B58 tracker, B77 broadcast | **Pesquisa** pulse; Indice Radar | Shinigami sense; signature flips to Hollow when masked | Acute Reiatsu perception; Vollständig sees through concealment if stronger | Sense Reiryoku |
-| **World travel** | Senkaimon + Jigokuchō (else the Dangai) | **Garganta** (Kūmon / Descorrer); Negación rescue | Both (Tōsen opened Garganta) | **Shadow** (Wandenreich gift) | — |
+| **World travel** | Senkaimon + Jigokuchō (else the Dangai) | **Garganta** (Kūmon / Descorrer); Negación rescue | Senkaimon (Hollowfied Tōsen could also open Garganta) | **Shadow** (Wandenreich gift) | — |
 | **Healing** | Kaidō | HSR; Resurrección heals on activation | (Tōsen/Ichigo-Hollow HSR) | Sklaverei heals minor wounds; Blut Vene stops bleeding | — |
 | **Forms** | Shikai → Bankai (+ Shunkō, limiter release) | Resurrección → Segunda Etapa; partial / permanent release | Hollow mask (+ Bankai), Hollow forms | Letzt Stil (one-shot) / Vollständig (+ Sklaverei) | Fullbring stages |
 | **Classic weaknesses** | Wrist vents sealed; Saketsu/Hakusui pierced; decapitation | Head/organs (HSR can't fix); Quincy arrows destroy outright | Mask time limit; fear blocks the mask | Hollow Reiatsu is poison; Reishi-poor areas; Auswählen | Stamina; object loss |
@@ -1373,7 +1373,7 @@ Related: Aizen's **Fragor** (Hōgyoku form) resembles a Cero; Ginjō's anime "en
 | Method | User | Canon | Implementation |
 |---|---|---|---|
 | **Kūmon** (空門, "air gate") | Gillians, Menos | Tearing the barrier between worlds — a spatial distortion | Sky cracks open in a ragged rift; Gillian spawner. |
-| **Descorrer** (解空, "untie the sky"; Sp. "draw back") | Espada-level Arrancar | A simple hand gesture opens a stable Garganta they can just walk into; it closes neatly behind and reopens at the destination | X/F ability: 1 s gesture → black rift with jagged, tooth-like edges (anime look — proposal) slides open; walk in → reposition/escape. |
+| **Descorrer** (解空, "untie the sky"; Sp. "draw back") | Espada-level Arrancar | A simple hand gesture opens a stable Garganta they can just walk into; it closes neatly behind and reopens at the destination | X ability: 1 s gesture → black rift with jagged, tooth-like edges (anime look — proposal) slides open; walk in → reposition/escape. |
 | **Keikaigi** (Kidō, KU06) | Urahara | Ritual portal between two wooden posts | story portal |
 | Device | Mayuri + Nemu | Captured Hueco Mundo tech, two operators | story portal |
 | **Garganta Broadcast** | Ulquiorra | Several small Garganta used as screens to show distant fights | picture-in-picture UI / cutscene |
@@ -1445,9 +1445,9 @@ motifs. Arrancar given a Quincy Cross can form Spirit Weapons and use Shadow (Wa
 | Q | **Bala** (tap single / hold barrage) | |
 | E | **Cero** (hold charge, release; sweep) | fire point per dossier |
 | R | **Pesquisa** (tap pulse / hold meditative) | Nnoitra: Indice Radar |
-| F | **Descorrer** (Espada) — open Garganta to reposition/escape | Números: none |
+| F | **Gran Rey Cero** (Espada; blood-mix) | forbidden in Las Noches |
 | Z | Grab/throw; vs. a hole-bearing foe: **Caja Negación** (Espada only, item) | beasts: **devour** (bite heals) |
-| X | **Gran Rey Cero** (Espada; blood-mix) | forbidden in Las Noches |
+| X | **Descorrer** (Espada) — open a Garganta to reposition/escape (travel stays on X for every race) | Números: none |
 | G | **Hierro boost** or **partial release** (claws etc.) | |
 | C (hold) | Reiatsu flare (Hollow type; Espada release → "primal fear" on weaker Arrancar) | |
 | T / hold T | **Resurrección** (heal) → Segunda Etapa · hold = reseal | |
@@ -1810,7 +1810,7 @@ Zeichen (five-point star) motifs; German naming. Sharp Reiatsu senses. Hollow po
 | Character / case | Layers | Shift used |
 |---|---|---|
 | **Ichigo Kurosaki** | Shinigami + Visored (Hollow) + Quincy (Blut Vene, subconscious; Old-man Zangetsu) + Fullbring (Fullbring arc) | Shunpo; Sonído in Hollow forms; Bringer Light in Fullbring forms |
-| **Kaname Tōsen** | Shinigami + Hollowfication + Resurrección + HSR; can open Garganta | Shunpo / Sonído (listed as a Sonído user) |
+| **Kaname Tōsen** | Shinigami + Hollowfication + Resurrección + HSR; can open Garganta at will | Shunpo / Sonído (listed as a Sonído user) |
 | **Arrancar with a Quincy Cross** (Wandenreich recruits) | Arrancar + Spirit Weapons + Shadow | Sonído |
 | **Mayuri Kurotsuchi** | Shinigami + gadgets (Hirenkyaku shoes, Garganta device, Kidō) | Shunpo / Hirenkyaku (shoes) |
 | **Kūgo Ginjō** | Fullbringer + Substitute Shinigami powers (anime shows a magenta Cero-like beam) | Bringer Light |
