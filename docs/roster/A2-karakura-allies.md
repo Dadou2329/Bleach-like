@@ -235,7 +235,7 @@ Conventions used below
   - **Energy:** El Directo white core `#F8FDFC`, cyan `#DDF6F5`, steel edge `#849DAB` · La Muerte fingertip discs `#EFF9F9` with crackling arcs `#9CC8FF` · TYBW La Muerte skull apparition bone `#E8E4DC` · reiatsu white-cyan `#DDF6F5` with a darker, Hollow-like edge `#2D353D` (est.).
 - **Look by form/outfit:**
   - **Classic (school):** Karakura High uniform (open jacket) or flashy open-collared short-sleeved shirts; wavy hair over the eyes; pendant.
-  - **Soul Society:** shirt sewn by Uryū (est. design) with the first-form arm.
+  - **Soul Society:** casual travel clothes with the first-form arm (after the arc Uryū sews him and Orihime replicas of the outfits they invaded in — design details not captured here, verify against ep.20–60 frames).
   - **Hueco Mundo:** black long-sleeved shirt with the rose emblem on the left sleeve, light trousers.
   - **Lost Agent (17 months later):** small goatee + stubble, darker shadowing; casual shirts; arms in their true forms.
   - **TYBW:** casual green floral henley + jeans + boots; battle outfit = open white jacket with maroon chevrons, bare chest, pendant.
