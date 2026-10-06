@@ -572,14 +572,15 @@ Heights in dossiers are given at 32 voxels/m (brief) — multiply by 1.5 for the
 | Uryū Ishida | S | W1 | Kojaku, Ginrei Kojaku, Letzt Stil, Seele Schneider, Sternritter "A" | Heilig Pfeil rain, Sklaverei, The Antithesis |
 | Orihime Inoue | A (needed early) | W1 | Shun Shun Rikka, six fairies, Rokuten Shishun (anime) | Santen Kesshun shields, **Sōten Kisshun restores destroyed voxels, limbs and weapons** |
 | Yasutora "Chad" Sado | A | W1 | right arm → both arms → Fullbring arms | El Directo / La Muerte, Diablo arm |
-| Kisuke Urahara | S | W1 | cane sword, Benihime, Kannonbiraki Benihime Aratame | Kidō master, gadgets, restructure (rebuild matter) |
-| Yoruichi Shihōin | S | W1 | Onmitsukidō, Shunkō, Raijin Senki, Raijū Senpū (TYBW), cat form | Flash-goddess speed, Hakuda |
+| Kisuke Urahara | S | W1 | cane sword, Benihime, Kannonbiraki Benihime Aratame | Kidō master, gadget wheel, **restructure** (open bodies/buildings along seams and sew them back), analyse-and-cancel counters, time-stop volume |
+| Yoruichi Shihōin | S | W1 | Onmitsukidō, Shunkō, Raijin Senkei, Raijū Senpū beast form (TYBW), cat form | Flash-goddess speed, Hakuda, Hanki Kidō cancel, adaptation-proof cycling reiatsu |
 | Isshin Kurosaki | A | W3 | doctor, Shinigami, Engetsu (Bankai locked) | fire Getsuga, flow-freeze field |
 | Kon | B | W3 | plushie, Kon-in-body, Muscle Kon, Karakura-Raizer | body piloting, co-op hook |
-| Kaien Shiba | B | W3 | Nejibana | water trident |
-| Tessai Tsukabishi | B | W3 | Kidō master | forbidden Kidō, barriers |
-| Kūkaku / Ganju Shiba | C | W1–W3 | — | fireworks cannon / sand, Bonnie the boar |
-| Jidanbō | C | W1 | gatekeeper giant | giant NPC boss at the West Gate |
+| Kaien Shiba | B | W3 | Nejibana; Metastacia-possessed boss variant | water trident, moving water waves |
+| Tessai Tsukabishi | B (A if the Kidō library lands early) | W3 | Kidō master | forbidden Kidō, barriers, seals |
+| Kūkaku Shiba | B | W3 | fireworks, Flower Crane Cannon | cannonball ride set piece (one rides, one steers) |
+| Ganju Shiba (+ Bonnie) | B | W1 | sand, fireworks | voxels → flowing sand, boar mount |
+| Jidanbō Ikkanzaka | C | W1 | gatekeeper giant | West Gate boss / NPC, lifts the gate |
 | Ryūken Ishida | B | W4 | Quincy | Heilig Pfeil precision |
 
 **Gotei 13 captains** — `B1-captains-1.md`, `B2-captains-2.md`, `B3-captains-3.md`

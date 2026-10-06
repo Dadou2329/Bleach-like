@@ -411,7 +411,7 @@ rooftop: 1.5 m railing/fence, stair house, water tank · perimeter trees, 2 m fe
   Children's Park (Hexapodus attacked a Plus there). Pick Fureai as **"the park"** where Yammy and Ulquiorra
   crash down and where the later Garganta opens (`design` choice; canon only says "the park").
 - **Cemetery.** Terraced hillside with family graves, stone stairs, a small temple; Masaki's grave → Grand
-  Fisher stage in the rain.
+  Fisher stage.
 - **Shōtengai & station.** Covered arcade with banners and shutters; elevated Honchō station; the ~8-storey (est.)
   General Hospital beside it (Ryūken is director).
 
@@ -548,8 +548,8 @@ Karakura_Town/Image_Gallery captions.
 
 ### 6.9 The real Karakura on the Rukongai outskirts — `karakura_ss`
 **Canon.** While swapped, the real Karakura sits at the edge of the Rukongai. Aizen and Gin reach it through
-the Dangai but land "a little way off" because Aizen destroyed the Kōtotsu. Tatsuki, Keigo, Mizuiro, Chizuru
-and Don Kanonji wake up there; Gin turns on Aizen; Ichigo arrives from the Dangai and drags Aizen away from
+the Dangai but land "a little way off" because Aizen destroyed the Kōtotsu. Most townspeople sleep, but Keigo and
+Tatsuki wake up and Aizen hunts them; Don Kanonji steps in to shield Tatsuki; Gin turns on Aizen; Ichigo arrives from the Dangai and drags Aizen away from
 the town; their fight **cuts a mountain in half**, blasts a huge crater, and ends with **Mugetsu** plunging the
 land into darkness.
 

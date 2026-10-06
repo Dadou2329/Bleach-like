@@ -1998,7 +1998,7 @@ on Aizen). Control matters: superior Reiatsu can beat larger raw Reiryoku.
 
 | Zone | Rules |
 |---|---|
-| **Seireitei** | Seireiheki walls are `sekkiseki` (drop from the sky to seal the gates); the **Shakonmaku** dome vaporises low-density Reishi → no Shunpo/teleport/fly-in from outside unless RL ≥ 19 or via Kagizaki cannon; Sekkiseki cells drain Reiryoku; Senkaimon courtyard. Buildings are `reishi` (Quincy can drink them). |
+| **Seireitei** | Seireiheki walls are `sekkiseki` (drop from the sky to seal the gates); the **Shakonmaku** dome vaporises low-density Reishi → no Shunpo/teleport/fly-in from outside unless RL ≥ 19 (proposal; canon: only Reishi "of sufficient density" gets through) or via the Kagizaki cannon; Sekkiseki cells drain Reiryoku; Senkaimon courtyard. Buildings are `reishi` (Quincy can drink them). |
 | **Las Noches** | Espada ranked 4 or higher can't release inside; nobody may fire Gran Rey Cero (proposal: allowed but triggers a dome-collapse event + Aizen's displeasure); walls are **not** Sekkiseki (absorbable); the dome fakes a blue sky (lighting → shadows exist for Shadow teleport). |
 | **Hueco Mundo** | Reishi-dense: Quincy absorption ×2; feeds small Hollows; speeds Fullbring growth; sand/rock don't burn except with Reishi blue flames. |
 | **Human World** | Captains/lieutenants spawn **limited** (Gentei Reiin −2.3 RL, crest mark on the body) — G/V "Gentei Kaijo" release with a 3 s approval channel; mostly `kishi` (Quincy weak, Fullbringers strong); civilians present (ΔP ≥ 6 kills them — collateral matters); post-fight Kikanshinki memory cleanup. |
