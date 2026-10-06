@@ -305,7 +305,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
 - **Forms & states (ordered):**
   1. **Unarmed (only form)** — kicks.
   - **G: Henshin!** — instant mask with no hand gesture; special 15-hour gauge (§1.2).
-  - *Story/boss:* feral Hollowfied Mashiro.
+  - *Story/boss:* feral Hollowfied Mashiro. *Optional (ext.):* a controlled "Insect Legs" state on T (see kit).
 - **Abilities (complete):**
   - `Mashiro Kick (白キック)` — a front kick that chains into more kicks on several targets in a row; one kick breaks a Gillian's mask (masked). [MeleeArc: smash, multi-target dash]
   - `Mashiro Super Kick (白スーパーキック)` — crouch, then an explosive upward kick; one-shot Hooleer (giant Hollow) and crashed into Gerard's chest with Kensei **[anime-only]**. [MeleeArc: smash, launch] [Blast]
@@ -334,6 +334,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   - Q `Mashiro Kick` (dash kick that auto-chains to up to 5 targets) · E `Mashiro Drop Kick` (leap high, dive both feet: crater + interrupts beams/Cero charges on hit) · R `Face Slam` (grab the face, pile-drive into the ground) · F `Hero Pose` (taunt: brief super-armor + aggro pull, ext.) · Z `Sword Pin` (pins a downed target with her sheathed sword — her one canon sword use) [Bind] · X `Hop Kick` (mid-air double jump kick) → masked: **Mashiro Super Cero** (kicked arc beam).
   - V: masked → `Hooleer Buster` (charged Super Kick: deletes giant-class targets, massive damage otherwise); unmasked → Drop Kick → Super Kick chain.
   - **G:** *Henshin!* (instant). **C:** lime flare with a hero-pose stomp.
+  - **Optional T — "Insect Legs" (ext., story unlock after the Fugai Forest chapter):** a *controlled* version of her feral form (canon only shows it mindless): chitin insect legs over her own, 20 s duration then exhaustion. Grasshopper super-jump (Space charge), every kick craters, Drop Kick becomes a meteor, Shunpo becomes a long leap. Flag as non-canon; keep the feral version AI-only.
   - **Tab wheel:** not needed (small library).
 - **AI notes:** hyperactive and whiny; wants the last kill; kicks everything; **always poses after a knockdown** (2 s window); ignores warnings and keeps the mask on until it breaks; scarf damage triggers a tantrum-rush. With Kensei as a duo AI pair they bicker (barks) and he covers her when the mask breaks. Feral boss: leaping ambushes, crater kicks, long-range jumps between trees.
 - **Callouts:** "Henshin!" · "Mashiro Kick!" · "Mashiro Super Kick!" · "Mashiro Drop Kick!" · "Mashiro Super Cero!"
