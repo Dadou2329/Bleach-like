@@ -229,4 +229,237 @@ Conventions used below
     - `[movie-only] Hell Verse` — the Full Hollow form returns (its Cero breaks the **chains of Hell** and damages the **Gates of Hell**); at the climax Ichigo takes a **Skull-Clad** form channeling the Kushanāda: `Rengoku Getsuga Tenshō (煉獄月牙天衝, "Purgatory Moon Fang")` — a blinding golden crescent that **cuts a deep fissure into a mountain**, then **hundreds of Hell chains burst from the fissure, skewer and wrap the target and drag it into a deeper layer of Hell**. Skull-Clad visuals not researched in detail (verify vs film). [Slice, Bind, Summon]
     - `[game-only names]` usable as move labels for canon actions: *Tensa Kyōga*, *Engetsuzan* (sliding sweep), *Gazan* (rising-falling anti-air), *Kongenzan* (sword-plant pillar), *Daihazan* (slash that hurls boulders), *Getsuga Matoi*, *Kokuryū Gatotsu* (black-reiatsu arm rush), *Kūretsusen*, *Tenbu Renjin*, *Tenshō Ranbu*, *Kogetsuzan*, *Getsuga Tenshō: Zero*, *Getsuga Hazan* (cross-guard counter), *Sakubō* (dual-blade stance). Rebirth of Souls also stages the Full Hollow as a "revive on defeat" state — a good precedent for K8.
 
-<!-- PART2 -->
+- **Passives & weaknesses:**
+  - Passives: **Unbreakable will** — keeps fighting through wounds that drop anyone else (game: once per match, survive a lethal hit at 1 HP and get a short damage bonus) · **Growth / pattern reading** — the more an enemy repeats a move, the easier he parries/dodges it `[NEW: AdaptiveDefense]` · **Vast reiatsu** (captain-level output even at half strength; can re-fire Getsuga for a long time) · **Shunpo** from K2 on · **Low-drain Bankai** · **Bankai release breaks binds** · **Ambidextrous** · **Immune to Kyōka Suigetsu** and to **Bankai theft** · **Auto mask-shield** (pre-Visored: rare proc that blocks a fatal blow).
+  - Weaknesses: **Poor reiatsu control** until TYBW — constantly leaks (can't hide from sensors, attracts Hollows), output fluctuates wildly, can hurt himself and bystanders when he over-exerts · **No Kidō** · **Body/soul split** — his human body lies defenseless wherever he left it (unless Kon pilots it), and soul wounds show up on the body · **Big sword in tight spaces** (first sword) · **Mask time limit / re-summon cooldown / fear lockout** · **Inner Hollow takeover** if he leans on Hollow power too long (pre-mastery) · **Final Getsuga = lose all powers** · Fullbring: blast blade-count decay, open after 3 shots, body strain, can be stolen · **Bankai can be broken** (Haschwalth, Yhwach) · Half-Hollow **horn is a weak point**; Hollow/Quincy powers can be **absorbed** by Yhwach · **Pulls punches against friends** (won't land a real blow on Uryū) and **can be baited by threats to allies** (Orihime is "his weakness" per Yhwach).
+- **Signature moments to recreate (story-mode set pieces):**
+  1. **Night one** — Rukia in his bedroom, Fishbone D smashes into the clinic, Ichigo charges a Hollow with a baseball bat, Rukia stabs him to pass on her power → one-cut kill with a sword taller than he is.
+  2. **Shrieker** — the explosive-leech trick, tongue ripped out, leg pinned, **Gate of Hell** opens and drags Shrieker in.
+  3. **Grand Fisher at the grave in the rain** — the lure takes Masaki's form; Ichigo takes a stab to grab the Hollow's arm and cut it.
+  4. **Menos Grande** — the sky cracks, Ichigo blocks the Cero with the flat, overloads, Uryū vents the excess skyward.
+  5. **Byakuya in the rain** — blade snapped, stabbed from front and back; lose-state cinematic.
+  6. **Shattered Shaft** — chain-corrosion timer (72 h compressed), climb the shaft walls during dormant phases while the mask forms; break the mask with the hilt. Then **Urahara's hat test**: blade whittled to the hilt, "Zangetsu!", first swing vs Chikasumi no Tate.
+  7. **Seireitei breach** — Kūkaku's cannon, Reishukaku ball control; **Jidanbō's gate** (shatter the axes); Ikkaku; Renji II (Getsuga finish); **Kenpachi** (inner-world pact with Zangetsu, final mutual clash).
+  8. **Bankai in three days** — Urahara's Tenshintai; in the inner world Zangetsu splits into **countless swords** and Ichigo must find the real one (game: pick the true blade among a field of identical hilts).
+  9. **Sōkyoku Hill** — catch the phoenix, plant the sword and blow the scaffold apart, throw Rukia to Renji, drop three lieutenants in one heartbeat.
+  10. **Byakuya duel** — Bankai vs Senbonzakura Kageyoshi (360° storm vs the pincer), Senkei arena; the **Hollow surfaces** (half mask, first Black Getsuga); Ichigo tears the mask off; final clash.
+  11. **Aizen's betrayal** — unwinnable cut across the midriff; Hōgyoku extraction cutscene.
+  12. **Yammy & Grimmjow** — cut off Yammy's arm, then the Hollow paralyzes him; Grimmjow I (Black Getsuga barely scratches him).
+  13. **Visored training** — two-layer arena: **inner world** (white vs black Bankai on the sides of skyscrapers; the Hollow's grip turns Ichigo's sword white and crumbles it; Ichigo grabs the Hollow's blade and turns it black) while the **real world** shows the lizard Hollow body fighting the Visored in 10-minute relays inside Hachigen's barrier.
+  14. **Grimmjow II** — the **11-second mask**: overwhelming him until the timer runs out mid-combo.
+  15. **Hueco Mundo** — Dordoni (mask in one stroke), **Ulquiorra I** (masked Getsuga caught in both hands, Cero, hand through the chest), **Grimmjow III** atop the dome (block Gran Rey Cero for Orihime and Nel; Pantera; Desgarrón).
+  16. **Ulquiorra II on the dome** — Murciélago, Segunda Etapa, point-blank Cero Oscuras through the chest → **Full Hollow rampage** (horn Cero vs Cero Oscuras, Lanza crushed in hand, Uryū impaled, horn sliced, regeneration).
+  17. **Fake Karakura** — Gin's Butō Renjin; Isshin's headbutt rescue; **three months in the Dangai** (Isshin pins the Kōryū; Tensa Zangetsu and the merged Zangetsu duel); return with long hair, carry Isshin out; **catch Aizen's blade**, **crush Kurohitsugi**, throw him out of town; **Final Getsuga → Mugetsu** blackens the sky.
+  18. **Losing his powers** — the slow fade of Rukia from his sight (interactive epilogue).
+  19. **Lost Agent** — Riruka's **dollhouse** vs Mr. Pork (shrunk to toy size), **Jackie's fish tank**, **Yukio's game world** with **6 HP crosses over each head**, blindfold duel with Ginjō → Fullbring completes; Tsukishima's **arm cut**; the betrayal and **stolen Fullbring**; **Rukia's sword** restores him; Getsuga splits the mansion and the rain; Bankai **shatters the pocket dimension**; Ginjō's Bankai.
+  20. **Quilge's Jail** — a Reishi cage inside the Garganta; hammer it with Getsuga while hearing Seireitei's screams through the relay; break out; first **Yhwach** fight (Blut Vene saves his neck; **Haschwalth cuts the Bankai in two**).
+  21. **Royal Realm** — Kirinji's hot springs, Hikifune's feast, **Nimaiya's Asauchi** (pick the right one), the inner-world truth (old man = Quincy power that looks like young Yhwach; the Hollow is the real Zangetsu), forging → twin blades; **Irazu Sandō** walk [anime-only].
+  22. **The return** — dive from the Palace through 72 barriers, toss four Sternritter into buildings, eat Galvano Blast (Ōken garb burns away), **Getsuga Jūjishō** vs Electrocution.
+  23. **Soul King's chamber** — Yhwach's sword hijacks Ichigo's arm through his blood to slash the Soul King; Uryū's **Sternenstaub** vs Jūjishō (aimed to miss); shot through the torso and falling off the palace.
+  24. **Wahrwelt throne room** — Getsuga vs living darkness, the deliberate Quincy-reiatsu soak → **Half-Hollowfication**, room-clearing explosion, **Cero Creciente**; Rukia joins; **[anime-only] Blood Chains**: eclipse, clones, giant black crescent; Yhwach rewrites the future, the **true Bankai shatters instantly**, the horn is snapped, powers absorbed.
+  25. **Final fight** — Tsukishima's "edit" restores the Bankai; Aizen's illusion ambush; Uryū's silver arrow; **the shell breaks → original Zangetsu bisects Yhwach**.
+  26. **Epilogue / *No Breaths From Hell*** — adult Ichigo cuts a Jigoku no Gaki apart in one slash and steps in against Szayelaporro risen from Hell.
+- **Kit proposal** (loadouts = eras; T steps up the ladder, hold T seals back down; all loadouts share the K0 human body for out-of-body gameplay):
+  - **K0 — Human Ichigo** (Human World levels; forced state after Mugetsu; Lost Agent before Fullbring)
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Sprint + parkour vault / wall-kick (no supernatural speed) | Mobility |
+    | LMB | Karate chain jab–cross–roundhouse–spinning back kick · fwd lunging front kick · back knee launcher · air flying kick · down-air axe-kick stomp · sprint shoulder tackle | MeleeArc smash |
+    | Hold LMB | Concrete-cracker kick | MeleeArc smash |
+    | RMB | Guard; timed parry = one-hand catch of a weapon/arm → throw | Grab/Throw |
+    | Q | Judo throw / body lock takedown | Grab/Throw |
+    | E | Spirit sight (Pluses, Hollows, reiatsu trails, Reiraku ribbons) | Sensing |
+    | R | Improvised weapon (bat, pipe, sign from the environment) | MeleeArc, Grab/Throw |
+    | F / T | Badge slap → soul ejection (body ragdolls in place) | Transform, NEW: SoulBodySplit |
+    | Z | Kon pill → soul ejection and **Kon pilots the body** as an AI ally | Summon |
+    | X | Protective charm (Isshin's Kidō): passive barrier on the first big hit | Shield, NEW: ReactiveArmorProc |
+    | C | Reiatsu leak: Hollows aggro onto him | Field |
+    | G / V | — | |
+
+  - **K1 — Substitute Shinigami (first sword)**
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Raw lunge-dash (no Shunpo, can't chain) | Mobility |
+    | LMB | Two-handed giant-katana swings (3 wide hits) · fwd lunge stab · back **Ichigo Homerun** launcher · air overhead chop · down-air plunge (blade sticks in the ground; tap to yank) · sprint charging slash. **Swings bite into interior walls/ceilings** | MeleeArc cut, NEW: WeaponEmbed |
+    | Hold LMB | Street-upturning cleave | MeleeArc smash, GroundWave |
+    | Q | Mask-breaker: precise cut that cracks Hollow masks (purifies on kill) | MeleeArc cut |
+    | E | Konsō stamp (send Pluses on / finisher on downed Hollows) | utility |
+    | R | **Cero block**: hold the flat into a beam to absorb it into an overload meter; release = wide repel wave; overfill → sword destabilizes (self-damage unless vented) | Absorb/Reflect/Redirect, NEW: OverloadMeter |
+    | F | Reiraku tracking | Sensing |
+    | Z | Leech feed: grab an enemy projectile/minion and ram it back into its owner | Grab/Throw |
+    | X | Reiatsu surge (self-buff at low HP) | Stance |
+    | C | Uncontrolled flare (weak enemies flinch; Hollows swarm in) | Field |
+    | V | **Menos repel**: spend a full overload meter to fling the absorbed beam back as a giant slash | Projectile crescent, Absorb/Reflect/Redirect |
+    | T | **"Zangetsu!"** → K2 (cinematic: blade cut to the hilt, name call, cleaver bursts out trailing its cloth) | Transform |
+
+  - **K2 — Shikai Zangetsu v1** (Soul Society → Arrancar arcs; long-hair variant for Fake Karakura)
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Shunpo (short flash steps; double-tap + lock-on = behind target) | Teleport, Mobility |
+    | LMB | 4-hit cleaver chain (horizontal, backhand, rising, overhead chop) that shears building corners · fwd shoulder-check + thrust · back Homerun launcher · air 3 spinning chops · down-air meteor slam (crater) · sprint sliding sweep (*Engetsuzan*) | MeleeArc cut/smash |
+    | Hold LMB | First-release full-power swing (trench) | MeleeArc smash, GroundWave |
+    | RMB | Huge guard cone with the flat; timed = bat energy attacks back | Shield, Absorb/Reflect/Redirect |
+    | Q | **Getsuga Tenshō** (tap crescent; hold bigger/slower; air OK) | Projectile crescent |
+    | E | Ground Getsuga (tap = plow wave; hold = omni-blast that swats incoming projectiles) | GroundWave, Blast, Absorb/Reflect/Redirect |
+    | R | **Deadly Darts**: throw on the cloth; LMB mid-flight = tug/re-aim; R again = reel in; hold R = overhead flail whirl | Projectile (tethered), NEW: Tether |
+    | F | Cloth wrap: bandage (heal-over-time, stop bleed) or sheath-wrap (defense stance) | Heal/Reject, Stance |
+    | Z | Grab & hurl (ally to safety / enemy into a structure) | Grab/Throw |
+    | X | Scaffold blast: plant the blade, channel, pillar burst | Blast |
+    | G | Soul Society era: **"Let it out"** → K8a partial possession · Arrancar era on: Hollow mask (weaker than in Bankai) | Transform, NEW: PossessionAI / TimedStateMeter |
+    | C | Reiatsu flare (gold; old-anime blue palette option) | Field |
+    | V | **Kenpachi finisher**: tidal reiatsu slash along a long arc | Slice, GroundWave |
+    | T | **Bankai** → K3 | Transform |
+    | Tab | Getsuga (unnamed raw / named) · ground plow · omni-blast · **Sōkyoku Stop** (catch an incoming ultimate on the blade) · Homerun · Leech feed | |
+
+  - **K3 — Bankai Tensa Zangetsu v1 (+ Hollow mask)**
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Hyper-speed Shunpo, chain ×3, each step drops an afterimage that draws aggro; double-tap = behind target | Mobility, Afterimage/Clone |
+    | LMB | 6-hit blitz from alternating angles · fwd thrust (final hit fires a Getsuga bullet) · back rising cut · air multi-direction strikes · down-air dive stab · sprint blink-through cut | MeleeArc cut |
+    | Hold LMB | Getsuga-infused overhead (no projectile; huge cleave shockwave) | MeleeArc, Blast |
+    | Q | **Black Getsuga** — hold Q to steer it for ~1.5 s | Projectile crescent, NEW: SteerableProjectile |
+    | E | Getsuga bullet (thrust shot that tunnels) | Projectile bolt |
+    | R | Infused-blade stance: next N swings each throw a short crescent (*Getsuga Matoi*) | Stance |
+    | F | 360° storm vs swarms (*Tensa Kyōga*) | MeleeArc, Absorb/Reflect/Redirect |
+    | Z | Afterimage decoys (3–6) | Afterimage/Clone |
+    | X | Bare-hand catch (blade or projectile) → throw | Grab/Throw, NEW: CatchProjectile |
+    | G | **Hollow mask**: claw-rip; timer (story progression 4 s → 11 s → minutes; versus = Hollow gauge) + mask HP (heavy hits crack it, reiatsu repairs chips), re-summon cooldown. While masked: all stats up, voice echo, Q becomes **masked Getsuga**, and pressing Shift while a Getsuga is in flight **blinks ahead of it to fire another from a new angle** (max 3) | Transform, Stance, NEW: TimedStateMeter |
+    | C | White pillar on release; black-crimson aura after Visored training | Field |
+    | V | **Masked Getsuga barrage** (3 crescents from different angles + point-blank finisher; cuts a high-rise); unmasked = **final clash** dash-thrust | Projectile crescent (multishot), Slice |
+    | hold T | Seal to Shikai | |
+    | Tab | Black Getsuga steer · bullet · infused · masked multi-angle · 360 storm · catch | |
+    | Passives | Release breaks binds · low drain · coat tatters with reiatsu · **3rd Black Getsuga within 30 s (pre-Visored) triggers K8a** · KO in the Hueco Mundo era triggers **K8c** | |
+
+  - **K4 — Post-Dangai (Bankai v2 → Final Getsuga)**
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Near-teleport Shunpo | Teleport |
+    | LMB | Bankai chain where every hit throws an area shockwave | MeleeArc, Blast |
+    | Hold LMB | **Mountain-leveler** — wide planar cut through terrain | Slice |
+    | Q | Black Getsuga (larger) | Projectile crescent |
+    | E | Seize & relocate: grab the enemy, Shunpo-carry them out of the area, slam into the ground | Grab/Throw, Mobility |
+    | R | Bare-hand blade catch (deflected force wrecks the surroundings) | Absorb/Reflect/Redirect, NEW: CatchProjectile |
+    | F | Spell breaker: shatter binding/coffin constructs with the hand | Absorb/Reflect/Redirect |
+    | Z | Higher-plane presence (toggle): weaker enemies can't sense or lock onto him | NEW: HigherDimensionStealth |
+    | X | Long-range sense (find allies/enemies through buildings) | Sensing |
+    | G | Final mask (v3 stripes; heavier, fear lockout after it breaks) | NEW: TimedStateMeter |
+    | C | Black-crimson flare or full suppression | Field |
+    | T / V | **Saigo no Getsuga Tenshō** (cinematic: hair turns black and floods to the waist, bandages wind on, eyes go red) | Transform |
+    | In Final Getsuga form | Shift = flicker-step (no visible travel) · LMB = smoky right-arm strikes · Hold LMB = black-blade thrust · super armor (game filler) · other slots empty — the form is a ~20 s countdown to **V = Mugetsu** | Teleport, MeleeArc |
+    | V (Final Getsuga) | **Mugetsu**: black blade forms, one swing, a horizon-wide curtain of black reiatsu erupts upward and rolls over the target; sky blacks out; afterwards **forced Human (K0) for the rest of the match** | Slice, Field, Environmental, NEW: SkyEvent, NEW: Depower |
+
+  - **K5 — Fullbring (human body, badge focus)** — FB1 → T → FB2 → T → FB3
+
+    | Slot | FB1 (badge guard) | FB2 (clad) | FB3 (complete) | Tags |
+    |---|---|---|---|---|
+    | Shift | Bringer Light step (green flicker), Space = springy-ground super jump | faster, afterimages | dozens of afterimages; double-tap behind target | Mobility, Afterimage/Clone, Teleport |
+    | LMB | Karate + guard bashes (no edge) | arm-blade slashes + kicks | machete chain mixed with kicks · fwd dash-cut · back launcher kick · down-air axe kick | MeleeArc |
+    | Hold LMB | Guard ram | Berserk arm sweep | Energy-held blade swing | MeleeArc, Stance |
+    | RMB | **Manji guard** (absorbs heavy hits) | arm-blade parry | blade parry | Shield |
+    | Q | **Manji blast** — 6 blades max, each consecutive shot loses blades, <3 = fragile, 3 in a row = 1 s helpless | same, stronger | **Manji barrage** (fan of full-power manji, no decay) | Projectile disc, NEW: SegmentedProjectile |
+    | E | Charged six-bar manji | same | **Fullbring Getsuga** (small, very fast) | Projectile |
+    | R | Focused-leg kick | same | same | MeleeArc smash |
+    | F | Soul pull: springy ground / air steps / walk on water | same | same | Mobility, Environmental |
+    | Z | Vanish-behind kick | same | **Catch a giant punch one-handed** → counter | Teleport, Grab/Throw |
+    | X | Pride stance (bigger guard) | **Berserk surge** (right arm engulfed: +dmg, HP drain, no guard) | **First-strike limb cut** | Stance, MeleeArc cut |
+    | C | Black-crimson flare | same | same | Field |
+    | V | — | — | **Reawakening**: Rukia's sword → transforms into **K6 Shikai v2** with refilled reiatsu | Transform |
+    | T | → FB2 | → FB3 (completion blast around him) | — | Transform, Blast |
+
+  - **K6 — Restored Shinigami (Shikai v2 → Bankai v3)**: Shikai v2 = K2 kit, but **Q Getsuga is mansion-sized and clears rain/weather** (Environmental) and the cleaver has a chain at the hilt. Bankai v3:
+
+    | Slot | Ability | Tags |
+    |---|---|---|
+    | Shift | Hyper-speed Shunpo | Mobility, Afterimage/Clone |
+    | LMB | Longer-reach Bankai chain | MeleeArc cut |
+    | Hold LMB | One swing = big shockwave | Blast |
+    | Q | Getsuga (black, blue rim) | Projectile crescent |
+    | E | **Catch & crush** an energy blast in one hand | NEW: CatchProjectile |
+    | R | Sword-breaker cut (bonus vs weapons; can snap them) | Status, NEW: WeaponBreakState |
+    | F | Re-release shockwave: shatters enclosing pocket dimensions / constructs | Blast, NEW: PocketDimensionBreak |
+    | Z / X | Afterimages / bare-hand catch | Afterimage/Clone, Grab/Throw |
+    | G | **Rage aura** (red-black, crackling: +damage, -control) | Stance, NEW: RageAura |
+    | C | White pillar / black-blue aura | Field |
+    | V | Full-power Getsuga (vs Ginjō) | Projectile crescent |
+
+  - **K7 — TYBW (True Shikai → True Bankai; Blut Vene; Half-Hollow; Blood Chains)** — skins: Ōken garb (outer layer breaks off after a big electric/energy hit), TYBW uniform, battle-torn Wahrwelt.
+
+    | Slot | True Shikai (dual) | Half-Hollow | Blood Chains [anime-only] | True Bankai | Tags |
+    |---|---|---|---|---|---|
+    | Shift | Shunpo: long leaps, brief stealth mid-dash; dive from height = barrier-breaking descent | instant reposition burst | blinding dash, each step leaves a **reiatsu clone** (cap ~12) | Shunpo | Mobility, Teleport, Sensing/Stealth, NEW: CloneSpawnOnStep |
+    | LMB | 6-hit dual chain (big blade heavy arcs, small blade stabs) · fwd twin thrust · back rising X · air spinning dual · down-air double slam · sprint dash-through cross | white-blade chain with **left-hand sword-arm grabs** | cleaver chain; each hit schedules a **delayed echo hit** 0.5–2 s later | 3 slow colossal swings that cut through whole structures | MeleeArc cut, Grab/Throw, NEW: DelayedHit |
+    | Hold LMB | big-blade shockwave swing | wall-wrecker swing | shockwave clash | overhead golden cleave | MeleeArc, Blast, Slice |
+    | Q | **small-blade Getsuga** (flick, rapid, 3 charges) | big-blade Getsuga | **Clone volley** (all clones attack) | **Golden Getsuga** (bisects giants/buildings) | Projectile crescent, Afterimage/Clone |
+    | E | **big-blade Getsuga** (hold = point-blank) | **Gran Rey Cero** (horn charge, costs HP) | **Chain wall** (deflect beams) | flat-of-blade guard | Projectile, Beam, Shield, Absorb/Reflect/Redirect, NEW: HPCostAbility |
+    | R | **Getsuga Jūjishō** | **Cero Creciente** | **Chain bind** | impale + point-blank Getsuga | Projectile cross, Bind, NEW: ProjectileFusion |
+    | F | **Chain**: throw a blade, F again = recall it (hits along the path) | Reiatsu explosion (levels the room) | **Suspension strands** (hold target in midair) | inherit Chain | NEW: WeaponRecall, Blast, Bind |
+    | Z | Arrow catch / throw-back | **Sword-arm lock** (disarm/stun) | Cero Creciente | arrow catch | NEW: CatchProjectile, Grab/Throw |
+    | X | Grab & hurl into buildings (chain up to 4 targets) | torrent-surf (ride enemy beams / ally barriers) | **Clone recall** (charges V) | grab & hurl | Grab/Throw, Mobility |
+    | G | **Blut Vene** (damage reduction, bleed immunity, cyan veins on hits) | drop form | — | Blut Vene | Stance, Shield |
+    | hold G | **Half-Hollowfication** — needs the Quincy-exposure meter (fills when hit by Quincy reiatsu/darkness; free in versus) | | | | Transform, NEW: ConditionalTransform |
+    | C | Gold flare (rain → steam; weak foes kneel) | violet-red flare | blood-red flare + black-flame footprints | gold flare | Field, NEW: FootprintDecals |
+    | V | **Jūjishō (max)** — eats enemy projectiles/barriers in its path | **Cero Creciente (max)** — can cancel a beam ultimate | **Blood Chains Getsuga** — absorbs clones (size scales), leaves a **giant black crescent hanging in the sky** ~20 s that relights the arena | **Shell Break** — shell crumbles, the original Zangetsu delivers an unblockable bisecting cut; immune to weapon-break; instantly available if the Bankai is in Broken state | Projectile, Slice, NEW: PersistentSkyObject, NEW: ShellBreakWeapon |
+    | T | → True Bankai (two blades side by side, flame pillar, lunar eclipse) | → **Blood Chains** (sky darkens, blood moon eclipses) | hold T = release (wet footprints) | hold T = seal to dual Shikai | Transform, NEW: SkyEvent |
+    | Weak point | — | **horn hitbox** (break = lose E/R, form flickers) | — | can be shattered by future-rewriting bosses (story) | NEW: BreakablePart |
+    | Tab | Getsuga small / large / point-blank / Jūjishō / arrow catch / descent dive | | | | |
+
+  - **K8 — Inner-Hollow takeover states** (system shared by K2–K4)
+    - **K8a Partial possession** (trigger: G "let it out", or 3 Black Getsuga in 30 s pre-Visored): left half-mask; inputs become feral (no guard, auto-chained attacks, +50% damage); Hollow-only moves unlock (pincer Black Getsuga = fire two from either side then drop from above; bare-hand catch; chain-spin throw). **Mash RMB to tear the mask off** and end it. `[NEW: PossessionAI]`
+    - **K8b Lizard body** — Visored-training boss/rampage: tail sweeps, claw rakes, two-finger crimson Cero, High-Speed Regeneration, severed-arm **worm-maw** that lunges from the stump, breaks binding pillars by standing up. Player-controllable as a bonus form.
+    - **K8c Full Hollow revive** (trigger: KO in the Hueco Mundo era, or a full Hollow gauge): 2 s cinematic (hand twitches, hair grows) → revive at full HP for 30–45 s:
+
+      | Slot | Ability | Tags |
+      |---|---|---|
+      | Shift | **Sonído** (booming "bun"; breaks enemy lock-on/sensing) | Teleport, Sensing/Stealth |
+      | LMB | feral claw + sword chain | MeleeArc |
+      | Hold LMB | ground-shattering slash (breaks floors/roofs) | MeleeArc smash, Blast |
+      | Q | **Horn Cero** (1 s charge between the horns) | Beam |
+      | E | **Chain** recall of Tensa Zangetsu | NEW: WeaponRecall |
+      | R | Arm rip: grab & sever a limb, then throw it | Grab/Throw, NEW: LimbSever |
+      | F | **Catch & crush** (projectiles and ultimates; Lanza-style detonation in hand) | NEW: CatchProjectile |
+      | Z | Roar (fear on weaker enemies + knockback ring) | Status, Blast |
+      | X | **Stomp-pin + downward point-blank Cero** (bores through every floor below) | Grab/Throw, Beam |
+      | C | Crimson-black flare | Field |
+      | V | Max horn Cero | Beam |
+      | Weak point | **Horns**: break one → charging Cero implodes (self-damage), form ends, the hole regenerates shut (heal to 40%) | NEW: BreakablePart, NEW: ReviveTransform |
+
+- **AI notes (NPC / boss):**
+  - Opens sealed or in Shikai and **mirrors escalation** — releases Bankai when the opponent releases or at ~60% HP; never wastes an opening line: tends to charge straight in and test the enemy with heavy swings, then uses Getsuga as a finisher or to clear projectile swarms; double-tap Shunpo flanks once he has read a pattern (he gets **better at blocking moves the player repeats**).
+  - **Protector logic:** interposes between enemies and downed/weak allies, takes hits meant for them (exploitable), goes into **rage aura** when an ally is insulted or hurt; refuses to finish defeated foes; vs friend-faction bosses (Uryū) his big attacks are scripted to miss.
+  - **Hollow escalation (Arrancar era):** at ~40% HP the tell is a hand clawing down over his face → mask on → relentless pressure; when the timer lapses he pants for ~1 s (punish window). Pre-mastery bosses: after his 3rd Black Getsuga the Hollow may take over (half mask, cackling, erratic) until he rips the mask off.
+  - **Full Hollow phase (Las Noches boss):** "dies" → twitch → revives as the Full Hollow: roars, Sonído-behind, horn Cero spam, limb rips; **players can break a horn** to end the phase; he then collapses and regenerates.
+  - **TYBW boss:** dual-blade pressure, small-blade Getsuga to poke, **Jūjishō to cancel the player's big projectiles/barriers**, Blut Vene stance under burst damage, Half-Hollow at 50% when hit by Quincy-type damage, Blood Chains final phase (clones + chain walls), true Bankai finisher; Final-Getsuga variant is a **countdown boss**: survive until Mugetsu, then fight his depowered human self.
+  - Never casts Kidō; yells attack names; scowls through everything; banter is curt and sarcastic.
+- **Callouts (romaji, short):** "Zangetsu!" · "Getsuga… Tenshō!" · "Ban… kai!" — "Tensa Zangetsu." · "Getsuga Jūjishō!" · "Saigo no Getsuga Tenshō." · "Mugetsu." · masked: a guttural roar or the echoed "Getsuga Tenshō" · "Chein" is a gesture, not a shout · intro line: "Kurosaki Ichigo — dairi Shinigami da." (Substitute Shinigami) · to Hollow Ichigo: "Kaere!" (get back in there).
+
+---
+
+## 2. Ichigo's inner world, the two Zangetsu, and **Hollow Ichigo as a playable** (recommendation)
+
+**Inner world (arena):** a city of glass skyscrapers lying **sideways** under a clear blue sky — characters stand on the building faces as if they were floors `[NEW: InnerWorldInstance]` (gravity rotated 90°). Its weather mirrors Ichigo: when he loses hope it **rains**; during the Dangai training it was a **drowned Karakura under constant rain**; during the Shattered Shaft the buildings **dissolve into countless falling boxes** over water (Ichigo must find the box holding his hilt by following red Reiraku). Bankai training variant: Zangetsu fills the space with **countless identical swords** and Ichigo has to pick the real one. Visored-training variant: white and black Bankai clash, buildings shear off in chunks.
+
+**Who lives there (canon after TYBW's reveal):**
+- **"Old man" Zangetsu** — actually the manifestation of Ichigo's **Quincy powers** (inherited from Masaki), resembling **Yhwach 1,000 years ago**. Tall (taller than Kenpachi), lean, stoic, pale with high cheekbones and stubble; **long ragged black hair with brown streaks**; **brown-tinted wraparound sunglasses**; tattered **white dress shirt with turned-up collar and cuffs**, black trousers, low-heeled boots; **long, amorphous black overcoat with a burgundy sheen that flares into ragged tails**. Palette (verify): skin `#E6D8CF`, hair `#1E1A1A` with brown `#5A3A28`, glasses `#6B4A2E` at 50% opacity, coat `#141416` / burgundy `#4A1A22`, shirt `#E8E6E0`. Powers: holds and shapes **reishi in his palm**, can **trigger Ichigo's Blut Vene** (sealed a gushing wound vs Kenpachi, blocked Yhwach's blade), **Shadow** travel by spreading his coat around himself and others (Wandenreich-style dimension slip), **solid clones** (weaker individually), a **broadsword with wing-shaped cross-guard sheathed in reishi flames**, and access to Ichigo's Shinigami powers (stood in for them during Bankai training). **Tier C** — trainer NPC / inner-world boss (Bankai training; Kenpachi-fight pact; the "Zangetsu, who are you?" TYBW confrontation).
+- **Tensa Zangetsu (teen form)** — what the old man becomes when Ichigo is in Bankai: Ichigo's age and height, slimmer, slightly shorter black hair, **blue eyes**, a robe-like version of the coat with **white lining and a hood**, no glasses or shirt; looks like **teenage Yhwach**. **Tier C** boss (Dangai, ep.302–309).
+- **Merged Zangetsu (Dangai)** — Tensa Zangetsu and the Hollow fused: Hollow's **white Bankai coat lined with black fur**, **black horned mask remnant** on the head, **white hair**, Hollowfied **yellow left eye** and the teen's **blue right eye**; sword sources disagree (spirit page: white blade with black guard; Quincy page: black blade with white guard — pick one). Strong enough to **snap Ichigo's Bankai in two**; the "lesson" is that Ichigo must **drop his sword and let himself be impaled**. **Tier C** boss.
+- **Hollow Ichigo** — the true Zanpakutō spirit (White's Hollow fused with Isshin's Shinigami heritage). See below.
+
+### Hollow Ichigo / White Zangetsu (虚一護 Horō Ichigo · 白一護 Shiro Ichigo · 斬月) — Ichigo's inner Hollow and true Zanpakutō spirit
+"Shirosaki" is a **fan nickname** — the official names are Hollow Ichigo / White Ichigo / Zangetsu; games list him as "Ichigo Kurosaki (Ura)". Display name recommendation: **"Hollow Ichigo"**.
+- **Wiki:** https://bleach.fandom.com/wiki/Zangetsu_(Zanpakut%C5%8D_spirit) · battle: Visored_Training
+- **Roster tier:** **A — recommended as a separate playable.** Reasons: (1) he is a fan-favorite fighter in nearly every Bleach game; (2) he reuses Ichigo's rig, animations and blades with a palette inversion — very cheap; (3) he has a **genuinely different kit** (flail-style Deadly Darts, chain-spun Bankai throws, red/white Getsuga, finger and horn Cero, regeneration, corrosion grip) and owns the lizard and Full Hollow bodies; (4) he is a natural mirror boss for Ichigo's story and for co-op "team-up" (anime Zanpakutō arc). Keep the **involuntary takeover** mechanic (K8) on Ichigo as well — the two are not mutually exclusive.
+- **Canon power:** **9/10** — overpowered Hiyori in her mask instantly, claims to be the better Bankai user, catches Byakuya's Senkei blades bare-handed, swats Ichigo's Black Getsuga aside with a bare hand; his Full Hollow form destroyed Ulquiorra's Segunda Etapa.
+- **Body:** identical to Ichigo (174 cm → 56 vox), loose predatory stance, wide manic grin, tongue often out.
+- **Palette (hex estimates):** skin `#EAE8DE` (shade `#C1BBB3`) · hair white `#EDEBE6` (shade `#C8C8C8`) · eyes **black sclera** `#0B0B0F`, **gold iris** `#F7E168` (shade `#D6C153`) · **black nails** `#151518` · **blue tongue** `#3A5DB8` · dark lips/teeth per the wiki (black teeth) `#2A2A30` · **white shihakushō** `#F1F0EC` (shade `#CFCDC8`) with **black obi** `#141414`, black tabi under white sandals · briefly a **black** kite strap for his blade · Shikai: **silver/white blade with a black edge** (inverted Zangetsu), dark cloth · Bankai: **white ankle coat lined in black**, **all-white daitō** (blade, guard and handle) with the broken-link chain · Getsuga: **white with red outline** inside the inner world (a **bright red** one in the Visored duel), **black with red outline** in the real world · reiatsu white/red rim (inner world), black/red rim (possessing), red (in Bankai).
+- **Look by form/outfit:** (1) **White Shikai** — color-inverted Shinigami Ichigo; (2) **White Bankai** — inverted Bankai coat; (3) **possession states** — K8a/b/c on Ichigo's body; (4) **monochrome Full Hollow** (inner-world version): **black** horned mask with **white** lines, **white waist-length hair**, white claws on fingers and toes, white Bankai pants, **black** fur tufts at the collar and wrists; (5) **merged with Tensa Zangetsu** (see above); (6) the Asauchi manifestation (skull-faced, naked) — **skip** in-game.
+- **Abilities:** Deadly Darts **master** (precise long-range flail strikes and redirects; catches the blade mid-air and flips before landing) · **Chain-spin**: spins his Bankai blade around one finger by its chain, then hurls it to impale (the iconic gut-stab through Ichigo) `[NEW: Tether]` · **Getsuga** (in Shikai it wraps the whole blade — never fired in that state) / Black Getsuga / **bright red Getsuga** (Visored duel) · **pincer tactic** (Black Getsuga from two sides, then above) · **corrosion grip** — grabbing an enemy blade turns it white from the contact point and it crumbles (inner-world duel) `[NEW: WeaponCorrode]` · **bare-hand catches** (Senkei blades) and **bare-hand deflection** of Getsuga · hyper-speed Bankai · **mask shielding** of the host · possession of Ichigo's body · in Hollow bodies: High-Speed Regeneration, finger/hand Cero (crimson, tri-focus), horn Cero, arm-maw, Sonído, roar · `[movie-only]` *Hell Verse*: Cero that **breaks Hell's chains and damages the Gates of Hell**.
+- **Kit proposal:** Shift = erratic zig-zag Shunpo (Sonído in Full Hollow) · LMB = **flail-tether chain** mixing close cuts and thrown-blade strikes (fwd = thrown lunge, back = flail upswing launcher, air = spinning flail, down-air = thrown plunge, sprint = flail sweep) · Hold LMB = overhead cleave · Q = Getsuga (red/white) · E = **Deadly Darts throw** (tug to redirect, E to reel) · R = **flail whirlwind** (*Bunmawashi Giri* [game-only name]) · F = **chain-spin & toss** (Bankai) · Z = **bare-hand catch / deflect** · X = **corrosion grip** (weapon-decay status) · G = mask shield (one-hit block) · C = white-red flare · V = **two-finger Cero** (Shikai/Bankai) or **horn Cero** (Full Hollow) · T = Shikai → Bankai → hold T at low HP = **Full Hollow (monochrome)**; alt T in Visored-training stage = **lizard body** · Tab = Getsuga variants, Cero, roar · Passive **"King and Horse"**: the more the opponent guards or hesitates, the more damage he stacks (his canon philosophy: instinct beats reason).
+- **AI notes:** berserker who **laughs while trading hits**, taunts ("king" / "horse"), punishes turtling, mirrors the player's last move back at them, flails at mid range, closes with chain-spun throws; regenerates in Hollow bodies so players must burst him; in Ichigo's story he is fought **inside** the inner world (sideways gravity) while his rampaging body is fought **outside** in parallel.
+- **Callouts:** echoing "Getsuga Tenshō!" · "Ban… kai." · cackling · "Ōsama" (king) taunts.
+
+<!-- PART3 -->

@@ -316,4 +316,284 @@ Conventions used below
 - **AI notes:** Keeps his distance and complains; feigns clumsiness, then Shunpo-ambushes; if his captain is losing he jumps in to grapple; flees anything far stronger behind Sekienton; rage mode when family is threatened (ignores pain, all-in). Tells: munching crackers before engaging; yelling "Taichō!".
 - **Callouts:** "Buttsubuse, Gegetsuburi!" · "Bakudō no nijūichi — Sekienton!" · "Nibantai fukutaichō, Ōmaeda Marechiyo!" · "Taichō!"
 
+---
+
+## 5. Nanao Ise (伊勢 七緒) — Co-Lieutenant, 1st Division (ex-Lieutenant, 8th Division) · Head of the Ise Clan
+
+- **Wiki:** https://bleach.fandom.com/wiki/Nanao_Ise · /Anime_Continuity · Ise Clan (Shinken Hakkyōken) · Hakudan Keppeki · battles: *Nanao Ise vs. Lille Barro*; *Katen Kyōkotsu vs. Nanao Ise vs. Bearded Tōjū* (anime)
+- **Roster tier:** **B** — a barrier/heal controller with a unique late-game "anti-god mirror" sword; strong duo synergy with Shunsui.
+- **Canon power:** **4/10** baseline (Kidō expert, no Zanpakutō of her own; couldn't breathe under Yamamoto's reiatsu). **Situationally decisive** against "divine"/Vollständig enemies: with Shinken Hakkyōken she cut off Lille Barro's otherwise-untouchable hand and turned his city-erasing Trompete back on him, destroying him.
+- **Body:** 164 cm → **52 vox**; 48 kg. Slim, upright, prim. Silhouette keys: **long black hair pinned back** (updo at the back of the head), **flat bangs hanging to the right side of her face**, **slightly oval glasses**, a **heavy book** under one arm (paper fan for smacking Shunsui).
+- **Palette (hex estimates):**
+  - Skin `#F8E1D2` · hair black `#121219` (blue-black sheen `#2A2D3F`) · eyes light blue with a deep violet tint `#8C8FD6`
+  - Glasses: thin dark frame `#2B2B33`, lens glint `#DDE8F4` · book cover (unstated) dark red-brown `#5B2A22` (**verify**) · fan (unstated) cream `#EFE6D2`
+  - Armband: 八 + strelitzia (accent `#B3446C`) until TYBW, then 一 + chrysanthemum (accent `#800080`)
+  - **Shinken Hakkyōken:** wood-look blade light brown `#B98A57` (grain `#8E6640`); 8 rhombus mirrors `#CFE3F2` (sky-reflection highlight `#FFFFFF`); gold collar `#D4AF37` with two blue tassels `#2C5BD4`; long hilt wrapped in gray fabric `#8E8E8E`; gold ring pommel `#D4AF37` with two red tassels `#C8102E`; carrying wrap (unstated) off-white `#E8E2D2`
+  - Hakudan Keppeki: white `#F7F8FA` with the Kidō Corps emblem around 一 (emblem `#1C1C24`) · hex-plate wall (colour unstated) translucent pale blue `#DDEBFF`, plate seams `#9DB8E8`
+  - Reiatsu: not stated → violet-white `#CFC6FF` (proposal; matches her eyes)
+- **Look by form/outfit:**
+  - **Child:** short black bob, plain white kimono. **Shin'ō Academy:** longer hair, rounder glasses, student uniform.
+  - **8th Division lieutenant (default, SS → FKT):** as above, 八 armband, book.
+  - **17 months after Aizen:** bangs tucked behind her right ear.
+  - **TYBW:** 1st Division co-lieutenant (一 armband); Shinken Hakkyōken first as a **cloth-wrapped bundle**, then unwrapped. Combat wounds: deep cut on the left leg vs Lille.
+  - **10 years after Yhwach:** original hairstyle again; per Klub Outside Q&A #338 she walks with a **cane** as an after-effect of the Lille fight.
+  - *Anime-only:* Reigai-Nanao (enemy variant, uses Shakkahō).
+- **Weapons:**
+  - **Pre-TYBW: none.** Ise women are spiritually bound to the clan sword and cannot imprint on an Asauchi; she graduated on Kidō alone.
+  - **Shinken Hakkyōken (神剣・八鏡剣, Divine Sword, Eight-Mirror Sword):** the Ise Clan's sacred ceremonial sword — no edge, no Shikai/Bankai, not bound to one soul. An ornate, medium-sized sword whose blade is a **flat, rectangular, oar-like slab with blunt edges** that looks wooden, with **four rhombus mirrors inlaid on each face (8 total)**; instead of a guard, a habaki-like **gold collar** (~2.5 cm) with **two blue tassels**; a hilt long enough for two hands, wrapped in **gray cloth**, ending in a **gold ring pommel with two red tassels**. Size est.: 110 cm overall (35 vox), blade 9 cm wide (3 vox) — **verify**. Story: entrusted by her mother Isuzu to Shunsui to spare Nanao the Ise Curse; hidden inside Katen Kyōkotsu's small spirit girl (pulled out of her mask).
+- **Forms & states (ordered):**
+  1. **Base** — Kidō specialist, unarmed (book/fan).
+  2. **Shinken Hakkyōken** (TYBW; unwrap = state change, not a release).
+  3. **"Together"** — Shunsui rises from her shadow and closes his hand over hers on the hilt; her fear-freeze ends (duo state).
+- **Abilities (complete):**
+  - *Base / Kidō (canon)*
+    - `Kidō expert` — low- and mid-level spells without incantation; builds intricate new spells quickly when given data; told Haschwalth that no captain could cast Hakudan Keppeki. [passive]
+    - `Hakudan Keppeki (白断結壁, White Severing Boundary Wall)` — her own creation (built from traces of Quincy reiatsu): a wall bearing the Kidō Corps emblem around 一 that completely bars Quincy power for a limited time; Haschwalth could only break it by slowly absorbing the reishi on his side. [Construct, Shield] `[NEW: FactionKeyedBarrier]` + reishi-absorption drains it `[NEW: BarrierErodedByAbsorption]`
+    - `Hexagonal plate wall` (unnamed) — raised while Haschwalth was absorbing the first wall: a wall of many small joined hexagonal plates; looks weaker than a single slab but would have to be smashed by force (Haschwalth complimented it). [Construct, Shield] `[NEW: MultiPlateBarrier]`
+    - `Kaidō` — not at Isane's or Unohana's level by her own account, but heals several gravely injured people at once. [Heal/Reject (AoE)]
+    - `Shunpo` — kept up with Kyōraku and Ukitake fleeing Yamamoto (exhausted); by Wahrwelt she matches her captain's pace without tiring (he praised it). [Mobility]
+    - `Reiatsu palm` — gathered dense reiatsu around her right hand to finish off Chad (Kyōraku forbade it). [MeleeArc(smash), Blast(point-blank)]
+    - `The glasses` — when truly angry she removes her glasses; people who see it are reduced to gibbering wrecks (even Mayuri). [Status(fear)] `[NEW: FearAura]`
+    - `Fan smack` — slaps Kyōraku with a fan (gag).
+  - *Kidō — anime-only*
+    - `Bakudō #4 Hainawa` (bound Katen Kyōkotsu's girl) · `Hadō #4 Byakurai` · `Hadō #31 Shakkahō` · `Bakudō #62 Hyapporankan` · `Hadō #58 Tenran` (last two per the spell pages' practitioner lists).
+    - Opens a **Senkaimon** (Human World → Dangai) and spent a month raising barriers around Karakura Town (Reigai arc). [Teleport, Construct] `[NEW: PortalGate]`
+  - *Shinken Hakkyōken (canon, TYBW)*
+    - `Absorb / disperse divine power` — takes "the power of a god" into the blade and scatters it in all directions; Lille's light-body was dispersed where it struck. [Absorb/Reflect] `[NEW: TagBasedReflection(divine)]`
+    - `Cuts the uncuttable` — severed Lille's hand at the wrist although Kyōraku's attacks had passed through him. [MeleeArc(cut) ignoring intangibility vs divine-tagged]
+    - `Blinding to gods` — to a god-class opponent the blade shines too brightly to be seen (Lille couldn't see it). [Status(blind) vs divine]
+    - `Mirror reflection` — held before her, it threw Trompete — a spherical, multi-wave blast that erased a huge chunk of the city — back at Lille: a strip of his body vanished, he cracked and burst into golden rain, while the thin strip of ground under Nanao and Kyōraku survived. [Absorb/Reflect, Shield(narrow cone)]
+    - `Backlash` — dispersed energy can cut the wielder (her leg was opened by scattered light). [self-damage]
+- **Passives & weaknesses:**
+  - + Barrier specialist (her walls are faction-keyed and hard to brute-force); + poor-eyesight clan (glasses are her "true sight" — see G).
+  - − **Inexperienced swordswoman:** her first wound froze her with fear and pain (legs wouldn't move). − Low resistance to crushing reiatsu (Yamamoto's pressure stopped her breathing). − No Zanpakutō before TYBW.
+- **Signature moments to recreate:**
+  1. Soul Society — flower-petal entrance for Kyōraku (comedy), watching him fight Chad, then charging the reiatsu palm to finish Chad.
+  2. Reaching for her sword-hand to help vs Yamamoto → crushed by his reiatsu; Kyōraku shields and carries her off.
+  3. **TYBW — Hakudan Keppeki vs Haschwalth** (he reads her skill; slowly absorbs it; the hex wall reveal).
+  4. **Wahrwelt — keeping pace with Kyōraku through Lille's sniping**; finding him fallen; Kageoni pocket dimension; Kyōkotsu's girl pulls the wrapped sword from her mask; Nanao takes the curse by choice; she bursts out of the shadow on Lille's forehead.
+  5. **Nanao vs Lille** — severs his hand → fear-freeze from her leg wound → Kyōraku rises from her shadow, hand on hers → **Trompete reflected** → Lille shatters into golden rain; she collapses.
+  6. *Anime-only:* vs/with Katen Kyōkotsu's quiet girl and the Bearded Tōjū (Hainawa, Byakurai, Shakkahō); sewer expedition with Hanatarō.
+- **Kit proposal:**
+  - **Base (Kidō controller):**
+    - Shift: Shunpo (expert; longer chain in TYBW skin).
+    - LMB: reiatsu-palm strikes with a book-bash finisher (Heat the Soul gave her book + palm — game precedent); forward = palm lunge, back = launcher palm, air = palm slam, sprint = fan swat dash. Hold LMB: **Reiatsu Palm** (dense charge → point-blank burst).
+    - **Q `Byakurai`** (anime) — instant thin lightning bolt.
+    - **E `Hakudan Keppeki`** — place the white wall: total block vs Quincy-tagged powers (incl. Blut, Heilig Pfeil, Sklavelei drain only slowly erodes it), strong shield vs everything else; timed duration.
+    - **R `Hex Wall`** — multi-plate barrier; each plate breaks separately; unbroken plates slowly regrow (*extrapolation*).
+    - **F `Kaidō`** — AoE heal (several allies at once).
+    - **Z `Hyapporankan`** (anime) — rain of ~100 pinning rods.
+    - **X `Hainawa`** (anime) — rope bind, combo starter.
+    - **G `Glasses Off`** — fear aura in a front cone (minions cower, bosses flinch), but her own vision blurs (screen blur, wider spread) — the Ise clan's bad eyesight. `[NEW: SelfScreenBlur]`
+    - **C:** violet-white flare.
+    - **V `Kidō Fortress`** (*extrapolation*) — encloses allies in nested Hakudan Keppeki + hex walls and pulses Kaidō inside.
+    - **Tab:** Shakkahō, Tenran, Byakurai, Hainawa, Hyapporankan (all anime-only) · Senkaimon gate (anime) · *extrapolated library* (Seki, Sai, Rikujōkōrō, Dankū, Tōzanshō).
+  - **Shinken Hakkyōken (TYBW skin, T = unwrap):**
+    - LMB: slow, heavy two-handed blunt swings (smash); vs divine/light-bodied foes they *cut*. Hold LMB: overhead severing downswing.
+    - **Q `Disperse`** — hold the blade forward to soak an energy beam and scatter it in all directions (shards can hurt her too).
+    - **E `Reflect`** — timed: send the attack back at its source (amplified vs divine tags).
+    - **R `Dazzle`** — divine foes in front lose sight of the blade (their lock-on fails).
+    - F `Kaidō` · Z `Hakudan Keppeki` · X `Hex Wall`.
+    - **G `Together`** — if Kyōraku is on the team (or as a timed assist), he emerges from her shadow: fear-freeze immune, Reflect window widened. Without him she has a chance to freeze for 1 s after taking a big hit.
+    - **V `Eight-Mirror Return`** — perfect reflection of the next attack of *any* size back at its caster; only a narrow strip behind her is protected (everything else in the blast still gets erased — canon Trompete scene).
+- **AI notes:** Support controller: stays behind her captain, heals, walls off projectile lanes, binds rushers. Tells: adjusts her glasses before a big cast; glasses come off when enraged (fear aura). Shinken boss/ally: baits the enemy's biggest attack and reflects it; freezes in fear on her first serious wound unless Kyōraku is present.
+- **Callouts:** "Hakudan Keppeki." · (anime) "Bakudō no yon — Hainawa!" · (anime) "Hadō no yon — Byakurai!" · "Shinken Hakkyōken." · "Kyōraku-taichō!" · "Taigai ni shite kudasai!" ("Please be moderate!" — her catchphrase / column title)
+
+---
+
+## 6. Nemu Kurotsuchi (涅 ネム) — Lieutenant, 12th Division (†) · born Nemuri Nanagō (眠七號, "Sleep No. 7")
+
+- **Wiki:** https://bleach.fandom.com/wiki/Nemu_Kurotsuchi · /Anime_Continuity · Hachigō Nemuri · Mayuri Kurotsuchi · battles: *Mayuri Kurotsuchi & Nemu Kurotsuchi vs. Pernida Parnkgjas*; *Mayuri Kurotsuchi vs. Szayelaporro Granz*; *Rukia Kuchiki vs. Reigai-Rukia Kuchiki & Reigai-Nemu Kurotsuchi* (anime)
+- **Race:** Enhanced Artificial Soul — seventh body of Mayuri's **Nemuri Project** (souls grown from Konpaku cells), built with Gigai + Gikon (artificial soul) technology; shares Mayuri's blood.
+- **Roster tier:** **B** — a body-horror bruiser/bodyguard with a timed overdrive and a soul-sacrifice cannon; pairs with Mayuri.
+- **Canon power:** **4/10 base, 6/10 at 0.8%** — tests and pins Uryū, catches a Heilig Pfeil in flight; at the threshold she smashed clean through Pernida's palm and her Gikon Jūrinjū punched a hole through a Pernida clone and several buildings behind it.
+- **Body:** 167 cm → **53 vox**; 52 kg. Slender and curvy, very still, blank melancholic face. Silhouette keys: **long black braid** (to the hips, **verify** length) with slightly parted bangs, **short black kimono ending mid-thigh** over a white under-kimono, **puffed upper sleeves** (narrower than standard Shinigami sleeves), **wide white obi with a red cord**, **white hand-backs/gloves**, **dark-red choker**, white tabi with **strappy low-heeled black sandals**.
+- **Palette (hex estimates):**
+  - Skin pale `#F3E0D6` · hair black `#15151C` (cool sheen `#2B3045`, **verify**) · eyes green `#3FA36B` (at 0.8%: **white** `#F5F7FA`)
+  - Kimono black `#121214` · nagajuban white `#F1F1EF` · obi white `#F4F4F2` · obijime red `#B3172E` · choker dark red `#7A1222` · gloves white `#F7F7F5` · tabi white · sandals black `#1A1A1A`
+  - Armband 十二 + thistle, accent `#808000` (the Konjiki Ashisogi Jizō **antidote is stored under it**)
+  - Sword: hilt green `#3E7F49`, warped guard steel `#8A8F86` (**verify**)
+  - Gikon Jūrinjū gold `#FFD34A` (core `#FFF6CF`) · Tedoriru = motion-blurred forearm + rock-dust `#8C8578`
+  - Reiatsu: not stated → pale gold-green `#D9E8A0` (proposal)
+- **Look by form/outfit:**
+  - **Default (SS → TYBW):** as above.
+  - **Childhood:** untidy hair, white kimono.
+  - **TYBW second invasion:** she and Mayuri come out of their lab wearing light-emitting, **shadowless** attire (anti-Quincy-shadow) — exact design **not described in my sources** (Mayuri's matching look: bright white ridged coat with a sun-like hood).
+  - **Hachigō Nemuri (眠八號, "Sleep No. 8")** — her successor grown from her retrieved brain, seen 10 years later: **short girl, long black hair, standard black uniform with a light-coloured sash, shouts constantly** (height unknown → ~125 cm / 40 vox, **verify**).
+  - *Anime-only:* Reigai-Nemu (identical copy; turns back into a red pill when destroyed).
+- **Weapons:** a thin katana with a **green hilt and a warped guard** (rarely carried). She fights with her body (anime: kicks first), her drill-hand, and lab gadgets.
+- **Forms & states (ordered):**
+  1. **Base** — bodyguard / field technician.
+  2. **Power Enhancement** — pushes her body to **0.8% below the point of collapse**: eyes go white, ~6 minutes of output ("400 more seconds"), decomposition accelerates.
+  3. **Death → Hachigō Nemuri** — successor respawn (child).
+- **Abilities (complete):**
+  - *Bio-augmentation (canon)*
+    - `Enhanced endurance` — built to survive what kills normal souls (Mayuri's slash through her, his stomping; organs swapped for tougher artificial ones by Mayuri). [passive]
+    - `Enhanced strength` — dug out Szayelaporro's hidden lab barehanded; hurls large stone blocks; lifts a big column overhead; erected the Garganta pillars alone. [Grab/Throw] `[NEW: LiftWorldChunk]`
+    - `Enhanced speed / reaction` — snatched Mayuri out of Bambietta's bomb radius; **caught a Heilig Pfeil with one hand** mid-flight. [Mobility, Absorb/Reflect(catch)] `[NEW: ProjectileCatch]`
+    - `Poison immunity` — same blood as Mayuri (immune to Konjiki Ashisogi Jizō). [passive]
+    - `Chemical repository` — Mayuri keeps drugs inside her; whoever consumes or invades her body gets a dose that depends on which part they touch. Szayelaporro, reborn *through* her via Gabriel (draining her to a husk), absorbed the **Superhuman Drug**: his perception sped up so far that one second felt like an eternity — he could barely move. [Status(time-slow on the invader)] `[NEW: OnAbsorbedPayload]`
+    - `Revival` — from a deathlike state Mayuri can restore her ("the Mayuri-style *** technique", played for embarrassment). [Heal/Reject (ally-triggered)]
+    - `Involuntary Cell Division Acceleration Organ` — implanted in her pituitary so her Konpaku cells outlive their limit; failsafes: if the cerebrum core is removed it links to the parietal lobe and takes over the body; eaten *without* her brain, it makes the eater regenerate out of control and **self-destruct** (how the Pernida clone died). [Status(overgrowth→explode)] `[NEW: OnEatenOvergrowth]`
+    - `Tedoriru (手ドリル, Hand Drill)` — spins hand and forearm like a drill at extreme speed; bores through solid rock. [MeleeArc(smash) → tunnel carve]
+    - `Power Enhancement` — 0.8% from collapse for ~6 min: her legs alone launch her high and fast enough to **shatter the ground at take-off and blow apart flesh in her path** (smashed a hole through Pernida's palm while carrying Mayuri out). [Transform/Stance, Mobility] `[NEW: TimedOverdriveWithCollapse]`
+    - `Konpaku Sessaku (魂魄切削, Soul Cutting; Viz: Soul Slicer)` → `Gikon Jūrinjū (義魂重輪銃, Artificial Soul Heavy Circle Cannon)` — she **shaves off 6% of her own soul** and fires it from the right palm as a golden energy blast that **warps the target's flesh around itself and leaves a clean circular hole**, carrying on through several buildings. [Beam(bore), Blast] `[NEW: SoulSacrificeCost]`
+  - *Field technician (canon)*
+    - **Antidote** carried under her armband (gave it to Uryū) · **Hojiku-Zai** (supplement: regrew Mayuri's arm and then her own) · **wound binding** (Kenpachi's stump) · **Nerve-Freezing Agent** — injected into one of Pernida's neutralised Heilig Pfeil so the nerve link froze Pernida and a clone (blood coagulates, organs lock in place) · **Reishi fixers** — spherical devices on a 3-second timer that meet Bambietta's bombs *without* setting them off, then burst and **deactivate reishi for a set time** · **Garganta device** — sets up large pillars single-handedly and stands on top as the focus to open a Garganta · pushes Mayuri's loaded wagon. [Heal/Reject, Bind, Status(paralysis), Construct, Teleport] `[NEW: ReishiFixerGrenade]` `[NEW: PortalGate]`
+    - **Self-amputation:** caught Pernida's arrow and cut off her own arm with her other hand before its nerves could spread. `[NEW: LimbSever/Regrow]`
+    - **Living shield / tackle:** grabbed Uryū's spirit arrow and tackled him so Mayuri could cut through both; "taking me hostage achieves nothing".
+  - *Anime-only*
+    - Expert hand-to-hand fighter who favours kicks; destroyed Reigai-Nemu with **one hand through the heart** (it reverted to a red pill, which she crushed). [MeleeArc(smash), Grab]
+    - Bount arc: tested Uryū in combat, then gave him research material 9-141 (a Quincy battle accessory that controls spiritual force).
+    - Dangai survey with a three-eyed scanning device printing on paper (gadget flavour).
+- **Passives & weaknesses:**
+  - + Poison immunity; + revivable by Mayuri; + drug payloads punish anything that absorbs/devours her.
+  - − Obeys orders: stands by until called (AI idle rule); − overdrive ends in collapse; − **died** when the pieces of a Pernida clone grew eyes, drove nerves into her, swelled her flesh and **burst her apart** — Mayuri saved only the brain.
+- **Signature moments to recreate:**
+  1. SS — grabs Uryū's arrow and tackles him; Mayuri slashes through her; she gives Uryū the antidote from under her armband.
+  2. Hueco Mundo — Szayelaporro's Gabriel reborn out of her mouth (she's left a withered husk; *anime softens it to pink vapour*) → Superhuman Drug backfires on him → Mayuri revives her → she tears open the lab door.
+  3. FKT — erects the Garganta pillars alone and stands on top as the focus to send Ichigo home.
+  4. TYBW — Bambietta's zombie bombs: she yanks Mayuri clear, throws the Reishi fixers.
+  5. **vs Pernida** — Heilig Pfeil catch + self-amputation; Hojiku-Zai; Nerve-Freezing Agent injection; **eyes go white**: leap through Pernida's palm with Mayuri; 6% soul → Gikon Jūrinjū through a clone and the city behind it; nerves burst her; Mayuri retrieves her brain → 10 years later, Hachigō Nemuri.
+  6. *Anime-only:* heart-strike on Reigai-Nemu (pill crushed).
+- **Kit proposal:**
+  - **Base:**
+    - Shift: augmented sprint/leap (written as raw physical speed, not named Shunpo); double-tap with lock-on = rescue-grab dash to an ally (or behind the target).
+    - LMB: kick-heavy Hakuda chain (anime); forward = flying kick, back = rising kick launcher, air = axe kick, down-air = stomp, sprint = sliding tackle. Hold LMB: **heart strike** — open-hand piercing thrust (one-hit KOs mod-soul/Reigai-type foes).
+    - **Q `Tedoriru`** — tap: drill jab (armour pierce); hold: continuous bore (tunnels through rock/buildings).
+    - **E `Heave`** — rip out a column/stone block and throw it.
+    - **R `Catch`** — snatch an incoming projectile mid-flight; if it is "infectious" (nerve/poison/parasite tag), follow-up **Sever** (cut the arm off; regrow later with Hojiku-Zai).
+    - **F `Reishi Fixer`** — throw 1–3 spheres with a 3 s fuse: on contact they *freeze* projectiles/bombs without detonating them; on burst they switch off reishi in the radius (projectiles fizzle, constructs stop, voxels stop breaking/repairing) for a few seconds.
+    - **Z `Field Kit`** (Tab sub-wheel): Antidote (cleanse poison, ally or self), Hojiku-Zai (regrow a limb/heal), Nerve-Freezing Agent (inject into a target or into its own projectile/tendril → full paralysis spreading along the link), Bandage.
+    - **X `Extraction`** — grab an ally and dash them out of an AoE.
+    - **G `Bodyguard`** — designate an ally (default Mayuri): she shadows them and auto-intercepts projectiles aimed at them.
+    - **C:** flare (colour not canon).
+  - **Power Enhancement (T):** eyes white, ~400 s timer, strength/speed way up; Shift becomes ground-shattering launches; LMB hits crater; **R `Burst Through`** — launch through an enemy body/structure carrying an ally. When the timer ends: forced collapse (stunned, HP drain).
+  - **V `Gikon Jūrinjū`** — usable in either state; costs **6% of max HP permanently** for the match (soul shaved); golden palm cannon that bores a clean circular tunnel through the target and everything behind it.
+  - **Death/successor (optional mode):** on KO, if Mayuri is alive he can "retrieve the brain" → she respawns later as **Hachigō Nemuri** (smaller, louder, weaker kit, shouts every action) `[NEW: SuccessorRespawn]`.
+- **AI notes:** Silent bodyguard: idles beside Mayuri until called *or* until she judges he needs a shield (his HP below a threshold) — then she acts on her own. Intercepts arrows, pulls him out of blasts, injects agents on command. Desperation: Power Enhancement → Gikon Jūrinjū. Tells: bows before acting; says "Mayuri-sama" once before moving.
+- **Callouts:** "Mayuri-sama." · "Konpaku Sessaku — Gikon Jūrinjū." · (Hachigō Nemuri: everything, loudly)
+
+---
+
+## 7. Yachiru Kusajishi (草鹿 やちる) — Lieutenant, 11th Division · President, Shinigami Women's Association (vanished, TYBW)
+
+- **Wiki:** https://bleach.fandom.com/wiki/Yachiru_Kusajishi · /Anime_Continuity · Nozarashi (Zanpakutō spirit) · Guenael Lee · battles: *Yachiru Kusajishi vs. Guenael Lee*; *Kenpachi Zaraki vs. Gremmy Thoumeaux*
+- **Roster tier:** **B** — fan favourite; her *attack-echo* beasts and instinct counters are a unique mechanic, and she is a lore key for Kenpachi's Bankai.
+- **Canon power:** **4/10** (true ceiling unknown) — combat-division lieutenant whom grown men fear; her instinct hit a Sternritter who could erase himself from sight *and* memory, and her concentrated Sanpo Kenjū strike split the ground; per Kubo she is a **manifestation of Nozarashi** (Kenpachi's Zanpakutō — specifically its Bankai aspect; the true spirit looks like an adult woman), which explains her powers.
+- **Body:** 109 cm → **35 vox**; 15.5 kg. Tiny child, big head (≈1/4.5 of height), short limbs. Silhouette keys: **short fluffy pink hair**, **permanent blush**, oversized armband on a tiny sleeve, a katana almost as long as she is **dragged on wheels**, usually **perched on Kenpachi's left shoulder**.
+- **Palette (hex estimates):**
+  - Skin `#FBE3D6` · blush `#F4A0AE` · hair pink `#F58FB5` (shade `#E06C98`) · eyes dark pink `#C2275F`
+  - Shihakushō = base palette (child-sized) · armband 十一 + yarrow, accent `#734F96`
+  - Sanpo Kenjū: hilt wrap pink `#F48FB1`, five-petal-flower tsuba (metal unstated → gold `#D2A63C`), purple scabbard `#7E3FA6`, two little wheels (wood `#5B4636`, tyre `#222222`), loose carrying cord (unstated → white `#F2F0EA`)
+  - Cross-bone hair clip (post-Aizen, left side; colour unstated) bone white `#EEE6D2`
+  - Angry-cat-face reiatsu pink `#FF6FA8` (outline `#FF3D8B`, 60% alpha)
+  - **Lumpy / Moko Moko (前獣, front beast):** plump, covered in yellow fur `#F2CF44` (shade `#D9AE2E`), eyes half-hidden `#1A1A1A`, cleaver `#B9BEC4` with dark grip `#4A3A2A`
+  - **Boney / Hone Hone (後獣, back beast):** tall, made of bone `#EDE5CF`, teal hair `#2FB5A5`, black cloak `#151515`, a large bone running vertically through the head, long dagger-like blade with a second blade off its top edge `#C5CAD0`
+- **Look by form/outfit:**
+  - **Default:** as above, riding Kenpachi.
+  - **17 months after Aizen:** flatter hair with a **cross-bone hair clip** on the left.
+  - **Cat costume:** prank outfit she wears to steal koi from Byakuya's pond (cosmetic).
+  - **Vanished (TYBW):** her empty shihakushō and armband left on the ground after Kenpachi beats Gremmy. **Nozarashi** then appears to Kenpachi *as Yachiru* (same model, mannerisms) to unlock his Bankai.
+- **Weapons:** **Sanpo Kenjū (三歩剣獣, Three-Step Sword Beasts)** — an ordinary katana (~100 cm → 32 vox, about her own height): pink hilt wrap, five-petal-flower tsuba, purple scabbard fitted with **two wheels** (Ikkaku installed them after she pestered him), carried on a loose cord rather than at the sash. The blade does **not** change in Shikai.
+- **Forms & states (ordered):**
+  1. **Sealed** — fists and the wheeled scabbard.
+  2. **Shikai** — **no release command**: she draws and **Lumpy + Boney** manifest beside her.
+  3. *(Lore)* **Nozarashi link** — she is the Bankai manifestation of Kenpachi's sword (team-up hook, not a solo form).
+  - States: **instinct mode** (auto-reflex), **angry** (cat face).
+- **Abilities (complete):**
+  - *Base*
+    - `High reiatsu` — when angry it takes the shape of a **huge angry pink cat face**; Kenpachi's crushing reiatsu doesn't affect her. [Stance, Status(fear on mobs)] `[NEW: ShapedAuraDecal]`
+    - `Hakuda` — swift punches (vs Guenael). [MeleeArc(smash)]
+    - `Strength` — lifts Kenpachi (twice her height, 5× her weight) with ease and leaps between buildings carrying him. [Grab/Throw] `[NEW: CarryAlly]`
+    - `Endurance` — fights on through blunt trauma and cuts.
+    - `Speed` — ran from Seireitei's streets to Sōkyoku Hill in no time without Shunpo (anime: something like Shunpo while chasing Ashisogi Jizō). [Mobility]
+    - `Infiltration` — secret tunnels and a hideout under the Kuchiki manor; only used for mischief. [Sensing/Stealth, Teleport(tunnel)]
+    - `Detection & analysis` — found Orihime and matched her reiatsu to Ichigo's to deduce she was a Ryoka. [Sensing] `[NEW: ReiatsuSignature]`
+    - `Auto-reflexes` — attacks on instinct whoever gives her "the feeling", without needing to know who they are; the longer it runs, the faster her counters and dodges get. It let her hit Guenael Lee, whose Vanishing Point erased him from sight and from her memory between punches. [Stance] `[NEW: InstinctCounterIgnoresStealth]`
+  - *Sanpo Kenjū (Shikai)*
+    - `Three-step strike` — when she swings, both beasts mimic the swing: **Lumpy hits just before her, Boney just after**, so even if she misses one of the two lands — near-undodgeable. [Summon(×2), MeleeArc(cut)] `[NEW: AttackEcho(timed offsets)]`
+    - `Fissure strike` — a concentrated triple strike opens a **deep fissure** in the ground (Guenael barely slid out of being bisected). [GroundWave, Slice]
+    - Isane: a Shikai that manifests its power as creatures while the blade stays unchanged is unheard of. She plays with the beasts between fights (they dance and high-five in Brave Souls — game).
+  - *Anime-only*
+    - Unaffected by Ashisogi Jizō's poison ("held her breath"); chased it, grabbed its wings and pinned it; poked the Dangai wall until it burst; spotted that the Zanpakutō spirits were stalling.
+  - *Leadership gag:* Women's Association president — spends the budget on candy, sends members on pranks.
+- **Passives & weaknesses:**
+  - + Instinct counters ignore stealth/invisibility; + immune to Kenpachi's (and allies') reiatsu pressure.
+  - − **No sense of direction** (her navigation gets everyone lost); − childish focus (sweets, games); − tiny reach and mass; − reality warpers break her (Gremmy turned her bones into cookies with a thought).
+- **Signature moments to recreate:**
+  1. Ryoka invasion — "navigating" Kenpachi in circles; hopping onto Ichigo's shoulder to look at Hanatarō.
+  2. After Kenpachi loses to Ichigo — she slings him on her back and bounds across the rooftops to Unohana; their naming flashback (Kusajishi, 79th North district).
+  3. Hueco Mundo — "Ken-chan will get mad if you attack me" to Nnoitra (shielded by Orihime).
+  4. **TYBW — Guenael Lee:** supply runs for Isane's field hospital; punching an enemy she keeps forgetting; drawing the sword; Sanpo Kenjū reveal; fissure strike.
+  5. **Gremmy:** cookie bones (scripted loss) → Kenpachi frees her ("go get your arm fixed").
+  6. **Disappearance:** Kenpachi steps on her empty uniform; later Nozarashi wears her face to give him Bankai.
+- **Kit proposal:**
+  - Shift: kid scamper (very fast, can wall-hop between rooftops); double-tap with lock-on = hop onto the target's head/shoulder and perch (*canon gag on Ichigo*) `[NEW: MountEnemy]`.
+  - **Sealed:** LMB flurry of tiny punches + scabbard bonks (game precedent: sheathed-sword fighting style); forward = headbutt dive, back = scabbard uppercut, air = spinning kicks, down-air = scabbard pogo, sprint = rolling tackle. Hold LMB: wheel-scabbard spin.
+  - **Shikai** (T: no chant — she draws; Lumpy and Boney pop in with a little dance):
+    - LMB: every swing = three hits (**Lumpy −0.15 s → Yachiru → Boney +0.15 s**); enemies must dodge three timings.
+    - Hold LMB: **Fissure Strike** (concentrated triple strike; long ground split).
+    - **Q `Sic 'Em`** — Lumpy and Boney fight independently for ~6 s.
+    - **E `Swap Lead`** (*extrapolation*) — reverse the echo order (Boney first) to break enemy parry timing.
+    - **R `Piggyback`** — lift an ally (Kenpachi) and bound across rooftops.
+    - **F `Secret Tunnel`** — dive into a hidey-hole and pop out at a known tunnel exit.
+    - **Z `Nickname`** — taunt (enemy targets her, small "annoyed" accuracy debuff).
+    - **X `Candy`** — snack heal.
+    - **G `Instinct`** — auto-reflex mode: she auto-counters anything hostile in reach, including invisible or memory-erasing enemies; each successful counter stacks speed.
+    - **C `Angry Cat`** — giant pink cat-face reiatsu overhead; weak enemies cower.
+    - **V `Triple Beast Rampage`** (game-inspired: dance + high-five, then all three slash) — wide multi-fissure. **Team variant with Kenpachi:** "Nozarashi" — she vanishes into his sword and his Bankai triggers/overcharges (lore-accurate team ultimate).
+- **AI notes:** Chaotic scout who runs ahead and gets lost; rides Kenpachi when he's present; attacks anything suspicious on instinct (good vs stealth enemies); flees danger by hopping on rooftops; the cat face appears when insulted. Tells: giggles before a pounce; shouts "Ken-chan!" when he arrives.
+- **Callouts:** "Ken-chan!" · "Sanpo Kenjū!" · "Moko Moko! Hone Hone!" (calling the beasts by their names) · nicknames: "Icchi!", "Tsururin!" (Ikkaku), "Byakushi!"
+
+---
+
+## 8. Hanatarō Yamada (山田 花太郎) — 3rd Seat (ex-7th Seat), 4th Division · Leader, 14th Advanced Relief Team
+
+- **Wiki:** https://bleach.fandom.com/wiki/Hanatar%C5%8D_Yamada · /Anime_Continuity · Hisagomaru (Zanpakutō spirit)
+- **Roster tier:** **C** — joke/support character: healer NPC, escort target, or comedy playable.
+- **Canon power:** **1/10 in combat** (healing 5/10) — "almost no fighting power"; can't use Shunpo; collapses under a captain's reiatsu; but healed Renji from near death to running in a short time.
+- **Body:** 153 cm → **49 vox**; 45 kg. Short, slight, hunched and nervous. Silhouette keys: **chin-length black hair with bangs framing the face**, big **blue eyes**, the **4th Division medical pack** on his back/over his shoulder. No armband (seated officer).
+- **Palette (hex estimates):**
+  - Skin `#F7DECD` · hair `#17171C` · eyes blue `#4C7BD0`
+  - Medical pack (colour unstated) tan canvas `#C8B48C`, straps `#5E4A33` (**verify**)
+  - Hisagomaru: handle blue `#3467C8`, round guard `#8C8F94` with a brown gourd/bag `#8B5A2B`, blade `#D5D9DE` with a glass-like gauge channel `#CFE6F2` filling **red** `#E3262E`; healing smoke red `#D9333F` (50% alpha)
+  - Akeiro Hisagomaru: vermilion scalpel `#E34234`; discharge stream red `#FF2E2E`, core `#FFD0D0`
+  - Kaidō green `#6FE08A` · Shinten green liquid `#5FD35F` · skull pill white `#F2F2F2` with black skull
+- **Look by form/outfit:** standard shihakushō + pack (default); unarmed most of the time (he keeps misplacing his sword); *anime-only* Bount arc: in a Gigai working at a convenience store.
+- **Weapons:** **Hisagomaru (瓠丸, Gourd)** — katana with a blue handle and a round guard with a brown sphere/bag (the "gourd") attached; a **gauge runs along the blade**. **Akeiro Hisagomaru (朱色瓠丸, Vermilion Gourd)** — Shikai shaped like a **scalpel**.
+- **Forms & states (ordered):**
+  1. **Unarmed** (default — sword misplaced).
+  2. **Hisagomaru** — healing blade.
+  3. **Akeiro Hisagomaru** — command "Mitase" (満たせ, Fulfill): triggers **automatically when the gauge is full**.
+- **Abilities (complete):**
+  - `Kaidō` — highly proficient: Renji from near death to running to Sōkyoku Hill; Ichigo overnight in the sewers (then Ganju, until he passed out drooling); TYBW triage for the 11th Division. Anime: also healed by giving his own reiatsu (later "too weak for that"). [Heal/Reject]
+  - `Hisagomaru — healing blade` — a cut **heals instead of hurting**; red smoke rises from the wound and flows into the blade, filling the gauge in proportion to the injury (small cuts barely register; Hollowfication-style Encroachment fills it instantly). [Heal/Reject] `[NEW: DamageInversionWeapon + StoredDamageGauge]`
+  - `Akeiro Hisagomaru` — at full gauge it auto-releases into the scalpel. *Anime continuity* fills in the payoff: every wound it absorbed is concentrated into **one slash that fires a red, Cero-like stream** (near-fatal to a Gillian); after that it can cut normally (awkward in scalpel form). [Beam, Slice]
+  - `Shinten` — green anaesthetic from his pack: one drop knocks out anyone with weak reiatsu (he dropped a guard with it; the wiki notes it was strong enough for Yumichika). [Status(sleep)]
+  - `Skull pill` — 4th Division stamina supplement; **his** is a flour placebo his seniors swapped as a prank (he thinks it works). [joke buff]
+  - `Expert guide` — knows Seireitei's sewers and hidden passages (4th Division cleaning duty) and carries keys to most buildings; stole the key to Rukia's cell. [Teleport(sewer network)] `[NEW: SewerNetworkTraversal]` `[NEW: KeysAndLocks]`
+  - `Can't Shunpo` — Byakuya simply left him behind in Hueco Mundo. [weakness]
+  - `Bravery` — walked onto the Senzaikyū bridge alone to stall Byakuya so the others could flee.
+  - *Anime-only — Hisagomaru's spirit:* a small white robot-like figure, cylindrical torso, spherical head, thin limbs with flat hands/feet, rectangular mouth, a black round right eye and **a long vertical gauge in place of the left eye**; heals by absorbing damage until the gauges fill, then its **chest opens into a cannon** fired with **"Sosoge"** (注げ, Infuse) — a red beam that one-shot a big Tōjū; lived in the sewers and booby-trapped them (tripwire explosions, a floor panel that flushes victims away with sewer water). [Summon, Beam, Construct(traps)]
+  - *Game-only:* Raikōhō (3rd Phantom); riding Ganju's boar Bonnie (Brave Souls).
+- **Passives & weaknesses:** + top-tier field healer; + small and unthreatening (enemy AI deprioritises him — *extrapolation*); − no Shunpo, no real offense until the gauge is full; − passes out under strong reiatsu; − the "most bullied kid in the world" (birthday April 1).
+- **Signature moments to recreate:** taken "hostage" by Ichigo and Ganju (the 11th Division don't care); sewer shortcut to the Senzaikyū; healing Ichigo underground; Shinten on a guard and the stolen key; standing alone on the bridge before Byakuya; freed by Rikichi to heal Renji; slashed by Zommari-controlled Rukia in Hueco Mundo; *anime-only:* the sewer Tōjū hunt with Nanao and Ikkaku when Hisagomaru's spirit fires its cannon.
+- **Kit proposal (joke/support):**
+  - Shift: panicked sprint (no Shunpo) with a trip-roll at the end that knocks over anything he runs into.
+  - **Unarmed LMB:** flailing slaps; the 3rd hit is a trip that knocks the enemy down.
+  - **Hisagomaru LMB:** every hit **heals** the target and fills the gauge by the amount healed (hitting badly wounded enemies — or allies — charges fastest).
+  - Hold LMB: big earnest swing (heals a lot, fills a lot).
+  - **Q `Kaidō`** — channelled heal; revives downed allies faster.
+  - **E `Shinten`** — flick a drop: weak foes sleep instantly; lieutenant-class foes get drowsy.
+  - **R `Skull Pill`** — placebo: 0 effect (1% chance of a tiny buff — the joke).
+  - **F `Sewer Dive`** — drop into the nearest manhole and resurface at another (also escorts allies).
+  - **Z `Key Ring`** — open any locked door/cell/gate.
+  - **X `Stand Firm`** — trembling taunt: draws aggro, big damage reduction, can't move.
+  - **G `Field Hospital`** — open the pack: healing station zone.
+  - **C:** a tiny green shimmer (his flare intimidates nobody — gag).
+  - **T (auto at full gauge):** *"Mitase"* → **Akeiro Hisagomaru**; **V `Sosoge`** — release all stored wound-damage as one red Cero-like slash/beam scaled by the gauge (anime-derived).
+- **AI notes:** Escort/healer AI: follows the party, heals the lowest HP, flees fights, hides in sewers; trips at bad moments (and accidentally knocks enemies over); never initiates combat unless cornered.
+- **Callouts:** "Yamada Hanatarō desu!" · "Mitase, Hisagomaru." · (anime spirit) "Sosoge!"
+
 <!-- C2-APPEND -->

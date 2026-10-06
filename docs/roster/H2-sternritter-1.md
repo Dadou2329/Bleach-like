@@ -404,4 +404,454 @@ Rules this file adds (they matter for five H2 characters who held a stolen Banka
   - Death animation: panics and prays to Yhwach while frozen.
 - **Callouts:** "Za Fiā." · "Tataruforasu." · "Senbonzakura Kageyoshi." · "Kowai ka?" ("Are you scared?" — his opener to Rukia).
 
+---
+
+## 3. Bambietta Basterbine (バンビエッタ・バスターバイン) — Sternritter "E": The Explode · self-appointed leader of the Bambies
+
+- **Wiki:** https://bleach.fandom.com/wiki/Bambietta_Basterbine
+  - Battles: Sajin_Komamura_vs._Bambietta_Basterbine, Battle_of_the_Zombies, Bambies.
+  - Anime: eps. 370–371, 380–383 and 388–389.
+- **Roster tier:** **A.** The voxel-destruction showcase: **everything her reishi touches becomes a bomb**, so the world itself is her ammunition.
+- **Canon power: 7.**
+  - Took Komamura's Bankai.
+  - A single Vollständig orb blast heavily injured Shinji.
+  - Flattened a district in a tantrum.
+  - Lost to Komamura's Dangai Jōe; Kubo ranks her the weakest Bambie in melee.
+- **Body:** 156 cm → **50 vox**.
+  - Build: slender and small.
+  - Silhouette keys:
+    - long straight hair to the hips (the back view);
+    - a peaked cap;
+    - a short coat flaring over a miniskirt;
+    - black stockings and knee boots.
+  - **Zofiel** roughly doubles her silhouette width with very large wings, adds a floating star halo, and clusters orbs under the wings.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | #F6DCCB |
+  | Hair | dark purple ✔ #3A2348 (highlight #5E3A73). Brave Souls and the anime made it purple; earlier colored art showed brown |
+  | Eyes | dark purple ✔ #5A2B6E |
+  | Cap | white, gold trim #C9A23A, black peak #17171B, insignia on the front |
+  | Coat, cloak, skirt | shared whites |
+  | Stockings | #1C1A22 |
+  | Red trim on gloves and boots ✔ | #C51F35 |
+  | Heart-shaped belt buckle ✔ | #D3203F |
+  | Reishi sword | blade #E8F6FF, glow #9ED8FF (verify) |
+  | Explode orbs | core #FFF1F4, glow #FF4D6D (verify) |
+  | "Armed" objects | pulsing #FF4D6D speckle on the surface |
+  | Explosions | white #FFF4E0 → orange #FF8A2A → crimson #C0102C → smoke #2B2024 |
+  | **Zofiel** | anime deep crimson ✔ #B3122E; wings #D11A3A with edges #FF6B7F; halo #FF4058. Alt skins: colored-manga blue, Brave Souls light pink ✔ #F7A8C4 |
+  | **Zombie ("Zombiel")** | smaller, darker-red wings ✔ #7A0E1E; desaturated skin #D9C6BF (verify) |
+- **Look by form/outfit:**
+  - **Base TYBW:**
+    - white cap with gold trim, black peak and the insignia;
+    - hooded cloak, ripped off mid-fight with Komamura;
+    - thigh-length white trench coat over a miniskirt;
+    - black stockings and knee-high boots;
+    - red trim on gloves and boots; red heart buckle;
+    - a Leiden Hant glove.
+  - **Zofiel:**
+    - A towering red column of reiatsu ends in a Quincy cross; the column shatters and she steps out.
+    - Large wings and a star-shaped Quincy Zeichen halo.
+    - Reishi orbs bud along the underside of the wings.
+  - **Battle-damaged:** singed uniform, cloak gone.
+  - **Zombie:**
+    - pallid skin and a servile, cringing posture;
+    - smaller, darker wings;
+    - an arm that can be cut off and stitched back on by Giselle.
+- **Weapons:**
+  - **Reishi Sword:** a short, ornate broadsword in the style of a Chinese dao, with a **forked tip** like the Zulfiqar; blade about 70 cm.
+    - Cut unseated Shinigami in half together with their Zanpakutō.
+    - Bisected a man vertically.
+  - **Reishi orbs:** the Schrift's projectiles.
+  - **Medallion.**
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Stolen Bankai: Kokujō Tengen Myō'ō.** Held but **never used on-page**. **game-only** option: summon the armored giant for one blow (model lives in Komamura's dossier).
+  3. **Zofiel (神の炎, "God's flame")** — T.
+  4. **Zombie Bambietta** — story/NPC state; playable variant.
+- **Abilities (complete):**
+  - ***Schrift — The Explode (爆撃, ジ・エクスプロード, "bombardment"):*** her reishi doesn't explode itself — it turns **whatever it touches into a bomb**, which goes off after a brief pause. `[Projectile (orb, explode), Blast, Environmental, Grab/Throw, NEW: FuseTagging, NEW: WorldChunkThrow]`
+    - **Unblockable by normal means:**
+      - Cutting doesn't help: Komamura sliced a kicked orb in half and it exploded anyway.
+      - Armor doesn't help either: the armor itself becomes the bomb.
+    - **Omnidirectional, at any range:**
+      - She can set off explosions right around her own body.
+      - She can radiate a **huge explosive globe** from her body that flattens everything nearby (the tantrum).
+    - **Arm-and-throw:** turned her used-up Medallion into a bomb. In the anime she tosses it at Shinigami on a rooftop; in the manga she bombs a tower wall.
+    - **Chain effects:**
+      - Through her inside knowledge of Komamura's giant she detonated the giant's chest, and the matching wound opened on Komamura.
+      - As a zombie, she grabbed Ikkaku's head to blow it off.
+      - As a zombie, she exploded right in front of her own body to blast attackers away.
+  - ***Kicked bomb:*** she kicks an orb at the target (her opener against Komamura). `[Projectile]`
+  - ***Spirit weapon — Reishi Sword / swordswoman:*** fast, clean cuts. `[MeleeArc (cut)]`
+  - ***Shadow:*** left the Seireitei through it, and opened a Shadow gate for Soldat. `[Teleport, Summon]`
+  - ***Blut:*** fourth of the five Bambies in proficiency (Kubo). `[Stance]`
+  - ***Medallion:*** took Komamura's Kokujō Tengen Myō'ō. **anime-only:** she taunts that it is hers now. When it returned to Komamura, she destroyed the Medallion. `[NEW: CrossKitTheft]`
+  - ***Zofiel:*** `[Projectile (multishot), Blast, Mobility (flight)]`
+    - **Flight.**
+    - **Wing orbs:** reishi orbs bud under the wings and are released by the dozens or hundreds in every direction; anything they touch explodes after a short delay.
+      - One blast heavily injured Shinji.
+      - She blanket-bombs the ground while flying, and fires hundreds of orbs behind her while fleeing.
+    - **Enhanced durability:** slammed into a building, she blew herself out of it with a bomb.
+  - ***Zombie state:*** Giselle reattaches severed limbs; she only stops when crushed; servile, and craves Giselle's blood as a reward; keeps a shrunken, darker Vollständig. `[Heal/Reject (via Giselle), NEW: CorpsePersistence]`
+- **Passives & weaknesses:**
+  - **Sufficient force:** an armed orb or object can be **knocked away before its fuse ends** — Komamura's giant drove her own orbs back into her. Implement as: an impulse above a threshold during the fuse moves the bomb.
+  - **Fuse freeze:** Mayuri's **Reishi Kotei Sōchi** spheres halt reishi activity for a set time (3 s), so the bombs went off around *her* instead. `[NEW: FuseTagging]`
+  - **Nothing to detonate:** Dangai Jōe, stripped of armor and life, simply healed through her bombs.
+  - **Weak in melee.**
+  - **Temper:** a tantrum is a self-centered AoE that also hits allies.
+  - **Survival instinct:** she flees foes she cannot hurt.
+- **Signature moments to recreate:**
+  1. **First invasion (eps. 370–371).** Massacre at the 7th Division; Komamura catches her wrist; the kicked bomb; she steals Komamura's Bankai.
+  2. **Silbern dorm.** She kills a Soldat "for relief" off-screen (tone down) and blasts a hole in the wall to shut the other Bambies up.
+  3. **Tantrum (eps. 382–383).** Realizing the Bambies left her alone, she flattens the district with an explosive globe.
+  4. **Shinji & Komamura (ep. 383):**
+     - Sakanade inverts her senses → Zofiel → "then I'll just blow up everything around me";
+     - she fires dozens of orbs at Hinamori;
+     - she turns Komamura's armor into a bomb;
+     - Dangai Jōe heals straight through her bombs;
+     - she bombs the giant's chest — the hole opens in Komamura's chest, where there is no heart;
+     - she flees, firing hundreds of orbs behind her;
+     - the giant's sword drives her own bombs back into her.
+  5. **Giselle "saves" her** (cutscene).
+  6. **Zombie (eps. 388–389).**
+     - Versus Ikkaku and Yumichika: Daichi Ten'yō rocks intercept her orbs.
+     - Versus Mayuri: his delay spheres turn her bombs around on her.
+     - Charlotte's Cero blows her away.
+  7. **Wahrwelt.** The zombie Bambies slaughter Soldat, then Yhwach swats them down.
+- **Kit proposal:**
+  - **Base:**
+
+    | Input | Move |
+    |---|---|
+    | Shift | Hirenkyaku. Double-tap + lock = appear behind and stick a bomb tag on the target's back |
+    | LMB chain | Quick dao cuts that bisect weak NPCs. Forward = lunge; back = launcher plus a **kicked orb**; air = slashes; down-in-air = bomb dive (arms a ring of floor); sprint = slide-kick that tags the target |
+    | Heavy | **Tag Strike** — a charged cut that arms everything along the blade arc, enemy and terrain alike (0.6 s fuse) |
+    | Q | **Bomb Orb** — tap: one orb; hold: a barrage stream |
+    | E | **Kick Bomb** — kicks an orb that bounces; cutting or blocking it still detonates it |
+    | R | **Explosive Globe** — omnidirectional sphere from her body, radius 15 m (hold → 40 m); flattens structures; hits allies too |
+    | F | **Arm & Throw** — grab any object (a chunk of debris, an enemy's weapon, a downed enemy, her own Medallion), arm it, throw it |
+    | Z | **Touch Detonation** — grab a head, arm it, pop |
+    | X | **Chain Detonate** (**game-only**) — set off all her live tags early |
+    | G | Blut toggle |
+    | C | Pink flare; voxels near her sparkle as an "armed" preview |
+    | T | Zofiel, or the stolen-Bankai page (**game-only**: the armored giant for one slash) |
+    | V | **Flatland** (**game-only** name) — saturates a 60 m zone with orbs; every voxel cluster hit gets armed; a staggered chain of explosions erases the zone |
+
+  - **Zofiel:**
+    - Flight.
+    - Q **Wing Barrage** — orbs bud under the wings and spray out; hold to rain hundreds.
+    - E **Carpet Bombing** — fly a line, dropping orbs behind you.
+    - R **Retreat Fire** — dash backward while hosing the pursuer with orbs (canon flight).
+    - F **Bomb Shell** — detonate a ring around herself to break grabs and encasements.
+    - Z **Armor Trap** — arm an enemy's shield or armor; the protection becomes the bomb.
+    - X **Spiral Dive** — corkscrew down, arming everything she passes.
+    - V **Zofiel Flatland** (**game-only**) — orbit and bomb an entire map sector.
+  - **Zombie Bambietta (NPC or alt skin):** regrows limbs while Giselle is nearby; immune to Fear (death state); never flees; protects Giselle.
+- **AI notes:**
+  - Sadistic glee: laughs and screams while bombing.
+  - Holds mid range and hates melee.
+  - Ignored, or abandoned by allies → tantrum globe.
+  - Senses inverted (Sakanade) → Zofiel and omnidirectional spam.
+  - Flees enemies she cannot hurt.
+  - Zombie variant: relentless, never flees, guards Giselle.
+- **Callouts:** "Ji Ekusupurōdo!" · "Kuinshī: Forushutendihhi!" · the Bambies call her "Banbi".
+
+---
+
+## 4. Cang Du (蒼都, ツァン·トゥ, Tsan Tu) — Sternritter "I": The Iron
+
+- **Wiki:** https://bleach.fandom.com/wiki/Cang_Du
+  - Technique: Shé_Jìn_Zhǎo.
+  - Battles: Tōshirō_Hitsugaya_vs._Cang_Du, Fall_of_the_Seireitei.
+  - Anime: eps. 370–372, 382–383 and 385.
+- **Roster tier:** **B.** A tight martial-arts kit — claws, kicks and an iron-skin toggle — plus a stolen ice Bankai that is a great showcase for Bankai theft.
+- **Canon power: 6.**
+  - Pressured Hitsugaya and took his Bankai.
+  - Effortlessly cut down Rangiku.
+  - Lost the rematch once the Bankai went home.
+- **Body:** 177 cm → **57 vox**.
+  - Build: slim martial artist with a light-footed stance.
+  - Silhouette keys:
+    - short black hair with pointed bangs falling between the eyes;
+    - narrow, pale-blue eyes;
+    - a small vertical scar over the left side of the mouth;
+    - a gi-like coat that ends just past the waist, with a black sash;
+    - fingerless gloves;
+    - **flat shoes** (one of the few Quincy without boots);
+    - **claws on the back of both wrists**: four curved blades each, ~35 cm, reaching past the knuckles.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | #EED2B8 |
+  | Hair | #121216 |
+  | Eyes | pale blue ✔ #A9D6F2 |
+  | Scar | #C98F86 |
+  | Coat | shared white |
+  | Sash, gloves, shoes | #17171B |
+  | Claws | reishi #DDF2FF, glow #7FC4FF |
+  | **Iron skin** | the wiki says his skin "grows darker / takes a steely hue": gunmetal #50555C, highlight #8E959D, edge #2E3136 |
+  | Stolen **Daiguren Hyōrinmaru** | violet ice ✔ #B7A2EE, depth #7A62C9, rim #EDE6FF |
+  | Vollständig | dark blue ✔ #1C2C7A, glow #3A57D6 |
+  | **Shé Jìn Zhǎo** | serpent-head energy #CFEAFF with a dark-blue rim #2E5BD8 (verify) |
+- **Look by form/outfit:**
+  - **Base** as above.
+  - **Partial Iron:** gunmetal patches spread over the struck area. Manga: right arm, then right shoulder and neck. Anime: left side of face and neck.
+  - **Full Iron:** the whole body turns darker steel.
+  - **Stolen Daiguren Hyōrinmaru:**
+    - a layer of **violet ice fused to his body**;
+    - large ice wings **without** Hitsugaya's flower petals.
+    - The left wing breaks off in a spray of blood when the Shin'eiyaku hits.
+  - **Vollständig:** never shown — only a towering dark-blue pillar topped by a Quincy cross that shattered his ice prison. **game-only design:**
+    - a dark-blue Zeichen halo whose rays are curved claw blades;
+    - two pairs of narrow, curved blade-wings echoing his claws;
+    - iron-grey forearm gauntlets.
+- **Weapons:** **Reishi Claws** on both wrists. He fights hand-to-hand otherwise.
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **The Iron** — a toggle (G override), partial or full.
+  3. **Stolen Bankai: Daiguren Hyōrinmaru** — T while held.
+  4. **Quincy: Vollständig (unnamed)** — T; look is game-only.
+- **Abilities (complete):**
+  - ***Schrift — The Iron (鋼鉄, ジ・アイアン, "steel"):*** coats his skin partly or entirely in iron, making his body nearly immune to physical harm. `[Stance, Shield, MeleeArc (smash), NEW: MaterialSkinSwap]`
+    - Hitsugaya's sword stopped with a metallic clang.
+    - **Offensive use:** with his arm frozen solid, he turned it to iron and rammed Hitsugaya's sword. The ice shattered and the impact blew Hitsugaya back through a wall, while Cang Du took no damage.
+    - At his execution, an iron neck and shoulder stopped Haschwalth's sword — until The Balance tipped his luck.
+    - **Tell:** before the iron rush he **taps his foot on the ground twice**.
+  - ***Spirit weapon — Reishi Claws:*** pierce Hitsugaya's ice walls with ease. With the stolen Bankai, a claw swipe launches a wave of ice. `[MeleeArc (cut)]`
+  - ***Shé Jìn Zhǎo (蛇勁爪, シェジンツァオ, "serpent-force claw"):*** he points both arms at the target with one fist stacked over the other, wrists turned away from each other, and fires two blasts from the claws. Together they form a **snake's head**: one blast makes the eye and upper jaw, the other the lower jaw. `[Projectile / Beam]`
+  - ***Hand-to-hand expert:*** rapid kicks against Hitsugaya's ice wing, a kick that launched Hitsugaya into the air, and a downward axe kick blocked by an ice sheet. `[MeleeArc (smash)]`
+  - ***Hirenkyaku expert*** — keeps relentless pressure. ***Shadow*** — leaves the Seireitei. ***Pain tolerance*** — fought on after his ice wing tore off his back. `[Mobility, Teleport]`
+  - ***Stolen Bankai — Daiguren Hyōrinmaru (大紅蓮氷輪丸):*** `[Construct (ice), Environmental (freeze), Mobility (wings), NEW: CrossKitTheft]`
+    - Violet ice merged with his body gives him ice wings; he fights with claws plus ice.
+    - Sternritter train to control the Bankai they steal.
+    - The ice evaporated when Yamamoto's Zanka no Tachi dried out Soul Society.
+    - Ice attacks against Hitsugaya **swerved upward** — Hyōrinmaru won't attack itself.
+  - ***Vollständig:*** the activation pillar shattered the giant cross-shaped ice flower that held him, and it auto-revived him after defeat. `[Transform, Blast, NEW: AutoReviveTrigger]`
+- **Passives & weaknesses:**
+  - A stolen Bankai cannot hurt its owner, and the Shin'eiyaku tears it away.
+  - "Fate" attacks bypass the iron (The Balance). Game rule: armor-ignoring and misfortune effects.
+  - Full Iron is heavy: slower, with weaker jumps (**game-only**).
+  - Stoic tunnel vision.
+- **Signature moments to recreate:**
+  1. **First invasion (eps. 370–371).** Breaks Hitsugaya's ice walls with his claws; his arm is frozen; two foot taps, then the iron rush blows Hitsugaya through a wall; he steals Daiguren Hyōrinmaru and fights with it.
+  2. **Second invasion (eps. 382–383):**
+     - steps in to take Bazz-B's kill;
+     - drops the wounded Rangiku at Hitsugaya's feet ("those who lived together should die together");
+     - the Shin'eiyaku snaps his left ice wing off in blood;
+     - his ice swerves away from Hitsugaya; a kick combo;
+     - Shé Jìn Zhǎo against Hitsugaya's cross-shaped ice flower, which seals him inside;
+     - the Vollständig pillar breaks him out.
+  3. **Execution (ep. 385).** His iron neck stops Haschwalth's blade — "only His Majesty may kill me" — then The Balance flips his luck.
+- **Kit proposal:**
+  - **Base:**
+
+    | Input | Move |
+    |---|---|
+    | Shift | Hirenkyaku pressure dashes, chainable 3×. Double-tap + lock = behind |
+    | LMB chain | Kung-fu kicks mixed with claw rakes. Back = launcher kick; down-in-air = axe kick; sprint = iron shoulder charge |
+    | Heavy | **Iron Rush** — two foot taps (a deliberate tell), then an iron-arm charge that shatters encasements and ice, with huge knockback |
+    | Q | **Claw Slash** — a crescent of reishi; hold = cross slash |
+    | E | **Shé Jìn Zhǎo** — serpent-head blast; hold = larger, piercing |
+    | R | **Iron Parry** — timed: the struck part turns iron, the attacker is staggered by the clang |
+    | F | **Claw Rush** — a multi-hit dash |
+    | Z | **Kick Barrage** — air juggle |
+    | X | Medallion steal |
+    | G | **The Iron** (override) — full-body iron: ~90% physical damage reduction, immune to cuts, heavier and slower; elements still hurt |
+    | C | Dark-blue flare |
+    | T | Vollständig, or the stolen-Bankai page |
+    | V | **Together in Death** (**game-only**) — if two enemies stand close, a linked finisher hits both |
+
+  - **Stolen Daiguren page:**
+    - Q **Ice Claw Wave**.
+    - E **Ice Wings** — flight plus a wing guard.
+    - R **Freezing Rake** — freezes whatever it hits.
+    - F **Ice Pillar** (generic Daiguren freeze).
+    - The page **cannot target Hitsugaya** (canon swerve).
+  - **Vollständig (game-only):** faster claws, plus a claw-blade wing slash (MeleeArc).
+- **AI notes:**
+  - Silent and stoic; double foot-tap before every charge.
+  - Prioritizes pairs (partners, master and student) and finishes downed enemies.
+  - Refuses to retreat.
+  - In the Haschwalth set piece he tries to iron-block the killing blow.
+- **Callouts:** "Shejintsao!" · "Ji Aian." · "Kuinshī: Forushutendihhi."
+
+---
+
+## 5. Quilge Opie (キルゲ・オピー) — Sternritter "J": The Jail · Executive Hunting Captain (統括狩猟隊長) of the 1st Jagdarmee
+
+- **Wiki:** https://bleach.fandom.com/wiki/Quilge_Opie
+  - Battles: Wandenreich_vs._The_Arrancar, Ichigo_Kurosaki_%26_Ayon_vs._Quilge_Opie.
+  - Anime: eps. 368–371.
+  - Shared: Sklaverei, Ransōtengai, Blut.
+- **Roster tier:** **A.** The **Sklaverei showcase** — he literally eats the arena and grafts monsters onto himself — plus the prison mechanic. The first Sternritter boss of the story.
+- **Canon power: 7.**
+  - Beat the Tres Bestias.
+  - Fought Ichigo's Shikai evenly and held out against Tensa Zangetsu.
+  - Shrugged off a point-blank Getsuga and Ayon's beating (popped his broken neck back into place).
+  - Absorbed Ayon.
+  - Grimmjow cut him in half.
+  - *Caveat:* the wiki's power summary says he "severely wounded Urahara in a surprise attack", but the battle pages show the reverse — Urahara's sneak blast holed *him*. Treat that claim as unverified.
+- **Body:** 178 cm → **57 vox**.
+  - Build: upright, parade-ground posture.
+  - Silhouette keys:
+    - a military officer's peaked cap;
+    - round spectacles;
+    - a short shoulder cape;
+    - a belted tunic;
+    - a long saber;
+    - a **five-pointed Quincy cross dangling at the left hip**.
+  - **Piskiel** adds:
+    - **huge wings** (span ~3× his height);
+    - a large halo;
+    - oversized gloves with big wrist guards and big boots;
+    - a large holster strapped across the chest.
+  - After **Ayon is grafted on:** eyes on the wings, big lipless teeth, and a massive left arm.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | #E9CFB4 |
+  | Head | mostly shaved, dark stubble #6E625A, a crop of black hair on top #17171B |
+  | Eyes | dark #2A2420 (verify) |
+  | Spectacles | round frames #1A1A1A (verify), reflective lenses #DCE9F2 |
+  | Cap | white, black peak, gold trim #C9A23A |
+  | Cape, tunic, trousers | shared whites |
+  | Belt | black, ornate buckle #B9C0C8 |
+  | Boots | #17171B |
+  | Five-point Quincy cross | silver #C9CED6 |
+  | Leiden Hant ✔ | black glove with a white Wandenreich insignia on the back of the hand |
+  | Saber, daggers, arrows | standard Quincy blue-white |
+  | **Jail** | lattice bars #CFEAFF, nodes #FFFFFF, inner haze #9ED8FF at 30% |
+  | **Piskiel** (anime colors unverified; colored manga is blue) | wings #F4FBFF with a cyan edge #5CB8FF; halo #FFFFFF → #9ED8FF |
+  | **Sklaverei streams** | blue specks ✔ (anime) #8FD0FF |
+  | **Ayon graft** | mane brown #3B2A20, fur #9C7A55, eye voids #050505 |
+- **Look by form/outfit:**
+  - **Base (Jagdarmee captain):**
+    - white peaked cap with black peak and gold trim;
+    - round glasses with a **built-in two-way radio and earpiece**;
+    - short white cape;
+    - white top fastened by a black belt with a decorative buckle;
+    - white trousers, black boots;
+    - the five-pointed cross on the left of the belt;
+    - gloves — the right one hides the Leiden Hant.
+    - In his Hueco Mundo camp he lounges on a **throne**.
+  - **Piskiel:**
+    - two large wings;
+    - gloves with large wrist guards;
+    - large boots;
+    - a big halo shaped like the Quincy Zeichen;
+    - a large holster across the chest;
+    - his **eyes "change dramatically"** — the exact design is not described (verify with manga ch. 489–490 panels).
+  - **Piskiel + Ayon:** two large eyes open on the wings; his teeth grow huge and lipless; his left arm swells with enormous muscle.
+  - **Halo broken:** the look stays; the powers go.
+  - **Ransōtengai:** reishi threads run from his head to his limbs, and he moves with a broken, puppet-like posture.
+- **Weapons:**
+  - **Jagdarmee spear** — sharp enough to pierce Arrancar Hierro.
+  - **Reishi saber** — an ornate military saber. He forms two extensions on the guard to make it a bow.
+  - **Reishi daggers.**
+  - **In Piskiel:** a bigger sword grown from a wrist gauntlet, which unfolds into a much larger bow. (The wiki says "right hand" in one place and "left wrist" in another — inconsistent.)
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Piskiel** — T.
+  3. **Piskiel + Assimilated** — after a Sklaverei on a creature; temporary and unstable.
+  4. **Ransōtengai last stand** — after a lethal hit.
+- **Abilities (complete):**
+  - ***Schrift — The Jail (監獄, ザ・ジェイル, "prison"):***
+    - **Gate Seal** — reishi constructs fired at a dimensional gateway force it shut. He sealed the Garganta exit right in front of Ichigo. `[Construct, NEW: PortalSeal]`
+    - **Cage** — traps a target inside a reishi cage (Ichigo's was a **spherical** barrier). `[Construct (cage), Bind, Sensing/Stealth, NEW: SealedCage]`
+      - The prisoner's presence and reiatsu **vanish** from the outside world.
+      - Prisoners can hear outside comms (a Denreishinki), but **nobody can hear them**.
+      - **Unbreakable** even by a point-blank Bankai Getsuga Tenshō.
+      - **Persists after Quilge dies.**
+      - **Cannot hold a Quincy** — that is why Ichigo broke out.
+  - ***Spirit weapons:*** `[MeleeArc (cut), Projectile (arrow, multishot, explode), Projectile (dagger)]`
+    - **Saber** — cut through Menoly's Zanpakutō.
+    - **Heilig Pfeil** — fired from the two guard extensions, **up to six at once**, each exploding on impact; Ichigo rated them stronger than Uryū's.
+    - **Two thrown daggers** — pinned Menoly's sword arm.
+    - **Spear thrusts** — impaled captive Arrancar one by one.
+  - ***Blut Vene:*** `[Stance, Shield]`
+    - Caught Apacci's still-spinning Pulsera Cuerno bare-handed.
+    - Took no damage from a point-blank Shikai Getsuga.
+    - Survived Ayon's beating with a broken neck that he snapped back into place.
+    - His only defense against foes faster than him.
+  - ***Blut Arterie:*** needed to hurt Bankai Ichigo. Switching between the two leaves a gap, and Urahara used it to blast a hole through his chest. `[Stance]`
+  - ***Ransōtengai (乱装天傀):*** reishi strings from the brain puppet his body despite fatal wounds — he stood back up after Urahara's blast. Kubo says he was the Sternritter's combat instructor. `[NEW: PuppetOverride]`
+  - ***Expert swordsman · strength · Hirenkyaku expert*** — he got behind Ichigo unseen. `[Mobility]`
+  - ***Radio earpiece*** — receives orders from headquarters. ***Medallion*** — failed on Tensa Zangetsu.
+  - ***Piskiel (神の正義, "God's justice"):*** `[Transform, Mobility (flight), Absorb, Environmental, NEW: VoxelAbsorptionStream, NEW: FleshStripDeath, NEW: AbilityAssimilation]`
+    - **Activation:** he pulls off his right glove to bare the Leiden Hant; a massive cross of reishi forms around him. There is **no reiatsu shockwave**, because Quincy absorb rather than emit.
+    - **Flight and speed:** reappeared behind Ichigo before Ichigo could see him move.
+    - **Enhanced sensing.**
+    - **Sklaverei** (Kubo: Piskiel has the **highest reishi-capture capacity of any Quincy**) absorbed:
+      - trees, sand, rocks and Hueco Mundo's buildings;
+      - Orihime's Santen Kesshun;
+      - Sung-Sun's Muda camouflage dome;
+      - the skin and flesh of Arrancar and humans (anime: as blue specks).
+    - **Uses of Sklaverei:**
+      - It **repairs Piskiel** itself.
+      - **Charged Cross:** he gathers absorbed reishi into a **cross-shaped mass at the sword tip** for a huge shot.
+      - **Assimilation:** he stripped **Ayon** to the bone (anime: Ayon's head and upper body become a skeleton) and took on his traits — the power is unstable and fades.
+    - The gauntlet sword fires a much larger multi-arrow bow.
+- **Passives & weaknesses:**
+  - **Halo destroyed → no more Sklaverei** (Ichigo's black Getsuga).
+  - **Quincy are immune to The Jail.**
+  - **The Blut switching window.**
+  - **Arrogance:** he dropped his guard for Ayon's ambush and Urahara's blast.
+  - Grimmjow was fast enough to cut through Vollständig-boosted Vene before Quilge could react.
+- **Signature moments to recreate:**
+  1. **Jagdarmee camp (ep. 368).** Throne, heel-click, the "selection" speech; he impales a line of captive Arrancar (tone down); Loly and Menoly ambush him and he puts them down.
+  2. **Tres Bestias.** In the anime he walks out unscathed from Mila Rose's blast.
+  3. **Ichigo's Shikai duel.** An arrow barrage; Ichigo catches an arrow and throws it back; six arrows against a Getsuga.
+  4. **Piskiel (eps. 369–370):**
+     - Sklaverei rips apart Santen Kesshun;
+     - Ayon pummels him into the sand; he pops his neck back;
+     - Sklaverei strips Ayon to the bones and grafts Ayon onto him;
+     - he devours the Muda dome;
+     - Ichigo's Bankai black Getsuga shatters his halo;
+     - his Medallion fails;
+     - Urahara's blast.
+  5. **Garganta (eps. 370–371).** Ransōtengai, then The Jail cage plus a gate seal trap Ichigo; Grimmjow bisects Quilge.
+- **Kit proposal:**
+  - **Base:**
+
+    | Input | Move |
+    |---|---|
+    | Shift | Precise Hirenkyaku. Double-tap + lock = behind |
+    | LMB chain | Saber fencing: thrusts and cuts. Forward = lunge; back = launcher; air cuts; down = plunge; sprint = Jagdarmee **spear** charge |
+    | Heavy | Arterie overhead cleave (guard break) |
+    | Q | **Heilig Pfeil** — tap: one arrow; hold: a fan of up to six exploding arrows |
+    | E | **Reishi Daggers** — two throws; a hit disables an arm (slower attacks) |
+    | R | **Jail: Cage** — lock-on target sealed in a lattice sphere for 6–12 s. Hidden from all sensing, cannot be hit or hit back, outgoing chat muted. Breaks only on duration or for Quincy-flagged actors; persists if Quilge dies |
+    | F | **Jail: Gate Seal** — slams shut every portal in a radius (Garganta, Senkaimon, Shadow exits, doors) or bars a corridor with a reishi grate |
+    | Z | **Ransōtengai** — once per fight: at 0 HP, stand back up at 25% for 15 s, immune to stun and limb-break |
+    | X | Medallion |
+    | G | Blut toggle (Vene: heavy damage reduction · Arterie: damage · 0.3 s gap) |
+    | C | Inhale flare; the cap brim shadows his eyes |
+    | T | Piskiel |
+    | V | **Jagdarmee Volley** — a squad of Jagdarmee archers steps out of a Shadow and fires a synchronized barrage (canon: his men shot at Ichigo with Hirenkyaku and bows) |
+    | Tab | weapon swap (saber / spear / daggers) · Jail variants (sphere / box / grate) · Jagdarmee commands (advance, surround, volley) · Shadow |
+
+  - **Piskiel:**
+    - Flight.
+    - Q **Grand Bow** — the gauntlet sword unfolds into a giant bow; hold for many oversized arrows.
+    - E **Sklaverei Drain** (focused cone) — rips voxels, enemy constructs and shields into blue specks; on flesh it drains HP as specks; heals Quilge.
+    - R **Charged Cross** — hold to pull reishi into the cross-shaped mass at the sword tip, release for a huge piercing shot.
+    - F **Jail (enhanced)** — bigger cages, or two at once.
+    - Z **Assimilate** — Sklaverei a creature, summon or Hollow below X% HP: it is stripped to the bones and Quilge gains its traits for 30 s. Ayon's are wing eyes, giant teeth and a mega left-arm punch. Unstable: random self-stagger.
+    - X **Reconstruct** — Sklaverei the environment to regrow halo and wings and heal.
+    - Hold T: shared omni-radius Sklaverei.
+    - V **Total Enslavement** (**game-only**) — a 40 m Sklaverei: the whole district dissolves into a reishi tornado feeding his halo, then a giant cross arrow.
+- **AI notes:**
+  - Theatrical and authoritative: clicks his heels before speeches; boss intro seated on his throne; sends Jagdarmee in first.
+  - Fences with Vene on and switches to Arterie only to strike (the gap is the exploit).
+  - Goes Piskiel when the radio orders it or below 60% HP; drains the environment when hurt.
+  - **Assimilates** big creatures and summons in the arena, including the player's summons.
+  - Cages anyone who tries to flee, teleport or call for help.
+  - Ransōtengai last stand, aimed at whoever is escaping.
+- **Callouts:** "Kuinshī: Forushutendihhi!" · "Pisukieru!" · "Sukuraverai!" · "Za Jeiru." · introduces himself as "Kiruge Opī of 'Za Jeiru'".
+
 <!-- H2-NEXT -->
