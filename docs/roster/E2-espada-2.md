@@ -70,7 +70,7 @@ Notes specific to this file:
   - **Espada (first Karakura raid):** white jacket with the collar flipped up high around the neck, sleeves pushed up to mid-forearm, worn wide open with no shirt so the black lining shows at the lapels; white hakama, black sash, katana thrust through the sash on the **left** hip; black boots. Spiky cyan hair swept back with a few strands falling forward. **Jaw mask:** a bone piece hugging the right side of his face from below the ear to the chin, shaped like the right half of a lower jaw with a row of teeth along the cheek. No scar yet.
   - **Scarred (from fight 1 on):** permanent diagonal Getsuga scar, left shoulder → right hip, across chest and abs. He keeps it on purpose; it stays on every later look.
   - **One-armed (second raid):** left arm gone **at the shoulder** (Tōsen cut it off and burned it away with Hadō #54); no "6" (his tattoo was burned off with the demotion). Orihime later restores both arm and tattoo.
-  - **Battle damage:** right arm burned from hand to elbow (Cero clash with Ulquiorra, before the final fight); deep chest slashes from Ichigo in the final fight.
+  - **Battle damage:** right arm burned from hand to elbow (Cero clash with Ulquiorra; Orihime heals it at Ichigo's request before their duel — a short-lived damage state); deep chest slashes from Ichigo in the final fight.
   - **Pantera (released):** mane-like very long cyan hair to the hips; ears become cat ears swept straight back; the under-eye marks stretch back to the ear tips; jagged fangs; jaw mask gone, replaced by a **white bone headpiece across the brow/forehead**; **form-fitting white segmented armor** over torso, arms and legs (his Adjuchas look), hole still open; **black clawed hands**; **black clawed cat paws** for feet; **blades jutting back from the forearms near the elbows** and **from the calves**; a long thin whip tail.
   - **Partial transformation (TYBW):** TYBW outfit with only the fingers/hands turned into black Pantera claws.
   - **TYBW outfit:** black zip-up shirt left half open (scar visible), black trousers, differently styled black boots, **two belts**, katana sheathed along the upper belt on his left side, the white Espada jacket still worn over it all.
@@ -325,4 +325,309 @@ Notes specific to this file:
   - `Immense reiatsu` — pressured post-timeskip Renji; fought Ichigo without faltering.
 - **Kit (Hell form, proposal):** Shift = short Hell-portal blink · LMB = chain lashes · Q chain eruption (bind) · E chain lance (pierce) · R chain cage (Construct) · F clairvoyance pulse (reveal every enemy, weak points, "who matters to whom" for hostage AI) · Z Hell portal (two-way) · X Rinki release (drifting acid-on-cut field) · G horns (power stance, slow HP bleed) · C dark flare · V **"Jaws of Hell"** (proposal) — open a toothed portal under the target and chain-drag them in · Tab chain patterns. Story exit: gigantic Hell-Ukitake's Sōgyo no Kotowari impales him and pulls him back.
 
-<!-- CONTINUE -->
+---
+
+## 5. Aaroniero Arruruerie (アーロニーロ・アルルエリ) — Noveno (9th) Espada, aspect of Greed; last of the first-generation Espada, the only Gillian among them
+
+- **Wiki:** https://bleach.fandom.com/wiki/Aaroniero_Arruruerie · Metastacia, Spirit_Body_Fusion, Zanpakutō_Destruction · battle: *Rukia Kuchiki vs. Aaroniero Arruruerie* · Kaien Shiba (A3 dump) for Nejibana
+- **Roster tier:** **B** — boss built around a disguise gimmick (fight "Kaien" in the dark, expose him to light by breaking the walls); playable as a shapeshifter whose library grows by eating Hollows.
+- **Canon power:** **6/10** — overpowered Rukia with Kaien's skill and Nejibana and tore apart a Bakudō #61 by hand, but a Shikai lieutenant killed him with one stab through his glass head.
+- **Body:** 205 cm → **66 vox**; 91 kg. Tall, upright, aristocratic, body fully hidden by long garments. His **head is a large upright glass cylinder** full of red liquid with **two small Hollow heads** floating inside: the top one ¾ masked (deep voice), the bottom one ½ masked (high, childlike voice); both tattooed **"9"**. In daylight and among the Espada he covers it with a **tall white mask pierced by eight holes**. Hole in the **left thigh** (hidden). The left hand is Glotonería, hidden under a single white glove.
+  - Capsule ≈40 cm tall × 25 cm wide (estimate) → 13 × 8 vox; heads ≈8–10 cm → ~3 vox — consider a 64 vox/m sub-model for the capsule interior.
+  - Glotonería mass ≈8–10 m wide × 4–6 m tall (estimate) → build at 16 vox/m.
+- **Palette (hex estimates):**
+  - Outer mask `#F2F0E9`, holes `#141414` · capsule glass `#DCEFF3` (~30% opacity, rim highlight `#FFFFFF`) · liquid red `#B3142C` (~75% opacity, deep `#6E0A1A`) · small heads: skin pale grey `#C9C3BD` (verify), mask bone `#F1EDE3`, eye sockets `#141414`, "9" `#111114`
+  - Clothing: full-length white garb `#F4F3EF` (shade `#D8D5CE`), **frilly noble's coat** white with ruffled collar and cuffs `#FAF9F6`, one white glove `#FFFFFF` (left hand)
+  - Glotonería (sealed): tentacles brown `#6E4B2F` (shade `#4B3220`, tips `#8A6242`), maw `#3B0D16`, teeth `#E9E1CB`
+  - Released mass: dark purple `#5E2A72` (shade `#3F1B4D`, highlight `#8A4BA0`), stubby tentacles likewise, **large red eyes** `#D3202F` (pupils `#140508`), toothed mouths `#3A0B17` / teeth `#EDE5D0`, central bubbling pool `#4A1A58` with surfacing white masks `#EEEAE0` (Heat the Soul's golden tentacles are game-only)
+  - Reiatsu dark purple `#4A1E6E`
+  - Kaien aspect: skin `#F2D0B0`, spiky black hair `#141414`, aqua-green eyes `#3FB8A8` · Nejibana: silver `#C8CDD3`, blue tassel `#2C6FD8`; sealed hilt dark-blue wrap `#1F2E5A`, square gold guard `#C9A53A`, brown sheath `#6B4A2E` · water `#3AA6E6`, foam `#E9F8FF`
+- **Look by form/outfit:**
+  - **Masked (meetings, light):** the tall eight-hole mask (hole arrangement — verify), frilly noble's coat over full-length garb, one glove; very still and formal.
+  - **True head (exposed to sunlight):** the flesh disguise sloughs off his head to reveal the glass capsule and the two bickering heads.
+  - **Kaien aspect (only in shadow):** Kaien Shiba's head and face (spiky black hair, aqua-green eyes) rebuilt around the capsule, with Kaien's voice, memories, skills and Nejibana; he keeps Aaroniero's white clothing (verify against anime frames).
+  - **Glotonería:** the "Kaien" upper body (or the capsule head, in light) rising from a **gigantic purple mass** — a bloated octopus with dozens of stubby tentacles, large red eyes, toothed mouths and a huge blobfish-like face; its center boils, flashing the masks of the Hollows he has eaten.
+  - *Brave Souls "Beyond" (game-only):* smaller patchwork humanoid, six toothed tentacles from mouths at the pelvis, hands in place of feet, enlarged heads on separate necks behind a red-black veil.
+- **Weapons:**
+  - **Glotonería (sealed):** not a sword — a **brown tentacled appendage with a gaping central maw** ringed by coiled tentacles, worn as/under the left glove.
+  - **Nejibana (taken from Kaien):** sealed katana — square gold guard with cut-off corners and wave reliefs, dark-blue hilt wrap, brown sheath. Shikai = **long silver trident-spear** (leaf-shaped central blade plus two outward-curving side blades joined to it by two bars), thick **blue tassel**, **corkscrew/drill-shaped butt**; constantly sheds water. ≈2.2 m long (estimate) → ~70 vox.
+- **Forms & states (ordered):**
+  1. **Masked / true form** — sealed; one absorbed aspect at a time.
+  2. **Aspect Manifestation: Kaien Shiba** — shadow-only disguise with Kaien's full kit.
+  3. **Resurrección: Glotonería** — "**Kuitsukuse, Glotonería**" (喰い尽くせ「喰虚」, *Devour, Devouring Hollow*; Sp. "gluttony"): every absorbed power usable at once.
+  4. **Sunlit** — debuff state: disguise and manifested powers off.
+- **Abilities (complete):**
+  - `Hollow Absorption (Glotonería)` — he eats **dead Hollows** and keeps all their powers and reiatsu, evolving without limit (why a Gillian made Espada); **33,650 eaten**, including **Metastacia**, and through it Kaien Shiba. [Absorb/Reflect/Redirect, NEW: AbilityAbsorb]
+  - `Aspect Manifestation` — reproduces any absorbed being's body, knowledge, memories, muscle memory and powers; **one at a time while sealed, any number while released**. Works **only in darkness**: sunlight nullifies it and the false flesh falls away; he rebuilds Kaien's head the moment he is back in shadow. [Transform, NEW: Shapeshift, NEW: LightExposure]
+  - `Nejibana (捩花, "twisted flower") — Kaien's Shikai` — command "**Suiten Sakamake, Nejibana**" (水天逆巻け, *Watery Heaven, surge back*): he twirls the sword, it becomes the trident and releases a wave. Kaien's dance-like spear style pivots on one wrist; every swing throws water and heavy blows raise **crushing waves**, trapping the foe between thrust and wave. Shown: lunging thrust; **twirl-and-drive into the ground beneath the target, ripping the floor up** (launching them on a rock slab); twirl along the ground into a crashing overhead; a **water torrent massed over the spear and slammed down** (destroyed a large stretch of floor); flick-disarm; and, released, the impaling thrust that **snapped Sode no Shirayuki** and skewered Rukia. [MeleeArc, Environmental (flood/waves), GroundWave, Projectile]
+  - `Spirit Body Fusion (霊体融合)` — Metastacia's power: red tentacles shot into a body let him merge into it (his old body collapses as a husk; the host's look shifts toward his mask pattern). [Status (possession), NEW: Possession]
+  - `Zanpakutō Destruction` — Metastacia's power: a Shinigami whose blade touches certain back tentacles has the Zanpakutō **shattered instantly**; Metastacia could do it **once per night**. [Status (weapon break), NEW: WeaponBreakOnTouch]
+  - `Cognition Synchronization (認識同期)` — broadcasts whatever he sees and experiences to all his comrades instantly (he did so as he died, briefing the Espada). [Sensing/Stealth, NEW: SharedVision]
+  - `Sonído (expert)` · `Strength` — reappeared behind Rukia the instant her Kidō wore off; broke Bakudō #61 Rikujōkōrō barehanded.
+  - `Psychological warfare` — uses Kaien's voice and memories to demand self-sacrifice or betrayal (asked Rukia to die, then to kill her friends). [Status (hesitation)]
+  - `Glotonería: an army of 33,650` — released, he fields every devoured Hollow's power at once; tentacle bludgeons (one blow broke Rukia's will to fight). [Summon, Swarm, Status]
+  - Game-only: Versus Crusade gives him a light-blue tentacle Cero.
+- **Passives & weaknesses:** **sunlight** (disguise and aspect powers off in light — Las Noches' artificial dome sky counts); the **glass capsule is a critical weak point** (a direct hit is near-fatal — model as instant kill / massive crit); once exposed he is a Gillian-grade body; arrogant (gloats while a "beaten" enemy recovers).
+- **Signature moments to recreate:**
+  1. The dark tower across the bridge: "Kaien" lifts his mask; cushions laid out; the false survival story.
+  2. Nejibana duel in near-darkness: floor ripped up, wave slam, disarm.
+  3. Rukia's double incantation: **Rikujōkōrō + Sōren Sōkatsui** blows out the wall — sunlight pours in and the flesh melts off the capsule (two heads bicker).
+  4. Back in shadow: Kaien's head rebuilds; the Glotonería truth ("I am a Gillian…") → release (purple mass, tentacles) → Nejibana snaps Sode no Shirayuki and impales Rukia.
+  5. **San no mai, Shirafune:** the broken blade regrows in ice and spears through his head and capsule; the liquid spills, the mass collapses into a wave of fluid; the bottom head screams for Aizen, the top head curses and cracks; his last sight is broadcast to the Espada.
+  6. *(Movie tie-in, optional)* in Hell with Szayelaporro against Shuren's group (Taikon, Gunjō, Garogai).
+- **Kit proposal:**
+  - *True form*
+    - **Shift:** Sonído. **LMB:** Glotonería maw-hand bites and tentacle lashes, right-hand chops. **Hold LMB:** tentacle grab → devour (on a dead or near-dead Hollow-type, absorb its kit). **RMB:** guard.
+    - **Q** Devour — eat a corpse/downed Hollow and add its powers to Tab. **E** Aspect Manifestation — become a devoured being (default Kaien; blocked while lit). **R** Spirit Body Fusion — tentacle volley; on hit, possess the target for N s. **F** Zanpakutō Destruction — arm the back tentacles: the next blade that strikes them shatters (once per stage). **Z** Cognition Synchronization — every ally sees what he sees (enemy markers + kit intel). **X** Kaien's voice (proposal) — a taunt that applies "hesitation" to anyone bonded to Kaien (Rukia, Ukitake, Ganju, Kūkaku).
+    - **G** mask on/off (on = no light penalty but no aspect; off = full kit). **C** purple flare. **V** Hollow mimic burst — the strongest absorbed power at full strength. **T** release.
+  - *Kaien aspect:* Kaien Shiba's Nejibana kit from **A3** (shout "Suiten Sakamake, Nejibana", water waves, spear dance), keeping Aaroniero's Sonído and a per-frame light check.
+  - *Glotonería*
+    - **Movement:** slow tentacle crawl, climbs walls; **Shift** = tentacle surge.
+    - **LMB:** tentacle slams and whips. **Hold LMB:** Nejibana impale from the upper body.
+    - **Q** Hollow horde — spawn eaten Hollows from the boiling pool (draws from the game's Hollow bestiary in **F**). **E** Absorbed power — fire any Tab-selected stolen ability. **R** Tentacle grab & swallow. **F** Wave crush (Nejibana flood). **Z** Zanpakutō Destruction field. **X** Giant blobfish bite.
+    - **V** "Army of 33,650" (proposal name) — every absorbed power fires at once plus a Hollow flood. **Tab:** absorbed library (Kaien/Nejibana, Metastacia's fusion and weapon-break, plus any Hollow eaten in-game).
+- **AI notes:** stages fights in his dark tower; uses Kaien's voice to manipulate (guilt dialogue, demands self-harm or betrayal); avoids lit zones, retreating into shadow to re-disguise. **Core counterplay is voxel destruction:** breaking walls and ceilings to let light in strips the disguise. Releases when exposed and cornered; while released he shields his head with curled tentacles and prioritizes impaling. Dies instantly to a capsule-breaking hit.
+- **Callouts:** "Kuitsukuse, Glotonería!" · as Kaien: "Suiten Sakamake, Nejibana!" · when exposed, the two heads alternate lines (deep / squeaky).
+
+**Metastacia (メタスタシア)** — the source of Aaroniero's Kaien powers (flashback boss; also an absorbed aspect): one of Aizen's experimental Hollows; six-limbed, large flame-patterned mask, a mass of **red tentacles on its back**. Bodies it fuses with turn grey-green, with all-black eyes and orange flame blotches around them. Abilities: Spirit Body Fusion; Zanpakutō Destruction (once per night). Killed Miyako's squad, possessed Kaien, was killed by Rukia; Aaroniero ate it in Hueco Mundo.
+
+---
+
+## 6. Yammy Llargo (ヤミー・リヤルゴ) — Diez (10) / Cero (0) Espada, aspect of Rage
+
+- **Wiki:** https://bleach.fandom.com/wiki/Yammy_Llargo · Gonzui, Cero_Oscuras, High-Speed_Regeneration, Kukkapūro · battles: *Kisuke Urahara vs. Yammy Llargo*; *Ichigo Kurosaki, Kenpachi Zaraki & Byakuya Kuchiki vs. Yammy Llargo*
+- **Roster tier:** **A** as a **set-piece boss** — a kaiju that keeps growing until neither Karakura nor Las Noches can contain him. Playable "kaiju mode" is optional (B as a playable).
+- **Canon power:** sealed **6/10** (outmuscled Chad and crushed Tsubaki, but lost an arm to Bankai Ichigo and was toyed with by Urahara and Yoruichi); **Ira 7.5/10** (flattened Chad, Renji and Rukia, took a masked Getsuga for a nick, kept Byakuya and Kenpachi busy and wounded them).
+- **Body:** 230 cm → **74 vox**; 303 kg. Hulking giant — massive shoulders and arms, barrel chest, thick neck, heavy jaw; slumped, bored posture. Bald scalp **lined with bony ridges**; black **bushy sideburns** and a **thin black ponytail** to the upper back; **orange eyebrows**; red estigma under the eyes. Jacket always open. Big hole in the **center of the chest** (≈20 cm → 6 vox, estimate). "10" on the **left shoulder**. He **grows** from food and sleep (visibly bigger in Hueco Mundo than in Karakura) and from rage.
+  - Ira stage 1: ≈12–15 m tall (estimate — big enough to hold a person in one fist) → build at 8 vox/m (≈100–120 vox) and scale.
+  - Ira evolved: keeps growing (towers over the captains; Mayuri worried it would complicate dissection if it got any bigger) — suggest 25 m rising toward 60 m+ across the fight.
+- **Palette (hex estimates):**
+  - Skin tan `#C99364` (shade `#A4734A`, highlight `#E0AE80`) · hair black `#141414` · eyebrows orange `#E5772A` · eyes brown `#6A3E1F` · estigma red `#C51E2B` · jaw mask and teeth `#EFEBDF` · tattoo `#111114`
+  - Uniform per §1 (jacket worn open)
+  - Ira sword: handle **red** `#B3222C`; guard = rounded rectangle with two prongs on each side (metal not stated — suggest dark steel `#5E5E62`, verify)
+  - Ira stage 1: upper body tan; head plates bone `#F0EEE6`; flame estigma `#C51E2B` sweeping back; legs, joint carapace and tail club white `#EEEBE2` (shade `#C9C4B5`); elbow piston tubes purplish-grey `#77708A` (shade `#57516A`); back tubes black `#1B1B1E`; forearm nodules black `#1B1B1E`
+  - Ira evolved: horn crown and jaw horns bone `#EFEBDF`; crack marks around the eyes (color not stated — suggest red `#C51E2B`, verify); leg and tail hair dark brown-black `#2A1E17` (verify); back horns bone; belly tan
+  - Energy: released reiatsu orange-red `#FF5A1E` (core `#FFB070`) · Cero red `#E01A28` (core `#FFD0C8`) · Cero Oscuras black `#0B0B0E` with crimson rim `#9E0F1C` (manga; the anime recolors it red) · Bala red `#E43A2E` · Gonzui: pale soul wisps `#DDE8F2` streaming into his mouth
+- **Look by form/outfit:**
+  - **Sealed (Diez):** see Body; the mask is a bone lower jaw with eight teeth sitting on his chin.
+  - **Well-fed sealed (Hueco Mundo):** same, noticeably bigger (proposal: ×1.3).
+  - **Ira stage 1 — "kaiju centaur":** the torso stays largely human but colossal; the skull ridges become two big white bone plates sweeping back over the head; the mask fuses into his real lower jaw; the red estigma stretches back into two long flame marks; longer ponytail. The lower body extends backward as a long white quadruped trunk on **elephant-like legs** (the wiki says "eight … on each side" — ambiguous; check the release splash, ch. 354, verify) with **three big toes** each and **white carapace joints**, ending in an **Ankylosaurus-style bony tail club**; **purplish-grey piston tubes on the elbows** (rams); **five black tubes on the back** (half the elbow tubes' length); **six black nodules along each forearm**. The wiki likens the whole to a kaiju. Number: "0".
+  - **Ira — rage evolution (ape):** an explosion of reiatsu leaves him bigger and more monstrous: the extra legs are gone; he **knuckle-walks like an ape** on hairy legs with stubby toes; a **portly belly** hides the abs; the back pistons become spine-like extensions with **two huge horns** on the back; the mask grows into a **crown of horns** (some curling down over the jaw); crack-like marks frame the eyes; the tail turns hairy and loses its club. Fully healed, mask restored.
+  - *Brave Souls "Beyond" (game-only):* grey carapace armor, huge head horn plus four V-shaped back horns, yellow eyes, molten-red cracks, Hōgyoku floating behind him.
+- **Weapons:**
+  - **Ira (sealed):** katana with a red handle and a rounded-rectangle guard with two prongs on each side; **never used in combat** — he fights barehanded.
+  - **Released:** fists, elbow pistons, teeth (bites through buildings), tail club, sheer bulk.
+- **Forms & states (ordered):**
+  1. **Sealed (Diez)** — plus "fed" growth from eating and sleeping.
+  2. **Resurrección: Ira** — "**Buchikirero, Ira!**" (ブチ切れろ「憤獣」, *Get pissed off, Wrathful Beast*): the sword bursts into reiatsu; the "1" of his tattoo melts away ("the ranks run 0 to 9; I'm the Cero").
+  3. **Rage growth** — continuous size/strength gain as his anger climbs.
+  4. **Rage evolution** — threshold burst into the ape form with full regeneration (repeatable? not shown — proposal: once per boss phase).
+- **Abilities (complete):**
+  - *Sealed*
+    - `Brawling / immense strength` — tore off and snapped Chad's Brazo Derecha arm (manga), crushed Tsubaki in his fist, backhanded Menoly through a Las Noches wall; even casual swings break walls; never draws Ira. [MeleeArc smash, Grab/Throw]
+    - `Cero (虚閃)` — red, **from the mouth**; opened a fissure in the ground even after Benihime's Nake had blunted it. [Beam, Blast, GroundWave (fissure)]
+    - `Bala (虚弾)` — red, **from the fists**, fired in rapid strings (Cero power traded for twenty times the speed, as he gloated to Urahara); carpet-bombed Urahara. [Projectile (orb/bolt, multishot), Blast]
+    - `Hierro` — second hardest among the Espada after Nnoitra: Yoruichi damaged her own arm and leg hitting him; he resisted a Ginrei Kojaku arrow and survived Mayuri's anti-Arrancar mine (Uryū's Hakumen Kudashi). [passive, NEW: DamageThreshold]
+    - `Gonzui (魂吸, "soul inhalation")` — one huge in-breath sucks the souls out of everyone in a wide radius: ordinary people die on the spot and their souls stream into his mouth, feeding his reiryoku (he complained they tasted awful); anyone with a little spiritual power resists (Tatsuki only fainted; Orihime and Chad were unaffected). [Field (vacuum), Absorb/Reflect/Redirect, Status (death on non-spiritual NPCs), NEW: SoulVacuum]
+    - `Descorrer` — opens a Garganta (first raid). [Teleport, NEW: PortalRender]
+    - `Rage empowerment / stored power` — the only Espada who banks reiryoku by **sleeping and eating** for long stretches; stored power raises his size; anger instantly adds mass and strength. [Stance, NEW: OfflineCharge, NEW: RuntimeScale]
+  - *Ira*
+    - `Reiatsu shield & burst` — wraps himself in reiatsu as a shield, then blows it outward as an explosion that hits the whole surrounding area. [Shield, Blast]
+    - `Enhanced Cero` — charged **in front of his mouth**; its width scales with his size (a beam that wipes out a large section of terrain). [Beam, Blast]
+    - `Cero Oscuras (黒虚閃, "black hollow flash")` — black Espada-release Cero (manga; the anime made it red); Ichigo fired a Getsuga into the charging orb and it **exploded in Yammy's mouth** (he came out dazed but unharmed). [Beam, Blast, NEW: Backfire]
+    - `Enhanced Bala` — enormous red bullets that fling a Bankai user across the battlefield and tear it up. [Projectile, Blast]
+    - `Enhanced Hierro & endurance` — a point-blank Sōkatsui was a sting; a masked Getsuga left a nick on his neck; Chad's La Muerte to the face did nothing; he kept getting up after Kenpachi took fingers and legs. [passive]
+    - `Enhanced strength` — bites through buildings; hurls a person into the ground so hard she can't get up; stomps; swats a captain into a building. [MeleeArc smash, Grab/Throw, GroundWave]
+    - `Elbow pistons` — the elbow tubes work as rams (proposal: a second impact on every punch). [MeleeArc smash]
+    - `Rage-powered growth & evolution` — the angrier, the bigger; at a threshold he erupts into the ape form, and **High-Speed Regeneration** heals every wound and rebuilds his mask in the process. [Transform, Heal/Reject (self), NEW: RuntimeScale]
+- **Passives & weaknesses:** gigantic damage threshold; regeneration on evolution. **Poor Pesquisa** — misreads threats, which is how he lost an arm in his first exchange with Bankai Ichigo. Reckless (walked onto Uryū's mine and fell through every floor of Las Noches). A charging Cero Oscuras can be detonated in his face. Huge target. Attacks allies who annoy him (killed the medic who reattached his arm to test it, swatted Rudbornn, hit Menoly).
+- **Signature moments to recreate:**
+  1. **Karakura landing (first raid):** crater landing beside Ulquiorra; **Gonzui** on the gawking crowd (only Tatsuki survives); Chad's arm torn off; Orihime's Tsubaki crushed; Bankai Ichigo takes his arm; Urahara's Chikasumi no Tate shield and Yoruichi's beatdown; Ulquiorra calls it off.
+  2. **Second raid:** taunts Hitsugaya about both being "number 10"; Bala ambush on Urahara → the **portable Gigai decoy** befuddles him → Tsuppane, Benihime deflects his fist → Negación beam extraction mid-tantrum.
+  3. **Las Noches throne tower:** swats Menoly through a wall, smashes Loly; Uryū's arrow; **the mine** → he falls through every floor of the fortress ("mala suerte").
+  4. **"I'm the Cero Espada":** release in the desert against Chad, Renji and Rukia (all down); Rukia's point-blank Sōkatsui; Ichigo returns — Cero Oscuras backfires in his mouth, "stop scuttling around", masked Getsuga slams him into the sand, Bala barrage, he grabs Ichigo.
+  5. **Kenpachi & Byakuya:** Byakuya's Sōkatsui; Kenpachi severs a leg, cuts off fingers, runs up his arm and slashes his face, severs more legs; the captains bicker while he rises; a giant Cero; Bankai and Kenpachi's full swing to the face; **rage evolution** into the ape → final defeat.
+  6. Epilogue: Kukkapūro trots up to his dying master.
+- **Kit proposal:**
+  - *Sealed (Diez)*
+    - **Shift:** heavy Sonído (shorter blink, ground-cracking landing).
+    - **LMB:** haymaker → backhand → hammer fist → shoulder check. Forward = straight punch; back = uppercut launcher; air = body splash; down-in-air = double-axe hammer (crater); sprint = shoulder charge through walls.
+    - **Hold LMB:** giant wind-up haymaker (crater + long knockback).
+    - **RMB:** Hierro block (no parry window, just a huge damage threshold).
+    - **Q** Bala — tap = one red bullet from the fist, hold = machine-gun barrage. **E** Cero — mouth, hold to charge; leaves a fissure. **R** Gonzui — inhale cone/radius: kills civilians and mooks below a spiritual threshold, pulls light enemies in, refills reiatsu. **F** Limb rip — grab an arm and tear/snap it. **Z** Backhand — swat the target through walls. **X** Eat & sleep — out of combat, bank reiryoku (raises sealed size and pre-fills the rage meter).
+    - **G** Hierro brace (super armor). **C** red flare. **V** Point-blank Cero — grab + mouth Cero. **T** "Buchikirero, Ira!" (10 → 0). **Tab:** Cero/Bala variants.
+  - *Ira (stage 1)*
+    - **Movement:** thundering multi-leg trot; **Shift** = trample charge (flattens everything in the path); every jump lands as a quake.
+    - **LMB:** giant slaps and punches, each followed by the **elbow piston** for a second impact; tail-club sweep to finish. Forward = charging punch; back = scooping uppercut; down = stomp quake; sprint = trample. **Hold LMB:** double piston hammer.
+    - **Q** Giant Bala. **E** Giant Cero (wide, sweepable mouth beam). **R** Cero Oscuras (black, long charge; can be **detonated in his mouth** if a strong projectile hits it mid-charge). **F** Reiatsu shield → burst (hold = shield dome, release = explosive shove). **Z** Building bite — bite chunks off buildings and spit/throw them. **X** Grab & slam — one-hand crush, piledrive into the ground.
+    - **G** rage display (the meter fills from damage taken, taunts, allies falling; his size follows it). **C** orange-red flare that cracks terrain for blocks. **V** **Rage evolution** — at a full meter: explosion, full heal and mask regen, morph into the ape, size step up. **Tab:** Cero variants.
+  - *Ira (evolved ape)*
+    - Knuckle-walk (fast for his size); holding sprint = gorilla charge. LMB = alternating knuckle slams, belly flop, tail swipe. Q/E/R/F scaled up. **V** = colossal growth surge — the meter refills and he keeps getting bigger (proposal cap ≈60 m).
+- **AI notes:** bored and lazy, calls everyone "trash", shouts **"Suerte!"** when he finds a fun target. **Phase 1 (sealed):** walks straight at the player; Bala spam; Gonzui on civilians in story stages; grabs. His bad Pesquisa makes him underestimate — scripted chance for the player to take a limb in the first big exchange. **Phase 2 (release at ≤50% HP or when humiliated):** giant Cero sweeps and stomps; aggro always goes to whoever damaged him last; he ignores small fry. **Phase 3+ (a rage step every 25% HP lost or ~60 s):** growth step; at max meter → evolution with full heal → keeps growing. Weak points: interrupt the Cero Oscuras charge; cut the legs to topple him; slash the face/eyes (Kenpachi). Friendly fire: he hits his own allies when annoyed.
+- **Callouts:** "Suerte!" · "Buchikirero, Ira!" · "Cero!" · "Bala!" · insults ("trash").
+
+### 6a. Kukkapūro (クッカプーロ) — Yammy's puppy (tier C, companion / cameo)
+- 34 cm → **11 vox**, 2.5 kg; Números #35 ("35" tattooed on its back). A puppy with soft white fur (character book; the anime colors it light brown `#C9A27A`), white `#F6F4EE`; Hollow mask with big eye sockets and two little horns above long, drooping ears.
+- Canon: follows Yammy because he resembles its old master; barks at him, dodges a thrown bone; reaches him as he dies; survives Hueco Mundo and the Wandenreich invasion; guides Arrancar in TYBW.
+- Game-only (Brave Souls): light-purple reiatsu, tiny red Cero, barked red Bala, Sonído, dash attack, howl.
+- Use: Yammy's idle companion, an Easter-egg playable, or a collectible "find Kukkapūro" quest in Las Noches.
+
+---
+
+## 7. Nelliel Tu Odelschwanck (ネリエル・トゥ・オーデルシュヴァンク) — former Tres (3rd) Espada, aspect of Sacrifice; Ichigo's ally ("Nel Tu" in child form)
+
+- **Wiki:** https://bleach.fandom.com/wiki/Nelliel_Tu_Odelschwanck · https://bleach.fandom.com/wiki/Nelliel_Tu_Odelschwanck/Expanded_Universe · Cero_Doble, Lanzador_Verde, Galope, Nel_Shower, Nel_Tamapunch, Cero_Sincrético, Pesche_Guatiche, Dondochakka_Birstanne, Bawabawa · battles: *Nelliel Tu Odelschwanck vs. Nnoitra Gilga*; *Kisuke Urahara vs. Askin Nakk Le Vaar*
+- **Roster tier:** **A** — three forms (comic child, elegant swordswoman, centaur jouster), a defensive signature (Cero Doble), and the Arrancar side's ally through TYBW.
+- **Canon power:** adult **7/10**, Gamuza **7.5** — beat Nnoitra repeatedly in the past; in the present she cut him before he could react, kicked his weapon away, stopped his Cero barehanded and returned it, and broke Santa Teresa with Lanzador Verde. TYBW anime: severed Soul-King Yhwach's arm while he was caught off guard. Child **2/10**. (Aspect of death: Sacrifice per Kubo; Brave Souls says Lamentation — use Sacrifice.)
+- **Body:**
+  - **Adult:** 176 cm → **56 vox**; 63 kg. Tall, curvy and very busty (Kubo: the largest bust in the cast), long legs; long wavy green hair; **ram-horned skull helmet** worn on top of the head (upper skull with eye sockets, some teeth missing); **scar from the forehead down between the eyes**; crimson horizontal line across the cheeks and nose; prominent **lower canines**. Big "3" in the **middle of the back**. Her hole is "inside her heart" (Kubo) — **no visible through-hole**.
+  - **Child (Nel Tu):** height not given — estimate ≈95 cm → **≈30 vox**. Super-deformed: oversized head (~⅓ of height), **huge eyes**, the cartoon skull mask perched on top of her head (a crack down its left side, four teeth on the left broken off), big scar from forehead to nose, crimson line under the eyes, even bigger lower fangs; drool and snot; a small green hooded gown that covers her whole body.
+  - **Gamuza (centaur):** human torso on a chamois/ibex quadruped body — estimate ≈2.4–2.6 m tall, ≈2.4 m long → ~80 vox tall; double-ended lance ≈3 m (estimate).
+- **Palette (hex estimates):**
+  - Skin `#F7DECC` (shade `#DDBBA6`) · hair **green** `#6CC08A` (shadow `#4A9A68`, highlight `#A6E0B8`) — the original anime used turquoise `#45C2B8`; the TYBW anime went back to green · eyes hazel `#A27B3D` · scar `#E2B2A2` · estigma crimson `#C0182D` · mask and horns bone `#F3F0E6` (horn shade `#C9C0AC`), sockets `#161616`; the mask's eyes glow during Chōkasoku / child Cero Doble (color not stated — proposal pink-white `#FFC6E0`, verify)
+  - Child gown green `#62B567` (shade `#46914C`); adult torn gown the same green
+  - Espada uniform (flashback): white `#F4F3EF`, black line `#17171B`, two thin black sashes, white gloves, flared white trousers
+  - TYBW outfit: white skin-tight suit `#F4F4F2`; tan fur at the hips and gauntlet ends `#C9A57A`; **green fur sleeves** to the elbows `#5FA36B`; **red pauldrons** `#C2262F`; white gloves with **hoof-shaped gauntlets** `#EFEAE0`; white thigh-high leggings; shoes with ram-hoof heels (color not stated — verify); Urahara's armband (look not described — verify)
+  - Gamuza sword: sheath green `#2E7B49`, hilt light green `#A3D9A9`, double-crescent guard (metal not stated — suggest silver `#BFC5CB`)
+  - Gamuza form: body brownish-green (olive) `#7D7A49` (shade `#5C5935`, highlight `#9C9963`); black horse tail `#141414` with a white ring at its root `#F3F1EA`; white spaulders, elbow guards and gauntlets `#F3F1EA`; black arm sheathing `#151517`; hooves not stated (suggest `#2A2622`); lance ivory `#EEEBE1` (verify) · Lanzador Verde spin energy emerald `#38E08A` (core `#C9FFE2`)
+  - Energy: Cero **pink** `#FF5FA8` (core `#FFD6EA`) · Cero Doble = the returned beam in its own color braided with her pink · Galope flash blue `#6FA8FF` · reiatsu color not stated (proposal pink `#FF7AB8`, as in Brave Souls' Beyond design)
+- **Look by form/outfit:**
+  - **Nel Tu (child):** see Body; big tears, a lisp ("Itsygo"), clings to Ichigo's head or back.
+  - **Adult, Hueco Mundo:** the child's gown, torn by the growth, becomes a **green top and short skirt** joined by a single strip of cloth across the belly; the mask turns sharper, with a pair of **curled horns**.
+  - **Espada flashback:** tight long-sleeved white top with shoulder pads and **puffy cuffs**, a black line from the collar down the left side of the chest, a **puffy three-layer hem**, two thin black sashes (one carries Gamuza), white gloves, white bell-bottom trousers, standard shoes; mask intact.
+  - **Gamuza:** horns grow longer and curve down to frame the cheeks; the mask's crack seals (the missing teeth stay missing); white spaulders from the shoulder blades to the neck, white elbow guards and gauntlets, black-sheathed arms and hands; brownish-green chamois/ibex lower body; black horse tail with a white ring at its root; double-ended jousting lance.
+  - **TYBW (armband):** see palette — white suit, tan hip fur, green fur sleeves, red pauldrons, hoof gauntlets, ram-hoof heels, bare upper arms and thighs; fluffier hair; mask more goat-like, with longer, more ornate horns like Gamuza's.
+  - *Brave Souls "Beyond" (game-only):* four black-and-white horns, darker fur over the whole body, glowing pink markings, cracked glowing scar, flaming tail tip, slit pupils, Hōgyoku spear.
+- **Weapons:**
+  - **Gamuza (sealed):** katana (≈70 cm blade); green sheath, light-green hilt, **guard of two crescent moons joined back to back**.
+  - **Gamuza (released):** **double-ended lance** — long tapered points at both ends, grip in the middle; thrown like a javelin for Lanzador Verde.
+- **Forms & states (ordered):**
+  1. **Nel Tu (child)** — powers leaking out of the cracked mask; limited kit.
+  2. **Adult transformation** — triggered by intense emotion (Ichigo being hurt); restores all powers and her Zanpakutō; **times out** back to the child. TYBW: Urahara's **Reiatsu Transformation Armband** keeps her adult (switch at will).
+  3. **Resurrección: Gamuza** — "**Utae, Gamuza**" (謳え「羚騎士」, *Declare/sing, Antelope Knight*): she holds the sword level in front of her, it steams and hazes, she names it, and a huge reiatsu burst throws back anyone close (Nnoitra). Before the armband, releasing burned her remaining adult time (she reverted right after winning).
+- **Abilities (complete):**
+  - *Child*
+    - `Chōkasoku (超加速, "super acceleration")` — a rudimentary Sonído; the mask's eyes glow and she rockets into people (bowled Ichigo over). [Mobility, MeleeArc smash]
+    - `Cero Doble (child)` — mask eyes glow, she **swallows** an incoming Cero and spits it straight back harder (without mixing in her own); one use leaves her exhausted (returned a released Privaron Espada's Cero). [Absorb/Reflect/Redirect, NEW: AbsorbAndMerge]
+    - `Nel Shower (ネルシャワー)` — rubs her uvula to bring up "saliva" (really vomit) with weak healing power. [Heal/Reject]
+    - `Nel Tamapunch (ネル一打パンチ)` — a groin punch; big damage to males. [MeleeArc smash, Status (stun)]
+    - `Adult transformation` — emotion trigger. [Transform, NEW: EmotionTimerForm]
+  - *Adult*
+    - `Master swordsmanship` — economical and flowing; stops a strike instantly; cuts Espada Hierro in one swing; weaves kicks into her blade work. [MeleeArc cut]
+    - `Hand-to-hand` — kicks a giant weapon's blade aside mid-air and follows with a kick to the neck; one punch launches a foe several meters. [MeleeArc smash]
+    - `Hierro` — stops an Espada's Cero with her palm; kick-parries a blade unhurt. [Shield, NEW: DamageThreshold]
+    - `Sonído (master)` — hit-and-run; whisks a wounded ally out of an attack; Urahara trusted her speed to pull four people out of Askin's collapsing Gift Ball Deluxe (she did it in **two round trips**, after leaping off a tower hard enough to shatter it). [Teleport, Mobility, NEW: CarryAlly]
+    - `Cero (pink)` — fired from the mouth. [Beam]
+    - `Cero Doble (重奏虚閃, "ensemble Cero")` — **her trademark**: she stops an incoming reiatsu attack with her palm, **swallows** it, and fires it back fused with her own pink Cero — Nnoitra took both at once. Kubo: it also works on **non-Cero** reiatsu attacks (Getsuga Tenshō, Kidō blasts). Novel: she returned a **Gran Rey Cero** (winded, bleeding at the mouth). [Absorb/Reflect/Redirect, Beam, NEW: AbsorbAndMerge]
+    - `Descorrer` — fled Hueco Mundo to Karakura in TYBW. [Teleport]
+    - `Bala` (novel-only) — disciplined Grimmjow with one. [Projectile]
+    - `High intellect / code` — reads opponents; refuses to kill the beaten.
+  - *Gamuza*
+    - `Released reiatsu` — the release blast alone shoves Nnoitra back; after it she overpowers him easily. [Blast, NEW: SignatureSwap]
+    - `Mounted combat` — fights like a jousting knight: charges, lance thrusts, rearing. [MeleeArc, Mobility]
+    - `Lanzador Verde (翠の射槍, "emerald shooting lance"; Sp. "green thrower")` — she flips the lance, rears back and **hurls it like a javelin**; in flight it spins up, gathers reiatsu and **drills** on impact — it **punched straight through Nnoitra's blade into his shoulder** and drove him into a rock wall. TYBW anime: it tore through and **severed Soul-King Yhwach's right arm** while he was caught off guard, and served as misdirection for Uryū's gambit. [Projectile (tunnel/drill), Slice (limb sever)]
+    - `Galope (超加速, "super acceleration"; Sp. "gallop")` — vanishes in a flash of blue light and reappears charging the target at huge speed. TYBW anime: pushed into Yhwach's flowing darkness for several seconds before failing. [Teleport, Mobility, MeleeArc]
+  - *Assists:* Pesche and Dondochakka (Cero Sincrético, Infinite Slick, Dondochakka Press) and Bawabawa — §7a.
+- **Passives & weaknesses:** child form exhausts after one Cero Doble; pre-armband adult timer reverts her mid-fight at the worst moment; refuses to finish opponents (beaten foes get back up — Nnoitra did); dislikes fighting; the old head wound is the cause (reiatsu leaks from the cracked mask).
+- **Signature moments to recreate:**
+  1. "Eternal tag" across the dunes with Pesche, Dondochakka and Bawabawa (tutorial chase); riding Bawabawa toward Las Noches; Runuganga's sand pit.
+  2. **Dordoni's Cero** swallowed and returned (child Cero Doble) → Nel Shower on the beaten Dordoni.
+  3. Watching Ichigo vs. Grimmjow; the tackle-hug that knocks Ichigo off the tower.
+  4. **Adult awakening vs. Nnoitra:** Sonído rescue of Ichigo; a cut across Nnoitra's chest; the scythe kicked away and a kick to the neck; **palm-stop his tongue Cero → swallow → Cero Doble**; "Utae, Gamuza" burst; **Lanzador Verde** through Santa Teresa → she spares him → **reverts to a child** at the worst moment.
+  5. Flashback: Nnoitra and Szayelaporro's ambush (illusion device, blow to the head from behind → mask cracks → thrown out of Las Noches → becomes Nel Tu).
+  6. **TYBW:** falls out of the sky into Karakura (Hueco Mundo has fallen); adult entrance at the Soul King Palace thanks to the armband; the **Gift Ball Deluxe rescue run**; *(anime-only)* frees Harribel from Silbern, Galope into Yhwach's darkness, Lanzador Verde takes his arm, Uryū's Antithesis swaps her and Harribel to safety.
+- **Kit proposal:**
+  - *Nel Tu (child)*
+    - **Shift:** Chōkasoku — mask eyes glow, homing headbutt dash that knocks targets down. Proposal: she can ride on an ally's head or back.
+    - **LMB:** flailing slaps → headbutt → spin. **Hold LMB:** Nel Tamapunch (huge vs. male targets, stun). **RMB:** cower/duck.
+    - **Q** Cero Doble (child) — open-mouth catch window (~0.5 s timing) on an incoming beam/orb; auto-spits it back stronger; drains most stamina (one use, then exhausted). **E** Nel Shower — healing splash on self or an ally. **R** Call the brothers — Pesche & Dondochakka assist: Cero Sincrético beam, Infinite Slick puddle, Dondochakka Press. **F** Bawabawa — summon and ride (sand-swimming mount).
+    - **G** adult awakening — needs the emotion meter (fills when allies take heavy damage); cinematic; lasts until the timer runs out. **V** max Cero Doble (bigger reflect window that also covers nearby allies). **Tab:** assist list.
+  - *Adult*
+    - **Shift:** master Sonído; carries an ally if she is holding one; double-tap with lock-on = behind the target.
+    - **LMB:** horizontal cut → reverse cut → kick to the neck → spinning kick. Forward = lunging cut; back = rising-kick launcher; air = crescent kicks and slashes; down = drop cut; sprint = Sonído slash-through. **Hold LMB:** precision cut (ignores armor/Hierro).
+    - **RMB:** guard; parry = **kick-parry** (kicks the attacker's weapon out of line; heavy weapons get kicked away).
+    - **Q** Cero (pink). **E** **Cero Doble** — hold E to open the palm-catch/mouth and absorb beams, projectiles, Kidō or Getsuga for up to N s; release E to fire the combined beam. **R** Palm stop — catch a beam on the hand and hold it in place. **F** Bala (novel-only, flagged). **Z** Rescue — scoop up an ally and Sonído out. **X** Descorrer.
+    - **G** armband — TYBW: lock the adult form; before it: shows the remaining time. **C** flare. **V** **Cero Doble: max** (catch + merge + mega beam). **T** "Utae, Gamuza" (reiatsu-burst shove).
+  - *Gamuza*
+    - **Movement:** centaur gallop (fastest ground speed in this file), big jumps, rearing; can carry one ally (proposal).
+    - **Shift:** **Galope** — blue-flash teleport, then a locked charge; pushes through darkness, fields and weather for a few seconds.
+    - **LMB:** lance thrust → sweep with the rear point → reverse thrust → hind kick. Forward = jousting lunge; back = rear-up launch (front hooves); air = spinning lance; down = hoof-stomp quake; sprint = **lance charge** (continuous pierce). **Hold LMB:** rearing double-hoof stomp + plunging thrust.
+    - **Q** **Lanzador Verde** — flip, rear back, javelin throw: a spinning emerald drill that bores a straight tunnel through terrain, breaks blocking weapons and severs limbs on a clean hit; the lance re-forms in her hand after ~3 s. **E** Cero Doble. **R** Cero. **F** Hoof stomp (GroundWave). **Z** Rescue run — carry up to two allies out of a hazard zone. **X** release burst (repeatable shove).
+    - **G** armband/timer. **C** flare. **V** **Lanzador Verde: max** — a fully spun-up throw; a drill comet that bores through a mountain. **Tab:** Cero variants.
+  - *Non-canon proposal (only if wanted):* a Nel × Grimmjow duo ultimate (her Cero Doble swallows his Gran Rey Cero and returns it fused pink-blue). **No source supports this.**
+- **AI notes:** **as an ally NPC:** shields Ichigo/the player, swallows enemy beams for them (Cero Doble), rescues downed allies. **As a boss** (sparring/rival scenario): calm, silent, precise; won't finish a downed player (the fight ends when they drop); answers every reiatsu beam with Cero Doble, so the counterplay is melee pressure and purely physical attacks; releases Gamuza when the player overpowers her adult form; Lanzador Verde when the player turtles behind a guard; Galope to close distance. Child-form scripted beats are comedic: Chōkasoku into the player, and the timed revert at the climax.
+- **Callouts:** "Utae, Gamuza." · "Lanzador Verde!" · "Cero Doble!" · "Galope!" · child: "Itsygo!", "Nel Shower!", "Nel Tamapunch!"
+
+### 7a. Pesche Guatiche, Dondochakka Birstanne & Bawabawa — Nel's former Fracción and "brothers" (tier C, assist summons)
+- **Pesche Guatiche** (ペッシェ・ガティーシェ) — 175 cm → 56 vox, 58 kg. Purple body (verify shade, ~`#7A4A9E`); full-head insect mask with big mandibles and horns `#EEE8DA`, a large yellow left eye `#F2C230` visible through it, a purple eyepatch over the right; blond hair `#E8C766` poking out at the back; white armored vest, forearm and shin plates; lighter-purple loincloth `#A77CC2`; barefoot, three toes; hole near the stomach just under the vest. Abilities: Cero (**purple**, fired from Última); **Infinite Slick** — sprays a translucent green fluid `#8FE3A0` that kills friction (weapons slide off, foes lose footing and grip; actually finite); **Última** — a retractable reishi blade glowing blue (purple when firing Cero), guard of two outward crescents, szabla-like, stored under his loincloth; "Super Speed".
+- **Dondochakka Birstanne** (ドンドチャッカ・ビルスタン) — 204 cm → 65 vox, 162 kg. Dumpy body, huge **tiki-mask head** (the mask covers the whole head and its eyes and mouth work; colorful exaggerated eyes, teeth and nose); **yellow hooded bodysuit with black polka dots** `#F2C230` / `#141414`; small white hands and feet. Abilities: solid Hierro (Renji nearly broke his foot kicking him); **Dondochakka Press** (body slam); a karate chop that breaks floors; a **kanabō** kept in his stomach; Cero (**yellow**, from a metal nozzle in his mouth); **stomach containment** (spits out spirit combat insects, Bawabawa among them).
+- **Bawabawa** (バワバワ) — giant eyeless worm/eel Hollow; plate mask with two horns; big pink lips and teeth; smooth back and lighter segmented belly; sand-swimming mount and charge attack (Szayelaporro stopped it with one wing); cries when left out of the team's sentai-style intro.
+- `Cero Sincrético (融合虚閃, "fusion Cero")` — Pesche and Dondochakka charge their Ceros together and merge them into a big swirling sphere, fired as a **multicolor beam (purple + yellow)** with a large explosion; leaves both exhausted. **Flaw:** the two Ceros never fully blend — pressing the seam splits the beam so it passes harmlessly around the target (Szayelaporro). [Beam, Blast]
+- Kit hooks: Nel (child) **R** = call the brothers; **F** = ride Bawabawa. CFYOW (novel-only): they fire Cero Sincrético at the Pícaro during an "eternal tag" game gone wrong.
+
+---
+
+## 8. Engine features beyond the brief's primitive list
+
+Grouped by system; each line says what it must do and who needs it.
+
+**Control & possession**
+- `[NEW: LimbControl]` — individual limbs of another character can be hijacked: a marked limb ignores its owner's input/AI and follows the controller; marking the head = whole body; disabling the limb (self-damage) frees it. *Zommari (Amor).*
+- `[NEW: GazeTargeting]` — many independent "eye" emitters with line-of-sight cones, one target each (cap 58); barrier Constructs and binding Kidō block them; marks render as decals (the sun mark), even on the barrier that blocked them. *Zommari.*
+- `[NEW: Possession]` — long-duration takeover of another body (Spirit Body Fusion). *Aaroniero.*
+- `[NEW: PossessOnConsume]` — when a creature/summon "eats" the character, the character takes control of it. *Szayelaporro.*
+- Hostage AI — a boss uses a controlled ally to force the player to drop their weapon (input lock / weapon-drop prompt). *Zommari.*
+
+**Copies, dolls & rebirth**
+- `[NEW: CloneCopyKit]` — spawn AI copies of *any* character (player included) with their full moveset and forms (incl. Bankai), cosmetic overrides (blank eyes), split-on-death, and a mass dispel. *Szayelaporro (Carbon-Copy)*; Zommari's bleeding Gemelos clones need the same "indistinguishable decoy" flag.
+- `[NEW: VoodooDoll]` — a linked miniature of the victim as a held item: surface hit-zones cause pain/cuts on the real body; detachable internal pieces (named organs, tendons) map to damage and debuffs on the target; a "dummy organs" counter flag. *Szayelaporro.*
+- `[NEW: HostRespawn]` — implant a marker in a target; when the implanter dies, he respawns from the host after a delay while draining it; anything inside the host (drugs, poisons) transfers to him. *Szayelaporro (Gabriel).*
+- `[NEW: ConsumeAlly]` — eat one of your own summons to heal. *Szayelaporro.*
+
+**Absorb, mimic & weak points**
+- `[NEW: AbsorbAndMerge]` — catch an incoming beam/projectile, store its data (power, color, type), then fire it back fused with your own. *Nelliel (Cero Doble).*
+- `[NEW: AbilityAbsorb]` — permanently add a defeated enemy's abilities to the character's runtime library. *Aaroniero.*
+- `[NEW: Shapeshift]` — swap model + full kit into another roster character (incl. their Zanpakutō), keeping own HP/meters. *Aaroniero (Kaien).*
+- `[NEW: LightExposure]` — per-frame query of sunlight/strong light reaching the character (sky raycasts through the destructible voxel world, light volumes) that toggles states — light floods in when players break walls. *Aaroniero.*
+- `[NEW: WeakPointCrit]` — a fragile sub-part with its own tiny HP pool that causes instant defeat. *Aaroniero (capsule).*
+- `[NEW: WeaponBreakOnTouch]` — contact with a specific hitbox shatters the attacker's weapon (their blade moves are locked until it re-forms). *Aaroniero / Metastacia.*
+
+**Scale, bodies & locomotion**
+- `[NEW: RuntimeScale]` — continuous scaling of model, skeleton, hitboxes, mass, reach, footstep destruction radius and camera framing, including switching voxel build density (32 → 8 → 4 vox/m) as the character grows. *Yammy.*
+- `[NEW: OfflineCharge]` — a meter that fills while resting/eating out of combat. *Yammy.*
+- Non-biped rigs: feline quadruped mode (Pantera), centaur (Gamuza), multi-legged kaiju (Ira 1), knuckle-walking ape (Ira 2), bulb-hover (Brujería), tentacle blob (Glotonería), skirted glide with four wing-branches (Fornicarás), plus physics for the long hair, tails, tassels and dripping darkness. *All six.*
+- `[NEW: ClawClimb]` — wall-cling, wall-run and ceiling pounce on any voxel surface. *Grimmjow (Pantera).*
+- `[NEW: PartialTransform]` — per-limb form swap without a full release. *Grimmjow (TYBW claws).*
+- `[NEW: CarryAlly]` + mount — pick up and carry up to two allies while moving; ride a creature. *Nelliel, Bawabawa.*
+- `[NEW: EmotionTimerForm]` — an involuntary transformation on an emotion/story trigger with a countdown revert, removable by an item (armband). *Nelliel.*
+
+**Projectiles, beams & costs**
+- `[NEW: GestureControlledProjectiles]` — projectiles that follow the player's swipe input during a short window. *Grimmjow (Desgarrón).*
+- `[NEW: HPCostCast]` — an ability paid for with the user's own HP (blood). *Grimmjow (Gran Rey Cero).*
+- `[NEW: ScreenSpaceDistortion]` (shared with E1) — the space-warp ripple of Gran Rey Cero.
+- `[NEW: Backfire]` — hitting a charging beam detonates it on the caster. *Yammy (Cero Oscuras).*
+- `[NEW: SoulVacuum]` — an inhalation field that kills NPCs below a spiritual threshold (a civilian layer of the world) and charges the user. *Yammy (Gonzui).*
+- `[NEW: ChainNetwork]` — homing chains that erupt from terrain, pierce and pin. *Szayelaporro (Hell).*
+
+**Level, data & stealth systems**
+- `[NEW: SignatureSwap]` — release changes the character's reiatsu ID; keyed barriers and sensors stop recognizing them. *All Espada (canon: Grimmjow vs. Askin's Gift Bereich).*
+- `[NEW: DataTag]` + `[NEW: AdaptiveImmunity]` + `[NEW: AbilitySealField]` — tag enemies to record their techniques; once data is complete, take ~0 from that technique and/or disable it for tagged targets inside a room field. *Szayelaporro.*
+- `[NEW: RoomRearrange]` — runtime reconfiguration of level geometry (corridors loop back), trap panels, a camera network. *Szayelaporro's palace.*
+- `[NEW: SharedVision]` — broadcast one character's vision/intel to all allies. *Aaroniero.*
+- `[NEW: PocketDimension]` (shared with E1) — Caja Negación. *Grimmjow.*
+- `[NEW: PortalRender]` (shared) — Garganta tears, Szayelaporro's Garganta device, the toothed Hell portal. *Most.*
+- `[NEW: CutToAcidHazard]` — floating blobs that turn into acid only when cut by a blade. *Hell (Jigoku no Rinki).*
+- Story-only: a time-dilation cinematic (Superhuman Drug: one sword thrust experienced as a century) and the Las Noches artificial sky as a light source for LightExposure.
+- Shared with E1/F: `DamageThreshold` (Hierro), `HoleHitbox` (true holes — skip it for Nel and Szayelaporro, whose holes aren't visible), `AshDeath`.
+
+---
+
+## 9. Gaps — what could not be confirmed
+
+- **Never shown in any source:** Zommari's and Szayelaporro's Espada tattoo locations; Grimmjow's Bala; Cero use by Zommari, Szayelaporro (outside the novel and games) and Aaroniero; whether Szayelaporro can still release in his Hell form.
+- **Sizes not stated:** Nel Tu's child height (≈95 cm is an estimate); Yammy's released sizes (estimates above); the dimensions of Zommari's bulb, Aaroniero's mass and capsule, Szayelaporro's wings, Nel's centaur body and lance.
+- **Ambiguous wording:** Ira's leg count ("eight … on each side") — check the ch. 354 release splash.
+- **Colors not stated (marked verify above):** Pantera's tsuba and tail; Zommari's forehead lines, sword guard/sheath, bulb faces and Amor mark; Szayelaporro's stripes, cape, skirt layers and Hell half-cloak; Aaroniero's capsule fittings, head skin and mask-hole arrangement; Yammy's evolved eye cracks, body hair and sword guard; Nel's mask-eye glow, reiatsu, lance, armband and shoes; Grimmjow's Adjuchas form; the acid color of Jigoku no Rinki.
+- **Unverified details:** whether Aaroniero keeps his white noble's garb while wearing Kaien's head (I believe so); which arm carries Kaien's Shiba-crest tattoo; whether Grimmjow ever shouts "Garra de la Pantera" on-page.
+- **Anime-only, not cross-checked against episodes:** Nel's TYBW fight against Soul-King Yhwach (rescuing Harribel, Galope, Lanzador Verde severing his arm, Uryū's Antithesis swap) comes from the wiki's plot text only.
+- **Hell arc:** only the 2021 one-shot is in the fetched pages; any later adaptation material is not covered.

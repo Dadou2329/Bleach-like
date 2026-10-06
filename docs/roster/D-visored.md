@@ -310,7 +310,7 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
   - `Mashiro Kick (白キック)` — a front kick that chains into more kicks on several targets in a row; one kick breaks a Gillian's mask (masked). [MeleeArc: smash, multi-target dash]
   - `Mashiro Super Kick (白スーパーキック)` — crouch, then an explosive upward kick; one-shot Hooleer (giant Hollow) and crashed into Gerard's chest with Kensei. [MeleeArc: smash, launch] [Blast]
   - `Mashiro Drop Kick (白ドロップキック)` — from high above, drops feet-first onto the target: large crater on landing, and the impact cancels a Cero being charged. [Blast: crater] (interrupt)
-  - `Mashiro Super Cero (白スーパー虚閃)` — masked: kicks the air toward the target, firing a fast, wide lime Cero that follows the arc of her leg; it met Wonderweiss's Cero and both cancelled **[anime]**. [Beam] [NEW: ArcBeam]
+  - `Mashiro Super Cero (白スーパー虚閃)` — masked: kicks the air toward the target, firing a fast, wide lime Cero that follows the arc of her leg. Vs. Wonderweiss: in the manga his scream cancelled it; in the anime it collided with his Cero and both dissipated. [Beam] [NEW: ArcBeam]
   - `Brawling` — spinning back-kick to the head, grabs a face and slams it into the ground, punches (Wonderweiss; Hisagi "obey the Super Lieutenant"). [Grab/Throw] [MeleeArc]
   - `Durability (masked)` — thrown through several city blocks of buildings and came out fine.
   - `Shunpo / mobility` — fast, leaping, airborne fighter.
@@ -491,4 +491,265 @@ Game-only Cero variants (Brave Souls "Kyosen: Renkō" Cero rain, Blade Battlers'
 - **AI notes:** theatrical — opens with a speech (any hit interrupts it; brief annoyed stagger). Keeps whip range, latches Izayoi Bara on whoever closes in, kites swarms poorly. Releases Bankai when the enemy's power source is cut or the enemy is isolated; reacts with shock if the target deafens itself. With Love as an AI pair: Love smacks him out of monologues (cosmetic).
 - **Callouts:** "Kanadero, Kinshara." · "Kinshara Sōkyoku Dai Jūichiban: Izayoi Bara." · "Arpeggio." · "Bankai — Kinshara Butōdan." · "Sea Drift." · "Prometheus." · "Ein Heldenleben."
 
-<!-- D-VISORED-CONTINUES -->
+---
+
+## 7. Love Aikawa (愛川 羅武) — ex-Captain, 7th Division
+
+- **Wiki:** https://bleach.fandom.com/wiki/Love_Aikawa · techniques: Hifuki_no_Kozuchi, Kagamibiraki · battle: Love_Aikawa_%26_R%C5%8Dj%C5%ABr%C5%8D_%C5%8Ctoribashi_vs._Coyote_Starrk
+- **Roster tier:** **B** — big-weapon bruiser with fire; strong destruction toy (giant spiked club + fireball that leaves a fire column).
+- **Canon power:** **6.5/10** — overpowered Starrk (Primera Espada) and smashed him down into the town; Tengumaru blocked and even dispersed Starrk's Ceros; Hifuki no Kozuchi caves in buildings; masked, he tore a Menos Grande in half bare-handed; survived several point-blank wolf explosions and a charged blow from feral Kensei.
+- **Body:** 189 cm / 86 kg → **61 vox** (+ afro ≈ 6–8 vox → **≈ 67–69 vox** to the top of the hair). Tall, athletic, long limbs, relaxed street posture. **Big spiky afro** (anime colors it brown; manga black), **mirrored sunglasses at all times**, green tracksuit. Skin reads darker/tan than the other Visored in color art **(verify)**. Silhouette keys: afro + shades + a cactus-spiked black club twice his height.
+- **Palette (hex estimates):**
+  - Skin tan `#C99772` (verify) · afro dark brown `#3B2617` (anime) · eyes brown (hidden) · sunglasses: mirrored lens `#9FC3D6` → `#E9F4FA` gradient, frame `#1A1A1A`
+  - Tracksuit green `#2F8F4E` (shade `#1F6A39`; trim verify) · sneakers `#F2F2F2` (verify)
+  - Captain: shihakushō `#16161A`, **sleeveless** haori `#F6F6F2` with **七** `#121212`, dark-lensed sunglasses `#1A1A1F`
+  - Tengumaru sealed: white hilt-wrap `#F1F1EC`, **heart-shaped tsuba** `#CFAE48` (verify), sheath `#1A1A1E` (verify)
+  - Shikai kanabō: body black `#18181B`, blade-studs gunmetal `#5E636B` with edges `#9CA2AA`, grip `#2A2A2E`
+  - Fire: `#FFF1B0` → `#FFC02E` → `#FF6A1A` → `#C2260E`, smoke `#3C3C3C` · Cero: see §1.3 (cyan) · Reiatsu: flame orange `#FF8A2E` (ext.)
+- **Look by form/outfit:**
+  - **Captain, 110 years ago:** classic **rounded afro with long sideburns**, standard uniform + sleeveless haori (7th), dark sunglasses; sword at the waist.
+  - **Visored, Human World:** green jogging suit, mirrored shades, spiky afro; the sword rides **over his shoulder in a carrier** (the wiki calls it a *tōju*; exact form unverified); usually reading Shōnen Jump (and spoiling it for Rose).
+  - **TYBW:** shihakushō at Urahara's lab (he hoists a protesting Hiyori over his shoulder to make her change).
+  - **Hollow mask (G):** a traditional **Japanese oni mask** — horns from the forehead, heavy glaring brows, flared nose, wide fanged mouth **(verify horn count/shape)**. He wears it **over his sunglasses, which turn transparent** so the masked eyes show through. The afro stays visible around it. Cero port: the mask (mouth).
+- **Weapons:**
+  - **Sealed Tengumaru (天狗丸, "Long-Nosed Goblin"):** ordinary katana, white wrap, **heart-shaped tsuba** (a pun on his name).
+  - **Shikai:** a **black kanabō more than twice his height** (≥ 3.8 m → build at 32/m ≈ 122+ vox long) bristling with **blade-like protrusions like a cactus**; the **handle alone is almost as tall as Love** (~1.7 m) → club head ≈ 2.1 m. Extremely sturdy.
+- **Forms & states (ordered):**
+  1. **Sealed** — swordsmanship.
+  2. **Shikai Tengumaru** — *"Uchikudake"* (打ち砕け, "Crush Down/Smash to Pieces") — fire manipulation.
+  - **G: Hollow mask.** Bankai never revealed.
+- **Abilities (complete):**
+  - *Base / racial*
+    - `Zanjutsu (expert)` — fought feral Kensei one-on-one without releasing and blocked a spiritually charged blow with the sealed blade. [MeleeArc: cut] [Shield]
+    - `Strength / durability / endurance` — took a point-blank charged attack from Kensei with minor injuries; kept fighting through wolf explosions; overpowered the Primera Espada. [Stance]
+    - `Shunpo (expert)` — keeps up with the captains, a bit slower than Shinji. [Mobility]
+    - `Reading the opponent` — calls Starrk's likely moves and his emotional state, and plans around it ("if he falters, exploit it; if he rages, finish him before he blows; either way, strike first"). [Sensing] (AI behavior)
+  - *Shikai — Tengumaru (fire)*
+    - `Club combat` — huge crushing swings that smash an Espada into the town below; the club **blocks and seems to dispel Ceros**. [MeleeArc: smash] [Shield] [Absorb/Reflect/Redirect: disperse beams]
+    - `Hifuki no Kozuchi (火吹の小槌, "Fire-Blowing Gavel")` — swings the club up so it bursts into flame, points it down and fires a **huge fireball** from the tip; on impact it explodes outward far enough to **cave in buildings near the center**, and a **towering column of fire** keeps burning at ground zero. [Projectile: orb, explode] [Blast] [Field: heat] [Environmental: set fires]
+  - *Hollow mask*
+    - `Strength & durability` — brutal raw strength; he still needed the mask to safely meet a real Cero (he went to mask up when Hollow Ichigo aimed one at him). [Stance]
+    - `Kagamibiraki (鏡開, "Mirror Opening")` — drives his fingertips into a Menos Grande's head/torso and **rips it in half** with sheer strength. [Grab/Throw] [NEW: BodySplit]
+    - `Cero (cyan) from the mask`. [Beam]
+  - *Joke canon:* "my mask only lasts three minutes — I'm a hero, y'see" (Ultraman gag) → hook for his mask HUD.
+- **Passives & weaknesses:**
+  - Passive *Strike First*: the first hit he lands on a target that hasn't attacked him yet deals +30% (ext., from his doctrine).
+  - Passive *Shades*: immune to flash-blind effects while the sunglasses are on (ext.).
+  - Weak: slow wind-ups on the club; swarms of exploding summons wear him down; bound by his own ally's whip once (Aizen); 3-min mask.
+- **Signature moments to recreate:**
+  1. **Fugai Forest:** duels feral Kensei sealed in mid-air until Hachigen binds him; stabbed from behind in Tōsen's darkness.
+  2. **Hollow Ichigo rotation:** gets cut, Hollow Ichigo levels a two-finger Cero at him — Love reaches for his mask as Ichigo's Hollow shell explodes.
+  3. **Fake Karakura:** Kagamibiraki rips a Gillian in half.
+  4. **vs. Starrk:** releases Tengumaru, walks through a Cero barrage, smashes Starrk down; mask on → Hifuki no Kozuchi → mask off; wolf pack — club-batting wolves until they latch and explode.
+  5. **vs. Aizen:** Tengumaru + Komamura's Tenken pincer from both sides; later Aizen ties him up with Rose's Kinshara and cuts him.
+  6. **Gerard:** Hifuki no Kozuchi from behind alongside Lisa and Hachigen.
+- **Kit proposal:**
+  - **Shift:** Shunpo (slightly shorter than Shinji's); double-tap with lock-on = behind.
+  - **Sealed**
+    - LMB: heavy one/two-handed katana chops, 4 hits, short knockback; forward = shoulder-check lunge · back = rising cut · air = 2 chops · down-air = drop cut · sprint = charging cut.
+    - Heavy: overhead two-handed cut.
+    - Q `Charged Guard` (brace with the sealed blade: blocks charged/energy melee, reflects some stagger) · E `Shoulder Charge` (bulldozes through enemies and thin walls) · R `Read` (marks the target's next attack timing; ext. of his analysis) · F `Hoist` (pick up and carry/throw an ally or enemy — he carries Hiyori off) · Z `Haymaker` (bare-handed punch; launches) · X `Jump Smash` → masked: **Cero (cyan)**.
+    - V: masked `Kagamibiraki` on a grabbed target (rips mid-size and giant enemies in half; heavy damage on bosses).
+  - **Shikai** (T: *"Uchikudake, Tengumaru"* — the sword balloons into the spiked kanabō)
+    - LMB: 4-hit club chain (huge horizontal/vertical swings, each a smash crater; blade-studs shred voxels on the swing path); forward = ram thrust · back = golf-swing launcher (sends targets hundreds of meters) · air = spinning smash · down-air = meteor drop · sprint = club charge.
+    - Heavy: `Crush Down` — overhead slam, large crater + GroundWave.
+    - Q `Hifuki no Kozuchi` (swing up to ignite, point, fire the fireball; leaves a fire column for 8 s) · E `Cero Wall` (raise the club: blocks and disperses beams/energy projectiles) · R `Ignite` (club stays aflame: hits burn and set fires) · F `Golf Swing` (dedicated long-range launcher) · Z `Whirl` (360° club spin vs. swarms/summons) · X `Kagamibiraki` (grab + split; normally masked, allowed here) → masked: **Cero (cyan)**.
+    - V: `Hifuki Barrage` (ext.) — three Hifuki fireballs in a fan, three fire columns.
+  - **G:** mask over the shades (lenses go clear). **C:** heat-shimmer orange flare that scorches the ground.
+  - **Tab:** not needed.
+- **AI notes:** laid-back, then brutally fast: his doctrine is **strike first** — opens with Shikai + mask burst (Hifuki), dismisses the mask right after to save time. Reads the enemy's state: presses a demoralized foe, rushes an enraged one. Tanks hits. Idle: reading Shōnen Jump. As an AI pair with Rose, smacks him out of speeches. Tells: club raised overhead and igniting = Hifuki incoming.
+- **Callouts:** "Uchikudake, Tengumaru." · "Hifuki no Kozuchi!" · "Kagamibiraki."
+
+---
+
+## 8. Hachigen "Hacchi" Ushōda (有昭田 鉢玄) — ex-Lieutenant, Kidō Corps
+
+- **Wiki:** https://bleach.fandom.com/wiki/Hachigen_Ush%C5%8Dda · Kidō pages: Hachigy%C5%8D_S%C5%8Dgai, Standing_Ovation, Chocolate_Bar_Slider, Ropp%C5%8D_F%C5%ABjin, Ry%C5%ABbi_no_J%C5%8Dmon, Kok%C5%8D_no_J%C5%8Dmon, Kigai_no_J%C5%8Dmon, H%C5%8Dyoku_no_J%C5%8Dmon, Shij%C5%AB_Saimon, Goy%C5%8Dgai, Hako_Okuri, K%C5%ABkanten%27i, Goch%C5%ABtekkan, Saj%C5%8D_Sabaku, Kin · battle: Hachigen_Ush%C5%8Dda_%26_Su%C3%AC-F%C4%93ng_vs._Baraggan_Louisenbairn
+- **Roster tier:** **B** as a playable support/zone controller — but **engine priority is high**: his barriers, voxel-restoring regression and teleport-into-matter are systems other casters reuse (Tessai, Orihime, Urahara).
+- **Canon power:** **6/10 combat, 9/10 utility** — chantless Bakudō #99 Kin on feral Kensei; a clap beheaded four Gillians; his barriers held Baraggan's Respira and contained Suì-Fēng's Bankai explosion; he killed the 2nd Espada by teleporting his own rotting arm into him; rebuilt Tsubaki from nothing (Orihime couldn't); hid a whole warehouse from everyone's minds. Shunpo is slow and he hates swordplay.
+- **Body:** **257 cm / 377 kg → 82 vox**. Enormous and rotund: est. ~1.1 m shoulder width (≈ 35 vox), belly ~1 m deep, short thick legs, **huge hands** (he nearly wrenched Orihime's head turning it to look at her hairpins). Gentle face, **pink mustache**, **golden eyes**, **pink hair** with a **black crossbones mark** in the center. Silhouette keys: a mountain in an **olive tuxedo with a yellow bow tie**, palms pressed together.
+- **Palette (hex estimates):**
+  - Skin `#F2CFB3` · hair & mustache pink `#F49DBB` · crossbones mark `#151515` · eyes gold `#E3B23C`
+  - Tuxedo olive green `#5E6A2D` (shade `#434C1F`) · shirt `#F4F4F0` · bow tie yellow `#F3D02A` · shoes `#141414`
+  - Kidō Corps era: long purple mantle `#5A3E8C` over shihakushō `#16161A`; hair horns tipped black `#151515`
+  - Barriers (per spell, canon colors where given): Standing Ovation cuboids **blue** `#6FA8FF` (35% alpha) flashing **red** `#FF4A4A`; Goyōgai **yellow** prism `#FFE066`; Hako Okuri **orange** box `#FFA23A`; Roppō Fūjin **green** cross `#58E07A`; generic planks/pillars amber `#FFC56B` (ext.); Sajō Sabaku yellow rope `#FFD43B`; Gochūtekkan pillars iron `#3D3F44` + chains `#6B6E74` + yellow orbs `#FFE15A`; Kin fabric off-white `#EDEBE2` (verify) + iron shafts `#3A3C40`; Ryūbi bolts blue `#3D6BFF` / white `#F4F4F4` / black `#151515` / red `#E0262E` (from the incantation's four bars)
+  - Reiatsu **orange** `#FF9A2E` (canon) · Cero: see §1.3 (pink)
+- **Look by form/outfit:**
+  - **Kidō Corps lieutenant, 110 years ago:** long purple mantle over standard robes; hair shaped into **two small horns with black tips** and the **Kidō Corps emblem** in the center.
+  - **Hollowfication Incident:** his first mask was a **plain one with goggle-like eyes**, not fully formed (story variant).
+  - **Visored:** olive tuxedo + yellow bow tie (even at the public bath); arm in a sling after Baraggan (story); shihakushō in Wahrwelt.
+  - **Hollow mask (G):** a **Balinese demon mask** (Barong/Rangda style): bulging round eyes, flared nostrils, wide mouth with **tusks**, protrusions on top, and a **row of feather-like spikes standing up along the top like a war bonnet**. Slides on with one or both hands. Cero from the mask's mouth. Voxel (64/m): ~16 × 22 face block; crest of 7–9 spikes 6–10 vox tall.
+- **Weapons:** a **broad-bladed** Zanpakutō with a **square hilt**, summoned by Kidō — it materializes inside a **rectangular barrier between his palms**. Never released (Shikai unknown, no Bankai); trained in swordplay but deeply uncomfortable with it.
+- **Forms & states (ordered):**
+  1. **Kidō (only form)** — barriers, binds, healing, transfer.
+  - **G: Hollow mask** — amplifies his Kidō.
+- **Abilities (complete):**
+  - *Bakudō & binding*
+    - `Bakudō #63 Sajō Sabaku (鎖条鎖縛)` — palm up, fist closed: thick yellow ropes bind the upper body (feral Kensei tore free — "impossible"). [Bind]
+    - `Bakudō #75 Gochūtekkan (五柱鉄貫)` — five yellow tailed orbs circle overhead, hands slam down, **five huge chained pillars** fall and pin the target (feral Mashiro; Hollow Ichigo's body). [Bind] [Construct] [Blast: impact]
+    - `Bakudō #99 Part 1, Kin (禁)` — **chantless**: arms bound behind with spiritual cloth and iron shafts; the strong version mummifies the whole body and staples it to the ground with X-shaped iron shafts. Exhausting even for him. [Bind]
+    - `Roppō Fūjin (六方封陣, "Hexagon Seal Array")` — a 3D cross-shaped green transparent barrier sealing the target (likely the cage he clapped around Baraggan, which Respira aged away). [Bind] [Construct]
+  - *Barriers*
+    - `Hachigyō Sōgai (八爻双崖, "Eight Joined Twin Cliffs")` — two claps (above and below his head) raise a **building-sized two-layer "dislocation" barrier** that deletes its contents from outsiders' minds: they can't perceive it or even think of approaching it; hides reiatsu; standard Shinigami Kidō can't undo it and even Visored can't pass. Only Orihime (similar power) slipped through. His own invention. [Field] [Sensing/Stealth] [NEW: CognitiveVeil]
+    - `Containment barriers` — stacks of layered barriers (Hiyori: "five more layers!"); held Hollow Ichigo during training; can open small doors to let fighters in/out. [Construct] [Shield] [NEW: BarrierPorts]
+    - `Plank wall` — a rectangular plank between his hands multiplies into rows forming a wall (held Respira for a while). [Construct]
+    - `Ryūbi no Jōmon (竜尾の城門, "Dragon Tail Gate")` — a dozen-plus pillars arranged by hand gestures into a gigantic gate-wall many stories high. [Construct]
+    - `Kōjutsu Eishō (後述詠唱, "Spoken-After Incantation")` — reciting the incantation *after* casting to power the spell up; only he is seen doing it (on Ryūbi no Jōmon); Kubo rates it the hardest incantation technique. [NEW: PostCastChannel]
+    - `Kokō no Jōmon (虎咬の城門, "Tiger Bite Gate")` — a watermill/pinwheel-shaped barrier whose inner section **opens like fangs** so attacks can pass through. [Construct] [NEW: BarrierPorts]
+    - `Kigai no Jōmon (亀鎧の城門, "Turtle Armor Gate")` — honeycomb barrier of many small hexagonal cells. [Construct]
+    - `Hōyoku no Jōmon (鳳翼の城門, "Phoenix Wing Gate")` — an obelisk plus planks forming a lampshade of folded wings and a crude bird. [Construct]
+    - `Shijū Saimon (四獣塞門, "Four-Beast Blockade Gate")` — the four gates (dragon, tiger, turtle, phoenix = the Four Symbols) lock together into a **rectangular prison** around the target; it contained Suì-Fēng's Jakuhō Raikōben blast fired in through the tiger gate (cracked and bulged, then repaired). [Construct] [Bind]
+    - `Barrier repair` — a finger snap mends a cracked barrier. [Construct]
+    - `Micro-barriers` — tiny precise cubes between his fingers (fixing Tsubaki). [Construct]
+  - *Offense*
+    - `Standing Ovation (スタンディング・オベーション)` — repeated finger snaps put **transparent blue cuboids around enemies' heads**; a clap sends a reiatsu shockwave, the cuboids flash red and fall away — **beheading** them; multi-target (four Gillians, masked). [Construct] [Slice]
+    - `Chocolate Bar Slider (チョコレート・バー・スライダー)` — five rectangular prisms form between his hands and fly at the target, multiplying into a barrage from many angles (vs. Gerard). [Projectile: multishot, bludgeon]
+    - `Barrier transfer — Hako Okuri (匣遺, "Farewell Box")` — seals an object in an **orange box barrier**, severs it from everything it was attached to, and teleports it anywhere — **even inside another object or body**. Vs. Baraggan: sealed his own decaying right arm, sent it into Baraggan's stomach and unsealed it, so Baraggan rotted from his own Respira. (Kubo's Q&A says this transfer was the forbidden **Kūkanten'i**, spatial displacement — treat both as his.) [Teleport] [Status: decay] [NEW: TeleportIntoBody]
+  - *Support & healing*
+    - `Kaidō` — healing Kidō; **needs both hands** (after losing an arm he couldn't heal Hiyori); healed Renji in Wahrwelt. [Heal/Reject]
+    - `Goyōgai (五養蓋, "Five Support Cover")` — a translucent yellow prism that **freezes a person's state**, holding off death from mortal wounds (kept bisected Hiyori alive until Unohana arrived). [Shield] [Heal/Reject: stasis] [NEW: StateRestore]
+    - `Jikū Taikō (時空退行, "Time-Space Regression")` — barrier-based restoration akin to Orihime's Sōten Kisshun: rebuilt the completely destroyed Tsubaki. → in-game: **restores HP and destroyed voxels/objects to an earlier state** inside a cube. [Heal/Reject] [NEW: StateRestore]
+    - `Kidō analysis` — reads reiatsu at close range (Orihime's powers), deduces enemy mechanics (Baraggan's self-protection). [Sensing]
+  - *Other*
+    - `Summon Zanpakutō` (in a barrier) · `Swordsmanship (trained, reluctant)` · `Shunpo (slow; winded keeping up)` · `Endurance` (calm while his arm rotted; sacrificed it).
+    - `Hollow mask` — big boost to Kidō (the Gillian beheadings were masked); **Cero (pink)** from the mask; his mask shattered under Respira. [Stance] [Beam]
+- **Passives & weaknesses:**
+  - Passive *Barrier Savant*: his barriers can't be dispelled by standard Kidō; only "rejection"-class powers (Orihime) phase through.
+  - Passive *Slow but steady*: Shunpo is short and costs stamina; he can't sprint for long (canon: winded).
+  - Weak: decay/aging powers eat his barriers; healing needs two hands (track limb loss: [NEW: LimbLoss]); avoids melee; 3-min mask.
+- **Signature moments to recreate:**
+  1. **Fugai Forest:** arrives last, panting; Gochūtekkan on feral Mashiro, Sajō Sabaku on Kensei (broken!), then a chantless **Kin** — Shinji is impressed.
+  2. **Visored warehouse:** Hiyori demands five more barrier layers; Hachigyō Sōgai around the building; Gochūtekkan pins Ichigo's body; he holds the training barrier for an hour and opens doors for each shift.
+  3. **Orihime's visit:** she slips through Hachigyō Sōgai (puzzle: only a rejection-type power passes); he restores Tsubaki with Jikū Taikō.
+  4. **Fake Karakura Gillians:** "This isn't a festival — let's all quiet down": snap, snap, clap — four Menos heads fall (Standing Ovation).
+  5. **vs. Baraggan with Suì-Fēng:** clapped cage aged away → plank wall vs. Respira → Ryūbi no Jōmon with post-incantation → the four gates assemble Shijū Saimon → bargain with Suì-Fēng, her missile fired in through the tiger gate → Baraggan survives, Respira breaks Hachigen's barrier and mask → **arm transfer** kills the "God of Hueco Mundo".
+  6. **Hiyori bisected:** one-armed Goyōgai life support.
+  7. **Wahrwelt:** heals Renji; Chocolate Bar Slider at Gerard.
+- **Kit proposal:**
+  - **Shift:** short Shunpo (stamina cost); in the air, Shift lays a **barrier plank to stand on** (ext.; satisfies the brief's air-step).
+  - LMB: barrier jabs — small slabs punch out of his palms (4 hits, knockback); forward = slab ram · back = slab uppercut launcher · air = falling plank · down-air = slab press · sprint = barrier bulldozer.
+  - Heavy: `Barrier Drop` — a large slab materializes overhead and slams down (smash, crater).
+  - Q `Standing Ovation` (hold to snap-mark up to 4 heads in view, release = clap: beheads weak/giant-head targets, heavy damage on bosses) · E `Chocolate Bar Slider` (tap = prism barrage; hold = plank wall) · R `Bakudō` (tap #63 Sajō Sabaku; hold #75 Gochūtekkan) · F `Ryūbi no Jōmon` (huge gate-wall where you aim; **keep holding F after the cast = Kōjutsu Eishō**: the four colored bars slam in and wall HP doubles) · Z `Shijū Saimon` (cast the four gates around a target into a box prison; press Z again to open the tiger "fangs" so allied attacks can pass in) · X `Jikū Taikō` (cube that restores HP and rebuilds destroyed voxels/objects to their state a few seconds/minutes earlier) → masked: **Cero (pink)**.
+  - V: `Hako Okuri` — box anything (his own debuff/decay, a live bomb, a caught projectile, a chunk of debris) and teleport it **inside** the target, then unseal (the Baraggan play).
+  - **G:** mask — barrier HP ×2, cast speed ×1.5, bigger constructs.
+  - **C:** calm, wide orange pressure dome (doesn't crack the ground much — he's gentle).
+  - **Tab wheel:** Hachigyō Sōgai (perception-erasing dome over an area), Goyōgai (stasis prism on an ally), Kin (#99-1, big reiatsu cost, leaves him winded), Roppō Fūjin, individual gates (Kokō / Kigai / Hōyoku), barrier repair (snap), layered containment dome with doors, micro-cube, Kaidō (needs both arms), Kūkanten'i (forbidden: swap a chunk of space), summon Zanpakutō.
+- **AI notes:** polite, gentle, conflict-averse; never opens with offense — first shields allies, then studies the enemy's power and builds a counter (cage + port for an ally's nuke, or a transfer that turns the enemy's own power on them). Keeps allies alive (Goyōgai, Kaidō); avoids melee; pants after Shunpo. Tells: **two claps above/below the head** = big barrier; **rapid finger snaps** = Standing Ovation incoming. As a mission NPC he's the ideal escort/support who builds the arena (walls, safe zones).
+- **Callouts:** "Bakudō no rokujūsan — Sajō Sabaku." · "Bakudō no nanajūgo — Gochūtekkan." · "Bakudō no kyūjūkyū, dai-ichi — Kin." · "Hachigyō Sōgai." · "Ryūbi no Jōmon." · "Shijū no Saimon." · "Chocolate Bar Slider."
+
+---
+
+## 9. Hiyori Sarugaki (猿柿 ひよ里) — ex-Lieutenant, 12th Division
+
+- **Wiki:** https://bleach.fandom.com/wiki/Hiyori_Sarugaki · techniques: Suikawari, Gatling_Mad-Stomping, Super_Harisen_Slipper · battles: Battle_in_Fugai_Forest, Visored_Training, T%C5%8Dshir%C5%8D_Hitsugaya,_Lisa_Yad%C5%8Dmaru,_and_Hiyori_Sarugaki_vs._Tier_Harribel
+- **Roster tier:** **B** — tiny, furious, high-tempo fighter with a big cleaver and the triple Cero; also Shinji's assist character (she's his assist in *Rebirth of Souls*).
+- **Canon power:** **5.5/10** — masked, she overwhelmed Ichigo (who refused to use Bankai), cracked and chipped Zangetsu, split a Gillian's head and mask cleanly, swept crowds with a sustained Cero; held her own beside Lisa and Hitsugaya vs. Harribel. Gin bisected her in one move.
+- **Body:** 133 cm / 26 kg → **43 vox**. Very short, childlike, wiry; scowl, angry brows, **tired lines under the eyes**; **three freckles under each eye**; an **overlong fang** sticking out from the upper left of her mouth ("snaggletooth"). **Short spiky blonde pigtails**, bangs gathered with **three hair clips**. Silhouette keys: pigtails + red tracksuit + flip-flops + a sword on her back over the right shoulder.
+- **Palette (hex estimates):**
+  - Skin `#F7DBC6` · hair blonde `#F2D159` (shade `#C99E2F`) · eyes brown `#744528` (masked: black sclera, **irises stay brown**) · freckles `#C78A68` · fang `#FAFAF5` · hair clips red `#D8302F` (verify)
+  - Track jacket & pants red `#C9252B` (shade `#8E171C`) with **white lines down from the shoulders** `#F6F6F6` and the kanji **猿** (first kanji of her name) on the chest (color verify) · white T-shirt `#F4F4F0` · **yellow flip-flops** `#F5D23A`
+  - Shihakushō `#16161A`; 12th Division lieutenant armband on the left arm (insignia verify)
+  - Kubikiri Orochi sealed: tsuba decorated with **small hearts** `#C3A24C` (verify); wrap/sheath colors unverified (suggest wrap `#8C1C22`, sheath `#2B2B30`) · Shikai cleaver: blade `#C9CED6`, saw teeth `#8E949C`, spine `#6E737B`
+  - Reiatsu **pink** `#FF7FB6` (canon) · Cero: see §1.3 (red)
+- **Look by form/outfit:**
+  - **Lieutenant, 12th Division (110 years ago):** standard uniform, lieutenant armband on the left arm, **long hanging pigtails**, no clips; sword at the belt (anime: on her back). Fiercely loyal to Captain Hikifune; kicks Shinji into walls at ceremonies.
+  - **Hollowfying (Fugai Forest, story):** coughs up white liquid, a mask forms, she slashes Shinji across the shoulder.
+  - **Visored:** white T-shirt, red jogging suit (white shoulder lines, 猿 kanji), yellow flip-flops, clipped bangs; sword on her back.
+  - **TYBW:** a baseball cap in civvies; grudgingly puts on a shihakushō for the Royal Palace.
+  - **Hollow mask (G):** **skeletal skull** with a **single prominent horn in the center of the forehead** and a **row of diamond-shaped marks across the brow** (render as recessed dark diamonds, color verify); the jaw opens to fire her Cero. Summoned by thought (no gesture), with a pink reiatsu flare; often worn **pushed up on the side of her head** between bouts (Resting sub-state, §1.2). Voxel (64/m): ~9 × 12 face; horn 3×3 base tapering over 7–8 vox, tilted slightly forward; 5 diamonds 2×2 in a row above the eye sockets.
+- **Weapons:**
+  - **Sealed Kubikiri Orochi (馘大蛇, "Beheading Serpent"):** a standard katana with a heart-decorated tsuba, carried on her back over the right shoulder.
+  - **Shikai:** a **large cleaver with a serrated, saw-toothed edge** (est. blade ~1 m × 25 cm → build at 32/m ≈ 32 × 8 vox; verify) — big for her size. **Special ability never revealed** → no invented power; treat it as a heavier, saw-edged cleaving weapon.
+- **Forms & states (ordered):**
+  1. **Sealed** — sword + kicks.
+  2. **Shikai Kubikiri Orochi** — *"Buttagire"* (ぶった切れ, "Chop Cleanly/Hack Off").
+  - **G: Hollow mask** (Resting state on the head). No Bankai.
+- **Abilities (complete):**
+  - *Base / racial*
+    - `Zanjutsu (expert)` — aggressive, unpredictable, fueled by anger; cut down many Menos Grande. [MeleeArc: cut]
+    - `Suikawari (西瓜割, "Watermelon Splitting")` — a two-handed overhead chop that splits a head down the middle (cleanly cleaved a Gillian's head and mask). [MeleeArc: cut] [Slice: vertical]
+    - `Hakuda (expert)` — kicks mixed with sword work; flattened a Maggot's Nest inmate who held her hostage. [MeleeArc: smash]
+    - `Gatling Mad-Stomping (ガトリング地団駄)` — rapid-fire stomps on the target's face; sent Ichigo flying and **shattered his Hollow mask**. [Grab] [MeleeArc: multi-hit] (`MaskBreak` tag)
+    - `Super Harisen Slipper (スーパーハリセンスリッパ)` — smacks the target with her flip-flop hard enough to send Shinji **through a wall and one of Hachigen's barriers**. [MeleeArc: smash, launch] (barrier-break)
+    - `Human shield` — reflexively yanks Shinji into the path of whatever is coming (Ichigo's thrown exercise machine). [Grab/Throw] [Shield]
+    - `Shunpo / speed` — fast enough to surprise her targets. [Mobility]
+    - `Enhanced smell` — smells Shinigami involvement in spatial distortions and a Senkaimon opening beside her. [Sensing]
+  - *Shikai* — serrated cleaver: heavier chops, saw-edged cuts (cleaving power only). [MeleeArc: cut]
+  - *Hollow mask*
+    - `Strength & speed` — overwhelmed Ichigo; cracked Shikai Zangetsu and tore a chunk out of it; broke a Gillian's mask in one strike. [Stance]
+    - `Reiatsu blast` — focuses pink energy into a blast that knocks targets away. [Blast]
+    - `Cero (red)` — from the mask's open mouth; can be **held as a sweeping beam** that cuts through several targets in one pass; **triple Cero**: charges one at the mouth and one in each palm and fires all three together (Gerard's face). [Beam: sustained, sweep] [NEW: BeamMerge]
+  - *Record:* longest inner-Hollow battle of the eight — 69 min 2 s.
+- **Passives & weaknesses:**
+  - Passive *Short Fuse*: taking damage or being taunted builds Rage (+damage, +speed) — but at full Rage the AI/player dash is uncancellable for 0.5 s (canon: Aizen's taunt → reckless charge → Gin bisects her).
+  - Weak: tiny reach (sealed), hot-headed overcommitment, 3-min mask, low durability.
+- **Signature moments to recreate:**
+  1. **Captain's ceremony gag:** kicks Shinji's face into a wall at the door.
+  2. **Fugai Forest:** chased by feral Kensei through the moonlit forest, refusing to draw her sword on him; then the white vomit, the mask, and her blade across Shinji's shoulder (player loses control); cut down by Tōsen.
+  3. **Warehouse vs. Ichigo:** Super Harisen Slipper launches Shinji through the barrier; mask on; cracks Zangetsu; gets choked by Hollow Ichigo until the Visored pin him.
+  4. **Training:** mask resting on her head; Gatling Mad-Stomping shatters Ichigo's 4-second mask.
+  5. **Fake Karakura:** Suikawari through a Gillian's head; sustained Cero sweeps through the horde.
+  6. **vs. Harribel** with Lisa and Hitsugaya (bickering with Hitsugaya about height first).
+  7. **Aizen's taunt → Gin's bisection** (story QTE you cannot win).
+  8. **Gerard:** calls him bald ("I'm not bald"), triple Cero to the face as a distraction for the Visored ambush.
+  9. **Epilogue:** chases little Kazui out of her house — he "runs like the wind".
+- **Kit proposal:**
+  - **Shift:** Shunpo — short, very fast, chainable darts; double-tap with lock-on = behind.
+  - **Sealed**
+    - LMB: 5-hit furious chain mixing slashes and kicks; finisher = flying kick to the face. Forward = leaping stab · back = rising kick launcher · air = slash-kick spin · down-air = stomp dive · sprint = sliding kick.
+    - Heavy: `Suikawari` — jump + two-handed head-splitting chop (cut mode, vertical slice through structures).
+    - Q `Super Harisen Slipper` (huge launch; breaks shields/barriers/walls) · E `Gatling Mad-Stomping` (leap onto the target's face, stomp barrage; big MaskBreak) · R `Flying Kick` (gap-closer to the face) · F `Human Shield` (grab the nearest ally — preferably Shinji — and hold him up as a shield; release = slap him into the enemy with her sandal, borrowed from their *Heat the Soul 6* team finisher **[game-only]**) · Z `Sniff` (reveals stealthed/illusory targets and portals within 30 m) · X `Pigtail Rush` (ext.: berserk dash flurry) → masked: **Cero** (tap = quick; hold = sustained sweeping beam).
+    - V: masked → `Triple Cero` (mouth + both palms merged, then swept across the field); unmasked → `Suikawari` at giant scale.
+  - **Shikai** (T: *"Buttagire, Kubikiri Orochi"* — the katana swells into the serrated cleaver)
+    - LMB: 4-hit cleaver chain (wide heavy chops; the saw edge tears voxels in jagged cuts). Heavy: `Suikawari (Shikai)` — a much bigger vertical split.
+    - Q Super Harisen Slipper · E Gatling Mad-Stomping · R `Saw Grind` (ext.: press the serrated edge into a target or wall and grind through — continuous cutting) · F Human Shield · Z Sniff · X `Cleaver Spin` (ext.) → masked: Cero / pink reiatsu blast.
+    - V: masked Triple Cero.
+  - **G:** mask by thought (instant), Resting state (pushed up on her head) between bursts. **C:** pink flare (stamps the ground; small enemies get knocked away).
+  - **Tab:** Cero variants (quick / sustained sweep / triple).
+- **AI notes:** furious, insulting (calls people baldy/dumbass), charges the biggest threat, slaps Shinji when he's nearby; uses an allied Shinji as a shield (comedy, but it works). Masks fast, pushes the mask up to talk, sweeps crowds with Cero. **Rage tell:** veins/red face + scream → she will dash straight at the taunter (exploitable). Will not fight a friend in feral form in the Fugai Forest chapter (she only dodges until the Hollowfication takes her).
+- **Callouts:** "Buttagire, Kubikiri Orochi." · "Suikawari!" · "Gatoringu Jidanda!" · "Sūpā Harisen Surippa!" · "Hage!" (baldy)
+
+---
+
+## 10. Engine needs beyond the brief's primitive list (`[NEW: …]` index)
+
+| Tag | What it is | Used by |
+|---|---|---|
+| `MaskSystem` | Mask state machine: 2×-density head attachment, Hollow Gauge with drain/regen/lockout, crack decals + voxel shatter, eye-material swap, dual-voice DSP, Resting (pushed-up) sub-state, `MaskBreak` damage tag, "X becomes Cero" slot override | all Visored, Ichigo, Tōsen; Shin'eiyaku Hitsugaya (ice mask) |
+| `HiResAttachment` | Mixed-resolution voxel parts (64 vox/m sub-meshes on a 32 vox/m body) | masks, faces, small weapon details (Sakanade's ring and holes) |
+| `PerceptionMirror` | Per-observer render transform that shows other combat entities at mirrored positions/orientations + re-routes the observer's assist systems (lock-on, auto-face, parry orient, AI aim, 3D audio panning, sensing) through the phantoms; adaptation meter; optional full-screen flip | Shinji (Sakanade) |
+| `SpeechInversion` | Reversed subtitles/voice for affected observers; mirrored AI squad orders | Shinji |
+| `IFFSwap` | Per-observer faction remap: swapped nameplates/outlines, hostile disguise shader on allies, AI threat-table inversion, forced friendly fire | Shinji (Bankai) |
+| `AudioGate` | Hearing check per target (distance, voxel occlusion, `Deafened` status, self-deafen action) gating a Field's effects | Rose (Bankai) |
+| `PerObserverIllusion` | Illusions rendered only for affected observers, dealing real HP damage but never touching voxels | Rose (Bankai); reusable for Aizen, Tōsen, Kyōka Suigetsu scenes |
+| `RopePhysics` | Prehensile whip/wire (verlet chain) with steerable path, tip attach/latch, retract, can be grabbed by enemies | Rose (Kinshara, Arpeggio wire); reusable for Zabimaru, Kazeshini |
+| `SignalAlongRope` | A pulse traveling along an attached rope that triggers an effect at the tip | Rose (Izayoi Bara) |
+| `RhythmInput` | Short note-sequence prompts/beat-timed clicks that scale an effect | Rose (Arpeggio, Bankai conducting) |
+| `PathDetonation` | Delayed explosions along a swept blade arc or drawn path | Kensei (Tachikaze) |
+| `InternalDetonation` | Embed (stab/impale) then explode from inside the target | Kensei (Bakudantsuki) |
+| `ContactDetonation` | Sustained explosions while a fist stays in contact (pin + DoT + vibration shader), then a launch | Kensei (Tekken Tachikaze) |
+| `ArcBeam` | Beam whose sweep follows an animation curve (a kick's arc) | Mashiro (Super Cero) |
+| `BeamMerge` | Multiple beams converging into one braided multicolor beam with a bigger end blast | Visored combined Cero, Hiyori's triple Cero |
+| `BodySplit` | Tearing a character/creature voxel model in two (gore-light), incl. giants | Love (Kagamibiraki); also Gin's bisection of Hiyori |
+| `CarryAlly` | Carry a body (ally/enemy) while fighting one-handed; drop/throw | Shinji (Hiyori), Kensei (Mashiro), Love (Hiyori), Hiyori's human shield |
+| `DigitigradeRig` | Alternate leg rig (reverse-knee insect/beast legs) for feral transformations | feral Mashiro; Hollow creatures |
+| `StatusContagion` | Spreading transformation status (cough → white vomit → mask growth), accelerated by the victim's agitation | Hollowfication Incident chapter |
+| `CognitiveVeil` | Zone erased from outsiders' perception: not rendered/targetable, AI won't path or even "think" to approach, hides reiatsu; only flagged powers can pass | Hachigen (Hachigyō Sōgai) |
+| `BarrierPorts` | Openable apertures/doors in barriers and cages so chosen attacks/people pass | Hachigen (Kokō no Jōmon, Shijū Saimon, training barrier) |
+| `PostCastChannel` | Keep channeling after a cast completes to upgrade the construct (post-incantation) | Hachigen (Kōjutsu Eishō) |
+| `TeleportIntoBody` | Box an object/limb/status/projectile and relocate it inside a target's body, then unseal | Hachigen (Hako Okuri / Kūkanten'i) |
+| `StateRestore` | Region/entity state snapshots: restore destroyed voxels + HP to an earlier state; freeze an entity's state (no death while inside) | Hachigen (Jikū Taikō, Goyōgai); reusable for Orihime |
+| `LimbLoss` | Losing an arm disables two-handed techniques (Hachigen can't heal one-handed) | Hachigen (story); general dismemberment |
+
+Already covered by the brief (no tag needed): fire columns/fire spread (`Environmental`, `Field: heat`), Bakudō binds (`Bind`), barrier walls/cages (`Construct`, `Shield`), Tanma Otoshi sleep (`Status`), Shunpo (`Mobility`/`Teleport`), illusion dispel (`Sensing/Stealth`).
+
+---
+
+## 11. Open questions / not found
+
+- **Mask details (verify against reference art):** no colored markings are confirmed on any Visored mask; exact tooth row and hood striping on Shinji's mask; Mashiro's antennae/plates; Rose's beak ridges; Love's horn shape/count; Hachigen's mask accents; color of Hiyori's brow diamonds; Kensei's mouth opening for his Cero (design choice above).
+- **Conflicting/uncertain colors:** Sakanade's sealed hilt & sheath — **green** on the main wiki page, **red** in the novel article; Shinji's tie/cap/coat; Love's skin tone and tracksuit trim; Hiyori's hair-clip and 猿-kanji colors; Mashiro's goggle lenses and "Super" armband; Lisa's tsuba/sheath; Kinshara's sheath; Tengumaru's tsuba metal and the *tōju* carrier's form.
+- **Never revealed in canon:** Shikai ability of Hiyori (form known), Shikai of Mashiro and Hachigen; Bankai of Love, Lisa, Mashiro, Hachigen and Hiyori; the effect of Rose's **Ein Heldenleben**; Shinji's hot/cold inversion (only a stated goal).
+- **Unclear mechanisms:** what Shinji fired from the rooftop at Grimmjow's arm (unnamed); how Sakanade "redirected" Bazz-B's lava (wiki claim only); which spell Hachigen clapped around Baraggan first (Roppō Fūjin is likely).
+- **Sizes are estimates:** Bankai flower (~6 m), Butōdan dancers (3–4 m) and giant hands, Haguro Tonbo Shikai (3–3.5 m), Kubikiri Orochi Shikai cleaver, feral Kensei (~3.5 m). Canon gives only Tengumaru's "more than twice Love's height".
+- **Not found in the dumps:** the name of the music in Rose's Bankai (the wiki link was stripped); Zombie Kensei/Rose face-marking shapes; the incident-era partial masks of Love, Rose and Lisa (only Hachigen's goggle-eyed early mask is described).

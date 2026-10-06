@@ -854,4 +854,324 @@ Rules this file adds (they matter for five H2 characters who held a stolen Banka
   - Ransōtengai last stand, aimed at whoever is escaping.
 - **Callouts:** "Kuinshī: Forushutendihhi!" · "Pisukieru!" · "Sukuraverai!" · "Za Jeiru." · introduces himself as "Kiruge Opī of 'Za Jeiru'".
 
+---
+
+## 6. Gremmy Thoumeaux (グレミィ・トゥミュー, Guremī Tumyū) — Sternritter "V": The Visionary · the "monster" kept caged in Silbern
+
+- **Wiki:** https://bleach.fandom.com/wiki/Gremmy_Thoumeaux
+  - Also: Gremmy_Thoumeaux/Expanded_Universe, Guenael_Lee, Kenpachi_Zaraki_vs._Gremmy_Thoumeaux.
+  - Anime: ep. 386 ("I AM THE EDGE").
+- **Roster tier:** **A — S-candidate as the engine showcase.** His menu touches every primitive in the brief. Build him once the primitives exist and ship him as the "sandbox" character.
+- **Canon power: 8.**
+  - Fought Kenpachi (with his newly awakened Shikai, Nozarashi) on even terms and left him hurt badly enough that weaker Sternritter nearly finished him.
+  - Called down a meteor big enough to wipe out the Seireitei.
+  - Haschwalth and Askin feared him; PePe called him a monster who should have stayed locked up.
+  - novel-only: Yhwach personally made the bindings that held him, and Liltotto believed he could defeat the whole Gotei 13 (with Yamamoto already dead).
+  - Died of his own overreach.
+- **Body:** 155 cm → **50 vox**.
+  - Build: child-like and slight, with youthful features.
+  - Silhouette keys:
+    - messy blond hair and red eyes;
+    - a **loose, oversized trench coat with a hood and a high collar** — hood usually down, collar up to the chin, long sleeves (verify).
+  - His **real body** is a **disembodied brain in a protective capsule** (≈30–40 cm, so ~10–13 vox; verify), the only thing left when he dies.
+  - Clones are identical.
+  - Posture: calm and floaty; he **never raises a hand** (his boast: "not a single finger").
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | pale #F6E4D6 |
+  | Hair | blond ✔ #E8C766 (shade #B9963E) |
+  | Eyes | red ✔ #C8202A |
+  | Coat | shared white, oversized |
+  | Brain | #D9A3A0, folds #A8706E |
+  | Capsule | glass #CFE3EA at 40% with steel caps #8C939B (verify) |
+  | Imagination VFX (no canon color; **game-only** signature) | a 0.2 s prismatic ripple: chromatic-aberration edge #FFFFFF with a thin rainbow fringe; then the object is **fully real**, using normal materials (lava #FF5A12, water #3C8DD8, stone #8A8178, steel #9DA6B0) |
+- **Look by form/outfit:**
+  - **Base:** the oversized hooded coat; calm, faintly smug.
+  - **Wounded:** blood pools, then vanishes along with the wound when he "imagines it already healed".
+  - **Bulked "rival-strength" body:** grotesquely swollen muscles that tear. Manga: the left shoulder pulls away from the neck and the ribcage bursts through the chest. Anime (censored): his fingers rip off. Use a gore toggle.
+  - **Clones:** identical copies; bombs sprout on their chests when they suicide-grab.
+  - **Death:** the body crumbles into reishi and the brain capsule drops out.
+- **Weapons:** none. "I'll kill you with my mind alone." Every weapon he uses is imagined.
+- **Forms & states (ordered):**
+  1. **Imagined body** (base). Runs on a **Focus** meter (game-only resource).
+  2. **Clones** — T. Each clone **doubles** his imagination (canon) and unlocks the cosmic tier.
+  3. **Imagined Strength** overdrive — the canon fatal bulk-up as a risk/reward finisher.
+  4. **Brain capsule** — the defeat state. novel-only: Tokinada Tsunayashiro steals the brain to build Hikone Ubuginu.
+- **Abilities (complete):**
+  - ***Schrift — The Visionary (夢想家, ザ・ヴィジョナリィ, "dreamer"):*** whatever he imagines becomes real for as long as he holds it in mind. `[every primitive; see menu]`
+    - Things he made **vanish when he dies**: the stone fort crumbled and his spilled blood disappeared.
+    - He claimed the meteor would stay even if he died (game rule: a creation can be "released" to persist).
+  - ***Life Creation:*** `[Summon, Afterimage/Clone]`
+    - Clones of himself, each doubling his power. They are invulnerable unless they "forget to harden".
+    - Fully sentient beings: **Guenael Lee**, and novel-only **Shaz Domino**. He can erase them at will.
+    - A living vessel for himself — the body everyone sees.
+  - ***Infiltration:*** appeared *inside* Isane's healing barrier with his presence fully masked (even Yachiru missed him) and killed the unconscious Kensei and Rose there. `[Teleport, Sensing/Stealth]`
+  - ***Speed:*** casually dodged Yachiru's Sanpo Kenjū and caught her hand mid-swing. `[Mobility]`
+  - ***Immeasurable reiryoku.*** novel-only: his raw power could force even Hikone's paradoxical existence to be real.
+  - ***The Imagination Menu*** — the full library. Canon entries are what he actually did; the rest are labeled.
+
+    | Category | Entry | Source | Game effect | Tags |
+    |---|---|---|---|---|
+    | Body | **Steel Body** ("sturdier than the strongest steel") | canon | toggle: huge damage reduction; a strong-enough cut still goes through (Kenpachi simply decided to cut steel) | `[Stance, Shield]` |
+    | Body | **Already Healed** | canon | instantly erase a wound by imagining it already healed; costs Focus; delayed during a lapse | `[Heal/Reject]` |
+    | Body | **Cookie Bones** | canon (he first said cookies, then corrected himself to *rakugan*, dry Japanese sweets) | target's bones become brittle candy: arms snap on use or impact (weapon dropped), legs buckle; sustained, it spreads to the whole skeleton; **reverts when he stops focusing** on that target | `[Status (fragility, limb-break), NEW: PropertyRewrite]` |
+    | Terrain | **Lava Surge** ("this lava came from inside my head") | canon | lava wells up around him and rolls at the target, melting the floor it crosses | `[Environmental, Field (heat), NEW: MaterialTransmute, NEW: FluidSim]` |
+    | Terrain | **Water Cube** ("the air you jumped into was already underwater") | canon | a cube of water appears around a target in midair: drowning timer, heavy slow; he can slam the cube down | `[Field (drown), Bind]` |
+    | Terrain | **Crevice** | canon | the ground splits under the target; he drops target and water cube in and seals it shut — buried and drowning, they must dig out (he estimated an hour even for a monster) | `[Environmental, Bind]` |
+    | Terrain | **Stone Fort** (title given in the anime) | canon | lifts the whole room and building up on dozens of pillars into a fortress-arena; the map is rebuilt | `[Construct, Environmental]` |
+    | Terrain | **Stone Pillar Rams** | canon | dozens of horizontal stone columns shoot out of the ground and walls | `[Construct, Projectile]` |
+    | Terrain | **Steel Pillars / Giant Stone Platform** | canon (wiki's power list) | defensive or offensive pillars; elevated platforms | `[Construct]` |
+    | Terrain | **Floor to Liquid** | **game-only** (user request; fits the lava and water feats) | a disk of floor becomes water, quicksand or lava; targets sink while he hovers | `[Environmental, Field]` |
+    | Defense | **Metal Bar** | canon | a thick steel bar appears in front of him to stop a slash | `[Construct, Shield]` |
+    | Defense | **Bladed Dome** | canon | a dome of triangular steel plates with blades sprouting between them; hurts melee attackers | `[Construct, Shield]` |
+    | Defense | **Blade Trap** | canon | when cut, he imagines the blade stuck inside him: the attacker's weapon is locked — combo into Stone Hand | `[Bind]` |
+    | Offense | **Giant Stone Hand** | canon | an enormous stone palm, fingers splayed, slams down on the target | `[Construct, Blast]` |
+    | Arsenal | **Firearm Ring** | canon (dozens of assault rifles around him) | a floating ring of rifles fires on full auto | `[Projectile (bullets), Swarm]` |
+    | Arsenal | **Missile Salvo** | canon | thrown or launched missiles | `[Projectile (explode)]` |
+    | Arsenal | **Heavy Ordnance** (cannons, turrets, bombs) | **game-only** (the wiki's range is "machine guns to missiles") | | `[Projectile, Summon]` |
+    | Life | **Clone** | canon | see T; each clone ×2 imagination | `[Afterimage/Clone, Summon]` |
+    | Life | **Clone Bombs** | canon | clones sprout bombs on their chests, grab the target together and detonate | `[Summon, Blast, Grab/Throw]` |
+    | Life | **Guenael Lee** | canon | summon his imagined Sternritter (entry below) | `[Summon]` |
+    | Life | **Erase** | canon | instantly delete one of his creations | — |
+    | Life | **Imagined Copy** | **game-only** (user request: "a copy of Kenpachi") | imagine a fighter he has seen as an AI ally at reduced power; if that fighter is stronger than Gremmy's Focus cap, the copy turns unstable and tears itself apart after a few seconds (the same logic that killed him) | `[Summon]` |
+    | Life | **Shaz Domino** | novel-only | a creation that regenerates by making its imagined body real | `[Summon]` |
+    | Cosmic | **Meteor** | canon (needs ≥1 clone) | a giant meteorite falls from several kilometers up; built to erase a district; persists if he dies | `[Projectile (meteor), Blast]` |
+    | Cosmic | **Outer Space** | canon (needs several clones) | a pocket of vacuum around the target: blood boils, bodily fluids boil off, lungs collapse if they breathe. Escape by clawing out at the pocket's edge (Kenpachi did) | `[Field (vacuum), NEW: VacuumField]` |
+    | Reality | **Imagined Step / Infiltration** | canon | appear anywhere, even inside barriers, presence masked | `[Teleport, Sensing/Stealth]` |
+    | Reality | **Sweets** | novel-only (pastries for Liltotto) | conjured food = heal item for allies | `[Heal/Reject]` |
+    | Overdrive | **Imagined Strength** | canon (fatal) | bulk up to the strongest enemy's power: massive damage for a few seconds, then the body tears itself apart unless cancelled in time | `[Transform, NEW: MuscleSwellMorph, NEW: SelfDamageResource]` |
+    | Extras | Gravity Well · Blade Rain · Imagined Beast · "That arrow was a flower" (negate one projectile) · Imagined Cage | **game-only** | lower-priority fillers in the spirit of the Schrift | `[Field, Swarm, Summon, Absorb/Reflect/Redirect, Bind]` |
+
+- **Passives & weaknesses** (canon, turned into the **Focus** rules):
+  - **Upkeep:** sustained creations and rewrites drain Focus.
+  - **Attention diversion:** effects on anyone outside his current focus revert after ~2 s. Yachiru's bones went back to normal the moment he fixated on Kenpachi.
+  - **Lapse:** a heavy hit while Focus is low delays Already Healed — a moment's lapse left him late to heal.
+  - **Doubt:** below 35% HP, three big hits in a row inflict *Doubt* — he starts imagining himself losing. Steel Body hardness halves and Already Healed is disabled until he "refocuses".
+  - **Imagination limit:** he can't hold power bigger than the body he imagines (the Overdrive self-destruct).
+  - **Clones:** they become vulnerable if they "forget to harden" (random lapses on big actions).
+  - **Creations die with him** unless released.
+  - **Cannot target Yhwach:** he can't imagine beating him (Kubo Q&A #819). Story rule.
+  - **Escaped creations:** a creation that makes its body truly real escapes his control (Shaz; novel-only).
+- **Signature moments to recreate:**
+  1. **Isane's barrier (ep. 386).** Erase a failing Guenael, reveal that he has already killed the captains in the beds, and turn Yachiru's bones to sweets.
+  2. **Kenpachi Zaraki (ep. 386), step by step:**
+     - he raises the **Stone Fort**;
+     - Steel Body gets cut; he heals by imagination;
+     - lava; the water cube; the crevice burial;
+     - Kenpachi bursts out; the metal bar is cut;
+     - stone pillar rams;
+     - the rifle ring and missiles (anime: Kenpachi kicks up a slab of the fort as a shield);
+     - the bladed dome; the blade trap and the stone hand;
+     - Doubt → he refocuses;
+     - a clone, then the **meteor** — Kenpachi cuts it in half; in the anime he is drawn as a young boy during the cut;
+     - several clones open **outer space**, and Kenpachi claws his way out of it;
+     - the clone bombs;
+     - Imagined Strength — the body tears apart and the brain falls out.
+
+     For non-Kenpachi players, the meteor needs a "destroy it in time" mechanic: beam it, cut it, or tank it inside a dome.
+- **Kit proposal:**
+
+  | Input | Move |
+  |---|---|
+  | Shift | **Imagined Step** — a short blink with a dream ripple, no Hirenkyaku ribbon. Double-tap + lock = behind |
+  | LMB chain | "No fingers": each press materializes a small object at the target — stone spike → swinging steel bar → falling block. Forward = stone lance from the ground; back = launcher pillar; air = hail of steel shards; down-in-air = anvil drop; sprint = rolling wave of stone |
+  | Heavy | **Giant Stone Hand** |
+  | Q E R F Z X | Six slots filled from the menu. Defaults: Q Firearm Ring · E Lava Surge · R Water Cube · F Crevice · Z Bladed Dome · X Cookie Bones. Hold = upscaled version at extra Focus cost |
+  | G | **Steel Body** toggle (override — Gremmy never uses Blut) |
+  | C (hold) | Dream flare: reality ripples and colors slide toward pastel; weak NPCs freeze in awe (**game-only**: their weapons turn to sweets) |
+  | T | **Clone** — +1 per tap, up to 4; each doubles size, damage and duration of new creations. Hold T: dismiss clones |
+  | V | **Meteor** (needs ≥1 clone). Hold V with ≥3 clones: **Outer Space** |
+  | Tab | The full **Imagination Menu** — drag entries onto Q–X; Overdrive (**Imagined Strength**) sits here behind a confirm |
+
+- **AI notes (boss):**
+  1. **Polite host:** builds the Stone Fort, explains his power, opens with lava, the water cube and the crevice.
+  2. **After his steel is cut:** rifle ring, missiles, bladed dome, stone hand, blade trap.
+  3. **"I want to crush you":**
+     - clones → meteor (an arena-wide "survive or destroy it" event);
+     - outer space (the player must reach the pocket's edge);
+     - clone bombs.
+  4. **Desperation:** Imagined Strength. If it isn't interrupted it kills him — the brain capsule drops and the fight ends.
+
+  Tells:
+  - Pressure him and he gets *Doubt*.
+  - Switching targets makes his old effects revert.
+  - He never targets an unbeatable boss — e.g. he refuses to fight Yhwach.
+- **Callouts:** self-introduction "Guremī, 'Za Vijonarī'." · "Rakugan" (the cookie-bones correction). None of his creations are named on-page, so menu barks are **game-only** plain Japanese: "Bunshin" (clone), "Inseki" (meteor), "Uchū" (space), "Yōgan" (lava).
+
+### 6a. Guenael Lee (グエナエル・リー) — Gremmy's creation, nominal "V": Vanishing Point (summon / C-tier enemy)
+- **Wiki:** https://bleach.fandom.com/wiki/Guenael_Lee — fought Yachiru and Isane (anime ep. 385–386).
+- **Body:** 155 cm → 50 vox.
+  - Short, elderly-looking man with disproportionately short legs.
+  - **Big pink hair** (verify shade, ~#F2A3C7).
+  - Lips that never close over his **large teeth**.
+  - Glasses; a lazy right eye fixed up and to the right.
+  - A head ornament pinned to **four points on his face**.
+  - Hooded Sternritter coat.
+- **Abilities:**
+  - **Vanishing Point (消尽点)** — three versions:
+    - **V1:** appearance vanishes (invisible).
+    - **V2:** existence vanishes (intangible) and leaves a **decoy afterimage** that seems to get hit.
+    - **V3:** erased from people's memory — they forget he was ever there, even forget having just been hit.
+    - He flips between V1 and V2 instantly.
+  - **Vanishing Slider (消尽滑体)** — pours all his reiatsu into a tiny backstep faster than any reaction; it saved him from being cut in two by Yachiru.
+  - **Reishi dagger**, plus a larger reishi blade held in a reverse grip.
+  - Tags: `[Sensing/Stealth, Afterimage/Clone, Status (memory wipe), NEW: MemoryWipeStatus]` (identifier shared with H3)
+- **Weakness:** exists only at Gremmy's pleasure, who erases him on a whim. Instinct-driven fighters like Yachiru keep almost hitting him: their bodies remember what their minds forgot.
+
+---
+
+## 7. Mask De Masculine (マスク・ド・マスキュリン) — Sternritter "S": The Superstar (James's manifested hero)
+
+- **Wiki:** https://bleach.fandom.com/wiki/Mask_De_Masculine
+  - Also: James, Star_Flash, Star_Flash:_Super_Nova, Star_Lariat, Star_Satsujin_Punch.
+  - Battles: Kensei_Muguruma_%26_Rōjūrō_Ōtoribashi_vs._Mask_De_Masculine, Renji_Abarai_vs._Mask_De_Masculine.
+  - Anime: eps. 370–371, 373 and 382–384 ("Rages at Ringside").
+- **Roster tier:** **A.** The roster's pure **grappler/showman**, with a unique companion mechanic: cheer meter, life link and fragment clones.
+- **Canon power: 7.**
+  - Dropkicked pre-training Renji across the Seireitei without any help from James.
+  - Cheered on, he beat two Bankai captains, Kensei and Rose.
+  - Burned to ash by Renji's true Bankai.
+- **Body:** 200 cm → **64 vox**.
+  - Build: huge, muscular wrestler.
+  - The **luchador mask** covers most of the head but leaves the **cleft chin and nose** bare; a **blond mustache with shaved ends**.
+  - Silhouette keys: barrel chest and a **champion's belt with a big round buckle**.
+  - Star Power Up: about +15–20% bulk; his muscles burst the uniform.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | tan #D9A47C (verify) |
+  | Mask | **yellow ✔ #F2C21B and red-orange ✔ #E2541C**; a star pattern on the forehead and thick markings around the eyes, nose and cheeks (verify layout) |
+  | Mustache | blond ✔ #E5C35A |
+  | Eyes | brown ✔ #6B4423 |
+  | Boots and gloves | red ✔ #C8202A |
+  | Champion belt | gold #D4AF37; round buckle bearing the insignia (it doubles as a Sanrei Belt) |
+  | Uniform | shared whites |
+  | Cheer glow (eyes, nose, forehead star) | gold #FFE27A |
+  | **Star Flash** | golden ✔ #FFD54A, core #FFF6C8 |
+  | Star-crest on the fist (Satsujin) | #FFD54A |
+  | **Star Power Up** | black mask #121214 with a stylized black-and-red star ✔ (#C8202A); black gloves and boots ✔; wrestler trunks (color not stated — black with red star trim, verify); **red star nipple covers ✔** #D32030; star-shaped chest hair #E5C35A |
+  | **Vollständig** | crimson ✔ #A5122A; star halo and cape-wings crimson with a gold rim #FFD54A (verify) |
+- **Look by form/outfit:**
+  - **Base:** standard uniform, with the cloak torn off when a fight starts; luchador mask; red boots and gloves; champion belt instead of the Wandenreich buckle.
+  - **Cheered:** eyes, nose and forehead star **glow**. anime-only: the side of his mask rips open in the Renji fight.
+  - **Star Power Up:** bursts out of the uniform. Left wearing black gloves and boots, wrestling trunks, the champion belt, red star nipple covers and a star-shaped chest-hair patch; mask swaps to the black and black-red star version.
+  - **Vollständig:**
+    - The belt buckle glows and wraps him in light.
+    - A **giant star-shaped halo** behind or above his head.
+    - **Small wings on the upper chest/neck.**
+    - A **large cape that works as his wings**.
+    - The chest-hair star shrinks to a neater star.
+- **Weapons:** none — fists, holds and the belt. Medallion carried, never used (he didn't even know lieutenants could have a Bankai).
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Cheered** — G, while James cheers.
+  3. **Star Power Up** — T; needs a full Cheer meter.
+  4. **Quincy: Vollständig (unnamed)** — T again from Star Power Up.
+- **Abilities (complete):**
+  - ***Schrift — The Superstar (英雄, ザ・スーパースター, "hero"):*** James's Schrift. James's cheering lights Mask up and lets him **recover from injuries again and again** while his strength, speed and endurance climb. `[Stance, Heal/Reject, NEW: CheerMeter, NEW: CompanionLifeLink]`
+    - One round of cheers turned "losing to one captain" into "one punch per captain".
+    - Survived a continuous point-blank Tekken Tachikaze onslaught.
+    - Regrew his ruptured eardrums in seconds, even though he couldn't hear the cheering.
+    - **Life Link:** James revives endlessly while Mask lives; Mask revives while James keeps cheering. Both must die together, or James must stay down until Mask falls.
+  - ***Star moves (all canon):***
+    - **Star Eagle Kick** (スター・イーグルキック) — a flying knee. `[MeleeArc (smash)]`
+    - **Star Headbutt** (スター・ヘッドバット) — grabs the head and smashes it with his forehead. `[Grab/Throw]`
+    - **Star Rocket Headbutt** — launches himself head-first; the impact explodes and drove Renji several blocks. `[Mobility, Blast]`
+    - **Star Dropkick** — a dropkick that smashes the target through several buildings. It sent Renji flying across the Seireitei and shattered Zabimaru. `[MeleeArc (smash), NEW: CarryThroughWalls]`
+    - **Star Flash** (スター・フラッシュ) — two fingers to the points of his forehead star fire a **golden, star-shaped beam** that punched a star-shaped hole through Rose's torso. `[Beam]`
+    - **Star Satsujin Punch** (スター殺人パンチ, "Star Murder Punch") — when enraged, a star crest appears on the back of his fist and his punches hit **ten times harder**, bursting into stars on impact; his barrage toppled buildings. He calls it the "hammer of justice". `[MeleeArc (smash), Blast]`
+    - **Star Lariat** (スター・ラリアット; "One Mile Arts", ワン・マイル・アーツ) — Star Power Up only. His swings and punches throw **air-pressure waves in the shape of the arm or fist** that slice through buildings and carry targets away (he claims a mile); he can fire them in rapid volleys. `[Projectile (shockwave), GroundWave, NEW: CarryThroughWalls]`
+    - **Star Power Up** (スター・パワーアップ) — the transformation above. `[Transform, NEW: MuscleSwellMorph]`
+    - **Star Flash: Super Nova** (スター・フラッシュ: スーパー・ノヴァ) — Vollständig only. He flies high, **traces a giant pentagram in the sky with his wing trail**, rises above it and body-slams it chest-first. A huge star-shaped blast crashes down into the ground; it destroyed Renji's Ōken clothing, which Yhwach himself praised as the best a Shinigami can wear. `[Blast, Beam, Mobility]`
+  - ***Pro-wrestling repertoire*** — his only fighting style, and canon: `[Grab/Throw, MeleeArc, Bind-break]`
+    - an entrance by crashing down from the sky (crater); dropkicks, elbow and knee drops, clotheslines;
+    - airplane-spinning Ikkaku and throwing Yumichika into a building;
+    - catching Ikkaku's and Yumichika's blades bare-handed mid-swing;
+    - flexing free of Kazeshini's chains, then using the chain to reel Hisagi in for a mid-air clothesline;
+    - a pin with a referee-style three-count;
+    - promising a "ten count".
+  - ***Bell / gong shockwave:*** James rings the bell to start the bout and Mask lets out a shockwave. `[Blast]`
+  - ***Self-deafening:*** punctured his own eardrums to beat Rose's music-borne illusions. `[NEW: SonicDeafen]` (identifier shared with H3)
+  - ***Quincy basics:*** Hirenkyaku expert (deceptively fast for his size); Shadow (opened a gate for Soldat, left the Seireitei); great strength and durability. `[Mobility, Teleport]`
+  - ***Vollständig:*** flight; the Super Nova. `[Transform, Mobility]`
+- **James (ジェイムズ) — companion** (H3 suggests "support summon" too):
+  - **Body:** 92 cm → **29 vox**; short, chubby and bald.
+  - **Outfit:** sunglasses; polo shirt and overalls ("bowler shoes" per the wiki — verify; probably bowling shoes); a small hammer he strikes a little bell with.
+  - **Palette:** skin #F1C9A5, sunglasses #111111, overalls (verify; e.g. denim #3D5A80), bell brass #C9A23A.
+  - **Behavior:** rings the bell at round start; calls Mask "Mister" (ミスター); cheers when Mask is down; cries when he loses.
+  - **Body Division:** cut him apart and every piece regrows into a **small naked copy**, and all of them cheer — more cheering pushes Mask into Star Power Up. `[Summon, NEW: FragmentCloneSpawn]`
+  - Super Nova incinerates the copies; they come back while Mask lives.
+- **Passives & weaknesses:**
+  - **James is the power source.** Rose bifurcated him; Renji diced him while Mask was busy punching.
+  - **Mutual death rule.**
+  - **Showboating:** he poses after big hits.
+  - **Poorly informed:** he can be surprised by a lieutenant's Bankai.
+  - Renji's Hihiō broke his arm outright.
+- **Signature moments to recreate:**
+  1. **First invasion (eps. 370–371).** Crash down on Renji; fall through the floor Byakuya weakened with Senbonzakura; grab Zabimaru as Renji tries to release his Bankai, break it, and dropkick him across the Seireitei.
+  2. **3-on-1 deathmatch (ep. 382; anime-expanded).**
+     - Ground-slam entrance; James's bell plus a shockwave.
+     - Catch Ikkaku's and Yumichika's blades; Hisagi's chain deathmatch.
+     - Knocked out → revived by James's crying cheer.
+     - KO all three, then a three-count pin.
+  3. **Two captains (ep. 384).**
+     - Kensei's Tekken Tachikaze vibration punch blows him into a tower.
+     - James's cheer → Mask breaks Kensei's arm.
+     - Rose cuts James in half; Kinshara Butōdan's water and fire illusions.
+     - Mask ruptures his own eardrums, then a Star Flash through Rose.
+  4. **Renji (ep. 384).**
+     - Star Rocket Headbutt; Renji's elbow buries Mask's head in the ground.
+     - The star crest appears → a Star Satsujin Punch barrage, which Renji catches.
+     - Renji dices James; the James clones cheer → Star Power Up.
+     - Star Lariat volleys.
+     - **Vollständig → Super Nova.**
+     - Sōō Zabimaru: Hihiō snaps his arm; Zaga Teppō's burning snake head reduces him to ash.
+- **Kit proposal:**
+  - **Base:**
+
+    | Input | Move |
+    |---|---|
+    | Shift | Hirenkyaku (surprisingly fast). Double-tap + lock = behind → auto Star Eagle Kick |
+    | LMB chain | Chops, hooks, headbutts. Forward = clothesline; back = uppercut launcher; air = flying elbow; down-in-air = elbow/knee drop crater; sprint = running dropkick |
+    | Heavy | Haymaker. With a full **Rage** bar it becomes **Star Satsujin Punch** (star crest, ×10 damage; mash for a building-toppling barrage) |
+    | Q | **Star Dropkick** — carries the target through several buildings |
+    | E | **Star Rocket Headbutt** — head-first launch; explodes on impact |
+    | R | **Grapple** — tap: Star Headbutt; hold: airplane spin → throw; on a downed enemy: pin and a three-count (a pinned NPC below 30% HP is KO'd) |
+    | F | **Star Flash** — golden star beam |
+    | Z | **Catch & Break** — counter stance: catch a blade or projectile bare-handed, then break it or swing the wielder |
+    | X | **Ring the Bell** — James's gong: a shockwave, and a new "round" starts (Cheer gain) |
+    | G | **James Cheer** (override) — James cheers: regeneration plus stacking strength/speed/endurance; James becomes exposed |
+    | C (hold) | **Macho pose** flare: aura and a taunt; earns Cheer while enemies are watching; weak NPCs kneel |
+    | T | **Star Power Up** (needs full Cheer); from Star Power Up, T again = Vollständig |
+    | V | **Superstar Comeback** — James's big cheer: full heal + full Rage + instant Star Power Up |
+    | Tab | wrestling extras (suplex, powerbomb, piledriver — **game-only**) · **Deafen** (pierce his eardrums: immune to sound/music effects, small HP cost) · ten-count taunt · Shadow · Medallion |
+
+  - **Star Power Up:**
+    - Q **Star Lariat** — an arm-shaped pressure wave that slices buildings, with huge knockback.
+    - E **Lariat Volley** — rapid fists → a stream of pressure waves.
+    - R **Muscle Flex** — breaks binds and chains, brief armor.
+    - F **Star Flash (bigger)**.
+    - V **One Mile Arts** — a lariat rush that sends the target flying across the map.
+  - **Vollständig:**
+    - Flight.
+    - Q **Sky Star Flash**.
+    - E **Comet Dive** — Rocket Headbutt from the sky.
+    - R **Cape Guard**.
+    - V **Star Flash: Super Nova** — trace the pentagram (a short input path), then the body-slam: a massive star-shaped crater.
+- **AI notes:**
+  - Has James ring the bell before engaging; announces his moves; **poses after big hits** (punish window).
+  - Prioritizes the strongest target ("only captains are worth it").
+  - When knocked down: calls James and revives.
+  - If James is hurt: rage → Satsujin barrage.
+  - Deafens himself against sound-based enemies.
+  - Finisher: Super Nova from the sky, even with James's copies in the blast radius.
+- **Callouts:**
+  - "Sutā Doroppukikku!" · "Sutā Īguru Kikku!" · "Sutā Heddobatto!" · "Sutā Roketto Heddobatto!"
+  - "Sutā Furasshu!" · "Sutā Satsujin Panchi!" · "Sutā Rariatto!" / "Wan Mairu Ātsu!"
+  - "Sutā Pawā Appu!" · "Sutā Furasshu: Sūpā Nova!"
+  - James: "Misutā!"
+
 <!-- H2-NEXT -->

@@ -596,4 +596,165 @@ Conventions used below
 - **AI notes:** Escort/healer AI: follows the party, heals the lowest HP, flees fights, hides in sewers; trips at bad moments (and accidentally knocks enemies over); never initiates combat unless cornered.
 - **Callouts:** "Yamada Hanatarō desu!" · "Mitase, Hisagomaru." · (anime spirit) "Sosoge!"
 
-<!-- C2-APPEND -->
+---
+
+## 9. Isane Kotetsu (虎徹 勇音) — Captain, 4th Division (ex-Lieutenant under Unohana)
+
+- **Wiki:** https://bleach.fandom.com/wiki/Isane_Kotetsu · /Anime_Continuity · Kakushitsuijaku · Tenteikūra · Retsu Unohana · battles: *Isane Kotetsu & Tetsuzaemon Iba vs. Ashisogi Jizō* (anime); *Yachiru Kusajishi vs. Guenael Lee*; *Kenpachi Zaraki vs. Gremmy Thoumeaux*
+- **Roster tier:** **C** (promote to **B** if the game wants a dedicated healer/support class — she is the best healer available after Unohana).
+- **Canon power:** **4/10** as lieutenant (captain-rank later, no new feats → 5/10) — Ichigo took her down "more lightly" than the other two lieutenants; second-best healer of the 4th Division; physically very strong (Klub Outside #883: snapped a bokken in two at the academy chasing off a man pestering Kiyone).
+- **Body:** 187 cm → **60 vox**; 70 kg. Tall, long-limbed, well-endowed, shy slight stoop (self-conscious about her height). Silhouette keys: **short, messy silver hair** with **two thin shoulder-length braids on the right side** and **two more at the back**, **thin dangling red earrings**, Itegumo on the left hip.
+- **Palette (hex estimates):**
+  - Skin `#F6DFD3` · hair silver `#C7CCD3` (shade `#9EA5AF`) · eyes gray `#8B9098` · earrings red `#C62828`
+  - Armband 四 + bellflower (Lt. era), accent `#CC8899`
+  - Itegumo: handle deep blue `#1E3A8A`, pointed round snowflake-like guard silver `#C3CAD2`, blade `#D5D9DE`; Shikai side blades `#D5DBE2`
+  - Ice/healing-frost (ability visual — **extrapolation**): `#BFE8FF`, core `#F2FBFF`
+  - Kakushitsuijaku glow blue `#4FA3FF` · Tenteikūra arm markings black powder `#111111`, network glow (colour unstated) cyan-white `#BFF6FF`
+  - Captain look: haori `#F5F5F2` with 四; wide white cloth belt `#F2F1EC`
+  - Reiatsu: not stated → pale ice-blue `#CFEFFF` (proposal)
+- **Look by form/outfit:**
+  - **Lieutenant (default):** as above; when with Unohana she often carries **Minazuki over her shoulder by its rope** (canon: Unohana's sword is carried tachi-style or by Isane).
+  - **19 months after Aizen:** hair cut shorter and scragglier.
+  - **Captain (10 years after Yhwach):** hair straight and smooth (side braids kept), white captain's haori, large white cloth belt like Unohana's.
+  - *Anime-only:* Reigai-Isane (enemy variant; Shakkahō, Tenran).
+- **Weapons:** **Itegumo (凍雲, Frozen Cloud; Viz: Frozen Snow)** — katana with a deep-blue handle and a pointed, round, snowflake-like guard (~100 cm → 32 vox). **Shikai — "Hashire, Itegumo"** (奔れ, Run): **two smaller blades sprout from the hilt at 45°** (a three-pronged silhouette near the guard). Kubo (Klub Outside #666): an **ice-type Zanpakutō with healing properties** — no technique is ever shown.
+- **Forms & states:** 1. Sealed · 2. Shikai · Bankai not revealed · captain look (post-war skin).
+- **Abilities (complete):**
+  - `Kaidō` — second only to Unohana in the 4th Division (Nanao rates herself below her); known for speed of treatment (Hueco Mundo, TYBW field hospital, Urahara's lab). [Heal/Reject]
+  - `Bakudō #58 Kakushitsuijaku` + `Bakudō #77 Tenteikūra` — on Unohana's order she tracked the fleeing Aizen and broadcast the truth about the traitors to everyone in Soul Society, Ryoka included (spell pages list her for both). [Sensing(map lock), team broadcast] `[NEW: TeamBroadcast]`
+  - `Healing barrier` — the force field she raised around the wounded captains during the second invasion (Gremmy still slipped inside). [Shield + Field(heal)] `[NEW: HealingBarrierZone]`
+  - `Shunpo` — keeps up with Unohana; leapt down to catch the falling Rose and Kensei when Gremmy raised the building. [Mobility]
+  - `Strength` — very strong for her build (bokken snapped). [MeleeArc(smash) bonus]
+  - `Itegumo` — ice + healing (*unshown*; see kit).
+  - *Anime-only:* `Hadō #1 Shō` (knocked Ashisogi Jizō away), `Hadō #31 Shakkahō` (hit Haineko's ash cloud), blocked Ashisogi Jizō's chest blades (both legs paralysed by the hit).
+- **Passives & weaknesses:** + elite healer; + tall reach. − Shy and hesitant (apologises to holograms); − impulsive against hopeless foes (wanted to chase Aizen); − nightmares (kamaboko — gag); − Itegumo's real power is undocumented.
+- **Signature moments to recreate:** chase after Renji with Sasakibe and Ōmaeda → *"Hashire, Itegumo"* → downed by Ichigo; Central 46 with Unohana facing Aizen; **Kakushitsuijaku + Tenteikūra broadcast** (story beat: the whole map lights up); Hueco Mundo triage; TYBW field hospital with Yachiru (Guenael, Gremmy, catching Rose & Kensei); learning of Unohana's death from Kenpachi; captain's haori 10 years later; *anime-only:* with Iba vs Ashisogi Jizō, Haineko and Tobiume.
+- **Kit proposal:**
+  - Shift: Shunpo. LMB: long-reach katana chain (tall); forward = long thrust, back = rising cut, air = descending slash, sprint = dash cut. Hold LMB: strength overhead (guard break — the bokken story).
+  - **Q `Shakkahō`** (anime) / in Shikai **`Frost Run`** (*extrapolation* from "Run" + ice: dashing slash leaving a chilling trail).
+  - **E `Shō`** (anime) — knockback flick to peel enemies off allies.
+  - **R `Kakushitsuijaku`** — powder circle, then all enemies' coordinates are revealed on the map for a while.
+  - **F `Tenteikūra`** — broadcast: shares every revealed mark with the whole team + short "coordinated" buff (game).
+  - **Z `Healing Barrier`** — dome that heals allies inside and blocks attacks from outside (breakable).
+  - **X `Kaidō`** — strong single-target heal / revive.
+  - **G (Shikai) `Frozen Cloud`** (*extrapolation* from the name + "ice with healing properties") — cold mist aura: allies inside regenerate and have bleeding sealed with frost; enemies are chilled/slowed.
+  - **C:** ice-blue flare. **V `Itegumo — Frozen Cloud`** (*extrapolation*) — a large icy cloud field: heals allies, freezes enemies and water, frosts the terrain.
+  - **Tab:** Shō, Shakkahō (anime) + generic Bakudō for a 4th-Division officer (Seki, Tōzanshō — *extrapolation*).
+- **AI notes:** Medic first: stays behind the line, heals the most wounded, raises the barrier when allies drop; will rush a foe she cannot beat if her captain/sister is threatened. Tells: draws powder circles before Kakushitsuijaku; apologises when hit.
+- **Callouts:** "Hashire, Itegumo!" · "Bakudō no gojūhachi — Kakushitsuijaku." · "Bakudō no nanajūnana — Tenteikūra." · (anime) "Hadō no ichi — Shō!" · "Unohana-taichō!" · "Kiyone!"
+
+---
+
+## 10. Tetsuzaemon Iba (射場 鉄左衛門) — Captain, 7th Division (ex-Lieutenant under Komamura) · President, Shinigami Men's Association
+
+- **Wiki:** https://bleach.fandom.com/wiki/Tetsuzaemon_Iba · /Anime_Continuity · battles: *Ikkaku Madarame vs. Tetsuzaemon Iba*; *Renji Abarai vs. Tetsuzaemon Iba* (anime); *Isane Kotetsu & Tetsuzaemon Iba vs. Ashisogi Jizō* (anime)
+- **Roster tier:** **C** — yakuza-flavoured brawler-swordsman; good secondary NPC for Komamura / Ikkaku stories.
+- **Canon power:** **4/10** as lieutenant (captain-rank later, feats unchanged → 5/10) — duels Ikkaku as a regular sparring partner; **cut a building in half with one slash of a short blade**; trained every Shinigami art to make lieutenant; blasted away by Ayon's Cero.
+- **Body:** 182 cm → **58 vox**; 68 kg. Lean, wiry, square-shouldered swagger (yakuza look; speaks Hiroshima dialect). Silhouette keys: **black sunglasses**, **cigarette**, a **tantō hilt sticking out of the front of his robe**, a **large back tattoo of a cat on fire with the kanji 招福 (shōfuku, "inviting luck")**.
+- **Palette (hex estimates):**
+  - Skin `#E2B795` · hair black `#141414` · sunglasses `#0B0B0D` (lens sheen `#3A3F46`) · cigarette `#F2F2F2`, ember `#FF6A2A`, smoke `#B9B9B9`
+  - Tattoo (colours unstated, **verify**): flames `#F26B1F` / `#C62828`, cat `#F3EFE6` with black linework, kanji `#151515`
+  - Armband 七 + iris (Lt. era), accent `#918151`
+  - Sealed tantō: red hilt `#B3202A`, no guard, blade `#D5D9DE` · Shikai falchion `#CBD1D8` with pick-like spike
+  - Beaded wristband (captain era, colour unstated) dark wood `#5A3A22`
+  - Captain look: haori `#F5F5F2` with 七
+  - Reiatsu: not stated → smoky orange `#F28C38` (proposal)
+- **Look by form/outfit:**
+  - **Lieutenant (SS / FKT):** "distinctive" short black haircut (exact cut not described in the wiki — **verify against art**), sunglasses, cigarette, tantō in the robe front, armband.
+  - **17 months after Aizen:** fuller moustache, new scar above the left eye, hair shaved closer with **three hairless lines** cut through it.
+  - **Captain (10 years after Yhwach):** **crescent-shaped scar around the outside of the right eye**, **pompadour-like** hair, **beaded wristband on the right forearm**, captain's haori.
+  - Men's Association meetings: everyone forced to dress like him (sunglasses, same uniform style) — fun NPC crowd skin.
+- **Weapons:** unnamed Zanpakutō (name, abilities and command **unknown**). **Sealed:** looks like a **tantō** — red hilt, **no guard**, worn inside his uniform with the hilt showing (~40 cm → 13 vox; chapter 178 once drew it longer by mistake). **Shikai:** extends into a **falchion / broad-bladed scimitar** with a **pick-like spike a short distance below the tip** (est. 95 cm → 30 vox, blade up to 4 vox wide — **verify**).
+- **Forms & states:** 1. Sealed tantō · 2. Shikai (unnamed) · Bankai not revealed · captain look. State: *11th-Division grin* (battle joy) vs *7th-Division discipline*.
+- **Abilities (complete):**
+  - `Zanjutsu (expert)` — ex-11th Division; regular duels with Ikkaku; **a single slash cut a building in half** despite the short blade (anime-only: he sliced a building so its top half slid onto Ashisogi Jizō; one swing knocked back Zabimaru's extended segments). [MeleeArc(cut), Slice]
+  - `Hakuda (expert)` — trained in hand-to-hand "because it made becoming lieutenant easier". [MeleeArc(smash)]
+  - `Kidō (expert)` — same reason; **no spell named in canon** (Brave Souls gives him Raikōhō — game). [Tab]
+  - `Shunpo (expert)` — keeps up with Komamura. [Mobility]
+  - `Strength` — held up the defeated Komamura (4× his weight); dragged the wounded Ikkaku away from Poww; jumped off a cliff 10 years later and left a dent where he landed. [Grab/Throw] `[NEW: CarryAlly]`
+  - `Bukkomi Dogeza (特攻土下座, Full-Blast Dogeza)` — "advanced" sliding prostration: he slides in on his hands into a full bow (his late entrance at the execution morning). [Mobility (slide)] `[NEW: SlideDash]`
+  - `Rod devices` — threw rods for Komamura to stop the Fake Karakura Town from reverting (FKT gadget). [Construct(anchor)]
+  - `Ambush` — tried to hit Ayon from behind (it saw him with a hidden eye and blasted him with a Cero).
+  - *Anime-only:* released Shikai against Renji (Amagai arc); tossed a fallen Shinigami clear of Ashisogi Jizō's poison.
+- **Passives & weaknesses:** + well-rounded (every Shinigami art at expert level); + discipline doctrine — "a frontal attack that ends in defeat is meaningless", retreats to win later. − Stomach trouble (gag); − Zanpakutō unknown (no canon special ability); − ambush-prone vs multi-eyed foes.
+- **Signature moments to recreate:** Bukkomi Dogeza late arrival to Komamura (comedy); **Iba vs Ikkaku** duel → sharing sake → rock-paper-scissors for the high ground, interrupted by Isane's Tenteikūra; lunging at Aizen inside the Negación light (Yamamoto stops him); FKT: rods for the pillars, dragging Ikkaku from Poww, lecturing Ikkaku about hiding his Bankai, ambush on Ayon; cut down by "Momo" (Aizen's illusion); TYBW: rallying with the 7th Division when Yamamoto takes the field, carrying the wolf-form Komamura, Shikai vs a Soldat platoon; captain, leaping from the training cliff.
+- **Kit proposal:**
+  - Shift: Shunpo; double-tap with lock-on = appear behind and grab collar (yakuza headbutt opener).
+  - **Sealed:** LMB tantō stabs + brawling (punch-punch-stab-kick); forward = shoulder charge stab, back = knee launcher, air = elbow drop, sprint = flying kick. Hold LMB: **Building Splitter** — one huge horizontal cut that slices a structure in two despite the tiny blade.
+  - **Shikai** (T: command unknown → a growl as the blade extends): LMB heavy falchion chops; forward = hooking lunge using the spike (pulls the target in — *extrapolation from the shape*); hold LMB: Building Splitter with Shikai reach.
+  - **Q `Kidō`** (unnamed in canon → Raikōhō from Brave Souls / generic Hadō from the Tab wheel).
+  - **E `Hakuda Combo`** — 5-hit fist/knee string.
+  - **R `Anchor Rods`** — plant rods that lock an area (blocks enemy teleport/terrain swaps inside — *extrapolation* of the FKT rods).
+  - **F `Bukkomi Dogeza`** — low sliding prostration: passes under high attacks, knocks down what it hits.
+  - **Z `Shoulder Carry`** — pick up/drag a downed ally out of combat.
+  - **X `Smoke Break`** — light a cigarette: small stamina regen (gag).
+  - **G `11th Division Grin ↔ 7th Discipline`** — grin: +damage, −defence, no retreat; discipline: +defence, AI-style tactical retreats.
+  - **C:** smoky-orange flare. **V `Kenka Cleaver`** (*extrapolation*) — Shikai super-slash that splits a building and everyone in front of it.
+  - **Tab:** generic Kidō (Raikōhō, Shakkahō, Sai, Hainawa — *extrapolation*) + gadgets (rods, sake bottle: duel-rival buff vs Ikkaku).
+- **AI notes:** Sensible brawler: protects his captain, closes distance fast, pulls wounded allies out, retreats when a fight is clearly lost (then comes back). Rival mode vs Ikkaku: grins, drops guard, fights to the end. Tells: pushes his sunglasses up before a Building Splitter; flicks the cigarette away when he gets serious.
+- **Callouts:** "Bukkomi Dogeza!" · "Komamura-taichō!" · "Otoko no michi ja!" (*extrapolated line*, Hiroshima-dialect flavour — mark as non-canon)
+
+---
+
+## 11. Engine needs beyond the brief's primitive list (`[NEW: …]` roll-up)
+
+| Tag | What the engine must support | Used by |
+|---|---|---|
+| `TrapNetwork / IgnitionPropagation` | Player-placed latent nets (spline/graph between anchor points) that persist, snare on contact and **detonate along every connected strand** when any fire-tagged effect touches them (strand-shaped voxel cuts) | Momo (Fushibi, V) |
+| `TrapConcealment` | Hide placed traps from enemy rendering, AI perception and sensing while a stealth effect is active | Momo (Kyokkō) |
+| `SpellCombo` | Deferred/queued spell execution (cast now, release later together) + one cast split across two locked targets | Momo (G Spell-weave) |
+| `ElasticConstruct` | Trampoline/cushion construct anchored by ropes: absorbs falls, stores and returns impulse, stacks with explosion impulse for launches, can slingshot bodies | Momo (Tsuriboshi) |
+| `SteerableTether` | Caster-held binding rope with physics: steer the captured body, tie two captured bodies together, slam them into each other/terrain | Momo (Hōrin, anime) |
+| `MemoryWipe` | Status that clears the victim's lock-ons, markers and short-term AI memory | Momo (Hakufuku); also counters Guenael-type foes |
+| `ReiatsuSignature` | Every entity emits a sensing signature that can be suppressed to ~0 (feign death, minimap/AI invisibility) or fingerprinted (match two signatures) | Chōjirō (G), Yachiru (detection) |
+| `BarrierGate` | Large dome barriers whose owner can open/close doorways and let specific entities through | Chōjirō (Fake Karakura barrier) |
+| `BankaiTransfer` | A form can be stolen mid-match and appear in another character's kit with a stat multiplier and palette swap | Chōjirō → Driscoll Berci |
+| `SkyAnchoredArenaStructure` | Persistent arena-scale construct high above the map (dome) with emissive pillars that interact with terrain and characters | Chōjirō (Kōkō Gonryō Rikyū) |
+| `WeatherSystem` | Cloud layer, darkness, rain, lightning strikes targeted by abilities; weather modifies elemental damage | Chōjirō (Bankai), Gonryōmaru spirit (anime) |
+| `ChargeFromEnvironmentObject` | Weapon charge state gained by touching/dragging along a world object (pillar) | Chōjirō (Lightning Infusion) |
+| `TopDownTargetPainting` | Alternate camera mode for painting multiple ground targets with the mouse, then releasing | Chōjirō (G Conductor View) |
+| `FlailChainPhysics` | Tethered heavy weapon: rope/chain sim, momentum transfer (pull the wielder), spin-shield, retract | Ōmaeda (Gegetsuburi) |
+| `WeaponDurability` | Weapon crack/shatter states driven by the attacker's power class | Ōmaeda |
+| `MountEnemy` | Teleport onto and ride/stand on another character's shoulders/head (free hits, short ride) | Ōmaeda, Yachiru |
+| `CarryAlly` | Pick up and carry 1–2 allies (or drag a downed one) while moving/leaping | Ōmaeda, Yachiru, Iba, Nemu |
+| `LimbSever / Regrow` | Voluntarily cut off a limb (or an item) to stop a spreading status; regrow with an item | Ōmaeda (cut away), Nemu (arrow arm + Hojiku-Zai) |
+| `FactionKeyedBarrier` + `BarrierErodedByAbsorption` | Barrier that is absolute against one power family (Quincy-tagged) and only slowly drains when that faction absorbs reishi from it | Nanao (Hakudan Keppeki) |
+| `MultiPlateBarrier` | Barrier made of many independently breakable plates (and optional regrowth) | Nanao (hex wall) |
+| `TagBasedReflection (divine)` | Absorb/disperse/reflect only attacks tagged "divine/god-class" (Vollständig, some Schrift ultimates), with self-damage spill; blade hidden from divine foes | Nanao (Shinken Hakkyōken) |
+| `FearAura` + `SelfScreenBlur` | Cone fear status on enemies while the caster's own view blurs | Nanao (glasses off) |
+| `PortalGate` | Build/open portals (Senkaimon, Garganta via pillar device) for a team | Nanao (anime), Nemu |
+| `LiftWorldChunk` | Rip a destructible chunk (column, block) out of the world and throw it | Nemu |
+| `ProjectileCatch` | Grab a projectile mid-flight (then hold/redirect/drop) | Nemu |
+| `OnAbsorbedPayload` / `OnEatenOvergrowth` | Reactive effects when an enemy absorbs, devours or invades the character's body (drug statuses, explosive overgrowth) | Nemu |
+| `TimedOverdriveWithCollapse` | Form with a hard timer that ends in a forced collapse state | Nemu (0.8% threshold) |
+| `SoulSacrificeCost` | Ability paid with permanent max-HP loss for the match | Nemu (Gikon Jūrinjū) |
+| `ReishiFixerGrenade` | Timed device that freezes projectiles/bombs without detonating them and then switches off reishi effects (incl. voxel breaking/repair) in a radius | Nemu |
+| `SuccessorRespawn` | On death, respawn as a different (successor) character model/kit | Nemu → Hachigō Nemuri |
+| `AttackEcho (timed offsets)` | Summons that mirror the owner's attack with configurable pre/post delays and their own hitboxes | Yachiru (Sanpo Kenjū) |
+| `InstinctCounterIgnoresStealth` | Auto-counter state that triggers on hostile intent even against invisible/memory-erasing enemies, stacking speed | Yachiru |
+| `ShapedAuraDecal` | Reiatsu aura rendered as a specific shape (giant angry cat face) | Yachiru |
+| `DamageInversionWeapon` + `StoredDamageGauge` | Weapon hits heal instead of damage, filling a gauge by HP healed; full gauge auto-transforms and discharges the stored amount as damage | Hanatarō (Hisagomaru) |
+| `SewerNetworkTraversal` + `KeysAndLocks` | Underground network of linked entry points for travel/escorts; lockable doors/cells openable by key items | Hanatarō |
+| `HealingBarrierZone` | Dome that heals inside and blocks from outside | Isane |
+| `TeamBroadcast` | Team-wide sharing of revealed enemy positions + a coordinated buff | Isane (Tenteikūra) |
+| `SlideDash` | Low-profile slide that passes under high attacks and knocks down | Iba (Bukkomi Dogeza) |
+| `DecalOnVoxel` | Texture decals on voxel faces for text/emblems that can't be voxel-legible (armband kanji + flower) | all lieutenants |
+
+**Reuse wins:** Kōkō Gonryō Rikyū is one build for Chōjirō *and* Driscoll; the Tobiume / Gonryōmaru / Gegetsuburi / Hisagomaru spirits and the Reigai copies (Hinamori, Ōmaeda, Nanao, Isane, Nemu) are palette/AI variants of these kits; the Kidō table in §1.1 is shared with every Kidō user in other roster files.
+
+---
+
+## 12. Gaps, unverified items and things I could not find
+
+- **Momo — Gochūtekkan / Sajō Sabaku:** not attested for her anywhere on the wiki (spell pages list Hachigen, Urahara, Hisagi, Kira, Unohana, etc.; her manga and anime-continuity pages never mention them). They are in her Tab wheel only as an *extrapolated library*. Her canon "chained/delayed" Kidō is specifically the **pre-laid Fushibi net hidden with Kyokkō and ignited by fire**; the anime adds one-cast-two-targets (Hōrin). **Hakufuku** is credited to her by the wiki but I found no scene context.
+- **Momo — TYBW-anime content:** the Tsuriboshi launch pad and the fireball into Gerard's mouth appear on the Gerard battle page but not in her (manga-based) plot summary → treated as TYBW-anime additions. Verify her TYBW hairstyle (wiki: bob with left clip from 17 months after Aizen), bun-cloth colour, scabbard colour and Shikai prong placement against art.
+- **Chōjirō:** rapier guard design, reiatsu colour, Bankai dimensions and his 1,000-years-ago look are not described; the infusion slash is unnamed (my V names are extrapolations).
+- **Ōmaeda:** hair style, ball/chain size not given; the "Marechiyo Chop" is mentioned but never shown.
+- **Nanao:** Shinken Hakkyōken's size is only "medium-sized"; the hex-plate wall is unnamed and its colour unstated; book/fan colours unstated; reiatsu colour unknown. Her anime-only spells come from the spell pages' practitioner lists (scenes for Hyapporankan/Tenran not checked).
+- **Nemu:** the TYBW shadowless outfit design isn't described; braid length, Hachigō Nemuri's height and the full drug list are unknown.
+- **Yachiru:** no release command exists; beast sizes are not given (estimates: Lumpy ≈ 1.2 m / 38 vox, round; Boney ≈ 2.4 m / 77 vox, gaunt — **verify**); hair-clip and wheel designs unstated.
+- **Hanatarō:** the manga/databook only says Akeiro Hisagomaru auto-releases into a scalpel; the stored-damage discharge comes from the anime continuity (Cero-like slash) and the anime spirit (chest cannon, "Sosoge"). Medical-pack design unstated.
+- **Isane:** Itegumo's powers are never shown (only "ice-type with healing properties", Klub Outside #666); Bankai unrevealed; all Itegumo kit effects are extrapolations.
+- **Iba:** Zanpakutō name, Shikai command and ability unknown; no Kidō spell named; SS-era haircut and tattoo colours need reference art.
+- **All:** reiatsu colours are canon only for Momo (red, anime), Ōmaeda (pink) and Yachiru (pink); armband plaque design is modelled from the anime look, not a wiki description.
+
