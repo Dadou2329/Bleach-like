@@ -221,6 +221,23 @@ being applied (stale results are discarded and re-queued).
 Typed event bus (`HitEvent`, `CarveEvent`, `FragmentSpawned`, `FormChanged`, `AbilityCast`, `Callout`,
 `CameraCue`, `SfxCue`…). Sim emits; render/audio/UI subscribe. Keeps sim headless-testable.
 
+### 4.5 Perception layer (designed in M4, required by half the roster)
+The research made this non-optional: Kyōka Suigetsu, Sakanade, Shinji's and Rose's Bankai, Enma Kōrogi, Gin's
+"sealed-looking" Bankai, Aaroniero/Lloyd disguises, camouflage and stealth all need **what an observer perceives**
+to differ from **what is true**. So:
+- The sim holds the **authoritative state**; each observer (the local player, every AI) reads the world through an
+  `ObserverView` that applies active perception effects: hide/spawn decoy entities, swap identities/appearances,
+  mirror positions, overlay fake terrain, suppress senses (sight/sound/reiatsu), relabel friend/foe.
+- Rendering, HUD, lock-on and auto-aim use the local player's view; **AI targets through its own view** (so Aizen's
+  decoys fool bots too). Damage and destruction always resolve against the truth (illusions never carve voxels
+  unless an ability says otherwise).
+- Perception effects carry tells (shimmer, sound mismatch, shadow mismatch) so observant players can see through
+  them, plus accessibility toggles.
+
+### 4.6 Persistence
+Local profile (IndexedDB): settings, bindings, story progress, photo gallery, cached map/model builds — and canon
+gags such as a permanent **"has seen Kyōka Suigetsu's release"** flag.
+
 ---
 
 ## 5. Voxel world engine
@@ -348,13 +365,23 @@ animated "voxels fly back into place" effect (golden for Orihime's rejection, bl
 rewriting, clock-like for Giriko). Also powers the Training Ground "rebuild" button and quick map resets.
 
 ### 6.5 Environmental simulations (cheap cellular automata, region-limited)
-- **Fire:** spreads over `flammable` voxels using the temperature overlay; burnt → charred → ash (removed).
-- **Ice:** freezing coats surfaces with ice voxels; ice constructs can shatter into glassy debris.
-- **Water (Harribel, Kaien, rain):** coarse water-voxel CA in limited regions + particle splashes; freezes when
-  Hitsugaya is around (fun combo).
-- **Decay (Baraggan):** voxels in the Respira cone age (colour → grey → dust) and crumble.
-- **Absorption (Quincy):** voxels detach as glowing particles streaming to the caster; structures lose integrity
-  → collapse via the normal structural pass.
+All abilities and materials carry **element tags** (fire, ice, water, lightning, sand, poison, reishi, darkness…)
+and a **temperature overlay** drives reactions:
+- **Fire:** spreads over `flammable` voxels; burnt → charred → ash (removed). Red-hot blades and Burner Fingers
+  **melt** voxels (no debris, glowing rims); molten ground cools into slag.
+- **Ice:** freezing coats surfaces with ice voxels; ice constructs shatter into glassy debris; **frozen targets are
+  "switched off"** (abilities/auras paused) until they break out; Rukia's contact freezing leaves ice footsteps.
+- **Water (Harribel, Kaien, rain, Gremmy):** coarse water-voxel CA in limited regions + splashes; water ↔ ice ↔
+  steam conversions (Hitsugaya vs Harribel, Bazz-B vs Hitsugaya); lava as a hot liquid variant.
+- **Sand (Hueco Mundo):** granular material that slumps to its angle of repose, swallows craters, and lets Hollows
+  burrow.
+- **Decay (Baraggan):** voxels in the Respira cone age (colour → grey → dust), the rot spreads through connected
+  structures and collapses them; projectiles and Kidō age in the field.
+- **Absorption (Quincy Sklaverei, Liltotto):** voxels detach as glowing particle streams to the caster (or into a
+  mouth); structures lose integrity → collapse via the normal structural pass.
+- **Bomb tagging (Bambietta):** any voxel chunk, fragment, prop or enemy can carry a fuse; chain reactions,
+  knock-away, freezable fuses.
+- **Weather layer** (§11.4): humidity, rain, snow, storms and heat states that feed these reactions map-wide.
 
 ---
 
@@ -920,14 +947,19 @@ Each milestone ends with: tests green, `docs/roster/STATUS.md` updated, curated 
 - Hit/hurtboxes, damage pipeline, reactions, guard/parry/blade lock/beam struggle, hitstop/shake/slow-mo,
   knockback-carving, ability framework + effect primitives, VFX system (trails, crescents, beams, blasts, auras,
   dust, debris), callouts, HUD v1, status effects, reiatsu flare & crush.
-- Ichigo kit (Shikai, Bankai, Hollow mask), 3 Hollow archetypes with AI.
+- Foundations the roster research showed everyone needs: **body system v1** (per-part hurtboxes, breakable
+  sub-parts such as masks/horns, Hollow holes as real holes, limb sever), **weapon tether/recall** (Zangetsu's
+  cloth throw), **timed states** (mask timer + mask HP + lockout), **perception layer** skeleton (§4.5),
+  element tags + temperature overlay hooks, death router (purify / annihilate / dissolve).
+- Ichigo kit (K2 Shikai, K3 Bankai + Hollow mask, K8a takeover), 3 Hollow archetypes (T1) with reiatsu-radar AI.
 - **Done when:** 1 vs 10 Hollows is fun; Getsuga leaves crescent canyons and cuts houses; Getsuga vs Cero
   beam struggle works.
 
 ### M5 — Vertical slice: "Karakura Night"
 - Karakura Town generator v1 (residential/commercial blocks, Kurosaki Clinic, Urahara Shop, river + bridge,
-  park, Karakura High), props, dusk/night lighting; Menos Grande arriving through a Garganta; Bankai release
-  cinematic; procedural SFX v1; title/select/settings menus; Free Battle mode.
+  park, Karakura High), props, dusk/night lighting; a **Gillian prying the sky open (Kūmon)** as the boss, plus a
+  Hollow Bait wave event; Ichigo K0 human body + soul ejection; Bankai release cinematic; procedural SFX v1;
+  title/select/settings menus; Free Battle mode.
 - **Done when:** a 10-minute session feels like a Bleach episode; Playwright smoke run has zero console errors;
   screenshot set reviewed.
 
