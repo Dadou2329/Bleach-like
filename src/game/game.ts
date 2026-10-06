@@ -175,6 +175,7 @@ export class Game {
     for (const o of this.enemiesOf(f)) {
       if (f.bladeHits.has(o.id)) continue;
       let hit = false;
+      let hitY = 0;
       const bottom = o.pos.y + 0.1, top = o.pos.y + o.def.height;
       for (let si = 0; si <= 3 && !hit; si++) {
         const k = si / 3;
@@ -186,7 +187,7 @@ export class Game {
           const z = (pb.z + (pt.z - pb.z) * u) * (1 - k) + (cb.z + (ct.z - cb.z) * u) * k;
           const cy = Math.max(bottom, Math.min(top, y));
           const dx = x - o.pos.x, dy = y - cy, dz = z - o.pos.z;
-          if (dx * dx + dy * dy + dz * dz < (o.def.radius + 0.18) ** 2) hit = true;
+          if (dx * dx + dy * dy + dz * dz < (o.def.radius + 0.18) ** 2) { hit = true; hitY = y; }
         }
       }
       if (hit) {
@@ -197,7 +198,8 @@ export class Game {
         _v.normalize();
         // knock mostly away from the attacker, flavoured by the swing direction
         _w.subVectors(o.pos, f.pos).setY(0).normalize().multiplyScalar(0.6).add(_v.multiplyScalar(0.4)).normalize();
-        this.damage(o, spec.damage * (f === this.player ? this.playerPower : 1), f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy, hitstop: spec.hitstop, shake: spec.shake });
+        const weak = o.def.weakAbove !== undefined && hitY > o.pos.y + o.def.height * o.def.weakAbove ? 3 : 1;
+        this.damage(o, spec.damage * weak * (f === this.player ? this.playerPower : 1), f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake });
         this.sparks(o.center(), _w, f.def.aura.body);
       }
     }
@@ -237,17 +239,17 @@ export class Game {
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
     this.hud?.damageNumber(t.center(), dmg, o.heavy ? '#ffe066' : '#ffffff');
-    const knock = (o.knock ?? 3) * (1 - armor);
+    const knock = (o.knock ?? 3) * (1 - armor) * (t.def.boss ? 0.02 : 1);
     t.push.x += dir.x * knock;
     t.push.z += dir.z * knock;
-    if (o.launch) {
+    if (o.launch && !t.def.boss) {
       t.body.vel.y = Math.max(t.body.vel.y, o.launch);
       t.hovering = false;
     }
     // flinch: pitch away from the hit
     const local = _v.copy(dir).applyAxisAngle(new THREE.Vector3(0, 1, 0), -t.yaw);
     t.anim.flinch(-local.z * 260, local.x * 200);
-    if (armor < 0.5) {
+    if (armor < 0.5 && !(t.def.boss && !o.heavy)) {
       if (o.heavy) {
         t.stopAction();
         t.hitstun = Math.max(t.hitstun, 0.55);
@@ -376,7 +378,7 @@ export class Game {
     // corpses fade then leave
     for (let i = this.fighters.length - 1; i >= 0; i--) {
       const f = this.fighters[i];
-      if (f.dead && f !== this.player && f.deathT > 2.4) this.remove(f);
+      if (f.dead && f !== this.player && f.deathT > (f.def.boss ? 6 : 2.4)) this.remove(f);
     }
   }
 

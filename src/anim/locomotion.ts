@@ -37,6 +37,10 @@ export interface StanceDef {
   swingL?: number;
   swingR?: number;
   grip?: { idle: GripDef; walk?: GripDef; run?: GripDef; sprint?: GripDef; air?: GripDef };
+  /** gait frequency multiplier (giants step slowly: ~1/sqrt(scale)) */
+  freqScale?: number;
+  /** speed scale for gait selection (giants walk at "high" speeds): speeds are divided by this */
+  speedScale?: number;
 }
 
 export interface LocoInput {
@@ -98,7 +102,7 @@ export class Locomotion {
 
   update(dt: number, inp: LocoInput): void {
     this.time += dt;
-    const sp = Math.hypot(inp.vx, inp.vz);
+    const sp = Math.hypot(inp.vx, inp.vz) / (this.stance.speedScale ?? 1);
     this.speed = damp(this.speed, sp, 10, dt);
     const s = this.speed;
     const tent = (x: number, a: number, b: number, c: number) => (x <= a || x >= c ? 0 : x < b ? (x - a) / (b - a) : (c - x) / (c - b));
@@ -121,7 +125,7 @@ export class Locomotion {
     this.w.rise = damp(this.w.rise, inp.vy > 1 ? 1 : 0, 6, dt);
     const freq = this.w.idle * 0.9 + this.w.walk * WALK.freq + this.w.run * RUN.freq + this.w.sprint * SPRINT.freq;
     // phase speed follows real speed so feet roughly keep pace (stylised strides)
-    this.phase = (this.phase + dt * freq * (0.55 + Math.min(1.6, s / 7) * 0.45) * (air ? 0.4 : 1)) % 1;
+    this.phase = (this.phase + dt * freq * (this.stance.freqScale ?? 1) * (0.55 + Math.min(1.6, s / 7) * 0.45) * (air ? 0.4 : 1)) % 1;
     this.lean = damp(this.lean, Math.max(-12, Math.min(16, inp.accel * 0.6)), 6, dt);
     this.bank = damp(this.bank, Math.max(-22, Math.min(22, -inp.turn * s * 2.2)), 6, dt);
     this.strafe = damp(this.strafe, s > 0.5 ? Math.atan2(inp.vx, Math.max(0.1, Math.abs(inp.vz))) : 0, 8, dt);

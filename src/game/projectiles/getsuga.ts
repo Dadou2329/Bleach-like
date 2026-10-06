@@ -94,6 +94,8 @@ export class GetsugaProjectile implements Projectile {
     for (const f of g.enemiesOf(this.owner)) {
       if (this.hit.has(f.id)) continue;
       const fc = f.center();
+      // tall targets: use the point of their axis nearest to the crescent's height
+      if (f.def.height > 4) fc.y = Math.max(f.pos.y + 0.5, Math.min(f.pos.y + f.def.height - 0.5, this.pos.y));
       _p.subVectors(fc, center);
       const pf = _p.dot(this.dir), ps = _p.dot(this.side), pn = _p.dot(this.normal);
       const ang = Math.atan2(ps, pf);
@@ -101,7 +103,8 @@ export class GetsugaProjectile implements Projectile {
       if (Math.abs(Math.hypot(pf, ps) - this.o.radius) > 1.0 + f.def.radius) continue;
       if (Math.abs(pn) > 0.9 + f.def.radius) continue;
       this.hit.add(f.id);
-      g.damage(f, this.o.damage, this.owner, this.dir, { knock: 14, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4 });
+      const weak = f.def.weakAbove !== undefined && this.pos.y > f.pos.y + f.def.height * f.def.weakAbove ? 3 : 1;
+      g.damage(f, this.o.damage * weak, this.owner, this.dir, { knock: 14, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4 });
       g.sparks(fc, this.dir, this.o.colors.body, 24);
     }
     // trailing motes from the arc + a soft core glow that reads from any angle

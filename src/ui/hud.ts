@@ -44,6 +44,10 @@ const CSS = `
 #hud .hint { position: absolute; right: 18px; top: 16px; font-size: 12px; opacity: .8; }
 #hud .center { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; background: rgba(255,255,255,.7); border-radius: 50%; }
 #hud .banner { position: absolute; left: 50%; top: 40%; transform: translate(-50%,-50%); font-family: 'Dela Gothic One', sans-serif; font-size: 28px; letter-spacing: 3px; text-shadow: 0 3px 0 #000; opacity: 0; transition: opacity .4s; text-align: center; }
+#hud .boss { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: min(620px, 70vw); text-align: center; display: none; }
+#hud .boss .bn { font-family: 'Dela Gothic One', sans-serif; font-size: 16px; letter-spacing: 4px; text-shadow: 0 2px 0 #000; }
+#hud .boss .bb { position: relative; height: 10px; margin-top: 4px; background: rgba(10,10,14,.7); border: 1px solid rgba(255,255,255,.3); }
+#hud .boss .bb > i { position: absolute; inset: 0; background: linear-gradient(90deg, #6a0a14, #e0262b); transform-origin: left; transition: transform .1s linear; }
 #hud .combo { position: absolute; right: 40px; top: 42%; font-family: 'Dela Gothic One', sans-serif; font-size: 42px; text-shadow: 0 3px 0 #000; opacity: 0; }
 #hud .combo small { display: block; font-size: 14px; letter-spacing: 4px; }
 @media (max-width: 640px) { #hud .ab { width: 48px; height: 48px; } #hud .ab .j { font-size: 16px; } #hud .help { display: none; } }
@@ -71,6 +75,7 @@ export class Hud {
   private comboN = 0;
   private comboT = 0;
   private banner: HTMLElement;
+  private boss: HTMLElement;
   private dmg: { el: HTMLElement; p: THREE.Vector3; t: number; vx: number }[] = [];
   private ebars = new Map<number, HTMLElement>();
   private abilities: AbilityInfo[] = [];
@@ -91,6 +96,7 @@ export class Hud {
       <div class="callout"><div class="kj"></div><div class="rm"></div></div>
       <div class="lock"></div>
       <div class="combo"></div>
+      <div class="boss"><div class="bn"></div><div class="bb"><i></i></div></div>
       <div class="banner"></div>
       <div class="help"></div>`;
     parent.appendChild(this.root);
@@ -107,6 +113,7 @@ export class Hud {
     this.help.textContent = HELP;
     this.combo = q('.combo');
     this.banner = q('.banner');
+    this.boss = q('.boss');
     game.hud = this;
   }
 
@@ -219,10 +226,17 @@ export class Hud {
       this.lock.style.left = `${s.x}px`;
       this.lock.style.top = `${s.y}px`;
     } else this.lock.style.display = 'none';
+    // boss bar
+    const boss = this.game.fighters.find((f) => f.def.boss && !f.dead);
+    if (boss) {
+      this.boss.style.display = 'block';
+      (this.boss.querySelector('.bn') as HTMLElement).textContent = boss.name.toUpperCase();
+      (this.boss.querySelector('.bb > i') as HTMLElement).style.transform = `scaleX(${Math.max(0, boss.hp / boss.maxHp)})`;
+    } else this.boss.style.display = 'none';
     // enemy bars
     const seen = new Set<number>();
     for (const f of this.game.fighters) {
-      if (f === pl || f.dead || f.hp >= f.maxHp) continue;
+      if (f === pl || f.dead || f.hp >= f.maxHp || f.def.boss) continue;
       const top = f.pos.clone();
       top.y += f.def.height + 0.35;
       const s = this.project(top);

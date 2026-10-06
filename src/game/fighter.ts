@@ -36,6 +36,10 @@ export interface FighterDef {
   /** hurt capsule */
   radius: number;
   height: number;
+  /** boss: big HP bar, long death */
+  boss?: boolean;
+  /** hits above this fraction of the height count as weak-point hits (×3) */
+  weakAbove?: number;
 }
 
 export abstract class FighterAction {
@@ -355,7 +359,7 @@ export class Fighter {
     const lv = Math.min(1, this.aura.level);
     const rc = new THREE.Color(this.def.aura.body);
     u.uRim.value.set(rc.r, rc.g, rc.b, 0.15 + lv * 0.9);
-    if (this.dead) u.uDissolve.value = Math.min(1, Math.max(0, (this.deathT - 0.6) / 1.4));
+    if (this.dead) u.uDissolve.value = Math.min(1, Math.max(0, (this.deathT - (this.def.boss ? 1.2 : 0.6)) / (this.def.boss ? 3.5 : 1.4)));
     for (const p of this.visual.props.values()) {
       const pu = p.material.userData.uniforms;
       pu.uFlash.value.w = u.uFlash.value.w;

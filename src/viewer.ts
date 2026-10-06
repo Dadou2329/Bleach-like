@@ -10,6 +10,8 @@ import { Pose } from './anim/pose';
 import { Animator } from './anim/animator';
 import { ICHIGO_CLIPS, ICHIGO_STANCE } from './chars/ichigoClips';
 import { Aura, AURA_ICHIGO_BANKAI, AURA_ICHIGO_SHIKAI } from './vfx/aura';
+import { buildMenos, MENOS_CLIPS, MENOS_STANCE } from './chars/menos';
+import { buildHollow, HOLLOW_CLIPS, HOLLOW_STANCE } from './chars/hollow';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -31,12 +33,13 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const world = generateStage();
   const eng = await Engine.create(app, world, quality);
   const form = (params.get('form') ?? 'shikai') as IchigoForm;
+  const who = params.get('char') ?? 'ichigo';
   const t0 = performance.now();
-  const asset = buildIchigo(form);
+  const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) }) : buildIchigo(form);
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
-  const sword = form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai();
-  ch.attach('sword', sword, 'grip.R');
+  if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
+  const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : 1;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
   eng.gr.scene.add(ch.object);
@@ -51,7 +54,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   let view = params.get('view') ?? 'three';
   const setView = (name: string) => {
     view = name;
-    const v = VIEWS[name] ?? VIEWS.three;
+    const v = (VIEWS[name] ?? VIEWS.three).map((c) => c * viewScale);
     cam.position.set(origin.x + v[0], origin.y + v[1], origin.z + v[2]);
     cam.lookAt(origin.x + v[3], origin.y + v[4], origin.z + v[5]);
   };
@@ -92,8 +95,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     },
   };
   let poseName = params.get('pose') ?? 'anim';
-  const anim = new Animator(ch.rig, ICHIGO_STANCE, ch.springs);
-  anim.register(ICHIGO_CLIPS);
+  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : ICHIGO_STANCE, ch.springs);
+  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : ICHIGO_CLIPS);
   const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
   eng.systems.push({ update: (dt) => anim.update(dt, loco) });
   const applyPose = (dt: number) => {

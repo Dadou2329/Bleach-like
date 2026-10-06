@@ -10,6 +10,7 @@ import { Hud } from '../ui/hud';
 import { ICHIGO_DEF, IchigoKit } from '../game/kits/ichigo';
 import { PlayerController } from '../game/player';
 import { HollowAI, hollowDef } from '../game/ai/hollow';
+import { MenosAI, menosDef } from '../game/ai/menos';
 import type { VoxelWorld } from '../voxel/world';
 import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
@@ -62,6 +63,19 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       glow.spawn({ x, y: h.pos.y + 1.2 + (Math.random() - 0.5) * 2.4, z, vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 2, vz: (Math.random() - 0.5) * 3, size: 0.4, sizeEnd: 0.05, life: 0.6, r: 0.7, g: 0.05, b: 0.1, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });
     return h;
   };
+  const groundY = town ? town.ground : 4;
+  const spawnMenos = (dist = 70): Fighter => {
+    const W = world.sx * world.vs;
+    let best = new THREE.Vector3(W / 2, groundY, W / 2);
+    for (let k = 0; k < 12; k++) {
+      const a = Math.random() * Math.PI * 2;
+      const p = new THREE.Vector3(ichigo.pos.x + Math.cos(a) * dist, groundY, ichigo.pos.z + Math.sin(a) * dist);
+      if (p.x > 20 && p.x < W - 20 && p.z > 20 && p.z < W - 20) { best = p; break; }
+    }
+    const m = game.spawn(menosDef(seed++), best, 1);
+    game.controllers.push(new MenosAI(game, m, groundY));
+    return m;
+  };
   let waveT = 2.5;
   eng.systems.push({
     update: (dt) => {
@@ -73,6 +87,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
         waveT = 3;
         const n = Math.min(maxAlive + wave, 8);
         for (let i = 0; i < n; i++) spawnHollow();
+        if (wave % 3 === 0) spawnMenos();
         hud.showBanner(`WAVE ${wave}<br><small style="font-size:14px;letter-spacing:6px">HOLLOWS APPROACH</small>`, 2.2);
       }
       // the player recovers between waves
@@ -142,6 +157,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
         game.controllers.push(new HollowAI(game, h));
       }
     },
+    menos: (dist = 60) => spawnMenos(dist),
     advance: (n: number) => eng.advance(n),
     /** deterministic: n × (sim step + render) */
     play: (n: number) => {
