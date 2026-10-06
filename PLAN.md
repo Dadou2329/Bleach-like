@@ -523,7 +523,159 @@ Blut, Ransōtengai, Sklaverei, Gintō, Vollständig), Fullbringer (Bringer Light
 Full dossiers: `docs/roster/*.md` (appearance & palette, forms, complete abilities, kit proposal, AI notes).
 *(Roster tiers, wave order and the exemplar kit are finalised in §11.1–11.4 from the dossiers.)*
 
-<!-- ROSTER_TABLES -->
+### 11.1 Packaging: era loadouts + "All Eras"
+Characters who change across the story ship as **era loadouts** chosen at character select (Ichigo has nine,
+K0–K8; Rukia, Renji, Uryū, Chad, Hitsugaya, Kenpachi, Byakuya, Aizen, Grimmjow… have 2–4). Inside a loadout,
+**T climbs the form ladder** and **G toggles states**. Every multi-era character also gets an **"All Eras"**
+loadout: T cycles through *every* form and the Tab wheel exposes *every* technique — the "do everything they
+can do" mode. Default selection = the character's peak era.
+
+Tiers: **S** = flagship, full era loadouts, built first in its wave · **A** = full kit · **B** = full kit,
+fewer forms · **C** = NPC / enemy / summon / cameo (may be promoted later). Waves map to milestones:
+**W0** = M3–M5 vertical slice, **W1** = M6, **W2** = M7, **W3** = M8, **W4** = M9, **W5** = M10.
+Heights in dossiers are given at 32 voxels/m (brief) — multiply by 1.5 for the 48/m standard.
+
+### 11.2 Roster
+**Karakura & allies** — `A1-ichigo.md`, `A2-karakura-allies.md`, `A3-urahara-shop-and-shiba.md`
+| Character | Tier | Wave | Forms / loadouts | Signature systems |
+|---|---|---|---|---|
+| Ichigo Kurosaki | S | W0 | 9 era loadouts, 20 forms (see §11.3) | soul/body split, tethered blade, Hollow takeover, Mugetsu depower |
+| Hollow Ichigo | A | W1 | white Shikai/Bankai, lizard body, monochrome Full Hollow | flail-chain Zangetsu, horn Cero, "King and Horse" passive |
+| Rukia Kuchiki | S | W1 | sealed, Sode no Shirayuki dances, Hakka no Togame (TYBW) | absolute-zero freeze, Kidō specialist |
+| Uryū Ishida | S | W1 | Kojaku, Ginrei Kojaku, Letzt Stil, Seele Schneider, Sternritter "A" | Heilig Pfeil rain, Sklaverei, The Antithesis |
+| Orihime Inoue | A | W1 | Shun Shun Rikka | Santen Kesshun shields, **Sōten Kisshun restores destroyed voxels** |
+| Yasutora "Chad" Sado | A | W1 | right arm → both arms → Fullbring arms | El Directo / La Muerte, Diablo arm |
+| Kisuke Urahara | S | W1 | cane sword, Benihime, Kannonbiraki Benihime Aratame | Kidō master, gadgets, restructure (rebuild matter) |
+| Yoruichi Shihōin | S | W1 | Onmitsukidō, Shunkō, Raijin Senki, Raijū Senpū (TYBW), cat form | Flash-goddess speed, Hakuda |
+| Isshin Kurosaki | A | W3 | doctor, Shinigami, Engetsu (Bankai locked) | fire Getsuga, flow-freeze field |
+| Kon | B | W3 | plushie, Kon-in-body, Muscle Kon, Karakura-Raizer | body piloting, co-op hook |
+| Kaien Shiba | B | W3 | Nejibana | water trident |
+| Tessai Tsukabishi | B | W3 | Kidō master | forbidden Kidō, barriers |
+| Kūkaku / Ganju Shiba | C | W1–W3 | — | fireworks cannon / sand, Bonnie the boar |
+| Jidanbō | C | W1 | gatekeeper giant | giant NPC boss at the West Gate |
+| Ryūken Ishida | B | W4 | Quincy | Heilig Pfeil precision |
+
+**Gotei 13 captains** — `B1-captains-1.md`, `B2-captains-2.md`, `B3-captains-3.md`
+| Character | Tier | Wave | Forms / loadouts | Signature systems |
+|---|---|---|---|---|
+| Genryūsai S. Yamamoto | S | W2 | Ryūjin Jakka, Zanka no Tachi (East/West/South/North) | map-wide heat → evaporation, erase-cut, skeleton army from kill registry, self-burning Bankai timer |
+| Byakuya Kuchiki | S | W1 | Senbonzakura, Kageyoshi, Senkei, Gōkei, Shūkei: Hakuteiken | million-blade swarm with hand-gesture formations, 85 cm no-blade zone |
+| Sōsuke Aizen | S | W2 | captain, traitor, 4 Hōgyoku stages, TYBW prisoner | **Kyōka Suigetsu** per-observer illusions, incantation-less Kurohitsugi, Fragor |
+| Tōshirō Hitsugaya | S | W2 | child Shikai/Bankai (petal timer), adult Bankai | humidity/weather-driven ice, "frozen = switched off", Hyōten Hyakkasō |
+| Kenpachi Zaraki | S | W1 | eyepatch tiers, Kendō, Nozarashi, Bankai demon | damage threshold, per-opponent escalation, space-cutting cleaves |
+| Shunsui Kyōraku | A | W2 | Katen Kyōkotsu games, Karamatsu Shinjū (4 acts) | **rule zones** (Takaoni, Kageoni, Irooni, Daruma…), shadow play |
+| Suì-Fēng | A | W2 | Suzumebachi, Shunkō, Jakuhō Raikōben | Nigeki Kessatsu death mark, missile Bankai |
+| Gin Ichimaru | A | W2 | Shinsō, Kamishini no Yari | km-long extending blade, Korose poison fragment |
+| Retsu / Yachiru Unohana | A | W2 | healer, first Kenpachi, Minazuki | rideable manta summon, liquid arena |
+| Mayuri Kurotsuchi | A | W2 | Ashisogi Jizō, Konjiki A.J., Matai Fukuin Shōtai | paralysis per limb, liquefaction, time-loop drug, gadgets |
+| Sajin Komamura | B→A | W2 | Tenken, Kokujō Tengen Myō'ō, human form | ~100 m pose-mirroring giant with linked damage |
+| Kaname Tōsen | B | W2 | Suzumushi, Enma Kōrogi, mask, Grillar Grillo | sensory-deprivation dome, blind camera |
+| Jūshirō Ukitake | B | W2 | Sōgyo no Kotowari, Kamikake | absorb & return projectiles |
+
+**Lieutenants & seated officers** — `C1-lieutenants-1.md`, `C2-lieutenants-2.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Renji Abarai | S | W1 | segmented whip-blade, Hihiō Zabimaru, true Sōō Zabimaru (Orochiō, Zaga Teppō…) |
+| Ikkaku Madarame | A | W3 | three-section staff, Bankai dragon crest that fills |
+| Shūhei Hisagi | A | W3 | chain-scythes, Kidō through chain, (novel) Bankai life link |
+| Rangiku Matsumoto | A | W3 | ash cloud that cuts where it lands, ash + ice duo combo |
+| Yumichika, Kira, Hinamori, Sasakibe, Nanao, Nemu, Yachiru | B | W3 | Ruri'iro Kujaku drain · Wabisuke weight stacking · Fushibi trap nets · lightning dome · divine reflection · Nemu body tech · echo summons |
+| Isane, Ōmaeda, Iba, Hanatarō | C | W1–W3 | healers / flail / support NPCs |
+
+**Visored** — `D-visored.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Shinji Hirako | A | W3 | **Sakanade** mirrored-position inversion, friend/foe-swap Bankai |
+| Kensei Muguruma | A | W3 | explosive slashes, Tekken Tachikaze |
+| Rōjūrō "Rose" Ōtoribashi | A | W3 | whip, music-illusion Bankai (deafness immunity) |
+| Love, Lisa, Hiyori, Mashiro, Hachigen | B | W3 | Tengumaru, Haguro Tonbo, Kubikiri Orochi, kick Cero, barrier Kidō (systems built early) |
+
+**Espada & Arrancar** — `E1-espada-1.md`, `E2-espada-2.md`, `F-arrancar-and-hollows.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Ulquiorra Cifer | S | W2 | Murciélago → Segunda Etapa, Lanza del Relámpago, tail, regeneration |
+| Grimmjow Jaegerjaquez | S | W2 | Pantera, Desgarrón (swipe-steered), Gran Rey Cero |
+| Coyote Starrk (+ Lilynette) | A | W2 | Los Lobos pistols, Cero Metralleta, exploding wolves, partner-in-weapon |
+| Baraggan Louisenbairn | A | W2 | Respira decay spreading through structures |
+| Tier Harribel | A | W2 | persistent water volumes, Tres Bestias + Ayon |
+| Nnoitra Gilga | A | W2 | six arms sprouting mid-fight, adaptive Hierro |
+| Szayelaporro Granz | A | W2 | voodoo organs, AI copies, Gabriel rebirth, Hell form |
+| Nelliel Tu Odelschwanck | A | W2 | child ↔ adult ↔ centaur, Cero Doble |
+| Yammy Llargo | A boss / B | W2 | continuous growth (voxel density switching) |
+| Zommari, Aaroniero | B | W2 | limb hijack · Kaien disguise (cancelled by sunlight) |
+| Wonderweiss, Luppi, Dordoni, Cirucci, Gantenbainne, Tres Bestias | B | W2 | fire sealing · tentacles · tornado legs · whip-disc · dragon beams · tag team |
+| Ggio, Grand Fisher, Ayon, Shawlong, Edrad, Rudbornn, Tesra | C | W1–W2 | enemies / summons / Calavera army |
+
+**Fullbringers** — `G-fullbringers.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Kūgo Ginjō | A | W3 | Cross of Scaffold, steals ability slots, Bankai-fused armour |
+| Shūkurō Tsukishima | A | W3 | **Book of the End**: retroactive edits (terrain "always was" doored/trapped), enemies → allies |
+| Riruka, Jackie, Yukio | B | W3 | Dollhouse · dirt meter fed by the world · **pocket-dimension arenas with runtime rules** |
+| Giriko, Moe | C→B | W3 | contract engine · slot-machine luck |
+
+**Vandenreich** — `H1-vandenreich-leaders.md`, `H2-sternritter-1.md`, `H3-sternritter-2.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Yhwach | S | W4 | The Almighty (pre-dodge, nullify, rewrite), Auswählen, shadows, Soul King form |
+| Jugram Haschwalth | A | W4 | The Balance, Freund Schild |
+| Gerard Valkyrie | A | W4 | The Miracle: grows with damage into a city-scale giant |
+| Lille Barro | A | W4 | X-Axis pierce-everything shots, Jilliel / God form |
+| Askin Nakk Le Vaar | A | W4 | lethal-dose poison, Gift Ball, Gift Bereich |
+| Pernida Parnkgjas | A | W4 | the Left Arm of the Soul King, nerves |
+| Gremmy Thoumeaux | A | W4 | The Visionary imagination menu (meteors, liquid floor, copy fighters) |
+| Bazz-B, Bambietta, Quilge, Äs Nödt, Candice, Liltotto, Giselle, Lloyd twins | A | W4 | Burner Finger · everything-becomes-a-bomb · Sklaverei & Jail · fear · chain lightning · **eats terrain** · zombifies roster characters · **copies any roster character** |
+| Cang Du, Mask De Masculine, NaNaNa, Driscoll, BG9, Meninas, Robert | B | W4 | iron skin · Superstar · Underbelly · stolen Sasakibe Bankai · machine · world-chunk throwing · rifle |
+| PePe, Nianzol, Berenice, Jerome, Shaz, Ebern | C | W4 | love control · deflection · objections · roar ape · regen · prologue boss |
+
+**Royal Guard, Hell & others** — `I-zero-division-and-others.md`
+| Character | Tier | Wave | Signature systems |
+|---|---|---|---|
+| Ichibē Hyōsube | A | W4 | **name system** (rename / halve / erase powers), ink, Shirafude Ichimonji |
+| Senjumaru Shutara | A | W4 | weaving: re-tailor outfits, tapestry scenery, seal-flat |
+| Ōetsu Nimaiya, Tenjirō Kirinji, Kirio Hikifune | B | W4 | swords, hot springs & light, growing tree / food healing |
+| Kokutō (non-canon movie) | B | W5 | Hell chains |
+| Hell enemies, Soul King, Mimihagi, palace NPCs | C | W4–W5 | Kushanāda, Togabito, boss phases |
+
+**Totals:** ≈ 95 playable (S/A/B) + ≈ 35 C-tier NPCs/enemies/summons + 15 Hollow archetypes and the Calavera army.
+
+### 11.3 Exemplar kit — Ichigo (from `A1-ichigo.md`, ~110 abilities)
+| Loadout | Forms (T ladder) | What makes it play differently |
+|---|---|---|
+| **K0 Human** | human teen | karate, parkour, improvised weapons; badge slap ejects the soul — **the empty body stays in the world** and **Kon can pilot it** as an ally |
+| **K1 Substitute Shinigami** | first oversized sword | lunge-dash only; swings bite into walls; absorb a Cero on the blade into an overload meter and fling it back |
+| **K2 Shikai Zangetsu** | Shikai | Shunpo; cleaver chain that shears building corners; Getsuga Tenshō / ground plow; **cloth-tethered blade throw** with mid-flight re-aim and reel-in; "Let it out" partial possession |
+| **K3 Bankai Tensa Zangetsu** | + Hollow mask on G | hyper Shunpo with aggro afterimages, steerable Black Getsuga, bare-hand catch; **mask timer + mask HP**; masked Getsuga lets him blink ahead of his own crescent to fire again (×3) |
+| **K4 Post-Dangai → Final Getsuga** | Bankai v2 → Mugetsu form | higher-plane presence (weaker foes can't lock on); a ~20 s countdown form ending in **Mugetsu** (sky blacks out, horizon-wide black curtain) → **forced human for the rest of the match** |
+| **K5 Fullbring** | FB1 → FB2 → FB3 | Bringer Light with **springy ground**; segmented manji projectiles that lose blades per shot; reawakening into K6 |
+| **K6 Restored** | Shikai v2 → Bankai v3 | weather-clearing Getsuga, weapon-breaker cuts, pocket-dimension breaking, rage aura |
+| **K7 TYBW** | dual True Shikai → Half-Hollow → Blood Chains (anime) → True Bankai | **Getsuga Jūjishō merges two projectiles**, Chain recall, Blut Vene; Half-Hollow unlocked by a Quincy-exposure meter; Blood Chains footstep clones with **delayed echo hits** and a giant crescent left hanging in the sky; True Bankai shell-break cut |
+| **K8 Inner-Hollow states** | possession / lizard body / Full Hollow revive | **AI takes over the player's character** until RMB-mashing rips the mask off; KO in the Hueco Mundo era **revives him as the Full Hollow** (horn Cero, Sonído, limb rip; breaking a horn ends it) |
+
+Hollow Ichigo ships separately (A tier) on the same rig with an inverted palette and a flail-chain kit.
+
+### 11.4 Cross-character systems (consolidated from the dossiers' `[NEW]` tags)
+| System | What it enables (examples) | First needed |
+|---|---|---|
+| **Perception layer** (authoritative truth + per-observer views) | Kyōka Suigetsu decoys/fake terrain, Sakanade mirrored positions, Shinji's friend/foe swap, Rose's victim-only illusions, Enma Kōrogi, Gin's Bankai shown as sealed, disguises (Aaroniero, Lloyd), camouflage, unsensable flags | M4 (design), M7 |
+| **Rule zones & arena rules** | Katen Kyōkotsu games, Yukio's/Riruka's pocket dimensions with gravity/time/lives rules, Hell rules, Gentei limiter, faction-locked barriers, Berenice's objections, Giriko's contracts | M7–M8 |
+| **Weather & sky** | Yamamoto evaporating the map, Hitsugaya's humidity/snow, Sasakibe's lightning dome, eclipses/blackouts, giant crescent in the sky, Las Noches fake sky, Kirinji whiteout | M5, M7 |
+| **Elements & material reactions** | element tags on abilities and voxels; freeze-disables; melting, burning, charring, ash; persistent water ↔ ice ↔ steam; flowing sand; lava/acid/hot springs; decay | M2, M7 |
+| **Body system** | per-limb HP, sever/regrow, extra arms, tails, breakable horns/masks/halos, Hollow-hole hitbox voids, blood stat, outfit layers that tatter, growth with voxel-density switching, liquefaction, soul/body split, death variants (reishi dissolve, ash, skeleton strip, Gates of Hell) | M4, M7 |
+| **Weapon system** | segmented whips/chains/flails, tethered throws & recall, embedding in walls, breaking/shell shedding, disarm & pickup, weight stacking, length-animating blades, red-hot blades, weapon meters | M4, M6 |
+| **Projectile extensions** | steerable, merging (Jūjishō, combined Ceros), catch/absorb/return (Ukitake, Cero Doble), growing, freezing mid-air, curving, chain lightning, delayed echo hits, marks | M4–M6 |
+| **Copies, summons & theft** | AI copies of anyone incl. the player, zombified roster characters, Lloyd/Aaroniero full-kit copies, Ginjō slot theft, **medallion Bankai theft**, wolf/skeleton armies, pose-mirroring giants, echo summons | M7–M9 |
+| **Status library** | per-limb paralysis, poison/lethal dose, weight, rot, fear, death mark, deafness, inversion, conversion/mind control, silence, glue, time loop, single-entity time slow, infection meters | M4 onward |
+| **Time & history** | per-entity time scale, restore world/HP to earlier states (Orihime, Hachigen, Tsukishima), damage-history reassignment (Aizen, Kyōraku), replay ghosts, The Almighty rewrites | M2 (edit log), M7–M9 |
+| **Name & meta** | Ichibē's true names, Tsukishima's past insertion, persistent "has seen Aizen's Shikai" profile flag | M8–M9 |
+| **Destruction extensions** | erase-cut, absorb (Sklaverei), eat terrain (Liltotto), cut & throw world chunks (Meninas), debris telekinesis, dirt meter (Jackie), weakest-support finder (Moe), reishi-disabling grenades (Nemu), springy ground (Fullbring), kanji barriers, tapestry scenery | M2, then per character |
+| **Shadow & light queries** | Kageoni shadow overlap, Schatten shadow portals, Aaroniero's sunlight weakness (break walls to let light in) | M7 |
+| **Transformation extensions** | timed states with meters & lockouts, conditional/forced transforms, revive-into-form on KO, AI takeover, depower after ultimate, Vollständig halos, Bankai locks/interrupts | M4, M6 |
+| **Team systems** | duo moves, shared reiatsu pool, carrying allies, broadcasts, assists, life links | M6 |
+| **Souls & civilians** | Pluses, Konsō, possession, soul theft, Hollow bait, Yammy's lethal inhale | M5, M7 |
+| **Spawns & portals** | Garganta, sky cracks, Negación pillars, Senkaimon, shadow pools, off-map launch and return, Hollows merging into a Gillian | M5, M7 |
+| **Camera modes & mini-inputs** | blind sight, deprivation black, mirror-shatter reveal, face-guard ADS; mash contests, rhythm prompts, charades, slot machine | M4, per character |
+| **Sensing** | reiatsu sensing, suppression/fake death, signature matching, precognition immunity, AI attracted to flares | M4 |
 
 ### 11.x Kit spec template (`docs/kits/<id>.md`, produced with the `bleach-kit-design` skill)
 1. **Identity:** one line on how this character must *feel* (e.g. Byakuya: "noble stillness, the petals do the

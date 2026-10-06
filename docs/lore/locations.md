@@ -416,7 +416,7 @@ rooftop: 1.5 m railing/fence, stair house, water tank · perimeter trees, 2 m fe
 
 ### 6.6 Small Human World arenas
 - **Visored warehouse** — an empty lot in a deserted area; corrugated warehouse ~40 × 25 × 10 m (est.); hidden
-  by Hachigo's **Hachigyō Sōgai** barrier (passers-by and animals avoid it; Reiatsu doesn't leak; Orihime walked
+  by Hachigen's **Hachigyō Sōgai** barrier (passers-by and animals avoid it; Reiatsu doesn't leak; Orihime walked
   through it). Inside: the Visored's hangout clutter (the "Super Trainer" exercise machine gag) and a hatch to
   an underground **study chamber** like Urahara's. Stages: Ichigo vs Shinji (warehouse), Ichigo vs Hiyori,
   inner-Hollow fight.
@@ -487,7 +487,7 @@ warehouse chamber (§6.6).
 
 **Sources.** wiki/Study_Chamber · Trials_of_the_Shattered_Shaft · Garganta (Keikaigi) · Urahara_Shop.
 
-### 6.8 Fake Karakura Town (偽空座町) — `fake_karakura`
+### 6.8 Fake Karakura Town — `fake_karakura`
 **Canon.** To let the Gotei 13 fight Aizen at full power, Urahara and the SRDI built **an exact replica of
 Karakura on the Rukongai outskirts** and swapped it with the real town (people included) using **Tenkai Kecchū**
 — four huge pillars set at the corners of a one-*Reiri*-radius area, which wrap the area in a giant Senkaimon and
@@ -871,8 +871,8 @@ defend assigned districts; Seireitei-controlled farmland and fisheries exist out
 |---|---|---|---|
 | 1 | Junrinan 潤林安 | West | Hitsugaya, Hinamori, Jidanbō grew up here; faces the West Gate |
 | 3 | Hokutan 北端 | West | **Mt. Koifushi**, where Kaien trained Rukia |
-| 37 | Ryūgon 流厳 | East | Sasakibe showed Yamamoto his Bankai here |
-| 62 | Kagarashi 花枯 | North | Rangiku & Gin's origin (game source) |
+| 37 | Ryūgon 流厳 | East | Sasakibe showed Yamamoto his Bankai here (`anime-only`, TYBW) |
+| 62 | Kagarashi 花枯 | North | Rangiku & Gin's origin (video-game source) |
 | 64 | Sabitsura 錆面 | West | villager disappearances investigated (TYBW) |
 | 76 | Sakahone 逆骨 | East | Ukitake's childhood; Mimihagi worshipped |
 | 78 | Inuzuri 戌吊 | South | Rukia & Renji's childhood; Hisana arrived here |
