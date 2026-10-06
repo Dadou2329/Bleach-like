@@ -53,8 +53,11 @@
   5. Vertical slice: Ichigo (Shikai, Bankai, Hollow mask) vs Hollows and a Menos Grande in Karakura Town.
   6. Roster waves by arc (Soul Society → Arrancar/Hueco Mundo → Visored/lieutenants/Fullbringers → TYBW → Hell).
   7. Modes & polish: Story Arcs, Versus/Team, Hollow Horde, Boss Rush, Training Ground, Photo mode.
-- **Research already done:** wiki dossiers for ~120 characters (`docs/roster/`), Kidō & racial mechanics
-  (`docs/lore/mechanics.md`), locations (`docs/lore/locations.md`), rendering look-dev (`docs/research/lookdev/`).
+- **Research already done:** wiki dossiers for ~120 characters and 15 Hollow archetypes (`docs/roster/`, ~2 MB,
+  paraphrased with sources), Kidō catalogue & racial mechanics (`docs/lore/mechanics.md`), 20+ locations with
+  generator specs (`docs/lore/locations.md`), rendering look-dev (`docs/research/lookdev/`).
+- **Next action (no approval needed):** start **M0** — scaffold the Vite/TS project, write `CLAUDE.md`, then build
+  the `voxel-art` skill (§16.1) *before* any game code, then the other three skills; then M1.
 
 ---
 
