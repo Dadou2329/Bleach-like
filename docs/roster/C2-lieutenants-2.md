@@ -114,7 +114,7 @@ Conventions used below
   - *Kidō — canon*
     - `Hadō #31 Shakkahō (赤火砲, Red Fire Cannon)` — crimson orb, three sizes, explosion or fire pillar. At the academy she was the only student to fire it at the giant Hollow (manga). Scale: blows chunks off buildings. [Projectile(orb, explode), Blast, Status(burn)]
     - `Hadō #12 Fushibi (伏火, Ambush Flare)` — **her signature, exclusive spell and the canon form of "delayed/chained Kidō":** she strung a large, intricate Kidō net all around Rangiku *before* the Arrancar closed in, hid it, caught all three Fracción in it, then lit it with Tobiume → one massive explosion that forced them into Resurrección to heal. [Construct(net trap), Bind(snare), Blast(chain)] `[NEW: TrapNetwork/IgnitionPropagation]`
-    - `Bakudō #26 Kyokkō (曲光, Bent Light)` — **exclusive**: bent light hid her body and reiatsu (how she got next to Apacci) and masked the net's reiryoku. [Sensing/Stealth] `[NEW: TrapConcealment]`
+    - `Bakudō #26 Kyokkō (曲光, Bent Light)` — **exclusive**: bends light to hide her body and reiatsu and masks the reiryoku of a trap being laid. Her plot only says she used "Kidō to conceal her presence" to sneak up on Apacci; Kyokkō is the one concealment spell the wiki credits to her, so that's almost certainly it. [Sensing/Stealth] `[NEW: TrapConcealment]`
     - `Bakudō #37 Tsuriboshi (吊星, Suspending Star)` — six-rope blue cushion; caught a falling Rangiku ("star-shaped Kidō net"). [Construct] `[NEW: ElasticConstruct]`
     - `Hakufuku (白伏, White Crawl)` — purple-blossom illusion → blur → blackout with fuzzy memory (wiki credits Momo and Gin). [Status(confusion→sleep)] `[NEW: MemoryWipe]`
   - *Kidō — anime-only / TYBW anime*
@@ -496,7 +496,7 @@ Conventions used below
   - **17 months after Aizen:** flatter hair with a **cross-bone hair clip** on the left.
   - **Cat costume:** prank outfit she wears to steal koi from Byakuya's pond (cosmetic).
   - **Vanished (TYBW):** her empty shihakushō and armband left on the ground after Kenpachi beats Gremmy. **Nozarashi** then appears to Kenpachi *as Yachiru* (same model, mannerisms) to unlock his Bankai.
-- **Weapons:** **Sanpo Kenjū (三歩剣獣, Three-Step Sword Beasts)** — an ordinary katana (~100 cm → 32 vox, about her own height): pink hilt wrap, five-petal-flower tsuba, purple scabbard fitted with **two wheels** (Ikkaku installed them after she pestered him), carried on a loose cord rather than at the sash. The blade does **not** change in Shikai.
+- **Weapons:** **Sanpo Kenjū (三歩剣獣, Three-Step Sword Beasts)** — an ordinary katana (~100 cm → 32 vox, about her own height): pink hilt wrap, five-petal-flower tsuba, purple scabbard fitted with **two wheels** (Ikkaku installed them after she pestered him), carried on a loose cord rather than at the sash. The blade does **not** change in Shikai. **Beasts (sizes not given — estimates, verify):** Lumpy ≈ 1.2 m / 38 vox, round and furry, cleaver about its own height; Boney ≈ 2.4 m / 77 vox, gaunt skeleton in a cloak, blade ≈ 1.5 m.
 - **Forms & states (ordered):**
   1. **Sealed** — fists and the wheeled scabbard.
   2. **Shikai** — **no release command**: she draws and **Lumpy + Boney** manifest beside her.

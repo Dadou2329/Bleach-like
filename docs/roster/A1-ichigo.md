@@ -435,7 +435,7 @@ Conventions used below
   - **Full Hollow phase (Las Noches boss):** "dies" → twitch → revives as the Full Hollow: roars, Sonído-behind, horn Cero spam, limb rips; **players can break a horn** to end the phase; he then collapses and regenerates.
   - **TYBW boss:** dual-blade pressure, small-blade Getsuga to poke, **Jūjishō to cancel the player's big projectiles/barriers**, Blut Vene stance under burst damage, Half-Hollow at 50% when hit by Quincy-type damage, Blood Chains final phase (clones + chain walls), true Bankai finisher; Final-Getsuga variant is a **countdown boss**: survive until Mugetsu, then fight his depowered human self.
   - Never casts Kidō; yells attack names; scowls through everything; banter is curt and sarcastic.
-- **Callouts (romaji, short):** "Zangetsu!" · "Getsuga… Tenshō!" · "Ban… kai!" — "Tensa Zangetsu." · "Getsuga Jūjishō!" · "Saigo no Getsuga Tenshō." · "Mugetsu." · masked: a guttural roar or the echoed "Getsuga Tenshō" · "Chein" is a gesture, not a shout · intro line: "Kurosaki Ichigo — dairi Shinigami da." (Substitute Shinigami) · to Hollow Ichigo: "Kaere!" (get back in there).
+- **Callouts (romaji, short):** "Zangetsu!" · "Getsuga… Tenshō!" · "Ban… kai!" — "Tensa Zangetsu." · "Getsuga Jūjishō!" · "Saigo no Getsuga Tenshō." · "Mugetsu." · masked: a guttural roar or the echoed "Getsuga Tenshō" · Chain (チェイン) is a silent beckoning gesture, not a shout · intro line: "Shinigami Daikō, Kurosaki Ichigo." (his title, 死神代行 = Substitute Shinigami).
 
 ---
 
@@ -462,4 +462,206 @@ Conventions used below
 - **AI notes:** berserker who **laughs while trading hits**, taunts ("king" / "horse"), punishes turtling, mirrors the player's last move back at them, flails at mid range, closes with chain-spun throws; regenerates in Hollow bodies so players must burst him; in Ichigo's story he is fought **inside** the inner world (sideways gravity) while his rampaging body is fought **outside** in parallel.
 - **Callouts:** echoing "Getsuga Tenshō!" · "Ban… kai." · cackling · "Ōsama" (king) taunts.
 
-<!-- PART3 -->
+---
+
+## 3. Isshin Kurosaki (黒崎 一心; formerly 志波 一心 Shiba Isshin) — former 10th Division captain, town doctor, Ichigo's father
+
+- **Wiki:** https://bleach.fandom.com/wiki/Isshin_Kurosaki · /Anime_Continuity · battles: *Isshin Shiba & Masaki Kurosaki vs. White*, *Isshin Kurosaki, Kisuke Urahara, & Yoruichi Shihōin vs. Sousuke Aizen* · related: White, Getsuga_Tenshō, Dangai
+- **Roster tier:** **A** — a captain-class swordsman with a fire Shikai, his own Getsuga Tenshō and a full slapstick hakuda moveset; two eras in one character (present-day dad / flashback **Captain Isshin Shiba**). Ship **without a Bankai** (never revealed — see Forms).
+- **Canon power: 8/10** — at **20% power under the Gentei Reiin limiter** he held off White (a Hollow built specifically to kill a limited captain) and blew its arm off despite a sneak wound from Aizen; after twenty powerless years he split a powered-up Arrancar Grand Fisher in one swing, **flicked Hōgyoku-Aizen through several buildings**, shrugged off a point-blank Hadō #63 Raikōhō, and cut a gash into Aizen's chrysalis head with a Getsuga that flattened a city block; alone he froze the Dangai's Kōryū for ~2,000 hours (a job for dozens of Shinigami). Ceiling: by then he could no longer even feel Aizen's reiatsu.
+- **Body:** **186 cm → 60 vox**, 80 kg. Tall, broad (shoulders ≈15 vox), heavily muscled, big hands; looks forty-something. Short **spiky black hair** (+2 vox of spikes); thin mustache running into a **goatee**, stubble along the jaw and cheeks; brown eyes; wide expressive grin. Captain era: **softer face, long sideburns, clean-shaven**, hair a little shorter with **a single bang over the forehead**. Silhouette keys: lab coat flaring as he leaps; in Shinigami form, the **white tattered haori sash slanting across the black robe from the left shoulder**.
+- **Palette (hex estimates):** skin tan `#D9AE95` (shade `#A9806A`, deep `#7A5646`; the TYBW anime renders him warmer `#C2967E` — verify) · hair `#1F1F23` (sheen `#3C3C46`) · facial hair `#2E2620` · eyes `#6A4A34` · **doctor:** lab coat `#F1EFE9` (shade `#C9C5BC`), casual shirt (varies; default dark blue-gray `#3A4150`, verify), slacks `#2B2B33` · **Shinigami:** shihakushō `#1C1C21` (lit `#33333B`), obi `#E3E1DB`, **haori sash** `#EEEDE8` (shade `#C3C0B8`) · **captain:** sleeveless haori `#F4F3EE` with the 10th Division mark (十) `#111111` on the back · **Engetsu:** blade `#CFD3D8` (edge `#F2F4F7`), red handle wrap `#9E2A2A` over rayskin `#E9E3D6`, hexagonal guard dark bronze `#5E5236` (verify), **blue pommel tassel** `#4FA3D8`, scabbard black lacquer `#18181C` (verify) · **Engetsu flames:** core `#FFFBE0`→`#FDFE44`, mid `#F7A23A`, outer `#F07A32`, deep `#C35718`, smoke `#3A2418` · **reiatsu golden-orange** `#F1D47B` / `#E4BF60` / `#CE9C4A` · **Getsuga:** old anime light blue `#9FD8FF` / TYBW anime flame-orange (core `#FFE08A`, body `#F07A32`) · **charm barrier** pale cyan `#8CD3E6` / white `#E4E8F3` · Kaikyō Kotei prongs steel `#B8BCC4`, cords `#1A1A1E`.
+- **Look by form/outfit:**
+  1. **Doctor (human body/gigai):** white lab coat over a casual shirt and trousers; suit and tie for Yuzu's school ceremony; kimono at the fireworks festival; smokes only once a year at Masaki's grave.
+  2. **Shinigami (present):** black shihakushō and white obi; his old **captain's haori torn down into a sash**, draped across the body from the **left shoulder** and fastened there, division mark hidden; Engetsu hangs **tachi-style (edge down) from a cord wound round his belt** at the left hip.
+  3. **Shikai Engetsu:** same outfit; the blade is wrapped in fire and the **pommel tassel ignites into long streaming ribbons of flame**.
+  4. **Captain Isshin Shiba (flashback skin):** standard uniform + **sleeveless captain's haori**; younger face per *Body*.
+  5. **Dangai aftermath (gag skin):** a long beard grown during the three months he held the Kōryū.
+  - Equipment visuals: **Kaikyō Kotei** — wrist bracelets (two per wrist) each carrying a **forked, throwing-knife-sized rod on a long cord** (4 total).
+- **Weapons:** **Engetsu (剡月, "Scathing Moon")** — looks like a plain tachi (≈1 m → 32 vox: blade 24 vox) with a **red handle**, **hexagonal guard** and a **blue tassel on the pommel**; worn edge-down. He deliberately keeps it small (his lesson to Grand Fisher: captains compress their swords, otherwise everyone would be swinging skyscraper-sized blades). Shikai keeps the shape and adds fire.
+- **Forms & states (ordered):**
+  1. **Human (gigai)** — his Shinigami power was locked for ~20 years (his soul tied to Masaki's Hollow through Urahara's special gigai and a reishi string); it came back when Ichigo's Hollow fully woke against Byakuya and snapped the string. T = step out as a Shinigami.
+  2. **Shinigami (sealed Engetsu)** — kendō, Getsuga, Shunpo, Kidō.
+  3. **Shikai — "Moero, Engetsu" (燃えろ, "Burn")** — fire-sheathed blade; flaming Getsuga; blood-flame blast.
+  4. **Bankai — unrevealed.** Known facts only: it puts heavy strain on his body, he must be able to **stabilize his reiatsu** to call it, so he **can't use it when badly hurt** (Aizen cut him from behind for exactly that reason). Leave the slot **locked**; anything designed here would be invention.
+  5. **Captain-era limiter — Gentei Reiin (限定霊印)** — in the Human World he fought at ~20% of his maximum. Game: captain skin starts limited; G = limit release (the general Gotei captain mechanic — Isshin himself never releases it on-page; flag as extrapolation).
+  - Note: he once confronted Engetsu to learn **Saigo no Getsuga Tenshō**; whether he succeeded is unknown (he says their Zanpakutō "don't want to teach it").
+- **Abilities (complete, grouped):**
+  - **Hakuda (family-ambush style)**
+    - `Isshin Flying Double Knee (一心・フライング・ダビル・ニー)` — leaping two-knee strike, his favorite way to say good morning. [MeleeArc smash, Mobility]
+    - `Isshin Handstand Dash (一心・サカダチダッシュ)` — sprints uphill on his hands to show off. [Mobility]
+    - `Special Daddy Sliding Technique` — low slide past someone (comedy; used to peek). [Mobility]
+    - `Chōhigezutsuki (超ヒゲ頭突き, "Super Stubble Headbutt")` — headbutt that launches the target a long way; used to knock Ichigo **off a roof and out of Aizen's reach**. [MeleeArc smash, Grab/Throw knockback]
+    - `Oni Dekopin (鬼デコピン, "Demon Forehead Flick")` — a single finger flick that sends the target **through several buildings** (did it to Aizen). [MeleeArc smash, knockback]
+    - `Window/trampoline ambush [anime-only]` — springs through Ichigo's window off a trampoline to kick him awake. [Mobility, MeleeArc]
+    - `Pin stomp` — stamps on White's free arm to pin it mid-clash. [Bind]
+  - **Swordsmanship (master, kendō form)**
+    - `Kendō strikes` — rusty but masterful; each hit **breaks concrete**; kept Aizen on the defensive. [MeleeArc cut]
+    - `Agitowari (顎割, "Jaw Splitting")` — one vertical cut that starts at the jaw and runs down the body until the target falls in two halves; bisected a powered-up Grand Fisher, Hierro and all, with the sword **still sealed**. [MeleeArc cut, Slice]
+    - `Getsuga Tenshō (Engetsu's version)` — gathers reiatsu in the blade and slashes down; per Kubo it is **short-range and mixes flames with reiatsu** (in his prime he charged it with fire). In Fake Karakura it **levelled a wide area, left a huge crater and split Aizen's head open**. [Blast, Projectile crescent (short), Environmental (fire)]
+    - `Blood-flame blast (unnamed)` — while wounded: smears/spits his own blood onto Engetsu → a **horizontal pillar of fire** that **explodes on contact** (took White's arm off). [Beam, Blast, Environmental (fire), NEW: HPCostAbility]
+  - **Movement & Kidō**
+    - `Shunpo` — expert; relentless hit-and-run pressure. [Mobility, Teleport]
+    - `Kidō charms` — makes **protective charms** that throw up a strong barrier when their wearer is attacked (the "lucky charm" he gave Ichigo — actually made for **Kon**; it stopped Grand Fisher). [Shield, NEW: ReactiveArmorProc]
+    - `Reiatsu-erasing barrier` — hid himself and Ichigo so completely that Aizen lost them. [Field (stealth), Sensing/Stealth]
+    - `Chain bind (with Urahara)` — the two of them lash chains around Aizen's wrist and leg and pull them taut. [Bind]
+    - `Kaikyō Kotei (界境固定, "Realm Boundary Fixation")` — throws the four corded rods into the Dangai walls and pours his reiatsu through them to **stop the Kōryū current** for up to ~2,000 hours (Dangai time); he must stay connected the whole time (he ends it exhausted and bearded). Game: plant 4 anchors → **"flow lock" field** that freezes environmental currents/hazards (and slows enemies) while he channels. [Field, Construct, Bind, NEW: FlowLockField]
+    - `Reiatsu lure` — flares his reiatsu to draw out a hidden killer (vs White). [Field]
+  - **Other**
+    - `Doctor` — runs the clinic; treats anything short of major surgery. [Heal/Reject (out-of-combat / revive)]
+    - `Toughness` — took Raikōhō point-blank, kept fighting White heavily wounded, chased Aizen into the Dangai minutes after losing to him. [passive]
+    - `Perception` — deduced from White's style that a Gotei traitor was involved; knows Hollow/Arrancar lore. [Sensing]
+    - `Reiatsu donor` — one of the Shinigami whose reiatsu filled the sword that restored Ichigo. [story]
+- **Passives & weaknesses:** Passives — Shunpo expert, immense reiatsu, spirit sense, master swordsman, doctor's field medicine. Weaknesses — **rusty** after 20 years, **no Bankai while injured / when his reiatsu won't settle**, captain-era **limiter**, vulnerable to back attacks (Aizen), goofy openings, outclassed by Hōgyoku-Aizen's final stages.
+- **Signature moments to recreate:**
+  1. **Wake-up ambushes** at the Kurosaki Clinic (flying knee, window crash, dinner-at-seven "punishment") — a tutorial minigame for blocking/parrying.
+  2. **Grand Fisher in the alley** — Kon (in Ichigo's body) is saved by the charm's barrier; Isshin steps out in Shinigami robes and splits the Arrancar with one cut.
+  3. **Fake Karakura** — appears between Ichigo and Aizen ("talks too much"), headbutts his son off a roof, hides them under a reiatsu-erasing barrier, kendō vs Aizen, **finger flick through buildings**, eats Raikōhō; the trio fight with Urahara and Yoruichi (chains, Benihime tricks) → **point-blank Getsuga** cracks the chrysalis; all three are flattened.
+  4. **The Dangai** — Kaikyō Kotei holds back the Kōryū for three months while Ichigo learns the Final Getsuga; Ichigo carries his bearded, unconscious father out.
+  5. **Flashback: Captain Shiba vs White in rainy Naruki City** — reiatsu lure from a rooftop, the black Hollow with horns and blade-arms, "Moero, Engetsu", Aizen's sneak cut (Bankai denied), stomp-pin, **blood-flame blast** takes White's arm, pinned under a point-blank Cero until **Masaki's arrow** saves him, then he **shields Masaki from White's self-destruct**.
+  6. **Lost Agent** — walks the moonlit streets with Urahara carrying the glowing reiatsu sword.
+  7. **TYBW** — tells Ichigo the truth about Masaki the Quincy; later walks into Wahrwelt beside Ryūken.
+- **Kit proposal:** Doctor → T → Shinigami → T → Shikai Engetsu → (hold T) **Bankai: LOCKED** (unrevealed). Captain-era skin swaps in G = Gentei Kaijo (limit release, extrapolated).
+
+  | Slot | Doctor (gigai) | Shinigami (sealed Engetsu) | Shikai Engetsu | Tags |
+  |---|---|---|---|---|
+  | Shift | sprint + **Special Daddy Slide** (slide under attacks) | **Shunpo** (expert; double-tap behind target) | Shunpo leaving fire trails | Mobility, Teleport |
+  | LMB | brawl chain (palm, elbow, knee) · fwd **Flying Double Knee** · back rising headbutt · air dropkick · down-air elbow drop · sprint shoulder ram | **kendō chain** (men / kote / dō / tsuki — every hit cracks concrete) · fwd thrust · back rising cut · air overhead · down-air plunging cut · sprint dash cut | same chain with **burn** and trailing tassel flames | MeleeArc smash/cut, Status (burn) |
+  | Hold LMB | **Chōhigezutsuki** (launch) | **Agitowari** (jaw-to-ground vertical bisect) | flaming Agitowari | MeleeArc cut, Slice |
+  | RMB | guard; timed = counter-grab | kendō parry; timed = counter-cut | same | Shield |
+  | Q | Flying Double Knee (gap closer) | **Getsuga Tenshō** (short-range heavy slash, crater) | **Flaming Getsuga** (fire + reiatsu burst, sets the area ablaze) | MeleeArc, Blast, Projectile crescent, Environmental (fire) |
+  | E | Handstand Dash (low-profile evade) | **Oni Dekopin** (finger flick through buildings) | same | MeleeArc smash, knockback |
+  | R | Trampoline ambush [anime-only] | **Chōhigezutsuki** | **Blood-flame blast** (costs HP; horizontal fire pillar that detonates) | MeleeArc, Beam, Blast, NEW: HPCostAbility |
+  | F | **Field medicine** (heal-over-time on an ally; slow revive of a downed ally) | **Reiatsu-erasing barrier** (stealth dome for him + allies) | same | Heal/Reject, Field, Sensing/Stealth |
+  | Z | **Protective charm** on an ally (one-time auto-barrier) | **Chain bind** | same | Shield, Bind |
+  | X | Chicken whistle (taunt: pulls aggro onto himself) | **Kaikyō Kotei** (4 anchors → flow-lock field) | same | Field, Construct, NEW: FlowLockField |
+  | G | — | **Pin stomp** stance (next successful block pins the enemy's weapon arm) | same | Bind, Stance |
+  | C | — (sealed in a gigai) | golden-orange flare / **reiatsu lure** (pull hidden enemies out) | flare + heat shimmer | Field |
+  | V | **"Dinner is at seven!"** ambush combo (game filler) | **Point-blank Getsuga** (block-flattening, crater) | **Engetsu prime Getsuga** (fire-charged, huge fire crater) | Blast, Slice, Environmental (fire) |
+  | T | step out of the gigai | **"Moero, Engetsu"** | hold T = Bankai **(locked)** | Transform |
+
+- **AI notes:** opens with goofy taunts/poses and **ambushes from odd angles** (windows, rooftops); turns serious the moment family or allies are threatened (posture straightens, no more taunts); disciplined kendō spacing; uses the finger flick to create space and the headbutt to "rescue" allies out of danger (knocks them out of the line of fire); releases Engetsu when the opponent shows Hollow power or at ~50% HP; finishes with a point-blank Getsuga; **if badly wounded he will not attempt Bankai** (canon). In co-op he prioritizes healing/charms for Ichigo's sisters and civilians.
+- **Callouts (romaji, short):** "Moero, Engetsu." · "Getsuga Tenshō!" · "Isshin Flying Double Knee!" · "Chōhigezutsuki!" · "Oni Dekopin!" · morning greeting: "Ohayō, Ichigo!" (mid-flying-kick).
+
+---
+
+## 4. Kon (コン; short for 改造魂魄 Kaizō Konpaku, "Modified Soul") — Underpod (部下強化型) Mod Soul; lion plushie, Ichigo's body double
+
+- **Wiki:** https://bleach.fandom.com/wiki/Kon · /Anime_Continuity · /Image_Gallery · Modified_Soul
+- **Roster tier:** **B** — bonus/unlockable comedy character. Cheap: a tiny plush model + Ichigo's existing human rig. Strong co-op hook: while Ichigo plays as a soul, a second player (or the AI) pilots his body as Kon.
+- **Canon power: 2/10** — no real spiritual power and he refuses to kill, but in a human body his engineered legs **kick huge Hollows aside**, smash metal fences and outfight Ichigo-in-soul-form with kicks and leg-blocks.
+- **Body:** **plush 27 cm → 9 vox** (build at 64 vox/m → 17 vox and scale 0.5 so the face reads) · **pill 3 cm** (pickup-sized) · **Ichigo's body 174 cm → 56 vox** · **Muscle Kon** ≈2 m of bodybuilder plush (≈64 vox) under the **original-size head** (≈12 cm → 4 vox at 32/m) — the joke is the head. Plush anatomy: oversized head (~45% of height) that is **flat in profile**; seamed tan body; **four white flat claws** on each paw and foot; a **white button for a navel**; beady black eyes; small ears with pink insides; brown spiky mane; short tail; after Uryū's repair, a **Quincy cross stitched on the back of the head** (Kon doesn't know).
+- **Palette (hex estimates):** plush body lit `#FAC873`, base `#EBA953`, shade `#C68534`, seams `#A86A2A` · mane `#5C372F` (lit `#7A4A3A`, shade `#3E241E`) · claws & button `#EEEDEB` (button holes `#9A9A9A`) · eyes `#1E1814` + white glint · inner ears `#F2A7A0` · muzzle cream `#F3E3C8` (verify) · nose `#4A2E22` (verify) · Quincy-cross stitching (verify) · **pill** light green `#AFE593` over teal `#298F76`, highlight `#E8FFD8` · **Muscle Kon** golden tan `#E3C87C`, shade `#A3744D`, deep `#6E4A2E` · **Karakura-Raizer suit** white `#E6E5E6`, "K" emblem & belt `#EAD671` (shade `#CCBF50`), gloves/boots/visor teal `#5696B0` (light `#88AABE`), cape crimson `#A01528` (shade `#5D010B`), white helmet with gold crest `#D9C25A` · **Raizer Beam** pale gold `#F6F3E0` / `#E3D29A` · charm barrier `#8CD3E6` · dress-up: Uryū's red Marie-Antoinette gown `#B8202A` + blonde ringlet wig `#F2D46A`, Yuzu's frilly dresses/baby clothes [anime].
+- **Look by form/outfit:**
+  1. **Lion plushie** — a cheap knock-off of "Ponkichi" from the TV show *Carnivore Kingdom*.
+  2. **Pill (Gikongan)** — small green-and-teal candy sphere.
+  3. **Kon in Ichigo's body** — Ichigo's model, school uniform, but **Kon's face**: relaxed brows, cocky grin or lovestruck goggle-eyes — never Ichigo's scowl.
+  4. **Muscle Kon** (12th Division modification, Lost Agent → TYBW) — huge veiny plush physique, same little head; Mayuri **deflates him back with a remote**.
+  5. **Konsō Cop Karakura-Raizer** [anime-only + manga omake] — Kon (in Ichigo's body) in a white superhero suit with a big yellow **"K"**, yellow belt, teal gloves/boots/visor, crimson cape, crested helmet; transforms via a **watch**.
+  6. **Dress-up skins** — Yuzu's baby clothes and frilly dresses, the flower glued to his ear, Uryū's Marie-Antoinette gown [anime].
+  7. **Reigai-Nemu body** [anime-only, cameo] — Kon briefly drives a Reigai of Nemu Kurotsuchi.
+- **Weapons:** none — **his legs**. Karakura-Raizer: the transformation watch.
+- **Forms & states (ordered):** Plush (default) → **pill swap** into an empty body (Ichigo's) → (Muscle toggle while in the plush) → (Raizer suit while in a human body). A hard hit or stomp can **pop the pill out** of whatever body he's in.
+- **Abilities (complete):**
+  - `Underpod legs` — engineered leg power: **13.56 m standing jump**, **100 m in 3.8 s** (~95 km/h), ground → third-floor window in one bound, rooftop-to-rooftop leaps, a kick that **smashes through a metal fence**, kicks that **punt large Hollows away**, a kick-only style that held off Ichigo. [Mobility, MeleeArc smash, Grab/Throw (knockback)]
+  - `Host-body skills` — he gains whatever combat ability the body he's in has. [passive]
+  - `Pacifist` — will not kill anything; risks himself to save even ants or bystanders (kicked a dying Hollow away so it wouldn't crush a line of ants / the kids). [passive — non-lethal KOs, Absorb/Reflect/Redirect (deflect falling bodies/debris)]
+  - `Protective charm` — Isshin's Kidō charm (made for Kon) throws up a barrier when he's attacked. [Shield, NEW: ReactiveArmorProc]
+  - `Holographic communicator` — Urahara's mod: the top of his head projects a two-way display linking worlds; **his eyes are the switches**. [Sensing (intel/support call)]
+  - `Muscle Mode` — the 12th Division's enlargement; used as a **landing cushion** for Ichigo and Renji (twice). [Transform, Shield, NEW: SizeShift]
+  - `Plush strength [anime-only]` — tore a boulder out of the ground and ran with it while bound to it by a Bakudō. [Grab/Throw]
+  - `Karakura-Raizer [anime-only + omake]` — watch-activated suit; **Raizer Beam** (a huge beam shaped like the katakana **ラ**, strong enough to kill a large Hollow) **only fires if he first spells R-A-I-Z-E-R with his body, charades-style — otherwise the suit electrocutes him**; **Raizer Punch**; leads the Karakura-Raizer team against a flying Hollow fortress. [Beam, MeleeArc, NEW: GestureInput]
+  - `Karakura Superheroes [anime-only]` — as "Karakura King" he is the team's crash-test dummy, and finally its **weapon**: Ururu volleys him, Jinta bats him (*Jinta Homerun*) and Karin boots him into the Hollow (*Karin Impact Kick*). [Projectile, Summon]
+  - `Leap-hug ("Nee-san!")` — launches himself at women's chests (gag); against enemies it's a face-latch that blocks vision, and he once latched onto Kagerōza to buy Nozomi time [anime-only]. [Grab/Throw, Status (blindness)]
+  - `Play dead` — just a stuffed toy (perfect hiding). [Sensing/Stealth]
+- **Passives & weaknesses:** Passives — tiny hitbox as a plush, super-leg mobility in a body, non-lethal. Weaknesses — almost no reiatsu; the **pill can be knocked out**; the plush **tears** (needs Uryū/Yuzu repairs); distracted by women; boasts then flees; the body's owner can evict him at any time.
+- **Signature moments to recreate:**
+  1. **The body hijack (ch.6–7)** — Kon in Ichigo's body jumps over a teacher onto a far roof, bounds up to the third-floor classroom, flirts with Orihime, kisses Tatsuki, desks fly out the window, then a rooftop-to-rooftop **chase** across town; he wrecks three kids' console, then saves them from a Hollow and **kicks the falling Hollow away to spare a line of ants**.
+  2. **Naming** — Ichigo and Rukia stuff him into a discarded lion plushie and name him Kon (he wanted "Kai").
+  3. **Grand Fisher returns** — Kon (Ichigo's body) wanders into the Arrancar; the charm's barrier pops; Isshin reveals he's known about Kon all along.
+  4. **Karakura-Raizer** [anime] — spell R-A-I-Z-E-R or get shocked; beam vs the Hollow Zonzain; Hollow fortress assault.
+  5. **Muscle Kon** — bursts out of Ichigo's pocket mid-fall at the Soul King Palace and knocks Ichigo out cold; cushions the landings at Kirio's and Ōetsu's palaces.
+  6. **Nozomi arc** [anime-only] — bound to a rock by Shitotsu Sansen, rips the rock out and runs after her; drives Reigai-Nemu to deliver Ichigo's reishi pill and kicks Yushima.
+  7. **Epilogue** — babysits Kazui, who sneaks out riding flying ghost-fish to help a lonely soul pass on.
+- **Kit proposal:**
+
+  | Slot | Plush | Kon in Ichigo's body | Karakura-Raizer (suit, in body) [anime] | Tags |
+  |---|---|---|---|---|
+  | Shift | scurry dash (tiny hitbox) | **super sprint** (100 m / 3.8 s) | same | Mobility |
+  | Space | bouncy hop | **super leap** (hold to charge, up to 13.5 m) | same | Mobility |
+  | LMB | paw jabs + plush kicks | **kick-only chain** (front, roundhouse, spinning heel, axe) · fwd flying kick · back rising-kick launcher · air drop kick · down-air stomp · sprint slide kick | Raizer punches + kicks | MeleeArc smash |
+  | Hold LMB | plush dropkick | **fence-breaker kick** | Raizer Punch | MeleeArc smash |
+  | RMB | flop/curl block | **leg-block parry** | same | Shield |
+  | Q | **"Nee-san!" face latch** (blind) | **Hollow punt** (huge knockback, never lethal) | same | Grab/Throw, Status |
+  | E | play dead (stealth) | wall-run + rooftop bound | same | Sensing/Stealth, Mobility |
+  | R | rock haul (lift/throw objects far above his weight) | **save the little ones** (kick falling debris/bodies away from NPCs) | same | Grab/Throw, Absorb/Reflect/Redirect |
+  | F | **communicator** (Urahara intel ping / support call) | **protective charm** (auto-barrier) | same | Sensing, Shield |
+  | Z | **pill pop**: jump into a nearby empty body (Ichigo's) | eject back to the plush | — | Transform, NEW: SoulBodySplit |
+  | X | cushion (allies landing on him take no fall damage; Muscle Mode: bigger zone) | rescue carry (scoop up to two NPCs and run) | — | Shield, Grab/Throw |
+  | G | **Muscle Mode** (12th Div enlargement; enemies with a "remote" can force-deflate him) | — | — | Transform, NEW: SizeShift |
+  | C | "Kon-sama" pose (taunt, pulls aggro) | same | heroic pose | Field |
+  | V | **Karin Impact Kick** (Ururu → Jinta → Karin assist volley; Kon becomes the cannonball) [anime] | **Karakura-Raizer henshin** (watch) | **Raizer Beam** — input R-A-I-Z-E-R as a 6-step gesture sequence; a mistake electrocutes him (self-stun) | Summon, Projectile, Transform, Beam, NEW: GestureInput |
+
+- **AI notes:** as an ally he follows Ichigo, guards Ichigo's empty body, saves bystanders and small creatures first, **never deals the killing blow** (downs only), gets distracted by female characters (wanders off toward them), boasts loudly and flees at low HP. As a story "enemy" he is a **runaway chase target** (the body-hijack chapter). In Muscle Mode he volunteers as a landing pad.
+- **Callouts (romaji, short):** "Nee-saaan!" · "Ore-sama wa Kon-sama da!" · "Karakura-Raizā!" · "Raizā Bīmu!" · grumbling "Ichigo no baka…".
+
+---
+
+## 5. Family set-piece hub — the Kurosaki Clinic (shared by all three)
+
+Two-story clinic-plus-home in Karakura Town (Isshin runs it; Karin and Yuzu help as nurses; Ichigo's room has **"15" on the door**; a huge **memorial poster of Masaki** on the living-room wall that Isshin talks to). Use it as the story hub: Isshin's ambush tutorial, Kon's escape route (Ichigo's bedroom window), Ichigo's soul-ejection tutorial (body left on the bed), Rukia's closet. Fishbone D crashes through the front wall in chapter 1 — the clinic must be fully destructible and **reset between chapters** (the family's memories get "edited").
+
+---
+
+## 6. Engine needs surfaced by these kits (beyond the brief's primitive list)
+
+| Tag | What it must do | Used by |
+|---|---|---|
+| `NEW: SoulBodySplit` | Leaving the body spawns a persistent, damageable **body object** (ragdoll) at that spot; it can be piloted by an AI (Kon) or a 2nd player; damage to the soul copies onto the body on return | Ichigo K0, Kon |
+| `NEW: Tether` | Thrown weapon on a cloth/chain: mid-flight re-aim by tugging, reel-in, flail spin, wrapping | Deadly Darts, Hollow Ichigo chain-spin |
+| `NEW: WeaponRecall` | "Chain": yank a weapon back to the hand from anywhere (hits along the return path) | True Shikai, Full Hollow, TYBW throw |
+| `NEW: WeaponEmbed` | Oversized weapons collide with interior voxels and can stick (yank to free) | First sword |
+| `NEW: OverloadMeter` | Absorbing a beam overcharges the weapon; vent it or it detonates | First sword vs Menos |
+| `NEW: TimedStateMeter` | Transformation with a timer, its own HP (cracks/shatters), regeneration, re-summon cooldown and a "fear" lockout | Hollow mask |
+| `NEW: PossessionAI` | Control hands over to an AI personality (feral input layer) until a mash-QTE rips the mask off | Inner-Hollow takeovers |
+| `NEW: ReviveTransform` | On KO, revive as a different form (with a cinematic) and later revert + heal | Full Hollow |
+| `NEW: BreakablePart` | Targetable body parts (horns) whose destruction cancels/implodes a charging attack or ends a form | Full Hollow, Half-Hollow |
+| `NEW: CatchProjectile` | Grab a projectile/beam/ultimate in flight → throw it back, crush it (detonates) or absorb it | Ichigo (many eras), Full Hollow |
+| `NEW: SteerableProjectile` | Player steers a projectile for a short window | Black Getsuga |
+| `NEW: ProjectileFusion` | Two projectiles in flight merge into a new, larger one with its own properties | Getsuga Jūjishō, Cero Creciente |
+| `NEW: SegmentedProjectile` | Projectile power/durability = segment count, decaying with consecutive shots | Fullbring manji blasts |
+| `NEW: CloneSpawnOnStep` + `NEW: DelayedHit` | Afterimages solidify into AI clones from footsteps; hits resolve seconds after the animation; clones can be re-absorbed into a charged attack | Blood Chains |
+| `NEW: SkyEvent` / `NEW: PersistentSkyObject` | Global sky/lighting overrides (sky blackout, blood-moon eclipse, lunar eclipse) and a temporary giant object hanging in the sky that lights the scene | Mugetsu, Blood Chains, True Bankai |
+| `NEW: ResourceLinkedCosmetics` / `NEW: LayeredOutfitDestruction` | Outfit voxels tatter as a resource drops; outer clothing layers can be blown off to reveal the next outfit | Bankai coat, Ōken garb |
+| `NEW: ShellBreakWeapon` / `NEW: WeaponBreakState` | Weapons can be broken (moveset shrinks); one weapon sheds an outer shell to reveal an unbreakable inner weapon | True Bankai, Bankai v1/v3 |
+| `NEW: Depower` | Ultimate permanently drops the character to a weaker form for the rest of the match | Mugetsu |
+| `NEW: ConditionalTransform` | A transformation that unlocks only after a meter fed by specific damage types (Quincy reiatsu) | Half-Hollow |
+| `NEW: HigherDimensionStealth` | Lower-tier enemies can't sense/lock on to the user | Post-Dangai Ichigo |
+| `NEW: IllusionImmunity` | Immunity to complete-hypnosis effects | Ichigo vs Kyōka Suigetsu |
+| `NEW: AdaptiveDefense` | Parry/dodge odds rise against moves an opponent repeats | Ichigo (pattern reading) |
+| `NEW: RageAura` | Emotion-driven aura recolor + lightning, stat swing | Bankai v3 |
+| `NEW: PocketDimensionBreak` | Release bursts shatter enclosing dimension constructs | Bankai v3 vs Yukio |
+| `NEW: ReactiveArmorProc` | One-time auto-shield on a lethal/heavy hit | Mask shielding, Isshin's charm |
+| `NEW: LimbSever` | Limbs can be cut/torn off, become throwable objects, regenerate on some characters | Full Hollow, lizard Hollow |
+| `NEW: HPCostAbility` | Abilities paid for in HP/blood | Isshin's blood-flame, Gran Rey Cero |
+| `NEW: FlowLockField` | Anchored field that freezes moving environment (currents, hazards) while channeled | Isshin's Kaikyō Kotei |
+| `NEW: GestureInput` | A move gated behind a short gesture/charades input sequence with a failure penalty | Kon's Raizer Beam |
+| `NEW: SizeShift` | Runtime model swap/scale with a remote-triggered revert | Muscle Kon |
+| `NEW: InnerWorldInstance` | Instanced arena with rotated gravity (sideways skyscrapers) and mood-driven weather; parallel inner/outer fights | Jinzen, Visored training, Dangai |
+| `NEW: FootprintDecals` | Persistent per-step decals (black flame, water, green Bringer Light flicker) | Blood Chains, Fullbring |
+| `NEW: BloodPuppet` / `NEW: PowerSteal` | Enemy effects that hijack a limb through shared blood, or strip a form/power outright | Yhwach vs Ichigo, Ginjō's Fullbring theft |
+| `NEW: ScreenSpacePressure` | Crushing-pressure corridor effect (camera, movement slow, vision distortion) | Irazu Sandō [anime-only] |
+
+## 7. Open questions / could not confirm
+
+- **Isshin's Bankai** — never revealed (name, look, ability); also unknown whether he ever learned Saigo no Getsuga Tenshō.
+- **Full Hollow Cero color** — red/crimson in the anime footage I sampled; the wiki calls it violet like White's. Pick one per art direction (palette gives both).
+- **Half-Hollow details** — exact Hollow-hole position (wiki: the face/neck marks "reach into" it) and whether the anime (ep.410) lengthens his hair (the frame is dominated by a black flowing mass that may be the mantle).
+- **Blood Chains skin color** — every reference frame is lit blood-red; "deep red" per the wiki, hex is an estimate.
+- **True Bankai outfit** — no coat or outfit change is described; handle wrap color unconfirmed.
+- **Ōken garb colors** — taken from the official digital-color manga; the TYBW anime appears lighter/whiter (verify).
+- **Old-man Zangetsu, Tensa Zangetsu and Merged Zangetsu hexes** — the inner-world anime shots are desaturated; values are estimates. The two wiki pages also disagree on the merged form's sword colors.
+- **Adult Ichigo's weapon/outfit** in *No Breaths From Hell* not confirmed (Brave Souls' adult version wields the original Zangetsu revealed in the final fight).
+- **Hell Verse "Skull-Clad" form** — movie-only; appearance not researched in detail.
+- **Kon's Quincy-cross stitching color** and the Karakura-Raizer helmet details (sampled from one anime frame).
+- **Exact first-sword proportions** — the wiki only says "oversized"; 1.65 m is an estimate from screenshots.
