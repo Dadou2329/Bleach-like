@@ -331,7 +331,7 @@ Notes specific to this file:
 
 - **Wiki:** https://bleach.fandom.com/wiki/Aaroniero_Arruruerie · Metastacia, Spirit_Body_Fusion, Zanpakutō_Destruction · battle: *Rukia Kuchiki vs. Aaroniero Arruruerie* · Kaien Shiba (A3 dump) for Nejibana
 - **Roster tier:** **B** — boss built around a disguise gimmick (fight "Kaien" in the dark, expose him to light by breaking the walls); playable as a shapeshifter whose library grows by eating Hollows.
-- **Canon power:** **6/10** — overpowered Rukia with Kaien's skill and Nejibana and tore apart a Bakudō #61 by hand, but a Shikai lieutenant killed him with one stab through his glass head.
+- **Canon power:** **6/10** — overpowered Rukia with Kaien's skill and Nejibana and tore apart a Bakudō #61 by hand, but Rukia (then an unseated officer with only Shikai) killed him with one stab through his glass head.
 - **Body:** 205 cm → **66 vox**; 91 kg. Tall, upright, aristocratic, body fully hidden by long garments. His **head is a large upright glass cylinder** full of red liquid with **two small Hollow heads** floating inside: the top one ¾ masked (deep voice), the bottom one ½ masked (high, childlike voice); both tattooed **"9"**. In daylight and among the Espada he covers it with a **tall white mask pierced by eight holes**. Hole in the **left thigh** (hidden). The left hand is Glotonería, hidden under a single white glove.
   - Capsule ≈40 cm tall × 25 cm wide (estimate) → 13 × 8 vox; heads ≈8–10 cm → ~3 vox — consider a 64 vox/m sub-model for the capsule interior.
   - Glotonería mass ≈8–10 m wide × 4–6 m tall (estimate) → build at 16 vox/m.

@@ -303,6 +303,7 @@ Conventions used below
 - **Kit proposal:**
   - Shift: Onmitsukidō Shunpo (surprisingly long for his bulk); double-tap with lock-on = appear **standing on the target's shoulders** (free head strike / short ride) `[NEW: MountEnemy]`.
   - **Sealed:** LMB heavy slashes + body checks; forward = belly charge, back = uppercut slash (launcher), air = slash, down-air = butt-drop ground pound, sprint = shoulder charge. Hold LMB: two-hand overhead chop.
+  - **Sealed-form slots:** only Z / X / G / C (and Tab items) — Q, E, R, F, V need the flail; in every canon fight he releases almost immediately, so T is meant to be pressed early.
   - **Shikai** (T *"Buttsubuse, Gegetsuburi!"*): LMB wide flail arcs (wind-up; 3rd hit craters), chain whip at mid range; hold LMB: overhead smash.
     - **Q `Throw`** — tap straight / hold lob; reels back in (hits on the return).
     - **E `Spin Guard`** — spinning ball deflects projectiles; can walk while spinning (debris tornado).
@@ -397,7 +398,7 @@ Conventions used below
     - **G `Together`** — if Kyōraku is on the team (or as a timed assist), he emerges from her shadow: fear-freeze immune, Reflect window widened. Without him she has a chance to freeze for 1 s after taking a big hit.
     - **V `Eight-Mirror Return`** — perfect reflection of the next attack of *any* size back at its caster; only a narrow strip behind her is protected (everything else in the blast still gets erased — canon Trompete scene).
 - **AI notes:** Support controller: stays behind her captain, heals, walls off projectile lanes, binds rushers. Tells: adjusts her glasses before a big cast; glasses come off when enraged (fear aura). Shinken boss/ally: baits the enemy's biggest attack and reflects it; freezes in fear on her first serious wound unless Kyōraku is present.
-- **Callouts:** "Hakudan Keppeki." · (anime) "Bakudō no yon — Hainawa!" · (anime) "Hadō no yon — Byakurai!" · "Shinken Hakkyōken." · "Kyōraku-taichō!" · "Taigai ni shite kudasai!" ("Please be moderate!" — her catchphrase / column title)
+- **Callouts:** "Hakudan Keppeki." · (anime) "Bakudō no yon — Hainawa!" · (anime) "Hadō no yon — Byakurai!" · "Shinken Hakkyōken." · "Kyōraku-taichō!" · "Taigai ni shite kudasai!" ("Please be moderate!" — the title of her Seireitei Communication column; use as a scolding line)
 
 ---
 
@@ -406,7 +407,7 @@ Conventions used below
 - **Wiki:** https://bleach.fandom.com/wiki/Nemu_Kurotsuchi · /Anime_Continuity · Hachigō Nemuri · Mayuri Kurotsuchi · battles: *Mayuri Kurotsuchi & Nemu Kurotsuchi vs. Pernida Parnkgjas*; *Mayuri Kurotsuchi vs. Szayelaporro Granz*; *Rukia Kuchiki vs. Reigai-Rukia Kuchiki & Reigai-Nemu Kurotsuchi* (anime)
 - **Race:** Enhanced Artificial Soul — seventh body of Mayuri's **Nemuri Project** (souls grown from Konpaku cells), built with Gigai + Gikon (artificial soul) technology; shares Mayuri's blood.
 - **Roster tier:** **B** — a body-horror bruiser/bodyguard with a timed overdrive and a soul-sacrifice cannon; pairs with Mayuri.
-- **Canon power:** **4/10 base, 6/10 at 0.8%** — tests and pins Uryū, catches a Heilig Pfeil in flight; at the threshold she smashed clean through Pernida's palm and her Gikon Jūrinjū punched a hole through a Pernida clone and several buildings behind it.
+- **Canon power:** **4/10 base, 6/10 at 0.8%** — catches a Heilig Pfeil in flight, digs out a hidden lab barehanded (anime: easily pins Uryū in a test); at the threshold she smashed clean through Pernida's palm and her Gikon Jūrinjū punched a hole through a Pernida clone and several buildings behind it.
 - **Body:** 167 cm → **53 vox**; 52 kg. Slender and curvy, very still, blank melancholic face. Silhouette keys: **long black braid** (to the hips, **verify** length) with slightly parted bangs, **short black kimono ending mid-thigh** over a white under-kimono, **puffed upper sleeves** (narrower than standard Shinigami sleeves), **wide white obi with a red cord**, **white hand-backs/gloves**, **dark-red choker**, white tabi with **strappy low-heeled black sandals**.
 - **Palette (hex estimates):**
   - Skin pale `#F3E0D6` · hair black `#15151C` (cool sheen `#2B3045`, **verify**) · eyes green `#3FA36B` (at 0.8%: **white** `#F5F7FA`)
@@ -530,7 +531,7 @@ Conventions used below
   6. **Disappearance:** Kenpachi steps on her empty uniform; later Nozarashi wears her face to give him Bankai.
 - **Kit proposal:**
   - Shift: kid scamper (very fast, can wall-hop between rooftops); double-tap with lock-on = hop onto the target's head/shoulder and perch (*canon gag on Ichigo*) `[NEW: MountEnemy]`.
-  - **Sealed:** LMB flurry of tiny punches + scabbard bonks (game precedent: sheathed-sword fighting style); forward = headbutt dive, back = scabbard uppercut, air = spinning kicks, down-air = scabbard pogo, sprint = rolling tackle. Hold LMB: wheel-scabbard spin.
+  - **Sealed:** LMB flurry of tiny punches + scabbard bonks (game precedent: sheathed-sword fighting style); forward = headbutt dive, back = scabbard uppercut, air = spinning kicks, down-air = scabbard pogo, sprint = rolling tackle. Hold LMB: wheel-scabbard spin. Slots R / F / Z / X / G / C work sealed; Q, E and V need the beasts.
   - **Shikai** (T: no chant — she draws; Lumpy and Boney pop in with a little dance):
     - LMB: every swing = three hits (**Lumpy −0.15 s → Yachiru → Boney +0.15 s**); enemies must dodge three timings.
     - Hold LMB: **Fissure Strike** (concentrated triple strike; long ground split).
@@ -568,7 +569,7 @@ Conventions used below
   3. **Akeiro Hisagomaru** — command "Mitase" (満たせ, Fulfill): triggers **automatically when the gauge is full**.
 - **Abilities (complete):**
   - `Kaidō` — highly proficient: Renji from near death to running to Sōkyoku Hill; Ichigo overnight in the sewers (then Ganju, until he passed out drooling); TYBW triage for the 11th Division. Anime: also healed by giving his own reiatsu (later "too weak for that"). [Heal/Reject]
-  - `Hisagomaru — healing blade` — a cut **heals instead of hurting**; red smoke rises from the wound and flows into the blade, filling the gauge in proportion to the injury (small cuts barely register; Hollowfication-style Encroachment fills it instantly). [Heal/Reject] `[NEW: DamageInversionWeapon + StoredDamageGauge]`
+  - `Hisagomaru — healing blade` — a cut **heals instead of hurting**; red smoke rises from the wound and flows into the blade, filling the gauge in proportion to the injury (small cuts barely register; per the wiki, an "Encroachment"-grade injury fills it instantly). [Heal/Reject] `[NEW: DamageInversionWeapon + StoredDamageGauge]`
   - `Akeiro Hisagomaru` — at full gauge it auto-releases into the scalpel. *Anime continuity* fills in the payoff: every wound it absorbed is concentrated into **one slash that fires a red, Cero-like stream** (near-fatal to a Gillian); after that it can cut normally (awkward in scalpel form). [Beam, Slice]
   - `Shinten` — green anaesthetic from his pack: one drop knocks out anyone with weak reiatsu (he dropped a guard with it; the wiki notes it was strong enough for Yumichika). [Status(sleep)]
   - `Skull pill` — 4th Division stamina supplement; **his** is a flour placebo his seniors swapped as a prank (he thinks it works). [joke buff]
@@ -682,6 +683,7 @@ Conventions used below
   - Shift: Shunpo; double-tap with lock-on = appear behind and grab collar (yakuza headbutt opener).
   - **Sealed:** LMB tantō stabs + brawling (punch-punch-stab-kick); forward = shoulder charge stab, back = knee launcher, air = elbow drop, sprint = flying kick. Hold LMB: **Building Splitter** — one huge horizontal cut that slices a structure in two despite the tiny blade.
   - **Shikai** (T: command unknown → a growl as the blade extends): LMB heavy falchion chops; forward = hooking lunge using the spike (pulls the target in — *extrapolation from the shape*); hold LMB: Building Splitter with Shikai reach.
+  - Slots Q–X below are shared by both forms (Shikai only adds reach and the hook).
   - **Q `Kidō`** (unnamed in canon → Raikōhō from Brave Souls / generic Hadō from the Tab wheel).
   - **E `Hakuda Combo`** — 5-hit fist/knee string.
   - **R `Anchor Rods`** — plant rods that lock an area (blocks enemy teleport/terrain swaps inside — *extrapolation* of the FKT rods).
@@ -692,7 +694,7 @@ Conventions used below
   - **C:** smoky-orange flare. **V `Kenka Cleaver`** (*extrapolation*) — Shikai super-slash that splits a building and everyone in front of it.
   - **Tab:** generic Kidō (Raikōhō, Shakkahō, Sai, Hainawa — *extrapolation*) + gadgets (rods, sake bottle: duel-rival buff vs Ikkaku).
 - **AI notes:** Sensible brawler: protects his captain, closes distance fast, pulls wounded allies out, retreats when a fight is clearly lost (then comes back). Rival mode vs Ikkaku: grins, drops guard, fights to the end. Tells: pushes his sunglasses up before a Building Splitter; flicks the cigarette away when he gets serious.
-- **Callouts:** "Bukkomi Dogeza!" · "Komamura-taichō!" · "Otoko no michi ja!" (*extrapolated line*, Hiroshima-dialect flavour — mark as non-canon)
+- **Callouts:** "Bukkomi Dogeza!" · "Komamura-taichō!" · (no Shikai command exists in canon — give him a wordless release grunt)
 
 ---
 

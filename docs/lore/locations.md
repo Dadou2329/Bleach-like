@@ -213,4 +213,354 @@ Guidelines:
 
 ---
 
+## 6. Human World
+
+### 6.1 Karakura Town (空座町) — `karakura`
+
+**Canon.** Ichigo's hometown: an ordinary small city in western Tokyo (one anime scene places it near Yokohama),
+average population, mostly unaware of spirits. The Shinigami file it as **District 3600**, under the 13th
+Division, normally with one stationed Shinigami. It is the current **Jūreichi** — the spot in the Human World
+with the densest concentration of spiritual beings — which is why Aizen wanted it: forging an Ōken needs
+100,000 souls and a Jūreichi of one spiritual *ri* radius. Urahara's shop, the Visored hideout and Isshin's
+clinic all sit here; Naruki City (Xcution HQ) borders it to the west, Kagamino City is ~20 km east.
+
+Official map landmarks (Character Book *SOULs*, no coordinates given): Kurosaki Clinic · Tatsuki's home ·
+Furin Hall karate dojo · Inoue family home · Matsukura Hospital (abandoned) · Urahara Shop · Karakura High ·
+**Onose River** · Sunflower Sewing · Karakura General Hospital · Mizuiro's & the Asanos' homes · **Karakura
+shopping street (shōtengai)** · old **Karakura Honchō station** · **Karasu River** · Sado's home · Hirohyaku
+Supermarket · Orihime's apartment · **Tsubakidai Park** · Uryū's home · **Karakura Community ("Fureai") Park** ·
+Mashiba Middle School · **Yumisawa Children's Park** · remains of the Sukari Building.
+
+**Story stages** (time of day in brackets)
+| Arc | Stage | Where |
+|---|---|---|
+| Agent of the Shinigami | Rukia & Ichigo vs **Fishbone D** — Ichigo becomes a Shinigami (night) | Kurosaki Clinic → street |
+| | Ichigo vs **Acidwire** (Sora) (night) | Orihime's apartment & nearby |
+| | Ichigo vs **Shrieker** — first Gates of Hell (night) | streets |
+| | Ichigo vs **Grand Fisher** on Masaki's death anniversary (rain) | hillside cemetery |
+| | Ichigo & Uryū vs Hollow swarm from Hollow bait → **Menos Grande** through a sky crack (day → dusk) | whole town, Menos over a park — `Hollow Horde` mode |
+| | Ichigo vs **Byakuya**, Uryū vs **Renji** — Rukia's arrest (rainy night) | residential street |
+| Arrancar | Chad, Orihime, Ichigo, then Urahara & Yoruichi vs **Yammy & Ulquiorra** (day) | the park they crash into (crater) |
+| | Grimmjow's raid (night): Ichigo vs **Grimmjow**, Rukia vs Di Roy, Hitsugaya vs Shawlong, Rangiku vs Nakeem, Ikkaku vs Edrad, Renji vs Yylfordt (near the Urahara Shop) | streets, rooftops, sky |
+| | **Grimmjow rematch** (Hollow mask), Luppi vs Hitsugaya/Rangiku/Ikkaku/Yumichika, Urahara vs Yammy (day) | Garganta over the park, sky |
+| | Visored training: Ichigo vs Hiyori, vs his inner Hollow | Visored warehouse & its underground chamber |
+| | Uryū vs **Ryūken** (power restoration) | hospital silver chamber |
+| Fullbring | Ichigo vs Ginjō / Tsukishima / Xcution members | Naruki City HQ, Tsukishima's mansion (out of scope here) |
+| TYBW | Ichigo vs **Asguiaro Ebern** (first Quincy) | Karakura streets |
+| Hell (2021 one-shot) | Renji & Ichigo vs **Szayelaporro**, the Jailer of Hell | Human World, 14 years after his death |
+
+**Must-haves.** Concrete utility poles with sagging wire bundles on every street · narrow lanes lined by
+1.2–1.6 m block walls · tiled-roof houses mixed with boxy modern ones · vending-machine clusters glowing at
+night · convex traffic mirrors at blind corners · a wide river with grassy levees, a girder road bridge and a
+footbridge · a park with a playground · a hillside cemetery · a covered shopping arcade · an elevated railway with
+a station · a few 6–12-storey "mansions" · Kurosaki Clinic, Urahara Shop, Karakura High.
+
+**Scale.** Canon: if a spiritual ri equals a traditional ri (3.93 km — speculative), the transferable town disc
+is ~7.9 km across. **Game:** 320 × 320 m district (0.25 m) + low-res skyline/hill ring to ~1.5 km; or a
+128 × 128 m "clinic block" arena at 0.125 m. Heights: houses 7–9 m to ridge; apāto 6–7 m; mansions 18–36 m;
+school 15 m; hospital ~30 m; rail viaduct deck 8 m; poles 11–12 m.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Asphalt / lane paint | `#55585E` | `#474A4F` `#6A6D72` · white `#EDEDED`, yellow `#E2B93B` |
+| Block walls / kerbs | `#B4B0A6` | `#9C988E` `#CBC7BE` |
+| House walls (mix) | cream `#EFE8D8`, beige `#E3D5B8`, grey `#D7DBDF`, white `#F4F1EA` | darker 8–12 % |
+| Roofs | kawara `#454E5C`, brown `#5B3F33`, charcoal `#2E3440`, metal `#7C8A99` | ±8 % |
+| Timber / doors | `#7A5A3E` | `#5E4632` `#946F4E` |
+| Glass | `#A9CBE0` | `#8DB4CF` |
+| Grass / trees | `#78A24A` / `#4E7D3A` | `#628A3A` / `#3E6B2F` `#6E9B4B`; cherry `#F3C1D0` |
+| River water | `#4E86A8` | shallows `#6FA3B8`, foam `#E8F1F5` |
+| Utility poles / wires | `#8E8C86` / `#1E1E1E` | — |
+| Vending machines | red `#D93A3A`, blue `#2F6DB5`, white `#F2F2F2` | lit panels emissive |
+
+**Light / sky / weather presets**
+| Preset | Sun / key | Sky gradient (zenith → horizon) | Extras |
+|---|---|---|---|
+| `afternoon` | sun 35°, `#FFE6C2` | `#6FA8DC` → `#CFE5F5` | fog `#CFDCE6` from 150 m |
+| `dusk` (the Bleach orange) | sun 6–10°, `#FF9A55` | `#2E3F70` → `#E9845E` → `#FFD09A` | long shadows, 20 % windows lit `#FFD9A3` |
+| `night` | moon `#C8D4FF` (low) | `#0E1428` → `#253055` | LED street lamps `#F2F6FF`, sodium `#FFC27A`, vending machines, 40 % windows lit `#FFE6B0` |
+| `rain_night` | none (overcast `#2A3140`) | flat | rain streaks, surfaces ×0.7 darker & glossy, puddles, distant thunder |
+| `festival` | night | night | paper lanterns `#FF6B3D`/`#FFD27A` along the Onose, fireworks (canon summer fireworks spot) |
+
+**Generator** (`maps/karakura/generator.ts`)
+1. **Layout**
+   - *River:* the **Onose** as a spline across the map: water 25–35 m wide, flood terraces 8–12 m each side
+     (lawn, a few trees), levee crest path 4 m at +1.5 m; optional **Karasu** as a 10–15 m concrete canal.
+   - *Railway:* gentle curve (R ≥ 400 m) on an 8 m viaduct along one edge; **Karakura Honchō** station
+     (120 × 18 m, two side platforms); General Hospital beside it (canon).
+   - *Roads:* two arterials 14 m (2 × 3.5 m lanes, 1.5 m shoulders, 2 m sidewalks) forming a skewed cross, one
+     crossing the river; collectors 8 m in a perturbed grid (blocks 60–100 × 40–70 m, ±8° jitter, some curving
+     with the river); residential lanes 4–5 m (no sidewalk, white edge line, painted 止まれ at junctions);
+     2–3 m alleys and dead ends.
+   - *Zoning:* within 120 m of the station → mid-rise + shops + shōtengai (150–200 m covered street); arterial
+     frontage → 2–4-storey shop-houses; interiors → houses (70 %), apāto (20 %), corner shops (10 %);
+     institutional blocks: school 180 × 140 m, hospital 120 × 90 m; parks: Fureai 100 × 80 m (lawn, trees,
+     pond), Tsubakidai 50 × 40 m, Yumisawa playground 25 × 25 m; cemetery terraces 60 × 40 m on the hill.
+   - *Landmark constraints:* Clinic on a corner lot along a collector, 250–450 m from the school; Urahara Shop
+     at the edge next to a vacant patch; Visored warehouse in an industrial/vacant lot; Orihime's apāto in
+     the residential band; hospital at the station.
+2. **Terrain** — flat base sloping 1–2 % to the river; one 20–30 m hill in a corner (cemetery + small shrine
+   with a vermilion torii `#C8352B` and stone stairs); strata: paving 0.25 m → soil 1–2 m → gravel → bedrock
+   at −6 m (bottom 1 m indestructible).
+3. **Structures** (lot grammar: recursive OBB split, frontage 8–12 m, depth 12–18 m, 0.5–1 m setbacks)
+
+   | Type | Footprint (m) | Height | Share | Notes | vx @0.25 |
+   |---|---|---|---|---|---|
+   | Detached house | 7–10 × 6–9 | 2F, 7–8.5 m ridge | 55 % | kawara gable/hip 60 %, metal 25 %, flat 15 %; genkan canopy; balcony; block wall + gate | 12–18 k |
+   | Apāto | 16–20 × 6–7 | 2F, 6.5 m | 15 % | external steel stair + open corridor, laundry balconies | 18–26 k |
+   | Mansion | 25–40 × 10–14 | 6–12F × 3.0 m | 8 % | RC frame (columns 6 m grid), continuous balconies, rooftop tank | 150–300 k |
+   | Shop-house | 5–7 × 10–14 | 2–3F | 12 % | roll-up shutter, signboard, awning, AC units | 10–20 k |
+   | Convenience store / supermarket | 15 × 12 / 40 × 30 | 1F, 4.5 m | 2–4 | glass front, generic (non-brand) sign band | 15 k / 60 k |
+   | Covered arcade | 6–8 m street × 150–200 m | roof 8–9 m | 1 | polycarbonate on steel arches, hanging banners | ~120 k |
+   | Warehouse | 40 × 25 | 9–11 m | 2–4 | corrugated steel, roll doors | ~40 k |
+4. **Props** — utility poles Ø0.35 × 11–12 m every 30–40 m (alternating sides; crossarms 1.8 m; transformer
+   cans; 3–6 rope-physics wires + house drops) · street lamps every 25–35 m · vending machines 1.0 × 0.8 × 1.85
+   m in clusters of 2–4 · traffic mirrors Ø0.8 on 2.5 m posts at lane junctions · horizontal 3-lamp traffic
+   lights on arterials · parked kei cars 3.4 × 1.5 × 1.6, sedans 4.6 × 1.7 × 1.45, vans · bicycles · red
+   mailboxes · garbage nets · benches · playground (slide, swings, jungle gym, sandbox) · street trees 8–14 m
+   every 10 m on arterials · laundry poles, AC units, satellite dishes, potted plants (facade grammar) ·
+   family graves 0.7 × 0.7 × 1.3 m on the hill.
+5. **Set pieces** — Kurosaki Clinic (§6.2), Urahara Shop (§6.3), Karakura High (§6.4), river & bridges, parks,
+   cemetery, station + hospital, shōtengai (§6.5), Visored warehouse (§6.6).
+6. **Weathering** — grime gradient `#8C8170` on the bottom 0.5 m of walls, rust streaks under steel, moss on
+   north-facing block walls, asphalt cracks/patches, seasonal leaves or cherry petals, puddles in `rain_night`.
+7. **Bake** — spawns, nav grid, one light probe per block; skyline backdrop ring (static low-poly boxes 6–40 m)
+   and distant hills.
+
+**Spawns.** Versus: `clinic_front`, `shop_yard`, `school_roof`, `bridge_mid`, `park_lawn`, `cemetery_top`,
+`arcade_mid`, `station_platform`. Horde: Garganta tears 60–120 m up over parks and the river; Menos rift 80 m
+wide (est.) above the Fureai park.
+
+**Destruction & collapse.** Houses = wooden-house archetype (fire spreads house to house except in rain);
+mansions/school/hospital = RC archetype (diagonal slide-off cuts); bridge = girder archetype with river
+splash; poles snap and whip wires; cars and bikes are physics props; river water runs the region-limited
+water CA (Hitsugaya freezes it, Harribel floods the lanes). Giants (Menos, Yammy) carve as they walk.
+
+**Performance.** 320 m district @0.25: 40 × 40 columns × L≈2.5 → ~4k dense chunks ≈ 125 MB. Block arena
+128 m @0.125: 32 × 32 × L≈3.5 → ~3.6k ≈ 115 MB. Interiors only for set pieces + 20 % of houses.
+
+**Gameplay hooks.** Pluses (chains of fate) to Konsō; Hollow bait horde (Uryū's contest); a Shinigami leaves
+the Gigai/body lying on the street (a prop that can be knocked around — `design`); captains/lieutenants arrive
+with the **limiter** (power sealed to 20 %) and can trigger *Gentei Kaijo* (limit release) as a story event;
+Yumichika once asks the SRDI for a **spatial freeze** around a fight — usable as a "no civilian casualties"
+toggle (`design` interpretation); the Jūreichi makes Hollow spawns denser here.
+
+**Sources.** wiki/Karakura_Town · Template:KarakuraTown (map key) · Human_World · Arrancar_Invasion ·
+Ichigo_Kurosaki_vs_Grimmjow_Jaegerjaquez (+Rematch) · Grand_Fisher · Trials_of_the_Shattered_Shaft (Onose River
+fireworks).
+
+### 6.2 Kurosaki Clinic (クロサキ医院) — set piece
+**Canon.** Isshin's private clinic and the family home (Isshin, Ichigo, Karin, Yuzu, Kon; Rukia lodges in
+Ichigo's closet during missions; later Orihime and Kazui). Isshin handles everything but major surgery; the
+twins help as nurses. Sora Inoue died here. Fishbone D smashed into the house in chapter 1 (the family later
+believes a truck crashed into it); part of the Acidwire fight happened here.
+
+**Build (est.).** Corner lot 18 × 14 m · building 14 × 10 m, 2 floors × 3.0 m + 2 m roof · ground floor front:
+**clinic** (waiting room benches, reception window, exam room with curtained bed, 2–3-bed ward, medicine
+shelves), back: kitchen–dining–living with Isshin's **giant poster of Masaki** on the wall · upstairs:
+**Ichigo's room** (bed, desk, **sliding-door closet/oshiire** where Rukia sleeps, the street-facing window used
+as an entry), the twins' room, Isshin's room · clinic signboard on the façade · small parking bay · block wall.
+
+**Palette (est.).** walls `#EFE9DD` → `#DCD3C2`; frames `#8E9196`; roof `#4D5560`; sign plate `#F7F7F2` with
+`#2A2A2A` lettering; doors `#6B4E37`; tatami `#C9C08A`.
+
+**Hooks.** Story opener: start inside Ichigo's room at night → Fishbone D breaches the wall → fight spills into
+the street. Post-stage "truck crash" cover story card. The poster is an indestructible easter egg (`design`).
+
+### 6.3 Urahara Shop (浦原商店) — set piece
+**Canon.** Looks like a normal shop, but stocks Shinigami supplies; Urahara's base with Tessai, Jinta and Ururu;
+Renji lodges here on Human World missions; a small van is sometimes parked outside. Renji vs Yylfordt happened
+nearby. Underneath lies the giant training room (§6.7) with a Senkaimon and the Garganta posts.
+
+**Build (est.).** Lot 26 × 22 m on the town edge · single-storey timber shop 12 × 9 m, eaves 3.2 m, tiled gable
+roof ridge ~6.5 m · big signboard 浦原商店 across the front · four glass-and-wood sliding doors · inside: low
+shelves of dagashi, a raised tatami step where Urahara sits with his fan, back tea room, kitchen, storerooms ·
+**floor hatch → 1.5 × 1.5 m shaft with a very long ladder** down to the Study Chamber · packed-earth yard
+15 × 12 m (Jinta's bat, Ururu's broom) · the van · low fence.
+
+**Palette (est.).** timber `#5E4632` → `#76593F`; boards `#8A6A4A`; roof `#3C4048`; signboard `#E7DBBF` with
+`#151515` characters; yard `#B59B76`.
+
+**Hooks.** Hub/shop interior; the hatch is the map transition to `urahara_study`.
+
+### 6.4 Karakura High School (空座一校) — set piece
+**Canon.** In the Gakuenchō area, surrounded by trees; buildings of 1–4 storeys with open areas; the
+**railed rooftop is the lunch spot**; sports pitches, a **six-lane running track** and a gym; strong karate
+club. Uniform: grey blazer, grey trousers/skirt, white shirt, red bow tie (girls), beige sleeveless jumper. An
+absurd number of mid-semester transfers land in Ichigo's class.
+
+**Build (est.).** Campus 180 × 140 m · main block 4F, 65 × 16 × 16 m (classrooms on the sunny side, corridor on
+the other, stair towers at both ends, shoe-locker entrance) · annex 3F 50 × 14 m joined by a covered 2F bridge ·
+gym 40 × 25 m, arched roof to 12 m · 6-lane track band (7.3 m) around a ~110 × 60 m dirt field with goals ·
+rooftop: 1.5 m railing/fence, stair house, water tank · perimeter trees, 2 m fence and gate plate · classroom
+8 × 9 m, 30–36 desks, blackboard, windows on two-thirds of the outer wall.
+
+**Palette (est.).** walls `#EDEAE2` → `#D6D2C8`; frames `#7F8C8D`; glass `#9CC3D9`; roof slab `#BDBAB2`; railing
+`#6D8C6A`; track `#B4553E`; field `#C8A97B`; gym roof `#5E7D95`; desks `#C9A36B` + legs `#8A9099`.
+
+**Hooks.** Rooftop spawn; glass-heavy RC building = great shatter showcase; desks/chairs as throwables.
+
+### 6.5 River, bridges, parks, cemetery, arcade, station — set pieces
+- **Onose River.** Wide, grassy levees; the summer fireworks spot; Orihime chased red dragonflies along its bank.
+  Masaki died beside a swollen river while Grand Fisher's lure waited on the bank (canon does not name that
+  river — use the Onose, `design`). Main road bridge: 3 spans × ~35 m (est.), 12 m deck, steel girders on
+  concrete piers; steel-truss footbridge 2.5 m wide; concrete low-water revetments; stepping blocks optional.
+- **Parks.** Fureai (big lawn, trees, pond, public toilet), Tsubakidai (neighbourhood park), Yumisawa
+  Children's Park (Hexapodus attacked a Plus there). Pick Fureai as **"the park"** where Yammy and Ulquiorra
+  crash down and where the later Garganta opens (`design` choice; canon only says "the park").
+- **Cemetery.** Terraced hillside with family graves, stone stairs, a small temple; Masaki's grave → Grand
+  Fisher stage in the rain.
+- **Shōtengai & station.** Covered arcade with banners and shutters; elevated Honchō station; the 8-storey
+  General Hospital beside it (Ryūken is director).
+
+### 6.6 Small Human World arenas
+- **Visored warehouse** — an empty lot in a deserted area; corrugated warehouse ~40 × 25 × 10 m (est.); hidden
+  by Hachigo's **Hachigyō Sōgai** barrier (passers-by and animals avoid it; Reiatsu doesn't leak; Orihime walked
+  through it). Inside: the Visored's hangout clutter (the "Super Trainer" exercise machine gag) and a hatch to
+  an underground **study chamber** like Urahara's. Stages: Ichigo vs Shinji (warehouse), Ichigo vs Hiyori,
+  inner-Hollow fight.
+- **Karakura General Hospital silver chamber** — Ryūken's secret basement training room built from
+  *soul-synthesised silver* and *soul-synthesised glass*: multi-level, upper-level windows look onto grass,
+  a handle-less door at the bottom; strong but pockmarked by arrows. Material `reika_silver` (`#C9CED6` →
+  `#A7AEB8`, H 140, T 0.3). Stage: Uryū vs Ryūken.
+
+### 6.7 Urahara's underground training ground (勉強部屋, "Study Chamber") — `urahara_study`
+**Canon.** A huge chamber under the shop, built by Urahara with Soul Society tech "in a day and a night" as a
+copy of the secret playground he and Yoruichi dug under Sōkyoku Hill. Ceiling and walls are **painted like a
+cloudy sky**; the floor is **desolate brown, craggy land dotted with dead trees** and rock spires. Lessons:
+Ururu's sparring, the **Shattered Shaft** (a deep pit Ururu digs, filled with gas that speeds up Encroachment),
+Urahara's Benihime duel where Ichigo's first Getsuga carves a chasm. The Senkaimon to Soul Society is raised here
+(four tag-wrapped pillars slide together), and later the Garganta to Hueco Mundo (two wooden posts on rock
+formations). Chad trains with Renji here. When Hollowfied Ichigo bursts out of the Shaft, something skids
+along the painted ceiling.
+
+**Story stages.** Ichigo vs Ururu (lesson 1) · Shattered Shaft survival (lesson 2: climb out before
+Encroachment completes; Tessai's Bakudō binding & falling cube) · **Ichigo vs Urahara** (lesson 3, first
+Getsuga) · Senkaimon departure · Chad vs Renji sparring · Mod-Soul trio stage (anime-only) · Training Ground mode.
+
+**Must-haves.** Painted sky ceiling with clouds · brown crags, rock spires, dead trees · the ladder from the
+ceiling · the Shattered Shaft · Senkaimon frame · Garganta posts.
+
+**Scale.** Canon: vast (horizon looks far). Game: **128 × 48 × 128 m @0.125** (arena) or 256 × 64 × 256 m
+@0.25 (large). Ceiling 40–55 m.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Painted sky (ceiling/walls) | `#9ECBEC` | clouds `#F5F8FB`, haze toward walls `#CFE3F2` |
+| Ground dust | `#B48C60` | `#9C7650` `#C9A57A` `#7E5F41` |
+| Rock spires | `#A1805F` | `#8A6B4E` `#6E543D` `#B99872` |
+| Dead trees | `#6B5B4D` | `#4E4237` |
+| Pebbles | `#CDB592` | — |
+| Senkaimon pillars / tags | `#4A4038` / `#F2EAD3` with `#B3261E` script | — |
+| Shaft gas | `#9FA98A` (α 0.4) | — |
+
+**Light.** No sun: bright, even top-light (hemisphere sky `#DCEEFF`, ground `#8A6A4A`), soft shadows under rocks,
+light haze; the painted sky is emissive at low intensity.
+
+**Generator**
+1. **Layout** — square floor; 3–5 flat dueling clearings (Ø 25–40 m) kept free by Poisson masks; 8–20 rock
+   formations (Poisson disc, min 25 m apart).
+2. **Terrain** — fBm heightfield ±2–6 m + ridged noise for crags; strata `rock_brown` under 0.5 m of dust;
+   bedrock at −8 m. Ceiling = rounded box or spherical cap at 40–55 m, curved walls meeting the floor;
+   the inner skin is a **1-voxel `painted_sky` layer over 3–4 voxels of rock** (breaking it reveals dark rock).
+3. **Structures** — rock spires (stacked noisy cylinders/mesas, 10–35 m tall, bases 6–20 m, overhangs);
+   dead trees 4–9 m (L-system, 2–3 kinks, no leaves); entrance ledge + ladder dropping from a 1.5 m hatch
+   in the ceiling.
+4. **Props** — training dummies (straw/Hollow targets), Tessai's tools, rocks 0.5–3 m.
+5. **Set pieces** — **Shattered Shaft** (Ø 6–8 m, 30–40 m deep est., green-grey gas volume = Encroachment
+   field); **Senkaimon frame** (four 2 × 2 × 14 m tagged pillars that slide into a ~10 × 12 m gate, est.);
+   **Keikaigi posts** (two 1 m × 12 m timber posts on rock outcrops); **Bakudō cube** (Tessai's giant metal block).
+6. **Weathering** — none (it's a set); scatter scuffs.
+7. **Bake** — Training Ground hooks: dummy spawner ring, frame-data overlay, **"rebuild" = restoration replay**.
+
+**Spawns.** `ladder_foot`, `clearing_1..n` (opponents 30–50 m apart), `shaft_rim`, `senkaimon`.
+
+**Destruction.** Soft-ish rock (H 45) so craters and Getsuga chasms read clearly; spires topple as big
+fragments; the ceiling is breakable (revealing rock), the bedrock skin is not.
+
+**Performance.** 128 m @0.125: 32 × 32 × L≈3.2 (floor + ceiling + spires) → ~3.3k chunks ≈ 105 MB.
+
+**Variants (same generator).** `sokyoku_study` (§7.4: hot spring, cliff cave entrance, ladder) and the Visored
+warehouse chamber (§6.6).
+
+**Sources.** wiki/Study_Chamber · Trials_of_the_Shattered_Shaft · Garganta (Keikaigi) · Urahara_Shop.
+
+### 6.8 Fake Karakura Town (偽空座町) — `fake_karakura`
+**Canon.** To let the Gotei 13 fight Aizen at full power, Urahara and the SRDI built **an exact replica of
+Karakura on the Rukongai outskirts** and swapped it with the real town (people included) using **Tenkai Kecchū**
+— four huge pillars set at the corners of a one-*Reiri*-radius area, which wrap the area in a giant Senkaimon and
+exchange it with an equal space. Aizen arrives to find an empty facsimile; Baraggan learns that **four pillars
+at the town's corners** keep the real town in Soul Society and sends Findorr's giant Hollows, then four Fracción,
+against them. If a pillar falls, the real town starts returning in a spreading zone (**Tensō Kaiki**), which can
+be halted with **stakes driven into the ground** — fragile ones that careless fighting can break. Chōjirō
+opens and closes the barrier around the battlefield. After Aizen's defeat Mayuri swaps the towns back.
+
+**Story stages**
+| Stage | Matchup |
+|---|---|
+| Arrival | Yamamoto traps Aizen, Gin and Tōsen in **Jōkaku Enjō** (a sphere of fire in the sky) |
+| Pillar defence ×4 | Yumichika vs **Charlotte Chuhlhourne** · Kira vs **Abirama Redder** · Hisagi vs **Findorr Calius** · Ikkaku vs **Choe Neng Poww** (pillar destroyed) → Komamura (Bankai) vs Poww, Iba plants the stakes |
+| Sky battles | Suì-Fēng vs Ggio Vega · Ōmaeda vs Nirgge Parduoc · Suì-Fēng, Ōmaeda (+Hachigen) vs **Baraggan** · Hitsugaya (+Lisa, Hiyori) vs **Harribel** · Shunsui & Ukitake (+Love, Rose) vs **Starrk & Lilynette** · Rangiku & Momo vs **Tres Bestias** → **Ayon** (incinerated by Yamamoto) · Komamura & Hisagi vs **Tōsen** · Mashiro & Kensei vs **Wonderweiss** · Yamamoto vs Wonderweiss + **Fura** |
+| Finale | Gotei 13 & Visored vs **Aizen** · Ichigo vs **Gin** (rooftops; Kamishini no Yari slices buildings) · Isshin, Urahara & Yoruichi vs Aizen · Ichigo's first Aizen attempt |
+
+**Must-haves.** Identical Karakura layout (same seed) · **no people** · the four pillars · the barrier
+boundary · Jōkaku Enjō fire sphere in the sky · the battle mostly happening **in the air** above rooftops.
+
+**Tenkai Kecchū pillar (look not described in the wiki — reconstruct from anime ep. 215–216; values `est.`).**
+Tall dark square-section obelisk, base 4 × 4 m tapering to 3 × 3 m, **30–40 m** tall, banded with paper-tag
+strips and a vertical Kidō seam that glows; sits on a 10 × 10 m stone footing. Material `pillar_kecchu`
+(`#3C3F46` → `#2B2E33`, tags `#F2EAD3`, glow `#9FE3FF`), H 600, T 0.6.
+
+**Scale.** Canon: whole town (km). Game: 320 × 112 × 320 m @0.25, pillars at the four corners of a 260 m
+square (inside bounds), sky ceiling 112 m for aerial combat.
+
+**Palette / light.** Karakura palette; `afternoon` preset with towering cumulus `#FFFFFF`/`#DDE3EA`; optional
+`late_afternoon` for the Aizen finale. Fire VFX: Ryūjin Jakka `#FF6A1A` → core `#FFE08A`.
+
+**Generator.** Run `karakura` with `replica = true`: civilians off, interiors empty (`design`), shop signs
+blank-ish (SRDI copy, `design`), then:
+- place 4 pillars on open ground (park lawn, levee lawn, empty lot, a rooftop if no lot fits) — each with a
+  guard spawn and a 30 m clearing;
+- barrier: translucent wall at the bounds (`#CDE9FF`, α 0.12, hex ripple on contact);
+- Jōkaku Enjō: emissive fire sphere Ø 60–80 m (est.) at 80 m above the centre (story only).
+
+**Tensō Kaiki mechanic.** Pillar HP → 0: a dome grows from the pillar at ~10 m/s up to ~120 m (est.). Chunks
+inside are **swapped** for the "real town" variant (same layout + furnished interiors + civilians + lit windows);
+damage inside it counts as collateral (score penalty / story fail). An ally (Iba) can drive **4 stakes**
+(1.5 m, H 30 — fragile) to freeze the boundary; stray hits can break a stake and resume the spread.
+
+**Signature destruction moments.** Gin's Bankai cutting straight through blocks (map-wide `cut`); Baraggan's
+**Respira** rotting buildings to dust (`rot`); Starrk's Cero Metralleta carpet; Harribel's water flooding streets;
+Hitsugaya's ice over whole rooftops; Komamura's Bankai giant stomping blocks flat; Yamamoto's flames.
+
+**Spawns.** `gotei_line` (hovering 40–80 m over the centre), `espada_garganta` (opposite edge, 60 m up),
+`pillar_1..4`, `rooftop_*`.
+
+**Performance.** ~3.6k dense chunks ≈ 115 MB (empty interiors save ~15 %); the "real" swap variant streams
+in per affected chunk.
+
+**Sources.** wiki/Senkaimon (Tenkai Kecchū section) · The_Armies_Assemble:_Battle_at_Fake_Karakura_Town ·
+The_Gotei_13_&_The_Visored_vs._Sousuke_Aizen · Ichigo_Kurosaki_vs._Gin_Ichimaru · Tetsuzaemon_Iba ·
+Karakura_Town/Image_Gallery captions.
+
+### 6.9 The real Karakura on the Rukongai outskirts — `karakura_ss`
+**Canon.** While swapped, the real Karakura sits at the edge of the Rukongai. Aizen and Gin reach it through
+the Dangai but land "a little way off" because Aizen destroyed the Kōtotsu. Tatsuki, Keigo, Mizuiro, Chizuru
+and Don Kanonji wake up there; Gin turns on Aizen; Ichigo arrives from the Dangai and drags Aizen away from
+the town; their fight **cuts a mountain in half**, blasts a huge crater, and ends with **Mugetsu** plunging the
+land into darkness.
+
+**Generator.** A disc of `karakura` (Ø 240 m, `design`) set into Rukongai outskirts terrain (§7.7): visible
+**seam ring** where town ground meets meadow (raw earth edge `#7A5B3E`), rolling hills, scattered
+farmhouses, a rocky mountain range 100–200 m high at 300–400 m from the town (cliffs `rock_mesa`).
+Set piece: the **mountain-cut** (a pre-authored mountain with a guaranteed clean planar slice when an attack of
+Aizen/Ichigo-tier power passes through). **Mugetsu event:** sky and light ramp to near-black (`#05050A`,
+fog density ×6) for ~6 s, then a single black crescent slash.
+
+**Light.** Late afternoon `#FFD8A8` → dusk; Rukongai sky `#86C1EC`.
+
+**Performance.** 384 m @0.25: ~4.5k dense chunks ≈ 145 MB (mountains as uniform interiors).
+
 <!-- LOCATIONS_BODY -->
