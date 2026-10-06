@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.vite/
+*.log
+.DS_Store
+/shots/
+/test-results/
+/playwright-report/
+/wiki_out/
+__pycache__/
