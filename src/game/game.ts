@@ -252,7 +252,10 @@ export class Game {
     t.hp -= dmg;
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
-    this.hud?.damageNumber(t.center(), dmg, o.heavy ? '#ffe066' : '#ffffff');
+    if (this.hud) {
+      const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
+      this.hud.damageNumber(t.center(), dmg, toPlayer ? '#ff6b6b' : o.heavy ? '#ffe066' : '#ffffff', byPlayer);
+    }
     const knock = (o.knock ?? 3) * (1 - armor) * (t.def.boss ? 0.02 : 1);
     t.push.x += dir.x * knock;
     t.push.z += dir.z * knock;

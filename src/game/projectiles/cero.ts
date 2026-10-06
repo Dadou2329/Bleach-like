@@ -23,10 +23,12 @@ export interface CeroOpts {
   track: number;
   /** Gran Rey Cero: spinning rings that compress and decompress along the beam */
   spiral?: boolean;
+  /** colour gain (default 2.2): lower keeps saturated colours from blooming to white */
+  gain?: number;
 }
 
 const BEAM_FRAG = /* glsl */ `
-uniform float uTime; uniform float uA; uniform vec3 uCore; uniform vec3 uBody; uniform vec3 uRim;
+uniform float uTime; uniform float uA; uniform float uGain; uniform vec3 uCore; uniform vec3 uBody; uniform vec3 uRim;
 varying vec2 vUv; varying vec3 vN; varying vec3 vW;
 float h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float n2(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
@@ -37,9 +39,9 @@ void main() {
   float n = n2(vec2(vUv.x * 10.0, vUv.y * 60.0 - uTime * 40.0)) * 0.6 + n2(vec2(vUv.x * 23.0, vUv.y * 140.0 - uTime * 70.0)) * 0.4;
   float core = pow(f, 3.0);
   vec3 col = mix(uRim, uBody, smoothstep(0.1, 0.6, f + n * 0.2));
-  col = mix(col, uCore * 2.5, core);
+  col = mix(col, uCore * (1.0 + uGain * 0.7), core);
   float a = uA * (0.25 + f * 0.9) * (0.75 + n * 0.5);
-  gl_FragColor = vec4(col * 2.2, a);
+  gl_FragColor = vec4(col * uGain, a);
 }`;
 
 export class CeroBeam implements Projectile {
@@ -67,8 +69,9 @@ export class CeroBeam implements Projectile {
   constructor(private g: Game, private owner: Fighter, private emitter: THREE.Object3D, private target: () => THREE.Vector3, readonly o: CeroOpts) {
     this.core = new THREE.Color(o.core);
     this.body = new THREE.Color(o.body);
-    this.sphU = { uTime: { value: 0 }, uA: { value: 1 }, uCore: { value: this.core.clone() }, uBody: { value: this.body.clone() }, uRim: { value: new THREE.Color(o.rim) } };
-    this.beamU = { uTime: { value: 0 }, uA: { value: 0 }, uCore: { value: this.core.clone() }, uBody: { value: this.body.clone() }, uRim: { value: new THREE.Color(o.rim) } };
+    const gain = o.gain ?? 2.2;
+    this.sphU = { uTime: { value: 0 }, uA: { value: 1 }, uGain: { value: gain }, uCore: { value: this.core.clone() }, uBody: { value: this.body.clone() }, uRim: { value: new THREE.Color(o.rim) } };
+    this.beamU = { uTime: { value: 0 }, uA: { value: 0 }, uGain: { value: gain }, uCore: { value: this.core.clone() }, uBody: { value: this.body.clone() }, uRim: { value: new THREE.Color(o.rim) } };
     const vert = `varying vec2 vUv; varying vec3 vN; varying vec3 vW; void main() { vUv = uv; vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * viewMatrix * w; }`;
     const mk = (u: Record<string, THREE.IUniform>) => new THREE.ShaderMaterial({ uniforms: u, vertexShader: vert, fragmentShader: BEAM_FRAG, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
     this.sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 3), mk(this.sphU));

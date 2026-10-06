@@ -19,7 +19,7 @@ import type { AuraStyle } from '../../vfx/aura';
 
 export const AURA_GRIMMJOW: AuraStyle = { core: '#E6FAFF', body: '#5CC8FF', rim: '#2A7FD0' };
 export const AURA_PANTERA: AuraStyle = { core: '#F2FDFF', body: '#86E2FF', rim: '#1F6F9A' };
-const TALON = { core: '#F4FEFF', body: '#A8F0FF', rim: '#44C8FF' };
+const TALON = { core: '#E6FCFF', body: '#5FD8FF', rim: '#1E7FC8' };
 
 export const GRIMMJOW_DEF: FighterDef = {
   id: 'grimmjow',
@@ -246,7 +246,7 @@ class CeroAction extends SkillAction {
         if (n !== 'charge' || this.beam) return;
         const emitter = f.visual.rig.sockets.get('palm.R')!;
         const tgt = () => (f.faceTarget ? f.faceTarget.clone() : f === g.player ? g.aimPoint(f) : f.center().addScaledVector(f.forward(), 40));
-        this.beam = new CeroBeam(g, f, emitter, tgt, { charge: 0.3, fire: 0.45, radius: 0.42, damage: 70, power: 280, core: '#FFD2D6', body: '#E31B2E', rim: '#8C0C18', range: 80, track: 1.6 });
+        this.beam = new CeroBeam(g, f, emitter, tgt, { charge: 0.3, fire: 0.45, radius: 0.42, damage: 70, power: 280, core: '#FFC2C8', body: '#E31B2E', rim: '#8C0C18', range: 80, track: 1.6, gain: 1.5 });
         g.addProjectile(this.beam);
         g.sfx.play('charge', f.center(), 0.6);
       },
@@ -286,7 +286,7 @@ class GranReyAction extends SkillAction {
           setHands(f, 'palm', 'L');
           const emitter = f.visual.rig.sockets.get('palm.L')!;
           const tgt = () => (f.faceTarget ? f.faceTarget.clone() : f === g.player ? g.aimPoint(f) : f.center().addScaledVector(f.forward(), 60));
-          g.addProjectile(new CeroBeam(g, f, emitter, tgt, { charge: 0.45, fire: 1.0, radius: 1.5, damage: 230, power: 760, core: '#DDEBFF', body: '#2C6BFF', rim: '#2A1E5C', range: 150, track: 0.6, spiral: true }));
+          g.addProjectile(new CeroBeam(g, f, emitter, tgt, { charge: 0.45, fire: 1.0, radius: 1.5, damage: 230, power: 760, core: '#BFD6FF', body: '#2C6BFF', rim: '#3A2A8C', range: 150, track: 0.6, spiral: true, gain: 1.15 }));
           g.callout('王虚の閃光', 'GRAN REY CERO', '#7fa8ff');
           g.sfx.play('charge', f.center(), 1);
           f.aura.flare(1.8, 0.8);
@@ -537,7 +537,7 @@ class DesgarronAction extends SkillAction {
     const base = f.center().addScaledVector(dir, 1.4);
     for (let i = -2; i <= 2; i++) {
       const o = base.clone().addScaledVector(across, i * 0.75);
-      g.addProjectile(new GetsugaProjectile(g, f, o, dir.clone(), blade.clone(), { radius: 7, halfAngle: 0.36, speed: 58, range: 110, damage: 70, cut: 820, colors: TALON }));
+      g.addProjectile(new GetsugaProjectile(g, f, o, dir.clone(), blade.clone(), { radius: 7, halfAngle: 0.36, speed: 58, range: 110, damage: 70, cut: 820, colors: TALON, band: 0.9 }));
     }
     g.sfx.play('getsuga', f.center(), 1.3);
     g.shake(0.6);

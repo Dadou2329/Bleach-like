@@ -21,8 +21,8 @@ export interface AbilityInfo {
 const CSS = `
 #hud { position: absolute; inset: 0; pointer-events: none; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; color: #f3f1ec; user-select: none; overflow: hidden; }
 #hud .plate { position: absolute; left: 22px; top: 18px; width: min(420px, 60vw); }
-#hud .name { font-family: 'Dela Gothic One', sans-serif; font-size: 22px; letter-spacing: 1px; text-shadow: 0 2px 0 #000, 0 0 12px rgba(0,0,0,.6); }
-#hud .form { font-size: 12px; opacity: .85; margin-left: 10px; letter-spacing: 2px; text-transform: uppercase; }
+#hud .name { display: block; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; letter-spacing: 1px; white-space: nowrap; text-shadow: 0 2px 0 #000, 0 0 12px rgba(0,0,0,.6); }
+#hud .form { display: block; font-size: 11px; opacity: .85; margin-top: 1px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 1px 0 #000; }
 #hud .bar { position: relative; height: 12px; margin-top: 6px; background: rgba(10,10,14,.65); border: 1px solid rgba(255,255,255,.25); transform: skewX(-18deg); overflow: hidden; }
 #hud .bar > i { position: absolute; inset: 0; transform-origin: left; transition: transform .08s linear; }
 #hud .bar > b { position: absolute; inset: 0; transform-origin: left; background: rgba(255,255,255,.55); transition: transform .5s ease .25s; }
@@ -60,11 +60,9 @@ const CSS = `
 @media (max-width: 640px) { #hud .ab { width: 48px; height: 48px; } #hud .ab .j { font-size: 16px; } #hud .help { display: none; } }
 `;
 
-const HELP = `WASD  move        Mouse  look        Space  jump / air-step (hold: stand on reishi)
-Shift  Shunpo (hold: flash-run)       Ctrl/C  descend
-LMB  Zangetsu combo    RMB  heavy chop    Q  Getsuga Tenshō
-F  Bankai              G  Hollow mask     V  reiatsu flare
-Tab / MMB  lock-on     H  hide this panel`;
+const MOVE_HELP = `WASD  move     Mouse  look     Tab / MMB  lock-on
+Space  jump · air-step (hold: stand on reishi)
+Shift  flash step (hold: flash-run)     Ctrl / C  descend`;
 
 export class Hud {
   readonly root: HTMLDivElement;
@@ -86,6 +84,7 @@ export class Hud {
   private dmg: { el: HTMLElement; p: THREE.Vector3; t: number; vx: number }[] = [];
   private ebars = new Map<number, HTMLElement>();
   private abilities: AbilityInfo[] = [];
+  private helpSig = '';
   abilityProvider: (() => AbilityInfo[]) | null = null;
   form = 'Shikai';
   /** live form label (the player's kit) */
@@ -126,7 +125,7 @@ export class Hud {
     this.calloutEl = q('.callout');
     this.lock = q('.lock');
     this.help = q('.help');
-    this.help.textContent = HELP;
+    this.help.textContent = MOVE_HELP;
     this.combo = q('.combo');
     this.banner = q('.banner');
     this.boss = q('.boss');
@@ -151,7 +150,7 @@ export class Hud {
     setTimeout(() => (this.banner.style.opacity = '0'), seconds * 1000);
   }
 
-  damageNumber(p: THREE.Vector3, amount: number, color: string): void {
+  damageNumber(p: THREE.Vector3, amount: number, color: string, combo = true): void {
     const el = document.createElement('div');
     el.className = 'dmg';
     el.textContent = String(Math.round(amount));
@@ -160,6 +159,7 @@ export class Hud {
     this.root.appendChild(el);
     this.dmg.push({ el, p: p.clone(), t: 0, vx: (Math.random() - 0.5) * 0.8 });
     if (this.dmg.length > 40) this.dmg.shift()!.el.remove();
+    if (!combo) return;
     this.comboN++;
     this.comboT = 2.2;
   }
@@ -188,6 +188,13 @@ export class Hud {
     // abilities
     if (this.abilityProvider) {
       const list = this.abilityProvider();
+      const sig = list.map((a) => a.key + a.name.replace(/ \d+s$/, '')).join('|');
+      if (sig !== this.helpSig) {
+        this.helpSig = sig;
+        const lines: string[] = [];
+        for (let i = 0; i < list.length; i += 3) lines.push(list.slice(i, i + 3).map((a) => `${a.key}  ${a.name.replace(/ \d+s$/, '')}`).join('     '));
+        this.help.textContent = `${MOVE_HELP}\n${lines.join('\n')}\nH  hide this panel`;
+      }
       if (list.length !== this.abilities.length) {
         this.abil.innerHTML = list.map(() => `<div class="ab"><span class="k"></span><span class="j"></span><span class="n"></span><div class="cd"></div><div class="tm"></div></div>`).join('');
       }

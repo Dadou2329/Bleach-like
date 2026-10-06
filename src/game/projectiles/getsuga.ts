@@ -17,6 +17,8 @@ export interface GetsugaOpts {
   cut: number;
   colors: EnergyColors;
   dark?: boolean;
+  /** radial width of the band behind the leading edge (default radius × 0.42): small = a thin talon */
+  band?: number;
 }
 
 const _p = new THREE.Vector3();
@@ -42,7 +44,7 @@ export class GetsugaProjectile implements Projectile {
     // make side orthogonal to dir
     this.side.addScaledVector(this.dir, -this.side.dot(this.dir)).normalize();
     this.normal = new THREE.Vector3().crossVectors(this.dir, this.side).normalize();
-    const geo = crescentGeometry(o.radius, o.halfAngle, 0.35, o.radius * 0.42, 0.42);
+    const geo = crescentGeometry(o.radius, o.halfAngle, 0.35, o.band ?? o.radius * 0.42, 0.42);
     if (o.dark) {
       const dm = crescentMaterial(o.colors, true);
       const dmesh = new THREE.Mesh(geo, dm);

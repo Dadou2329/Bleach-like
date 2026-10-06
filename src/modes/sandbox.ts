@@ -1,6 +1,7 @@
 // Playable sandbox: any roster character in a destructible map, against Hollow waves (with a Menos
 // Grande every third wave) or in a duel against another roster character piloted by the duel AI.
-// URL: ?char=<id> picks the fighter, ?vs=<id> starts a duel, ?map=arena, ?hollows=0, ?autostart.
+// URL: ?char=<id> picks the fighter, ?vs=<id> starts a duel, ?map=arena, ?hollows=0, ?autostart,
+// ?watch (the player's fighter is AI-driven too: spectator QA).
 // Exposes window.__reishi for scripted tests (ready, stats, act, tap, cam, spawn, duel, freeze…).
 import * as THREE from 'three';
 import { Engine } from '../engine';
@@ -53,7 +54,11 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     kit = entry.kit(player, game);
     hud.abilityProvider = () => kit.abilities();
     hud.formProvider = () => kit.formName();
-    game.controllers.push(new PlayerController(game, player, kit));
+    if (params.has('watch')) {
+      // spectator QA: the player's fighter fights on its own
+      game.player = player;
+      game.controllers.push(new DuelistAI(game, player, kit, { aggression: 0.7, intro: 0.5 }));
+    } else game.controllers.push(new PlayerController(game, player, kit));
     game.cam.yaw = yaw + Math.PI;
     idle(() => entry.warm?.());
   };
