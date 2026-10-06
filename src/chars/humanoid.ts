@@ -3,7 +3,7 @@
 // waraji). Character files supply a spec + palette and add their signature pieces (hair, weapons,
 // straps, masks). All coordinates are voxels; the model faces +Z and +X is the character's left.
 import { ModelBuilder } from '../models/builder';
-import { aabb, blend, box, capsule, cylinder, ellipsoid, halfSpace, intersect, prism, sphere, subtract, tube, type Sdf, type V3 } from '../models/sdf';
+import { aabb, blend, box, capsule, cylinder, ellipsoid, halfSpace, intersect, prism, scale, sphere, spike, subtract, tube, type Sdf, type V3 } from '../models/sdf';
 import type { SpringDef, ColliderDef } from '../anim/springs';
 
 export interface HumanoidSpec {
@@ -106,15 +106,14 @@ export function head(b: ModelBuilder, L: Landmarks, skin: string): { front: numb
   const front = Math.round(L.headC[2] + s.head.d / 2);
   const back = front - s.head.d;
   // cranium: rounded box from the cheekbones up
-  const cran = box([0, chin + 3 + (s.head.h - 3) / 2, (front + back) / 2], [hw, (s.head.h - 3) / 2, s.head.d / 2], { round: 2.2 });
+  const cran = box([0, chin + 4 + (s.head.h - 4) / 2, (front + back) / 2], [hw, (s.head.h - 4) / 2, s.head.d / 2], { round: 2.2 });
   // back of the skull fuller, rounder
   const occiput = ellipsoid([0, chin + s.head.h * 0.62, back + 4], [hw + 0.3, s.head.h * 0.42, 4.5]);
-  // jaw: narrower box tapering to the chin, flat front
+  // jaw: rows 0-3 taper 4 → 6 → 8 → 9 wide (anime V-shape), flat front
   const jaw = intersect(
-    box([0, chin + 2.5, (front + back) / 2 + 1.5], [hw - 1, 2.5, s.head.d / 2 - 1.5], { round: 1 }),
-    // taper planes (chin rows 4, 6, 8 wide)
-    halfSpace([hw - 1, chin + 3, 0], [1, -0.85, 0]),
-    halfSpace([-hw + 1, chin + 3, 0], [-1, -0.85, 0]),
+    box([0, chin + 2.5, (front + back) / 2 + 1.2], [hw - 0.4, 2.5, s.head.d / 2 - 1.2], { round: 1 }),
+    halfSpace([2, chin + 0.5, 0], [1, -1, 0]),
+    halfSpace([-2, chin + 0.5, 0], [-1, -1, 0]),
   );
   b.add('head', blend(1.2, cran, occiput, jaw), skin);
   // keep the face plate flat: shave anything in front of the plate
@@ -218,45 +217,60 @@ export interface ShihakushoOpts {
 export function kosodeTorso(b: ModelBuilder, L: Landmarks, o: ShihakushoOpts): Sdf {
   const s = L.spec;
   const [cx, cz] = s.chest, [wx, wz] = s.waist;
-  const t = 1.2; // cloth thickness
-  const chest = box([0, s.chestY, -0.3], [cx + t, 6.2, cz + t], { round: 3.2 });
+  const t = 1.1; // cloth thickness
+  const [sx, sy, sz] = s.shoulder;
+  // rib cage: wider at the top, tapering toward the waist; flat-ish front
+  const chest = box([0, s.chestY - 0.5, -0.3], [cx + t, 6, cz + t], { round: 3.4 });
   const waist = box([0, s.waistY, -0.2], [wx + t, 4.5, wz + t], { round: 3 });
-  const shoulders = capsule([-s.shoulder[0] + 1.5, s.shoulder[1] - 1, -0.5], [s.shoulder[0] - 1.5, s.shoulder[1] - 1, -0.5], 3.8);
-  // shoulder balls (joint sockets the upper arm rotates in)
-  const balls = [sphere([s.shoulder[0], s.shoulder[1] - 0.5, s.shoulder[2]], 3.9), sphere([-s.shoulder[0], s.shoulder[1] - 0.5, s.shoulder[2]], 3.9)];
-  const torso = blend(3.5, chest, waist, shoulders, ...balls);
+  // trapezius slopes from the neck down to the shoulder tips
+  const trapL = capsule([2.5, sy + 1.6, sz - 0.8], [sx - 1.5, sy - 0.2, sz], 2.9, 3);
+  const trapR = capsule([-2.5, sy + 1.6, sz - 0.8], [-sx + 1.5, sy - 0.2, sz], 2.9, 3);
+  // shoulder sockets: the parent owns the full joint ball
+  const balls = [sphere([sx, sy - 0.5, sz], 3.3), sphere([-sx, sy - 0.5, sz], 3.3)];
+  const torso = blend(3.2, chest, waist, trapL, trapR, ...balls);
   addBands(b, torso, o.black, [
     ['spine', 45, 56],
     ['chest', 54, 80],
   ]);
-  // folds: diagonal drape lines across the chest (1-voxel ridges in shade)
+  // big folds only (4 per side reads as cloth; 20 would be noise): drape from the shoulders to the
+  // obi and a horizontal pull under the chest
   for (const k of [-1, 1]) {
-    b.paint('chest', capsule([k * 7, s.chestY + 4, 6.5], [k * 2, s.chestY - 5, 6.5], 0.7), o.black, { shade: 2 });
+    b.paint('chest', capsule([k * 6.5, s.chestY + 3.5, cz + t + 0.4], [k * 3, s.chestY - 5.5, cz + t + 0.4], 0.75), o.black, { shade: 3 });
+    b.paint('chest', capsule([k * (cx + t + 0.3), s.chestY + 2, -1], [k * (cx + t - 0.6), s.chestY - 5, 1.5], 0.7), o.black, { shade: 3 });
   }
-  b.paint('spine', capsule([-6, s.waistY + 4, 5.8], [-1, s.waistY - 1, 5.8], 0.6), o.black, { shade: 2 });
+  b.paint('spine', capsule([-6, s.waistY + 3.5, wz + t + 0.6], [-1.5, s.waistY - 1.5, wz + t + 0.6], 0.65), o.black, { shade: 3 });
+  b.paint('spine', capsule([5.5, s.waistY + 3, wz + t + 0.6], [2, s.waistY - 1.2, wz + t + 0.6], 0.6), o.black, { shade: 3 });
+  // back seam
+  b.paint('chest', capsule([0, sy, -cz - t - 0.4], [0, s.chestY - 6, -cz - t - 0.4], 0.6), o.black, { shade: 3 });
 
   // ---- V neckline: skin triangle with the white juban collar along both edges (left over right)
   const cy = o.crossY ?? s.chestY - 1;
   const top = s.chinY - 2.5;
   const vtri = prism(
-    [[-3.3, top + 0.5], [3.3, top + 0.5], [0, cy + 2]],
+    [[-3.1, top + 0.5], [3.1, top + 0.5], [0, cy + 2]],
     [0, 0, 0], [1, 0, 0], [0, 1, 0], 20,
   );
-  b.paint('chest', intersect(vtri, halfSpace([0, 0, 3], [0, 0, -1])), o.skin, { where: b.isMat(o.black) }); // front only
-  b.carve('chest', intersect(vtri, halfSpace([0, 0, 4.6], [0, 0, -1]))); // the opening sits 1 voxel deeper
+  b.paint('chest', intersect(vtri, halfSpace([0, 0, 2.5], [0, 0, -1])), o.skin, { where: b.isMat(o.black) }); // front only
   // collar bands: left panel edge runs from the left neck side down to the right waist (the long
   // stroke of the "y"), the right panel's edge only down to the crossing.
-  const zf = (y: number) => 5.6 + Math.max(0, (top - y) * 0.06);
-  const left: V3[] = [[2.6, top + 2.2, -3.5], [3.4, top + 1, 1.5], [2.2, top - 3, zf(top - 3)], [0, cy, zf(cy)], [-3.2, cy - 5, zf(cy - 5) + 0.3], [-5.6, s.waistY - 2, 6.1]];
-  const right: V3[] = [[-2.6, top + 2.2, -3.5], [-3.4, top + 1, 1.5], [-2.2, top - 3, zf(top - 3)], [-0.3, cy + 0.3, zf(cy)]];
-  b.add('chest', tube(right, right.map(() => 1.15)), o.collar, { thr: 0.15 });
-  b.add('chest', tube(left.slice(0, 5), left.slice(0, 5).map(() => 1.2)), o.collar, { thr: 0.15 });
-  b.add('spine', tube(left.slice(3), left.slice(3).map(() => 1.2)), o.collar, { thr: 0.15 });
+  // collar points ride on the cloth surface (scan the torso SDF from the front)
+  const zf = (x: number, y: number) => {
+    for (let z = 14; z > -14; z -= 0.1) if (torso.d(x, y, z) <= 0) return z + 0.15;
+    return 0;
+  };
+  const P = (x: number, y: number, dz = 0): V3 => [x, y, zf(x, y) + dz];
+  const left: V3[] = [[2.6, top + 2.2, -3.5], [3.4, top + 1, 1.5], P(2.3, top - 3), P(0, cy), P(-3.2, cy - 5), P(-5.6, s.waistY - 2)];
+  const right: V3[] = [[-2.6, top + 2.2, -3.5], [-3.4, top + 1, 1.5], P(-2.3, top - 3), P(-0.3, cy + 0.3)];
+  b.add('chest', tube(right, right.map(() => 1.1)), o.collar, { thr: 0.15 });
+  b.add('chest', tube(left.slice(0, 5), left.slice(0, 5).map(() => 1.15)), o.collar, { thr: 0.15 });
+  b.add('spine', tube(left.slice(3), left.slice(3).map(() => 1.15)), o.collar, { thr: 0.15 });
   // back of the collar around the neck
-  b.add('chest', capsule([-2.7, top + 2.2, -3.6], [2.7, top + 2.2, -3.6], 1.3), o.collar);
-  // the black outer collar band riding just outside the white one
-  const outerL: V3[] = left.map((p) => [p[0] + 1.4, p[1] - 0.6, p[2] - 0.3] as V3);
-  b.add('chest', tube(outerL.slice(1, 5), outerL.slice(1, 5).map(() => 0.9)), o.black, { only: 'empty', shade: 1 });
+  b.add('chest', capsule([-2.7, top + 2.2, -3.6], [2.7, top + 2.2, -3.6], 1.25), o.collar);
+  // the black outer collar band riding just outside the white one (kosode lapel)
+  const outerL: V3[] = left.map((p) => [p[0] + 1.5, p[1] - 0.5, p[2] - 0.2] as V3);
+  const outerR: V3[] = right.map((p) => [p[0] - 1.5, p[1] - 0.5, p[2] - 0.2] as V3);
+  b.add('chest', tube(outerL.slice(2, 5), outerL.slice(2, 5).map(() => 0.85)), o.black, { shade: 1 });
+  b.add('chest', tube(outerR.slice(2, 4), outerR.slice(2, 4).map(() => 0.85)), o.black, { shade: 1 });
   return torso;
 }
 
@@ -265,23 +279,27 @@ export function kosodeSleeves(b: ModelBuilder, L: Landmarks, o: ShihakushoOpts):
   const s = L.spec;
   const [sx, sy, sz] = s.shoulder;
   const ey = L.elbow[1], wy = L.wrist[1];
-  const upper = box([sx + 0.4, (sy + ey) / 2 - 0.5, sz - 0.6], [4.1, (sy - ey) / 2 + 1.5, 4.6], { round: 2.2 });
-  b.add('upperarm.L', upper, o.black, { mirror: true });
-  b.add('upperarm.L', sphere([sx, sy - 0.5, sz], 3.4), o.black, { mirror: true }); // joint ball (1 smaller than the socket)
-  // forearm sleeve tube: flares toward the wrist, open mouth
-  const fore = box([sx + 0.4, (ey + wy) / 2 + 0.3, sz - 0.4], [4.3, (ey - wy) / 2 + 0.8, 4.9], { round: 1.6 });
-  b.add('forearm.L', fore, o.black, { mirror: true });
-  b.add('forearm.L', sphere([sx, ey, sz], 3.6), o.black, { mirror: true });
-  // sleeve mouth: hollow so the opening reads (inside shade), arm/wrist visible inside
-  b.carve('forearm.L', box([sx + 0.4, wy + 1, sz - 0.4], [3.1, 2.2, 3.7], { round: 1 }), { mirror: true });
-  b.paint('forearm.L', box([sx + 0.4, wy + 3.2, sz - 0.4], [4.4, 0.6, 5]), o.black, { shade: 2, mirror: true });
+  // upper sleeve: narrow at the shoulder seam, widening down (cloth hangs from the shoulder)
+  b.add('upperarm.L', cylinder([sx + 0.6, ey - 1.5, sz - 0.4], [sx + 0.2, sy + 0.5, sz - 0.2], 4.2, 3.3, 1.4), o.black, { mirror: true });
+  b.add('upperarm.L', sphere([sx, sy - 0.5, sz], 2.9), o.black, { mirror: true }); // ball, 1 smaller than the socket
+  // forearm sleeve: wide tube, open mouth at the wrist
+  b.add('forearm.L', cylinder([sx + 0.8, wy + 0.2, sz - 0.6], [sx + 0.6, ey + 1.5, sz - 0.4], 4.6, 4.2, 1.2), o.black, { mirror: true });
+  b.add('forearm.L', sphere([sx + 0.4, ey, sz - 0.3], 3.7), o.black, { mirror: true });
+  // mouth: hollow so the opening reads (dark inside), wrist visible
+  b.carve('forearm.L', cylinder([sx + 0.8, wy - 1, sz - 0.6], [sx + 0.8, wy + 3.2, sz - 0.6], 3.3, 3.3), { mirror: true });
+  b.paint('forearm.L', cylinder([sx + 0.8, wy + 0.2, sz - 0.6], [sx + 0.8, wy + 1.4, sz - 0.6], 4.8), o.black, { shade: 1, mirror: true });
   // forearm (skin) inside the mouth so the hand connects
   b.add('forearm.L', capsule([sx, wy + 6, sz], [sx, wy - 0.5, sz], 1.9), o.skin, { mirror: true, only: 'empty' });
-  // the bag: hangs behind the forearm, lower than the wrist
-  const bag = o.bag ?? 4.5;
-  b.add('sleeve.L', box([sx + 0.6, (ey + wy) / 2 - 2.5, sz - 4.6 - bag / 2], [3.6, (ey - wy) / 2 + 1.5, bag / 2 + 1], { round: 1.8 }), o.black, { mirror: true });
-  // fold lines on the bag
-  for (const dy of [-3, 3]) b.paint('sleeve.L', box([sx + 4, (ey + wy) / 2 + dy, sz - 5], [0.6, 0.6, 3.5], { rot: [25, 0, 0] }), o.black, { shade: 2, mirror: true });
+  // elbow fold (zigzag hint)
+  b.paint('forearm.L', capsule([sx + 4.7, ey - 1, sz + 2], [sx + 4.9, ey - 4, sz - 2], 0.6), o.black, { shade: 3, mirror: true });
+  // the bag: hangs behind the forearm sleeve, lower than the wrist, rounded bottom
+  const bag = o.bag ?? 4.2;
+  const bz = sz - 4.6 - bag / 2;
+  b.add('sleeve.L', blend(1.5,
+    box([sx + 0.7, (ey + wy) / 2 - 1.2, bz], [3.3, (ey - wy) / 2 + 0.6, bag / 2 + 0.8], { round: 1.4 }),
+    ellipsoid([sx + 0.7, wy - 1.5, bz + 0.6], [3.2, 3.4, bag / 2 + 1.2])), o.black, { mirror: true });
+  // fold lines on the bag (pipe folds hanging from the elbow)
+  for (const dz of [-1.6, 1.4]) b.paint('sleeve.L', capsule([sx + 4.2, ey - 2, bz + dz], [sx + 4.1, wy - 2.5, bz + dz * 1.3], 0.55), o.black, { shade: 3, mirror: true });
 }
 
 /** White obi sash with a side knot. */
@@ -303,34 +321,36 @@ export function obi(b: ModelBuilder, L: Landmarks, o: ShihakushoOpts): void {
 export function hakama(b: ModelBuilder, L: Landmarks, o: ShihakushoOpts): void {
   const s = L.spec;
   const hem = o.hakamaHem ?? 2.5;
-  const R = o.hemR ?? 7.6;
+  const R = o.hemR ?? 8.6;
   const top = s.waistY - 3.5;
   // waist: wide box around the pelvis, front panel rises a little higher than the back
-  const waist = box([0, s.hipsY - 1, -0.4], [s.hips[0] + 2.2, top - s.hipsY + 1.5, s.hips[1] + 2.3], { round: 3 });
+  const waist = box([0, s.hipsY - 1, -0.4], [s.hips[0] + 2.2, top - s.hipsY + 1.5, s.hips[1] + 3], { round: 3 });
   b.add('hips', waist, o.black);
   b.add('hips', box([0, top + 0.5, 3.5], [s.waist[0] + 1, 1.2, 2.8], { round: 1 }), o.black);
   const [hx, hy] = s.hip;
   const kneeY = L.knee[1];
+  // hakama legs are deep as well as wide: elliptical sections (depth ×1.25)
+  const deep = (a: Sdf, cxz: V3) => scale(a, [1, 1, 1.25], cxz);
   // upper leg (thigh): flaring tube
-  b.add('thigh.L', cylinder([hx + 0.3, kneeY + 2, -0.4], [hx, hy + 2, -0.4], R - 1.2, s.hips[0] - 1.8, 1.5), o.black, { mirror: true });
+  b.add('thigh.L', deep(cylinder([hx + 0.3, kneeY + 2, -0.4], [hx, hy + 2, -0.4], R - 1.2, s.hips[0] - 1.8, 1.5), [hx, 0, -0.4]), o.black, { mirror: true });
   b.add('thigh.L', sphere([hx, hy, 0], 5.2), o.black, { mirror: true });
   // lower panel: from above the knee to the hem, flat bottom, hollow inside
   const lowTop = kneeY + 5.5;
   const panel = subtract(
-    cylinder([hx + 0.6, hem, -0.5], [hx + 0.4, lowTop, -0.5], R, R - 1.3, 1.2),
-    cylinder([hx + 0.6, hem - 1, -0.5], [hx + 0.4, hem + 7, -0.5], R - 2.2, R - 2.6),
+    deep(cylinder([hx + 0.6, hem, -0.5], [hx + 0.4, lowTop, -0.5], R, R - 1.3, 1.2), [hx, 0, -0.5]),
+    deep(cylinder([hx + 0.6, hem - 1, -0.5], [hx + 0.4, hem + 7, -0.5], R - 2.2, R - 2.6), [hx, 0, -0.5]),
   );
   b.add('hakama.L', panel, o.black, { mirror: true });
   // pleats: 1-voxel grooves converging upward (5 front, 2 back per side looks right at this size)
   for (const a of [-50, -20, 10, 40, 140, 200]) {
     const r = (a * Math.PI) / 180;
-    const p0: V3 = [hx + 0.6 + Math.sin(r) * R, hem + 1, -0.5 + Math.cos(r) * R];
-    const p1: V3 = [hx + 0.4 + Math.sin(r) * (R - 1.3), lowTop - 1, -0.5 + Math.cos(r) * (R - 1.3)];
-    b.paint('hakama.L', capsule(p0, p1, 0.75), o.black, { shade: 2, mirror: true });
-    b.paint('thigh.L', capsule([hx + Math.sin(r) * (R - 1.4), kneeY + 2, -0.4 + Math.cos(r) * (R - 1.4)], [hx + Math.sin(r) * (s.hips[0] - 2), hy + 2, -0.4 + Math.cos(r) * (s.hips[0] - 2)], 0.7), o.black, { shade: 2, mirror: true });
+    const p0: V3 = [hx + 0.6 + Math.sin(r) * R, hem + 1, -0.5 + Math.cos(r) * R * 1.25];
+    const p1: V3 = [hx + 0.4 + Math.sin(r) * (R - 1.3), lowTop - 1, -0.5 + Math.cos(r) * (R - 1.3) * 1.25];
+    b.paint('hakama.L', capsule(p0, p1, 0.75), o.black, { shade: 3, mirror: true });
+    b.paint('thigh.L', capsule([hx + Math.sin(r) * (R - 1.4), kneeY + 2, -0.4 + Math.cos(r) * (R - 1.4) * 1.25], [hx + Math.sin(r) * (s.hips[0] - 2), hy + 2, -0.4 + Math.cos(r) * (s.hips[0] - 2) * 1.25], 0.7), o.black, { shade: 3, mirror: true });
   }
   // inner hem shade
-  b.paint('hakama.L', cylinder([hx + 0.6, hem - 1, -0.5], [hx + 0.6, hem + 1.2, -0.5], R + 1), o.black, { shade: 1, mirror: true, where: b.isMat(o.black) });
+  b.paint('hakama.L', deep(cylinder([hx + 0.6, hem - 1, -0.5], [hx + 0.6, hem + 1.2, -0.5], R + 1), [hx, 0, -0.5]), o.black, { shade: 1, mirror: true, where: b.isMat(o.black) });
   // shins inside (black leggings), visible only through the hem
   b.add('shin.L', capsule([hx, kneeY + 1, 0], [hx, L.ankle[1] + 2, 0], 3, 2.5), o.black, { mirror: true });
 }
@@ -402,5 +422,93 @@ export function spikyHair(b: ModelBuilder, L: Landmarks, mat: string, clumps: Cl
       radii.push(c.r + ((c.tip ?? 0.55) - c.r) * Math.pow(t, 0.8));
     }
     b.add('head', tube(pts, radii), mat, { thr: 0.35 });
+  }
+}
+
+export interface Spike {
+  /** root direction from the cap centre: azimuth (0 = front, +90 = character's left), elevation (deg) */
+  az: number;
+  el: number;
+  /** protrusion beyond the cap surface (voxels) */
+  len: number;
+  /** base radius (wide axis) */
+  r: number;
+  /** narrow/wide cross-section ratio (flat blade-like clumps) */
+  flat?: number;
+  /** added to the radial direction (flow field) */
+  flow?: V3;
+  bend?: V3;
+  taper?: number;
+}
+
+export interface Bang {
+  /** x of the lock on the forehead, tip height (voxels), sideways lean */
+  x: number;
+  tipY: number;
+  lean?: number;
+  r?: number;
+}
+
+/** Distance along unit ray (p, d) to the ellipsoid surface (c, R) from inside. */
+function rayEllipsoid(p: V3, d: V3, c: V3, R: V3): number {
+  const ox = (p[0] - c[0]) / R[0], oy = (p[1] - c[1]) / R[1], oz = (p[2] - c[2]) / R[2];
+  const dx = d[0] / R[0], dy = d[1] / R[1], dz = d[2] / R[2];
+  const a = dx * dx + dy * dy + dz * dz, bb = 2 * (ox * dx + oy * dy + oz * dz), cc = ox * ox + oy * oy + oz * oz - 1;
+  const disc = bb * bb - 4 * a * cc;
+  return disc < 0 ? 0 : (-bb + Math.sqrt(disc)) / (2 * a);
+}
+
+/**
+ * Manga spiky hair: a cap over the skull, chunky flat spikes rooted deep inside the cap (pointing
+ * along radial + flow, protruding `len` beyond it), and forehead bangs lying on the face plate.
+ */
+export function spikeHair(b: ModelBuilder, L: Landmarks, mat: string, spikes: Spike[], bangs: Bang[], o: { capR?: V3; hairline?: number; nape?: number; slope?: number; tufts?: number; tuftFlow?: V3 } = {}): void {
+  const s = L.spec;
+  const c: V3 = [L.headC[0], L.headC[1] + 1.4, L.headC[2] - 0.5];
+  const capR: V3 = o.capR ?? [s.head.w / 2 + 1.0, s.head.h / 2 + 0.9, s.head.d / 2 + 1.0];
+  const hairline = o.hairline ?? s.chinY + s.head.h - 1.5;
+  const nape = o.nape ?? s.chinY + 2;
+  const front = L.headC[2] + s.head.d / 2;
+  const cap = intersect(
+    ellipsoid(c, capR),
+    halfSpace([0, hairline, front], [0, -1, o.slope ?? 0.85]), // hairline lower toward the back
+    halfSpace([0, nape, 0], [0, -1, 0]),
+  );
+  b.add('head', cap, mat);
+  // the scalp under the hair is hair-coloured (gaps between spikes must not show skin)
+  b.paint('head', intersect(ellipsoid(c, [capR[0] + 1, capR[1] + 1, capR[2] + 1]), halfSpace([0, hairline + 0.5, front], [0, -1, o.slope ?? 0.85]), halfSpace([0, nape, 0], [0, -1, 0])), mat, { where: (v) => b.matOf(v).mat?.name !== mat });
+  // tufts: short clumps over the whole cap so its surface reads as hair, not a helmet
+  const tufts: Spike[] = [];
+  const nT = o.tufts ?? 0;
+  for (let i = 0; i < nT; i++) {
+    const yv = 1 - (i + 0.5) / nT; // fibonacci sphere, upper part
+    const el = Math.asin(Math.max(-0.35, yv)) * (180 / Math.PI);
+    const az = ((i * 137.508) % 360) - 180;
+    if (Math.abs(az) < 55 && el < 32) continue; // keep the face clear
+    if (el < -12) continue;
+    const h = Math.abs(Math.sin(i * 12.9898) * 43758.5453) % 1;
+    tufts.push({ az, el, len: 1.3 + h * 1.6, r: 2.3 + h * 0.6, flow: o.tuftFlow ?? [0, 0.15, -0.35] });
+  }
+  for (const sp of [...tufts, ...spikes]) {
+    const az = (sp.az * Math.PI) / 180, el = (sp.el * Math.PI) / 180;
+    const n: V3 = [Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)];
+    const root: V3 = [c[0] + n[0] * capR[0] * 0.5, c[1] + n[1] * capR[1] * 0.5, c[2] + n[2] * capR[2] * 0.5];
+    const f = sp.flow ?? [0, 0, 0];
+    let dir: V3 = [n[0] + f[0], n[1] + f[1], n[2] + f[2]];
+    const dl = Math.hypot(...dir);
+    dir = [dir[0] / dl, dir[1] / dl, dir[2] / dl];
+    const inside = rayEllipsoid(root, dir, c, capR);
+    const side: V3 = [Math.cos(az), 0, -Math.sin(az)];
+    b.add('head', spike(root, dir, inside + sp.len, sp.r, sp.r * (sp.flat ?? 0.6), { side, bend: sp.bend, taper: sp.taper ?? 1, tip: 0.3 }), mat, { thr: 0.3 });
+  }
+  // bangs: flat locks hanging from under the cap edge, lying 1-2 voxels in front of the forehead
+  const top = hairline + 2;
+  for (const bg of bangs) {
+    const lean = bg.lean ?? 0;
+    const root: V3 = [bg.x - lean * 0.5, top, front];
+    const tip: V3 = [bg.x + lean, bg.tipY, front + 0.9];
+    const d: V3 = [tip[0] - root[0], tip[1] - root[1], tip[2] - root[2]];
+    const len = Math.hypot(...d);
+    b.add('head', spike(root, d, len, bg.r ?? 2.3, 1.2, { side: [1, 0, 0], taper: 0.9, tip: 0.3 }), mat, { thr: 0.3 });
   }
 }

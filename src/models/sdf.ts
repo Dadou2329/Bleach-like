@@ -445,3 +445,13 @@ export function spike(base: V3, dir: V3, len: number, ra: number, rb: number, o:
     max: mx,
   };
 }
+
+/** Non-uniform scale about a pivot (approximate distance, exact sign). */
+export function scale(a: Sdf, k: V3, pivot: V3 = [0, 0, 0]): Sdf {
+  const m = Math.min(k[0], k[1], k[2]);
+  return {
+    d: (x, y, z) => a.d(pivot[0] + (x - pivot[0]) / k[0], pivot[1] + (y - pivot[1]) / k[1], pivot[2] + (z - pivot[2]) / k[2]) * m,
+    min: [pivot[0] + (a.min[0] - pivot[0]) * k[0], pivot[1] + (a.min[1] - pivot[1]) * k[1], pivot[2] + (a.min[2] - pivot[2]) * k[2]],
+    max: [pivot[0] + (a.max[0] - pivot[0]) * k[0], pivot[1] + (a.max[1] - pivot[1]) * k[1], pivot[2] + (a.max[2] - pivot[2]) * k[2]],
+  };
+}

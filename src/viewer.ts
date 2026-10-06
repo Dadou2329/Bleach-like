@@ -7,6 +7,8 @@ import { QUALITY_HIGH, QUALITY_LOW } from './render/renderer';
 import { CharacterVisual } from './game/characterFactory';
 import { buildIchigo, buildZangetsuShikai, type IchigoForm } from './chars/ichigo';
 import { Pose } from './anim/pose';
+import { Animator } from './anim/animator';
+import { ICHIGO_CLIPS, ICHIGO_STANCE } from './chars/ichigoClips';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -19,6 +21,8 @@ const VIEWS: Record<string, [number, number, number, number, number, number]> = 
   bust: [0.55, 1.5, 1.1, 0, 1.38, 0],
   feet: [0.6, 0.4, 1.1, 0, 0.2, 0],
   wide: [3.5, 2.2, 6.5, 0, 0.9, 0],
+  mid: [2.6, 1.5, 2.9, 0, 0.85, 0],
+  midfront: [0.4, 1.4, 3.6, 0, 0.85, 0],
 };
 
 export async function bootViewer(app: HTMLElement, params: URLSearchParams): Promise<void> {
@@ -81,17 +85,26 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
       p.hips.set(0, -0.08, 0);
     },
   };
-  let poseName = params.get('pose') ?? 'idle';
-  const applyPose = () => {
+  let poseName = params.get('pose') ?? 'anim';
+  const anim = new Animator(ch.rig, ICHIGO_STANCE, ch.springs);
+  anim.register(ICHIGO_CLIPS);
+  const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
+  eng.systems.push({ update: (dt) => anim.update(dt, loco) });
+  const applyPose = (dt: number) => {
+    ch.object.rotation.y = (yaw * Math.PI) / 180;
+    if (poseName === 'anim') {
+      ch.object.updateMatrixWorld(true);
+      anim.apply(dt);
+      return;
+    }
     (poses[poseName] ?? poses.idle)(pose);
     ch.rig.applyPose(pose);
-    ch.object.rotation.y = (yaw * Math.PI) / 180;
     ch.object.updateMatrixWorld(true);
-  };
-  applyPose();
-  eng.renderHooks.push((dt) => {
-    applyPose();
     ch.springs.update(dt);
+  };
+  applyPose(0);
+  eng.renderHooks.push((dt) => {
+    applyPose(dt);
     eng.gr.updateSun(origin.clone().add(new THREE.Vector3(0, 1, 0)));
   });
   document.getElementById('boot')?.remove();
@@ -102,6 +115,26 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     view: setView,
     yaw: (d: number) => { yaw = d; },
     pose: (n: string) => { poseName = n; },
+    play: (n: string, loop = false) => {
+      poseName = 'anim';
+      const go = () => anim.play(n, { onEnd: loop ? () => setTimeout(go, 300) : undefined });
+      go();
+    },
+    /** freeze clip n at time t (seconds) for inspection */
+    scrub: (n: string, t: number) => {
+      poseName = 'anim';
+      anim.stopAll(0);
+      for (const a of anim.active) a.done = true;
+      anim.active.length = 0;
+      const inst = anim.play(n, { fadeIn: 0, hold: true });
+      if (inst) { inst.time = t; inst.speed = 0; inst.weight = 1; }
+    },
+    move: (vz: number, vx = 0, grounded = true, vy = 0) => {
+      poseName = 'anim';
+      anim.stopAll(0.05);
+      Object.assign(loco, { vz, vx, grounded, vy });
+    },
+    animator: anim,
     engine: eng,
     character: ch,
     get currentView() { return view; },

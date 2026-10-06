@@ -13,6 +13,12 @@ export interface KeyDef {
   b?: Record<string, Euler3>;
   /** hips offset in metres */
   hips?: Euler3;
+  /**
+   * Generic 3-channel tracks (IK targets, weights, fx params): '@gripR' grip position in chest space (m),
+   * '@dirR' blade direction, '@edgeR' direction the edge faces, '@poleR' elbow hint, '@ikR' [weight],
+   * '@twoHand' [weight] (left hand joins the grip), '@handL' left hand target, '@ikL' [weight].
+   */
+  c?: Record<string, Euler3>;
 }
 
 export interface ClipDef {
@@ -74,6 +80,7 @@ export class Clip {
   readonly weights: Float32Array;
   private tracks: Track[] = [];
   private hipsTrack: Track | null = null;
+  private chanTracks = new Map<string, Track>();
   private tension: number;
 
   constructor(def: ClipDef, lookup: BoneLookup) {
@@ -88,10 +95,16 @@ export class Clip {
     const keys = [...def.keys].sort((a, b) => a.t - b.t);
     const byBone = new Map<string, { t: number; v: Euler3; e: EaseName }[]>();
     const hips: { t: number; v: Euler3; e: EaseName }[] = [];
+    const chans = new Map<string, { t: number; v: Euler3; e: EaseName }[]>();
     for (const k of keys) {
       for (const [name, v] of Object.entries(k.b ?? {})) {
         let arr = byBone.get(name);
         if (!arr) byBone.set(name, (arr = []));
+        arr.push({ t: k.t, v, e: k.ease ?? 'inOut' });
+      }
+      for (const [name, v] of Object.entries(k.c ?? {})) {
+        let arr = chans.get(name);
+        if (!arr) chans.set(name, (arr = []));
         arr.push({ t: k.t, v, e: k.ease ?? 'inOut' });
       }
       if (k.hips) hips.push({ t: k.t, v: k.hips, e: k.ease ?? 'inOut' });
@@ -109,6 +122,25 @@ export class Clip {
       this.weights[bi] = def.weights?.[name] ?? 1;
     }
     if (hips.length) this.hipsTrack = mk(-1, hips);
+    for (const [name, arr] of chans) this.chanTracks.set(name, mk(-1, arr));
+  }
+
+  /** Channel names this clip drives. */
+  get channels(): string[] {
+    return [...this.chanTracks.keys()];
+  }
+
+  hasChannel(name: string): boolean {
+    return this.chanTracks.has(name);
+  }
+
+  /** Sample one channel into out[0..2]; returns false if the clip has no such channel. */
+  channel(name: string, time: number, out: number[]): boolean {
+    const tr = this.chanTracks.get(name);
+    if (!tr) return false;
+    const t = this.loop ? ((time % this.dur) + this.dur) % this.dur : Math.min(time, this.dur);
+    this.sampleTrack(tr, t, out);
+    return true;
   }
 
   get hasHips(): boolean {
@@ -170,6 +202,9 @@ export function mirrorClip(def: ClipDef, name = def.name + '_m'): ClipDef {
       ...k,
       b: k.b ? Object.fromEntries(Object.entries(k.b).map(([n, v]) => [sw(n), [v[0], -v[1], -v[2]] as Euler3])) : undefined,
       hips: k.hips ? ([-k.hips[0], k.hips[1], k.hips[2]] as Euler3) : undefined,
+      c: k.c
+        ? Object.fromEntries(Object.entries(k.c).map(([n, v]) => [n.endsWith('R') ? n.slice(0, -1) + 'L' : n.endsWith('L') ? n.slice(0, -1) + 'R' : n, n.startsWith('@ik') || n === '@twoHand' ? v : ([-v[0], v[1], v[2]] as Euler3)]))
+        : undefined,
     })),
     weights: def.weights ? Object.fromEntries(Object.entries(def.weights).map(([n, w]) => [sw(n), w])) : undefined,
   };
