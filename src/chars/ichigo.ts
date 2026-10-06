@@ -4,7 +4,7 @@ import { ModelBuilder, type VoxelModel } from '../models/builder';
 import { shatterModel, type Shattered } from '../models/shatter';
 import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, intersect, prism, sphere, subtract, torus, type V3 } from '../models/sdf';
 import {
-  SPEC_ADULT_MALE, faceLegend, feet, hakama, hands, head, humanoidSkeleton, kosodeSleeves, kosodeTorso, obi,
+  SPEC_ADULT_MALE, coatSkirt, faceLegend, feet, hakama, hands, head, humanoidSkeleton, kosodeSleeves, kosodeTorso, obi,
   shihakushoSprings, spikeHair, type Bang, type Spike, type Landmarks,
 } from './humanoid';
 import type { SpringDef, ColliderDef } from '../anim/springs';
@@ -198,7 +198,7 @@ export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
   kosodeTorso(b, L, o);
   bankaiSleeves(b, L);
   hakama(b, L, { ...o, black: 'black' });
-  const tails = coatTails(b, L);
+  const tails = coatSkirt(b, L, { mat: 'coat', lining: 'lining', tatter: true });
   b.autoShade();
   b.lint();
   const base = shihakushoSprings();
@@ -222,77 +222,6 @@ function bankaiSleeves(b: ModelBuilder, L: Landmarks): void {
   b.carve('forearm.L', cylinder([sx + 0.5, wy - 2.5, sz - 0.6], [sx + 0.5, wy + 2.2, sz - 0.6], 3.4, 3.2), { mirror: true });
   b.paint('forearm.L', cylinder([sx + 0.5, wy - 2.5, sz - 0.6], [sx + 0.5, wy + 3.2, sz - 0.6], 4.1, 3.9), 'lining', { mirror: true });
   b.add('forearm.L', capsule([sx, wy + 6, sz], [sx, wy - 0.5, sz], 1.9), 'skin', { mirror: true, only: 'empty' });
-}
-
-/**
- * The coat below the waist: six flared panels on two-bone spring chains, flame-like tattered hems,
- * crimson lining on the inside.
- */
-function coatTails(b: ModelBuilder, L: Landmarks): { springs: SpringDef[]; colliders: ColliderDef[] } {
-  const s = L.spec;
-  const yTop = s.waistY - 2, ySplit = L.knee[1] + 4, yHem = 4;
-  const r0 = 9.2, r1 = 15.5;
-  const cz = -0.6;
-  const R = (y: number) => r0 + (r1 - r0) * Math.max(0, Math.min(1, (yTop - y) / (yTop - yHem)));
-  const panels: [string, number, number][] = [
-    ['F.L', 6, 58], ['S.L', 62, 118], ['B.L', 122, 176], ['B.R', -176, -122], ['S.R', -118, -62], ['F.R', -58, -6],
-  ];
-  const springs: SpringDef[] = [];
-  const rng = (k: number) => Math.abs(Math.sin(k * 91.7 + 3.1) * 4375.85) % 1;
-  panels.forEach(([name, a0d, a1d], pi) => {
-    const a0 = (a0d * Math.PI) / 180, a1 = (a1d * Math.PI) / 180;
-    const am = (a0 + a1) / 2;
-    const top = `coat.${name}`, low = `coat.${name}.2`;
-    const pTop: V3 = [Math.sin(am) * (r0 - 1), yTop, cz + Math.cos(am) * (r0 - 1)];
-    const pLow: V3 = [Math.sin(am) * R(ySplit), ySplit, cz + Math.cos(am) * R(ySplit)];
-    b.bone(top, 'hips', pTop);
-    b.bone(low, top, pLow);
-    // flame tatters: 2-3 points per panel
-    const nPts = 2 + (pi % 2);
-    const hem = (th: number) => {
-      const u = (th - a0) / (a1 - a0);
-      const saw = Math.abs(((u * nPts) % 1) - 0.5) * 2; // 1 at the notches, 0 at the points
-      return yHem + 1 + saw * (6 + rng(pi * 7 + Math.floor(u * nPts)) * 4);
-    };
-    const shellSdf = (y0: number, y1: number) =>
-      fn(
-        (x, y, z) => {
-          const dz = z - cz;
-          const rho = Math.hypot(x, dz);
-          const th = Math.atan2(x, dz);
-          const dr = Math.abs(rho - R(y)) - 0.85;
-          // angular extent (handle the ±180° wrap for the back panels)
-          let da = 0;
-          const lo = Math.min(a0, a1), hi = Math.max(a0, a1);
-          if (th < lo) da = (lo - th) * rho;
-          else if (th > hi) da = (th - hi) * rho;
-          const dyTop = y - y1, dyBot = Math.max(y0, hem(th)) - y;
-          return Math.max(dr, da, dyTop, dyBot);
-        },
-        [-r1 - 2, y0 - 1, cz - r1 - 2],
-        [r1 + 2, y1 + 1, cz + r1 + 2],
-      );
-    b.add(top, shellSdf(ySplit - 1, yTop), 'coat');
-    b.add(low, shellSdf(yHem - 2, ySplit + 1), 'coat');
-    // lining: inner half of the shell
-    const lining = fn((x, y, z) => Math.hypot(x, z - cz) - (R(y) - 0.15), [-r1 - 2, yHem - 3, cz - r1 - 2], [r1 + 2, yTop + 1, cz + r1 + 2]);
-    b.paint([top, low], lining, 'lining', { where: b.isMat('coat') });
-    // a fold down the middle of each panel
-    const fx = Math.sin(am), fz = Math.cos(am);
-    b.paint([top, low], capsule([fx * (R(yTop) + 0.6), yTop - 2, cz + fz * (R(yTop) + 0.6)], [fx * (R(yHem + 8) + 0.6), yHem + 8, cz + fz * (R(yHem + 8) + 0.6)], 0.7), 'coat', { shade: 3 });
-    const tailTop = [(pLow[0] - pTop[0]) / 48, (pLow[1] - pTop[1]) / 48, (pLow[2] - pTop[2]) / 48] as [number, number, number];
-    const hemP: V3 = [Math.sin(am) * R(yHem + 4), yHem + 4, cz + Math.cos(am) * R(yHem + 4)];
-    const tailLow = [(hemP[0] - pLow[0]) / 48, (hemP[1] - pLow[1]) / 48, (hemP[2] - pLow[2]) / 48] as [number, number, number];
-    springs.push({ bone: top, tail: tailTop, stiffness: 95, damping: 6, gravity: 9, limit: 45, radius: 0.1 });
-    springs.push({ bone: low, tail: tailLow, stiffness: 50, damping: 4.5, gravity: 13, limit: 65, radius: 0.08 });
-  });
-  const colliders: ColliderDef[] = [
-    { bone: 'thigh.L', offset: [0, -0.18, 0.02], radius: 0.16 },
-    { bone: 'thigh.R', offset: [0, -0.18, 0.02], radius: 0.16 },
-    { bone: 'shin.L', offset: [0, -0.12, 0], radius: 0.12 },
-    { bone: 'shin.R', offset: [0, -0.12, 0], radius: 0.12 },
-  ];
-  return { springs, colliders };
 }
 
 /**

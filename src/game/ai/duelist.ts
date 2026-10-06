@@ -33,7 +33,7 @@ export class DuelistAI implements Controller {
   private dashCd = 0;
   private evadeCd = 0;
   private toggleCd = 0;
-  private released = false;
+  private releases = 0;
   private airStepT = 0;
   private lastTargetAction: unknown = null;
   private intro: number;
@@ -70,8 +70,9 @@ export class DuelistAI implements Controller {
 
     // ---- forms and states by HP
     if (!f.busy && this.intro <= 0) {
-      if (!this.released && ai.releaseAt !== undefined && hp <= ai.releaseAt) {
-        this.released = true;
+      const stages = ai.releaseAt === undefined ? [] : Array.isArray(ai.releaseAt) ? ai.releaseAt : [ai.releaseAt];
+      if (this.releases < stages.length && hp <= stages[this.releases]) {
+        this.releases++;
         kit.release();
         return;
       }
@@ -121,7 +122,7 @@ export class DuelistAI implements Controller {
     if (this.stanceT <= 0) {
       this.stanceT = 2.5 + Math.random() * 3;
       const r = Math.random();
-      const ranged = ai.ranged === true;
+      const ranged = typeof ai.ranged === 'function' ? ai.ranged() : ai.ranged === true;
       const prev = this.stance;
       this.stance = ranged ? (r < 0.55 ? 'zone' : r < 0.85 ? 'circle' : 'press') : r < 0.62 ? 'press' : r < 0.85 ? 'circle' : 'zone';
       // after hanging back, always come in for a while

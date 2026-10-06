@@ -34,6 +34,8 @@ export interface DamageOpts {
   hitstop?: number;
   shake?: number;
   color?: THREE.ColorRepresentation;
+  /** rapid small ticks (blade swarms, beams): no hit sound, hitstop, shake or number */
+  quiet?: boolean;
 }
 
 const _v = new THREE.Vector3();
@@ -252,7 +254,7 @@ export class Game {
     t.hp -= dmg;
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
-    if (this.hud) {
+    if (this.hud && !o.quiet) {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
       this.hud.damageNumber(t.center(), dmg, toPlayer ? '#ff6b6b' : o.heavy ? '#ffe066' : '#ffffff', byPlayer);
     }
@@ -272,13 +274,15 @@ export class Game {
         t.hitstun = Math.max(t.hitstun, 0.55);
         t.anim.play('hit_heavy', { fadeIn: 0.03 });
       } else {
-        t.hitstun = Math.max(t.hitstun, 0.22);
+        t.hitstun = Math.max(t.hitstun, o.quiet ? 0.08 : 0.22);
       }
     }
     const isPlayer = from === this.player || t === this.player;
-    this.sfx.play(o.heavy ? 'hitHeavy' : 'hit', t.center(), t.def.boss ? 1.4 : 1);
-    this.hitstop(o.hitstop ?? (o.heavy ? 0.09 : 0.05));
-    if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
+    if (!o.quiet) {
+      this.sfx.play(o.heavy ? 'hitHeavy' : 'hit', t.center(), t.def.boss ? 1.4 : 1);
+      this.hitstop(o.hitstop ?? (o.heavy ? 0.09 : 0.05));
+      if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
+    } else if (Math.random() < 0.3) this.sfx.play('hit', t.center(), 0.35);
     t.onHurt?.(dmg, o.heavy === true);
     if (t.hp <= 0) this.kill(t, from, dir);
   }

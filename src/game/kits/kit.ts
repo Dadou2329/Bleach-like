@@ -26,14 +26,14 @@ export interface KitAI {
   /** finisher-length of the light chain (presses) */
   chain: number;
   moves: AIMove[];
-  /** press F when own HP fraction drops below this (1 = right away) */
-  releaseAt?: number;
+  /** press F when own HP fraction drops below this (1 = right away); a list = one threshold per stage */
+  releaseAt?: number | number[];
   /** press G when own HP fraction drops below this */
   toggleAt?: number;
   /** the G state is currently on (so the AI does not switch it off) */
   toggleOn?: () => boolean;
-  /** keeps distance instead of brawling (ranged kits) */
-  ranged?: boolean;
+  /** keeps distance instead of brawling (ranged kits, or ranged forms) */
+  ranged?: boolean | (() => boolean);
 }
 
 export interface Kit {

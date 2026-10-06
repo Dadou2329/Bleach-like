@@ -8,6 +8,8 @@ import { buildCached } from './characterFactory';
 import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
 import { grimmjowAsset, grimmjowProp } from '../chars/grimmjow';
+import { BYAKUYA_DEF, ByakuyaKit } from './kits/byakuya';
+import { byakuyaProp } from '../chars/byakuya';
 
 export interface RosterEntry {
   id: string;
@@ -49,6 +51,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(grimmjowAsset('pantera').model, true);
       for (const k of ['katana', 'sheath-empty'] as const) buildCached(grimmjowProp(k), false);
+    },
+  },
+  {
+    id: 'byakuya',
+    name: 'Kuchiki Byakuya',
+    kanji: '千本桜',
+    title: 'Captain, 6th Division',
+    color: '#f5a9c4',
+    def: () => ({ ...BYAKUYA_DEF, speed: { ...BYAKUYA_DEF.speed } }),
+    kit: (f, g) => new ByakuyaKit(f, g),
+    warm: () => {
+      buildCached(byakuyaProp('hilt'), false);
+      buildCached(byakuyaProp('giant'), false);
     },
   },
 ];

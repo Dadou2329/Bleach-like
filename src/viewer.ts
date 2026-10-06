@@ -13,6 +13,7 @@ import { Aura, AURA_ICHIGO_BANKAI, AURA_ICHIGO_SHIKAI } from './vfx/aura';
 import { buildMenos, MENOS_CLIPS, MENOS_STANCE } from './chars/menos';
 import { buildHollow, HOLLOW_CLIPS, HOLLOW_STANCE } from './chars/hollow';
 import { buildGrimmjow, grimmjowProp } from './chars/grimmjow';
+import { buildByakuya, byakuyaProp } from './chars/byakuya';
 import { GRIMMJOW_CLIPS, GRIMMJOW_STANCE, PANTERA_CLIPS, PANTERA_STANCE } from './chars/grimmjowClips';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
@@ -38,10 +39,16 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const who = params.get('char') ?? 'ichigo';
   const t0 = performance.now();
   const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) })
-    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
+    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : who === 'byakuya' ? buildByakuya() : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
   if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
+  if (who === 'byakuya') {
+    const f = params.get('form') ?? 'sealed';
+    if (f === 'sealed') ch.attach('sword', byakuyaProp('katana'), 'grip.R');
+    if (f === 'shikai') ch.attach('sword', byakuyaProp('hilt'), 'grip.R');
+    ch.attach('sheath', byakuyaProp('sheath'), 'hip.L');
+  }
   if (who === 'grimmjow' && form !== 'pantera') {
     if (params.get('drawn')) ch.attach('sword', grimmjowProp('katana'), 'grip.R');
     ch.attach('sheath', grimmjowProp(params.get('drawn') ? 'sheath-empty' : 'sheath'), 'hip.L');
