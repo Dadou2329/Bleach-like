@@ -13,6 +13,7 @@ import { GETSUGA_BLACK, GETSUGA_BLUE } from '../../vfx/energy';
 import { ShardBurst } from '../../vfx/shards';
 import { TEX_GLOW, TEX_PUFF, TEX_STREAK } from '../../vfx/sprites';
 import type { AbilityInfo } from '../../ui/hud';
+import type { Kit, KitAI } from './kit';
 
 type BladeDef = NonNullable<FighterDef['blade']>;
 const BLADE_SHIKAI: BladeDef = { prop: 'sword', base: [0, 0, 0.16], tip: [0, 0, 1.56], color: '#7DDFFD', core: '#F9FFFF' };
@@ -110,7 +111,7 @@ export class SwingAction extends FighterAction {
           const ground = this.groundUnder(g, tip);
           if (ground !== null && tip.y - ground < 1.2) {
             tip.y = ground;
-            g.groundImpact(tip, this.info.impact.radius, this.info.impact.power, f.def.aura.body);
+            g.groundImpact(tip, this.info.impact.radius, this.info.impact.power, f.def.aura.body, f);
             g.shake(this.info.spec.shake);
           }
         }
@@ -274,7 +275,7 @@ export class ReleaseAction extends FighterAction {
         if (n === 'burst') {
           g.sfx.play('bankai', f.center());
           f.aura.pillarBurst(2.4);
-          g.groundImpact(f.pos.clone(), 3.2, 90, f.def.aura.body);
+          g.groundImpact(f.pos.clone(), 3.2, 90, f.def.aura.body, f);
           g.shake(0.9);
           g.hitstop(0.12);
           g.slowMo(0.5, 0.35);
@@ -349,7 +350,7 @@ export class MaskAction extends FighterAction {
 }
 
 /** Kit state + input entry points (shared by player and AI controllers). */
-export class IchigoKit {
+export class IchigoKit implements Kit {
   comboIndex = 0;
   private lastSwingEnd = 0;
   getsugaCd = 0;
@@ -437,7 +438,7 @@ export class IchigoKit {
     const f = this.f;
     if (this.bankai || f.busy) return;
     if (!f.spendRei(40)) {
-      this.g.hud?.showBanner('Not enough reiatsu');
+      if (f === this.g.player) this.g.hud?.showBanner('Not enough reiatsu');
       return;
     }
     f.act(new ReleaseAction(this), true);
@@ -453,6 +454,32 @@ export class IchigoKit {
     }
   }
 
+  skill1(): void {
+    this.getsuga();
+  }
+
+  toggle(): void {
+    this.mask();
+  }
+
+  formName(): string {
+    return (this.bankai ? 'Bankai — Tensa Zangetsu' : 'Shikai') + (this.masked ? ' · Hollow mask' : '');
+  }
+
+  ai(): KitAI {
+    return {
+      reach: 2.6,
+      chain: 5,
+      releaseAt: 0.75,
+      toggleAt: 0.5,
+      toggleOn: () => this.masked || this.maskCd > 0,
+      moves: [
+        { name: 'getsuga', use: () => this.getsuga(), min: 6, max: 45, weight: 3, cd: 2.2 },
+        { name: 'heavy', use: () => this.heavy(), min: 0, max: 3.2, weight: 1, cd: 3 },
+      ],
+    };
+  }
+
   /** G: put the Hollow mask on (or tear it off early). */
   mask(): void {
     const f = this.f;
@@ -464,7 +491,7 @@ export class IchigoKit {
     if (this.maskCd > 0 || f.hitstun > 0 || f.dashT > 0) return;
     if (f.action && !(f.action instanceof SwingAction)) return;
     if (!f.spendRei(MASK_COST)) {
-      this.g.hud?.showBanner('Not enough reiatsu');
+      if (f === this.g.player) this.g.hud?.showBanner('Not enough reiatsu');
       return;
     }
     f.act(new MaskAction(this), true);
@@ -493,7 +520,7 @@ export class IchigoKit {
     f.aura.flare(1.9, 0.6);
     g.addRing(f.pos.clone().setY(f.pos.y + 0.05), 11, col, 0.6);
     g.addRing(c.clone(), 5, '#ffffff', 0.25);
-    if (f.grounded) g.groundImpact(f.pos.clone(), 2.2, 70, col);
+    if (f.grounded) g.groundImpact(f.pos.clone(), 2.2, 70, col, f);
     g.callout('虚化', 'HOLLOWFICATION', '#ff3b52');
     g.sfx.play('mask', c);
     g.shake(0.7);
@@ -621,14 +648,14 @@ export class IchigoKit {
     f.trail?.setColor(tc.color, tc.core);
     f.data.getsugaColors = this.masked || this.bankai ? GETSUGA_BLACK : GETSUGA_BLUE;
     if (g.hud && f === g.player) {
-      g.hud.form = (this.bankai ? 'Bankai — Tensa Zangetsu' : 'Shikai') + (this.masked ? ' · Hollow mask' : '');
+      g.hud.form = this.formName();
       g.hud.vignette = this.masked ? 1 : 0;
     }
   }
 
   /** Speed, damage, toughness and aura level from form × flare × mask. */
   private applyStats(): void {
-    const { f, g } = this;
+    const f = this.f;
     const base = this.bankai ? FORM_SPEED.bankai : FORM_SPEED.shikai;
     const m = this.masked;
     f.def = {
@@ -636,7 +663,7 @@ export class IchigoKit {
       speed: { run: base.run * (m ? 1.22 : 1), sprint: base.sprint * (m ? 1.25 : 1), jump: base.jump * (m ? 1.12 : 1), dash: base.dash * (m ? 1.35 : 1), dashTime: base.dashTime },
     };
     f.damageTaken = m ? 0.55 : 1;
-    if (f === g.player) g.playerPower = (this.bankai ? 1.3 : 1) * (this.flare ? (this.bankai ? 1.23 : 1.35) : 1) * (m ? 1.75 : 1);
+    f.power = (this.bankai ? 1.3 : 1) * (this.flare ? (this.bankai ? 1.23 : 1.35) : 1) * (m ? 1.75 : 1);
     f.aura.target = this.flare ? 1 : m ? 0.34 : this.bankai ? 0.45 : 0.25;
   }
 

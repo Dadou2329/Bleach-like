@@ -24,6 +24,8 @@ export interface PropDef {
 export interface FighterDef {
   id: string;
   name: string;
+  /** rank / affiliation shown under the name on the rival bar */
+  title?: string;
   build(): { asset: CharacterAsset; props: PropDef[] };
   stance: StanceDef;
   clips: ClipDef[];
@@ -120,6 +122,8 @@ export class Fighter {
   bladeSpec: BladeSpec | null = null;
   readonly bladeHits = new Set<number>();
   flashT = 0;
+  /** outgoing damage multiplier (forms, flares, masks) */
+  power = 1;
   /** incoming damage multiplier (masks, armour states) */
   damageTaken = 1;
   /** called after this fighter takes damage */

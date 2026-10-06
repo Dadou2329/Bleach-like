@@ -21,6 +21,8 @@ export interface Projectile {
 }
 
 export interface Controller {
+  /** the fighter this controller drives (removed together with it) */
+  readonly f?: Fighter;
   update(dt: number): void;
   render?(dt: number): void;
 }
@@ -51,7 +53,7 @@ export class Game {
   time = 0;
   slowmo = 0;
   private slowmoScale = 1;
-  /** damage multiplier for the player (difficulty / flare) */
+  /** extra damage multiplier for the player (difficulty) */
   playerPower = 1;
   readonly sfx = new Sfx();
 
@@ -86,6 +88,9 @@ export class Game {
   remove(f: Fighter): void {
     const i = this.fighters.indexOf(f);
     if (i >= 0) this.fighters.splice(i, 1);
+    for (let k = this.controllers.length - 1; k >= 0; k--) if (this.controllers[k].f === f) this.controllers.splice(k, 1);
+    if (this.player === f) this.player = null;
+    if (this.hud?.rival === f) this.hud.rival = null;
     f.dispose();
   }
 
@@ -207,7 +212,7 @@ export class Game {
         // knock mostly away from the attacker, flavoured by the swing direction
         _w.subVectors(o.pos, f.pos).setY(0).normalize().multiplyScalar(0.6).add(_v.multiplyScalar(0.4)).normalize();
         const weak = o.def.weakAbove !== undefined && hitY > o.pos.y + o.def.height * o.def.weakAbove ? 3 : 1;
-        this.damage(o, spec.damage * weak * (f === this.player ? this.playerPower : 1), f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake });
+        this.damage(o, spec.damage * weak, f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake });
         this.sparks(o.center(), _w, f.def.aura.body);
       }
     }
@@ -242,7 +247,8 @@ export class Game {
     if (t.dead || t.invuln > 0) return;
     if (t.action?.invulnerable) return;
     const armor = t.action?.armor ?? 0;
-    const dmg = amount * (1 - armor) * t.damageTaken;
+    const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
+    const dmg = amount * power * (1 - armor) * t.damageTaken;
     t.hp -= dmg;
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
@@ -315,8 +321,8 @@ export class Game {
       this.engine.dust.spawn({ x: p.x, y: p.y, z: p.z, vx: dir.x * 3 + (Math.random() - 0.5) * 2, vy: Math.random() * 2, vz: dir.z * 3 + (Math.random() - 0.5) * 2, size: 0.15, sizeEnd: 0.35, life: 0.35, r: 0.45, g: 0.04, b: 0.05, alpha: 0.6, alphaEnd: 0, tex: TEX_PUFF, gravity: -4 });
   }
 
-  /** Big impact on the ground: crater + debris + ring + dust. */
-  groundImpact(p: THREE.Vector3, radius: number, power: number, color: THREE.ColorRepresentation): void {
+  /** Big impact on the ground: crater + debris + ring + dust; knocks up the source's enemies. */
+  groundImpact(p: THREE.Vector3, radius: number, power: number, color: THREE.ColorRepresentation, source?: Fighter): void {
     const c = p.clone();
     this.sfx.play(radius > 3 ? 'explode' : 'impact', c, Math.min(2, radius / 2));
     this.engine.destruction.carve(new SphereShape(c, radius, 0.55), { mode: 'smash', power, impulse: 9 + radius * 2 });
@@ -328,7 +334,7 @@ export class Game {
     }
     // nearby enemies get knocked up
     for (const o of this.fighters) {
-      if (o.dead || o === this.player) continue;
+      if (o.dead || (source ? o === source || o.team === source.team : o === this.player)) continue;
       const d = o.pos.distanceTo(p);
       if (d < radius * 2.5) {
         _v.subVectors(o.pos, p).setY(0).normalize();

@@ -21,6 +21,8 @@ export interface CeroOpts {
   range: number;
   /** turn rate toward the target while firing (rad/s) */
   track: number;
+  /** Gran Rey Cero: spinning rings that compress and decompress along the beam */
+  spiral?: boolean;
 }
 
 const BEAM_FRAG = /* glsl */ `
@@ -56,6 +58,7 @@ export class CeroBeam implements Projectile {
   private carveAcc = 0;
   private core: THREE.Color;
   private body: THREE.Color;
+  private rings: THREE.Mesh[] = [];
 
   /**
    * @param emitter world-space object whose position is the muzzle (e.g. a socket)
@@ -76,6 +79,17 @@ export class CeroBeam implements Projectile {
     this.beam.visible = false;
     this.light = new THREE.PointLight(this.body, 0, 40, 1.5);
     this.group.add(this.sphere, this.beam, this.light);
+    if (o.spiral) {
+      const rg = new THREE.TorusGeometry(1, 0.07, 6, 28);
+      const rm = mk(this.beamU);
+      for (let i = 0; i < 7; i++) {
+        const r = new THREE.Mesh(rg, rm);
+        r.visible = false;
+        r.renderOrder = 7;
+        this.rings.push(r);
+        this.group.add(r);
+      }
+    }
     this.group.traverse((c) => (c.frustumCulled = false));
     this.sphere.renderOrder = this.beam.renderOrder = 7;
     g.engine.gr.scene.add(this.group);
@@ -190,6 +204,18 @@ export class CeroBeam implements Projectile {
     this.sphU.uA.value = fireA;
     this.light.position.copy(this.impact);
     this.light.intensity = 160 * fireA;
+    // spiral rings ride the beam outward, spinning and pulsing
+    for (let i = 0; i < this.rings.length; i++) {
+      const r = this.rings[i];
+      r.visible = this.beam.visible;
+      if (!r.visible) continue;
+      const u = ((ft * 0.9 + i / this.rings.length) % 1);
+      r.position.copy(m).addScaledVector(this.dir, u * len);
+      r.lookAt(r.position.clone().add(this.dir));
+      r.rotateZ(time * 9 + i);
+      const pulse = 1.35 + Math.sin(time * 14 + i * 1.7) * 0.35;
+      r.scale.setScalar(o.radius * pulse * (0.6 + u * 0.8));
+    }
   }
 
   dispose(): void {

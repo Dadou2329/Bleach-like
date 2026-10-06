@@ -1,9 +1,9 @@
 // Player controller: maps input to fighter intents (camera-relative movement, jump / reishi air-steps /
-// hover, Shunpo, lock-on, aim) and kit actions.
+// hover, Shunpo / Sonído, lock-on, aim) and to the kit's slots (any character).
 import * as THREE from 'three';
 import type { Controller, Game } from './game';
 import type { Fighter } from './fighter';
-import type { IchigoKit } from './kits/ichigo';
+import type { Kit } from './kits/kit';
 import { TEX_RING } from '../vfx/sprites';
 
 const _f = new THREE.Vector3();
@@ -15,7 +15,7 @@ export class PlayerController implements Controller {
   assist: Fighter | null = null;
   private jumpHeldT = 0;
 
-  constructor(readonly g: Game, readonly f: Fighter, readonly kit: IchigoKit) {
+  constructor(readonly g: Game, readonly f: Fighter, readonly kit: Kit) {
     g.player = f;
     f.aura.target = 0.25;
   }
@@ -84,9 +84,11 @@ export class PlayerController implements Controller {
     }
     if (inp.pressed('attack')) { aimAt(); kit.attack(); }
     if (inp.pressed('heavy')) { aimAt(); kit.heavy(); }
-    if (inp.pressed('skill1')) { this.assist = null; kit.getsuga(); }
+    if (inp.pressed('skill1')) { this.assist = null; kit.skill1(); }
+    if (inp.pressed('skill2')) { this.assist = null; kit.skill2?.(); }
+    if (inp.pressed('skill3')) { this.assist = null; kit.skill3?.(); }
     if (inp.pressed('release', 200)) kit.release();
-    if (inp.pressed('mask', 200)) kit.mask();
+    if (inp.pressed('mask', 200)) kit.toggle?.();
     if (inp.pressed('flare', 200)) kit.toggleFlare();
     if (inp.pressed('help', 200)) g.hud?.toggleHelp();
   }

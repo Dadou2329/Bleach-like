@@ -46,14 +46,15 @@ const CSS = `
 #hud .lock { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 2px solid #ff4757; transform: rotate(45deg); box-shadow: 0 0 10px #ff4757; display: none; }
 #hud .ebar { position: absolute; width: 70px; height: 5px; margin-left: -35px; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.3); }
 #hud .ebar > i { position: absolute; inset: 0; background: #ff4757; transform-origin: left; }
-#hud .help { position: absolute; right: 18px; top: 16px; font-size: 12px; line-height: 1.55; background: rgba(8,8,12,.6); border: 1px solid rgba(255,255,255,.18); padding: 10px 14px; white-space: pre; }
+#hud .help { position: absolute; right: 18px; top: 74px; font-size: 12px; line-height: 1.55; background: rgba(8,8,12,.6); border: 1px solid rgba(255,255,255,.18); padding: 10px 14px; white-space: pre; }
 #hud .hint { position: absolute; right: 18px; top: 16px; font-size: 12px; opacity: .8; }
 #hud .center { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; background: rgba(255,255,255,.7); border-radius: 50%; }
 #hud .banner { position: absolute; left: 50%; top: 40%; transform: translate(-50%,-50%); font-family: 'Dela Gothic One', sans-serif; font-size: 28px; letter-spacing: 3px; text-shadow: 0 3px 0 #000; opacity: 0; transition: opacity .4s; text-align: center; }
-#hud .boss { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: min(620px, 70vw); text-align: center; display: none; }
+#hud .boss { position: absolute; right: 22px; top: 18px; width: min(420px, 38vw); text-align: right; display: none; }
 #hud .boss .bn { font-family: 'Dela Gothic One', sans-serif; font-size: 16px; letter-spacing: 4px; text-shadow: 0 2px 0 #000; }
-#hud .boss .bb { position: relative; height: 10px; margin-top: 4px; background: rgba(10,10,14,.7); border: 1px solid rgba(255,255,255,.3); }
-#hud .boss .bb > i { position: absolute; inset: 0; background: linear-gradient(90deg, #6a0a14, #e0262b); transform-origin: left; transition: transform .1s linear; }
+#hud .boss .bn small { font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-size: 11px; letter-spacing: 3px; opacity: .8; }
+#hud .boss .bb { position: relative; height: 12px; margin-top: 6px; background: rgba(10,10,14,.7); border: 1px solid rgba(255,255,255,.3); transform: skewX(18deg); overflow: hidden; }
+#hud .boss .bb > i { position: absolute; inset: 0; background: linear-gradient(270deg, #6a0a14, #e0262b); transform-origin: right; transition: transform .1s linear; }
 #hud .combo { position: absolute; right: 40px; top: 42%; font-family: 'Dela Gothic One', sans-serif; font-size: 42px; text-shadow: 0 3px 0 #000; opacity: 0; }
 #hud .combo small { display: block; font-size: 14px; letter-spacing: 4px; }
 @media (max-width: 640px) { #hud .ab { width: 48px; height: 48px; } #hud .ab .j { font-size: 16px; } #hud .help { display: none; } }
@@ -87,7 +88,11 @@ export class Hud {
   private abilities: AbilityInfo[] = [];
   abilityProvider: (() => AbilityInfo[]) | null = null;
   form = 'Shikai';
+  /** live form label (the player's kit) */
+  formProvider: (() => string) | null = null;
   lockTarget: Fighter | null = null;
+  /** duel opponent: gets the big bar at the top */
+  rival: Fighter | null = null;
   /** dark-red screen edge (Hollow mask), 0..1 */
   vignette = 0;
   private vigEl: HTMLElement;
@@ -174,7 +179,7 @@ export class Hud {
     const pl = this.game.player;
     if (pl) {
       this.nameEl.textContent = pl.name;
-      this.formEl.textContent = this.form;
+      this.formEl.textContent = this.formProvider ? this.formProvider() : this.form;
       const hp = Math.max(0, pl.hp / pl.maxHp);
       this.hp.style.transform = `scaleX(${hp})`;
       this.hpLag.style.transform = `scaleX(${hp})`;
@@ -243,17 +248,20 @@ export class Hud {
       this.lock.style.left = `${s.x}px`;
       this.lock.style.top = `${s.y}px`;
     } else this.lock.style.display = 'none';
-    // boss bar
-    const boss = this.game.fighters.find((f) => f.def.boss && !f.dead);
+    // boss / rival bar
+    const boss = this.rival && !this.rival.dead ? this.rival : this.game.fighters.find((f) => f.def.boss && !f.dead);
     if (boss) {
       this.boss.style.display = 'block';
-      (this.boss.querySelector('.bn') as HTMLElement).textContent = boss.name.toUpperCase();
+      const t = boss.def.title ? ` <small>· ${boss.def.title.toUpperCase()}</small>` : '';
+      const label = boss.name.toUpperCase() + t;
+      const bn = this.boss.querySelector('.bn') as HTMLElement;
+      if (bn.innerHTML !== label) bn.innerHTML = label;
       (this.boss.querySelector('.bb > i') as HTMLElement).style.transform = `scaleX(${Math.max(0, boss.hp / boss.maxHp)})`;
     } else this.boss.style.display = 'none';
     // enemy bars
     const seen = new Set<number>();
     for (const f of this.game.fighters) {
-      if (f === pl || f.dead || f.hp >= f.maxHp || f.def.boss) continue;
+      if (f === pl || f === this.rival || f.dead || f.hp >= f.maxHp || f.def.boss) continue;
       const top = f.pos.clone();
       top.y += f.def.height + 0.35;
       const s = this.project(top);

@@ -83,7 +83,7 @@ class PounceAction extends FighterAction {
             const d = o.pos.distanceTo(p);
             if (d < 2.4 + o.def.radius) g.damage(o, 55, f, o.pos.clone().sub(f.pos).setY(0).normalize(), { knock: 10, launch: 4, heavy: true, hitstop: 0.08, shake: 0.45 });
           }
-          if (f.grounded) g.groundImpact(f.pos.clone().addScaledVector(f.forward(), 1.4), 0.9, 40, '#B3122E');
+          if (f.grounded) g.groundImpact(f.pos.clone().addScaledVector(f.forward(), 1.4), 0.9, 40, '#B3122E', f);
         }
       },
     });

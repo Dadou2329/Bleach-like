@@ -70,7 +70,7 @@ class StompAction extends FighterAction {
         const p = new THREE.Vector3();
         foot.getWorldPosition(p);
         p.y = f.pos.y;
-        g.groundImpact(p, 4.5, 260, '#B3122E');
+        g.groundImpact(p, 4.5, 260, '#B3122E', f);
         for (const o of g.enemiesOf(f)) {
           const d = Math.hypot(o.pos.x - p.x, o.pos.z - p.z);
           if (d < 9 && o.pos.y < p.y + 4) g.damage(o, 140 * (1 - d / 9), f, o.pos.clone().sub(p).setY(0).normalize(), { knock: 18, launch: 9, heavy: true, hitstop: 0.1, shake: 0.9 });
@@ -188,7 +188,7 @@ export class MenosAI implements Controller {
         f.body.pos.y = Math.max(this.groundY, f.body.pos.y - dt * 28);
         if (f.body.pos.y <= this.groundY && !this.landed) {
           this.landed = true;
-          g.groundImpact(f.pos.clone(), 6, 300, '#B3122E');
+          g.groundImpact(f.pos.clone(), 6, 300, '#B3122E', f);
           g.shake(1);
           g.hitstop(0.08);
           f.anim.play('roar');

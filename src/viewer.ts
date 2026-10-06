@@ -12,6 +12,8 @@ import { ICHIGO_CLIPS, ICHIGO_STANCE } from './chars/ichigoClips';
 import { Aura, AURA_ICHIGO_BANKAI, AURA_ICHIGO_SHIKAI } from './vfx/aura';
 import { buildMenos, MENOS_CLIPS, MENOS_STANCE } from './chars/menos';
 import { buildHollow, HOLLOW_CLIPS, HOLLOW_STANCE } from './chars/hollow';
+import { buildGrimmjow, grimmjowProp } from './chars/grimmjow';
+import { GRIMMJOW_CLIPS, GRIMMJOW_STANCE, PANTERA_CLIPS, PANTERA_STANCE } from './chars/grimmjowClips';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -32,13 +34,18 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const quality = params.get('q') === 'low' ? QUALITY_LOW : QUALITY_HIGH;
   const world = generateStage();
   const eng = await Engine.create(app, world, quality);
-  const form = (params.get('form') ?? 'shikai') as IchigoForm;
+  const form = (params.get('form') ?? 'shikai') as IchigoForm | 'pantera';
   const who = params.get('char') ?? 'ichigo';
   const t0 = performance.now();
-  const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) }) : buildIchigo(form);
+  const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) })
+    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
   if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
+  if (who === 'grimmjow' && form !== 'pantera') {
+    if (params.get('drawn')) ch.attach('sword', grimmjowProp('katana'), 'grip.R');
+    ch.attach('sheath', grimmjowProp(params.get('drawn') ? 'sheath-empty' : 'sheath'), 'hip.L');
+  }
   const setMask = (m: string | null) => {
     ch.detach('mask');
     const on = who === 'ichigo' && !!m && m !== '0';
@@ -58,7 +65,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   eng.gr.scene.add(aura.group);
   let auraT = 0;
   const cam = eng.gr.camera;
-  let yaw = 0;
+  let yaw = Number(params.get('yaw') ?? 0);
   let view = params.get('view') ?? 'three';
   const setView = (name: string) => {
     view = name;
@@ -103,8 +110,9 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     },
   };
   let poseName = params.get('pose') ?? 'anim';
-  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : ICHIGO_STANCE, ch.springs);
-  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : ICHIGO_CLIPS);
+  const pantera = who === 'grimmjow' && form === 'pantera';
+  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : ICHIGO_STANCE, ch.springs);
+  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : ICHIGO_CLIPS);
   const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
   eng.systems.push({ update: (dt) => anim.update(dt, loco) });
   const applyPose = (dt: number) => {
