@@ -118,11 +118,12 @@ light, Kidō Corps barrier panels (constructs) during story events.
 Hardness `H` is in the same units as attack power (break if `power × falloff > H`). Suggested anchor: an
 unseated Shinigami slash ≈ 40, a lieutenant Shikai special ≈ 150, a captain Shikai ≈ 400, a Bankai special ≈
 1 500, an ultimate ≈ 6 000+. Toughness `T` = crack threshold as a fraction of `H`. Density in kg/m³ (fragment
-mass). `Abs` = absorbable by Quincy Sklaverei (§2.1).
+mass). `Abs` = absorbable by Quincy Sklaverei; `dep.` = follows the world rule of §2.1 (Human World no, Soul
+Society / Hueco Mundo / Wandenreich yes).
 
 | id | Material | Ramp (base → shades) | Pattern | H | T | Density | SFX | Flags / transforms | Abs |
 |---|---|---|---|---|---|---|---|---|---|
-| `paper` | shōji/fusuma paper, posters | `#F4EFE3` `#E3DCCB` `#CFC6B2` | none | 1 | 1.0 | 300 | wood | flammable, transparent-ish | dep. world |
+| `paper` | shōji/fusuma paper, posters | `#F4EFE3` `#E3DCCB` `#CFC6B2` | none | 1 | 1.0 | 300 | wood | flammable, transparent-ish | dep. |
 | `glass` | window glass | `#A9CBE0` `#8DB4CF` `#CFE4F1` | none | 4 | 0.9 | 2500 | glass | transparent, shatters to shards | no (HW) |
 | `wood_light` | Japanese timber walls/posts | `#9C7752` `#86643F` `#B38B62` | wood grain | 18 | 0.5 | 600 | wood | flammable → `charred` → ash | dep. |
 | `wood_dark` | aged shop timber, verandas | `#5E4632` `#4A3626` `#76593F` | wood grain | 20 | 0.5 | 650 | wood | flammable | dep. |
@@ -196,7 +197,7 @@ way it does in Bleach**. "Members" are what the generator must model so the stru
 | Low-rise town (≤ 8 m buildings) | 2–2.5 | 3–4 |
 | Mid-rise mix (≤ 35 m) | 3–4 | 5–8 |
 | Cave (floor + ceiling shell) | +1 for the ceiling | +1–1.5 |
-| Tower / cliff column | +H/8 per affected column | +H/4 |
+| Tower / cliff column (h = height in m) | +h/8 per affected column | +h/4 |
 
 Guidelines:
 1. **Arenas** (≤ 128–160 m) at 0.125 m; **districts** (256–384 m) at 0.25 m; beyond bounds use low-res backdrop
@@ -236,9 +237,9 @@ Mashiba Middle School · **Yumisawa Children's Park** · remains of the Sukari B
 |---|---|---|
 | Agent of the Shinigami | Rukia & Ichigo vs **Fishbone D** — Ichigo becomes a Shinigami (night) | Kurosaki Clinic → street |
 | | Ichigo vs **Acidwire** (Sora) (night) | Orihime's apartment & nearby |
-| | Ichigo vs **Shrieker** — first Gates of Hell (night) | streets |
-| | Ichigo vs **Grand Fisher** on Masaki's death anniversary (rain) | hillside cemetery |
-| | Ichigo & Uryū vs Hollow swarm from Hollow bait → **Menos Grande** through a sky crack (day → dusk) | whole town, Menos over a park — `Hollow Horde` mode |
+| | Ichigo vs **Shrieker** — first Gates of Hell | streets |
+| | Ichigo vs **Grand Fisher** on Masaki's death anniversary (rain preset suggested — rain is the motif of her death) | hillside cemetery |
+| | Ichigo & Uryū vs Hollow swarm from Hollow bait → **Menos Grande** through a sky crack (day) | whole town, Menos over a park — `Hollow Horde` mode |
 | | Ichigo vs **Byakuya**, Uryū vs **Renji** — Rukia's arrest (rainy night) | residential street |
 | Arrancar | Chad, Orihime, Ichigo, then Urahara & Yoruichi vs **Yammy & Ulquiorra** (day) | the park they crash into (crater) |
 | | Grimmjow's raid (night): Ichigo vs **Grimmjow**, Rukia vs Di Roy, Hitsugaya vs Shawlong, Rangiku vs Nakeem, Ikkaku vs Edrad, Renji vs Yylfordt (near the Urahara Shop) | streets, rooftops, sky |
@@ -411,7 +412,7 @@ rooftop: 1.5 m railing/fence, stair house, water tank · perimeter trees, 2 m fe
   crash down and where the later Garganta opens (`design` choice; canon only says "the park").
 - **Cemetery.** Terraced hillside with family graves, stone stairs, a small temple; Masaki's grave → Grand
   Fisher stage in the rain.
-- **Shōtengai & station.** Covered arcade with banners and shutters; elevated Honchō station; the 8-storey
+- **Shōtengai & station.** Covered arcade with banners and shutters; elevated Honchō station; the ~8-storey (est.)
   General Hospital beside it (Ryūken is director).
 
 ### 6.6 Small Human World arenas
@@ -1492,4 +1493,84 @@ Hell-arc variants.
 **Sources.** wiki/Hell · Kushanāda · Togabito · Bleach:_The_Hell_Verse · Szayelaporro_Granz · NO_BREATHES_FROM_HELL ·
 Jigokuchō.
 
-<!-- LOCATIONS_BODY -->
+---
+
+## 13. Story-mode stage index & build order
+
+### 13.1 Chronological stage index (map ids)
+| Arc | Stage → map |
+|---|---|
+| Agent of the Shinigami | Fishbone D → `karakura` (clinic, night) · Acidwire → `karakura` · Shrieker + Gates of Hell → `karakura` + `hell_gate` · Grand Fisher → `karakura` (cemetery, rain) · Menos Grande / Hollow bait → `karakura` (Hollow Horde) · Byakuya & Renji arrest Rukia → `karakura` (rain night) |
+| Soul Society | Urahara's lessons & Shattered Shaft → `urahara_study` · Kōtotsu chase → `dangai` · Jidanbō → `seireitei` (West Gate) or `rukongai` edge · cannon launch → `rukongai` · Ikkaku / Yumichika / Mayuri / Chad vs Shunsui → `seireitei` · Renji → `sokyoku` (Senzaikyū steps) · Kenpachi → `seireitei` / `sokyoku` precinct · Bankai training → `sokyoku_study` · execution, Byakuya, Aizen's betrayal → `sokyoku` |
+| Arrancar | Yammy & Ulquiorra → `karakura` (park) · Grimmjow's raid, rematch → `karakura` · Visored training → Visored warehouse arena |
+| Hueco Mundo | arrival, Runuganga → `hm_desert` · (anime) Gillian horde → `menos_forest` · Dordoni / Cirucci / Gantenbainne / Aaroniero / Szayelaporro → `lasnoches_halls` · Grimmjow final, Nnoitra vs Kenpachi, Byakuya vs Zommari → `lasnoches_interior` · **Ulquiorra final** → `lasnoches_dome` · Orihime intercepted → `dangai` |
+| Fake Karakura | pillar guards, captains vs Espada, Visored, Aizen → `fake_karakura` · Final Getsuga training → `dangai_fixed` · Gin vs Aizen, Ichigo vs Aizen (Mugetsu) → `karakura_ss` |
+| TYBW | Ebern → `karakura` · Ichigo & Ayon vs Quilge → `hm_desert` (ruined Las Noches) · 1st invasion (Yamamoto vs Yhwach, Byakuya vs Äs Nödt…) → `seireitei_tybw` · Kenpachi vs Unohana → `muken` · Royal Training → `reiokyu_*` · 2nd invasion fights → `wandenreich` (replaced Seireitei) · Ichigo vs Uryū at the tower → `wandenreich` · Royal Guard vs Schutzstaffel, Ichibe'e vs Yhwach → `reiokyu_vestibule` · Ichigo vs Yhwach (Greater Palace → Kirinji springs → Ichibe'e shrine) → `reiokyu_*` · Lille, Gerard, Askin, Haschwalth, final Yhwach, Uryū's gambit → `wahrwelt` |
+| Hell | Szayelaporro → `karakura` + `hell_gate` · Hell Verse (movie) → `hell` |
+
+### 13.2 Recommended build order
+1. **`urahara_study` — Urahara's underground training ground.** Cheapest map that exercises the whole destruction
+   stack (heightfield, rock spires that topple, a breakable ceiling shell, a pit) with no props grammar, no
+   interiors and no backdrop (it is enclosed). It is the Training Ground mode home and the dev "destruction
+   playground"; build it alongside the engine milestones even though `PLAN.md` lists it in M8.
+2. **`karakura` — Karakura Town district.** The M5 vertical slice ("Karakura Night": Hollows + Menos through a
+   Garganta). Proves the city grammar (lots, wooden houses vs RC mid-rises, poles + wires, river + bridge) and gets
+   reused almost for free as `fake_karakura` (+ pillars), `karakura_ss` and the Hollow Horde mode.
+3. **`sokyoku` — Sōkyoku Hill & Senzaikyū (with a slice of the white-wall maze).** Wave 1 (M6) climax: Rukia's
+   execution, Ichigo vs Byakuya, Aizen's betrayal; also the title-screen diorama. Introduces cliffs/mesa, a slender
+   tower, a bridge, Sekkiseki rules and the halberd/Kikōō set piece; the compound templates it needs are the same
+   ones `seireitei` uses.
+
+Next: `seireitei` (gate + maze) → `dangai` (tiny, high impact) → `hm_desert` + `lasnoches_dome` (wave 2 headline:
+Ulquiorra) → `lasnoches_interior` / `lasnoches_halls` → `fake_karakura` → TYBW maps → `hell`.
+
+### 13.3 Open questions / not found
+- **No canon dimensions** for almost anything except Jidanbō's height (9.88 m) and the Nest of Maggots moat
+  (30 ken ≈ 54.5 m). All other sizes are `est.`; tune against reference screenshots during look-dev.
+- **Not described in text:** the look of the Tenkai Kecchū pillars, the three non-West gates, the exact arrangement
+  of the five rooftop towers and outer towers of Las Noches, the Las Noches fake sky's "sun", whether Hueco Mundo has
+  stars, Seireitei roof colour (anime reads blue-grey), Senzaikyū height, the Shiba banner text layout. Reconstruct
+  from anime frames.
+- **Hell's interior** is only shown in the non-canon movie *The Hell Verse*; canon (manga + 2021 one-shot) only shows
+  the Gates, the toothed portal, Jigoku no Rinki and transformed residents.
+- **Forest of Menos** content is anime-only (cut from the manga).
+- **Wiki pages that do not exist** (content lives in parent pages): *Gates of Hell*, *Tenkai Kecchū/Kekkai*
+  (→ Senkaimon), *Negal Ruins*, *Itanoma*, *Ugendō*, *Spirit-Sealing Pit*, *Reiō Daidairi*. **Redirects:** Fake
+  Karakura Town → Karakura Town, Senzaikyū → Seireitei, Shakonmaku/Shishinrō → Sekkiseki, Kōtotsu → Dangai, Muken →
+  Central Great Underground Prison, Tres Cifras → Las Noches, Schatten Bereich / Gate of the Sun / Seed of
+  Destruction → Silbern, Tenchūren → Royal Guard. The fetched pages also strip their location tables; the map keys
+  above come from the raw templates (*KarakuraTown*, *Seireitei*, *RukongaiDistricts*, *HuecoMundoLocations*,
+  *LasNoches*, *Gatekeepers*).
+- The Karakura map key (Character Book *SOULs*) has **no coordinates** — the town layout must be procedural.
+- Manga vs anime differences to decide per map: Wahrwelt/Schatten Bereich lighting (manga day/night vs anime
+  darkness); Central 46 exterior (anime: circular building on a lake).
+
+---
+
+## 14. Sources (Bleach Wiki, fetched via the MediaWiki API)
+
+Base URL `https://bleach.fandom.com/wiki/` + title.
+- **Worlds & locations:** Karakura_Town · Template:KarakuraTown · Kurosaki_Clinic · Urahara_Shop ·
+  Karakura_High_School · Karakura_Hospital · Human_World · Study_Chamber · Senkaimon · Garganta · Valley_of_Screams ·
+  Soul_Society · Seireitei · Template:Seireitei · Template:Gatekeepers · Gatekeepers · Sekkiseki · Sōkyoku ·
+  Sōkyoku_Hill · First_Division · Second_Division · Fourth_Division · Sixth_Division · Eleventh_Division ·
+  Twelfth_Division · Thirteenth_Division · Gotei_13 · Shinigami_Research_and_Development_Institute ·
+  Central_46_Compound · Central_Great_Underground_Prison · Nest_of_Maggots · Kuchiki_Manor · Shin'ō_Academy ·
+  Kidō_Corps · Rukongai · Template:RukongaiDistricts · Shiba_Clan · Kakaku_Taihō · Reishukaku · Hueco_Mundo ·
+  Template:HuecoMundoLocations · Forest_of_Menos · Guardians_of_the_Forest_of_Menos · Runuganga · Las_Noches ·
+  Template:LasNoches · Wandenreich · Silbern · Wahrwelt · Soul_King_Palace · Royal_Guard · Ōken · Kirinden ·
+  Gatonden · Hōōden · Irazu_Sandō · Dangai · Hell · Kushanāda · Togabito · Jigokuchō · Three_Worlds · Primordial_Sea ·
+  Locations · */Image_Gallery captions (Seireitei, Las Noches, Hueco Mundo, Karakura Town, Soul King Palace,
+  Wahrwelt).
+- **Events & battles:** Trials_of_the_Shattered_Shaft · Ryoka_Invasion · Rukia's_Execution · Bankai_Training ·
+  Ichigo_Kurosaki_vs._Jidanbō_Ikkanzaka · Ichigo_Kurosaki_vs._Kenpachi_Zaraki · Arrancar_Invasion ·
+  Ichigo_Kurosaki_vs._Grimmjow_Jaegerjaquez (+ Rematch, Final Fight) · Ichigo_Kurosaki_vs._Ulquiorra_Cifer
+  (+ Final Fight) · Kenpachi_Zaraki_vs._Nnoitra_Gilga · The_Armies_Assemble:_Battle_at_Fake_Karakura_Town ·
+  The_Gotei_13_&_The_Visored_vs._Sousuke_Aizen · Ichigo_Kurosaki_vs._Gin_Ichimaru · Invasion_of_Soul_Society ·
+  Ichigo_Kurosaki_vs._Sousuke_Aizen · Fall_of_the_Seireitei · Quincy_Blood_War · Genryūsai_Shigekuni_Yamamoto_vs._Royd_Lloyd ·
+  Kenpachi_Zaraki_vs._Retsu_Unohana · Ichigo_Kurosaki_&_Ayon_vs._Quilge_Opie · Royal_Training · Fall_of_the_Soul_King ·
+  Ichibe'e_Hyōsube_vs._Yhwach · Uryū's_Gambit · Ichigo_Kurosaki_vs._Yhwach (+ Final Fight) · Battle_in_Fugai_Forest ·
+  Bleach:_The_Hell_Verse · NO_BREATHES_FROM_HELL.
+- **Characters (for scale/details):** Jidanbō_Ikkanzaka · Kūkaku_Shiba · Kisuke_Urahara · Tetsuzaemon_Iba ·
+  Chōjirō_Sasakibe · Szayelaporro_Granz · Aaroniero_Arruruerie · Ulquiorra_Cifer · Grand_Fisher.
+

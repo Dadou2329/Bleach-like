@@ -1303,7 +1303,7 @@ Drop Kick, swords cutting Ceros).
 
 | Variant | Kanji | Users | Canon effect | Visual | Tags / implementation |
 |---|---|---|---|---|---|
-| **Gran Rey Cero** ("Royal Cero Flash") | 王虚の閃光 | Espada; Ichigo (Merged Hollow Form) | Blood mixed into the Cero → far stronger and faster, in the user's own color; it spins like a razor, compressing and decompressing, and warps space as it flies. Forbidden inside Las Noches (could wreck it). | Personal color (Ichigo: violet; Grimmjow: blue in the anime — verify) with a pulsing, spinning disc-like front | `Beam(spinning)` — blood-mix animation (bite thumb / cut palm, a drop falls into the charge) → ×4 standard Cero; screen-space warp along the path; nearby voxels jitter and shear (SDC4 terminal). Las Noches map: blocked (§3.10). |
+| **Gran Rey Cero** ("Grand King Cero") | 王虚の閃光 | Espada; Ichigo (Merged Hollow Form) | Blood mixed into the Cero → far stronger and faster, in the user's own color; it spins like a razor, compressing and decompressing, and warps space as it flies. Forbidden inside Las Noches (could wreck it). | Personal color (Ichigo: violet; Grimmjow: blue in the anime — verify) with a pulsing, spinning disc-like front | `Beam(spinning)` — blood-mix animation (bite thumb / cut palm, a drop falls into the charge) → ×4 standard Cero; screen-space warp along the path; nearby voxels jitter and shear (SDC4 terminal). Las Noches map: blocked (§3.10). |
 | **Cero Oscuras** ("Black Cero") | 黒虚閃 | Espada **in Resurrección** (Ulquiorra; Yammy charged one in the manga) | Far stronger than a Cero with huge range; pitch-black. Shattered Ichigo's whole mask and blew away half the Las Noches dome; likened to the black Getsuga. | Black core, user-color rim (Ulquiorra: green) | `Beam(huge)` SDC4; mask-break rule: hits on a Hollow mask force it off. Released-form only. |
 | **Cero Metralleta** ("Machine-gun Cero") | 無限装弾虚閃 | Coyote Starrk (Los Lobos) | Many Ceros charged round a pistol barrel fire as a continuous barrage; he can re-aim mid-stream. | Blue Ceros in a ring around the gun | `Projectile(multishot, continuous)` hose: area-denial carpet of SDC2 craters; aim can sweep. |
 | **Cero Doble** ("Double Cero") | 重奏虚閃 | Nelliel (also child form) | Swallows an incoming energy attack and fires it back fused with her own Cero; Kubo: works on non-Cero attacks (Getsuga, Kidō) too. | Violet; mouth intake swirl | `Absorb/Reflect/Redirect`: hold to open the mouth-cone — absorbs one beam/projectile with tier ≤ her cap, then fires `absorbed power + own Cero`. Child form: tires her (long cooldown). |
@@ -1373,12 +1373,12 @@ Related: Aizen's **Fragor** (Hōgyoku form) resembles a Cero; Ginjō's anime "en
 | Method | User | Canon | Implementation |
 |---|---|---|---|
 | **Kūmon** (空門, "air gate") | Gillians, Menos | Tearing the barrier between worlds — a spatial distortion | Sky cracks open in a ragged rift; Gillian spawner. |
-| **Descorrer** (解空, "unclose") | Espada-level Arrancar | A simple hand gesture opens a stable Garganta they can just walk into; it closes neatly behind and reopens at the destination | X/F ability: 1 s gesture → black rift with jagged, tooth-like edges (anime look — proposal) slides open; walk in → reposition/escape. |
+| **Descorrer** (解空, "untie the sky"; Sp. "draw back") | Espada-level Arrancar | A simple hand gesture opens a stable Garganta they can just walk into; it closes neatly behind and reopens at the destination | X/F ability: 1 s gesture → black rift with jagged, tooth-like edges (anime look — proposal) slides open; walk in → reposition/escape. |
 | **Keikaigi** (Kidō, KU06) | Urahara | Ritual portal between two wooden posts | story portal |
 | Device | Mayuri + Nemu | Captured Hueco Mundo tech, two operators | story portal |
 | **Garganta Broadcast** | Ulquiorra | Several small Garganta used as screens to show distant fights | picture-in-picture UI / cutscene |
 
-- **Negación** (反膜, "anti-membrane"): Gillians project square beams of (golden-yellow) light that isolate the target
+- **Negación** (反膜, "anti-membrane"): Gillians project square beams of light (anime: golden-yellow) that isolate the target
   from the current dimension — impenetrable from outside — and draw them up toward the Menos (Aizen's escape).
   `Field(isolation)`: boss-escape ultimate; anyone inside is untargetable and floats away.
 - **Caja Negación** (反膜の匪): Espada punishment cube that mimics Negación, trapping the subject in a pocket dimension
@@ -1460,11 +1460,12 @@ to heal/evolve, Cero (Menos+), Kūmon & Negación (Gillian), HSR passive, mask =
 
 ### 2.3 Visored / Hollowfication
 
-- **What:** Hollowfication (虚化, *Horōka*) — a Hollow soul is inserted into another soul and the boundary between them is broken, raising the soul's
-  power ceiling; it shows as an inner Hollow and, when controlled, a **Hollow mask**. Sources: Aizen's Hollow
-  **White** (Ichigo's case via Masaki), the **Hōgyoku** experiments (the Visored, about a century before the story), and infection spread
-  by the first Hollowfied victims through wounds (sickness, vomiting white Reishi that starts the mask, then body
-  transformation, faster under stress). A Shinigami of high Reiryoku is needed to survive it.
+- **What:** Hollowfication (虚化, *Horōka*) — a Hollow soul is inserted into another soul and the boundary between
+  them is broken, raising the soul's power ceiling; it shows as an inner Hollow and, when controlled, a **Hollow
+  mask**. Sources: Aizen's Hollow **White** (Ichigo's case via Masaki), the **Hōgyoku** experiments (the Visored,
+  about a century before the story), and infection spread by the first Hollowfied victims through wounds (sickness,
+  vomiting white Reishi that starts the mask, then body transformation, faster under stress). A Shinigami of high
+  Reiryoku is needed to survive it.
 - **Taming:** the Shinigami must defeat the inner Hollow in the inner world, usually within about an hour (Hiyori took
   69 min 2 s, Ichigo 62 min 30 s) — meanwhile the Hollow drives the body and must be held off by others (boss phase).
   On victory the Hollowfied husk cracks and bursts and the Shinigami emerges masked; from then on the mask is summoned
@@ -1596,7 +1597,7 @@ Zeichen (five-point star) motifs; German naming. Sharp Reiatsu senses. Hollow po
   times a second like a chainsaw, loosening bonds so cut Reishi can be absorbed (using it raises Uryū's power). As a
   sword it cuts Reishi constructs; fired from Ginrei Kojaku it is a devastating arrow (one shot pierced Cirucci's
   "chain-binding" point and stripped her powers); a button launches the blade if the hand is pinned. **Anhäufer:**
-  gathers Reishi by absorbing the opponent's attacks. Users: Uryū, Ryūken. Five of them power **Sprenger** (§2.4.6).
+  gathers Reishi by absorbing the opponent's attacks. Users: Uryū, Ryūken. Five of them power **Sprenger** (§2.4.7).
 - **Impl (E):** tap = fire as arrow (`Projectile(needle, pierce)`; precise chest hit → `Status(power seal)` on non-boss
   Arrancar/Shinigami); hold = blade mode (`MeleeArc(cut)` that converts cut voxels to free Reishi, no debris); RMB in
   blade mode vs. an energy attack = **Anhäufer** absorb (refills Reiryoku); tap again = launch the blade.
@@ -1725,7 +1726,8 @@ Zeichen (five-point star) motifs; German naming. Sharp Reiatsu senses. Hollow po
 - **Known thefts:** Yhwach — Zanka no Tachi; Äs Nödt — Senbonzakura Kageyoshi†; Bambietta — Kokujō Tengen Myō'ō†;
   BG9 — Jakuhō Raikōben†; Cang Du — Daiguren Hyōrinmaru†; Driscoll — Kōkō Gonryō Rikyū († = recovered).
 - **Impl (X for Sternritter):** "present Medallion" works only on a **released Bankai within 25 m**: 5 dark streams →
-  victim forced back to Shikai with the Bankai tier locked (`Status(Bankai stolen)`) → the thief gains a new form whose
+  victim drops out of Bankai with the Bankai tier locked (`Status(Bankai stolen)`; proposal: Shikai stays usable at
+  reduced power, since the bond with the spirit is cut) → the thief gains a new form whose
   kit is the victim's Bankai data at ~60 % (they can't Vollständig while holding it). Shin'eiyaku-dosed victims: the
   thief gets `Status(Hollow poison)` (DoT + control jitter), and after ~20 s the Bankai cracks and flies home, Hollowfied
   (ice half-mask etc.). **Requires fully data-driven, transferable kits.**
@@ -1741,9 +1743,9 @@ Zeichen (five-point star) motifs; German naming. Sharp Reiatsu senses. Hollow po
   area with light and erases the shadows they need. Reiatsu signature disappears on entry.
 
 #### 2.4.12 Yhwach-class Quincy powers (for those dossiers)
-- **Auswählen** (聖別, "consecration"; German "to select"): Yhwach takes back the power — usually the life — of Quincy he deems impure or
-  useless (older/weaker first; the light can strip victims to bones; a clot of **Still Silver** forms in their hearts) and
-  redistributes it (revived Lille and Gerard came back stronger). Pure energy transfer, so spiritual-matter barriers can't
+- **Auswählen** (聖別, "consecration"; German "to select"): Yhwach takes back the power — usually the life — of
+  Quincy he deems impure or useless (older/weaker first; the light can strip victims to bones; a clot of **Still
+  Silver** forms in their hearts) and redistributes it (revived Lille and Gerard came back stronger). Pure energy transfer, so spiritual-matter barriers can't
   stop it; even dodging the light strips Vollständig. Long incantation (optional); after he absorbs the Soul King the ring
   turns black. Still Silver touching Yhwach's blood briefly cancels all his powers. **Impl:** Yhwach ultimate: light
   columns on chosen Quincy (allies!) convert their HP/powers into Yhwach buffs; Still Silver = a world item that can
