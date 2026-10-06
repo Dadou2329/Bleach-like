@@ -20,6 +20,7 @@ export interface CharUniforms {
   uDissolve: { value: number };
   uEnergy: { value: THREE.Vector4 };
   uTime: { value: number };
+  uAlpha: { value: number };
 }
 
 export type CharMaterial = THREE.MeshStandardMaterial & { userData: { uniforms: CharUniforms } };
@@ -46,6 +47,7 @@ uniform float uEdge;
 uniform float uDissolve;
 uniform vec4 uEnergy;
 uniform float uTime;
+uniform float uAlpha;
 varying vec3 vVoxPos;
 varying vec3 vVoxNrm;
 varying float vAO;
@@ -79,6 +81,7 @@ export function createCharMaterial(palette: THREE.Texture, params: THREE.Texture
     uDissolve: { value: 0 },
     uEnergy: { value: new THREE.Vector4(0.6, 0.85, 1, 0) },
     uTime: { value: 0 },
+    uAlpha: { value: 1 },
   };
   mat.userData.uniforms = uniforms;
   mat.onBeforeCompile = (shader) => {
@@ -112,7 +115,8 @@ export function createCharMaterial(palette: THREE.Texture, params: THREE.Texture
          vec2 chE = min(chT, 1.0 - chT);
          float chEdge = 1.0 - uEdge * (1.0 - smoothstep(0.0, 0.12, min(chE.x, chE.y)));
          vec3 chAlb = chCol * chVar * chEdge * uTint;
-         diffuseColor.rgb = mix(chAlb * chAo, vec3(1.0), uFlash.a * 0.55);`,
+         diffuseColor.rgb = mix(chAlb * chAo, vec3(1.0), uFlash.a * 0.55);
+         diffuseColor.a *= uAlpha;`,
       )
       .replace(
         '#include <roughnessmap_fragment>',
@@ -138,6 +142,7 @@ export function createCharMaterial(palette: THREE.Texture, params: THREE.Texture
              float scan = 0.65 + 0.35 * sin(vVoxPos.y * 0.9 - uTime * 14.0);
              totalEmissiveRadiance = mix(totalEmissiveRadiance, uEnergy.rgb * (1.2 + 2.5 * fres) * scan, uEnergy.a);
              diffuseColor.rgb *= 1.0 - uEnergy.a;
+             totalEmissiveRadiance *= mix(1.0, uAlpha, uEnergy.a);
            }
          }`,
       );

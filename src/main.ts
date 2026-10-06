@@ -8,12 +8,14 @@ import { Engine } from './engine';
 import { raycastVoxels } from './voxel/raycast';
 import { BoxShape, CapsuleShape, CrescentShape, SphereShape } from './destruction/shapes';
 import { bootViewer } from './viewer';
+import { bootSandbox } from './modes/sandbox';
 
 const params = new URLSearchParams(location.search);
 
 async function boot(): Promise<void> {
   const app = document.getElementById('app')!;
   if (params.get('mode') === 'model') return bootViewer(app, params);
+  if (params.get('mode') !== 'dev') return bootSandbox(app, params);
   const quality = params.get('q') === 'low' ? QUALITY_LOW : QUALITY_HIGH;
   const t0 = performance.now();
   const world = generateTestArena(Number(params.get('seed') ?? 1));
