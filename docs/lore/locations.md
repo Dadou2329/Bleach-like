@@ -1172,4 +1172,324 @@ under the fake sky.
 Ichigo_Kurosaki_vs._Grimmjow_Jaegerjaquez:_Final_Fight · Kenpachi_Zaraki_vs._Nnoitra_Gilga · Aaroniero_Arruruerie ·
 Ulquiorra_Cifer · Cero_Oscuras · Las_Noches/Image_Gallery captions.
 
+---
+
+## 9. The Wandenreich (見えざる帝国)
+
+### 9.1 Silbern (銀架城) & the Wandenreich city — `wandenreich`
+**Canon.** After losing the war 1,000 years ago, the Quincy fled into the Seireitei and used reishi to carve a
+world out of its **shadows**, the **Schatten Bereich**, invisible to the Shinigami ("Invisible Empire"). They can
+step out anywhere in the Seireitei (they were always inside the wall) and can break down the Seireitei's reishi
+to reveal their city; Yhwach can only stay outside for a limited time. HQ = **Silbern**, a **large ice-encrusted
+palace** inside an equally iced-over city of seemingly **abandoned buildings**, about as big as the Seireitei.
+- **Silbern:** a wide **two-tier** building — the lower tier stands on **six thick columns**, the upper tier is about
+  half as wide and long and rests on **pillars**; windows are **pairs of thin vertical slats**; a **stairway** climbs
+  to the lower tier; the complex is enclosed by an **angular barrier with octagonal joints**; in front, two **gutted,
+  curving tusk-like structures** arch toward each other (once a single arch); behind it, a **huge rectangular tower
+  with a cross on each face** dwarfs everything (Haschwalth's quarters; Yhwach's launch platform to the Soul King
+  Palace). Ice everywhere, with dozens of jagged **stalagmites**; exteriors are run-down. In Lichtreich days the city
+  formed **three concentric rings** like the Seireitei.
+- **Interiors:** big assembly halls; **Wörtlich Hall** (Sternritter meet around a long **silver table**); Yhwach's
+  small **torch-lit throne room** with filigree and a little throne on a platform; later an **open-air torch-lit
+  throne room** and an open-air sleeping chamber; a **room suspended in mid-air** (stairs up to it) where Harribel is
+  imprisoned; wide hallways lined by the upper tier's pillars; **Gates of the Sun** (ornate metal plates, used with
+  Keys of the Sun) for moving around and for the invasion; the **Seed of Destruction** — a giant sphere of swirling
+  energy vortexes in an ice-encrusted chamber in the middle of Silbern (it disperses or redirects arrows; only a
+  collision with a "distortion" can destroy it).
+
+**Story stages.** Sternritter assemblies; Uryū named successor · 2nd invasion fights in the city that replaced
+the Seireitei (Rukia & Byakuya vs **Äs Nödt**, Renji vs **Mask De Masculine**, Kenpachi vs **Gremmy** and his
+imagined meteor, Komamura vs **Bambietta**, Suì-Fēng vs **BG9**, Hitsugaya & Rangiku vs **Bazz-B**, Mayuri vs
+**Pernida**) · **Ichigo vs Uryū at the tower behind Silbern** while Yhwach ascends · Ryūken & Isshin's Gate of
+the Sun trip.
+
+**Must-haves.** Ice crusts and stalagmites on everything · blocky white city under a dark sky · Silbern's two tiers
+on columns · the cross-faced tower behind it · the tusk arches · Quincy five-point crosses on banners and walls.
+
+**Scale (est.).** Canon: Seireitei-sized city. Game: **256 × 256 × 256 m @0.25** around Silbern; ring city backdrop.
+Silbern lower tier 140 × 90 × 25 m on six Ø 8–10 m columns; upper tier 70 × 45 × 20 m on Ø 2–3 m pillars; stair
+40 m wide; barrier walls 6–10 m with octagonal pylons around a 300 × 250 m precinct; tusks 80–100 m; rear tower
+30 × 30 m, 200–250 m tall (crosses 20 m tall); city blocks 15–60 m tall; avenues 15–25 m.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Stone | `#E9EDF1` | `#C3CBD5` `#8C99A8` |
+| Trim / roofs | `#5B6B7E` | `#45525F` |
+| Ice | `#CFE7F3` | deep `#9CC3DB`, glint `#F2FBFF` |
+| Frozen ground | `#DDE9EF` | `#C4D6E0` |
+| Sky (Schatten Bereich) | `#0B0F17` (anime darkness) | manga-like overcast `#9FB4C6` |
+| Torches / braziers | `#FFB45A` | embers `#FF7A2E` |
+| Quincy reishi | `#79C6FF` | `#4FA3E3` `#E6F6FF` |
+| Gate of the Sun metal | `#B8A46A` | `#8F7E4E` |
+| Banners | white `#F4F6F8` with black `#1A1A1A` five-point cross | — |
+
+**Light.** Two presets: `shadow` (black sky, ice glow, torches, cold blue rim) and `overcast` (flat white-grey).
+
+**Generator** (`maps/wandenreich/generator.ts`)
+1. **Layout.** Three concentric ring zones around the Silbern precinct (ring roads + broken ring walls), 8 radial
+   avenues, rectangular blocks between.
+2. **Terrain.** Flat frozen plaza levels with steps; ice sheets on roads.
+3. **Structures.** Blocky grammar: base slab → shaft (tall narrow window bands) → crown with buttress fins and cross
+   reliefs; 20–40 % have collapsed corners/facades (abandoned look).
+4. **Ice pass (SDF growth).** Crust 0.25–1 m on upward faces; icicles 0.5–4 m under overhangs; stalagmite clusters
+   2–12 m on roofs and streets (slight lean); frozen drifts against walls.
+5. **Set pieces.** Silbern (two tiers + interiors), rear tower, tusk arches, barrier walls, **Gates of the Sun**
+   (4 × 6 m metal plates in walls/floors = teleport pads), **Seed of Destruction** chamber (60 m ice cave; Seed
+   Ø 30–40 m of emissive swirling bands that eat projectiles and wrap them into a reishi dome), Wörtlich Hall,
+   throne rooms, Harribel's floating cell.
+6. **Weathering.** Frost gradients, wind-scoured ice.
+7. **Bake.** Spawns; shadow-wipe transition data (shared footprint with `seireitei`).
+
+**Spawns.** `silbern_stairs`, `tower_base`, `plaza_*`, `gate_of_the_sun_*`.
+
+**Destruction.** Ice shatters first (H 25, glassy shards, meltable → water → steam), stone underneath H 100;
+everything is reishi → Quincy `absorb` strips walls into blue streams; Gremmy's meteor = scripted massive `smash`.
+
+**Performance.** ~3.6k chunks ≈ 115 MB (cap ice spikes; they create many small dense chunks).
+
+**Sources.** wiki/Silbern · Wandenreich · Quincy_Blood_War · Fall_of_the_Seireitei · Uryū's_Gambit.
+
+### 9.2 Wahrwelt (真世界城) — `wahrwelt`
+**Canon.** After absorbing the Soul King, Yhwach hauls Silbern and the whole Wandenreich city up to the Royal
+Realm and **rebuilds the Soul King Palace**: the main palace is put at ground level and partly iced over; the
+**five floating cities** are joined to the Wandenreich city in a giant **Quincy Zeichen** (five-point star) of
+blue energy; in the middle rises a **massive, wide, multi-layered castle with Silbern on its peak**. Five
+**branches** (Ast) are each guarded by a Schutzstaffel member (Uryū was assigned *Zwei Ast*, moved to *Eins Ast*;
+Pernida guards *Vier Ast*). **Large stone guardian statues** line the halls; Yhwach sits on a **throne shaped like
+the Hagal rune** in a new, bigger throne room behind huge doors. **Five bridges** link the branches to the central
+tower. A **distortion** grows beneath. In the manga Wahrwelt has a normal day/night cycle; the anime keeps it in
+perpetual darkness. Entry: Gates of the Sun, or Urahara's modified **Valley of Screams**.
+
+**Story stages.** Sado vs the guardian statues · Shunsui (+Nanao) vs **Lille Barro** (Trompete wrecks districts) ·
+Gotei & Visored vs **Gerard Valkyrie** (giant; Hitsugaya freezes him) · Mayuri vs **Pernida** · Grimmjow & Urahara
+vs **Askin** · Bazz-B vs **Haschwalth**, Uryū vs **Haschwalth** · Ichigo & Orihime vs **Yhwach** (throne room) ·
+Ichigo merged-Hollow burst **destroys Silbern** · Ichigo, Renji & Aizen vs Yhwach (final) · **Uryū's gambit**:
+Leiden Scherben detonations sever the inner ends of the five bridges, the central tower falls, Harribel's Cascada
+and Nelliel's Lanzador Verde expose the Seed, which collides with the distortion; Uryū wraps the blast in tens of
+thousands of arrow strips.
+
+**Build (est.).** Central castle: 200 × 200 m base, stepped tiers (shrink 15–25 % per 30–50 m tier) to 250–300 m,
+Silbern (§9.1) on top · branch cities: former Royal Guard discs Ø 250–400 m re-skinned with Quincy blocks and ice ·
+bridges 20–30 m wide, 300–500 m long · Zeichen energy lines `#5FB6FF` (emissive ribbons 6 m wide) · distortion:
+black swirling mass Ø 500 m+ with flashes `#FF3BD1` `#3BFFE8` `#FFE53B` · guardian statues 15–25 m (golems at 4–8
+vx/m) · throne room 120 × 60 × 40 m, Hagal-rune throne, 20 m doors.
+
+**Game bounds.** 384 × 320 × 384 m @0.25: the central castle (partial) + one branch + 1–2 bridges; other branches
+as impostors on the horizon; the void below with the distortion as a skybox element that grows during the stage.
+
+**Light.** `manga_day` (overcast white `#D9DEE4`) or `anime_dark` (`#07080C` sky, blue reishi glow, ice sparkle).
+
+**Destruction & set pieces.** Bridges = girder archetype on reishi; the **tower-fall**: destroying the 5 bridge
+roots (or the scripted Leiden Scherben) detaches the central castle → it sinks toward the distortion (stage clock);
+Lille's Trompete carves straight trenches through districts; Gerard's Godly Size stomps flatten branches.
+
+**Performance.** ~4.5k chunks ≈ 145 MB (floating islands only; void is free).
+
+**Sources.** wiki/Wahrwelt · Silbern · Fall_of_the_Soul_King · Uryū's_Gambit · Wahrwelt/Image_Gallery captions.
+
+---
+
+## 10. The Royal Realm
+
+### 10.1 Soul King Palace (霊王宮, Reiōkyū) — `reiokyu_*`
+**Canon.** A separate dimension suspended far above the Seireitei: the Soul King's residence and the Royal
+Guard's (Zero Division) home. Layers: the **lowest level** is a district of Seireitei-style buildings; a **large
+stairway** climbs to a **wide flat expanse**; both are lined with **rows of huge round pillars**; above float
+**five discs** carrying cities (the *Zeroban Riden*, one per Royal Guard member); higher still floats the **Soul
+King Greater Palace** — a big **cylinder with conical top and bottom** — miles away and wrapped in barriers.
+**72 barriers** separate the realm from the Seireitei (Ōken-cloth garments forcing them leave them open 1 h 40
+min); the Seireitei's Sekkiseki wall normally protects it. Entry needs a Royal Guard's consent or an **Ōken** (the
+Royal Guard's own bones). Visitors move between sections by being **catapulted through the sky**. The main
+entrance is the **Front Approach / Vestibule Road**, a long paneled path hanging in the air. The **Tenchūren**
+pillar lands on a platform there; that platform can open into a **circular staircase spiralling down into the
+clouds** toward the Seireitei. Guards: **Divine Soldiers** (black hakama, purple sash, black masks with four pale
+lines, hair in a long spike, Asauchi) and giant **Second-Class Divine Soldiers** (round black hat, halves of a huge
+black pentagonal shield).
+
+| City | Canon content | Build (est.) |
+|---|---|---|
+| **Kirinji** | **Kirinden**: wooden feudal-era onsen, two name signs at the entrance, big open interior with two healing springs — **White Bone Hell** (squeezes out damaged blood/reiatsu; keep the towel on your head) and **Blood Pond Hell** (red, boiling; refills blood); a loud rocking bamboo fountain | disc Ø 250 m; onsen hall 40 × 30 m; pools 15 × 10 m each; steam |
+| **Hikifune** | **Gatonden** "palace of food": linked pillared rotundas whose walls are **gigantic noren** curtains; huge dining hall, one enormous table, hanging lanterns | rotundas Ø 20–30 m; noren 8–12 m tall |
+| **Nimaiya** | city at the edge of a large body of water; **Hōōden** = a tiny shack on a **cliff edge** whose inside drops into a **deep pit**; a **water slide** leads to a **forge cavern at the cliff's base surrounded by waterfalls** (a bay — the water is needed to reforge Bankai); the flashy **Galaxy Hōōden** party hall (spotlights, speakers); the "women" in town are his Zanpakutō | cliff 60–80 m; bay Ø 150 m; forge cavern 30 × 30 m with a water trench and a furnace |
+| **Senjumaru** | a room covered entirely in dozens of fabrics, a cushioned seat of wooden bars at the top of stairs (measuring for Ōken clothing); her Bankai weaves a loom-like domain | fabric hall 30 × 20 m, drapes as cloth physics or voxel sheets |
+| **Ichibe'e** | a **mountain range** with dozens of peaks; **Itanoma** = a small dojo at the top of **stairs carved into a mountain**; the air is so reishi-dense newcomers can barely move or breathe; the inner chamber opens onto the **Irazu Sandō** (walls and floor peel away: a long path of jumbled stones under constant drizzle, luminous grass floating in water, white shide, a plain wooden torii at the end; pressure grows each step; exits into Senjumaru's palace) | disc Ø 400 m; peaks 60–150 m; stair 2 m wide, 400+ steps |
+| **Greater Palace** | Soul King's chamber: the limbless Soul King sealed in a red-tinted crystal | cylinder Ø 100–150 m, 200 m tall + cones; chamber Ø 40 m |
+
+**Story stages.** **Royal Training** (Kirinden springs, Gatonden feast, Nimaiya's pit and forge, Senjumaru's
+measurements, Ichibe'e's Irazu Sandō) · Royal Guard vs Schutzstaffel on the Vestibule Road (Hikifune's **Cage of Life**
+— a giant tree of reiatsu-eating branches — walls the Quincy in; Senjumaru's Bankai; **Nimaiya vs Askin** with a
+Blood Pond Hell transfusion) · **Ichibe'e vs Yhwach** on the walkway before the Greater Palace (Ichibe'e brushes
+boundary lines and a seal across it; Yhwach's Auswählen drains his own soldiers below; Yhwach then smashes the
+road's pillars into **glowing blue stairs** up to the Greater Palace) · **Ichigo vs Yhwach**: clash in the Greater Palace → both crash
+into **Kirinji's hot springs** → mid-air duel → Yhwach smashes into the **shrine on top of Ichibe'e's city** (crater)
+→ Ichigo is hurled up through the floor of the Soul King's chamber → the Soul King's death, the palace lists with a
+diagonal fissure → Wahrwelt (§9.2).
+
+**Must-haves.** Cloud sea far below · floating discs · huge round pillars along the Vestibule Road · the cylinder
+palace hanging in the sky · catapult traversal.
+
+**Sub-arenas** (each 256 × 256 × 256 m @0.25): `reiokyu_vestibule` (road segment + landing platform + distant Greater
+Palace + Divine Soldiers), `reiokyu_kirinji` (onsen city), `reiokyu_nimaiya` (cliff, bay, forge, Galaxy Hōōden),
+`reiokyu_ichibee` (mountains, stair, dojo, Irazu Sandō instance), `reiokyu_greater` (Soul King's chamber).
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Cloud sea | `#F4F6FA` | shadows `#C9D3E0` |
+| Sky (high altitude) | `#4F8FD8` zenith | horizon `#BFDCF5` |
+| Palace stone / plaster | `#ECE6DA` | `#D3CBBB` `#F7F3EA` |
+| Roof tiles | `#3F4756` | `#2F3542` |
+| Gold trim | `#C8A24A` | `#9E7C2F` |
+| Vermilion pillars / shrine | `#B9402B` | `#8E2F1F` |
+| Timber | `#7A5539` | `#5C3F2A` |
+| White Bone Hell / Blood Pond Hell | `#EDEFF2` / `#B3121B` | steam `#FFFFFF` α |
+| Galaxy Hōōden neon | `#FF3EA5` `#7A3CFF` `#3CF0FF` | — |
+| Forge waterfalls | `#9ED3F0` | spray `#FFFFFF` |
+| Irazu Sandō | darkness `#0E1412`, glowing grass `#7CFF9A`, shide `#F4F4EE` | rain |
+| Divine Soldiers | black `#141414`, sash `#5B2C83`, mask lines `#D8D8D0` | — |
+| Soul King crystal | `#C8202A` α 0.6 | — |
+
+**Light.** High-altitude glare: sun 50°, white `#FFFFFF`, deep blue zenith, bloom on clouds, haze below;
+Ichibe'e's city misty; Irazu Sandō dark and wet.
+
+**Generator.** Floating-island grammar: disc = lens-shaped rock underside (noise-eroded, stalactite tips) + flat top
+city (Seireitei templates with gold/vermilion accents) + a hidden **anchor core** (`design`) + catapult pads at the
+rim (ballistic arcs to the next disc). Vestibule Road = deck 30 m wide (segment in bounds), pillars Ø 8–10 m × 60 m
+every 25 m, landing platform Ø 60 m with a retractable Ø 20 m spiral stair. Ichibe'e disc = mountain heightfield
+(dozens of peaks) + carved stairs + summit dojo. Reishi-density field near the dojo (movement and stamina penalty
+that fades as the player "adapts").
+
+**Destruction.** `palace_stone` H 150 (tough but breakable); pillars topple like dominoes; discs survive bridge/edge
+damage but drop if their anchor core is destroyed (`design`); hot springs are liquids (healing zones).
+
+**Performance.** 80–125 MB per sub-arena (2.5–4k chunks); cloud sea is a shader plane, not voxels.
+
+**Sources.** wiki/Soul_King_Palace · Royal_Guard · Kirinden · Gatonden · Hōōden · Irazu_Sandō · Royal_Training ·
+Fall_of_the_Soul_King · Ichibe'e_Hyōsube_vs._Yhwach · Ōken.
+
+---
+
+## 11. Between worlds
+
+### 11.1 Dangai (断界, Precipice World) — `dangai`
+**Canon.** The corridor dimension linking Soul Society and the Human World, cut off from space and time and floating
+inside the Garganta. Once a **penal colony**. Its time is layered and **~2,000× denser** than outside (1 hour out =
+2,000 hours in). Two defences: the **Kōryū** — a current that coats the walls and grabs anything that touches it
+(one caught foot is nearly inescapable; Uryū's cape got caught and Chad tore him free; a drawn Zanpakutō gets
+caught too) — and the **Kōtotsu**, a "sweeper" made of reason rather than reiatsu, shaped like a **bullet train**
+out of the Dangai's own material with a **golden eye** at the top centre of its front; it appears **every seven
+days**, kills on contact and flings victims across time. Inside it looks like **dripping sludge littered with
+bones**, with a path toward a **rectangular opening**. *Kaikyō Kotei* (Realm Boundary Fixation) freezes the current:
+normally many low-ranked Shinigami pour in reiatsu; a strong individual can do it alone by planting **four small
+forked blades** in the walls and staying linked to them (Isshin could hold it ~2,000 Dangai-hours). Aizen (fused
+with the Hōgyoku) destroyed the Kōtotsu by walking into it (anime-only: Amagai also destroyed one).
+
+**Story stages.** **Kōtotsu chase** (Ryoka run; Orihime's Santen Kesshun blocks it — Yoruichi warns that letting
+the current touch her fairies could have killed them all) · Ulquiorra intercepts Orihime (defences off) · Aizen
+destroys the Kōtotsu · **Isshin's training**: Ichigo vs Zangetsu inside the frozen Dangai for the Final Getsuga
+Tenshō.
+
+**Build (est.).** Corridor 14 m wide × 12 m tall, rounded organic walls; floor of uneven sludge with a 4–6 m path of
+dark stones; bones (skulls, ribcages 0.3–2 m); sludge drips; exit = glowing rectangle 6 × 8 m. Kōtotsu: fills the
+corridor (12 × 10 m section), 80–120 m long, golden eye 3 m, headlight glow.
+
+**Palette (est.).** walls `#3A1F3D` → `#5C2D63`, flowing streaks `#7A3E7F` with amber flecks `#C27A3A`; sludge
+`#241A17` → `#3B2A24`; bones `#E6DDC8`; ambient `#120A14`; exit `#FFFFFF`; Kōtotsu eye `#E8B83A`, glow `#FFF3C4`.
+
+**Light.** Darkness lit by the exit ahead and the Kōtotsu's glare behind (rim-lit silhouettes running).
+
+**Generator.** Spline corridor with gentle curves/slopes; cross-section profile + noise; path stones; bone Poisson
+scatter; drip emitters; streamed 32 m segments; finite run 500–1,000 m ending at the exit portal.
+**Chase event:** the Kōtotsu spawns ~150 m behind with a horn-like roar and light, moves slightly faster than a
+sprint (Shunpo/Sonído needed), destroys everything in the corridor except the walls.
+
+**Rules.** Walls `koryu`: indestructible and **sticky** (contact roots the player; allies can pull/break them free;
+a drawn sword touching it gets stuck) · Kōtotsu: invulnerable, contact = instant KO / "thrown through time"
+(story reset); only an Aizen-tier ultimate can break it (scripted) · **Fixed variant** (`dangai_fixed`): four forked
+blades in the walls stop the current → a still arena for the Ichigo vs Zangetsu training stage; Training Ground
+option "Dangai time" (cooldowns tick ×2, `design`).
+
+**Performance.** 16 × 16 m section @0.125, ±200 m streamed → ~1.6k chunks ≈ 50 MB.
+
+**Sources.** wiki/Dangai · Trials_of_the_Shattered_Shaft (sludge/bones description) · Invasion_of_Soul_Society.
+
+### 11.2 Garganta (黒腔) & Valley of Screams (叫谷)
+- **Garganta.** A featureless black void between the Three Worlds (it contains all of them and can reach the
+  Dangai) with turbulent reishi; travellers must keep creating footholds. Openings: *Kūmon* (Gillian air gate),
+  *Descorrer* (Espada-level Arrancar), *Keikaigi* (Urahara's posts), Mayuri's captured device (pillars Nemu sets up
+  and stands on as the focus). **Transit level** (`garganta`): black `#000000` with faint streaks `#1B2A3A`; the player
+  holds Space to lay pale-blue reishi tiles `#7FD3FF` (α 0.6) as a path; tiles fade behind; losing the path = fall
+  (respawn) — `design`.
+- **Valley of Screams.** Pockets of space inside the Garganta made of souls thrown out of the reincarnation cycle
+  (film *Memories of Nobody*; canon in TYBW). Urahara has Riruka stuff one into a box and Yukio shape it into a
+  **room on rails** that travels to a marker stake and even enters the Royal Realm without anyone exerting reiatsu
+  (stealth). **Transit scene:** a small room (game-UI-styled interior, `design`) gliding on rails through blackness
+  to `wahrwelt`.
+
+---
+
+## 12. Hell (地獄) — `hell`
+
+**Canon (manga + 2021 one-shot *No Breathes From Hell*).**
+- Where souls go if they sinned gravely as humans: a Zanpakutō only cleanses sins committed as a Hollow. When such a
+  Hollow is cut down (Shrieker), the **Gates of Hell** form from light out of the wound: two doors **chained shut**,
+  each bearing the **bandaged head and torso of a skeleton** whose arms are set to haul the door open; inside, two
+  thick **ropes hung with charms** stop them opening fully; a huge **demon** (only face and left arm visible —
+  armour plate on the upper arm, tribal-looking tattoos) **skewers the Hollow with a blade** and drags it in,
+  laughing; the doors shut and the gate **cracks and crumbles away**.
+- Hell **reshapes Arrancar**: Szayelaporro returns as the **Jailer of Hell** — Hollow hole moved outside as a **ring
+  behind his back**, charred skeletal arm, chain tattoos, horns; he raises **black-crimson chains from the ground**
+  and has clairvoyance.
+- **Captains go to Hell**: their reishi is too dense for Soul Society to reabsorb, so the Konsō Reisai held 12
+  years after a captain's death sends them there (Yamamoto "Founder of the Gotei", Unohana "Death Sword", Ukitake
+  "Kamikake"); Ukitake's Shikai reappears several times larger.
+- **Balance**: Aizen's and Yhwach's reiatsu kept Hell's maw shut; with them gone and captains sent down, its
+  denizens can force it open. Then **Jigoku no Rinki** appear — black blobs of a **non-reishi** substance, harmless to
+  touch but acidic once cut by a Zanpakutō. Escapees come out through a **circular, Garganta-like portal lined with
+  teeth**, and can be dragged back through the ordinary Gates.
+- Not part of the Three Worlds (a novel claims it predates them and that the Human World acts as its lid — `novel`);
+  the Quincy afterlife connects to the other worlds somewhere near Hell (Kubo Q&A).
+
+**Movie layer (*Bleach: The Hell Verse*, `movie (non-canon)`) — the only full depiction of Hell's interior.**
+- **Kushanāda** — Hell's guardians: huge, walk on all fours, long skull-like heads, armour on the right shoulder,
+  **pass through solid structures**, eat Togabito (who revive), can grab their otherwise invisible chains; grant the
+  *Skull-Clad* armour.
+- **Togabito** — chained sinners (in Hell: white garb with thin black stripes; outside: black cloak with white
+  rectangular buttons and a bulb-shaped mask split black/white); they die and regenerate endlessly (revived from a
+  lava pit).
+- **Levels.** The **First Level** (entrance) has **red miasma** overhead and an **ocean dotted with huge lotus- and
+  lily-pad-shaped islands** whose petals form walls, plus towers and a **Kushanāda graveyard** (skeletons propped on
+  spikes); slopes lead down; the **Fourth Level** has hills, **lava pits**, a **skeletal monument** with a cage
+  hanging over lava, **finger-shaped stone pillars** and stone walkways; deeper still a chained figure lies in a **pit
+  of skulls** under a river of lava. Seen from inside, the Gates open on a **red chasm crossed by huge chains**.
+
+**Story stages.** Ichigo vs **Shrieker** → first Gates of Hell (canon) · Renji & Ichigo vs **Szayelaporro** (2021) ·
+movie: Ichigo vs **Shuren**, **Garogai**, **Gunjō**, **Taikon**, **Kokutō** (Fourth Level monument; Hollowfied Ichigo's
+Cero obliterates the monument and blasts through the levels to the Gates).
+
+**Set piece `hell_gate`** (usable on any map): doors 40–60 m tall (est.), black stone/iron `#2A2826`, chains with
+1–1.5 m links `#5C5A57` (rust `#7A3B22`), bandaged skeleton reliefs (bandage `#DCD2BC`, bone `#E8E0CC`), interior
+glow `#C21A10` → `#FF4A1A`; a giant tattooed arm with a blade grabs the target (cinematic Bind) and the structure
+crumbles to dust afterwards.
+
+**Map `hell`** (256 × 256 × 256 m @0.25, two stacked levels joined by a chasm and slopes):
+| Layer | Content (est. sizes) | Palette |
+|---|---|---|
+| Upper — First Level | dark sea `#1B0F12` (red reflections); lotus islands Ø 60–120 m with petal walls 15–30 m (`#C9B9A6` → `#E3D3C0` edges); towers; Kushanāda skeletons on spikes (bone); red miasma ceiling at ~240 m (`#7A0E0E` → `#B0201A`, dim emissive) | crimson/black |
+| Lower — Fourth Level | basalt hills `#1C1919`; lava pits Ø 30–80 m (`#FF4E12`, crust `#5A1A0A`, glow `#FFB347`); skeletal monument 40–60 m with a cage; finger pillars Ø 3–6 m × 20–60 m `#3A302C`; walkways 3 m; skull pits `#E2DACA` | orange underlight |
+
+**Light.** No sun: red miasma above, lava underlighting below, heavy bloom, heat haze, embers and ash.
+
+**Rules / hooks.** Kushanāda = giant hazards that **ignore voxel collision** and hunt chained targets; Togabito
+respawn from lava pits; chains are indestructible `Bind`s; non-spiritual humans suffer a miasma DoT (Yuzu could not
+withstand the air); materials are not absorbable (§2.1); Jigoku no Rinki blobs can be spawned on any map for
+Hell-arc variants.
+
+**Destruction.** `hell_rock` H 90; lotus walls H 60; finger pillars topple; lava is a burning liquid; chains ∞.
+**Performance.** ~3.5k chunks ≈ 110 MB.
+
+**Sources.** wiki/Hell · Kushanāda · Togabito · Bleach:_The_Hell_Verse · Szayelaporro_Granz · NO_BREATHES_FROM_HELL ·
+Jigokuchō.
+
 <!-- LOCATIONS_BODY -->
