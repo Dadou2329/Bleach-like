@@ -20,7 +20,7 @@ Conventions used below
 | Nanao Ise | Co-Lt., 1st Div (ex-8th) | 164 cm → 52 | 八 + strelitzia → 一 + chrysanthemum | none (Kidō) → clan sword **Shinken Hakkyōken** | not stated | **B** |
 | Nemu Kurotsuchi † | Lt., 12th Div | 167 cm → 53 | 十二 + thistle | thin katana (unused); body-tech fighter | not stated (Gikon blast gold) | **B** |
 | Yachiru Kusajishi | Lt., 11th Div (vanished) | 109 cm → 35 | 十一 + yarrow | Sanpo Kenjū — **no command** | pink (angry cat face) | **B** |
-| Hanatarō Yamada | 3rd Seat (ex-7th), 4th Div | 153 cm → 49 | — (seated officer: none) | Hisagomaru — auto Shikai **"Mitase"** (Fulfill) | not stated | **C** |
+| Hanatarō Yamada | co-3rd Seat (ex-7th), 4th Div | 153 cm → 49 | — (seated officer: none) | Hisagomaru — auto Shikai **"Mitase"** (Fulfill) | not stated | **C** |
 | Isane Kotetsu | Captain, 4th Div (ex-Lt.) | 187 cm → 60 | 四 + bellflower (Lt. era) | Itegumo — **"Hashire"** (Run) | not stated | **C** (B if a healer class is wanted) |
 | Tetsuzaemon Iba | Captain, 7th Div (ex-Lt.) | 182 cm → 58 | 七 + iris (Lt. era) | unnamed — command unknown | not stated | **C** |
 
@@ -549,7 +549,7 @@ Conventions used below
 
 ---
 
-## 8. Hanatarō Yamada (山田 花太郎) — 3rd Seat (ex-7th Seat), 4th Division · Leader, 14th Advanced Relief Team
+## 8. Hanatarō Yamada (山田 花太郎) — co-3rd Seat (ex-7th Seat), 4th Division · Leader, 14th Advanced Relief Team
 
 - **Wiki:** https://bleach.fandom.com/wiki/Hanatar%C5%8D_Yamada · /Anime_Continuity · Hisagomaru (Zanpakutō spirit)
 - **Roster tier:** **C** — joke/support character: healer NPC, escort target, or comedy playable.
