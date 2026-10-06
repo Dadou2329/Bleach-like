@@ -212,10 +212,11 @@ destruction requests → status ticks → spawn/despawn → events to render/aud
 | Structure worker | connectivity/structural integrity searches, fragment extraction, fracture partitions |
 | (Later) Debris worker | debris particle integration if the main thread is over budget |
 
-World voxel storage uses **SharedArrayBuffer** when `crossOriginIsolated` (Vite dev/preview send COOP/COEP;
-static hosting uses a `coi-serviceworker` shim). Fallback path: copy padded chunk snapshots into jobs and run
-connectivity time-sliced on the main thread. Every result is validated against chunk version numbers before
-being applied (stale results are discarded and re-queued).
+Data flow without shared memory (works on any static host): mesher jobs receive **transferable 34³ dense
+snapshots** built from the paletted chunks (~39 KB each); the structure worker keeps a **replica** of the world
+updated by streaming the per-frame edit log, so it can flood-fill large regions without copies. Every result
+carries chunk version numbers and is discarded/re-queued if stale. (SharedArrayBuffer + COOP/COEP stays an
+optional optimisation, not a requirement.)
 
 ### 4.4 Events
 Typed event bus (`HitEvent`, `CarveEvent`, `FragmentSpawned`, `FormChanged`, `AbilityCast`, `Callout`,
@@ -245,7 +246,7 @@ gags such as a permanent **"has seen Kyōka Suigetsu's release"** flag.
 ### 5.1 Scales (decided after look-dev, see `docs/research/lookdev/`)
 | Thing | Resolution | Why |
 |---|---|---|
-| World (terrain, buildings) | **0.125 m (8 voxels/m)** | 0.25 m looked Minecraft-like; 0.125 m reads as voxel art (smooth crater bowls, brick courses) at acceptable cost. Per-map override allowed (0.25 m for very large maps / low preset). |
+| World (terrain, buildings) | **0.125 m (8 voxels/m)** | 0.25 m looked Minecraft-like; 0.125 m reads as voxel art (smooth crater bowls, brick courses). Brick-paletted storage (§5.2) and lazy colliders (§7) make it fit even 384 m maps; 0.25 m remains a per-map override for the Low preset or if M1/M2 benches say a mega-map needs it. |
 | Props (lamp posts, vending machines, furniture, cars) | 16–24 voxels/m | Detail at eye level, bridges the gap between world and characters. |
 | Characters | **48 voxels/m** (a 174 cm character ≈ 84 voxels tall) | Faces need it: a head ≈ 13 voxels tall allows anime eyes, Ulquiorra's tear lines, Mayuri's paint, Byakuya's kenseikan. Fallback 32/m if perf demands. |
 | Giants (Menos, Bankai giants, Ira Yammy, Gerard) | 4–8 voxels/m, scaled | Keep voxel counts sane. |
@@ -255,9 +256,14 @@ Content generators work **in metres** (SDFs, shapes, grammars) and rasterise at 
 resolution is a parameter, not a rewrite.
 
 ### 5.2 Storage
-- Bounded maps (e.g. up to 256 × 96 × 256 m → 2048 × 768 × 2048 voxels → 64 × 24 × 64 chunk slots).
-- `Chunk { data: Uint8Array(32768) | null, uniform: u8, solidCount, version, flags }` — uniform chunks (all air,
-  all bedrock) store no array. Index `x | y<<5 | z<<10`.
+- Bounded maps (arenas ~128 m, districts up to ~384 m; e.g. 256 × 96 × 256 m → 2048 × 768 × 2048 voxels →
+  64 × 24 × 64 chunk slots).
+- **Brick-paletted chunks:** a 32³ chunk is 4×4×4 bricks of 8³. A brick is either *uniform* (1 material, no
+  array — solid ground, interior air) or *paletted* (a small per-brick palette + bit-packed indices: 1, 2, 4 or 8
+  bits/voxel). Surface bricks typically hold 2–4 materials → 64–128 B instead of 512 B. Planning math for a
+  384 m map at 0.125 m: ~18k surface chunks, ~half their bricks uniform → **≈ 75 MB** (dense u8 would be ~576 MB).
+- Hot/cold: chunks being edited or meshed are expanded to a dense `Uint8Array(32768)` in an LRU cache and
+  repacked when cold. Index `x | y<<5 | z<<10`.
 - Optional sparse `damage: Map<index, u8>` per chunk for cracks (repeated hits weaken before breaking).
 - Optional overlay layers allocated on demand: `temperature` (fire/ice spread), `wet`, `owner` (constructs like
   Orihime's shields or Sennen Hyōrō ice that should expire).
@@ -277,7 +283,7 @@ ice, reishi, bone, flesh), flags (`flammable`, `meltable`, `freezable`, `transpa
 ### 5.4 Meshing
 - **Greedy meshing with per-vertex AO** (validated in look-dev): per axis/direction slice masks keyed by
   (material, 4×2-bit AO); quads flipped along the brighter diagonal to avoid AO anisotropy.
-- Runs in mesher workers on a **34³ padded copy** (or SAB view) of the chunk + neighbours' borders.
+- Runs in mesher workers on a **34³ padded dense snapshot** of the chunk + neighbours' borders (transferable).
 - Vertex format (compact): position `u8×3` (chunk-local), normal+AO `u8`, material `u8` (+ pad). Index `u32`.
 - Separate output streams: **opaque**, **transparent** (glass, ice, water: sorted, alpha), **emissive**
   (lanterns, neon, reishi crystals — also contributes to bloom).
@@ -389,7 +395,9 @@ and a **temperature overlay** drives reactions:
 
 - **Rapier 0.21 (WASM)** single world on the main thread (move to a worker only if profiling says so).
   - World chunks: fixed bodies with **voxel colliders** (32³ each), coupled across borders with
-    `combineVoxelStates`/`propagateVoxelChange` to avoid internal-edge snagging.
+    `combineVoxelStates`/`propagateVoxelChange` to avoid internal-edge snagging. Colliders are **lazy**: created
+    for chunks within an activity radius (~64–96 m) of fighters, fragments and props, and freed when nothing
+    dynamic is near — WASM memory stays bounded on 384 m maps.
   - Fragments & props: dynamic bodies with voxel colliders; sleeping enabled; CCD for fast pieces.
   - Characters: kinematic capsules driven by our controller (Rapier `KinematicCharacterController` for
     collide-and-slide, autostep up to 0.5 m, snap-to-ground), plus custom states: air-step, flight, Shunpo
@@ -822,7 +830,40 @@ cached (IndexedDB) by `(map, seed, generator version)`:
 Beyond the playable bounds: low-resolution backdrop rings (skylines, mountains, dunes, the Seireitei skyline)
 and a soft "reishi barrier" boundary with a visual shimmer.
 
-<!-- MAP_LIST_SECTION -->
+### 13.2 Map list (full specs, palettes, collapse recipes: `docs/lore/locations.md`)
+Default voxel size is 0.125 m everywhere (§5.1); memory figures in `locations.md` were estimated for dense
+0.25 m chunks and shrink further with brick-paletted storage. Final per-map choice is confirmed by M1/M2 benches.
+| id | Map | Milestone | Bounds W×H×D (m) | Signature stages |
+|---|---|---|---|---|
+| `urahara_study` | Urahara's underground training ground | **M2** (destruction test arena) → Training mode | 128×48×128 | Ichigo vs Urahara, Shattered Shaft, Chad & Renji |
+| `karakura` | Karakura Town district (Kurosaki Clinic, Urahara Shop, Karakura High, Onose River & bridges, parks, arcade, station) | **M5** | 224–320 × 80 | Fishbone D, Grand Fisher, Menos, Byakuya in the rain, Grimmjow, Yammy & Ulquiorra |
+| `sokyoku` | Sōkyoku Hill, halberd & Kikōō, Senzaikyū (+ maze slice) | M6 (+ title diorama) | 320×224×320 | Rukia's execution, Ichigo vs Byakuya, Aizen's betrayal |
+| `seireitei` | West Gate, Shakonmaku, white-wall maze, barracks, canals | M6 | 256×64×256 | Jidanbō, Ikkaku, Kenpachi, Mayuri vs Uryū |
+| `sokyoku_study` | Study chamber under Sōkyoku Hill | M6 | 128×48×128 | Ichigo's 3-day Bankai, Renji's Bankai |
+| `dangai` | Precipice World + Kōtotsu chase | M6 (cheap, high impact) | streamed 16×16 m corridor | Kōtotsu chase, Final Getsuga training |
+| `hm_desert` | Hueco Mundo White Sands (quartz trees, dunes) | M7 | 384×128×384 | Runuganga, Ichigo & Ayon vs Quilge |
+| `menos_forest` | Forest of Menos (under the sands) | M7 | 256×128×256 | Gillian horde |
+| `lasnoches_dome` | Las Noches dome rooftop | M7 | 256×192×256 | **Ichigo vs Ulquiorra** |
+| `lasnoches_interior` | Las Noches interior under the fake sky | M7 | 320×160×320 | Grimmjow final, Kenpachi vs Nnoitra |
+| `lasnoches_halls` | Corridors, Tres Cifras, Espada palaces | M7 | 128×48×128 per hall | Dordoni, Cirucci, Aaroniero, Szayelaporro, Zommari |
+| `fake_karakura` | Fake Karakura + 4 transfer pillars (break a pillar → the real town bleeds back in) | M7 | 320×112×320 | pillar guards, captains vs Espada, Aizen vs everyone |
+| `karakura_ss` | Real Karakura on the Rukongai outskirts | M7 | 384×160×384 | Gin vs Aizen, **Mugetsu** |
+| `rukongai` | Rukongai + Shiba house & Flower Crane Cannon | M8 | 384×96×384 | Ganju's gang, cannon launch, Hollowfication incident |
+| `xcution` / small arenas | Xcution hideout, Visored warehouse, hospital silver chamber, Central 46, Kuchiki Manor, Shin'ō Academy | M8 | ≤ 96 m | Fullbring training, Ryūken vs Uryū |
+| `muken` | Muken | M9 | 128×64×128 | Kenpachi vs Unohana |
+| `seireitei_tybw` | Invaded Seireitei (blue fire pillars) | M9 | 256×160×256 | Yamamoto vs Royd/Yhwach, Byakuya vs Äs Nödt |
+| `wandenreich` | Silbern & the Wandenreich city (Schatten Bereich) | M9 | 256×256×256 | second invasion, Ichigo vs Uryū at the tower |
+| `reiokyu_*` | Soul King Palace: Vestibule Road, Greater Palace, Kirinji / Nimaiya / Ichibē sub-arenas | M9 | 256×256×256 each | Royal Guard vs Schutzstaffel, Ichibē vs Yhwach |
+| `wahrwelt` | Wahrwelt | M9 | 384×320×384 | final Yhwach fights, Lille, Gerard |
+| `hell` | Gates of Hell + two Hell levels | M10 | 256×256×256 | the Jailer of Hell (2021 one-shot), Hell Verse (movie) |
+| `garganta` | Garganta / Valley of Screams transit | transit | streamed | arrivals, invasions |
+
+Cross-world rules from `locations.md` §2: Quincy can only strip voxels in reishi-rich worlds (Soul Society,
+Hueco Mundo), not Human World matter; Sekkiseki/Shakonmaku block spiritual damage; transit devices (Senkaimon,
+Garganta, Dangai, Kūmon) double as loading transitions; a shared material library with hardness values and
+per-structure collapse recipes (wooden houses vs reinforced-concrete mid-rises vs Seireitei compounds vs Las
+Noches) feed §5.3 and §6. **Build order:** `urahara_study` (alongside M2) → `karakura` (M5) → `sokyoku` →
+`seireitei` → `dangai` → `hm_desert` + `lasnoches_dome` → the rest.
 
 ---
 
@@ -947,8 +988,8 @@ Each milestone ends with: tests green, `docs/roster/STATUS.md` updated, curated 
 `visual-qa` rubric, perf counters within budget, commit + push. No milestone waits for approval.
 
 ### M0 — Foundations, skills & tooling
-- Scaffold: Vite 8 + TypeScript 7 + Vitest 5 + Playwright config; COOP/COEP headers (dev/preview) +
-  `coi-serviceworker` for static hosting; scripts `dev`, `build`, `preview`, `test`, `bench`, `shots`, `check`.
+- Scaffold: Vite 8 + TypeScript 7 + Vitest 5 + Playwright config; worker setup; scripts `dev`, `build`,
+  `preview`, `test`, `bench`, `shots`, `check`.
 - `CLAUDE.md` (architecture rules, commands, conventions).
 - Skills: **`voxel-art`** (full references + scripts), `bleach-kit-design`, `wiki-research`, `visual-qa`.
 - Screenshot harness (ported from the look-dev prototype), dev page shell, perf overlay skeleton.
@@ -956,7 +997,8 @@ Each milestone ends with: tests green, `docs/roster/STATUS.md` updated, curated 
 - **Done when:** `npm run check` green; `npm run shots` renders a dev scene to PNG; skills are discoverable.
 
 ### M1 — Voxel world core
-- Chunk storage (+SAB path), material table + palette texture, edit log, 3D DDA raycast, overlap queries.
+- Brick-paletted chunk storage with hot/cold dense cache, material table + palette texture, edit log (+ replica
+  streaming to workers), 3D DDA raycast, overlap queries.
 - Greedy + AO mesher workers (opaque/transparent/emissive streams), LOD meshing, remesh scheduler.
 - `BatchedMesh` world renderer, voxel shader (palette shades, per-voxel hash, patterns, cracks), CSM sun, sky,
   fog, post stack, fly camera, carve-sphere debug tool.
@@ -968,7 +1010,9 @@ Each milestone ends with: tests green, `docs/roster/STATUS.md` updated, curated 
 - All `DamageShape` modes (§6.1), debris particles, Rapier world with chunk voxel colliders, structure worker,
   fragment extraction with atomic swap, slicing impulse, impact fracture, sleeping-fragment re-rasterisation,
   rubble deposition, restoration log, fire/ice/rot/absorb automata (basic).
-- Destruction playground dev page (cut / smash / bore / explode / freeze / burn / absorb / restore tools).
+- Destruction playground dev page (cut / smash / bore / explode / freeze / burn / absorb / restore tools),
+  hosted in a first real map: **`urahara_study`** (enclosed rock chamber with spires, pit and breakable ceiling),
+  which later becomes the Training Ground mode. Lazy chunk colliders around activity.
 - **Done when:** a diagonal cut through a 30 m tower makes the top slide, topple, hit the street and fracture;
   200 fragments + 15k debris stay within budget; structure search < 30 ms for a 500k-voxel building (worker);
   no holes or flicker during swaps; restore brings a flattened block back.
@@ -1020,7 +1064,8 @@ Each milestone ends with: tests green, `docs/roster/STATUS.md` updated, curated 
   Yumichika, Hisagi, Kira, Rangiku, Hinamori, Sasakibe, Ōmaeda, Nanao, Nemu, Yachiru, Isane, Iba);
   Fullbringers (Ginjō, Tsukishima, Riruka, Yukio, Giriko, Jackie, Moe); Isshin, Kon, Kaien, Kūkaku, Tessai;
   Ichigo Fullbring forms.
-- Maps: Urahara's underground training ground (Training mode home), Rukongai, Xcution hideout.
+- Maps: Rukongai (+ Flower Crane Cannon), Xcution hideout & small arenas; Training Ground mode polish on
+  `urahara_study`.
 
 ### M9 — Wave 4: Thousand-Year Blood War
 - Yhwach (every stage), Haschwalth, Gerard, Lille Barro, Pernida, Askin, and the Sternritter (Bazz-B, Äs Nödt,
@@ -1086,20 +1131,21 @@ Perf overlay always available (F3).
 | D10 | Story = curated canon battles, not cutscene retellings | Spend effort on gameplay. |
 | D11 | English UI, Japanese technique names + kanji callouts | Authentic flavour, readable. |
 | D12 | Desktop-first (KB/M + gamepad) | Combat depth needs it. |
-| D13 | Static hosting + `coi-serviceworker` | SharedArrayBuffer without server config. |
+| D13 | No SharedArrayBuffer requirement: worker replicas fed by the edit log + transferable job snapshots | Works on any static host; SAB stays an optional optimisation. |
+| D13b | Brick-paletted chunk storage + lazy Rapier colliders | Keeps 0.125 m feasible on 384 m maps (≈ 75 MB voxel data vs ~576 MB dense) instead of dropping big maps to 0.25 m. |
 | D14 | Tone mapping Neutral/ACES + LUTs, not AgX | AgX desaturated the anime palette in look-dev. |
 | D15 | Subtle face-edge shading only | Strong per-voxel grid lines read as tiles, not voxel art. |
 
 ### 19.2 Risks & mitigations
 | Risk | Mitigation |
 |---|---|
-| 0.125 m worlds too heavy in JS | LOD meshing, `BatchedMesh`, worker pool, SAB, uniform-chunk compression, per-map 0.25 m fallback, early benches (M1/M2). |
+| 0.125 m worlds too heavy in JS | LOD meshing, `BatchedMesh`, worker pool, brick-paletted storage, lazy colliders, per-map 0.25 m fallback, early benches (M1/M2). |
 | Physics cost of many voxel colliders | Bulk rebuild thresholds, fragment caps, re-rasterising sleeping fragments, profiling in M2. |
 | ~100 characters is a lot of content | Shared generators, archetype animation libraries, primitive-based abilities, kit-design skill, wave plan, STATUS tracker. |
 | Rigid-part animation looks stiff | Strong key poses, spring bones, smears/afterimages, heavy VFX, camera work. |
 | Rule-bending powers frustrate | Clear tells, short durations, counterplay, accessibility toggles (e.g. "Sakanade: visual-only inversion"). |
 | Can't measure GPU fps here | CPU timings + counts in CI; in-game perf overlay; adaptive quality. |
-| SAB/COOP/COEP hosting quirks | `coi-serviceworker`; copy-based fallback path. |
+| Paletted storage adds access cost/complexity | Dense hot-chunk cache for edits and meshing, bulk ops on bricks, benches in M1; fall back to 0.25 m per map only if needed. |
 | Headless captures are slow | Deterministic capture mode, small contact sheets, only review what changed. |
 
 ### 19.3 IP note
