@@ -64,6 +64,9 @@ wishful thinking:
   margins; a 0.6 m shop sign fits one or two simple glyphs - otherwise use a decal.
 - Strokes 1 voxel wide; 2 voxels only on big signs. Ink `#151515` on cream `#E7DBBF` / white; shop banners and
   lanterns use the palette's accent colours.
+- Ink materials must be flat, or the shader's per-voxel shade pick speckles the strokes: give them a 1-entry ramp
+  (or ≤ 0.01 L spread) with pattern `none` (`color-and-palettes.md` §3.2 rule 7). Panels may keep a subtle spread,
+  like the base library's lit `sign_white` (≈ 0.03 L across shades 1-4, glow 0.6).
 - **Road markings** (止まれ, lane lines) are world-scale paint on asphalt: Japanese road text is stretched along
   the driving direction, so each character can be 12-20 world voxels long - legible from a car or a rooftop.
 - Division numerals use the glyph set in `bleach-style-guide.md` §2.2.

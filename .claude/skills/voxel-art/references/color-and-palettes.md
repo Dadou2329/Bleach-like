@@ -14,8 +14,8 @@ values (procedure in §7) - adjust them by eye in renders, keep the documented o
 - Every hue lives in a **ramp of 3-6 shades** ordered dark → light. Typical: `deep · shade · base · light ·
   highlight`. Small accents may use 2-3 shades; big readable materials (cloth, hair, skin, walls) 4-5.
 - **Form ramps** (characters, props: painted shading) step ≈ 0.07-0.10 in OKLab L per shade.
-  **Variation ramps** (world materials: picked per voxel by the shader) step ≈ 0.03-0.06 around the base, with
-  the outer shades reserved for patterns and accents (mortar, grain, tile edges, wear).
+  **Variation ramps** (world/prop materials: picked per voxel by the shader) step ≈ 0.02-0.05 per shade around
+  the base. The material's accent colour handles mortar, grout, seams and flecks (§3.1).
 - Share shades across ramps to save colours: lash line = darkest cloth shade, sclera = lightest white,
   mouth line = skin deep, teeth = bone/white highlight.
 
@@ -45,9 +45,9 @@ Gold is the classic trap: shading gold toward olive (`#84871A`) looks sick; shad
 - Key masses must differ by ≥ 0.15 L (face vs hair, haori vs kosode, mask vs body) so the asset reads in
   greyscale. Check with a desaturated screenshot.
 - **Never `#000000` or `#FFFFFF` in albedo.** Pure black kills AO and lighting cues (reads as a hole); pure
-  white blooms and clips. Limits: darkest accents ≈ `#141418`-`#15151A` (pupils, lash lines, deepest creases,
-  hole interiors may go to `#060609`), lightest ≈ `#F3F3F0`. Emissive cores may be white - they are light, not
-  surface.
+  white blooms and clips. Limits: darkest accents ≈ `#141418`-`#15151A` (pupils, lash lines, deepest creases;
+  only Hollow-hole interiors, voids and ink states go down to `#050507`-`#060609`), lightest ≈ `#F3F3F0`.
+  Emissive cores may be white - they are light, not surface.
 
 ### 1.5 Black and white garments (the Bleach problem)
 The cast is dressed in black shihakushō and white haori/uniforms. A single near-black colour renders as a
@@ -71,51 +71,155 @@ Dossiers that list black cloth as `#16161A`/`#141416` describe the shadow; map i
 
 ## 2. How colour flows through our renderer
 
-1. Author sRGB hex (dossier/palette files) → converted to linear (three.js `Color` handles this).
-2. **World:** each voxel stores a material id (≤ 255 per map, PLAN §5.3). Materials own a ramp + pattern in a
-   **palette DataTexture** (rows = materials × states, columns = shades). The shader picks the shade per voxel
-   (§3), applies the pattern (brick courses, grain, tiles, ripples), damage cracks, wetness, heat glow.
-   **Models (characters/props):** voxels store explicit palette indices painted by the model code.
-3. Lighting (sun/moon + hemisphere + CSM shadows) → vertex AO (greedy mesher) → N8AO.
-4. Bloom (threshold 1.0 on HalfFloat buffers) → tone mapping (**Neutral** default or ACES; never AgX) →
-   per-map LUT grade → vignette, SMAA.
-5. Judge colour **only in the final render** under the review presets - hex swatches lie.
+**The engine source wins over this file.** `src/voxel/materials.ts` (material table, flags, patterns),
+`src/render/palette.ts` (palette textures), `src/render/voxelMaterial.ts` (voxel shader) and
+`src/render/renderer.ts` (lights, post stack) define what actually renders. Values quoted here are as of writing:
+re-read those files when in doubt, and fix this file when they disagree.
 
-## 3. Per-voxel shade selection by hash (world materials)
+1. Author sRGB hex ramps (dark → light); three.js `Color` converts them to linear.
+2. **World and props:** each voxel stores only a material id (`MaterialTable`, ≤ 255, id 0 = air; maps register
+   extra materials after the base library `createBaseMaterials()`). `buildPaletteTextures()` resamples every
+   ramp to **6 shades** (rows 0-5) plus **1 accent** (row 6) in a 256 × 7 texture, and packs pattern id,
+   roughness, metalness and glow into a 256 × 1 params texture. The shader finds the voxel cell behind each
+   fragment and picks a shade by hash and **pattern** (§3). Fragments, and props built from world materials,
+   use the same shader in object mode, so a broken-off piece keeps its colours. "Painted" variation in the world
+   therefore means *another material* (grime band, sun-bleached top, moss): budget those against the 255 slots.
+   **Models (characters, held weapons):** each voxel stores an index into the model's own palette, painted by the
+   model DSL and drawn by the character shader (§3.5, `dsl.md`).
+3. Lighting (`ATMO_DAY` today): sun `#FFF1DC` ×3.1 with PCF shadows, hemisphere sky `#CFE2FF` / ground `#6E604E`
+   ×1.15, fog `#B9D2EA` 70-330 m → in-shader vertex AO, edge darkening and top bias (§3.1) → N8AO (radius 1.4,
+   intensity 2.2, half resolution).
+4. Bloom (`luminanceThreshold` 0.92, smoothing 0.18, intensity 1.1, mipmap blur, on the HalfFloat HDR buffer) →
+   tone mapping (**ACES** in the engine; PLAN allows Neutral or ACES, never AgX) → grade (`ATMO_DAY`: saturation
+   +0.12, contrast +0.06; PLAN: per-map LUT) → vignette → chromatic aberration (hit pulses) → SMAA.
+5. Judge colour **only in the final render** under the review presets. Hex swatches lie, and the grade adds
+   saturation, so do not pre-saturate albedo.
 
-Look-dev prototype (`docs/research/lookdev/voxel-lookdev.html`, `onBeforeCompile` injection):
+## 3. Per-voxel shade selection (world and prop materials)
+
+### 3.1 What the engine does (`vxAlbedo` in `src/render/voxelMaterial.ts`)
+
+- **Resampling:** `colors` (2-6 sRGB hex, dark → light; 1 also works) are spread linearly, in linear light, over
+  6 shades. With **6 entries, shade *i* = entry *i***. With fewer, in-between shades are blends and the middle
+  of the list lands on shades 2-3. One entry = 6 identical shades = a flat colour.
+- **Accent** (row 6): mortar, grout, plank seams, siding lines, tatami borders, stone/wood flecks, bright grass
+  tips. Default = shade 0 × 0.8; set it explicitly whenever the pattern uses it.
+- **Every material** also gets: vertex AO `mix(0.42, 1, (ao/3)^1.25)` ≈ `[0.42, 0.57, 0.77, 1.0]`; −7 % edge
+  darkening in the outer 10 % of each voxel face (the faint cell grid of D15); tops ×1.05, bottoms ×0.95; a
+  global `uTint` multiply.
+- **Flags:** `F_EMISSIVE` adds *shade (linear) × `glow`* on top of lighting (`glow` 0-8, stored in 1/32 steps).
+  `F_TRANSPARENT` draws at opacity 0.62 without depth write. `F_FOLIAGE` casts no AO. Roughness defaults to 0.9,
+  metalness to 0.
+- **Patterns** work in voxel units on axis-aligned faces. They scale with the density (in object mode, the prop's
+  own voxels) and do not follow a member's direction:
+
+| `pattern` | Shades picked (centre) | Accent | Notes for authors |
+|---|---|---|---|
+| `none` | 1-4 uniform per voxel | - | The noisiest pattern (no centre weighting): amplitude = the ramp's spread. Base-library values for shades 1-4 span ≈ 0.04-0.05 OKLab L in total (paint, road markings, bone), up to 0.08 for rough dirt. Use 1 entry for a flat colour. |
+| `plaster` | 3; ±1 common, ±2 rare; ~11-voxel patches | - | Base on shade 3. |
+| `stone` | 1-4 per 3×2×3 "rock", +1 on 20 % of voxels | 7 % flecks | Accent = fleck colour. |
+| `brick` | 1-4 per brick, +1 on 15 % | every 2nd row + every 4th column, side faces only (≈ 60 % of the face) | 3 × 1 bricks read as stripes at 8 vox/m. Keep the accent within ≈ 0.1 L of the bricks (as `sekkiseki` does), or use the pattern on props ≥ 16 vox/m. |
+| `tile` | 2-4 per tile | grout every 4th row and column, all faces | 0.5 m grid at 8 vox/m. Used for roofs, paving, shōji, Las Noches. |
+| `wood` | 1-4 by grain noise | 4 % flecks | Streaks run vertically on side faces and along z on tops, not along the member. |
+| `plank` | 1-4 per board | seam every 3rd column in x, tops only | 2-voxel boards + seam, running along z. |
+| `grass` | 2; ±1 common, ±2 rare; patches | 10 % tips on tops | The accent is the *light* tip colour. |
+| `sand` | 2 ± 1-2 in ripple bands | - | Fixed direction (crests roughly along z), wavelength ≈ 10 voxels. |
+| `stripe` | 2-4 | every 3rd row, side faces | Siding, corrugated metal. |
+| `tatami` | 2 / 3 alternating by x | borders at x ≡ 0 (mod 16) and z ≡ 0 (mod 8), tops | 2 × 1 m mats on the world grid; align rooms to it. |
+| `glass` | 2-3, diagonal sheen bands at 5 (≈ 15 %) | - | Also used for water, ice, quartz, lit windows, reishi crystals. |
+| `leaves` | 0-5 clustered | - | Uses the whole ramp. |
+| `metal` | 2-4 in brushed streaks | - | Streaks run horizontally on side faces. |
+| `scale`, unknown | 2-4 uniform | - | `scale` is declared but not implemented. |
+
+### 3.2 Authoring a material for the engine
+
+1. **`colors` is a variation band, not a form ramp.** It holds only the shades the pattern scatters across one
+   flat surface: ΔL ≈ 0.02-0.05 per shade around the base (§1.1 "variation ramps"). Form shading comes from
+   lighting and AO, and on models from painting with separate colours (§1.1 "form ramps").
+2. **Use 6 entries when the base matters**, and put the base on the pattern's centre shade (table above). Fill
+   the outer shades for the rare ±2 picks and the +1 bumps. Fewer entries are fine when exact shades do not
+   matter.
+3. **Converting a §6 library ramp** (5 entries, base in bold): keep the base, take the next library step as the
+   floor, and fill in small OKLab steps. Example, plaster (base `#F0ECE3`, centre shade 3): `['#DCD5C7',
+   '#E3DDD0'†, '#E9E4DA'†, '#F0ECE3', '#F2EFE8'†, '#F3F2EE'†]` (L 0.875 → 0.961). The wall then shows mostly
+   `#E9E4DA`-`#F2EFE8` (ΔL ≈ 0.03, close to the base library's `seireitei_wall`). Pasting the 5-entry library ramp
+   unchanged would centre the wall on `#D0C9BA` (0.11 L darker than the base) and mottle in 0.05-0.06 L steps,
+   which looks grey and noisy.
+4. **Whites** have little headroom under the `#F3F3F0` cap, so the steps above the base are tiny (≈ 0.01 L). Keep
+   the steps below it small too (≤ 0.03 L), or the surface averages darker than its base.
+5. **Do not fake variation with extra materials.** It breaks greedy merges (more triangles) and burns the
+   255-material budget. Use one material + ramp + pattern per surface type; add materials only for *meaningful*
+   regions (grime band, moss, scorch, a strata band).
+6. **Do not paint random per-voxel variation in generators.** The shader already varies every voxel; stacking
+   the two makes noise soup (`fundamentals.md` §5).
+7. **Calm surfaces** (signs, road markings, prop emblems, anything with pixel-art text) need a one-entry ramp or a
+   spread ≤ 0.01 L with pattern `none`, so the hash cannot speckle the glyphs.
+8. **States** are separate materials reached through `onBurn` / `onFreeze`; the base library has `scorched`,
+   `charred`, `ash` and `molten`. Design each state as a ramp, not a single colour. Targets:
+   - `charred`: ≈ `#2A2222` → ash `#8C847D`.
+   - `molten`: emissive `#FF7A2A`, cooling to `#3A1E12`.
+   - `frozen`: blend toward the ice ramp, with a frost rim `#F2FBFF`.
+   - `wet`: ×0.7 value, glossier.
+   - `bloodied`: `#5C0A12`-`#8E1420`.
+   - `inked`: `#050505` with an indigo sheen `#1F1F2A`.
+   - `rotted`: Respira grey-brown `#8D8676` → dust.
+   - `reishi-glow` (being absorbed): emissive `#7EC8F8`.
+
+### 3.3 Look-dev prototype (history)
+
+`docs/research/lookdev/voxel-lookdev.html` multiplied the lit colour by a per-voxel hash (±7 %) and by 7-voxel
+patches (±4 %) instead of picking ramp shades:
 
 ```glsl
-vec3 p    = vWPos / uVS;               // world position in voxel units
-vec3 cell = floor(p - n * 0.5);        // the voxel behind this fragment (n = face normal)
-float j   = h13(cell) - 0.5;           // per-voxel hash in [-0.5, 0.5)
-float lf  = h13(floor(p / 7.0)) - 0.5; // low-frequency 7-voxel patches
-diffuse  *= (1.0 + j * 0.14) * (1.0 + lf * 0.08);  // ±7 % per voxel, ±4 % per patch
+vec3 cell = floor(p - n * 0.5);   // the voxel behind this fragment (p in voxel units, n = face normal)
+diffuse  *= (1.0 + (h13(cell) - 0.5) * 0.14) * (1.0 + (h13(floor(p / 7.0)) - 0.5) * 0.08);
 ```
 
-`cell` is computed per fragment from the world position, so a greedy-merged quad still varies per voxel and
-the variation costs no geometry. PLAN §5.5 upgrades the multiply to **picking a ramp shade** ("like a
-hand-placed voxel palette") plus low-frequency patches. Contract for authors (recommended defaults):
+The engine keeps the per-fragment `cell` trick, so greedy-merged quads still vary per voxel at no geometry cost.
+It replaces the multiply with ramp-shade picking (PLAN §5.5).
 
-- Shade pick weights around the base index `b`: `b` 60 %, `b±1` 18 % each, `b±2` 2 % each. For whites/lights
-  whose base is the top step: `b` 70 %, `b-1` 30 %. Patterns (mortar, grain, tile edge) select the outer shades
-  by rule, not by chance.
-- Per-material jitter amplitude flag: world on (as above), props low (≈ ±3 %), **characters off or ≤ 2 %**,
-  faces/eyes/emblems 0. If the renderer applies world jitter to characters, report it as a bug.
-- **Do not fake variation with extra materials** - it breaks greedy merges (more triangles) and burns the
-  255-material budget. Use one material + ramp + pattern.
-- **Do not paint random per-voxel variation in generators** - the shader already does it; stacking makes noise
-  soup (`fundamentals.md` §5).
-- Material **states** recolour without remeshing (palette rows): `charred` (≈ `#2A2222` → ash `#8C847D`),
-  `molten` (emissive `#FF7A2A` cooling to `#3A1E12`), `frozen` (blend toward the ice ramp + frost rim `#F2FBFF`),
-  `wet` (×0.7 value, glossier), `bloodied` (`#5C0A12`-`#8E1420`), `inked` (`#050505` with indigo sheen
-  `#1F1F2A`), `rotted` (Respira grey-brown `#8D8676` → dust), `reishi-glow` (being absorbed, emissive `#7EC8F8`).
-  Design each state as a ramp, not a single colour.
+### 3.4 Not in the engine yet (request before relying on it)
+
+| Wanted look | Assumed in | Fallback today |
+|---|---|---|
+| Kawara rows along the roof slope | `architecture.md` | `tile` (flat 0.5 m grid) + 1-voxel course steps in geometry |
+| Strata bands / ramp offset by height | `terrain-and-nature.md` §1 | one material per band |
+| Quartz facet shading | `terrain-and-nature.md` (quartz trees) | 2-3 quartz materials assigned per facet |
+| Sand ripples oriented by map wind | `terrain-and-nature.md` (dunes) | fixed `sand` ripples |
+| Grain or brushing along a member | §6.1 ("grain along the member") | accept world-axis grain, or `none` on thin members |
+| `scale` pattern | characters, Hollows | painted motif on the model |
+| Damage cracks, wetness, heat glow (PLAN §5.5) | destruction, VFX | state materials (`scorched`, `charred`, `molten`), decals |
+| Per-material variation amplitude | everywhere | the ramp's spread is the only control |
+
+### 3.5 Models: the DSL palette and the character shader
+
+As of writing (`src/models/builder.ts`, `src/render/charMaterial.ts`; `dsl.md` documents the API once added):
+
+- `ModelBuilder.mat(name, colors, { base, rough, metal, glow, shadeK, dither })` appends a ramp to the model's
+  palette (≤ 255 colours per model). **Model ramps are ordered light → dark**, the reverse of
+  `MaterialDef.colors` and of the §6 tables, so reverse library ramps when you paste them. `base` is the index of
+  the main tone (default: the middle entry).
+- An **auto-shade** pass picks each surface voxel's shade from its normal and openness: lit tops, open and
+  front-facing voxels go lighter, undersides and creases go darker. A model ramp is therefore a **form ramp**
+  (§1.1, ≈ 0.07-0.10 L per step), with `shadeK` scaling the effect. `dither` (default 0.12) jitters the pick by
+  hash: keep it low and run the 8×8 test (`fundamentals.md` §5).
+- Lock what must not be shaded: `shade: 'flat'` or an explicit index (the `LOCK` flag) for face pixel art,
+  emblems, kanji, eyes and seams. Single-colour mats (`brow`, `lid`, `iris`) are flat by construction.
+- The character shader multiplies every voxel by ±4 % hash variation and by vertex AO `mix(0.38, 1,
+  (ao/3)^1.15)`. It darkens cell edges by 10 % (outer 12 %), and adds a fresnel rim (aura tint), hit flash,
+  dissolve and an energy (afterimage) mode. `glow` is an HDR multiplier up to 16.
 
 ## 4. Emissive colours and bloom
 
-- Bloom threshold is **1.0 luminance** on HDR buffers (PLAN §8.2). Albedo surfaces never exceed it if lighting is
-  calibrated; emissive colours are specified as `hex × intensity` (linear) and must exceed it to glow.
+- PLAN §8.2 sets the bloom threshold at **1.0 luminance** on HDR buffers. The engine currently uses **0.92** with
+  0.18 smoothing, so bloom fades in between 0.92 and 1.10. Lit albedo must stay below it; emissive colours are
+  specified as `hex × intensity` (linear) and must clear it to glow.
+- Estimate for `ATMO_DAY`: the top face of the brightest allowed white (`#F2EFE6`-`#F3F3F0`) in full sun reaches
+  ≈ 0.90 linear luminance, just under the threshold. That is why the `#F3F3F0` cap matters; check whites in
+  every daylight capture.
+- World and prop emissives use `MaterialDef.glow`. Calibrate new ones against the base library: `sign_white`
+  0.6, `window_lit` 1.4, `reishi_crystal` 2.0, `lantern` 2.6, `neon_pink`/`neon_cyan` 3.0, `lamp` and `molten`
+  4.0, `lava` 5.0.
 - Intensity targets per layer of an energy effect:
 
 | Layer | Multiplier | Reads as |
@@ -124,7 +228,7 @@ hand-placed voxel palette") plus low-frequency patches. Contract for authors (re
 | Body | ×1.5-3 | the effect's hue, glowing |
 | Rim / edge | ×1.1-1.5 | thin coloured outline that just blooms |
 | Smoke, dark cores, ash | ≤ 0.3, alpha-blended | shape and contrast, no glow |
-| Ambient emissives (lanterns, vending panels, lit windows, quartz edges) | ×1.0-1.5 | soft glow at night |
+| Ambient emissives (signs, lit windows, lanterns, vending panels, quartz edges) | ×0.6-3 (engine values above) | soft glow at night; signs stay readable |
 | Creature eye glows, Hollow eyes, emissive crests | ×2-3 | small hot points |
 
 - Look-dev reference: Getsuga test mesh `color(0.55, 0.8, 4.0)` with `toneMapped: false`, bloom
@@ -137,22 +241,30 @@ hand-placed voxel palette") plus low-frequency patches. Contract for authors (re
 
 ## 5. Tone mapping and grading
 
+- **The engine currently runs ACES** (`ToneMappingEffect` with `ToneMappingMode.ACES_FILMIC` in
+  `src/render/renderer.ts`). PLAN D14 allows Neutral or ACES. Judge palettes under whatever the renderer runs,
+  and re-check them if it switches.
 - **Neutral** (three `NeutralToneMapping` / postprocessing `ToneMappingMode.NEUTRAL`): keeps base colours close to
-  their sRGB values and compresses only highlights - default for characters and maps.
-- **ACES** (`ACESFilmicToneMapping` / `ToneMappingMode.ACES_FILMIC`): more contrast and drama; desaturates bright
-  saturated colours toward white and can skew some hues (strong blues drift toward purple). Allowed for
-  cinematic grades - re-check palettes when switching.
+  their sRGB values and compresses only highlights.
+- **ACES** (`ACESFilmicToneMapping` / `ToneMappingMode.ACES_FILMIC`): more contrast and drama. It desaturates
+  bright saturated colours toward white and can skew some hues (strong blues drift toward purple).
 - **AgX: never** (D14 - it washed out the anime palette in look-dev 03).
-- Per-map LUT grade on top: Karakura afternoon/dusk warm (the "Bleach orange" dusk), Seireitei noon clean and
-  bright, Hueco Mundo night cool and contrasty, Las Noches interior uncanny warm-white, Hell red.
+- Per-map grade on top (engine today: `ATMO_DAY` saturation +0.12 and contrast +0.06; PLAN: per-map LUT):
+  Karakura afternoon/dusk warm (the "Bleach orange" dusk), Seireitei noon clean and bright, Hueco Mundo night
+  cool and contrasty, Las Noches interior uncanny warm-white, Hell red.
 - Exposure sanity check: a mid-grey `#777777` card under the map's key light should render close to mid-grey.
 
 ---
 
 ## 6. Material palette library
 
-Format: ramp dark → light, **base in bold**, † = generated extension. "Hash band" = shades the shader may pick
-(base and immediate neighbours unless noted); other shades are for painted accents/patterns.
+Format: ramp dark → light, **base in bold**, † = generated extension. These are design ramps: the base and its
+immediate neighbours are the variation band; the other shades are for painted accents, patterns and models.
+To register one as an engine `MaterialDef`, convert it (§3.2 rule 3) - do not paste it unchanged; for a model
+`mat()`, reverse it to light → dark (§3.5). Where the base
+library already has the material (`seireitei_wall`, `sekkiseki`, `hm_sand`, `quartz`, `lasnoches_stone`,
+`roof_slate`, …), the engine's ramp is what renders: use this table to review it, and edit that material instead
+of adding a duplicate.
 
 ### 6.1 Architecture (world, 8 vox/m)
 | Material | Ramp | Pattern / notes | Source |
@@ -322,8 +434,9 @@ disagree, the style guide wins. Format: core / body / rim.
 2. Convert to OKLCh. Form ramps: steps of −0.08…−0.10 L down, +0.06…+0.08 up. Variation ramps: ±0.03-0.05.
 3. Shift hue per §1.2 (≤ 10° per step), reduce chroma ~10-15 % per highlight step, keep chroma in dark mids.
    Near-neutrals: add a tiny blue-violet tint to shadows (+a ≈ 0.002, −b ≈ 0.011) and a warm tint to lights.
-4. Clamp L to ≈ 0.17 … 0.955 (≈ `#141418` … `#F3F3F0`); clamp to sRGB gamut by reducing chroma.
-5. Render under `studio`, `karakura_afternoon`, `seireitei_noon`, `hm_night`; adjust.
+4. Clamp L to ≈ 0.19 … 0.963 (`#141418` … `#F3F3F0`); clamp to the sRGB gamut by reducing chroma.
+5. For an engine material, cut the result down to a 6-entry variation band (§3.2).
+6. Render under `studio`, `karakura_afternoon`, `seireitei_noon`, `hm_night`; adjust.
 
 Minimal TypeScript helpers (OKLab, Björn Ottosson):
 

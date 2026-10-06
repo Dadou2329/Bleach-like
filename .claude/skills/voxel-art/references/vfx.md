@@ -40,7 +40,7 @@ voxel-native effects, all colour-parametrised per character (PLAN §8.3). Colour
 
 ## 3. Colour and bloom intensity
 
-| Layer | Multiplier (linear HDR, threshold 1.0) | Notes |
+| Layer | Multiplier (linear HDR; bloom threshold 1.0 in PLAN, 0.92 in the engine) | Notes |
 |---|---|---|
 | Core | ×4-8 | reads white-hot; hue mostly lost |
 | Body | ×1.5-3 | carries the hue - keep ≤ 3 so tone mapping does not bleach it |
@@ -81,7 +81,7 @@ voxel-native effects, all colour-parametrised per character (PLAN §8.3). Colour
 | Getsuga Tenshō | crescent mesh released from the blade tip on the swing; Shikai ≈ 2-3× Ichigo's height, grows by era; ground variant = travelling upheaval | gold `#FDFFD9` / `#FEF698`→`#F4D761` / `#C6923D` (classic anime blue `#F9FFFF` / `#7DDFFD` / `#2D74D0`) | `cut` - leaves a crescent-shaped canyon; ground variant `groundwave` |
 | Black Getsuga | larger, faster, steerable crescent; dark core + crimson outline | core `#050203`, inner `#2A0A12`, rim `#8E1F3F`, glow `#C2304F` | `cut`, building-sized |
 | Getsuga Jūjishō | two crescents merging into a cross | gold | `cut` along two planes |
-| Cero | charge sphere at the emitter (mouth/palm/finger/horn per dossier) growing with hold time, then a beam with core/body/rim; can sweep ~1 s | per user (style guide §9); default crimson `#FFD6D6` / `#E0262B` | `bore` cylinder 0.5 → 4 m by charge, ending in a `explode` blast |
+| Cero | charge sphere at the emitter (mouth/palm/finger/horn per dossier) growing with hold time, then a beam with core/body/rim; can sweep ~1 s | per user (style guide §9); default crimson `#FFD6D6` / `#E0262B` | `bore` cylinder 0.5 → 4 m by charge, ending in an `explode` blast |
 | Gran Rey Cero | spinning razor-disc front, compress/decompress pulse, screen-space distortion along the path; blood drop into the charge | per user (Grimmjow blue `#2C6BFF`, rim `#2A1E5C`) | `bore` + large blast; nearby voxels jitter |
 | Cero Oscuras | huge black beam with the user's rim | black + Ulquiorra green `#2EE06A`, corona `#9CFFB8` | massive `bore`/sector delete |
 | Bala | fast fist bullets in bursts | crimson `#E0302A` | small `smash` craters |

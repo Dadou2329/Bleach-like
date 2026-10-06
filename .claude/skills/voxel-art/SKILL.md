@@ -46,9 +46,13 @@ and `docs/lore/locations.md` (places, materials, collapse recipes) - never inven
 8. **Never pure black `#000000` or pure white `#FFFFFF` in albedo.** Darkest accent ≈ `#15151A`, black cloth
    base ≈ `#24232B` (a `#15151A` robe rendered as a formless blob in look-dev 04), whitest ≈ `#F3F3F0`.
 9. **No noise soup.** Per-voxel variation is the shader's job (hash shade selection, PLAN §5.5); models and
-   generators paint *structured* variation only. No strong per-voxel grid lines (D15).
-10. **Render pipeline assumptions:** Neutral (default) or ACES tone mapping + per-map LUT - **never AgX** (D14,
-    it washed out the anime palette); bloom threshold 1.0 on HDR buffers, so only emissive VFX glow.
+   generators paint *structured* variation only. No strong per-voxel grid lines (D15). The engine resamples each
+   world/prop material's ramp to 6 shades + 1 accent and picks shades per pattern, so `MaterialDef.colors` is a
+   narrow **variation band** (dark → light). A model's DSL ramp is a **form ramp ordered light → dark**, shaded by
+   the auto-shade pass (`references/color-and-palettes.md` §3).
+10. **Render pipeline assumptions:** Neutral or ACES tone mapping (the engine runs ACES) + per-map grade -
+    **never AgX** (D14, it washed out the anime palette). Bloom threshold ≈ 1.0 on HDR buffers (engine: 0.92),
+    so only emissives glow; sunlit whites at the `#F3F3F0` cap sit just under it.
 
 **Canon.** The dossier is the source of truth for silhouette, palette, outfit per era, weapon and asymmetries.
 Manga/anime colour variants are chosen per model and kept consistent; open questions stay marked `(verify)`.
@@ -91,14 +95,15 @@ planned `scripts/render-model.mjs` (turntable contact sheet), `scripts/render-sc
 Playwright page derived from `docs/research/lookdev/voxel-lookdev.html` (headless Chromium flags
 `--use-angle=swiftshader --enable-unsafe-swiftshader`, ~1 fps - fine for stills) and write the lint as a vitest
 test over the `VoxelModel`. Keep screenshots in the scratchpad or `/shots/` (gitignored); curate keepers into
-`docs/`. Read PNGs back with the image reader and critique them - never assume a render looks right.
+`docs/`. Read PNGs back with the image reader and critique them - never assume a render looks right. Capture
+recipes and golden-image regressions belong to the planned `visual-qa` skill (PLAN §16.4) - use it when present.
 
 ## 3. Reference files (read the ones your task touches)
 
 | File | Read when |
 |---|---|
 | `references/fundamentals.md` | Always for a new asset type: silhouette, screen-size math (20 m vs 2 m), detail hierarchy, noise budget, stepping/AA tricks, symmetry, layering, AO/bloom readability. |
-| `references/color-and-palettes.md` | Picking or reviewing colours: ramps, hue shifting, saturation, hash shade selection, emissive/bloom, tone mapping, **material palette library** (world, cloth, skin, hair of the cast). |
+| `references/color-and-palettes.md` | Picking or reviewing colours: ramps, hue shifting, saturation, **the engine's material/pattern contract** (6 shades + accent, per-pattern shade picks), emissive/bloom, tone mapping, **material palette library** (world, cloth, skin, hair of the cast). |
 | `references/characters.md` | Any humanoid or creature: proportions at 48/m, face pixel-art templates & marks, hair clumps, clothing shells & folds, joints/part splitting/spring chains, weapons, forms & costume layers, Hollows. |
 | `references/bleach-style-guide.md` | Anything Bleach-specific: shihakushō, captain haori & numerals, lieutenant badges, Onmitsukidō, Arrancar, Visored masks, Hollow masks, Menos, Quincy/Vandenreich, Fullbring; **reiatsu colour table**; **must-have features of ~35 characters**. |
 | `references/architecture.md` | Buildings and map structures: real-structure members, 0.125 m detailing, Karakura, Seireitei, Rukongai, Las Noches, Wandenreich, interiors, per-structure collapse recipes. |
@@ -107,18 +112,18 @@ test over the `VoxelModel`. Keep screenshots in the scratchpad or `/shots/` (git
 | `references/vfx.md` | Effects: voxel-native vs smooth energy, readability, colour/bloom intensities, aura design, Getsuga/Cero/Kidō looks, screen effects. |
 | `references/procedural-techniques.md` | Writing generators: SDF formulas, noise, shape grammars, WFC/mazes, Poisson-disc, space colonisation, Voronoi fracture, thin-feature rasterisation. |
 | `references/review-checklist.md` | Every critique: full pass/fail rubric with common fixes and a report template. |
-| `references/dsl.md` | API of `src/models` (added with the DSL by the engine author). Read before writing model code once it exists. |
+| `references/dsl.md` | API of `src/models` (added with the DSL by the engine author). Read before writing model code. Until it lands, read `src/models/builder.ts` and `color-and-palettes.md` §3.5 (model ramps are light → dark, auto-shade, locks). |
 
 ## 4. Review rubric (condensed - details and fixes in `references/review-checklist.md`)
 
 | # | Check | Pass condition |
 |---|---|---|
-| A1 | Silhouette at 20 m | Flat-black shape ~80 px tall (720p, 42° FOV) is nameable in a lineup; ≥ 2 dossier silhouette keys visible front and ¾. |
+| A1 | Silhouette at 20 m | Flat-black shape ~80 px tall (1080p, 62° engine FOV) is nameable in a lineup; ≥ 2 dossier silhouette keys visible front and ¾. |
 | A2 | Colour blocks | Image downsampled 8× still identifies the asset by its 2-3 dominant colour masses. |
 | B1 | Face at 2 m | Eyes (lid line, iris, highlight), brows and mouth read; expression and signature marks match the dossier. |
 | C1 | Proportions | Height = round(cm × 0.48) ± 1; head 1/6.5-1/7 (adults); limbs per `characters.md` tables. |
 | C2 | Scale consistency | Correct class density; lineup heights match canon ratios; props/buildings sized to doors and characters. |
-| D1 | Palette | ≤ ~24 colours/character in 3-6-shade hue-shifted ramps; no `#000`/`#FFF`; dossier hues within a small ΔE or justified. |
+| D1 | Palette | ≤ ~24 colours/character in 3-6-shade hue-shifted ramps; no `#000`/`#FFF`; dossier hues within a small ΔE or justified; world/prop materials are variation bands centred for their pattern (D7). |
 | D2 | Black & white | Black garments show lit/base/shade folds; whites keep form and do not bloom in `seireitei_noon`. |
 | E1 | Integrity | 0 floating components (6-connected), no unsupported 1-voxel spikes, no holes/see-through gaps, no z-fighting. |
 | E2 | Joints | No gaps in the 6 test poses (T, A, lunge, overhead swing, high kick, crouch). |
@@ -136,7 +141,9 @@ test over the `VoxelModel`. Keep screenshots in the scratchpad or `/shots/` (git
 - 48/m: 1 vox = 2.08 cm · 174 cm → 84 · 157 cm → 75 · 144 cm → 69 · 133 cm → 64 · 202 cm → 97 · 288 cm → 138.
 - World 8/m: door 2.0-2.2 m = 16-18 vox · floor-to-floor 2.8-3.0 m = 22-24 · wall 25 cm = 2 · a 1.74 m
   character ≈ 14 world voxels tall.
-- Screen (42° vertical FOV, 720p; ×1.5 at 1080p): px/m ≈ 938 / distance. At 20 m a character voxel ≈ 1 px,
-  a world voxel ≈ 6 px, the whole character ≈ 80 px; at 2 m a character voxel ≈ 10 px and the head ≈ 120 px.
-  Replace 42° with the game camera's FOV once it exists.
-- Bloom: emissive core ×4-8, body ×1.5-3, rim ×1.1-1.5 (linear HDR); albedo never blooms.
+- Screen (engine camera: 62° vertical FOV in `src/render/renderer.ts`; 1080p, ÷1.5 for 720p): px/m ≈ 899 /
+  distance. At 20 m a character voxel ≈ 0.9 px, a world voxel ≈ 5.6 px and the whole character ≈ 78 px. At 2 m a
+  character voxel ≈ 9 px and the head ≈ 110 px. Look-dev used 42° at 720p (938 / d, almost the same).
+  Recompute if the gameplay camera changes its FOV.
+- Bloom: emissive core ×4-8, body ×1.5-3, rim ×1.1-1.5 (linear HDR); lit albedo never blooms. World emissives
+  set `MaterialDef.glow` (base library 0.6-5).

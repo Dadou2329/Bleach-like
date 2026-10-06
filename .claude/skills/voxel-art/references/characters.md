@@ -326,7 +326,7 @@ Weapons are separate meshes on sockets at the **same 48/m density**, so forms sw
 | Wakizashi (Gin's Shinsō sealed) | ~60 cm | 29 | as katana |
 | Hyōrinmaru (nodachi) | 140 cm | 67 | longer than Hitsugaya (64); hilt and 4-point star guard behind his right shoulder |
 | Ichigo first sword | 165 cm | 79 | rectangular bronze guard ≈ 6×4; red wrap; two light-blue tassels |
-| Zangetsu (Shikai v1) | 170 cm (blade 46 + grip 8 at 32/m) | 82 (blade 69, grip 12) | 10-11 wide; spine 3 thick tapering to a 1-voxel edge; dark spine half, silver bevel half; no guard; cloth-wrapped tang + streamer chain |
+| Zangetsu (Shikai v1) | 170 cm (blade 46 + grip 8 at 32/m) | 81 (blade 69, grip 12) | 10-11 wide; spine 3 thick tapering to a 1-voxel edge; dark spine half, silver bevel half; no guard; cloth-wrapped tang + streamer chain |
 | Tensa Zangetsu (Bankai v1) | 105 cm | 50 (blade 36, handle 14) | black blade 1×2; manji guard of four bent prongs, 7-8 span; short chain with a broken last link |
 | Bankai v3 / True Shikai large | 140-160 cm | 67-77 | per A1 dossier |
 | True Bankai Tensa Zangetsu | 230 cm | 110 | 16-17 wide white shell over a black core band; chain looping over the back of the blade |

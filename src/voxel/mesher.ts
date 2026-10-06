@@ -99,8 +99,10 @@ let maskAo = new Int32Array(0);
  * @param vol padded volume, dims (w+2)(h+2)(d+2)
  * @param w,h,d interior size in voxels
  * @param flags material flag table (256 entries)
+ * @param occ optional padded occupancy volume (same layout) used for AO instead of `vol` — character
+ *            parts mesh one bone at a time but take AO from the whole body
  */
-export function greedyMesh(vol: Uint8Array, w: number, h: number, d: number, flags: Uint8Array): MeshResult {
+export function greedyMesh(vol: Uint8Array, w: number, h: number, d: number, flags: Uint8Array, occ?: Uint8Array): MeshResult {
   const PX = w + 2, PY = h + 2;
   const st = [1, PX, PX * PY];
   const dims = [w, h, d];
@@ -112,7 +114,9 @@ export function greedyMesh(vol: Uint8Array, w: number, h: number, d: number, fla
 
   const isOpaque = (m: number) => (flags[m] & (F_SOLID | F_TRANSPARENT | F_LIQUID)) === F_SOLID;
   const isClear = (m: number) => m === 0 || (flags[m] & (F_TRANSPARENT | F_LIQUID)) !== 0;
-  const occludes = (m: number) => (flags[m] & (F_SOLID | F_TRANSPARENT | F_LIQUID | F_FOLIAGE)) === F_SOLID;
+  const occludesMat = (m: number) => (flags[m] & (F_SOLID | F_TRANSPARENT | F_LIQUID | F_FOLIAGE)) === F_SOLID;
+  const src = occ ?? vol;
+  const occludes = occ ? (o: number) => o !== 0 : occludesMat;
 
   for (let dd = 0; dd < 3; dd++) {
     const uu = (dd + 1) % 3, vv = (dd + 2) % 3;
@@ -146,10 +150,10 @@ export function greedyMesh(vol: Uint8Array, w: number, h: number, d: number, fla
             any = true;
             let ao = 0xff;
             if (!(key & 0x10000)) {
-              const s1n = occludes(vol[q - su]) ? 1 : 0, s1p = occludes(vol[q + su]) ? 1 : 0;
-              const s2n = occludes(vol[q - sv]) ? 1 : 0, s2p = occludes(vol[q + sv]) ? 1 : 0;
-              const cnn = occludes(vol[q - su - sv]) ? 1 : 0, cpn = occludes(vol[q + su - sv]) ? 1 : 0;
-              const cpp = occludes(vol[q + su + sv]) ? 1 : 0, cnp = occludes(vol[q - su + sv]) ? 1 : 0;
+              const s1n = occludes(src[q - su]) ? 1 : 0, s1p = occludes(src[q + su]) ? 1 : 0;
+              const s2n = occludes(src[q - sv]) ? 1 : 0, s2p = occludes(src[q + sv]) ? 1 : 0;
+              const cnn = occludes(src[q - su - sv]) ? 1 : 0, cpn = occludes(src[q + su - sv]) ? 1 : 0;
+              const cpp = occludes(src[q + su + sv]) ? 1 : 0, cnp = occludes(src[q - su + sv]) ? 1 : 0;
               const a0 = s1n && s2n ? 0 : 3 - (s1n + s2n + cnn);
               const a1 = s1p && s2n ? 0 : 3 - (s1p + s2n + cpn);
               const a2 = s1p && s2p ? 0 : 3 - (s1p + s2p + cpp);

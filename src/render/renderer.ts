@@ -5,6 +5,7 @@ import {
 } from 'postprocessing';
 import { N8AOPostPass } from 'n8ao';
 import { Sky, SKY_DAY, type SkyParams } from './sky';
+import { setCharEnvMap } from './charMaterial';
 
 export interface Quality {
   pixelRatio: number;
@@ -67,6 +68,9 @@ export class GameRenderer {
   readonly tone: ToneMappingEffect;
   quality: Quality;
   atmo: Atmosphere = ATMO_DAY;
+  /** prefiltered sky/ground gradient for metals and glossy character parts */
+  envMap: THREE.Texture | null = null;
+  private pmrem: THREE.PMREMGenerator;
   private time = 0;
   private shadowTarget = new THREE.Vector3();
 
@@ -85,6 +89,7 @@ export class GameRenderer {
     r.toneMapping = THREE.NoToneMapping;
     r.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(r.domElement);
+    this.pmrem = new THREE.PMREMGenerator(r);
 
     const w = r.domElement.width, h = r.domElement.height;
     this.camera = new THREE.PerspectiveCamera(62, w / h, 0.06, 2500);
@@ -148,6 +153,34 @@ export class GameRenderer {
     this.renderer.toneMappingExposure = a.exposure;
     this.hueSat.saturation = a.saturation;
     this.brightness.contrast = a.contrast;
+    this.buildEnvMap(a);
+  }
+
+  /** Gradient environment (zenith → horizon → ground) with a bright sun spot, prefiltered once. */
+  private buildEnvMap(a: Atmosphere): void {
+    const geo = new THREE.SphereGeometry(10, 48, 24);
+    const sky = new THREE.Color(a.hemiSky), hor = new THREE.Color(a.fogColor), gnd = new THREE.Color(a.hemiGround);
+    const sun = new THREE.Color(a.sunColor).multiplyScalar(6);
+    const col: number[] = [];
+    const pos = geo.attributes.position;
+    const c = new THREE.Color();
+    const v = new THREE.Vector3();
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).normalize();
+      if (v.y >= 0) c.copy(hor).lerp(sky, Math.pow(v.y, 0.6));
+      else c.copy(hor).lerp(gnd, Math.min(1, -v.y * 4));
+      const sd = Math.max(0, v.dot(a.sunDir));
+      c.lerp(sun, Math.pow(sd, 48) * 0.8);
+      col.push(c.r, c.g, c.b);
+    }
+    geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+    const scene = new THREE.Scene();
+    scene.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide })));
+    const rt = this.pmrem.fromScene(scene, 0.02);
+    this.envMap?.dispose();
+    this.envMap = rt.texture;
+    setCharEnvMap(this.envMap);
+    geo.dispose();
   }
 
   resize(): void {

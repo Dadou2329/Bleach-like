@@ -4,7 +4,7 @@ Voxel art is pixel art in three dimensions: every voxel is a deliberate decision
 things, tested by screenshots, not by intention:
 
 1. **Identity at gameplay distance** - the asset is recognisable as a flat silhouette and as 2-3 colour masses
-   at ~20 m, where a character voxel is about one pixel.
+   at ~20 m, where a character voxel is about one pixel (1080p).
 2. **Craft at close range** - at ~2 m (cinematics, photo mode, character select) faces, trims, emblems and folds
    look hand-placed: clean lines, intentional colour steps, no stray voxels.
 3. **Structure under destruction** - assets are built from real members and solid volumes, so cuts, craters
@@ -15,17 +15,19 @@ things, tested by screenshots, not by intention:
 ## 1. Screen-size math (do this before deciding detail)
 
 Pixels per metre at distance `d` for vertical FOV `f` and image height `H`:
-`px_per_m = H / (2 · d · tan(f/2))`. With the look-dev camera (f = 42°, `tan 21° = 0.384`):
+`px_per_m = H / (2 · d · tan(f/2))`. With the engine camera (`src/render/renderer.ts`: f = 62°,
+`tan 31° = 0.601`) at 1080p:
 
-| Distance | 720p px/m | Character voxel (1/48 m) | Prop voxel (1/16 · 1/24 m) | World voxel (1/8 m) | 1.74 m character |
+| Distance | 1080p px/m | Character voxel (1/48 m) | Prop voxel (1/16 · 1/24 m) | World voxel (1/8 m) | 1.74 m character |
 |---|---|---|---|---|---|
-| 2 m (close-up) | 469 | 9.8 px | 29 · 20 px | 59 px | head ≈ 117 px |
-| 5 m | 188 | 3.9 px | 12 · 8 px | 23 px | 326 px |
-| 10 m | 94 | 2.0 px | 5.9 · 3.9 px | 12 px | 163 px |
-| 20 m (gameplay) | 47 | **1.0 px** | 2.9 · 2.0 px | 5.9 px | **≈ 82 px** |
-| 40 m | 23 | 0.5 px | 1.5 · 1.0 px | 2.9 px | 41 px |
+| 2 m (close-up) | 449 | 9.4 px | 28 · 19 px | 56 px | head ≈ 112 px |
+| 5 m | 180 | 3.7 px | 11 · 7.5 px | 22 px | 313 px |
+| 10 m | 90 | 1.9 px | 5.6 · 3.7 px | 11 px | 156 px |
+| 20 m (gameplay) | 45 | **0.94 px** | 2.8 · 1.9 px | 5.6 px | **≈ 78 px** |
+| 40 m | 22 | 0.47 px | 1.4 · 0.94 px | 2.8 px | 39 px |
 
-Multiply by 1.5 for 1080p. Update `f` when the game camera exists.
+Divide by 1.5 for 720p. The look-dev camera (42° at 720p, 938 / d) gave almost the same numbers. Recompute if
+the gameplay camera changes its FOV (PLAN §8.3-8.4: FOV punches, lock-on framing).
 
 Consequences:
 - At 20 m **anything smaller than ~4-6 character voxels (8-12 cm) is invisible**. Identity must come from shapes
@@ -34,7 +36,7 @@ Consequences:
   emblem, back numeral.
 - World voxels (≈ 6 px at 20 m) are visible as texture: world surfaces need calm, structured variation, or they
   become a field of flickering squares (the "tiles" look of look-dev 01).
-- Props at 16/m sit between: a vending machine (1.85 m = 30 voxels) is ~87 px at 20 m - its identity is its
+- Props at 16/m sit between: a vending machine (1.85 m = 30 voxels) is ~83 px at 20 m - its identity is its
   box + lit panel + colour, not its buttons.
 
 ## 2. Silhouette and negative space
@@ -94,10 +96,17 @@ Our noise sources and who owns them:
 
 | Source | Owner | Character models | Props | World |
 |---|---|---|---|---|
-| Per-voxel hash shade (PLAN §5.5) | shader | off or ≤ 2-3 % (faces 0) | low (≈ ±3 %) | on (look-dev: ±7 % per voxel) |
-| Low-frequency patches (7-voxel cells) | shader | off | optional | on (look-dev: ±4 %) |
+| Per-voxel hash shade (PLAN §5.5) | shader | engine: ±4 % on every voxel (faces included) | low: narrow ramp | on: amplitude = the material ramp's spread |
+| Low-frequency patches (~11-voxel noise) | shader | off | per pattern | `plaster`, `grass` patterns |
 | Material pattern (brick, grain, tile, ripple) | shader | none | per material | per material |
 | Painted variation | generator/model | **structured only** | structured only | **structured only, low frequency** |
+
+How these map onto the engine (`references/color-and-palettes.md` §3): world and prop voxels store only a
+material id, so the shader rows are set by each material's ramp and pattern. Painted variation in the world or on
+a prop means switching to a *variant material* (grime band, moss, scorch). Keep variants few and in large,
+meaningful regions - each one is a slot in the 255-material table and a greedy-merge seam. Models paint palette
+indices; the DSL's auto-shade adds hash `dither` (default 0.12) to its shade pick, which counts as random paint -
+keep it low (§3.5 there).
 
 Rules:
 1. **Never add your own per-voxel random paint on top of the shader hash.** If a world surface needs more life,
@@ -110,10 +119,14 @@ Rules:
    - *Posterised low-frequency noise:* noise with wavelength ≥ 6-8 voxels, quantised into 2-3 bands → shade index.
    - *Edge wear:* lighter shade on convex edges only (top/outer corners), darker in concave corners.
    - *Pattern aligned to structure:* brick courses, plank/grain along the member, tile rows along the slope,
-     strata along terrain layers, pleats along the hakama.
+     strata along terrain layers, pleats along the hakama. The engine's shader patterns are world-axis aligned
+     today: get alignment from geometry and material regions, and see `color-and-palettes.md` §3.4 for
+     fallbacks.
    - *Grouping:* accent colours (flowers, pebbles, stains) in clusters of 3-7, never uniformly spread; accents
      ≤ 2-5 % of a surface.
-4. Characters: zero random paint. Texture where needed (fur, straw, hair strands) is a deliberate repeating motif
+4. Characters: zero random paint. The DSL's auto-shade `dither` scatters single voxels along shade-band edges:
+   use 0 on faces, emblems and flat cloth, and elsewhere keep it ≤ the 0.12 default only if the 8×8 test still
+   passes. Texture where needed (fur, straw, hair strands) is a deliberate repeating motif
    aligned to the form (e.g. 1-voxel darker strand lines along a hair clump, every 3-4 voxels).
 
 ## 6. Stepping, aliasing and edge tricks
@@ -166,16 +179,20 @@ Rules:
 
 ## 9. Readability under AO, bloom, tone mapping and fog
 
-- **Vertex AO** (greedy mesher, look-dev curve `[0.5, 0.68, 0.84, 1.0]`) darkens concave corners to as low as 50 %,
-  and N8AO adds screen-space darkening. Use it: 1-voxel recesses become free separation lines. Respect it: an
-  iris set 1 voxel into the face loses half its brightness at the corners - paint eyes flush on a flat face plate.
-- **Bloom** (threshold 1.0, HDR) should only catch emissive voxels and VFX. Sunlit white plaster, white haori,
-  Hueco Mundo sand and bone masks are the risk: keep albedo whites ≤ `#F3F3F0` and confirm no halo in
-  `seireitei_noon`. Things that should glow (Hollow eyes, lanterns, reishi crystals) must be emissive, not just
-  bright.
-- **Tone mapping:** Neutral (Khronos PBR Neutral) keeps albedo hues near their sRGB values - default. ACES adds
-  contrast and shifts saturated colours (bright blues toward purple, hot colours toward white) - judge colours in
-  the final render, not as hex swatches. AgX desaturated the anime palette in look-dev (D14) - never.
+- **Vertex AO** darkens concave corners to ≈ 42 %: the engine curve is `mix(0.42, 1, (ao/3)^1.25)` ≈
+  `[0.42, 0.57, 0.77, 1.0]` (`src/render/voxelMaterial.ts`; look-dev used `[0.5, 0.68, 0.84, 1.0]`). N8AO
+  (radius 1.4, intensity 2.2) adds screen-space darkening on top. Use it: 1-voxel recesses become free
+  separation lines. Respect it: an iris set 1 voxel into the face loses more than half its brightness at the
+  corners, so paint eyes flush on a flat face plate.
+- **Bloom** should only catch emissive voxels and VFX (PLAN threshold 1.0; engine 0.92 with 0.18 smoothing, on
+  HDR). Sunlit white plaster, white haori, Hueco Mundo sand and bone masks are the risk: by estimate a `#F3F3F0`
+  top face in full `ATMO_DAY` sun reaches ≈ 0.90 linear luminance. Keep albedo whites ≤ `#F3F3F0` and confirm no
+  halo in `seireitei_noon`. Things that should glow (Hollow eyes, lanterns, reishi crystals) must be emissive,
+  not just bright.
+- **Tone mapping:** the engine runs ACES today; Neutral (Khronos PBR Neutral) is the alternative PLAN allows.
+  Neutral keeps albedo hues near their sRGB values. ACES adds contrast and shifts saturated colours (bright blues
+  toward purple, hot colours toward white). Judge colours in the final render, not as hex swatches. AgX
+  desaturated the anime palette in look-dev (D14) - never.
 - **Fog/aerial perspective** flattens distant values: important silhouettes (towers, the Senzaikyū, Las Noches
   towers) need strong value contrast against the sky of their map.
 - **Rim light:** characters get a fresnel rim (PLAN §8.1). In `hm_night` (near-black sky) black-clad characters
@@ -184,15 +201,19 @@ Rules:
   front-left, fill, rim), `karakura_afternoon` (sun 35°, `#FFE6C2`), `karakura_dusk` (sun 6-10°, `#FF9A55`),
   `seireitei_noon` (sun 60°, `#FFF4E0`, white walls), `hm_night` (moon `#CFE0FF` at 25-35°, sky `#050608`,
   ambient `#0A0E18`, sand bounce `#8E8C88`), `lasnoches_interior` (warm white `#FFF8EA` at 45°, sky `#7FB6E6`).
+  These are review targets. The engine has only `ATMO_DAY` so far (`src/render/renderer.ts`: sun `#FFF1DC` ×3.1
+  at ≈ 54° elevation) plus sky presets `SKY_DAY`, `SKY_DUSK` and `SKY_HUECO` (`src/render/sky.ts`). Until each
+  preset exists as an `Atmosphere`, use `ATMO_DAY` for day captures and say which preset was approximated.
 
 ## 10. Surface and material conventions
 
-- Everything is matte (roughness ≈ 0.9). Metals are a palette + bevel convention (bright edge line, darker
-  flats, a 1-voxel highlight), not reflections.
+- Everything is matte (roughness ≈ 0.9, the engine default). Metals are a palette + bevel convention (bright
+  edge line, darker flats, a 1-voxel highlight), not reflections; the engine's `metal`/`metal_dark` add only a
+  soft sheen (metalness 0.5-0.6, roughness 0.45-0.5).
 - Glass and ice are transparent materials with a tinted ramp; never a flat dark block (look-dev windows read as
   holes).
-- Emissive voxels are a separate stream (PLAN §5.4) - lanterns, vending panels, Hollow eyes, reishi crystals,
-  lava. Give them a ramp too (hot core → cooler rim).
+- Emissive voxels (PLAN §5.4; engine: `F_EMISSIVE` + `glow`) - lanterns, vending panels, Hollow eyes, reishi
+  crystals, lava. Give them a ramp too (hot core → cooler rim).
 
 ## 11. Failure gallery (seen in look-dev - do not repeat)
 

@@ -24,7 +24,8 @@ Craters and cuts expose the inside of the ground, so the inside must be designed
 
 Rules:
 - **Bands, not noise:** strata are horizontal-ish bands 0.5-3 m thick (4-24 voxels) with domain-warped boundaries
-  (warp amplitude 0.5-2 m); each band a different ramp or ramp offset. Alternate hard and soft bands so erosion and
+  (warp amplitude 0.5-2 m); each band its own material (the engine has no ramp-offset-by-height pattern yet,
+  `color-and-palettes.md` §3.4). Alternate hard and soft bands so erosion and
   cliffs form ledges.
 - Topsoil/grass is a 1-2-voxel skin; crater walls show soil → rock transitions within 1-2 m (look-dev 02's crater
   bowl read well because of this).
@@ -69,8 +70,10 @@ Rules:
   windward slope (10-15°), steep slip face at the angle of repose (~34°), sharp crest.
 - Crest line: one lighter ramp step along the crest (clamped ≤ `#F3F3F0`); slip faces and troughs take the cool
   shadow shades (`#C3C6CF`, `#ADB1C3`) - moonlit sand reads cool.
-- **Ripples:** real ripples (5-15 cm) are ~1 voxel - use the shader's `sand ripple` pattern, oriented perpendicular to
-  the wind, not geometry. Megaripples (0.5-2 m) may be 1-voxel height steps.
+- **Ripples:** real ripples (5-15 cm) are ~1 voxel - use the shader's `sand` pattern, not geometry. Today its
+  bands have a fixed world direction (crests roughly along z, ≈ 1.3 m apart); orienting them perpendicular to the
+  map's wind is an engine request (`color-and-palettes.md` §3.4). Megaripples (0.5-2 m) may be 1-voxel height
+  steps.
 - Runtime: sand is a granular CA material - craters slump to 34°, blasts throw dust curtains, things get buried and
   exposed; ripples re-form slowly after combat (design). Very hot attacks fuse sand into glassy patches `#BFC7C9`.
 - Ruins half-buried (broken white columns Ø 1.5 m × 6-15 m, stair fragments, wall stubs) and giant Hollow bones
@@ -109,7 +112,8 @@ The "trees" of Hueco Mundo are quartz-like minerals, not plants (locations §8.1
   Groves of 5-20 within 30-60 m, biased near vents where Menos-Forest trunks breach.
 - **Shading = facets:** shade each prism face by orientation (one face light, its neighbours one and two steps
   darker) so the crystal reads; faint emissive edges (×1.1) and an inner blue `#BFD3E6` hint; ramp `#B3BCCE` →
-  `#E4E9EE`.
+  `#E4E9EE`. Diagonal facets are voxel staircases that lighting cannot shade cleanly, so assign each facet's
+  voxels one of 2-3 quartz materials by the facet's orientation (no facet pattern in the engine yet).
 - **Destruction:** no bending - shatters at the hit point; the segments above fall and burst into glittering shards.
 - **Forest of Menos:** giant trunks Ø 6-20 m, 25-40 m apart, branching near the top and fusing into the ceiling;
   `#B9C2CC` with faint emissive edges `#DCE6F0`, mist `#5A5F6B` at 30 %.

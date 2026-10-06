@@ -65,7 +65,8 @@ Correction Corps (Urahara's past): white uniform (verify).
   Captain-Commander deep purple ≈ `#4B1F5E`), Tōsen `#CD5700`, Ukitake `#9C1B2B`, Rukia (captain) `#6B2218`; others
   undocumented - use the division colour (verify). Show the lining 1-2 voxels at the front edges and sleeve mouths.
 - **Sleeves per captain:** long - Aizen, Kyōraku, Ukitake, Shinji, Unohana (verify), Gin (verify); short - Byakuya;
-  sleeveless - Suì-Fēng, Hitsugaya, Kensei, Rose, Love, Isshin (captain era), young Yamamoto; ragged short sleeves -
+  sleeveless - Suì-Fēng, Hitsugaya, Kensei, Rose, Love, Isshin (captain era), young Yamamoto, Tōsen (inferred,
+  verify); ragged short sleeves -
   Kenpachi; oversized, long-sleeved, **worn draped as a cape** with arms out of the sleeves - Yamamoto.
 - Special: post-time-skip Byakuya - high collar, light-gold edges and tassels `#D9C27A`; Isshin (Shinigami) - the
   haori reduced to a white tattered sash slanting across the robe from the left shoulder.
@@ -243,7 +244,8 @@ exactly 2× (96/m) sub-part; 1 voxel proud of the skin; hair inside the mask vol
 - **Schutzstaffel hooded coat:** white, ankle-length, sleeveless, with a hood; three insignia buttons; a large
   **Hagal rune** on the left side, dark red `#6D111A` (one source says black - material swap). Hagal rune = a vertical
   stroke crossed by an X (six-armed asterisk with no horizontal bar); Yhwach's Wahrwelt throne uses the shape.
-- **Medallion:** palm-sized disc ≈ 3×3 voxels at 48/m, gunmetal `#3A3D44` with the emblem etched `#8E949E`.
+- **Medallion:** palm-sized disc ≈ 9 cm ≈ 4-5 voxels across at 48/m (the dossier's "3 vox" is at 32/m),
+  gunmetal `#3A3D44` with the emblem etched `#8E949E` (decal for close-ups).
 - **Blut:** Vene = faint blue vein web `#4C9BFF` flashing only where struck; Arterie = red web `#D5232F` along the
   striking limb (paint/emissive overlay on the skin, not geometry).
 - **Vollständig:** pillar of light capped by a Quincy Zeichen on activation; **Heiligenschein** halo (usually the star

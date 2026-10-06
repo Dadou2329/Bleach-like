@@ -54,7 +54,7 @@ Rules:
 | Cornice, string course, sill band | 1-voxel band, 1 proud | the cheapest way to add scale cues |
 | Stairs | riser 1 + tread 2 (gentle) or riser 2 + tread 2 (steep Japanese stairs) | controllers autostep 0.5 m - any works |
 | Block wall (Karakura lanes) | 10-13 tall (1.2-1.6 m), 2 thick with a 1-voxel cap | block courses 2 tall, joints every 3 |
-| Kawara tiles | shader roof-tile pattern on the slope + course steps | tiles slide off as debris first when struck |
+| Kawara tiles | 1-voxel course steps in geometry + the `tile` pattern (a flat 0.5 m grid today; slope-aligned kawara rows are an engine request, `color-and-palettes.md` §3.4) | tiles slide off as debris first when struck |
 
 **Interior hints** (cheap depth): furnish only set pieces and ~20 % of houses; the rest get lit windows with a back
 plane + curtain + light strip, and simple partitions. Fake Karakura's replica can have empty interiors.
