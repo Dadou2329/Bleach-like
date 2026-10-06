@@ -60,7 +60,8 @@ Memory column = dense-chunk estimate from §5 (rough planning numbers, ±40 %).
 | `garganta` | Garganta / Valley of Screams transit | Void | transit only | — | streamed strip | small | Arrivals, Hueco Mundo invasion, Royal Realm infiltration |
 
 Small extra arenas (0.125 m, ≤ 96 m): **Visored warehouse + its study chamber**, **Karakura General Hospital
-silver training chamber** (Ryūken vs Uryū), **Central 46 assembly hall**, **Kuchiki Manor**, **Shin'ō Academy**.
+silver training chamber** (Ryūken vs Uryū), **Xcution hideout** (PLAN M8), **Central 46 assembly hall**,
+**Kuchiki Manor**, **Shin'ō Academy**.
 
 ---
 
@@ -246,7 +247,7 @@ Mashiba Middle School · **Yumisawa Children's Park** · remains of the Sukari B
 | | **Grimmjow rematch** (Hollow mask), Luppi vs Hitsugaya/Rangiku/Ikkaku/Yumichika, Urahara vs Yammy (day) | Garganta over the park, sky |
 | | Visored training: Ichigo vs Hiyori, vs his inner Hollow | Visored warehouse & its underground chamber |
 | | Uryū vs **Ryūken** (power restoration) | hospital silver chamber |
-| Fullbring | Ichigo vs Ginjō / Tsukishima / Xcution members | Naruki City HQ, Tsukishima's mansion (out of scope here) |
+| Fullbring | Ichigo vs Ginjō / Tsukishima / Xcution members | Xcution hideout in Naruki City (§6.6), Tsukishima's mansion |
 | TYBW | Ichigo vs **Asguiaro Ebern** (first Quincy) | Karakura streets |
 | Hell (2021 one-shot) | Renji & Ichigo vs **Szayelaporro**, the Jailer of Hell | Human World, 14 years after his death |
 
@@ -425,6 +426,12 @@ rooftop: 1.5 m railing/fence, stair house, water tank · perimeter trees, 2 m fe
   *soul-synthesised silver* and *soul-synthesised glass*: multi-level, upper-level windows look onto grass,
   a handle-less door at the bottom; strong but pockmarked by arrows. Material `reika_silver` (`#C9CED6` →
   `#A7AEB8`, H 140, T 0.3). Stage: Uryū vs Ryūken.
+- **Xcution hideout** (Naruki City, west of Karakura; PLAN M8) — a run-down block of ordinary apartments (building
+  1 of block 7) hiding, on its 3rd floor, one huge lavish room carved out by demolishing the five rooms on either
+  side and three floors above and below (bar, expensive furniture — Yukio's money); entry only through Xcution's
+  trick. A "spare" base (where Ichigo completes his Fullbring) and Ginjō's secret third base (a boarded-up
+  abandoned building) also exist. Build (est.): 5-storey apartment shell 40 × 12 m with a hidden 3-floor-tall
+  lounge 30 × 10 × 9 m inside; arenas for Fullbring-arc stages (Ichigo vs Ginjō/Tsukishima & Xcution).
 
 ### 6.7 Urahara's underground training ground (勉強部屋, "Study Chamber") — `urahara_study`
 **Canon.** A huge chamber under the shop, built by Urahara with Soul Society tech "in a day and a night" as a

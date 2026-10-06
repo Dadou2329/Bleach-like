@@ -546,6 +546,26 @@ Every character inherits a race layer (movement, defence, projectile family, sen
 `docs/lore/mechanics.md`: Shinigami (Shunpo, Kidō wheel, Zanjutsu/Hakuda), Hollow/Arrancar (Sonído, Cero
 family, Bala, Hierro, Pesquisa, Garganta, regeneration), Visored (mask layer), Quincy (Hirenkyaku, Heilig Pfeil,
 Blut, Ransōtengai, Sklaverei, Gintō, Vollständig), Fullbringer (Bringer Light, object-soul manipulation).
+Hybrids (Ichigo, Tōsen, the Visored) stack layers. Each race has a visually distinct movement signature (Shunpo
+blink + afterimage, Sonído static "bun", Hirenkyaku glowing reishi platform glide, Bringer Light green flicker
+with springy ground). World travel (Senkaimon, Garganta, Schatten shadow gates) lives in the Tab wheel's utility
+ring and doubles as reinforcement/escape in story stages. Sensing differs by race (Sonído is invisible to
+reiatsu sensing; Quincy shadow travel needs real shadows — blow the roof off and it fails).
+
+### 10.7 Kidō system (catalogue: `docs/lore/mechanics.md` §1)
+- **~80 spells:** 24 Hadō, 25 Bakudō, 18 barriers/seals, forbidden and ritual spells, Kaidō healing tiers —
+  each mapped to primitives and voxel interactions (Byakurai bores, Shakkahō explodes, Sōren Sōkatsui scorches
+  in a cone, Rikujōkōrō pins with six light rods, Danku is a wall that eats explosions, Kurohitsugi encloses the
+  target in a black coffin of spikes, Ittō Kasō costs the caster an arm).
+- **Casting:** Tab wheel by number (Hadō / Bakudō / Kaidō rings) + up to 2 quick-cast favourites. **Tap = Eishōhaki**
+  (instant, weaker, may misfire for low-skill casters); **hold = chant verse by verse** for full power (the
+  incantation's *length* is shown as a verse meter, not copied text); **Nijū Eishō** chants two spells together
+  and hides which one is coming; **Kōjutsu Eishō** chants after casting to empower a spell already in play.
+- **Skill tiers per character** (from the dossiers): masters (Aizen, Urahara, Tessai, Hachigen, Yoruichi, Rukia,
+  Momo, Kira, Nanao) get bigger versions, no misfires and number callouts; Ichigo never casts Kidō.
+- **Power numbers:** Reiatsu level scale tied to canon Spirit Class, release multipliers (Shikai ×2–3, Bankai
+  ×5–10, Resurrección/Vollständig similar), defence thresholds and a destruction scale anchored to canon feats —
+  starting values in `mechanics.md` §3, tuned for spectacle not balance.
 
 ---
 
@@ -823,7 +843,19 @@ Bleach-styled (black/white brush strokes, kanji): HP + reiatsu bars, form name +
 cooldowns and costs, ultimate meter, lock-on target panel, combo counter, callout layer, teammate portraits,
 mini status icons. Toggle for minimal HUD.
 
-### 14.4 Settings
+### 14.4 Story Arcs — stage list (set pieces from the dossiers)
+| Arc | Stages (map) |
+|---|---|
+| Agent of the Shinigami | Fishbone D at the Kurosaki Clinic (K0/K1) · Grand Fisher in the rain by the river · the Hollow Bait contest with Uryū → a Gillian prying the sky open · Renji & Byakuya in the rainy street |
+| Soul Society | Jidanbō at the West Gate · Ikkaku · Renji on the bridge · Kenpachi in the white-wall alleys · Yoruichi vs Suì-Fēng (Shunkō) · Uryū vs Mayuri (Letzt Stil) · Kenpachi vs Tōsen & Komamura · Ichigo vs Byakuya on Sōkyoku Hill (possession) · Yamamoto vs Kyōraku & Ukitake · Aizen's betrayal at the Sōkyoku |
+| Arrancar | Ichigo vs Grimmjow (Karakura night) · Hitsugaya's team vs the Arrancar raid (Gentei Kaijo) · Ulquiorra & Yammy in the park |
+| Hueco Mundo | Dordoni · Chad vs Gantenbainne · Uryū vs Cirucci · Rukia vs Aaroniero · Renji & Uryū vs Szayelaporro → Mayuri · Kenpachi vs Nnoitra · Byakuya vs Zommari · Ichigo vs Grimmjow (Pantera) · **Ichigo vs Ulquiorra on the Las Noches dome** (Segunda Etapa → Full Hollow) |
+| Fake Karakura Town | the four transfer pillars (lieutenants vs Fracción + Ayon) · Hitsugaya vs Harribel · Suì-Fēng vs Baraggan · Kyōraku vs Starrk · Komamura & Hisagi vs Tōsen · Yamamoto vs Wonderweiss (Ennetsu Jigoku) · Visored vs the Arrancar · **Ichigo vs Aizen — Mugetsu** |
+| Lost Substitute Shinigami | Yukio's game world · Ichigo vs Tsukishima · Ichigo vs Ginjō (Bankai vs Fullbring-Bankai) |
+| Thousand-Year Blood War | Quilge in Hueco Mundo · first invasion (Yamamoto vs Royd → Yhwach, Byakuya vs Äs Nödt) · Kenpachi vs Unohana in Muken · second invasion (Rukia vs Äs Nödt, Renji vs Mask, Hitsugaya vs the Bambies, Kenpachi vs Gremmy, Kyōraku vs Lille, Mayuri vs Pernida, Urahara & Yoruichi vs Askin, everyone vs Gerard) · Squad Zero vs Yhwach's elite · **Ichigo, Uryū & friends vs Yhwach in Wahrwelt** |
+| Hell | Ichigo & Renji vs the Jailer of Hell (Szayelaporro) and the Kushanāda |
+
+### 14.5 Settings
 Graphics presets (Low/Med/High/Ultra: shadows, AO, bloom, draw/LOD distance, resolution scale, debris &
 fragment caps, VFX density, outline/manga mode), controls (rebinding, sensitivity, invert, auto-lock), audio
 buses, accessibility (screen-shake scale, flash reduction, colour-blind safe telegraphs), performance overlay.
