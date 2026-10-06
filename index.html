@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>REISHI — Bleach voxel brawler</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #050507; color: #eee; }
+      #app { position: fixed; inset: 0; }
+      #app canvas { display: block; width: 100%; height: 100%; }
+      #ui { position: fixed; inset: 0; pointer-events: none; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; }
+      #boot { position: fixed; inset: 0; display: grid; place-items: center; background: #050507; z-index: 50;
+        font-family: 'Dela Gothic One', system-ui, sans-serif; letter-spacing: 0.3em; font-size: 14px; color: #bbb; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="ui"></div>
+    <div id="boot">LOADING REISHI…</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
