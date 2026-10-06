@@ -3,7 +3,7 @@
 Design dossiers for the five members of the **Royal Guard / Zero Division** (**Ichibe'e Hyōsube**, **Senjumaru Shutara**, **Ōetsu Nimaiya**, **Tenjirō Kirinji**, **Kirio Hikifune**), the *Hell Verse* movie villain **Kokutō**, the **Hell** content (the 2021 one-shot *NO BREATHES FROM HELL*, the Kushanāda, Togabito, Jigoku no Gaki, Szayelaporro as "Jailer of Hell"), the **Soul King (Adnyeus)** and **Mimihagi**. Royal Guard support NPCs (Divine Soldiers, Nimaiya's forge spirits, Kirinji's bath attendants) are covered in the shared layer. The file ends with the **engine features** these kits need beyond the brief's primitive list and a list of **open questions**.
 
 Conventions used below
-- Heights → voxels at **32 vox/m** (rounded). Hex colors are *estimates* from anime/colour-page memory unless the wiki states a color in words; anything marked **(verify)** must be checked against reference art before modeling.
+- Heights → voxels at **32 vox/m** (rounded), as the research brief specifies. Note: `PLAN.md` now targets **48 vox/m for characters** (32/m as fallback) — multiply voxel counts here by 1.5 (the quick-reference table lists both); every size is also given in cm/m so generators can rasterize at any resolution. Hex colors are *estimates* from anime/colour-page memory unless the wiki states a color in words; anything marked **(verify)** must be checked against reference art before modeling.
 - Engine tags use the brief's vocabulary in `[brackets]`. Needs not covered by that list are tagged `[NEW: …]` and collected in section 12.
 - Canon-status flags: **[M]** manga · **[A-ep N]** anime-only (TYBW anime, episode number) · **[N]** novel *Can't Fear Your Own World* (CFYOW, Ryōgo Narita) · **[KO]** Kubo's *Klub Outside* Q&A · **[1S]** the 2021 one-shot *NO BREATHES FROM HELL* (canon, by Kubo) · **[Mv]** *Bleach: The Hell Verse* movie (**non-canon**) · **[BS]/[RoS]/[SR]** video games *Brave Souls*, *Rebirth of Souls*, *Soul Resurrección* (**game-only**) · **[X]** our own extrapolation for the game, not canon.
 - The wiki romanizes the leader as **Ichibe'e** (also seen as Ichibē / Ichibei). Same person.
@@ -20,14 +20,14 @@ Conventions used below
 
 ## 0. Quick reference
 
-| Character | Role | Height → vox | Zanpakutō / power source | Signature energy | Tier | Power |
+| Character | Role | Height → vox (32/m · 48/m) | Zanpakutō / power source | Signature energy | Tier | Power |
 |---|---|---|---|---|---|---|
-| Ichibe'e Hyōsube | Zero Division leader | 181 cm → 58 | **Ichimonji** (brush) → Shikai *Kuromeyo* → Shin'uchi **Shirafude Ichimonji**; True-name powers; "Black" | none sensible (zero reiatsu leak); **black ink**, **white** light (Shin'uchi) | **A** (story boss) | 10 |
-| Senjumaru Shutara | 4th Officer, Divine General of the North | 158 cm → 51 (+4 okobo) | **Shigarami** (needle) → Bankai **Shatatsu Karagara Shigarami no Tsuji** | **yellow** reiatsu (canon); red thread; gold arms | **A** | 9 (10 unsealed) |
-| Ōetsu Nimaiya | 3rd Officer, Divine General of the West | 172 cm → 55 | **Sayafushi** (forged katana); Shikai/Bankai unrevealed | unknown (verify) — propose gold/green | **B** | 9 |
-| Tenjirō Kirinji | 1st Officer, Divine General of the East | 193 cm → 62 (+pompadour) | **Kinpika** (polearm) → Shikai *Tenshō Issen*; hot-spring waters | golden-white light; milky-white & blood-red water | **B** | 8.5 |
-| Kirio Hikifune | 2nd Officer, Divine General of the South | 174 cm → 56 | unnamed chokutō → Shikai (giant wok spatula); Cage of Life tree; cuisine | unknown; bark/green growth | **B** (support) | 8 |
-| Kokutō | Togabito, *Hell Verse* villain **[Mv]** | ≈185 cm → ≈59 (est.) | black curved sword + Hell chains | **blue** blasts/shield (purple in games) | **B** (optional Hell DLC boss) | 7 |
+| Ichibe'e Hyōsube | Zero Division leader | 181 cm → 58 · 87 | **Ichimonji** (brush) → Shikai *Kuromeyo* → Shin'uchi **Shirafude Ichimonji**; True-name powers; "Black" | none sensible (zero reiatsu leak); **black ink**, **white** light (Shin'uchi) | **A** (story boss) | 10 |
+| Senjumaru Shutara | 4th Officer, Divine General of the North | 158 cm → 51 · 76 (+13 cm okobo: +4 · +6) | **Shigarami** (needle) → Bankai **Shatatsu Karagara Shigarami no Tsuji** | **yellow** reiatsu (canon); red thread; gold arms | **A** | 9 (10 unsealed) |
+| Ōetsu Nimaiya | 3rd Officer, Divine General of the West | 172 cm → 55 · 83 | **Sayafushi** (forged katana); Shikai/Bankai unrevealed | unknown (verify) — propose gold/green | **B** | 9 |
+| Tenjirō Kirinji | 1st Officer, Divine General of the East | 193 cm → 62 · 93 (+pompadour) | **Kinpika** (polearm) → Shikai *Tenshō Issen*; hot-spring waters | golden-white light; milky-white & blood-red water | **B** | 8.5 |
+| Kirio Hikifune | 2nd Officer, Divine General of the South | 174 cm → 56 · 84 | unnamed chokutō → Shikai (giant wok spatula); Cage of Life tree; cuisine | unknown; bark/green growth | **B** (support) | 8 |
+| Kokutō | Togabito, *Hell Verse* villain **[Mv]** | ≈185 cm → ≈59 · ≈89 (est.) | black curved sword + Hell chains | **blue** blasts/shield (purple in games) | **B** (optional Hell DLC boss) | 7 |
 | Hell bestiary (Kushanāda, Togabito, Jigoku no Gaki, Shuren's gang) | enemies | giants / human | Hell | varied | **C** | 5–7 |
 | Szayelaporro, "Jailer of Hell" **[1S]** | boss variant (base dossier is in E2) | as base | Hell chains, clairvoyance | black-crimson chains | **C** | 7 |
 | Soul King (Adnyeus) | set piece / scenery | unknown (render large) | "Black" (chaos) | black | **C** (event) | n/a |
@@ -535,7 +535,7 @@ Every Royal Guard dossier inherits this; dossiers only list deviations.
 ---
 
 ## 8. Hell (地獄, Jigoku) — late-game content pack
-- **Wiki:** https://bleach.fandom.com/wiki/Hell · https://bleach.fandom.com/wiki/Konso · https://bleach.fandom.com/wiki/Togabito · https://bleach.fandom.com/wiki/Kushan%C4%81da · https://bleach.fandom.com/wiki/NO_BREATHES_FROM_HELL · https://bleach.fandom.com/wiki/Hollow (Jigoku no Gaki) · https://bleach.fandom.com/wiki/Szayelaporro_Granz
+- **Wiki:** https://bleach.fandom.com/wiki/Hell · https://bleach.fandom.com/wiki/Kons%C5%8D · https://bleach.fandom.com/wiki/Togabito · https://bleach.fandom.com/wiki/Kushan%C4%81da · https://bleach.fandom.com/wiki/NO_BREATHES_FROM_HELL · https://bleach.fandom.com/wiki/Hollow (Jigoku no Gaki) · https://bleach.fandom.com/wiki/Szayelaporro_Granz
 - **Recommended packaging:** a canon chapter built on the **2021 one-shot** (*NO BREATHES FROM HELL*: Konsō Reisai, Jigoku no Gaki, Szayelaporro, Ukitake) + an optional **non-canon "Hell Verse"** DLC (5 Hell levels, Kushanāda, Shuren's gang, Kokutō, Skull Clad Ichigo).
 
 ### 8.1 Canon status at a glance
@@ -598,7 +598,7 @@ Every Royal Guard dossier inherits this; dossiers only list deviations.
 - **Name note:** "Adnyeus" was first hidden in Sōken's journal (anime ep 372) and spoken by Yhwach in **anime ep 394**; it is also part of the Auswählen incantation [A/KO #483].
 - **Body:** humanoid; **slicked-back dark hair**, **oval eyes without eyebrows**, **each eye holding four black irises**; **no arms or legs** (amputated); sealed in a **crystal** (manga: **yellow-gold**; anime: **light blue**, turning **dark red** when he is stabbed) **hung by four wires** in a large, elegant chamber with curtains, inside the **Reiō Daidairi** cylinder. Scale is never stated — render the figure larger than life (≈ 3 m torso-to-head, crystal ≈ 6 m) for awe [X]. (His first silhouette in ch. 519 still had limbs; later appearances don't.)
 - **Palette (hex estimates):** skin pale grey-ivory `#D8D2C8`; hair `#1A1A1A`; eyes white `#F2F2F2` with four black irises `#000000`; crystal manga `#E7C55A` (50%) / anime `#9FD3F0` (45%) → damaged `#7A0E14` (60%); wires `#2A2A2A`; reiatsu **black** `#050505`.
-- **Powers (canon):** immeasurable reiatsu ("**Black**" — the chaos/colorless color; a shifting mass of darkness); **clairvoyance & precognition** (saw the Quincy persecution and his own death 1,000 years ahead); **immunity to precognition** for himself and his parts (The Almighty can't see them) and the ability to **seal** The Almighty (left arm); **Ōken bestowment** (turns Royal Guard bones into keys); **World Splitting** — he divided the Primordial Sea into the Three Worlds, creating **life and death** [M]; the anime stages it as a ritual with an unusual **ceremonial sword** [A-ep 394]. Eons before that he **repelled a "darkness"** that threatened the single original world [A-ep 394 / M ch 564 visions].
+- **Powers (canon):** immeasurable reiatsu ("**Black**" — the chaos/colorless color; a shifting mass of darkness); **clairvoyance & precognition** (saw the Quincy persecution and his own death 1,000 years ahead); **immunity to precognition** for himself and his parts (The Almighty can't see them) [M]; his left arm can **seal** The Almighty [A-ep 390]; **Ōken bestowment** (turns Royal Guard bones into keys); **World Splitting** — he divided the Primordial Sea into the Three Worlds, creating **life and death** [M]; the anime stages it as a ritual with an unusual **ceremonial sword** [A-ep 394]. Eons before that he **repelled a "darkness"** that threatened the single original world [A-ep 394 / M ch 564 visions].
 - **Weaknesses:** sealed restraints (cannot move); **irreversible death** (nothing — not even Sōten Kisshun — can revive him).
 - **Parts with their own identities:** **left arm = Pernida Parnkgjas** ("Progress/Evolution"), **right arm = Mimihagi** ("Stillness"), **heart = hosted by Gerard Valkyrie** ("The Miracle"); Yhwach is his son (the novel leaves open whether he is a "part"). Dismemberment of the left arm dated **January 19** [KO #935]. Anime: he split the worlds himself and was then dismembered with only Ichibe'e present; novel: the **Five Noble Ancestors** betrayed, sealed and mutilated him and used his power to split the worlds.
 - **Signature set pieces:**
@@ -633,4 +633,73 @@ Every Royal Guard dossier inherits this; dossiers only list deviations.
 - **Signature set pieces:** Ukitake's **Kamikake** in Urahara's lab (haori and top shed, shadow eye on his back, screams as the hand rises) [M]; the **hand bursting through the Shakonmaku**, the **palm-eye opening** over the bisected king, Yhwach's pupil cracking [M]; repulse rings vs. blue flames; crackling restraint; **Yhwach tears out its eye** [M].
 - **Boss-phase proposal:** "The Right Arm" — a giant dark hand with a palm-eye. Mechanics: Stillness zones (projectiles freeze and return; DoTs/buff timers freeze), darkness walls, grab-and-consume, repulse rings, crackling cage; the eye is the weak point (opens on a cycle); immune to precognition/lock-on prediction effects.
 
-<!-- PART4 -->
+---
+
+## 11. Story-mode outline — Royal Guard arc (chronological set-piece list)
+
+1. **Descent of the Zero Division** [M]: the Tenchūren slams into the Seireitei; Senjumaru's fanfare; Kirinji grabs Suì-Fēng, Ichibe'e decks him; Hikifune punches Shinji; Senjumaru returns with the injured in orbs; Kūkaku's cannon launches the pillar back up.
+2. **Five palaces** (hub levels) [M]: Kirinden baths (survive the dunk, take the punch) → Gatonden feast (permanent upgrades) → Hōōden pit (three-day Asauchi horde survival) → Chōkaimon exile and return → forge (sea evaporates) → Ichibe'e's Itanoma (heavy air) → **Irazu Sandō** walk → Senjumaru's fitting room → spiral staircase down.
+3. **Invasion of the palace** [M]: Kirinji's hot-spring flood; Nianzol's deflection; Senjumaru's tapestry ambush and Refashion kill; Gerard breaks her needle, Pernida crushes the giant Divine Soldier, Lille "kills" her → **the world peels away** (fake palace) → Hikifune's **Cage of Life** closes; Nimaiya draws Sayafushi.
+4. **Royal Guard raid** (boss design; canon M ch 600–604 + A-ep 390–393): players are the Schutzstaffel *or* fight alongside the Guard. Rules: Name-call revives [N]; Kirinji's red water and Senjumaru's cotton heal; three Divine Generals give their lives at low HP (candles) → **Senjumaru's Bankai** finale with six hanks.
+5. **Ichibe'e vs. Yhwach** [M]: single-arena duel on the Vestibule Road (section 2 set pieces 5–11), ending in Yhwach's Almighty and the head-on-the-floor revival.
+6. **Fall of the Soul King** [M]: the chamber; protect the crystal; Mimihagi phase; one-eyed flood; Wahrwelt.
+7. **Epilogue hooks** [N/A-ep 412]: Ichibe'e's throne for Ichigo (rewritten away); Yhwach's corpse as the new linchpin (novel).
+8. **Hell chapter** (section 8.7).
+
+---
+
+## 12. Engine features these kits need (beyond the brief's primitive list)
+
+| Tag | What it is | Used by |
+|---|---|---|
+| `NameSystem` | Every actor, limb, weapon, ability, summon and construct carries a "true name" record. Operations: **halve** (scale the named part's stats ×0.5), **erase** ("Nameless": weapons/named abilities/constructs disabled, HUD nameplate blanked, callouts muted), **rewrite** (apply an archetype preset, e.g. *Kuroari*), **censor** (ink bar over one ability → locked), **curse** (Silence when someone "speaks" the name — targets him with a named special / types it in chat), **reveal** (show full kit), **restore** (precognition-type powers can undo) | Ichibe'e (core), story Yhwach |
+| per-limb stats | Arm/leg/torso multipliers that abilities can scale independently | Ichibe'e's Name Cut; also reusable for Pernida/limb-loss kits |
+| `PaletteDrain` | Shader/material pass that pulls a color (black) out of nearby actors/voxels (desaturate to grey) and converts it to a resource; reversible; "steal returns to owner" rule | Ichibe'e Shikai, Futen Taisatsuryō |
+| Ring-out & return | Launch an actor outside the playable volume with a sky streak and re-insert later/at a chosen point | Senri Tsūtenshō, Nimaiya's Chōkaimon kick |
+| `KanjiWriting` | Brush-stroke glyph placement (preset glyphs or gesture-drawn) that spawns barriers, fields, arena lines | Ichibe'e (封, 隠, boundary lines, Rename) |
+| Team-masked invisibility | Hide a whole structure/district (render layers + AI perception) from one team | 隠 Kaku (hid the entire palace) |
+| `NameCallRevive` | Downed-as-remnant state (a head); revive through an ally interaction ("call the name"); Royal Guard mutual-revive rule | Ichibe'e, Royal Guard raid |
+| `OutfitLayer` | Clothing as an editable voxel layer on characters: delayed-trap garments, team re-dress, burnable suits, loosened obi | Senjumaru (Refashion, Ōken clothing), Hikifune, Kazuo & Kazuhiro |
+| `FakeGeometryLayer` | Illusory duplicate terrain/buildings that look and break like the real thing but aren't authoritative; "pull the cloth" reveal | Senjumaru's fake palace & tapestries |
+| `ClothSeal` + cloth sim-lite | Falling tapestries, umbrellas, carpets/bolts, cloth whips; sealing a character flat into a tapestry (KO state) with a reversal hook (Antithesis) | Senjumaru Shikai/Bankai |
+| `GrowingConstruct` | Voxel tree that grows over time, **absorbs flagged energy attacks to thicken**, auto-intercepts projectiles, partitions arenas into rooms, self-repairs; "pure energy" bypass flag | Hikifune's Cage of Life |
+| `BodyMorph` | Resource-driven swap/blend between two body models | Hikifune plump ↔ slender |
+| Consumables | Food/rice-ball buffs (temporary in combat, permanent in hubs) | Hikifune |
+| `LiquidVoxels` | Flowing liquids with types/temperature: white spring water (burn + over-heal rot), red spring water (HP/blood refill), acid, lava (Hell revival pools), floods/tidal waves | Kirinji, Hell levels, Garogai |
+| `BloodVolume` | A blood stat separate from HP (lethal-dose effects, self-bleed purge, transfusion) | Nimaiya, Kirinji (also Askin in H1) |
+| `ScreenFlash` | Whiteout for players + perception blind for AI | Kirinji's Kinpika |
+| Weapon audio override | Per-weapon audio profiles (silent swing, low bass thump on hit) | Sayafushi |
+| `GlobalTremor` | Event that shakes every loaded zone (all three worlds) | Royal Guard unsealing, Senjumaru's Bankai, the Soul King's death |
+| `ZoneRules` | Area rules: Hell (no permanent death, chained respawn, Hollow meter auto-fill, sanity drain), Itanoma heavy air (adaptation), Irazu Sandō escalating weight, catapult travel | Hell content, Soul King Palace |
+| `ChainPhysics` | Tethered chains (whip, sword-on-chain, chain shields, limb latch & swing), invisible chains others can grab, chains erupting from the ground | Kokutō, Togabito, Kushanāda, Szayelaporro (Hell), Garogai |
+| `TerrainIntangible` | Giant enemies that phase through voxel terrain | Kushanāda |
+| Ability flags | `no-reiatsu` (invisible to sensing UI), `precog-immune` (immune to future-sight), `pure-energy` (passes the Cage of Life), `sinner` (eligible for the Gate execution) | Ichibe'e, Jigoku no Gaki, Soul King parts/Mimihagi, Auswählen, Hollows |
+| `StatusFreezeTimers` | Stillness: freeze projectiles mid-air (and return them), freeze DoT/buff timers | Mimihagi, anime Ichibe'e |
+| `ExecutionCinematic` + erase state | Scripted finishers (Sinner's Gate) and a "no-revive" KO (Futen Taisatsuryō) | Hell, Ichibe'e |
+| `SealCandles` | Release gating tied to other actors' deaths or a long meter (Blood Oath's Seal) | Senjumaru, Kirinji, Hikifune, Nimaiya |
+| `VisionOverlay` | Gameplay-time flashback overlays | Irazu Sandō, Soul King history |
+| Rapid terrain sculpting | Very fast precise voxel carving (furnace from pillars; bath pits) | Nimaiya's Nonomi, Kirinji |
+| Limb stretch | Procedural lengthening of arm/finger bones | Senjumaru's prosthetic arms |
+
+Nice-to-have UI touch: call the game's threat/danger meter the **"Shutara Scale"** (canon SRDI danger scale created by Senjumaru, KO #807).
+
+---
+
+## 13. Open questions / not found
+
+- **Never revealed in any source:** Nimaiya's Shikai & Bankai; Kirinji's Bankai; Hikifune's Zanpakutō name, Shikai command/abilities and Bankai; Senjumaru's sealed form and Shikai command; any Hell-form designs for Yamamoto and Unohana; Murakumo's design.
+- **No stated height:** Kokutō (≈185 cm proposed), the Soul King, Mimihagi, Kushanāda, Second-Class Divine Soldiers.
+- **Colors not stated in text (estimates given, verify):** Senjumaru's eyes and okobo straps, needle color; Kokutō's eyes; Ichimonji's shaft; reiatsu colors of Nimaiya, Kirinji, Hikifune (only Senjumaru = yellow and Soul King = black are stated; Ichibe'e has none by design).
+- **Royal Guard insignia** exact drawing (winter-daphne-in-rhombus confirmed, the line art needs a reference).
+- **"Hakushō"** — no such technique; likely a mix-up with *Shirafude* ("white brush").
+- Futen Taisatsuryō and Senjumaru's hank verses and Mimihagi's prayers have fixed chants; they are **paraphrased only** here — get the exact lines from the source if voiced audio is wanted.
+- The **TYBW anime Part 4** (episodes 407+) was still adding anime-only material when this was researched (ep 409 salamander ritual, ep 412 throne); re-check for later Royal Guard scenes.
+- The wiki API was heavily rate-limited (HTTP 429 on `action=parse`) during research; pages were fetched with the lighter `query/revisions` call and cleaned with the brief's own `wiki_fetch.py` helpers.
+
+---
+
+## Sources (bleach.fandom.com)
+
+Characters: [Ichibe'e Hyōsube](https://bleach.fandom.com/wiki/Ichibe%27e_Hy%C5%8Dsube) · [Senjumaru Shutara](https://bleach.fandom.com/wiki/Senjumaru_Shutara) · [Ōetsu Nimaiya](https://bleach.fandom.com/wiki/%C5%8Cetsu_Nimaiya) · [Tenjirō Kirinji](https://bleach.fandom.com/wiki/Tenjir%C5%8D_Kirinji) · [Kirio Hikifune](https://bleach.fandom.com/wiki/Kirio_Hikifune) · [Kokutō](https://bleach.fandom.com/wiki/Kokut%C5%8D) · [Soul King](https://bleach.fandom.com/wiki/Soul_King) · [Mimihagi](https://bleach.fandom.com/wiki/Mimihagi) · [Soul King Palace Residents](https://bleach.fandom.com/wiki/Soul_King_Palace_Residents) · [Shuren](https://bleach.fandom.com/wiki/Shuren) · [Gunjō](https://bleach.fandom.com/wiki/Gunj%C5%8D) · [Garogai](https://bleach.fandom.com/wiki/Garogai) · [Taikon](https://bleach.fandom.com/wiki/Taikon) · [Szayelaporro Granz](https://bleach.fandom.com/wiki/Szayelaporro_Granz)
+
+Systems, places, events: [Black](https://bleach.fandom.com/wiki/Black) · [Ichibe'e Hyōsube vs. Yhwach](https://bleach.fandom.com/wiki/Ichibe%27e_Hy%C5%8Dsube_vs._Yhwach) · [Fall of the Soul King](https://bleach.fandom.com/wiki/Fall_of_the_Soul_King) · [Royal Guard](https://bleach.fandom.com/wiki/Royal_Guard) · [Blood Oath's Seal](https://bleach.fandom.com/wiki/Blood_Oath%27s_Seal) · [Ōken](https://bleach.fandom.com/wiki/%C5%8Cken) · [Soul King Palace](https://bleach.fandom.com/wiki/Soul_King_Palace) · [Irazu Sandō](https://bleach.fandom.com/wiki/Irazu_Sand%C5%8D) · [Hōōden](https://bleach.fandom.com/wiki/H%C5%8D%C5%8Dden) · [Gikon](https://bleach.fandom.com/wiki/Gikon) · [Hyapporankan](https://bleach.fandom.com/wiki/Hyapporankan) · [Zanpakutō](https://bleach.fandom.com/wiki/Zanpakut%C5%8D) · [Hell](https://bleach.fandom.com/wiki/Hell) · [Konsō](https://bleach.fandom.com/wiki/Kons%C5%8D) · [Togabito](https://bleach.fandom.com/wiki/Togabito) · [Kushanāda](https://bleach.fandom.com/wiki/Kushan%C4%81da) · [Hollow](https://bleach.fandom.com/wiki/Hollow) (Jigoku no Gaki) · [NO BREATHES FROM HELL](https://bleach.fandom.com/wiki/NO_BREATHES_FROM_HELL) · [Bleach: The Hell Verse](https://bleach.fandom.com/wiki/Bleach:_The_Hell_Verse) · [Blood for My Bone (episode)](https://bleach.fandom.com/wiki/Blood_for_My_Bone_%28episode%29)

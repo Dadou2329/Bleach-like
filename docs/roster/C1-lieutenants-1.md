@@ -233,7 +233,7 @@ Conventions used below
   2. **Karakura at night vs Edrad Liones:** bargains for a bed at Keigo's; formal introduction; hand-swap misdirection; Palma Plancha knocks two teeth out; Volcánica's fire pillar; "watch closely and don't tell anyone" — **Bankai** tornado; guandao cuts through a flaming fist; crest fills while he spins; final clash → the broken guandao blade falls out of the smoke; he crawls off leaving a blood trail, "luckier than you can imagine".
   3. **Fake Karakura vs Choe Neng Poww:** refuses Bankai, loses, the pillar falls; Iba punches him and lectures him while Komamura pretends not to hear.
   4. **Lost Agent vs Moe Shishigawara:** wins while lecturing him that no life is worth more than another.
-  5. **TYBW:** pummeled by Mask De Masculine; with Yumichika vs Giselle's zombie Bambietta (Yumichika's Daichi Ten'yō clears the bombs, Ikkaku stabs her, Yumichika severs her bomb-hand); zombie Hitsugaya freezes his leg and runs him through.
+  5. **TYBW:** pummeled by Mask De Masculine; with Yumichika vs Giselle's zombie Bambietta (Yumichika's Daichi Ten'yō clears the bombs, Ikkaku stabs her, Yumichika cuts off the arm that grabs his face); zombie Hitsugaya freezes his leg and runs him through.
   6. **Anime:** two duels vs his own spirit Hōzukimaru, ending in a Bankai-vs-Bankai full-crest clash.
   7. **Epilogue:** dojo sparring with Ichika.
 - **Kit proposal:**
@@ -242,5 +242,226 @@ Conventions used below
   - **Bankai — Ryūmon Hōzukimaru** — *Shift:* short heavy dash · *LMB:* alternating guandao (cut) and spade (cut/smash) blows, the floating center blade swinging in as a delayed third hit; forward = spade thrust, back = guandao rising launcher, air = three-blade spin, down-in-air = center-blade drop (crater), sprint = cleaving charge · *Heavy:* both outer blades crashing together in an X · **Q (hold)** Ryūmon Spin — grab the center handle and whirl the rig (whirlwind, deflects projectiles, fills the crest 3× faster) · **E** Chain throw (fling spade or guandao on its chain, yank back) · **R** Center-blade hurl (launch the axe-blade like a guillotine on its chain) · **F** Reiatsu Explosion (anime: overhead spin → slam) · **Z** "Wake up!" stance (eat one hit on purpose: +crest and an instant counter) · **X** Styptic · *Crest meter:* +% per damage dealt/taken, ++ while spinning; damage, reach and aura size scale with it; at 100% each heavy clash chips the blades (brittle) · *C:* red flare (small crest gain) · *hold T:* seal · *V (needs 100% crest):* **Full-Crest Clash** (*game name*) — all three blades driven through the target and a line of buildings behind it; the guandao shatters afterward (forced seal, canon cost).
 - **AI notes:** Showboat duelist: dances, introduces himself, demands the player's name. Fights strictly one-on-one — if a second player/NPC joins he complains and keeps hunting his original opponent. Releases Shikai early (loves a fight) but **hides the Bankai** until HP < 30% *and* no allied Shinigami can see him; then the boss gets stronger every exchange (crest = enrage timer) — players should burst him before 100% or bait clashes to chip the brittle blades. Never retreats, always tries to finish properly ("that's respect"). Tells: hilt slammed into sheath (Shikai), shouts "Sakero!" right before the folding strike, hand on the center handle = spin incoming, grin widening as HP drops. Rage trigger: being called bald.
 - **Callouts:** "Nobiro, Hōzukimaru!" · "Sakero, Hōzukimaru!" · "Bankai — Ryūmon Hōzukimaru!" · "Tsuiteru, tsuiteru, tsuitteru~!" · "Jūichibantai daisanseki, Madarame Ikkaku!" (rank + name) · "Hage ja nē!" ("I'm not bald!")
+
+---
+
+## Yumichika Ayasegawa (綾瀬川 弓親) — 3rd Seat (former 5th Seat), 11th Division
+
+- **Wiki:** https://bleach.fandom.com/wiki/Yumichika_Ayasegawa · Ruri'iro_Kujaku_(Zanpakutō_spirit) · Yumichika_Ayasegawa/Anime_Continuity · battles: Yumichika Ayasegawa vs. Shūhei Hisagi; Yumichika Ayasegawa vs. Charlotte Chuhlhourne; Ganju Shiba vs. Yumichika Ayasegawa · Kidō: Daichi_Ten'yō, Hainawa, Shakkahō
+- **Roster tier:** **B** (secondary). Thin feat list, but the "secret true Shikai" (only usable unobserved) and the drain-vine kit are unique and cheap once the bind/tether systems exist.
+- **Canon power (1–10):** **4.5** (≈**5** with Ruri'iro Kujaku). Lieutenant-level swordsman (fought Hisagi, Charlotte), but brutes overpower him (Charlotte broke his arm in three places, Luppi tossed him around, Ganju's fireworks beat him). Ruri'iro Kujaku drained a lieutenant and a Fracción to defeat; the wiki compares its scale to a Bankai.
+- **Body:** 169 cm / 59 kg → **54 vox** (81 @48). Slim, graceful, narrow waist, long neck; posed, theatrical body language (hand on hip, hair flips). Silhouette keys: **jaw-length black bob** with face-framing locks, **colorful feathers at the right eye**, **orange high collar + orange right undersleeve**, a four-bladed sickle fan in Shikai, a mass of peacock-patterned vines in the true form.
+- **Palette (hex estimates):**
+  - Skin `#F2D3B7` with a glossy highlight `#FFF1E4` (canon: "shiny skin") · hair black `#121216` with violet sheen `#2E2440` · eyes purple `#7B4FA6` · lips `#D99A8E`.
+  - Right-eye feathers on the outer brow and lashes: yellow `#F5C83A` and orange `#EE7F2D`, red-orange tips `#D9452B` (exact count/colors verify).
+  - Orange neck piece + right undersleeve `#E46F2A` (shade `#B9521C`).
+  - 10-years-later cape white `#F2F2F0`, single button `#C9A04A` (verify).
+  - Sealed sword: cross-pattée guard bronze `#A8742F`, hilt wrap purple `#6B3FA0` over `#EAE2D6`, sheath fuchsia `#C8358F` (lacquer highlight `#E866B3`).
+  - Fuji Kujaku blades steel `#D0D5DB`; transformation glow white `#FFFFFF`. **Game tint idea:** the sulking false form glows faint **wisteria** `#A59ACA` (fuji-iro), the true form **lapis** `#1E50A2` (ruri-iro = lapis lazuli) — the sword literally loves one color and hates the other.
+  - Ruri'iro Kujaku vines: they burst out **multicolored** (peacock green `#2E8B57`, teal `#1FA79A`, gold eye-rings `#E8C14A`, cobalt "eyes" `#1E50A2`) and **turn blue** `#1E50A2` once they've wrapped a victim (anime spirit description); buds glow in the **victim's reiatsu color** (Hisagi green `#3CC45A`, Charlotte pink `#FF7FC8`); open flowers lapis/white `#3F6FD1` / `#EAF0FF` (verify); spent vines shrivel to `#6B5B3E`.
+  - Reiatsu green `#4CC46A` (core `#D5F7DE`).
+- **Look by form/outfit:**
+  - **Pre-Gotei (Rukongai):** simple flower-patterned kimono, long hair down his back in a loose ponytail with shoulder-length front locks, no feathers.
+  - **5th Seat (Soul Society → Fake Karakura):** jaw-length black bob; feathers on the **right** eyelashes and eyebrow; **orange piece** worn over the uniform around the neck that covers the chest the kosode would show, connected to an **orange sleeve on the right arm** under the looser shihakushō sleeve. **Wig gag:** after Ganju's firework singed his hair he hides it under a wig.
+  - **Lost Agent / TYBW (17 months later):** same bob plus a **braid hanging down the right side of his face**, feathers sticking out of the hair on both sides, extended lashes on both eyes, a **sash over the right shoulder** and a **turtleneck** (colors verify).
+  - **3rd Seat, 10 years later:** hair a bit past the shoulders, no braid; a **white cape** from the right shoulder covering the whole left arm, closed by one button; no lashes or feathers.
+  - **12 years later:** trimmed bangs; small feather ornaments on both sides of the head again.
+- **Weapons:**
+  - **Sealed:** katana (~100 cm ≈ 32 vox), bronze guard shaped like a cross pattée ("German cross"), purple hilt, fuchsia sheath.
+  - **Shikai Fuji Kujaku** — he runs his palm along the glowing blade; it becomes a **sickle/falx-like blade with the edge on the inside** (shotel-like), ~75–85 cm ≈ 26 vox (verify); a **hinge at the top of the hilt** fans it out into **four identical curved blades evenly spaced** like a peacock's tail. Guard and hilt unchanged.
+  - **True Shikai Ruri'iro Kujaku** — the four blades flare into **dozens of glowing vines patterned like peacock feathers**, many meters long (enough to wrap a released Fracción); afterward the vines wither, retract into the hilt and the sealed blade re-forms.
+- **Forms & states (ordered):**
+  1. **Sealed.**
+  2. **Fuji Kujaku (藤孔雀, "wisteria peacock")** — *"Sake"* (咲け, "bloom"). Deliberately crippled: the sword *hates* wisteria and the nickname, so it sulks and won't give full power.
+  3. **Ruri'iro Kujaku (瑠璃色孔雀, "lapis/azure peacock")** — *"Sakikurue"* (裂き狂え, "split and deviate"). The real, **Kidō-type** release; the 11th Division despises non-melee blades, so he only uses it **when no one from his division can see** (he begged Hisagi not to tell Ikkaku or Kenpachi).
+  - No Bankai.
+- **Abilities (complete):**
+  - *Sealed / base*
+    - **Swordsmanship** — lieutenant-level, elegant and quick. [MeleeArc cut]
+    - `Byūtifuru Chanbara (ビューティフルチャンバラ, "Beautiful Swordfight")` — a rapid series of repeated clashes with the opponent. [MeleeArc (flurry)]
+    - **Shunpo** — got behind Ganju before he could react. [Teleport]
+    - `Hadō #57 Daichi Ten'yō` — lifts rubble and hurls it with precision; he used it to smash zombie Bambietta's explosive spheres in mid-air and clear a lane for Ikkaku. [Grab/Throw, Projectile, NEW: DebrisTelekinesis]
+    - **Anime-only Kidō** — low-level Bakudō with no chant; vs his Zanpakutō spirit, Shakkahō blasted the vines loose and Bakudō #4 Hainawa stopped them from re-binding him. [Projectile, Bind]
+    - **Keen nose** — smelled a Hollow across Karakura; sniffed out (he insists) that Giselle is male. [Sensing]
+    - **Perceptive** — worked out that Bambietta's spheres make whatever they touch explode (so: dodge, never parry), and that Giselle *wanted* to be wounded. [Sensing]
+    - Durable — fireworks only singed him; kept fighting with an arm broken in three places.
+  - *Fuji Kujaku*
+    - **Four-sickle fan** — wide hooking slashes; the inside edges can hook limbs/blades (game inference); Charlotte simply caught it barehanded. [MeleeArc cut]
+  - *Ruri'iro Kujaku*
+    - **Ensnare** — vines lash out and wrap the target; (anime) struggling with reiatsu only speeds the drain. [Bind]
+    - **Drain → buds → bloom** — the vines siphon the target's reiatsu; **energy buds** swell along them as they fill; when the flowers **bloom**, the stored reiatsu is turned against the victim — crippling or killing. [Absorb/Reflect/Redirect (drain), Status (drain), Blast, NEW: DrainGrowth]
+    - **Petal heal** — chewing a bloomed petal heals him in proportion to the reiatsu it holds (he nibbled one after Charlotte). [Heal/Reject, NEW: PickupSpawn]
+    - **Release & wither** — the spent victim is dropped, vines shrivel and retract. [—]
+    - **Anime-only counters (useful as rules):** cutting a vine interrupts the drain; an explosion (Shakkahō) loosens the grip; a target already bound by other Kidō can't be wrapped; an enemy that can absorb reiatsu (the Tōjū Kirikaze) **reverses the flow** and drains Ruri'iro Kujaku instead. [NEW: DrainGrowth]
+    - *Game extrapolation (not canon):* in a world where buildings are reishi, rooted vines could drain structures so they wither and crumble — flag clearly if used.
+- **Passives & weaknesses:**
+  - Passives: vanity aura (constant "beauty" commentary); green reiatsu; scent tracking.
+  - Weaknesses: **witness lock** on the true form; false Shikai is underpowered by design; physically outmuscled by brutes; vines can be cut, blasted or hijacked by absorbers; **loses composure** if his face/hair is damaged or Ikkaku is in danger (abandoned his pillar post; Kira knocked him out).
+- **Signature moments to recreate:**
+  1. **Seireitei chase vs Ganju:** Ganju's earth tricks and a big firework win; Yumichika's only damage is his hair → wig.
+  2. **Rooftop vs Hisagi:** battered and leaning on Fuji Kujaku, explains he took 5th Seat because 五 looks like 三; fans the blades, calls the true name — vines erupt; "don't tell Ikkaku or the captain"; Hisagi ends up drained flat on the tiles while Yumichika walks off without a scratch in a fresh uniform.
+  3. **Fake Karakura vs Charlotte Chuhlhourne:** arm broken by the Guillotine Attack; cuts Charlotte's hair to provoke Reina de Rosas, laughs at it; trapped inside the black-thorn dome **Rosa Blanca** where nobody can see — the perfect place for Ruri'iro Kujaku; buds bloom, petal heal, "it wasn't Bankai".
+  4. **Ikkaku falls:** panics, leaves his post, threatens Hisagi; Kira knocks him out with a knockout drop.
+  5. **TYBW vs Giselle & zombie Bambietta:** Daichi Ten'yō rock volley vs the explosive spheres, slices off Bambietta's arm as she grabs Ikkaku's face; later tries Ruri'iro Kujaku on zombie Hitsugaya and is kneed by an ice-spiked knee.
+  6. **Anime:** duel with his spirit Ruri'iro Kujaku (ensnared, escapes with Kidō, wins by playing to its ego).
+- **Kit proposal:**
+  - **Sealed** — *Shift:* graceful Shunpo (leaves a feather-flutter afterimage) · *LMB:* fencing chain; forward = lunge, back = rising flourish launcher, air = pirouette slashes, down-in-air = falling stab, sprint = gliding cut · *Heavy:* **Beautiful Swordfight** (hold: a clash flurry that grinds down guards) · **Q** Daichi Ten'yō (press: levitate loose voxel debris in a radius; release: hurl at the target; can swat incoming projectiles) · **E** Shakkahō (anime) · **R** Hainawa (anime) · **F** Scent (Sensing ping: reveals hidden/stealthed enemies and Hollows) · **Z** Read (Perception: flags enemy "don't touch/don't hit" traps — e.g. explode-on-contact projectiles glow red) · **X** Hair fix (vanity emote: small heal, clears debuffs) · *G:* — · *C:* green flare · *T:* Fuji Kujaku · *Tab:* Daichi Ten'yō, Shakkahō, Hainawa.
+  - **Fuji Kujaku** — *LMB:* four-sickle hooks and fan sweeps · *Heavy:* fan spin · **Q** Daichi Ten'yō · **E** Blade catch (hook the enemy weapon between the sickles) · **R** Beautiful Swordfight · *Passive "Sulk":* −30% damage · *T:* **Ruri'iro Kujaku** — **witness lock**: greyed out while an allied 11th-Division NPC has line of sight (an eye icon on the HUD) · *V:* —
+  - **Ruri'iro Kujaku** — *Shift:* Shunpo (vines trail and retract) · *LMB:* vine lashes at mid range · *Heavy:* vine burst (fan of vines) · **Q** Ensnare (wrap one target, or several if bunched) · **E** Drain (channel: buds fill with the victim's color, victim loses reiatsu/HP; struggling drains faster) · **R** Bloom (detonate filled buds; damage scales with what they hold) · **F** Petal (eat: heal by stored amount; or toss to an ally) · **Z** Vine thicket (vines spread over the ground and walls and snag anything entering; anchors on structures) · **X** Daichi Ten'yō · *hold T:* seal · *V:* **Full Bloom** (*game name*): a giant peacock-fan of vines grabs everything in a cone, mass drain, synchronized bloom.
+- **AI notes:** Vain duelist: opens with commentary on the opponent's looks, guards his face (blocks high more often), flares up if his hair or face gets hit (more aggressive, sloppier). Uses Fuji Kujaku in the open; if the player is isolated from allied 11th-Division NPCs (none within ~40 m), he switches to Ruri'iro Kujaku and plays for ensnare-and-drain (wants a long fight). Partner AI with Ikkaku: **never interferes** in Ikkaku's duel (11th Division code) unless Ikkaku is about to die; in group fights supports with Daichi Ten'yō. Tells: palm sliding along the blade (release), fanning the sickles (true release coming).
+- **Callouts:** "Sake, Fuji Kujaku!" · "Sakikurue, Ruri'iro Kujaku!" · "Hadō no gojūnana — Daichi Ten'yō!" · "Bakudō no yon — Hainawa!" (anime) · "Utsukushiku nai…" ("not beautiful")
+
+---
+
+## Shūhei Hisagi (檜佐木 修兵) — Co-Lieutenant, 9th Division
+
+- **Wiki:** https://bleach.fandom.com/wiki/Sh%C5%ABhei_Hisagi · Shūhei_Hisagi/Expanded_Universe (novel Bankai) · Shūhei_Hisagi/Anime_Continuity · Kubikake · Kazeshini_(Zanpakutō_spirit) · battles: Shūhei Hisagi vs. Findorr Calius; Sajin Komamura & Shūhei Hisagi vs. Kaname Tōsen; Yumichika Ayasegawa vs. Shūhei Hisagi · Kidō: Tsuzuri_Raiden, Hyapporankan, Sajō_Sabaku
+- **Roster tier:** **A** (major). Fan favorite with the most distinctive chain-weapon in the cast, a strong story arc (fear doctrine, Tōsen, Kensei) and — via the novel — a Bankai with a genuinely unusual rule set.
+- **Canon power (1–10):** **5** in the manga: killed a captain-claiming Findorr in Shikai, landed the killing blow on Resurrección Tōsen (with Komamura), lifted and slammed Ayon with his chains; outclassed by Ayon, Driscoll Berci and Mask. **Novel:** his Bankai doesn't raise his power — it **equalizes** a fight by making both sides unkillable while reiatsu lasts (he held off the far stronger Hikone Ubuginu).
+- **Body:** 181 cm / 67 kg → **58 vox** (87 @48). Tall, lean, athletic; **bare, muscular arms** (sleeveless kosode). Silhouette keys: short spiky black hair; **three parallel scars straight down over the right eye**; **"69" on the left cheek**; **blue stripe across the left cheek and the bridge of the nose**; black **choker** and **bands on both upper arms**; chained twin pinwheel-sickles.
+- **Palette (hex estimates):**
+  - Skin `#E7B993` (shade `#C2916C`) · hair black `#141418` (blue-gray sheen `#2C3340`) · eyes dark gray `#4B4F57` · scars `#B86F5E` (raised edges `#D4917E`) · "69" tattoo `#111111` · cheek/nose stripe blue `#3E86C9` (verify — reads cyan-blue in the anime).
+  - Choker & armbands matte black `#1C1C20` (faint sheen `#3A3A42`) — **these are explosives**.
+  - 9th Division badge (white poppy) tied on the left upper arm.
+  - Sealed Kazeshini: octagonal guard dark iron `#3B3B40`, hilt wrap and sheath (verify; suggest black `#1E1E22` over `#E6E2DA`, sheath `#18181B`).
+  - Shikai: sickle blades steel `#C7CCD3` (edge `#EEF1F4`), central spiked rod black `#1C1C20` with steel spikes `#9DA3AA`, chain `#8A8F96` (shade `#5B6066`).
+  - Reiatsu **green** `#3CC45A` (core `#D3F8DD`) — anime and novel.
+  - Kidō: Tsuzuri Raiden arcs `#CFE8FF` with violet fringe `#8A7CFF` (verify), Hyapporankan rods `#D6ECFF` (glow `#7FC0FF`), Sajō Sabaku rope `#F2D04A`. Explosive bands: white flash `#FFFFFF` → thick smoke `#9A9A9E`.
+  - Novel Bankai: chain orb black `#121216` (glints `#4A4E57`), noose chains `#2A2D33`, stagnant-reishi haze `#3A4A4A` (game).
+- **Look by form/outfit:**
+  - **Rukongai childhood (flashback):** small boy holding a stick against a Hollow; saved by Kensei Muguruma — whose chest "69" he later copies on his cheek.
+  - **Shin'ō Academy, final year:** famous prodigy; much longer hair (to the neck in back, near the chin in front); the right-eye scars come from the Hollow ambush on the field trip he led (with Renji, Kira and Momo in the class). Academy robes (blue-and-white, verify).
+  - **New seated officer:** shihakushō *with* sleeves, no blue stripe yet.
+  - **Lieutenant (main look):** short spiky black hair; three straight scars from brow to cheek over the right eye; "69" left cheek; blue stripe across the left cheek and nose bridge; black choker; matching black bands around both upper arms; **sleeveless kosode** (9th Division custom); lieutenant badge tied on the left arm; Kazeshini at the waist (sometimes across the back).
+  - **17 months later / TYBW:** hair grown out to fall over the face and down near the ears (flatter, less spiky).
+  - **Novel (Can't Fear Your Own World):** same look; owns a Human-World **motorcycle** bought from Urahara (he once caused an uproar riding it around the Seireitei) — vehicle prop.
+  - **Hobbies (props):** electric guitar (a Fender Stratocaster per Kubo), editor-in-chief of the Seireitei Communication magazine.
+- **Weapons:**
+  - **Sealed Kazeshini** — katana (~100 cm ≈ 32 vox) with an **octagonal guard**.
+  - **Shikai Kazeshini** — **two kusarigama**; each has **two curved scythe blades pointing opposite ways** (one inverted) so it reads like a **pinwheel/fan**; the blades sit on a **spiked rod**, and one **long chain** joins the two weapons. Blade span ~40–45 cm ≈ 14 vox per weapon (estimate). The chain extends at will — Kubo says he prefers to keep it short; game: 3–4 m in hand, up to ~20 m thrown.
+  - **Novel Bankai Fushi no Kōjō** — Kazeshini's chain forms a **noose around his own neck** that runs up to a **large black orb of tangled chains** floating above him (~2–3 m, estimate); more nooses can link an opponent's neck to the same system.
+- **Forms & states (ordered):**
+  1. **Sealed** — his preferred state; he trained his swordsmanship precisely so he wouldn't need the Shikai.
+  2. **Shikai: Kazeshini (風死, "wind of death")** — *"Kare"* (刈れ, "reap"). He dislikes it because its shape looks "made for reaping lives".
+  3. **Bankai: Fushi no Kōjō (風死絞縄, "wind-of-death hangman's noose")** — **novel only**. In the manga epilogue he merely claims to have mastered a Bankai nobody has seen.
+  - Variant state: **PePe-controlled** (TYBW boss variant — fights for "PePe-sama" with Kazeshini *and* Byakuya's dropped Senbonzakura).
+- **Abilities (complete):**
+  - *Sealed / base*
+    - **Swordsmanship** — regularly fights released opponents while still sealed. [MeleeArc cut]
+    - **Hakuda** — **anime:** acrobatic unarmed takedowns from odd angles; an elbow sent his own spirit through a wall. [MeleeArc smash]
+    - **Shunpo (expert)** — dodged most of a Bala barrage. [Teleport, Mobility]
+    - **Explosive bands** — rips off the choker or an armband and throws it: a blinding blast with heavy smoke (vs Findorr it set up a binding). [Projectile (grenade), Blast, Field (smoke/blind), NEW: Consumable]
+    - `Bakudō #62 Hyapporankan` — after the band explosion, the rods **pinned Findorr to a wall**; it also appears in the movie *The DiamondDust Rebellion*. [Bind, Projectile multishot]
+    - `Bakudō #63 Sajō Sabaku` — listed among his spells. [Bind]
+    - `Hadō #11 Tsuzuri Raiden` — sent through **Kazeshini's chains** into Ayon, which dropped it as if paralyzed. [Status (paralysis), NEW: Conduction]
+    - Strength/durability — slammed the giant Ayon down with his chains; cracked a concrete wall with his body (Driscoll) and stayed in the fight.
+  - *Shikai — Kazeshini*
+    - **Fan spin** — swing the sickles by the chain in big circles so the blades whirl like a fan. [MeleeArc cut (wide), Projectile (disc)]
+    - **Steered throws** — throws a sickle and steers it through the chain; yanking the chain brings the *other* sickle around from behind (vs Findorr: "you can't read its movements"). [Projectile (steered), NEW: Tether]
+    - **Weapon entangle** — wraps an opponent's sword (Tōsen escaped only by vibrating his blade free). [Bind (weapon), NEW: WeaponLock]
+    - **Chain binding** — ties up even a giant like Ayon. [Bind]
+    - `Kubikake (首挂, "neck-hanging")` — loops the chain round the target's neck, hauls them off balance toward him and slams them into the ground/roof (Tōsen). [Grab/Throw, Bind]
+    - **Cutting attacks out of the air** — sliced through Findorr's water jets and through his Cero (the halves still wrecked part of the town). [Absorb/Reflect/Redirect (cut)]
+    - **Bisecting cuts** — split Findorr's crab-claw arm lengthwise, then killed him. [MeleeArc cut]
+    - **Release inside the wound** — stabbed the sealed blade down through Tōsen's head from his back, then released Kazeshini *inside* him so a blade burst out of his throat. [MeleeArc, Transform, NEW: ReleaseInside]
+    - **Chain = life** (**novel**) — Kazeshini embodies a Shinigami: the blades are death, the chain is life. As long as Hisagi has reiatsu, the chain **instantly re-links any injury**, even total destruction of his body — this explains his old toughness and how he survived Lille Barro's shot through his Saketsu & Hakusui. Pain remains; injuries from before the release aren't healed. [Heal/Reject (self), NEW: SelfRestore]
+  - *Bankai — Fushi no Kōjō (novel)*
+    - **Noose & orb** — the chains can't be permanently destroyed; they simply grow back. [Construct, NEW: Tether]
+    - **Stagnant reishi** — the reishi around it stagnates, said to recreate conditions of the primordial world. [Field]
+    - **Shared survival** — extends the chain's life-preservation to any opponent he chooses: a chain round **both necks**; every wound on either side is instantly undone, paid from their **combined** reiatsu. He absorbed 100+ "deaths" (bisection, crushed organs, incineration by Cero) without breaking. [Bind, Heal/Reject, Status (link), NEW: LifeLink]
+    - **Limit** — if the shared reiatsu runs dry while linked, a final blow kills *both*, so someone else must land it. Novel feats: also parried Tokinada's Enrakyōten imitations (Benihikō, Ryūjin Jakka, Senbonzakura) and cut off Tokinada's arm in the same motion.
+  - *Anime spirit Kazeshini (boss/summon)* — **black tornado** form racing around the arena, **shadow wind-blades** fired in rapid volleys, and a **wind-disk wrap** that chains the target while his arm turns into a sickle. [Field, Projectile, Bind, Mobility]
+- **Passives & weaknesses:**
+  - Passives: the **fear doctrine** ("he who doesn't fear his blade has no right to wield it") — game: perfect parries build *Fear*, which raises Shikai damage; (novel) chain-life regeneration while Kazeshini is out.
+  - Weaknesses: reluctant to release (AI); overwhelmed by raw power (Ayon, Driscoll, Mask); entanglements can be shaken off; mind control (PePe); novel Bankai needs outside help to finish a linked foe.
+- **Signature moments to recreate:**
+  1. **Academy field trip:** student leader orders the freshmen to run and faces giant Hollows alone; gets the eye scars; Renji, Kira and Momo turn back to help; Aizen and Gin arrive.
+  2. **Rooftop vs Yumichika:** wins the swordfight, then gets drained flat by Ruri'iro Kujaku.
+  3. **Sōkyoku Hill:** holds Tōsen at blade-point before the Negación beams lift the traitors away.
+  4. **Fake Karakura vs Findorr Calius:** Findorr chips his mask to climb seat by seat; band explosion → Hyapporankan pins him → water jets → *"Kare, Kazeshini"* → "doesn't this shape look made for reaping lives?" → chain-steered strike from behind → claw split in half → "now you know fear; now we're equals".
+  5. **Vs Ayon:** chains + Tsuzuri Raiden drop it — then it breaks free and crushes him (scripted loss).
+  6. **With Komamura vs Tōsen:** entangles Tōsen's sword; Kubikake slams him into a roof; impaled and thrown off; returns as Tōsen's Resurrección looms over Komamura — blade through the head, Kazeshini released inside; Tōsen dies asking to see his face.
+  7. **TYBW:** loses to Driscoll (Yamamoto steps in), Bankai training ambush by Kensei & Mashiro, clotheslined by Mask, mind-controlled by PePe into attacking Byakuya with two swords, shot by Lille Barro.
+  8. **Novel:** Fushi no Kōjō vs Hikone Ubuginu; duel with Tokinada.
+  9. **Anime:** feud with his spirit Kazeshini (and the baby the spirit ends up guarding).
+- **Kit proposal:**
+  - **Sealed** — *Shift:* Shunpo (expert) · *LMB:* disciplined, economical kenjutsu mixed with kicks/elbows; forward = draw-lunge, back = rising cut launcher, air chain, down-in-air = heel drop, sprint = sliding low cut · *Heavy:* draw-cut · **Q** Hyapporankan (rods rain and pin) · **E** Sajō Sabaku · **R** Tsuzuri Raiden (electrify the held weapon; anything touching/hit is shocked) · **F** Explosive band (3 charges — choker, left, right; the model visibly loses each band; blind + smoke) · **Z** "Half-step back" (parry stance; success builds Fear) · **X** — · *G:* — · *C:* green flare · *T:* Shikai · *Tab:* Hyapporankan, Sajō Sabaku, Tsuzuri Raiden.
+  - **Shikai — Kazeshini** — *Shift:* Shunpo; hold Shift at a surface = throw a sickle as a **grapple** and zip to it · *LMB:* alternating left/right sickle throws and recalls at mid range, sickle slashes up close; forward = straight throw, back = chain uppercut launcher, air = spinning chain dance, down-in-air = scythe dive, sprint = ankle-height chain sweep · *Heavy:* **fan spin** (both sickles whirling around him at full chain length) · **Q** Steered throw (hold: mouse steers the flying sickle; release: yank the other one round from behind) · **E** Kubikake (neck loop → pull → slam) · **R** Entangle (lock/disarm the enemy weapon) · **F** Tsuzuri Raiden through the chain (paralyze whatever the chain is touching) · **Z** Chain net (anchor both sickles to structures — tripwire/bind zone) · **X** Explosive band bolas (*game extension*: band tied to the chain) · *G:* **Chain-life** toggle (novel: incoming damage converted into reiatsu drain) · *C:* flare · *T:* Bankai (novel) / *hold T:* seal · *V:* **Reaper's Wheel** (*game name*): both sickles orbit him at maximum chain length, cutting incoming projectiles and slicing a ring through every structure in reach · *Finisher:* **Release Inside** — while a sealed-blade stab is embedded (grab state), pressing T releases Kazeshini inside the target.
+  - **Bankai — Fushi no Kōjō (novel)** — *LMB:* Shikai chain kit, chains regrow if cut · **Q** Noose link (lasso the target's neck: life-link begins — both sides heal every wound instantly, cost paid from a **shared reiatsu bar** shown over both heads) · **E** Orb tethers (extra chains from the orb bind and drag) · **R** Pain through (ignore flinch/stagger while linked) · **F** Chain rain (*game-origin* — Brave Souls shows chains raining from the orb) · **Z** Unlink (cut a link early) · *V:* **Hangman's Verdict** (*game name*): when the shared bar is nearly empty, cut his own noose at the last instant and drop the finishing blow — canon says he can't survive finishing it himself, so the game version costs nearly all his HP.
+- **AI notes:** Calm, mature, defensive; fights sealed until the opponent releases or he drops below ~50%. Mid-range chain control, Kubikake on jumping/airborne players, entangle vs sword users, band + Hyapporankan combo when cornered; never gloats. *PePe variant:* reckless, dual-wields Kazeshini + Senbonzakura, heart-struck dialogue. *Novel-Bankai boss:* links the player and turns the fight into a reiatsu-economy duel; an ally NPC must land the last hit. Tells: hand on the hilt and a deep breath (release), chain wound around his forearm (Kubikake), tugging a band (explosive).
+- **Callouts:** "Kare, Kazeshini!" · "Bakudō no rokujūni — Hyapporankan!" · "Bakudō no rokujūsan — Sajō Sabaku!" · "Hadō no jūichi — Tsuzuri Raiden!" · "Bankai — Fushi no Kōjō!" (novel)
+
+---
+
+## Izuru Kira (吉良 イヅル) — Lieutenant, 3rd Division
+
+- **Wiki:** https://bleach.fandom.com/wiki/Izuru_Kira · Wabisuke_(Zanpakutō_spirit) · Izuru_Kira/Anime_Continuity · battles: Izuru Kira vs. Abirama Redder; Rangiku Matsumoto vs. Izuru Kira · Kidō: Tenran, Tōzanshō, Enkōsen, Sajō_Sabaku, Tsuriboshi, Shakkahō, Kaidō
+- **Roster tier:** **B** (secondary). One brilliant mechanic (stacking weight) on a gloomy, Kidō-rich support/assassin. Strong boss/rival value; cheap to build once a mass-multiplier system exists.
+- **Canon power (1–10):** **5**. Lieutenant-level; four cuts to Abirama Redder's wings (16× weight) brought a Fracción crashing through a building and then to his knees for decapitation; seven blocked strikes left Rangiku's sword at ~225 lb (×128); healed otherwise-fatal wounds on Rangiku and Momo; later crushed a Jigoku no Gaki by making his own foot 128× heavier. But Bazz-B's first shot blew a hole through his side, and he never reached Bankai (Kubo said imagining it would be "nauseating").
+- **Body:** 173 cm / 56 kg → **55 vox** (83 @48). Slender, narrow-shouldered, slight slouch, melancholy face. Silhouette keys: **pale-blond hair combed into three points — two at the back, one long bang hiding the left eye**; the **square-hooked** Shikai blade; in TYBW the **open hole in the right side of his chest** braced with rods.
+- **Palette (hex estimates):**
+  - Skin pale `#F3D7BF` (shade `#D4B29A`), faint under-eye shadow `#C9A99A` · hair light blond `#EED98E` (shade `#CDB66C`, highlight `#FFF2C4`) · eyes blue `#4C79C2`.
+  - 3rd Division badge (marigold) tied on the left upper arm.
+  - Sealed Wabisuke: guard steel `#9A9EA4` with the Ω motif (color verify); hilt & sheath (verify; suggest navy wrap `#1F2A44` over `#E6E0D2`, black sheath `#18181B`).
+  - Shikai blade steel `#C9CED4`, inner (cutting) edge `#EEF1F4`.
+  - **Weight-stack VFX** (game): rings stamped "×2/×4/×8…" on struck objects, pale blue `#9FC2FF` deepening to indigo `#3B3F9E` as stacks climb; downward heat-haze shimmer under very heavy objects.
+  - Reiatsu blue `#4F8FE0` (core `#DCEBFF`) — anime.
+  - Kidō: Tenran tornado `#D9F2FF`; Tōzanshō pyramid `#3F86FF` (edges `#BFE0FF`); Enkōsen disc dull yellow `#C9B14A`; Sajō Sabaku rope `#F2D04A`; Tsuriboshi net `#5AA8FF`; Kaidō glow `#6BE08A`; Shakkahō `#E3262E`; Gaten knockout liquid green `#5ED16A`.
+  - TYBW reconstruction: support rods gray metal `#7E848C` (scuffs `#6B4A3A`), wound interior dark red `#5A1218`, prosthetic-looking right arm with seams `#B9A99A` (verify).
+  - 12-years-later hood white `#F2F2F0` with small black dots `#1A1A1A`.
+- **Look by form/outfit:**
+  - **Academy:** shorter, shaggier blond hair, bangs just above the left eye; blue male academy uniform; top of his class and a little cocky.
+  - **Lieutenant (main look):** shoulder-length pale-blond hair in three points, long bang covering the left eye; standard shihakushō; badge on the left arm; gloomy expression.
+  - **17 months later:** shorter hair; bang now reaches just below the left eye.
+  - **TYBW (after Bazz-B, rebuilt by Mayuri):** a big hole through the **right side of his chest/abdomen held open by thick rods**; the shihakushō re-cut so the upper right torso is bare except the **right arm**, which now looks prosthetic; hair back to the original length and style; calls himself "a dead man".
+  - **12 years later:** modified shihakushō with a **white hood dotted with small black dots**; a thinner bang.
+- **Weapons:**
+  - **Sealed Wabisuke** — plain katana (~100 cm ≈ 32 vox), rectangular guard with an **Ω** motif on the top and bottom halves.
+  - **Shikai** — the blade **loses its curve and goes straight**; where a katana would end it turns **90° twice**, forming three sides of a square — a square hook with the **cutting edge on the inside** of the angles. Total ~90–100 cm; hook ~15×15 cm ≈ 5×5 vox.
+- **Forms & states (ordered):**
+  1. **Sealed** — Kidō-heavy.
+  2. **Shikai: Wabisuke (侘助, "the wretched one")** — *"Omote o agero"* (面を上げろ, "raise your head").
+  3. **TYBW "dead man"** — Mayuri-reconstructed variant (visual + boss variant).
+  - No Bankai.
+- **Abilities (complete):**
+  - *Sealed / base*
+    - **Swordsmanship** — cold and efficient; he deliberately lets a fight become close-range for Wabisuke (bait: waited out a "slow" attack to get next to Abirama). [MeleeArc cut]
+    - **Shunpo** — appeared behind Abirama unseen. [Teleport]
+    - `Hadō #58 Tenran` — spins the sword like a fan, then a widening tornado (Abirama swatted it away). [Projectile (wind), Field]
+    - `Bakudō #39 Enkōsen` — spinning yellow disc shield (Abirama smashed it). [Shield]
+    - `Bakudō #73 Tōzanshō` — inverted-pyramid barrier around himself, can also trap others. [Shield, Construct, Bind]
+    - `Bakudō #63 Sajō Sabaku` — **anime:** bound the Kazeshini spirit with it. [Bind]
+    - `Bakudō #37 Tsuriboshi` — elastic catch-net; **anime:** used to restrain the Kazeshini spirit and escape with Hisagi. [Construct, Bind]
+    - `Hadō #31 Shakkahō` — fireballs, also as a smoke screen (novel). [Projectile orb, Blast]
+    - `Kaidō` + **field medicine** — ex-4th Division; diagnoses at a glance; carries medical kit. [Heal/Reject]
+    - `Gaten (穿点, "piercing point")` — green liquid; one drop knocks out anyone with weak enough reiatsu (he put a hysterical Yumichika to sleep; one page calls the tool "Shinten"). [Status (sleep), NEW: Consumable]
+    - **Tactician** — always building plays around Wabisuke's rule.
+  - *Shikai — Wabisuke*
+    - **Weight doubling** — everything the blade strikes **doubles in weight, cumulatively**, objects and living things alike: blades that parry it, limbs, wings, whole bodies, debris. ~8–9 strikes bring most enemies down under their own sword. Examples: 7 parries took Rangiku's ~2 lb sword to ~225 lb; 4 cuts made Abirama's wings 16× heavier and he fell through a building. It must actually **cut** (**anime:** Kenpachi's unbroken skin was unaffected). Effects end when the Shikai is sealed. [Status (weight), NEW: MassMultiplier]
+    - **Penitent kneel** — the growing weight forces victims to their knees, heads bowed "in apology" — the 3rd Division's despair motif. [Status]
+    - **Reverse guillotine** — hooks the square tip under the kneeling victim's neck and lifts: decapitation. [Grab, NEW: Execute]
+    - **Self-weighting** — he can double his *own* body parts: a foot doubled seven times (×128) crushed a giant Jigoku no Gaki from above, then he beheaded it. [MeleeArc smash, Blast, NEW: MassMultiplier]
+    - **Heavy deflection** (**novel**) — projectiles he knocks aside become heavier (Shaz Domino's daggers). [Absorb/Reflect/Redirect]
+    - **Debris rain** (**novel**) — Tenran blows rubble into the air, he strikes the chunks repeatedly, and they fall as super-dense projectiles that skewer the target. [Projectile, NEW: DebrisTelekinesis, NEW: MassMultiplier]
+    - **Sink** (**novel**) — kept stabbing a regenerating Quincy until his own weight drove him down into the earth. [Status]
+  - *Anime spirit Wabisuke (boss/summon)* — gaunt man with long black hair, ringed eyes, red chains around his head, a slab of white rock chained to his back, dark-green cloth, swinging an iron ball on a chain; whispers "your back is open" before striking; same weight power (quadrupled Kira's sword in four light taps). [Summon]
+- **Passives & weaknesses:**
+  - Passives: **despair aura** (flavor); expert Kidō without incantation; healer.
+  - Weaknesses: power is **melee-range only**; needs a real cut; effects vanish on reseal; useless against blades that stop being blades (Rangiku switched to ash); frail body; gloomy, indecisive outside combat. TYBW variant: half his torso is literally missing.
+- **Signature moments to recreate:**
+  1. **Academy field trip:** with Renji and Momo, turns back to rescue Hisagi from giant Hollows (anime adds a three-way Shakkahō volley).
+  2. **Kira vs Momo:** blocks his grieving friend to protect Gin; Tobiume blasts vs Wabisuke; Hitsugaya drops in between and stops both mid-clash, then has them jailed.
+  3. **Central 46 rooftops vs Rangiku:** counts her seven parries — her sword crashes through a roof tile under its own weight — "Unare, Haineko": the blade turns to weightless ash.
+  4. **Fake Karakura vs Abirama Redder:** Enkōsen shattered, Tenran swatted, a deliberate "hit me" to get close, four cuts to the wings, the marigold-means-despair speech, reverse-guillotine execution, "don't forgive me".
+  5. **Field medic:** knocks out Yumichika with Gaten, heals Rangiku and Momo after Ayon.
+  6. **TYBW:** Bazz-B's Burner Finger 1 erases his right side; rebuilt by Mayuri with rods; vs Lille Barro's feather-clones: splits one's head, floors two with Wabisuke, "I'm a dead man".
+  7. **Echoing Jaws of Hell:** prefers perimeter duty for the late entrance — then ×128 foot-stomp on a Jigoku no Gaki and a decapitation.
+  8. **Novel:** vs Shaz Domino at Central 46 (Tenran debris rain, sinking regenerator).
+  9. **Anime:** ambushed by the Kazeshini and Wabisuke spirits; Kenpachi blows up the building.
+- **Kit proposal:**
+  - **Sealed** — *Shift:* Shunpo (behind-target specialist) · *LMB:* precise, cold kenjutsu (thrusts, short cuts); forward = thrust, back = rising cut launcher, air chain, down-in-air = plunging stab, sprint = iai dash · *Heavy:* draw-cut · **Q** Tenran (fan-spin windup → widening tornado; lifts loose debris) · **E** Sajō Sabaku · **R** Tōzanshō (pyramid barrier on self; aim at an enemy to cage them) · **F** Kaidō (channel heal; self or ally) · **Z** Enkōsen (instant disc shield) · **X** Gaten (thrown/applied knockout drop: sleeps weak enemies, long stun on minibosses) · *G:* — · *C:* blue flare · *T:* Shikai · *Tab:* Tenran, Sajō Sabaku, Tōzanshō, Enkōsen, Tsuriboshi, Shakkahō (smoke), Kaidō.
+  - **Shikai — Wabisuke** — *Shift:* Shunpo · *LMB:* hook-blade chain; **every connecting hit doubles the weight of the part it hits** — the enemy's weapon if they guarded, a limb or the body otherwise, or any world object/voxel chunk; forward = hook thrust, back = rising hook launcher (heavy targets barely leave the ground), air chain, down-in-air = **weighted-foot drop**, sprint = dash cut · *Heavy:* **hook pull** — catch a limb/neck and drag the target down · **Q** "Omote o agero" — execution: on a kneeling or pinned target (≥ ~6 stacks), reverse guillotine · **E** Weighted parry (timed RMB variant: the attacker's weapon gains 2 stacks) · **R** Heavy Step (double his own foot up to ×128: stomp crater / meteor drop from the air) · **F** Debris Rain (Tenran lifts debris → each chunk he strikes multiplies → it slams down; novel combo) · **Z** Heavy deflect (projectiles he bats aside become heavy and drop short) · **X** Tōzanshō · *Weight effects:* ×2–×8 slows attacks/movement; ×16–×64 weapon dragging and kneeling; ×128+ pinned, sinks into soft voxels and crushes floors it stands on · *C:* flare · *hold T:* seal (all weight stacks vanish — canon) · *V:* **Penance** (*game name*): a ten-strike flurry stacking ×1024 on one target, who is driven through floor after floor into the ground, then the reverse guillotine.
+- **AI notes:** Methodical, defensive, never flashy. Keeps distance with Kidō until he can bait the player into hook range; **targets the player's weapon when they guard** (their swings slow down) and **legs when they dodge**; executes kneeling players. Below ~30% HP: Tōzanshō + Kaidō, then resumes. Speaks about despair, apologizes to the people he kills. *TYBW variant:* no flinch, eerily calm "dead man". Tells: palm raised before Sajō Sabaku, sword spinning like a fan (Tenran), fist clench before the self-weight stomp.
+- **Callouts:** "Omote o agero, Wabisuke!" · "Hadō no gojūhachi — Tenran!" · "Bakudō no rokujūsan — Sajō Sabaku!" · "Bakudō no nanajūsan — Tōzanshō!" · "Bakudō no sanjūkyū — Enkōsen!" · "Bakudō no sanjūnana — Tsuriboshi!" · "Hadō no sanjūichi — Shakkahō!"
 
 <!-- C1-CONTINUES -->
