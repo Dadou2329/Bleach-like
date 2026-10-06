@@ -439,6 +439,8 @@ export interface Spike {
   flow?: V3;
   bend?: V3;
   taper?: number;
+  /** put this spike on another bone (e.g. forehead locks that hide under a mask) */
+  bone?: string;
 }
 
 export interface Bang {
@@ -499,7 +501,7 @@ export function spikeHair(b: ModelBuilder, L: Landmarks, mat: string, spikes: Sp
     dir = [dir[0] / dl, dir[1] / dl, dir[2] / dl];
     const inside = rayEllipsoid(root, dir, c, capR);
     const side: V3 = [Math.cos(az), 0, -Math.sin(az)];
-    b.add('head', spike(root, dir, inside + sp.len, sp.r, sp.r * (sp.flat ?? 0.6), { side, bend: sp.bend, taper: sp.taper ?? 1, tip: 0.3 }), mat, { thr: 0.3 });
+    b.add(sp.bone ?? 'head', spike(root, dir, inside + sp.len, sp.r, sp.r * (sp.flat ?? 0.6), { side, bend: sp.bend, taper: sp.taper ?? 1, tip: 0.3 }), mat, { thr: 0.3 });
   }
   // bangs: flat locks hanging from under the cap edge, lying 1-2 voxels in front of the forehead
   const top = hairline + 2;

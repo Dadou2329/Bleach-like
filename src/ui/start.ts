@@ -43,9 +43,9 @@ export function showStart(parent: HTMLElement, onPlay: () => void, quality: 'hig
         <div><b>Ctrl / C</b><span>descend</span></div>
         <div><b>F</b><span>Bankai</span></div>
         <div><b>Tab / MMB</b><span>lock-on</span></div>
+        <div><b>G</b><span>Hollow mask (11 s)</span></div>
+        <div><b>H · Esc</b><span>controls · pause</span></div>
         <div><b>V</b><span>reiatsu flare</span></div>
-        <div><b>H</b><span>controls panel</span></div>
-        <div><b>Esc</b><span>pause</span></div>
       </div>
       <div class="opts">Graphics: <b>${quality}</b> · <a href="${url.toString()}">switch to ${other}</a></div>
       <div class="note">Everything is destructible. Hollows come in waves; every third wave the sky tears open.</div>

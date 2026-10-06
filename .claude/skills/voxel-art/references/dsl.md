@@ -40,7 +40,14 @@ magnitudes for `blend`/`offset`. Use `thr: 0.3` on thin features (tips, straps) 
 jaw) · `faceLegend` for the characters.md templates · `hands` (palm and fist variants with a grip channel along
 Z) · `feet` (tabi + waraji) · `kosodeTorso` (returns the torso SDF; V collar left-over-right) ·
 `kosodeSleeves` (bag on the `sleeve.*` spring bones) · `obi` · `hakama` (lower panels on `hakama.*` springs) ·
-`spikeHair(b, L, mat, spikes, bangs, {tufts})` · `shihakushoSprings()`.
+`spikeHair(b, L, mat, spikes, bangs, {tufts})` (a spike's `bone` puts it on another bone, e.g. forehead locks
+that hide under a mask with `rig.setBoneVisible`) · `shihakushoSprings()`.
+
+## Breakable props (`src/models/shatter.ts`)
+`shatterModel(model, { pieces, seed, crack, jitter, levels })` splits a single-bone prop into jittered Voronoi
+shards and returns progressively cracked copies whose crack lines lie on the same seams. Swap in the cracked
+copies as the prop weakens, then throw the shards with `ShardBurst` (`src/vfx/shards.ts`). Ichigo's Hollow mask
+is the reference (`hollowMaskShatter()`).
 
 ## Turning a model into a character
 `new CharacterVisual(model, springs, colliders)` (`src/game/characterFactory.ts`) builds the rig and the

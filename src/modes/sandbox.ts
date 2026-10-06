@@ -14,7 +14,7 @@ import { MenosAI, menosDef } from '../game/ai/menos';
 import type { VoxelWorld } from '../voxel/world';
 import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
-import { ichigoAsset, ichigoSword } from '../chars/ichigo';
+import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { buildCached } from '../game/characterFactory';
 import { pauseOverlay, showStart } from '../ui/start';
 
@@ -105,6 +105,9 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     const a = ichigoAsset('bankai');
     buildCached(a.model, true);
     buildCached(ichigoSword('bankai'), false);
+    // the Hollow mask, its cracked stages and its shards
+    const sh = hollowMaskShatter();
+    for (const m of [hollowMask(), ...sh.cracked, ...sh.shards.map((x) => x.model)]) buildCached(m, false);
   });
   // attract camera until PLAY, then pause whenever the pointer lock is released
   const canvas = eng.gr.renderer.domElement;
@@ -151,9 +154,10 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       fragments: eng.fragments.fragments.length,
       frames: eng.frames,
     }),
-    /** run a kit action directly: attack, heavy, getsuga, release, flare, dash, jump */
+    /** run a kit action directly: attack, heavy, getsuga, release, flare, mask, dash, jump */
     act: (name: string) => {
       if (name === 'attack') kit.attack();
+      else if (name === 'mask') kit.mask();
       else if (name === 'heavy') kit.heavy();
       else if (name === 'getsuga') kit.getsuga();
       else if (name === 'release') kit.release();

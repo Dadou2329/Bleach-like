@@ -120,6 +120,10 @@ export class Fighter {
   bladeSpec: BladeSpec | null = null;
   readonly bladeHits = new Set<number>();
   flashT = 0;
+  /** incoming damage multiplier (masks, armour states) */
+  damageTaken = 1;
+  /** called after this fighter takes damage */
+  onHurt: ((amount: number, heavy: boolean) => void) | null = null;
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};
@@ -371,9 +375,10 @@ export class Fighter {
     u.uRim.value.set(rc.r, rc.g, rc.b, 0.15 + lv * 0.9);
     if (this.dead) u.uDissolve.value = Math.min(1, Math.max(0, (this.deathT - (this.def.boss ? 1.2 : 0.6)) / (this.def.boss ? 3.5 : 1.4)));
     for (const p of this.visual.props.values()) {
+      // props follow the body, plus their own flash / dissolve (a mask forming or breaking)
       const pu = p.material.userData.uniforms;
-      pu.uFlash.value.w = u.uFlash.value.w;
-      pu.uDissolve.value = u.uDissolve.value;
+      pu.uFlash.value.w = Math.max(u.uFlash.value.w, (p.userData.flash as number | undefined) ?? 0);
+      pu.uDissolve.value = Math.max(u.uDissolve.value, (p.userData.dissolve as number | undefined) ?? 0);
       pu.uTime.value = time;
     }
     this.aura.update(dt, time);

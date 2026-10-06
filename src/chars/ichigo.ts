@@ -1,7 +1,8 @@
 // Ichigo Kurosaki — Substitute Shinigami. Palette and construction from docs/roster/A1-ichigo.md
 // (colours ×, sizes ×1.5 from the 32/m dossier to 48/m) and the voxel-art skill (characters.md).
 import { ModelBuilder, type VoxelModel } from '../models/builder';
-import { aabb, box, capsule, cylinder, fn, intersect, prism, sphere, subtract, torus, type V3 } from '../models/sdf';
+import { shatterModel, type Shattered } from '../models/shatter';
+import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, intersect, prism, sphere, subtract, torus, type V3 } from '../models/sdf';
 import {
   SPEC_ADULT_MALE, faceLegend, feet, hakama, hands, head, humanoidSkeleton, kosodeSleeves, kosodeTorso, obi,
   shihakushoSprings, spikeHair, type Bang, type Spike, type Landmarks,
@@ -48,10 +49,11 @@ const HAIR: Spike[] = [
   { az: -40, el: 44, len: 4, r: 3.2, flow: [-0.15, 0.9, 0] },
   { az: 38, el: 46, len: 4, r: 3.2, flow: [0.15, 0.9, 0] },
   // bangs: locks sweeping forward from the front-top then curving down over the forehead
-  { az: -30, el: 50, len: 6, r: 2.8, flow: [-0.1, -0.45, 0.35], bend: [-0.12, -1.2, -0.45] },
-  { az: -9, el: 54, len: 8, r: 3, flow: [0, -0.45, 0.35], bend: [0, -1.3, -0.5] },
-  { az: 13, el: 52, len: 6.5, r: 2.9, flow: [0.05, -0.45, 0.35], bend: [0.06, -1.2, -0.45] },
-  { az: 35, el: 48, len: 5.5, r: 2.7, flow: [0.12, -0.45, 0.3], bend: [0.12, -1.15, -0.4] },
+  // (on their own bone: they hide under the Hollow mask)
+  { az: -30, el: 50, len: 6, r: 2.8, flow: [-0.1, -0.45, 0.35], bend: [-0.12, -1.2, -0.45], bone: 'bangs' },
+  { az: -9, el: 54, len: 8, r: 3, flow: [0, -0.45, 0.35], bend: [0, -1.3, -0.5], bone: 'bangs' },
+  { az: 13, el: 52, len: 6.5, r: 2.9, flow: [0.05, -0.45, 0.35], bend: [0.06, -1.2, -0.45], bone: 'bangs' },
+  { az: 35, el: 48, len: 5.5, r: 2.7, flow: [0.12, -0.45, 0.3], bend: [0.12, -1.15, -0.4], bone: 'bangs' },
   // sides: out and back over the ears
   { az: -74, el: 24, len: 4, r: 3.4, flow: [0, 0.05, -0.45] },
   { az: 74, el: 26, len: 4, r: 3.4, flow: [0, 0.05, -0.45] },
@@ -141,6 +143,19 @@ export function ichigoSword(form: IchigoForm): VoxelModel {
   return m;
 }
 
+let maskModel: VoxelModel | null = null;
+let maskBroken: Shattered | null = null;
+
+/** Ichigo's Hollow mask (cached). */
+export function hollowMask(): VoxelModel {
+  return (maskModel ??= buildHollowMask());
+}
+
+/** The mask's cracked variant and the shards it breaks into (cached; cracks match the shards). */
+export function hollowMaskShatter(): Shattered {
+  return (maskBroken ??= shatterModel(hollowMask(), { pieces: 9, seed: 11, crack: '#24181A', jitter: 1.2, levels: [0.25, 0.6] }));
+}
+
 export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
   const b = new ModelBuilder(`ichigo-${form}`, 48);
   palette(b);
@@ -151,13 +166,15 @@ export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
   b.socket('grip.L', 'fist.L', [L.wrist[0] - 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
   b.socket('back', 'chest', [1, 62, -7.5], [0, 0, 0]);
   b.socket('head.top', 'head', [0, 86, 0]);
+  b.socket('face', 'head', [0, s.chinY + 5.5, Math.round(L.headC[2] + s.head.d / 2)]);
   b.socket('chest.front', 'chest', [0, 61, 7]);
 
   const hd = head(b, L, 'skin');
+  b.bone('bangs', 'head', [0, s.chinY + 0.5, -0.8]);
   spikeHair(b, L, 'hair', HAIR, [], { tufts: 46 });
   // keep the eyes clear: no hair in front of the eye rows (the face plate itself is at z < front)
-  b.carve('head', aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
-  b.carve('head', aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
+  b.carve(['head', 'bangs'], aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
+  b.carve(['head', 'bangs'], aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
   b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
   // nose: a 1-voxel bump
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
@@ -356,6 +373,67 @@ export function buildZangetsuShikai(): VoxelModel {
   b.autoShade({ up: 0.4, open: 2.2, front: 0 });
   b.lint();
   return b.build();
+}
+
+/**
+ * Ichigo's first full Hollow mask (Visored training / Grimmjow II): bone-white skull with a rounded
+ * forehead, a jaw full of teeth and three red stripes on the left side; black sclera, gold irises.
+ * Local frame: origin at the face-plate centre (eye level), +Z out of the face.
+ */
+export function buildHollowMask(): VoxelModel {
+  const b = new ModelBuilder('ichigo-mask-1', 48);
+  b.mat('bone', ['#F7F5F0', '#EEE9DF', '#DED6C8', '#C2B8A8', '#A99F90'], { base: 1, rough: 0.42, shadeK: 1 });
+  b.mat('stripe', ['#A51D29', '#861922', '#64141A'], { base: 1, rough: 0.5 });
+  b.mat('dark', ['#0C0C10'], { rough: 0.9 });
+  b.mat('iris', ['#F2D84E'], { rough: 0.3, glow: 1.6 });
+  b.mat('teeth', ['#F3EEE4'], { rough: 0.35 });
+  b.mat('gap', ['#120D0D'], { rough: 0.9 });
+  b.bone('root', null, [0, 0, 0]);
+  // skull cap: the front half of an ellipsoid a little wider than the face, rounded forehead, jaw
+  const cap = intersect(
+    blend(1.5, ellipsoid([0, 0.8, -3.6], [6.6, 7.6, 6.8]), ellipsoid([0, -4.6, -2.8], [5.2, 3.2, 5.6])),
+    fn((_x, _y, z) => -0.4 - z, [-8, -10, -1], [8, 10, 5]),
+  );
+  b.add('root', cap, 'bone');
+  for (const sx of [-1, 1]) {
+    const ex = sx * 2.6;
+    // heavy brow over each eye hole, lower toward the nose (a permanent glare)
+    b.add('root', ellipsoid([sx * 2.9, 1.9, 1.7], [2.5, 0.8, 1.5], [0, 0, sx * 12]), 'bone');
+    // eye holes: slanted almonds, black inside, a gold iris floating in the dark
+    b.carve('root', ellipsoid([ex, 0.4, 3.2], [1.9, 1.05, 2.4], [0, 0, sx * 14]));
+    b.paint('root', ellipsoid([ex, 0.4, 2.2], [2.3, 1.4, 2.4], [0, 0, sx * 14]), 'dark');
+    b.voxel('root', sx > 0 ? 2 : -3, 0, 1, 'iris');
+  }
+  // grin from cheek to cheek: a black slit between upper and lower teeth, three voxels wide at the
+  // sides and two in the middle, split by one-voxel black seams
+  const seam = new Set([1, -2, 5, -6]);
+  for (let x = -8; x < 8; x++) {
+    for (let y = -7; y <= -3; y++) {
+      const p = new SparseProbe(b, x, y);
+      if (p.ok) p.paint(y === -5 || seam.has(x) ? 'gap' : 'teeth');
+    }
+  }
+  // three thin stripes on the left (+X) side, from the forehead down across the eye to the cheek
+  const stripe = (x: number, y0: number, y1: number) => aabb([x, y1, -1], [x + 1, y0, 6]);
+  b.paint('root', stripe(1, 8, -1), 'stripe', { where: b.isMat('bone') });
+  b.paint('root', stripe(3, 8, -2), 'stripe', { where: b.isMat('bone') });
+  b.paint('root', stripe(5, 6, -1), 'stripe', { where: b.isMat('bone') });
+  b.autoShade({ up: 0.5, open: 2.4, front: 0.2 });
+  b.lint();
+  return b.build();
+}
+
+/** Helper: paint the frontmost voxel of a column of the mask's root grid. */
+class SparseProbe {
+  ok = false;
+  private z = 0;
+  constructor(private b: ModelBuilder, private x: number, private y: number) {
+    const g = b.grid('root');
+    for (let z = 12; z >= -2; z--) if (g.get(x, y, z) !== 0) { this.z = z; this.ok = true; break; }
+  }
+  paint(mat: string): void {
+    this.b.voxel('root', this.x, this.y, this.z, mat, 'flat');
+  }
 }
 
 /** Sanity numbers for tests/QA. */

@@ -24,13 +24,15 @@ Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser wit
 | RMB | heavy chop (air: diving slam) |
 | Q | **Getsuga Tenshō**: a crescent that carves a canyon through anything in its path |
 | F | **Bankai**: Tensa Zangetsu (new form, black Getsuga, speed) |
+| G | **Hollow mask**: 11 s of black, bigger Getsuga, speed, power and toughness, then it cracks and shatters (G again tears it off) |
 | V | reiatsu flare (aura, more damage, drains reiatsu) |
 | Tab / middle mouse | lock-on |
 | H | controls panel |
 
 ### What's in this build
 - **Kurosaki Ichigo**: Shikai and Bankai forms with full voxel models, IK-driven sword animation, a procedural
-  gait, spring-bone cloth, a flame aura and afterimages.
+  gait, spring-bone cloth, a flame aura and afterimages. His **Hollow mask** forms under a claw across the
+  face, cracks as its time runs out and breaks into voxel shards.
 - **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
   Clinic, the river with its bridge, parks and utility poles. Every voxel is destructible. Cut buildings slide
   apart along the cut and shatter into rubble.
@@ -39,7 +41,7 @@ Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser wit
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos][&form=bankai][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos][&form=bankai][&mask=1|cracked][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

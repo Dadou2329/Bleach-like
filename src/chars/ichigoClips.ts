@@ -255,5 +255,20 @@ const hitHeavy: ClipDef = {
   ],
 };
 
-export const ICHIGO_CLIPS: ClipDef[] = [slash1, slash2, slash3, slash4, slash5, getsuga, release, dash, airstep, hitHeavy];
+// Hollow mask: the left hand sweeps down over the face and the mask forms behind it
+const maskOn: ClipDef = {
+  name: 'mask_on',
+  dur: 0.8,
+  fadeIn: 0.06,
+  fadeOut: 0.25,
+  events: { fx: 0.3 },
+  keys: [
+    body(0, { 'upperarm.L': [8, 0, 13], 'forearm.L': [-22, 0, 0], head: [3, 2, 0] }),
+    body(0.18, { 'upperarm.L': [-150, 28, -38], 'forearm.L': [-105, 0, 0], 'hand.L': [-10, 0, 0], head: [-10, 0, 0], neck: [-6, 0, 0], chest: [-4, 0, 0] }, [0, 0, 0], 'out'),
+    body(0.36, { 'upperarm.L': [-70, 10, 20], 'forearm.L': [-40, 0, 0], 'hand.L': [10, 0, 0], head: [14, 0, 0], neck: [6, 0, 0], chest: [8, 0, 0] }, [0, -0.04, 0], 'outExpo'),
+    body(0.8, { 'upperarm.L': [8, 0, 13], 'forearm.L': [-22, 0, 0], 'hand.L': [6, 0, 0], head: [3, 2, 0], neck: [0, 0, 0], chest: [2, 8, 0] }, [0, -0.035, 0], 'inOut'),
+  ],
+};
+
+export const ICHIGO_CLIPS: ClipDef[] = [slash1, slash2, slash3, slash4, slash5, getsuga, release, dash, airstep, hitHeavy, maskOn];
 export const ICHIGO_COMBO = ['slash1', 'slash2', 'slash3', 'slash4', 'slash5'];

@@ -1,11 +1,11 @@
-// Model / animation review mode: ?mode=model&char=ichigo[&form=bankai][&view=front|three|side|back|face]
+// Model / animation review mode: ?mode=model&char=ichigo[&form=bankai][&mask=1|cracked][&view=front|three|side|back|face]
 // Exposes window.__reishi.view(name), .yaw(deg), .pose(name), .play(clip) for scripted screenshots.
 import * as THREE from 'three';
 import { Engine } from './engine';
 import { generateStage } from './maps/stage';
 import { QUALITY_HIGH, QUALITY_LOW } from './render/renderer';
 import { CharacterVisual } from './game/characterFactory';
-import { buildIchigo, buildTensaZangetsu, buildZangetsuShikai, type IchigoForm } from './chars/ichigo';
+import { buildIchigo, buildTensaZangetsu, buildZangetsuShikai, hollowMask, hollowMaskShatter, type IchigoForm } from './chars/ichigo';
 import { Pose } from './anim/pose';
 import { Animator } from './anim/animator';
 import { ICHIGO_CLIPS, ICHIGO_STANCE } from './chars/ichigoClips';
@@ -39,6 +39,14 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
   if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
+  const setMask = (m: string | null) => {
+    ch.detach('mask');
+    const on = who === 'ichigo' && !!m && m !== '0';
+    if (who === 'ichigo') ch.rig.setBoneVisible('bangs', !on);
+    const cracked = hollowMaskShatter().cracked;
+    if (on) ch.attach('mask', m === 'cracked' ? cracked[cracked.length - 1] : m === 'cracked0' ? cracked[0] : hollowMask(), 'face');
+  };
+  setMask(params.get('mask'));
   const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : 1;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
@@ -148,6 +156,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     animator: anim,
     aura: (lv: number) => { aura.target = lv; aura.level = lv; },
     pillar: () => aura.pillarBurst(3),
+    /** '1' | 'cracked0' | 'cracked' | '0' */
+    mask: (m: string) => setMask(m),
     engine: eng,
     character: ch,
     get currentView() { return view; },

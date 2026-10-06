@@ -86,6 +86,7 @@ export class PlayerController implements Controller {
     if (inp.pressed('heavy')) { aimAt(); kit.heavy(); }
     if (inp.pressed('skill1')) { this.assist = null; kit.getsuga(); }
     if (inp.pressed('release', 200)) kit.release();
+    if (inp.pressed('mask', 200)) kit.mask();
     if (inp.pressed('flare', 200)) kit.toggleFlare();
     if (inp.pressed('help', 200)) g.hud?.toggleHelp();
   }

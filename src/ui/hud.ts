@@ -12,6 +12,10 @@ export interface AbilityInfo {
   cd?: number;
   cdMax?: number;
   active?: boolean;
+  /** remaining fraction of a timed state (drawn as a draining bar) */
+  timer?: number;
+  /** highlight colour while active */
+  tint?: string;
 }
 
 const CSS = `
@@ -32,7 +36,9 @@ const CSS = `
 #hud .ab .n { font-size: 9px; letter-spacing: .5px; opacity: .85; margin-top: 4px; text-align: center; }
 #hud .ab .cd { position: absolute; inset: 0; background: rgba(0,0,0,.6); transform-origin: bottom; }
 #hud .ab.off { opacity: .45; }
-#hud .ab.on { border-color: #7ddffd; box-shadow: 0 0 12px rgba(125,223,253,.5); }
+#hud .ab.on { border-color: var(--tint, #7ddffd); box-shadow: 0 0 12px var(--tint, rgba(125,223,253,.5)); }
+#hud .ab .tm { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--tint, #7ddffd); transform-origin: left; transform: scaleX(0); }
+#hud .vig { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 52%, rgba(40,0,6,.5) 82%, rgba(12,0,2,.85) 100%); }
 #hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; }
 #hud .callout .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
 #hud .callout .rm { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(16px, 2.2vw, 28px); letter-spacing: 6px; margin-top: 8px; text-shadow: 0 2px 0 #000; }
@@ -56,8 +62,8 @@ const CSS = `
 const HELP = `WASD  move        Mouse  look        Space  jump / air-step (hold: stand on reishi)
 Shift  Shunpo (hold: flash-run)       Ctrl/C  descend
 LMB  Zangetsu combo    RMB  heavy chop    Q  Getsuga Tenshō
-F  Bankai              V  reiatsu flare   Tab / MMB  lock-on
-H  hide this panel`;
+F  Bankai              G  Hollow mask     V  reiatsu flare
+Tab / MMB  lock-on     H  hide this panel`;
 
 export class Hud {
   readonly root: HTMLDivElement;
@@ -82,6 +88,10 @@ export class Hud {
   abilityProvider: (() => AbilityInfo[]) | null = null;
   form = 'Shikai';
   lockTarget: Fighter | null = null;
+  /** dark-red screen edge (Hollow mask), 0..1 */
+  vignette = 0;
+  private vigEl: HTMLElement;
+  private vigLevel = 0;
 
   constructor(private game: Game, parent: HTMLElement) {
     const st = document.createElement('style');
@@ -90,6 +100,7 @@ export class Hud {
     this.root = document.createElement('div');
     this.root.id = 'hud';
     this.root.innerHTML = `
+      <div class="vig"></div>
       <div class="plate"><span class="name"></span><span class="form"></span>
         <div class="bar hp"><b></b><i></i></div><div class="bar rei"><i></i></div></div>
       <div class="abil"></div>
@@ -114,6 +125,7 @@ export class Hud {
     this.combo = q('.combo');
     this.banner = q('.banner');
     this.boss = q('.boss');
+    this.vigEl = q('.vig');
     game.hud = this;
   }
 
@@ -172,7 +184,7 @@ export class Hud {
     if (this.abilityProvider) {
       const list = this.abilityProvider();
       if (list.length !== this.abilities.length) {
-        this.abil.innerHTML = list.map(() => `<div class="ab"><span class="k"></span><span class="j"></span><span class="n"></span><div class="cd"></div></div>`).join('');
+        this.abil.innerHTML = list.map(() => `<div class="ab"><span class="k"></span><span class="j"></span><span class="n"></span><div class="cd"></div><div class="tm"></div></div>`).join('');
       }
       this.abilities = list;
       const els = this.abil.children;
@@ -183,10 +195,15 @@ export class Hud {
         (el.querySelector('.n') as HTMLElement).textContent = a.name;
         const cd = a.cd && a.cdMax ? a.cd / a.cdMax : 0;
         (el.querySelector('.cd') as HTMLElement).style.transform = `scaleY(${Math.max(0, Math.min(1, cd))})`;
-        const off = pl ? (a.cost ?? 0) > pl.rei : false;
+        (el.querySelector('.tm') as HTMLElement).style.transform = `scaleX(${Math.max(0, Math.min(1, a.timer ?? 0))})`;
+        if (a.tint) el.style.setProperty('--tint', a.tint);
+        else el.style.removeProperty('--tint');
+        const off = pl ? !a.active && (a.cost ?? 0) > pl.rei : false;
         el.className = 'ab' + (off ? ' off' : '') + (a.active ? ' on' : '');
       });
     }
+    this.vigLevel += (this.vignette - this.vigLevel) * Math.min(1, dt * 4);
+    this.vigEl.style.opacity = this.vigLevel.toFixed(3);
     // callout
     if (this.calloutT > 0) {
       this.calloutT -= dt;

@@ -242,7 +242,7 @@ export class Game {
     if (t.dead || t.invuln > 0) return;
     if (t.action?.invulnerable) return;
     const armor = t.action?.armor ?? 0;
-    const dmg = amount * (1 - armor);
+    const dmg = amount * (1 - armor) * t.damageTaken;
     t.hp -= dmg;
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
@@ -270,6 +270,7 @@ export class Game {
     this.sfx.play(o.heavy ? 'hitHeavy' : 'hit', t.center(), t.def.boss ? 1.4 : 1);
     this.hitstop(o.hitstop ?? (o.heavy ? 0.09 : 0.05));
     if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
+    t.onHurt?.(dmg, o.heavy === true);
     if (t.hp <= 0) this.kill(t, from, dir);
   }
 

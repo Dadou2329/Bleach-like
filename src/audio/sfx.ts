@@ -4,7 +4,8 @@ import * as THREE from 'three';
 
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
-  | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify';
+  | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
+  | 'mask' | 'crack' | 'shatter';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -314,6 +315,95 @@ export class Sfx {
           s.stop(t + dur + 0.1);
         }
         if (big) this.play('explode', pos, 1.2);
+        break;
+      }
+      case 'mask': {
+        // Hollowfication: a distorted, ringing growl (the doubled Hollow voice) over a low boom
+        const o = this.out(pos, 0.95 * I, 160);
+        if (!o) return;
+        const dur = 1.6;
+        for (const [f0, det] of [[92, 0], [138, 9], [184, -6]] as [number, number][]) {
+          const s = ctx.createOscillator();
+          s.type = 'sawtooth';
+          s.frequency.setValueAtTime(f0 * 0.7, t);
+          s.frequency.exponentialRampToValueAtTime(f0 * 1.3, t + 0.25);
+          s.frequency.exponentialRampToValueAtTime(f0 * 0.8, t + dur);
+          s.detune.value = det * 4;
+          const fm = ctx.createOscillator();
+          fm.frequency.value = 29 + det;
+          const fg = ctx.createGain();
+          fg.gain.value = 30;
+          fm.connect(fg).connect(s.frequency);
+          const ws = ctx.createWaveShaper();
+          const curve = new Float32Array(256);
+          for (let i = 0; i < 256; i++) { const x = (i / 255) * 2 - 1; curve[i] = Math.tanh(x * 5); }
+          ws.curve = curve;
+          const bp = ctx.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.Q.value = 1.4;
+          bp.frequency.setValueAtTime(500, t);
+          bp.frequency.exponentialRampToValueAtTime(1600, t + 0.3);
+          bp.frequency.exponentialRampToValueAtTime(400, t + dur);
+          const g = ctx.createGain();
+          this.env(g, t, 0.06, 0.32, dur);
+          s.connect(ws).connect(bp).connect(g).connect(o);
+          // the echo: the same voice, delayed and thinner
+          const dl = ctx.createDelay(0.5);
+          dl.delayTime.value = 0.11;
+          const dg = ctx.createGain();
+          dg.gain.value = 0.45;
+          g.connect(dl).connect(dg).connect(o);
+          s.start(t);
+          fm.start(t);
+          s.stop(t + dur + 0.2);
+          fm.stop(t + dur + 0.2);
+        }
+        // metallic ring
+        for (const f of [1320, 1980, 2770]) {
+          const r = ctx.createOscillator();
+          r.type = 'sine';
+          r.frequency.value = f;
+          const g = ctx.createGain();
+          this.env(g, t + 0.02, 0.01, 0.07, 1.4);
+          r.connect(g).connect(o);
+          r.start(t);
+          r.stop(t + 1.6);
+        }
+        this.play('impact', pos, 1.1);
+        break;
+      }
+      case 'crack':
+      case 'shatter': {
+        // bone cracking: sharp clicks; the shatter adds a bright tinkle and a dull break
+        const big = name === 'shatter';
+        const o = this.out(pos, (big ? 0.8 : 0.45) * I, 70);
+        if (!o) return;
+        const clicks = big ? 14 : 4;
+        for (let i = 0; i < clicks; i++) {
+          const tt = t + Math.random() * (big ? 0.25 : 0.12);
+          const n = this.noise(0.05);
+          const bp = ctx.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.frequency.value = 1800 + Math.random() * 4200;
+          bp.Q.value = 6;
+          const g = ctx.createGain();
+          this.env(g, tt, 0.001, 0.9, 0.025 + Math.random() * 0.04);
+          n.connect(bp).connect(g).connect(o);
+        }
+        if (big) {
+          for (let i = 0; i < 6; i++) {
+            const r = ctx.createOscillator();
+            r.type = 'triangle';
+            r.frequency.value = 2400 + Math.random() * 3000;
+            const g = ctx.createGain();
+            const tt = t + 0.04 + Math.random() * 0.3;
+            this.env(g, tt, 0.002, 0.05, 0.3);
+            r.connect(g).connect(o);
+            r.start(tt);
+            r.stop(tt + 0.4);
+          }
+          this.play('hitHeavy', pos, 0.8);
+        }
         break;
       }
       case 'purify': {
