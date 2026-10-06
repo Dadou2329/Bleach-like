@@ -11,6 +11,7 @@ import { raycastVoxels } from '../voxel/raycast';
 import { ShockRing } from '../vfx/energy';
 import { TEX_GLOW, TEX_PUFF, TEX_RING, TEX_STREAK } from '../vfx/sprites';
 import type { Hud } from '../ui/hud';
+import { Sfx } from '../audio/sfx';
 
 export interface Projectile {
   done: boolean;
@@ -52,11 +53,18 @@ export class Game {
   private slowmoScale = 1;
   /** damage multiplier for the player (difficulty / flare) */
   playerPower = 1;
+  readonly sfx = new Sfx();
 
   constructor(readonly engine: Engine) {
     this.input = new Input(engine.gr.renderer.domElement);
     this.cam = new ActionCamera(engine.gr.camera, engine.world);
     engine.systems.push({ update: (dt) => this.update(dt) });
+    const unlock = () => this.sfx.unlock();
+    window.addEventListener('pointerdown', unlock);
+    window.addEventListener('keydown', unlock);
+    engine.destruction.onCarve = (c, n, mode) => {
+      if (n > 40) this.sfx.play(mode === 'cut' ? 'crumble' : n > 3000 ? 'impact' : 'crumble', c, Math.min(2, 0.4 + n / 1500));
+    };
     // rubble never settles inside a fighter
     engine.debris.depositBlocked = (x, y, z) => {
       for (const f of this.fighters) {
@@ -259,6 +267,7 @@ export class Game {
       }
     }
     const isPlayer = from === this.player || t === this.player;
+    this.sfx.play(o.heavy ? 'hitHeavy' : 'hit', t.center(), t.def.boss ? 1.4 : 1);
     this.hitstop(o.hitstop ?? (o.heavy ? 0.09 : 0.05));
     if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
     if (t.hp <= 0) this.kill(t, from, dir);
@@ -274,6 +283,7 @@ export class Game {
     t.body.vel.y = Math.max(t.body.vel.y, 5);
     if (from) from.stats.kills++;
     this.hud?.onKill(t);
+    this.sfx.play('purify', t.center(), t.def.boss ? 2 : 1);
     if (from === this.player) this.slowMo(0.18, 0.45);
     // purification: the body dissolves into pale reishi motes
     const c = t.center();
@@ -307,6 +317,7 @@ export class Game {
   /** Big impact on the ground: crater + debris + ring + dust. */
   groundImpact(p: THREE.Vector3, radius: number, power: number, color: THREE.ColorRepresentation): void {
     const c = p.clone();
+    this.sfx.play(radius > 3 ? 'explode' : 'impact', c, Math.min(2, radius / 2));
     this.engine.destruction.carve(new SphereShape(c, radius, 0.55), { mode: 'smash', power, impulse: 9 + radius * 2 });
     this.addRing(new THREE.Vector3(p.x, p.y, p.z), radius * 3.2, color, 0.5);
     const dust = this.engine.dust;
@@ -326,6 +337,7 @@ export class Game {
   }
 
   onDash(f: Fighter): void {
+    this.sfx.play('shunpo', f.center());
     if (f === this.player) {
       this.cam.punchFov(9);
       this.engine.gr.chroma.offset.set(0.0025, 0.0025);
@@ -396,6 +408,7 @@ export class Game {
     if (this.player) {
       this.cam.update(dt, this.player.renderPos);
       this.engine.gr.updateSun(this.player.renderPos);
+      this.sfx.setListener(this.engine.gr.camera.position, this.engine.gr.camera);
     }
     const ch = this.engine.gr.chroma.offset;
     ch.multiplyScalar(Math.exp(-dt * 8));

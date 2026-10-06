@@ -107,6 +107,7 @@ export class Fighter {
   readonly push = new THREE.Vector3();
   pushDrag = 7;
   private prevVel = new THREE.Vector3();
+  private prevPhase = 0;
   private yawRate = 0;
   readonly renderPos = new THREE.Vector3();
   private bladeBase = new THREE.Vector3();
@@ -333,6 +334,15 @@ export class Fighter {
     const fwdAccel = ((vx - this.prevVel.x) * sy + (vz - this.prevVel.z) * cy) / dt;
     this.prevVel.copy(b.vel);
     this.anim.plant = this.hovering ? 0 : 1;
+    // footsteps at the two contact points of the gait cycle
+    const ph = this.anim.loco.phase;
+    if (b.grounded && Math.hypot(b.vel.x, b.vel.z) > 1.2 && ((this.prevPhase < 0.25 && ph >= 0.25) || (this.prevPhase < 0.75 && ph >= 0.75))) {
+      if (this.def.boss) {
+        g.sfx.play('impact', this.pos, 1.2);
+        if (g.player && g.player.pos.distanceTo(this.pos) < 70) g.shake(0.18);
+      } else g.sfx.play('step', this.pos, this.sprinting ? 1.4 : 1);
+    }
+    this.prevPhase = ph;
     this.anim.update(dt, {
       vx: lx, vz: lz, vy: b.vel.y,
       grounded: b.grounded || this.hovering,

@@ -46,6 +46,8 @@ export class DestructionSystem {
   private pending: { seeds: number[]; dir: THREE.Vector3; cut: boolean; plane: SlidePlane | null }[] = [];
   maxDebrisPerCarve = 700;
   stats = { carves: 0, removed: 0 };
+  /** observer for sound/feedback: called after every carve that removed something */
+  onCarve: ((center: THREE.Vector3, removed: number, mode: string) => void) | null = null;
 
   constructor(
     readonly world: VoxelWorld,
@@ -175,6 +177,7 @@ export class DestructionSystem {
         plane: mode === 'cut' && shape instanceof BoxShape ? slidePlaneOf(shape) : null,
       });
     }
+    this.onCarve?.(shape.center, n, opts.mode);
     return { removed: n, mainMaterial: main };
   }
 

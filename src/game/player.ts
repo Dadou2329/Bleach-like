@@ -99,6 +99,7 @@ export class PlayerController implements Controller {
   /** Reishi foothold ring under the feet. */
   private reishiStep(f: Fighter): void {
     const p = f.pos;
+    this.g.sfx.play('airstep', p);
     const c = new THREE.Color(f.def.aura.body);
     this.g.engine.glow.spawn({ x: p.x, y: p.y + 0.02, z: p.z, size: 0.5, sizeEnd: 1.8, life: 0.35, r: c.r, g: c.g, b: c.b, alpha: 0.8, alphaEnd: 0, tex: TEX_RING });
     this.g.addRing(p.clone(), 1.4, f.def.aura.body, 0.3);

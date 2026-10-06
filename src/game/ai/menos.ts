@@ -49,6 +49,8 @@ class CeroAction extends FighterAction {
         }, { charge: 1.9, fire: 1.5, radius: 2.2, damage: 260, power: 320, core: '#FFE8E8', body: '#E0262B', rim: '#5A0A14', range: 260, track: 0.35 }));
         if (g.player) tgt.copy(g.player.center());
         g.callout('虚閃', 'CERO', '#ff5a5a');
+        g.sfx.play('charge', sock.getWorldPosition(new THREE.Vector3()));
+        setTimeout(() => g.sfx.play('beam', sock.getWorldPosition(new THREE.Vector3())), 1900);
       },
     });
   }
@@ -159,6 +161,7 @@ export class MenosAI implements Controller {
     g.engine.gr.scene.add(this.crack.group);
     f.visual.material.userData.uniforms.uDissolve.value = 1;
     g.callout('大虚', 'MENOS GRANDE', '#ffffff');
+    g.sfx.play('roarBig', f.pos.clone().setY(groundY + 30), 0.6);
     g.hud?.showBanner('THE SKY IS TEARING OPEN', 2.5);
   }
 
@@ -189,6 +192,7 @@ export class MenosAI implements Controller {
           g.shake(1);
           g.hitstop(0.08);
           f.anim.play('roar');
+          setTimeout(() => g.sfx.play('roarBig', f.center()), 700);
         }
       }
       if (this.landed && this.arriveT > 4.2) {

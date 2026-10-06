@@ -105,9 +105,15 @@ export class SwingAction extends FighterAction {
     return null;
   }
 
+  private swished = false;
+
   override update(f: Fighter, g: Game, dt: number): void {
     super.update(f, g, dt);
     const t = this.t;
+    if (!this.swished && t >= this.info.window[0] - 0.03) {
+      this.swished = true;
+      g.sfx.play(this.info.spec.damage >= 28 ? 'swingHeavy' : 'swing', f.center());
+    }
     f.bladeActive = t >= this.info.window[0] && t <= this.info.window[1];
     if (f.trail) f.trail.emitting = t >= this.info.trail[0] && t <= this.info.trail[1];
     if (this.info.rehit && !this.rehitDone && t >= this.info.rehit) {
@@ -153,7 +159,8 @@ export class GetsugaAction extends FighterAction {
         if (n === 'charge') {
           f.aura.flare(1.4, 0.55);
           this.glowBlade(f, 1);
-          g.callout('月牙天衝', 'GETSUGA TENSHŌ', '#9fe6ff');
+          g.callout('月牙天衝', 'GETSUGA TENSHŌ', f.data.bankai ? '#ff6e86' : '#9fe6ff');
+          g.sfx.play('flare', f.center(), 0.6);
         }
         if (n === 'fx' && !this.fired) this.fire(f, g);
       },
@@ -197,6 +204,7 @@ export class GetsugaAction extends FighterAction {
     }));
     g.shake(0.45);
     g.hitstop(0.06);
+    g.sfx.play(bankai ? 'getsugaBlack' : 'getsuga', origin);
     f.aura.flare(1.8, 0.4);
     g.engine.gr.chroma.offset.set(0.004, 0.004);
     if (f === g.player) g.cam.punchFov(6);
@@ -241,6 +249,7 @@ export class ReleaseAction extends FighterAction {
           g.shake(0.5);
         }
         if (n === 'burst') {
+          g.sfx.play('bankai', f.center());
           f.aura.pillarBurst(2.4);
           g.groundImpact(f.pos.clone(), 3.2, 90, f.def.aura.body);
           g.shake(0.9);
@@ -336,6 +345,7 @@ export class IchigoKit {
     if (this.flare) {
       this.f.aura.flare(1.6, 0.4);
       this.g.shake(0.2);
+      this.g.sfx.play('flare', this.f.center());
     }
   }
 

@@ -16,6 +16,7 @@ import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
 import { ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { buildCached } from '../game/characterFactory';
+import { pauseOverlay, showStart } from '../ui/start';
 
 function groundAt(w: VoxelWorld, x: number, z: number): number {
   const vs = w.vs;
@@ -77,9 +78,10 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     return m;
   };
   let waveT = 2.5;
+  let started = params.has('hollows') || params.has('autostart');
   eng.systems.push({
     update: (dt) => {
-      if (params.get('hollows') === '0') return;
+      if (params.get('hollows') === '0' || !started) return;
       const alive = game.fighters.filter((f) => f.team === 1 && !f.dead).length;
       if (alive === 0) waveT -= dt;
       if (alive === 0 && waveT <= 0) {
@@ -104,7 +106,36 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     buildCached(a.model, true);
     buildCached(ichigoSword('bankai'), false);
   });
-  hud.showBanner(`${town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS'}<br><small style="font-size:14px;letter-spacing:4px">click to capture the mouse · H for controls</small>`, 4);
+  // attract camera until PLAY, then pause whenever the pointer lock is released
+  const canvas = eng.gr.renderer.domElement;
+  let attractT = 0;
+  if (!started) {
+    game.input.enabled = false;
+    const center = ichigo.pos.clone();
+    game.cam.override = { pos: new THREE.Vector3(), target: center.clone().setY(center.y + 4) };
+    eng.renderHooks.push((dt) => {
+      if (started) return;
+      attractT += dt;
+      const a = attractT * 0.06;
+      game.cam.override?.pos.set(center.x + Math.cos(a) * 38, center.y + 22, center.z + Math.sin(a) * 38);
+    });
+    hud.root.style.display = 'none';
+    const pause = pauseOverlay(app, () => canvas.requestPointerLock?.());
+    showStart(app, () => {
+      started = true;
+      game.cam.override = null;
+      game.input.enabled = true;
+      hud.root.style.display = '';
+      game.sfx.unlock();
+      canvas.requestPointerLock?.();
+      hud.showBanner(`${town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS'}<br><small style="font-size:14px;letter-spacing:4px">Hollows incoming</small>`, 3);
+      document.addEventListener('pointerlockchange', () => {
+        const locked = document.pointerLockElement === canvas;
+        pause.show(!locked);
+        eng.timeScale = locked ? 1 : 0;
+      });
+    }, quality === QUALITY_LOW ? 'low' : 'high');
+  }
 
   const api = {
     ready: () => eng.pendingWork === 0 && eng.frames > 2,

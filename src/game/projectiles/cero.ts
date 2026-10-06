@@ -149,6 +149,7 @@ export class CeroBeam implements Projectile {
     }
     if (!this.exploded) {
       this.exploded = true;
+      g.sfx.play('explode', this.impact, 1.6);
       g.engine.destruction.carve(new SphereShape(this.impact.clone(), o.radius * 3, 0.8), { mode: 'explode', power: o.power, impulse: 18 });
       g.addRing(this.impact.clone(), o.radius * 9, o.body, 0.8);
       for (const f of g.enemiesOf(this.owner)) {

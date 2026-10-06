@@ -37,6 +37,7 @@ class ClawAction extends FighterAction {
       onEvent: (n) => {
         if (n === 'step') f.push.addScaledVector(f.forward(), 5);
         if (n === 'hit') this.strike(f, g);
+        if (n === 'step') g.sfx.play('swing', f.center(), 0.7);
       },
     });
   }
@@ -99,6 +100,7 @@ class RoarAction extends FighterAction {
     f.anim.play('roar', {
       onEvent: (n) => {
         if (n !== 'roar') return;
+        g.sfx.play('roar', f.center());
         if (g.player && f.pos.distanceTo(g.player.pos) < 30) g.shake(0.25);
         const p = f.pos;
         for (let i = 0; i < 18; i++) {
