@@ -105,7 +105,7 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'stone', colors: ['#5b5852', '#6b6862', '#7a7770', '#8a867e'], accent: '#4a4843', pattern: 'stone', hardness: 40, density: 2.6, flags: S, debris: 'rock' });
   add({ name: 'stone_dark', colors: ['#3e3c3a', '#4a4845', '#565350'], accent: '#33312f', pattern: 'stone', hardness: 45, density: 2.7, flags: S, debris: 'rock' });
   add({ name: 'dirt', colors: ['#5a4030', '#6b4c36', '#7a583e', '#86634a'], pattern: 'none', hardness: 4, density: 1.6, flags: S, debris: 'dirt' });
-  add({ name: 'grass', colors: ['#4e7a2c', '#5a8a33', '#679a3a', '#78aa44'], accent: '#a9b84a', pattern: 'grass', hardness: 4, density: 1.4, flags: S, debris: 'dirt', onBurn: 'scorched' });
+  add({ name: 'grass', colors: ['#4e7a2c', '#5a8a33', '#679a3a', '#78aa44'], accent: '#8fa646', pattern: 'grass', hardness: 4, density: 1.4, flags: S, debris: 'dirt', onBurn: 'scorched' });
   add({ name: 'sand', colors: ['#c8b07e', '#d4bd8a', '#dfc998', '#e8d4a6'], pattern: 'sand', hardness: 2, density: 1.5, flags: S, debris: 'sand' });
   add({ name: 'hm_sand', colors: ['#cfcfc8', '#dcdcd5', '#e7e7e1', '#f0f0eb'], pattern: 'sand', hardness: 1.5, density: 1.5, flags: S, debris: 'sand' });
   add({ name: 'gravel', colors: ['#6e6a64', '#7d7973', '#8d8982'], pattern: 'stone', hardness: 6, density: 1.8, flags: S, debris: 'rock' });
@@ -178,6 +178,26 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'charred', colors: ['#1c1816', '#24201d', '#2c2724'], pattern: 'wood', accent: '#3a1e12', hardness: 4, density: 0.5, flags: S, debris: 'wood' });
   add({ name: 'ash', colors: ['#6e6a66', '#7c7874', '#8a8682'], pattern: 'sand', hardness: 0.5, density: 0.3, flags: S, debris: 'sand' });
   add({ name: 'molten', colors: ['#ff6a1a', '#ff8a2a', '#ffaa44'], pattern: 'none', hardness: 4, density: 2.5, flags: S | F_EMISSIVE, debris: 'rock', glow: 4.0 });
+  // ---- town (Karakura)
+  add({ name: 'cinder', colors: ['#8f8d87', '#9b9993', '#a6a49e', '#b0aea8'], accent: '#7c7a75', pattern: 'brick', hardness: 18, density: 2.1, flags: S, debris: 'rock' });
+  add({ name: 'kawara', colors: ['#3a414b', '#424a55', '#4b5460', '#555f6b'], accent: '#2c3239', pattern: 'tile', hardness: 14, density: 2.0, flags: S, debris: 'rock' });
+  add({ name: 'kawara_brown', colors: ['#5a3e30', '#664737', '#72503e', '#7d5945'], accent: '#43302a', pattern: 'tile', hardness: 14, density: 2.0, flags: S, debris: 'rock' });
+  add({ name: 'plaster_beige', colors: ['#c9b897', '#d3c3a3', '#dccdb0', '#e5d7bd'], pattern: 'plaster', hardness: 12, density: 1.8, flags: S, debris: 'rock' });
+  add({ name: 'plaster_blue', colors: ['#9fb0bd', '#aabbc8', '#b5c5d1'], pattern: 'plaster', hardness: 12, density: 1.8, flags: S, debris: 'rock' });
+  add({ name: 'school_cream', colors: ['#d9d0b8', '#e2d9c2', '#eae2cd', '#f0e9d7'], pattern: 'plaster', hardness: 26, density: 2.3, flags: S, debris: 'rock' });
+  add({ name: 'clay', colors: ['#a27a55', '#ad8560', '#b8906b', '#c29b76'], pattern: 'sand', hardness: 3, density: 1.6, flags: S, debris: 'dirt' });
+  add({ name: 'awning_red', colors: ['#a32c26', '#b5352e', '#c43f36'], accent: '#e8e2d6', pattern: 'stripe', hardness: 3, density: 0.4, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'charred' });
+  add({ name: 'awning_blue', colors: ['#2b5a8c', '#33679c', '#3b74ab'], accent: '#e8e2d6', pattern: 'stripe', hardness: 3, density: 0.4, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'charred' });
+  add({ name: 'awning_green', colors: ['#2f6a43', '#37784d', '#408657'], accent: '#e8e2d6', pattern: 'stripe', hardness: 3, density: 0.4, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'charred' });
+  add({ name: 'shutter', colors: ['#7f8287', '#8b8e93', '#979a9f'], accent: '#6a6d72', pattern: 'stripe', hardness: 30, density: 3, flags: S, debris: 'metal', metalness: 0.4, roughness: 0.5 });
+  add({ name: 'vending', colors: ['#d8dde2', '#e2e7eb', '#ebeff2'], pattern: 'none', hardness: 25, density: 2, flags: S | F_EMISSIVE, debris: 'metal', glow: 0.5 });
+  add({ name: 'pole', colors: ['#7d7b76', '#8a8883', '#96948f'], pattern: 'none', hardness: 35, density: 2.4, flags: S, debris: 'rock' });
+  add({ name: 'wire', colors: ['#1f1f22', '#262629'], pattern: 'none', hardness: 2, density: 1, flags: S, debris: 'metal' });
+  add({ name: 'sign_red', colors: ['#b8262c', '#c92f35', '#d8393f'], pattern: 'none', hardness: 6, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 0.9 });
+  add({ name: 'sign_blue', colors: ['#2659b8', '#2f66c9', '#3a73d8'], pattern: 'none', hardness: 6, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 0.9 });
+  add({ name: 'sign_yellow', colors: ['#d8a81e', '#e6b628', '#f0c232'], pattern: 'none', hardness: 6, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 0.9 });
+  add({ name: 'mailbox', colors: ['#b3221d', '#c42a24', '#d4342d'], pattern: 'none', hardness: 30, density: 3, flags: S, debris: 'metal', metalness: 0.3 });
+  add({ name: 'gravel_dark', colors: ['#55524c', '#615e58', '#6d6a64'], pattern: 'stone', hardness: 6, density: 1.8, flags: S, debris: 'rock' });
   add({ name: 'bone', colors: ['#d8d6cc', '#e4e2d8', '#efede4'], pattern: 'none', hardness: 25, density: 1.9, flags: S, debris: 'bone' });
   add({ name: 'reishi_crystal', colors: ['#7fd2ff', '#a0e0ff', '#c4eeff'], pattern: 'glass', hardness: 8, density: 1, flags: S | F_EMISSIVE | F_TRANSPARENT, debris: 'glass', glow: 2.0 });
 

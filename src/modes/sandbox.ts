@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { Engine } from '../engine';
 import { QUALITY_HIGH, QUALITY_LOW } from '../render/renderer';
 import { generateTestArena } from '../maps/testArena';
+import { generateKarakura } from '../maps/karakura';
 import { Game } from '../game/game';
 import { Hud } from '../ui/hud';
 import { ICHIGO_DEF, IchigoKit } from '../game/kits/ichigo';
@@ -24,11 +25,13 @@ function groundAt(w: VoxelWorld, x: number, z: number): number {
 
 export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Promise<void> {
   const quality = params.get('q') === 'low' ? QUALITY_LOW : QUALITY_HIGH;
-  const world = generateTestArena(Number(params.get('seed') ?? 1));
+  const arena = params.get('map') === 'arena';
+  const town = arena ? null : generateKarakura(Number(params.get('seed') ?? 7));
+  const world = town ? town.world : generateTestArena(Number(params.get('seed') ?? 1));
   const eng = await Engine.create(app, world, quality);
   const game = new Game(eng);
   const hud = new Hud(game, app);
-  const spawnXZ = new THREE.Vector2(30, 36);
+  const spawnXZ = town ? new THREE.Vector2(...town.spawn) : new THREE.Vector2(30, 36);
   const p0 = new THREE.Vector3(spawnXZ.x, groundAt(world, spawnXZ.x, spawnXZ.y) + 0.05, spawnXZ.y);
   const def = { ...ICHIGO_DEF, speed: { ...ICHIGO_DEF.speed } };
   const ichigo = game.spawn(def, p0, 0);
@@ -86,7 +89,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     buildCached(a.model, true);
     buildCached(ichigoSword('bankai'), false);
   });
-  hud.showBanner('KARAKURA — TRAINING GROUNDS<br><small style="font-size:14px;letter-spacing:4px">click to capture the mouse · H for controls</small>', 4);
+  hud.showBanner(`${town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS'}<br><small style="font-size:14px;letter-spacing:4px">click to capture the mouse · H for controls</small>`, 4);
 
   const api = {
     ready: () => eng.pendingWork === 0 && eng.frames > 2,
@@ -148,6 +151,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       }
     },
     freeze: (on = true) => { eng.timeScale = on ? 0 : 1; },
+    spots: town?.spots ?? {},
     game,
     engine: eng,
     player: ichigo,

@@ -104,7 +104,7 @@ vec3 vxAlbedo(int m, vec3 c, vec3 n, vec3 fp, out float emissiveK) {
     float grain = vxNoise(vec3(uv.y * 0.4, b, 1.0));
     return vxShade(m, 1 + int(floor((bh * 0.6 + grain * 0.4) * 3.999)));
   } else if (pat == 6) { // grass: lush shades + bright speckles on tops
-    if (an.y > 0.5 && h2 > 0.9) return vxAccent(m);
+    if (an.y > 0.5 && h2 > 0.968) return vxAccent(m);
     float k = lf * 2.0 + (h - 0.5) * 1.6;
     return vxShade(m, 2 + int(floor(k + 0.5)));
   } else if (pat == 7) { // sand ripples
