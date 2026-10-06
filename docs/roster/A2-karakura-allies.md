@@ -310,7 +310,7 @@ Conventions used below
   - **Casual TYBW (sheet):** grey-white hooded jacket `#E1E8EC`, light-blue tee `#98C6E6`, khaki trousers `#C0C2B6`, white loafers `#E4E9EC`.
 - **Look by form/outfit:**
   - **School (2001):** Karakura High uniform with tie; Quincy cross on a chain dangling from the right wrist.
-  - **First Quincy whites (Soul Society):** white high-collared long coat open below the waist, short shoulder cape/mantle, blue cross and stripe trim, white trousers; **Sanrei Glove** (white, nearly to the elbow) on the bow hand; he carries a spare cape.
+  - **First Quincy whites (Soul Society):** white high-collared long coat open below the waist, short shoulder cape/mantle, blue cross and stripe trim, white trousers; **Sanrei Glove** (white, reaching to about two inches below the elbow, blue line trim running down the back and a strap/clasp at the wrist) on the bow hand — the Sanrei bow is fixed to it by thin struts; he carries a spare cape.
   - **Quincy: Letzt Stil:** outfit changes: white vest parted down the middle; **silver armor over the left shoulder bearing a blue cross, spreading across the chest**; white cloth with line patterns covering the lower body; **a blue, flame-like wing of reiryoku on the right shoulder** that collects reishi (worn like a quiver); a blue aura.
   - **Powerless (Arrancar arc):** school uniform; **Silber Draht** silver wire hidden around the right arm; Gintō.
   - **Hueco Mundo whites:** new Quincy coat (white, cape flaps, blue belt/lines); pentacle Quincy cross; later the left hand is lost to Ulquiorra (restored by Orihime).

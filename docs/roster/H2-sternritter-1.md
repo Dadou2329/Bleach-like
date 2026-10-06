@@ -1174,4 +1174,504 @@ Rules this file adds (they matter for five H2 characters who held a stolen Banka
   - "Sutā Pawā Appu!" · "Sutā Furasshu: Sūpā Nova!"
   - James: "Misutā!"
 
-<!-- H2-NEXT -->
+---
+
+## 8. NaNaNa Najahkoop (ナナナ・ナジャークープ) — Sternritter "U": The Underbelly
+
+- **Wiki:** https://bleach.fandom.com/wiki/NaNaNa_Najahkoop
+  - Battles/events: The_Gotei_13_vs._The_Sternritter, Fall_of_the_Soul_King, AGAINST_THE_JUDGEMENT_(episode).
+  - Anime: eps. 369–372, 383, 387–389 and 397.
+- **Roster tier:** **C.** A support/debuff boss and NPC built around an **analysis mechanic**. Promote to B if a scout/sniper slot is wanted.
+- **Canon power: 5.**
+  - Paralyzed Aizen for about five minutes — Aizen's first paralysis ever, though he was strapped into Mayuri's reiatsu-capping chair.
+  - Found no openings at all on post-training Byakuya and went down to a single Senbonzakura.
+  - Bazz-B shot him in the back.
+- **Body:** 192 cm → **61 vox**, plus a ~8 vox hair fan.
+  - Build: tall and lanky, with thin bare arms and a bare midriff.
+  - Silhouette keys:
+    - long black hair arranged into **five fanned-out, spiraling spikes**, a crown of drills;
+    - a smooth, **reflective red-orange visor-mask** over the eyes and upper face;
+    - teeth that **alternate black and white like piano keys**;
+    - the hooded cloak bunched up on the right shoulder;
+    - a small cropped shirt; high-waisted white pants and boots;
+    - a **ring on every finger** and a bracelet on each wrist.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Hair | #141418 |
+  | Visor | red-orange ✔ #E2541C, specular #FFB08A |
+  | Teeth | alternating #F2F2F2 / #141414 ✔ |
+  | Skin | not stated — #E2C3A2 (verify) |
+  | Clothes | shared whites |
+  | Rings and bracelets | gold #D4AF37 (verify metal) |
+  | Reiatsu | orange ✔ #FF8C1A |
+  | "U" brand and Morphine grid on the target | #FFB04A |
+  | Energy spikes | #FFD08A |
+  | Bow rings | orange ✔ #FF9A2E |
+  | Vollständig ring-wings | orange ✔ #FF8C1A with a white core |
+- **Look by form/outfit:**
+  - **Base.**
+  - **Vollständig (unnamed):** a pair of **looped, ring-shaped orange wings, each with three spikes on top**. The wiki describes no halo; suggest a small orange Zeichen, **game-only**.
+  - **Post-Auswählen:** no wings.
+- **Weapons:** a **Heilig Bogen** made of **three orange rings with a trio of spikes at each end** (it echoes his wings). Each ring fires three arrows, for a **nine-arrow volley**.
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Quincy: Vollständig (unnamed)** — T.
+  3. **Post-Auswählen** — story state.
+- **Abilities (complete):**
+  - ***Schrift — The Underbelly (無防備, ザ・アンダーベリー, "defenseless"):*** `[Status (paralysis), Sensing/Stealth, NEW: ObservationTimer, NEW: WeakPointGridOverlay]`
+    1. **Observe:** he studies a target's reiatsu over time.
+    2. **Brand:** he stamps his letter **"U"** on the target; a U of energy dissipates from his hand.
+    3. **Morphine Pattern** (モーフィーン・パターン): a grid maps the target's reiatsu distribution and its **holes**.
+    4. **Strike:** with a swipe of his hand, **spikes of energy** hit those holes and widen them until the reiatsu drains away → paralysis or unconsciousness.
+    - The longer he observes, the stronger it gets.
+    - He can observe a whole group at once ("I've already observed every one of you").
+    - Byakuya had **no openings** at all, so it failed.
+    - **anime-only change:** in the anime he never says the name "Morphine Pattern".
+  - ***Heilig Bogen*** — a nine-arrow volley. Against Byakuya he got three arrows off. `[Projectile (multishot)]`
+  - ***Two-handed hammer strike*** — he leapt and smashed both fists into the ground to catch Ichigo. `[MeleeArc (smash), GroundWave]`
+  - ***Stakeout*** — he watched a sleeping Renji all night from behind a pillar, convinced it was a trap (manga; cut from the anime). `[Sensing/Stealth]`
+  - ***Hirenkyaku*** (generic).
+  - ***Vollständig*** — flight. **anime-only:** he activates it together with Robert and wipes out the nearby Shinigami (ep. 383). `[Mobility (flight), Transform]`
+- **Passives & weaknesses:**
+  - Useless against targets with **no openings**, and weak when he has had little time to observe.
+  - Fragile against burst damage.
+  - Blindly loyal: he still fought for Yhwach after Auswählen, which got him shot by Bazz-B.
+  - **novel-only:** survived; ends up as one of Mayuri's test subjects and part of his corpse unit.
+- **Signature moments to recreate:**
+  1. **First invasion.** He banters with Rose (no art sense; "you'll be dead in five minutes").
+  2. The **Yamamoto ambush**.
+  3. **All-night stakeout** over the sleeping Renji, ending in "red monkey".
+  4. The **8-on-1 against Ichigo**.
+  5. **Byakuya:** the Morphine Pattern finds no holes; Senbonzakura swallows him.
+  6. **Soul King's fall (ep. 397):** he paralyzes Aizen in the restraint chair, announces he has observed everyone — and Bazz-B's BF1 goes through his chest.
+- **Kit proposal:**
+
+  | Input | Move |
+  |---|---|
+  | Shift | Hirenkyaku |
+  | LMB chain | Long-limbed strikes |
+  | Heavy | Two-handed hammer slam |
+  | Q | **Observe** — hold to fill an analysis ring on every target in view (more targets = slower fill) |
+  | E | **Morphine Pattern** — brand a "U" and project the grid: weak points glow on the target model for him and his allies, and allies hitting a hole deal bonus damage |
+  | R | **Underbelly** — hand-swipe spikes into the holes: reiatsu drain plus paralysis that scales with analysis % (paralysis at 100%) |
+  | F | **Nine-Arrow Volley** |
+  | Z | **Ring Guard** (**game-only**) — spin the bow rings into a shield |
+  | X | **Stakeout** (**game-only**) — stealth crouch; observation speed ×2; reiatsu masked |
+  | G | Blut |
+  | C | Orange flare |
+  | T | Vollständig (flight; analysis speed up) |
+  | V | **Total Underbelly** — paralyze every fully analyzed target in range at once |
+- **AI notes:**
+  - Hangs back on rooftops and observes for a long time before committing.
+  - Avoids targets with no openings.
+  - Gloats when his analysis completes.
+  - Low HP → takes flight.
+- **Callouts:** "Za Andāberī." · "Mōfīn Patān." · calls Renji "Akazaru" ("red monkey").
+
+---
+
+## 9. Driscoll Berci (ドリスコール・ベルチ) — Sternritter "O": The Overkill
+
+- **Wiki:** https://bleach.fandom.com/wiki/Driscoll_Berci
+  - Battle: Genryūsai_Shigekuni_Yamamoto_vs._Driscoll_Berci.
+  - Bankai details: Chōjirō_Sasakibe (C2 dossier).
+  - Anime: eps. 367 (Sasakibe's death) and 371.
+- **Roster tier:** **C.** An early-story brute and boss with a kill-stacking mechanic and the stolen lightning Bankai. A good tutorial villain for **Bankai theft**.
+- **Canon power: 6.**
+  - Took part in the massacre of **106 First Division Shinigami at the Black Ridge Gate** (182 seconds) and killed Lt. Sasakibe.
+  - Overwhelmed Hisagi; claimed about 200 kills.
+  - One Ryūjin Jakka slash from Yamamoto reduced him to ash.
+- **Body:** 235 cm → **75 vox**.
+  - Build: towering and broad — almost twice the height of an average Shinigami.
+  - Silhouette keys:
+    - black hair that runs down into a **chinstrap beard**;
+    - hooded cloak;
+    - a thigh-length coat tied with a black belt that has **a length of chain on each side, joined to a single ring at the back**;
+    - a white cravat, white pants and black shoes.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | #E7C3A0 (verify) |
+  | Hair and beard | #121214 |
+  | Clothes | shared whites; cravat #F4F4EF |
+  | Belt / chains and ring | #17171B / #9DA6B0 |
+  | Shoes | #17171B |
+  | Reishi Tekkō | blue-white #DDF2FF, insignia at both ends |
+  | Javelin arrows | core #F2FBFF, edge #3D8BFF |
+  | Stolen **Kōkō Gonryō Rikyū** | storm clouds #2B2F3A; energy disc #C9A6FF; lightning **purple ✔** #9B4DFF with core #F3E6FF. Sasakibe's own version is golden — see C2 |
+- **Look by form/outfit:**
+  - **Base only.** No Vollständig is ever shown, and he couldn't have used one while holding a Bankai.
+  - **Death:** the skin and muscle flay off his face and chest, leaving a skeleton that crumbles to ash. In the anime his ribs are not shown.
+- **Weapons:**
+  - **Reishi Tekkō** — bands that encircle his knuckles, with the Wandenreich insignia at each end.
+  - **Javelin-sized Heilig Pfeil** — several times a man's length (~5–6 m, 160–190 vox), with a **cross at the butt of a thin shaft**. He forms them between the tekkō and throws them.
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Stolen Bankai: Kōkō Gonryō Rikyū** — T.
+- **Abilities (complete):**
+  - ***Schrift — The Overkill (大量虐殺, ジ・オーヴァーキル, "massacre"):*** he grows stronger **with every life he takes** — enemy, ally or animal alike. `[Stance, NEW: KillStackProgression]`
+    - The boost **resets whenever he eats, sleeps or blacks out** (Kubo Q&A #520).
+  - ***Javelin Heilig Pfeil:*** `[Projectile (pierce, carry), NEW: CarryThroughWalls]`
+    - Thrown like a javelin.
+    - Pierces a captain-class body and **carries the impaled victim a long way**: Sasakibe's body was flung all the way into Yamamoto's office.
+    - Yamamoto swatted one aside with his bare hand.
+  - ***Brawling:*** slammed Hisagi into a concrete wall hard enough to crack it. `[MeleeArc (smash), Grab/Throw]`
+  - ***Stolen Bankai — Kōkō Gonryō Rikyū (黄煌厳霊離宮, "Yellow-Glittering Royal Villa of the Stern Spirit"; Viz: "Golden Lightning Palace"):*** `[Environmental (weather), Beam (lightning column), Projectile (bolts), Field (storm), NEW: WeatherLayer, NEW: ChainLightning]`
+    - **Weather control:** storm clouds roll in.
+    - A **large energy disc forms high above him** and pours down columns of lightning.
+    - **Purple shocks steered by his hands**: he hit Yamamoto with bolt after bolt.
+    - Yamamoto judged it far weaker than Chōjirō's own.
+  - ***Medallion:*** took the Bankai from Sasakibe in the 182-second Black Ridge Gate assault. `[NEW: CrossKitTheft]`
+- **Passives & weaknesses:**
+  - Overkill stacks are temporary.
+  - The stolen Bankai is weaker than the original and locks Vollständig.
+  - Loud overconfidence.
+  - Fire — Yamamoto incinerated him.
+- **Signature moments to recreate:**
+  1. **Black Ridge Gate (ep. 367 prologue).** 106 Shinigami die in 182 seconds; he steals Sasakibe's Bankai, then the javelin hurls Sasakibe into Yamamoto's office.
+  2. **Beating down Hisagi (ep. 371).** A visible Overkill counter ("about 200 today"); he shows how he killed Chōjirō with a javelin.
+  3. **Yamamoto.** Lightning barrage; Yamamoto walks straight through it; one Ryūjin Jakka slash → skeleton → ash. A "doomed boss" intro.
+- **Kit proposal:**
+
+  | Input | Move |
+  |---|---|
+  | Shift | Heavy, thudding Hirenkyaku |
+  | LMB chain | Tekkō haymakers. Back = uppercut launcher; down = ground pound; sprint = shoulder tackle |
+  | Heavy | **Overkill Haymaker** — damage scales with stacks |
+  | Q | **Javelin Throw** — hold to charge: pierces, carries the target and pins it to the first wall it hits |
+  | E | **Javelin Rain** (**game-only**) — three javelins |
+  | R | **Wall Slam** — grab and throw into a structure |
+  | F | **Finish** — execute a downed or low-HP target: a guaranteed kill = +1 Overkill stack |
+  | Z | **Bloodlust Roar** (**game-only**) — taunt plus fear on weak NPCs |
+  | X | Medallion |
+  | G | Blut |
+  | C | Flare whose glow brightens with stacks |
+  | T | Stolen Bankai page: Q hand-steered bolt · E chain shock · R lightning columns from the disc · F storm Field (rain, darkness, random strikes) · V full **Palace of Lightning** dome |
+  | V (base) | **Overkill Rampage** — spend stacks on a short invulnerable frenzy |
+
+  - **Overkill numbers (game-only tuning):** +3% damage and +2% damage reduction per kill. Any kill counts, NPCs and Soldat included. Resets at story "rest" checkpoints, on a meal, or on a KO.
+- **AI notes:**
+  - Kills the weakest first to build stacks — even allied Soldat if no enemies are in reach.
+  - Mocks weakness ("it sucks to be weak").
+  - Saves the stolen Bankai for the strongest opponent.
+  - Never retreats.
+- **Callouts:** "Ji Ōvākiru." · "Kōkō Gonryō Rikyū!"
+
+---
+
+## 10. BG9 (ベー・ゲー・ノイン, Bē Gē Noin) — Sternritter "K" (Schrift never revealed)
+
+- **Wiki:** https://bleach.fandom.com/wiki/BG9
+  - Battles: Suì-Fēng_vs._BG9, Fall_of_the_Seireitei.
+  - Anime: eps. 370, 381–383 and 385.
+- **Roster tier:** **B.** A mech kit unlike anyone else: tendrils, missiles, a minigun, sensors, self-repair. Also a great enemy archetype.
+- **Canon power: 6.**
+  - Immune to Suzumebachi; took Suì-Fēng's Bankai.
+  - Ignored Gegetsuburi to the head and Mukyū Shunkō.
+  - Survived the Jakuhō Raikōben missile (revived by its Vollständig).
+  - Executed by Haschwalth.
+- **Body:** 190 cm → **61 vox**.
+  - Build: tall, with a broad upper torso.
+  - Silhouette keys:
+    - a **white helmet that hides the whole head**, peaked at the center with slits on both sides and a **single glowing eye with no iris**;
+    - a **white high-collared cloak** hiding many extendable tendrils;
+    - **armor plates** on the shoulders, upper back, torso, forearms and hips;
+    - **everything else from the neck down is gold**.
+  - Partly hollow inside. It leaks dark blood-like fluid (anime: oil).
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Helmet and armor | white #EDEFF2, panel lines #9AA3B5 |
+  | Exposed body | gold ✔ #C9A43A (shade #8E7224) |
+  | Eye glow | color not stated — red #FF3B30 or pale yellow #FFE9A8 (verify) |
+  | Cloak | shared white |
+  | Tendrils | silver #B8BEC6, dark joints #3A3D44, needle tips |
+  | Missile studs | brass #C9A23A |
+  | Minigun | reishi white-blue #E8F6FF with the insignia |
+  | Vollständig | light grey ✔ #C9CDD3 |
+  | Fluid | #1A0C0C |
+- **Look by form/outfit:**
+  - **Base.**
+  - **Bay open:** the armor plating opens to show dozens of stud-like missile pods.
+  - **Damaged:** the helmet is blasted open — the manga shows the right side, then later the left (inconsistent) — and there is a gaping hole in the body.
+  - **Vollständig:** never shown. **game-only design:**
+    - a thin geometric halo ring with an inscribed Zeichen, like a targeting reticle;
+    - four flat angular wing panels, like solar arrays or thruster fins;
+    - the eye brightens.
+- **Weapons:**
+  - **Reishi Minigun** — large, **ten barrels**, emblazoned with the Wandenreich insignia.
+  - **Tendrils.**
+  - **Missiles.**
+  - **Medallion.**
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Weapons bay open** (G override).
+  3. **Stolen Bankai: Jakuhō Raikōben** — T while held. Never used; **game-only** what-if.
+  4. **Quincy: Vollständig (unnamed)** — T, plus auto-revive.
+- **Abilities (complete):**
+  - ***Schrift "K":*** never revealed.
+  - ***Machine body:*** `[Shield, NEW: DataScan]`
+    - It "was never breathing to begin with".
+    - Cyborg or full machine is left open.
+    - Suzumebachi bounced off with a clang — Nigeki Kessatsu can't work if it can't pierce.
+    - Took a Gegetsuburi blow to the head without reacting, and stayed standing after Mukyū Shunkō.
+  - ***Expert reiatsu sensor:*** `[Sensing/Stealth]`
+    - Reads "Reiatsu conformity": above 50% means a relative.
+    - Found three more of Ōmaeda's family within 30 m.
+    - Searched the whole Seireitei and beyond using reiatsu samples from their last fight.
+    - **Beaten by Onmitsukidō concealment** — it never found Suì-Fēng.
+  - ***Tendrils:*** sharp metal tendrils extend from the **center of the chest** over long distances. `[Bind, Projectile (needle), Grab/Throw, NEW: ProceduralTendrils]`
+    - They pierce stone and flesh: it skewered Mareyo through a wall and pinned Ōmaeda's shoulders.
+    - They whip and grab.
+  - ***Data Extraction:*** with its tendrils it pulls data from a fallen opponent, inside a **curtain of reishi** that walls off the subject and itself. `[Construct, NEW: DataScan]`
+  - ***Missiles:*** opening the armor reveals stud-like missiles, fired all at once and quickly reloaded. `[Projectile (homing, explode), Blast]`
+    - Dozens hit Suì-Fēng at once.
+    - It **grabbed her in midair and detonated point-blank**.
+  - ***Self-repair protocol:*** revived itself after Jakuhō Raikōben and reported "damage repaired 45%". `[Heal/Reject]`
+  - ***Reishi Minigun:*** sustained fire. `[Projectile (bullets)]`
+  - ***Hirenkyaku expert:*** caught even Suì-Fēng off guard. `[Mobility]`
+  - ***Sonic collector:*** its "hearing" sensor automatically loses sensitivity after a close explosion.
+  - ***Medallion:*** took Jakuhō Raikōben, then said it had no need for it. `[NEW: CrossKitTheft]`
+  - ***Vollständig:*** auto-revived it (light grey reiatsu). `[NEW: AutoReviveTrigger]`
+- **Passives & weaknesses:**
+  - The **Hollowfied Bankai** degraded its connection: its systems weakened as the Bankai turned to poison.
+  - Its sensors can't find masters of concealment.
+  - The sonic collector dulls after explosions.
+  - It **fears death** — it begged for its life.
+  - The helmet is the weak point.
+- **Signature moments to recreate:**
+  1. **First invasion (ep. 370).** Suzumebachi clangs off; a tendril grazes Suì-Fēng's cheek; it steals her Bankai.
+  2. **Ōmaeda estate (ep. 381):**
+     - the interrogation — a tendril through a wall impales Mareyo (manga; censored in the anime);
+     - the 15-second ultimatum; the minigun;
+     - Suì-Fēng snaps the barrels off; Mukyū Shunkō;
+     - the missile storm; grab-and-explode;
+     - the data-extraction curtain — Ōmaeda snatches her away;
+     - the Shin'eiyaku → "connection weakening" → Jakuhō Raikōben blasts it through the clouds;
+     - the Vollständig pillar revives it at 45%.
+  3. **Execution (ep. 385).** It begs and is beheaded; in the anime oil sprays onto the torches.
+- **Kit proposal:**
+
+  | Input | Move |
+  |---|---|
+  | Shift | Hirenkyaku with a mechanical whine and sparks. Double-tap = behind |
+  | LMB chain | Armored jabs and tendril whips. Forward = tendril lance; back = tendril uppercut; air = tendril spin; down = piston stomp; sprint = tackle |
+  | Heavy | **Tendril Impale** — multi-tendril skewer and lift |
+  | Q | **Tendril Lance** — long range, up to 6 tendrils; pierce, pin or pull |
+  | E | **Reishi Minigun** — channel; suppressive fire that chews through walls |
+  | R | **Missile Bay** — lock up to 12 targets; homing salvo; reload |
+  | F | **Data Extraction** — channel inside a reishi curtain on a stunned or downed target. Reward: resistance to that target's last technique, and its cooldowns revealed |
+  | Z | **Grab & Detonate** — point-blank missile burst; costs self HP |
+  | X | **Self-Repair** — heal over time (45% cap per use); vulnerable while repairing |
+  | G | Weapons bay open/closed (override) |
+  | C | **Sensor sweep** — reveals stealthed foes within 30 m and marks the target's "conformity" links (family, partners, companions) |
+  | T | Vollständig (game-only look), or the stolen-Bankai page (**game-only**: a Jakuhō Raikōben giant homing missile) |
+  | V | **Full Barrage** — every missile plus minigun plus tendrils |
+- **AI notes:**
+  - Scans before it engages.
+  - Takes hostages: goes for the opponent's weaker allies and companions (James, Kon, family NPCs).
+  - Speaks in clipped data terms and gives countdown deadlines.
+  - Withdraws to repair; begs when beaten.
+- **Callouts:** "Bē Gē Noin." Everything else is flat, synthetic status lines (**game-only**).
+
+---
+
+## 11. PePe Waccabrada (ペペ・ワキャブラーダ) — Sternritter "L": The Love
+
+- **Wiki:** https://bleach.fandom.com/wiki/PePe_Waccabrada
+  - Techniques: Love_Kiss, Love_Rope.
+  - Battle: The_Gotei_13_vs._The_Sternritter.
+  - Anime: eps. 371 (SRDI) and 387–389.
+- **Roster tier:** **B.** A **controller** kit:
+  - charm enemies and even their Zanpakutō;
+  - spy through the eye on his staff;
+  - rope binds;
+  - a gross-out Vollständig.
+
+  Also a strong enemy design.
+- **Canon power: 6.**
+  - Controlled Hisagi and Meninas — and, by implication, Jidanbō and Rin at the SRDI.
+  - Pinned Byakuya with Love Rope and turned Senbonzakura against him.
+  - Mayuri's zombie Kensei flattened him; Liltotto ate him.
+- **Body:** 146 cm → **47 vox**, riding a ~1.2 m dome basket.
+  - Build: a short, obese old man; bald.
+  - Silhouette keys:
+    - dark sunglasses;
+    - a **long white beard shaped like an upside-down V** (two long halves);
+    - brown skin and dark nails;
+    - a bracelet on each wrist and **golden armbands**;
+    - pointed shoes; white sleeveless shirt; white pants;
+    - a **long white cape with the insignia on the back**;
+    - a **floating beige dome-shaped basket** he sits on.
+- **Palette:**
+
+  | Part | Hex |
+  |---|---|
+  | Skin | brown ✔ #8A5A3B (shade #64402A) |
+  | Beard | white ✔ #F2F2EE |
+  | Sunglasses | #141414 |
+  | Armbands | gold ✔ #D4AF37 |
+  | Bracelets | #D4AF37 (verify) |
+  | Shirt, pants, cape | shared whites |
+  | Shoes | #3A2A20 (verify) |
+  | Basket | beige ✔ #D8C49A, weave #B79F72 |
+  | **Beshanul** | pink ✔ #F28AB8 (coil shade #C9628F); eye sclera #FFFFFF; lashes #141414; iris (verify) with the **Quincy Cross ✔ at its center**; little wings #FFFFFF |
+  | Hearts | #FF5FA2 (verify) |
+  | Heart mark on a victim | #FF3D8B |
+  | Heart beam | pink trail ✔ (anime) #FF7AB6 |
+  | Bow | salmon ✔ #FA8072 |
+  | **Gudoero** | salmon ✔ #FA8C7A; white thong ✔; salmon wings with tentacle feathers and eye-shaped holes; star-Zeichen halo |
+- **Look by form/outfit:**
+  - **Base:** on the basket. anime-only: a lingering shot of Beshanul.
+  - **Gudoero:**
+    - Activation: he **draws a heart in the air**.
+    - Everything vanishes except his shoes and a **white thong**; in the anime his sunglasses shatter too.
+    - **Each half of the beard splits in two**, giving four strands.
+    - **Two wings with tentacle-like feathers and eye-shaped holes** in their middles.
+    - A star-like Zeichen halo.
+- **Weapons:**
+  - **Beshanul** (ベシャヌル), a "Love Stick" (愛の杖) — a pink, coiled, caduceus-like staff (~1.2 m, verify). It is topped by a **large wide-open eye with long lashes and small spread wings**; his Quincy Cross sits in the center of the eyeball.
+  - **Heilig Bogen** — a small salmon recurve bow with a thick grip, **pulled out of his mouth**, as are its arrows (feathered ends, wispy tips).
+  - **Floating basket** — it unravels into Love Ropes.
+- **Forms & states (ordered):**
+  1. **Base.**
+  2. **Gudoero (神の情愛, "God's affection")** — T.
+- **Abilities (complete):**
+  - ***Schrift — The Love (愛, ザ・ラヴ):*** he makes a heart with his hands and fires a **heart projectile**. `[Status (mind control), Projectile, Beam (homing), NEW: CharmControl, NEW: WeaponPossession]`
+    - **Effect:** whoever it hits falls in love with PePe and does **anything he asks** — attacking comrades or far stronger beings, and fighting on beyond their limits.
+    - **Works on anything with a heart, Zanpakutō included** (they have souls). When Byakuya blocked a heart with his sword, Senbonzakura turned on him. That is also why PePe never bothered stealing a Bankai.
+    - **No effect** on heartless objects: rubble only half-melts.
+    - **Heart beam:** a continuous heart-shaped beam that **chases its target through rubble**.
+    - **Love Kiss** (ラヴ・キッス) — a bigger heart.
+    - **Zombies:** he claims The Love overrides Giselle's zombies (he has done it before), but it fails on **Mayuri's** zombies — "they don't know what love is".
+    - **Blocked by Ōken clothing:** Byakuya's Ōken cloak shattered the heart mark.
+    - **Implied, not stated:** in the first invasion he giggles from afar while Jidanbō wrecks the SRDI and Rin stabs Hiyosu.
+  - ***Beshanul's eye:*** he used the staff to spy on Bazz-B's argument with Haschwalth from cover. `[Sensing/Stealth, NEW: RemoteEyeCamera]`
+  - ***Floating basket:*** transport and hover. `[Mobility]`
+  - ***Heilig Bogen from the mouth.*** `[Projectile (arrow)]`
+  - ***Hirenkyaku practitioner:*** got behind Byakuya while Byakuya was busy with Hisagi. `[Mobility]`
+  - ***Gudoero:*** `[Transform, Mobility (flight), Bind, Projectile (pierce)]`
+    - Flight, including hovering in place.
+    - Durability: took repeated blows from zombie Kensei's Tekken Tachikaze and being thrown into a building, with only moderate injuries.
+    - **Love Rope** (ラヴ・ロープ): the basket **unravels into ropes made of linked hearts** that he throws at the target. They **stab through and immobilize** it — three of them pinned Byakuya's shoulder.
+  - **novel-only:** Liltotto absorbed The Love when she ate him, and refuses to use it on principle.
+- **Passives & weaknesses:**
+  - Ōken cloth and other durable inanimate defenses block the heart.
+  - Heartless or loveless targets are immune: Mayuri's zombies, and (game rule) machines such as BG9.
+  - Cowardice.
+  - The heart needs a clear line of fire.
+  - "Cut down the puppeteer and the strings go" (Byakuya's answer).
+  - His puppets can simply be knocked out.
+- **Signature moments to recreate:**
+  1. **SRDI (ep. 371).** From afar he giggles as Jidanbō smashes the institute and Rin stabs Hiyosu.
+  2. **Spying** on Bazz-B and Haschwalth through Beshanul.
+  3. **Gremmy vs Kenpachi, from the sidelines** with Askin ("he's a monster" / "so are you"), then the meteor.
+  4. **Byakuya (eps. 387–389):**
+     - Hisagi as his puppet;
+     - charmed Meninas punches Liltotto;
+     - the heart beam through rubble;
+     - Senbonzakura turned against Byakuya;
+     - Love Kiss shatters on the Ōken cloak;
+     - the Gudoero strip;
+     - Love Ropes;
+     - the bow pulled from his mouth;
+     - zombie Kensei's kick and Sandbag Beat (in the anime Kensei is in Bankai);
+     - Liltotto devours him.
+- **Kit proposal:**
+  - **Base:**
+
+    | Input | Move |
+    |---|---|
+    | Shift | Hirenkyaku, or a basket glide while mounted. Double-tap = behind |
+    | LMB chain | Staff bonks and basket rams. Forward = basket ram; back = staff uppercut; air = staff spin; down = basket drop; sprint = basket charge |
+    | Heavy | **Heart Burst** — a short-range spray of hearts |
+    | Q | **The Love** — heart projectile; charge = longer charm. Charmed NPCs fight for him; a charmed player's targeting is hijacked for a few seconds (PvP rule) |
+    | E | **Love Beam** — a channelled heart beam that homes and passes through rubble; ignores inanimate targets |
+    | R | **Love Kiss** — big heart, small area charm |
+    | F | **Zanpakutō Hijack** — a heart on a weapon (also triggers when they block with it): the weapon attacks its own wielder |
+    | Z | **Command** — tell charmed units to attack X, guard him, fight each other, or come to him |
+    | X | **Mouth Bow** — pull out the bow and arrow; precise wispy shots |
+    | G | **Basket mount** (override) — hover and travel on the basket; slower turning; unlocks basket rams |
+    | C | Love flare — pink hearts drift; weak NPCs swoon (stun) |
+    | T | Gudoero |
+    | V | **Ultimate Love** (**game-only**) — a rain of hearts charms every unprotected heart in a 30 m area |
+    | Tab | Charmed roster and commands · **Beshanul Eye** (detach a floating eye camera to scout; **game-only** projection of the spying feat) |
+
+  - **Gudoero:**
+    - Flight and hover.
+    - Q **Love Rope** — heart-chain ropes from the basket pierce and bind up to 3 targets.
+    - E **Rope Reel** — drag a bound target in.
+    - R **Big Love Kiss**.
+    - F **Wide Love Beam**.
+    - V **Final Love** — a mouth-bow execution shot on a bound target ("the ultimate love").
+- **AI notes:**
+  - Keeps his distance and hunts for a strong enemy to charm, then turns them on their allies.
+  - Pits charmed enemies against each other.
+  - Hates rejection: a failed charm (Ōken, zombie, machine) enrages him → Gudoero.
+  - Low HP → begs and flees on the basket.
+- **Callouts:** "Za Ravu." · "Ravu Kissu!" · "Ravu Rōpu!" · "Gudoero."
+
+---
+
+## Engine features needed beyond the brief's primitive list (H2)
+
+Identifiers shared with H3 are noted. Engineering should implement each one once, for both halves.
+
+| `[NEW: …]` | What it must do | Used by (H2) |
+|---|---|---|
+| **CrossKitTheft** (H3) | Medallion: steal a released Bankai as a data-driven ability page; lock the victim's Bankai; ~70% power; refuses to target its owner; Shin'eiyaku rejection (DoT, constructs crack, page flies home); locks Vollständig | Äs, Bambietta, Cang Du, Driscoll, BG9 (Quilge's fails) |
+| **VoxelAbsorptionStream** (H3) | Sklaverei: dissolve world voxels, enemy constructs, shields and barriers into particle streams sucked into the halo; resource and heal gain | Quilge (canon), every Vollständig |
+| **FleshStripDeath** (H3) | Sklaverei on living targets: skin and flesh peel away as blue specks, down to a skeleton | Quilge |
+| **AbilityAssimilation** (H3) | Absorbing a creature or summon grafts its parts onto the caster's model and adds moves for a while (unstable) | Quilge (Ayon) |
+| **WeakPointHitbox** · **StaminaLimitedForm** (H3) | Halo hitbox that cancels Vollständig powers; stamina-limited forms | all Vollständig users |
+| **MaterialTransmute** | Convert voxel materials in a region (stone → lava, water, quicksand; ice → water → steam) with new physical properties | Bazz-B (BF3, melting palm), Gremmy (lava, liquid floor) |
+| **FluidSim** | Simple cellular lava and water flow, cooling to crust, drowning volumes (a floating water cube) | Bazz-B, Gremmy |
+| **ThermalInterplay** | Fire vs ice rules: melt rate, humidity rise, steam explosions when superheated ice melts, vacuum-layer ice that blocks heat | Bazz-B (vs Hitsugaya), any ice/fire character |
+| **FuseTagging** | Mark any voxel cluster, actor, projectile or debris as an "armed bomb" with a fuse; chain reactions; a strong enough impulse during the fuse relocates the bomb; fuse-freeze fields (Reishi Kotei Sōchi) | Bambietta |
+| **WorldChunkThrow** (H3) | Pick up arbitrary world chunks or objects and throw them | Bambietta (arm & throw), Mask (throws) |
+| **GazeCheck** | Status that builds while the victim *looks at* the caster (camera-forward/LOS test for players, facing + LOS for AI) and persists after the eyes close | Äs (Tatarforas) |
+| **InfectionMeter** (H3) · **FearHallucination** · **ScreenSpaceDistortion** (H3) | Fear as a meter. Effects: input doubt (random delays and cancels), AI panic, screen horror (allies rotting, flies, black-eyed memories). Immunity flags: death-state bodies, machines, zombies, a willpower stat | Äs |
+| **GiantTearOutTransform** | Mid-fight swap to a far larger model that bursts out of the original (scale change, gore, the small body left hanging) | Äs (giant), Gremmy (bulk-up, smaller scale) |
+| **ProceduralTendrils** | IK tentacles and tendrils that extend tens of meters, pierce, pin and grab | BG9, giant Äs |
+| **MaterialSkinSwap** | Recolor and re-material character voxels at runtime (iron, ice coat) with matching damage rules and heavier physics | Cang Du (Iron, stolen ice), Gremmy (Steel Body) |
+| **SealedCage** · **PortalSeal** | Cage that hides the prisoner from sensing, mutes their outgoing comms, ignores damage, passes Quincy-flagged actors, and **outlives its caster**. A portal system that can be force-closed (Garganta, Senkaimon, Shadow exits) | Quilge |
+| **PuppetOverride** | Act through stun, limb-break or "death" for a while (reishi strings) | Quilge (Ransōtengai) |
+| **AutoReviveTrigger** | One-time revive in a Vollständig pillar at partial HP (pillar also breaks encasements); scripted executions afterward | BG9, Cang Du |
+| **ImaginationRuntime** (+ **PropertyRewrite**, **FocusMeter**) | Runtime spawner for large prefab families (terrain, weapons, cosmic objects, beings). Target property rewrites (bones → candy: fragility and limb-break). A concentration resource with revert-on-distraction, Doubt, lapses, clone multipliers, and persistence-on-death rules | Gremmy |
+| **VacuumField** | Space pocket: no air (suffocation timer), boiling blood VFX, decompression damage, escape by reaching the edge | Gremmy |
+| **MuscleSwellMorph** · **SelfDamageResource** (H3) | Bulk-up morphs; power that hurts or kills the user | Mask (Star Power Up), Gremmy (Imagined Strength) |
+| **CheerMeter** · **CompanionLifeLink** · **FragmentCloneSpawn** | AI companion whose cheering builds a resource; mutual revive unless both die together; cut pieces respawn as mini-clones | Mask + James |
+| **SonicDeafen** (H3) | Self-deafen status: immunity to sound/music-borne effects | Mask (vs Rose, Jerome) |
+| **CarryThroughWalls** (H3) | Knock or impale a target so it travels through several buildings, carving a tunnel, or gets pinned to a far wall | Mask (dropkick, lariat), Driscoll (javelin) |
+| **CorpsePersistence** (H3) | Undead variants that keep fighting until crushed; limbs reattached by a master | zombie Bambietta |
+| **KillStackProgression** | Persistent power stacks from kills (any entity), reset by sleep, eating or KO | Driscoll |
+| **WeatherLayer** · **ChainLightning** (H3) | Map-wide storm clouds, a lightning disc pouring columns, hand-steered bolts, rain and darkness | Driscoll (stolen Kōkō Gonryō Rikyū) |
+| **ObservationTimer** · **WeakPointGridOverlay** | Per-target analysis that fills while observed; a grid overlay with weak-point "holes" that allies can exploit; paralysis scaled by analysis | NaNaNa |
+| **CharmControl** · **WeaponPossession** | Mind-control projectiles for NPCs and players (AI takeover / targeting hijack); weapons as entities that can turn on their wielder; immunity flags (Ōken cloth, heartless, Mayuri-zombies) | PePe |
+| **RemoteEyeCamera** · **DataScan** | Detached scouting camera (Beshanul's eye); scanning a downed foe to copy a resistance or reveal cooldowns; sensor sweeps that link relatives and companions | PePe, BG9 |
+| **MemoryWipeStatus** (H3) | Victims forget the attacker and their last hits (Vanishing Point v3) | Guenael Lee |
+| **ShadowQuery** · **MapReishiDensity** (H3) | Shadow teleports need a real shadow; reishi-rich maps power Quincy | all |
+
+---
+
+## Not found / uncertain (read before modeling)
+
+- **Unnamed Vollständig:** Bazz-B, Cang Du, Mask, NaNaNa, BG9.
+  - **Never shown beyond the pillar:** Cang Du and BG9, so their looks here are game-only.
+  - **No Vollständig at all:** Driscoll (he held a Bankai until his death) and Gremmy.
+- **BG9's Schrift ("K") was never revealed.** "The Knowledge" has no source.
+- **"Burner Flame"** does not exist as a technique name.
+- **Quilge's Vollständig eyes "change dramatically"** — the text never says how. The **Jail's** look is only described as a reishi cage, and as a **spherical barrier** for Ichigo's. Check manga ch. 488–490 and 499–500 and anime eps. 369–371 for both.
+- **Wiki contradiction:** Quilge's power summary says he badly wounded Urahara in a surprise attack, but the battle pages show Urahara wounding *him*.
+- **Driscoll at the Black Ridge Gate:** the wiki says he "took part" in killing 106 Shinigami; who else was there isn't stated.
+- **PePe and the SRDI:** controlling Jidanbō and Rin is **implied, not stated** (he watches and giggles).
+- **Colors:**
+  - No official color sheets were accessible, so all hexes are estimates; ✔ marks colors the wiki names in words.
+  - **Unverified:** Bazz-B's Vollständig hue, Piskiel's colors, Mask's halo, BG9's eye, James's clothes, NaNaNa's skin tone, Gremmy's capsule design.
+- **Scales are never given** for: Äs's giant form, Gremmy's meteor, Driscoll's lightning disc, Bambietta's explosive globe. The sizes above are proposals.
+- **TYBW anime coverage:** the fetched wiki covers episodes up to 404 ("friend", Bazz-B vs Haschwalth). Later episodes may add more anime-only material for Bazz-B's arc and the Wahrwelt zombie Bambies.
+

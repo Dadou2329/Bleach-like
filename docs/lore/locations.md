@@ -563,4 +563,390 @@ fog density ×6) for ~6 s, then a single black crescent slash.
 
 **Performance.** 384 m @0.25: ~4.5k dense chunks ≈ 145 MB (mountains as uniform interiors).
 
+---
+
+## 7. Soul Society
+
+Soul Society's "East Branch" (the one in the story) = the **Seireitei** at the centre and the **Rukongai**
+around it; life looks like feudal Japan with odd pockets of high tech. Oceans exist but very far away.
+
+### 7.1 Seireitei (瀞霊廷) — `seireitei`
+
+**Canon.** A large circular walled city at the centre of Soul Society, home of the Shinigami and the noble
+houses. Four great gates, guarded by giant gatekeepers, are said to be **ten days' walk apart**; each gate is so
+heavy only a giant like Jidanbō can lift it, though small doors inside let individuals through. The wall
+(**Seireiheki**, Sekkiseki) generates the **Shakonmaku** sphere. Normally the wall is "held up" to protect the
+Soul King Palace and **drops down around the Seireitei in emergencies**. Details are confidential, but known:
+the white **Senzaikyū** tower stands at the centre with the **Sōkyoku Hill** next to it. Shinigami live in their
+**division barracks**; senior officers commute from homes in an **officers' mansion district** (Ikkaku's dojo,
+the Abarai home). Light novels add a government district (Central 46), a noble district *Kizokugai* entered by a
+*sukiyamon* gate, a fancy restaurant and a pharmaceutical institute (`novel`). No farmland inside — "Seireitei
+territories" in the Rukongai farm, hunt and fish for it. A **canal network** with walkways runs under the streets
+(Hanatarō's 4th Division knows it; a cell-key storage room is down there). Shops named in canon: Gin Tonbo
+(eyewear), Purgatory Company (mail order, near the Black Ridge Gate), Shinigami's Health Land (spa), Tomorrow's
+Tiger Pharmacy. Each division has ~200 members (~3,000 total). Old **Spirit-Sealing Pits** (Sekkiseki-walled
+execution pits, now garbage dumps) exist — Ganju nearly falls into a deep pit while fleeing Yumichika. The Quincy
+**Schatten Bereich** hides in the Seireitei's shadows (§9).
+
+**Story stages**
+| Arc | Stage | Where |
+|---|---|---|
+| Soul Society | Ryoka crash through the Shakonmaku and scatter | random points (§7.2) |
+| | Ichigo vs **Ikkaku** · Ganju vs **Yumichika** (pit edge) | streets/alleys near the landing |
+| | Uryū & Orihime vs Jirōbō · Uryū vs **Mayuri** | streets |
+| | Chad vs **Shunsui** | open plaza (est.) |
+| | Ichigo vs **Renji** (2nd fight) | **steps up to the Senzaikyū compound**, then rooftops |
+| | Ichigo vs **Kenpachi** | walled corridors around the Senzaikyū precinct |
+| | Hitsugaya vs **Gin** (Hinamori vs Kira first) | rooftops; the **East Holy Wall** where Aizen's fake corpse hung |
+| | Kenpachi vs **Tōsen & Komamura** | streets → Tōsen's Bankai dome |
+| | Renji vs **Byakuya** (Bankai debut) | under an archway on the way to the hill |
+| | Aizen vs Hitsugaya | Central 46 compound / Seijōtōkyorin |
+| TYBW 1st invasion | Blue-fire reishi pillars erupt; Kira shot by Bazz-B near the 3rd Division; Yamamoto vs **Driscoll**, **Royd**, **Yhwach** (1st Division destroyed); Byakuya vs **Äs Nödt** (6th Division); Hitsugaya vs **Cang Du**; Ichigo vs **Yhwach** in the rubble | `seireitei_tybw` |
+| TYBW 2nd invasion | Seireitei replaced by the Wandenreich city: Rukia & Byakuya vs Äs Nödt, Renji vs Mask, Kenpachi vs **Gremmy** (imagined meteor), Komamura vs Bambietta, Suì-Fēng vs BG9, Hitsugaya & Rangiku vs Bazz-B, Mayuri vs Pernida | `seireitei_tybw` / `wandenreich` |
+| Hell (2021) | Konsō Reisai for Ukitake; black Jigoku no Rinki blobs drift around the grave | rebuilt Seireitei |
+
+**Must-haves.** White plaster walls everywhere forming long corridors and dead ends · dark blue-grey tiled
+roofs with white ridges · wide avenues converging on the centre · the **Senzaikyū** tower and **Sōkyoku Hill**
+visible from everywhere · barracks gates with the division numeral · squads in black shihakushō · Jigokuchō ·
+on the edge: the colossal Sekkiseki wall and gate.
+
+**Scale.** Canon: tens of km across. Game: **256 × 64 × 256 m district slices @0.25** (or 160 m @0.125) with the
+rest as a backdrop skyline (roof sea + Senzaikyū + hill + wall ring). Avenues 12–16 m; alleys 3–6 m; walls
+4–6 m tall (est., must read clearly above a 1.75 m character and below a 2-storey hall).
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Plaster walls | `#F0ECE3` | `#DCD5C7` `#C8C0B0` |
+| Wall plinth / steps | `#BDB6A8` | `#A39C8E` `#D2CCBF` |
+| Roof tiles | `#475565` | `#39434F` `#5D6B7B` |
+| Ridge caps / eave boards | `#E9E6DE` / `#2F363F` | — |
+| Timber (columns, verandas, gates) | `#6E4B33` | `#573A27` `#8A6244` |
+| Streets / packed earth | `#DCD4C4` | `#CBC2B0` `#E8E2D5` |
+| Gravel courtyards | `#CFC6B4` | `#BDB3A0` |
+| Pines & garden trees | `#4F7B3F` | `#3E6531` `#62904F` |
+| Sky | `#86C1EC` → horizon `#D6ECF8` | clouds `#FFFFFF` |
+| Sekkiseki | `#D9D5CC` | `#BFBAB0` `#ECE9E2` |
+| Shakonmaku | `#CDE9FF` α 0.12 | impact ripples `#FFFFFF` / `#7FD3FF` |
+| Jigokuchō | body `#111111` | wings `#6A3D8F` edged black |
+
+**Division identity (banners, gate plaques, lanterns).** Insignia flower and division colour from the Gotei 13
+page; hex = the standard value for that colour name.
+| Div | Insignia | Colour | Hex | Barracks notes (canon) |
+|---|---|---|---|---|
+| 1 | Chrysanthemum | deep purple | `#3E1F5C` | captains' assembly hall, lieutenants' room, Captain-Commander's office with a sweeping view, near a bathhouse with stone saunas; the **Central Great Underground Prison** is directly beneath |
+| 2 | Pasque flower | dark orange | `#FF8C00` | lavish (automatic doors, heated floors, hot spring), Shihōin crest embossed in the audience chamber, **Nest of Maggots** in the north-west corner |
+| 3 | Marigold | magic mint | `#AAF0D1` | — |
+| 4 | Bellflower | puce | `#CC8899` | **Sōgō Kyūgo Tsumesho** relief station with deep underground wards (a "75th underground relief cell" exists), pink-uniformed nurses |
+| 5 | Lily of the valley | pale turquoise | `#AFEEEE` | division prison ward |
+| 6 | Camellia | cobalt blue | `#0047AB` | prison ward (wide cell: mattress, window, ornate chair), Byakuya's book-lined office, Hisana's shrine |
+| 7 | Iris | dark tan | `#918151` | — |
+| 8 | Strelitzia | raspberry rose | `#B3446C` | Shunsui's office |
+| 9 | White poppy | tenné | `#CD5700` | Seireitei Communication editing office |
+| 10 | Daffodil | dark green | `#013220` | Hitsugaya's office |
+| 11 | Yarrow | lavender | `#B57EDC` | sword-only fighters, rough yards, dojo |
+| 12 | Thistle | olive green | `#6B8E23` | **SRDI** with its own gate and newer buildings; Kakaku Taihō replica underneath; Mayuri's hidden shadowless lab |
+| 13 | Snowdrop | maroon | `#800000` | **Ugendō** pavilion on a koi pond (koi stolen from the Kuchiki lake by Yachiru), training fields |
+
+**Light / weather.** `noon`: sun 60°, `#FFF4E0`, crisp shadows on white walls (bloom threshold high so walls
+don't blow out); `dusk` (title diorama): sun 5°, `#FF9F5A`, walls turn peach `#F5C9A4`; `night`: moon
+`#C9D6FF`, paper lanterns `#FFC873`, alarm bell event with torches. Ambience: Jigokuchō swarms, distant bell,
+patrol footsteps, wind in pines.
+
+**Generator** (`maps/seireitei/generator.ts`)
+1. **Layout (global plan, mostly backdrop).** Circle with 4 cardinal gates and 4 grand avenues to the centre;
+   centre = Senzaikyū + Sōkyoku Hill; inner ring = 1st Division, Central 46 compound, Senkaimon tower; middle
+   ring = 13 division compounds (relative order is not canonical — pick by seed), noble quarter (Kuchiki,
+   Shihōin), officers' mansion district, Shin'ō Academy, 4th relief station; ring roads every ~300 m (est.).
+   The playable slice is a 256 m window chosen around a target (e.g., West Gate → 11th Division → Senzaikyū
+   steps).
+2. **Wall maze (playable slice).**
+   1. Carve avenues (12–16 m) and ring streets (8 m) from the global plan.
+   2. Fill blocks with compounds: barracks 70–150 m, officer houses 20–40 m, storehouse yards 10–20 m.
+   3. Rasterise leftover space to a 6 m grid; run a randomised spanning tree (Wilson/Kruskal) over free cells
+      to create alleys; add 10–15 % extra edges for loops; keep ~50 % of dead ends (chase gameplay).
+   4. Every alley edge touching a compound or void becomes a **wall**: stone plinth 1 m + plaster to 4–6 m,
+      0.75–1 m thick, tiled coping with 0.4 m overhang, pilasters every 4–6 m; doors (2.5 × 3 m) every 20–60 m,
+      roofed gatehouses on main compound entrances.
+   5. Terraces: ±1–4 m steps between neighbourhoods with stone stairs 3–8 m wide.
+   6. Add 1–3 **Spirit-Sealing Pits** (Ø 10–20 m, 25–35 m deep, `sekkiseki` lined, garbage at the bottom) in
+      dead-end courtyards.
+3. **Terrain.** Flat paved/earth plane; canal network 6–10 m below streets: vaulted stone tunnels 4–5 m high,
+   3–4 m water channel + 1 m walkways, grates/stairs to the surface every ~60 m.
+4. **Structures (compound template).** Gatehouse with the division numeral plaque and two colour banners
+   (nobori 4–5 m) · main hall 30 × 18 m, 1–2 floors, ridge 10–12 m, heavy irimoya roof · dormitory wings
+   40 × 10 m, 2 floors · dojo 25 × 15 m · captain's office/quarters · *kura* storehouses (white plaster on a
+   black base) · gravel courtyard with pines, a well, stone lanterns · sand training yard · optional watchtower
+   6 × 6 × 15 m. Verandas (engawa) 1.2 m around halls. vx @0.25: hall ~25 k, dorm ~20 k, gatehouse ~4 k.
+5. **Props.** Stone lanterns (2 m), pines, water barrels, fire-bucket pyramids, notice boards, alarm bell
+   towers (hanshō), banners, carts, bamboo screens, stacked practice swords; Jigokuchō particle swarms.
+6. **Set pieces.** Senzaikyū precinct (§7.3), Sōkyoku Hill (§7.4), Seireiheki + gate (§7.2), plus §7.5 sites
+   when the slice covers them; the **East Holy Wall** (a towering wall face where Aizen's illusory corpse was
+   pinned — vertical surface 30–40 m, est.).
+7. **Weathering & bake.** Light grime on plinths, moss in alleys, roof-tile colour variation; spawns, nav, probes.
+
+**Spawns.** `west_gate`, `landing_crater_1..4` (Ryoka scatter), `senzaikyu_steps`, `div11_yard`, `rooftop_*`,
+`canal_exit`.
+
+**Destruction & collapse.** Wall panels break between pilasters (Kenpachi bursts through walls); halls drop
+their heavy roofs; Getsuga leaves crescent gaps through rows of walls; reishi materials are absorbable (Quincy
+pull streets apart in TYBW). Rubble of white plaster stays bright — great contrast for blood/scorch paint.
+
+**Performance.** 256 m @0.25: 32 × 32 × L≈2.2 → ~2.3k dense chunks ≈ 75 MB (walls are thin and cheap);
+@0.125 keep the slice ≤ 160 m. Use the PLAN's camera dither in alleys.
+
+**Gameplay hooks.** Alarm state (Ryoka): squads converge on noise; the **Shakonmaku** stops flight over the wall
+line; drawing a Zanpakutō near the Senzaikyū is forbidden without the Captain-Commander's say-so (story rule:
+patrols turn hostile instantly); canal network as stealth routes; sealing pits disable air-step.
+
+**Sources.** wiki/Seireitei · Template:Seireitei (district guide) · Gotei_13 (insignia, colours) · First/Second/
+Fourth/Sixth/Eleventh/Twelfth/Thirteenth_Division · Ryoka_Invasion · Ichigo_Kurosaki_vs._Kenpachi_Zaraki ·
+Fall_of_the_Seireitei · Quincy_Blood_War.
+
+### 7.2 Seireiheki, the Four Great Gates & the Shakonmaku
+| Gate | Direction | Gatekeeper (giant) | Suggested identity (`design`, from the gate names) |
+|---|---|---|---|
+| **Hakutōmon** 白道門 (White Way) | West | **Jidanbō Ikkanzaka** (9.88 m, two giant axes, 300 years undefeated) | pale stone, white lacquer, faces West Rukongai District 1 (Junrinan) |
+| **Shuwaimon** 朱洼門 (Red Hollow) | South | Higonyūdō | vermilion lacquer `#C8352B` |
+| **Kokuryōmon** 黒陵門 (Black Ridge) | North | Danzōmaru | black lacquer `#1E1E22` |
+| **Shōryūmon** 青流門 (Blue Stream) | East | Kaiwan | blue-green lacquer `#2E6F7E` |
+
+**Build (est.).** Wall 40–50 m tall, 5–8 m thick, made of Sekkiseki slabs 20–30 m wide (core = uniform solid
+chunks). Gate leaf: one vertical sliding slab ~30 m tall × 20–25 m wide × 3 m thick (Jidanbō lifts it overhead
+by the bottom edge), framed by a roofed gate tower; a 2.5 × 3 m wicket door in the leaf.
+
+**Events.**
+- **Wall drop.** Slabs fall from the sky in sequence around the perimeter, each slamming down with a dust
+  ring (Ichigo's first approach).
+- **Gate lift.** A Grab/Throw-capable giant (Jidanbō, Komamura's Bankai, Yammy) can lift the leaf (rigid
+  fragment on a vertical track). Gin's Shinsō punishes the gatekeeper in canon.
+- **Jidanbō's axe walls.** His axe swing upturns the ground into a barrier slab (`construct`, `rock_brown`).
+
+**Shakonmaku visual.** Invisible until touched: a sphere centred on the Seireitei (radius = wall radius);
+contact shows hexagonal ripples spreading from the point; the Ryoka's cannonball hit becomes a vortex of light
+then an explosion that flings the party into 4 groups across the city (spawn scatter).
+
+**Sources.** wiki/Seireitei · Sekkiseki · Template:Gatekeepers · Jidanbō_Ikkanzaka · Ichigo_Kurosaki_vs._Jidanbō_Ikkanzaka · Reishukaku.
+
+### 7.3 Senzaikyū (懺罪宮, "Palace of Penitence")
+**Canon.** The white tower at the very centre of the Seireitei where prisoners awaiting the Sōkyoku are held
+(a capital offender usually waits a month). Its **Shishinrō** cells are walled with Sekkiseki: prisoners can't
+sense Reiatsu and their reiryoku drains to its minimum. A long **bridge** links it to Sōkyoku Hill (Rukia is
+escorted across it; Gin waylays her there; Byakuya cuts down Ganju on the bridge and Ukitake intervenes). The
+compound around its base is walled; long **steps** lead up to it (Ichigo vs Renji); Kenpachi waits on top of the
+precinct walls.
+
+**Build (est.).** Precinct wall 300 × 300 m (4–6 m walls) · approach steps 12 m wide climbing ~20 m · tower:
+base 30 m wide, shaft 18–20 m (slightly tapering, banded rings near the top), **160–220 m tall** (dominant
+skyline mark) · top cell chamber 12 × 12 × 8 m with one tall barred slit window facing the hill · bridge 6 m wide,
+250–400 m long, at hill-top height (~80–100 m), stone deck with low dark-timber railings, slender piers.
+
+**Palette (est.).** tower `#F4F2EC` → `#C9C6BE`; rings `#8E96A3`; cell `sekkiseki`; bridge deck `#DAD4C8`,
+railings `#4E3A2B`.
+
+**Destruction.** Tower = slender-tower archetype with H 120 shell (prison-grade); the cell is Sekkiseki
+(inside it: no reiatsu regen, abilities ×0.25 — `design`). Bridge spans fall when piers go; the deck is the
+classic "fight on a narrow bridge" stage.
+
+### 7.4 Sōkyoku Hill (双殛の丘), the Sōkyoku & Kikōō — `sokyoku`
+**Canon.**
+- *Hill:* a large rocky **mesa with sheer cliffs on all sides**, visible from most of the Seireitei, overlooked by
+  the Senzaikyū. Two ways up: the long **bridge** from the Senzaikyū and a long **zigzag stairway** carved into a
+  cliff. One end is **heavily undercut** — that's where the Sōkyoku and the bridge are; the far end is covered by
+  a **white forest**. A small **cave** in a cliff hides the entrance (ladder) to the **Study Chamber** Urahara
+  and Yoruichi dug as kids (copied later under the shop), which also has a **healing hot spring** modelled on
+  Kirinji's.
+- *Sōkyoku:* a gigantic **halberd (naginata)** planted in the hill, held by thick ropes wound round its shaft;
+  the Kidō Corps unseal it and the ropes uncoil and fly off the cliff. Wreathed in flame it rises and becomes
+  **Kikōō**, a phoenix with the power of a million Zanpakutō (×10 at the moment of piercing). The prisoner is
+  raised before it on the **execution scaffold** (three cubes rise from the platform to splay the arms and lock
+  the legs). The scaffold is built to withstand a million-Zanpakutō blast; Ichigo still wrecks its centre by
+  driving Zangetsu in and pouring reiatsu into it. Ukitake and Shunsui destroy Kikōō with the **Shihōin Shield**
+  (a cable anchored to the ground, cut along its length by both).
+
+**Story stages.** Rukia's execution & rescue (Ichigo blocks Kikōō) · **Ichigo vs Byakuya** (final fight, hill
+top) · Yoruichi vs Suì-Fēng (off the cliff into the forest below) · Shunsui & Ukitake leap off to face Yamamoto
+· **Aizen's betrayal**: Aizen vs Renji and Komamura, Hōgyoku extraction, captains restrain him, Menos Grande in
+the sky bathe Aizen/Gin/Tōsen in **Negación** light pillars · *movies (non-canon):* DiamondDust Rebellion
+finale; the Zanpakutō rebellion opener · **Title screen diorama** (PLAN: Sōkyoku Hill at dusk) · Bankai training
+underground (`sokyoku_study`).
+
+**Must-haves.** Cliffs + flat top · the halberd with its ropes · the scaffold · the bridge to the white tower ·
+zigzag stair · white forest at the far end · overhang · Seireitei roof-sea all around below.
+
+**Scale (est.).** Mesa top 220 × 140 m in game (canon reads bigger), cliffs 70–90 m, overhang 30–40 m deep ·
+halberd 60–75 m total (shaft Ø 2.5 m, 50–58 m; curved blade 15–20 m), 8–12 binding ropes Ø 1–1.5 m anchored to
+bollards around the hill · scaffold 25–35 m tall frame on a 12 × 12 m platform · Kikōō wingspan 80–120 m ·
+zigzag stair 3 m wide, 8–12 switchbacks · white trees 10–18 m.
+
+**Palette (est.)**
+| Element | Base | Ramp |
+|---|---|---|
+| Mesa rock | `#A79E8D` | `#8C8374` `#BFB7A6` `#6F675B` |
+| Hilltop ground / gravel | `#CFC6B4` | `#B7AE9B` |
+| White forest | bark `#EAE7DF`, foliage `#F1F1EC` | shadows `#C9CBC6` |
+| Halberd blade / shaft | `#C7CBD0` / `#5A3B2A` | edge `#EEF2F5`; shaft wraps `#2E2A26` |
+| Ropes | `#C9A66B` | `#A8864F` |
+| Scaffold | `#8A8F99` | `#5E636C` |
+| Kikōō flame | `#FF7A1A` | core `#FFE08A`, edges `#C2410C` |
+| Negación light | `#F6E9B5` α 0.5 | — |
+
+**Light.** Execution: bright late morning, sun 45°. **Title diorama:** dusk, sun 5° `#FF9F5A`, long cliff
+shadows, Seireitei roofs catching orange, the Senzaikyū lit like a candle, Jigokuchō drifting.
+
+**Generator** (`maps/sokyoku/generator.ts`)
+1. **Layout.** Mesa footprint = superellipse 220 × 140 m with noisy edge; Senzaikyū precinct 150–250 m from the
+   undercut end; bridge as a straight span from tower to undercut end; zigzag stair on the long side; forest
+   polygon at the far end; ring of Seireitei blocks around (use §7.1 compound templates at low density).
+2. **Terrain.** Mesa = extruded footprint with cliff profile (vertical + 10 % noise + strata ledges every
+   8–15 m); undercut end: overhang carved 30–40 m deep under the top edge; cave mouth (4 × 3 m) on a cliff face
+   leading to a ladder shaft down to `sokyoku_study`.
+3. **Structures.** Senzaikyū (§7.3); bridge; scaffold; stair cut (steps 0.3 m, landings every switchback);
+   bollards/anchors for the ropes; a simple Kidō Corps ritual ring (stone circle Ø 40 m) around the halberd.
+4. **Props.** White trees (straight trunks, rounded pale crowns), boulders, rope coils, captains' viewing
+   spots, banners.
+5. **Set pieces.** **Halberd** (hand-built; ropes as rope physics that uncoil and fall off the cliff when
+   released); **Kikōō** (boss/hazard summon: flame phoenix, fire trails `burn` mode, passes through
+   non-Sekkiseki voxels melting them); **Shihōin Shield** (two rods + cable — destroys Kikōō in the cinematic);
+   **scaffold** (H 1 500 = can survive almost anything; `overload` rule: a character standing on it channelling
+   for 3 s breaks its centre, `design`).
+6. **Weathering.** Rock streaks, lichen dots `#9AA084`, scorch ring after Kikōō.
+7. **Bake.** Title-diorama camera path; spawns.
+
+**Spawns.** `scaffold_platform`, `hill_center`, `bridge_end`, `stair_top`, `forest_edge`, `cave_mouth`.
+
+**Destruction.** Mesa rock H 70 (cliffs carve into terraces; the overhang can shear off as huge fragments if
+undercut further); halberd shaft H 900 steel-like, blade H 1 200; ropes cut by any `cut` ≥ 100; white trees
+shatter/topple; Kikōō burns everything flammable on the hill.
+
+**Performance.** 320 × 224 × 320 m @0.25: hill top ~1k chunks (uniform below) + cliff columns ~1.5k + town
+ring ~1.6k + tower/bridge/halberd ~0.4k ≈ **4.5k ≈ 145 MB**.
+
+**`sokyoku_study` variant.** §6.7 generator + rocky cliffs inside, a **healing hot spring** (emissive-tinted water
+`#9FD3E0`, HP regen zone — `design` numbers), ladder up to the cave, and Yoruichi's **Tenshintai** doll prop
+(manifests a Zanpakutō spirit for 3 days of training). Stages: Ichigo vs Zangetsu (Bankai training), Renji's
+Bankai training.
+
+**Sources.** wiki/Sōkyoku_Hill · Sōkyoku · Rukia's_Execution · Bankai_Training · Study_Chamber · Kirinden ·
+Yoruichi_Shihōin_vs._Suì-Fēng.
+
+### 7.5 Other Seireitei sites (set pieces / small arenas)
+| Site | Canon | Build notes (est.) | Hooks |
+|---|---|---|---|
+| **1st Division barracks** | assembly hall where captains meet (two facing rows); lieutenants' room; Captain-Commander's office with a sweeping view; destroyed by a pillar of blue reishi flame when Yhwach appears | hall 50 × 30 × 15 m with 8 m doors; office tower ~35 m; stone sauna/bath house nearby | Yamamoto vs Royd → Yhwach stage; the shattered Ryūjin Jakka is later returned here |
+| **Central Great Underground Prison** | 8 levels under the 1st Division; **Shugō** (3rd) for forbidden Kidō; **Muken** (8th) at the bottom | elevator shaft from the barracks | see `muken` (§7.6) |
+| **Central 46 compound** | mostly underground; octagonal **assembly hall** in a large open space, stairs down into it, wise men's benches in two concentric raised rings, judges' alcoves up stairs in the walls, big banners, 13 security levels · **Seijōtōkyorin**: tall thin residence towers, raised entrance up a short stair, wooden walkway around, a tall slit window from door to top · **Daireishokairō** archive with touch-screen consoles · anime: circular building on a lake reached by a bridge | hall Ø 40 m, 15 m deep; towers 4 × 4 × 20–25 m in a grove | Aizen's massacre (blood-soaked hall), Aizen vs Hitsugaya, Aizen's trial (dark hall, spotlights on the accused) |
+| **Kuchiki Manor** | grounds so vast Byakuya has a private river; entrance lake with huge golden koi; parents' graves; Byakuya's childhood training yard; guards in purple ninja garb with Kuchiki headbands; Yachiru's tunnels and secret SWA clubroom | 300 × 200 m compound, lake 80 × 50 m, river 8–12 m | Byakuya home turf stage; destroy Nemu's swimming pool (canon gag) |
+| **2nd Division & Nest of Maggots** | lavish barracks with hot spring; the Nest (Onmitsukidō Detention Unit) sits in the north-west of the grounds inside a **30-ken (54.5 m) moat** and a high wall, reached by a wooden bridge; inside it's a cave; inmates roam free; **no Zanpakutō may be carried in** | moat ring 54.5 m wide around a 60 × 60 m walled island; cave interior 40 × 40 × 8 m | **weapons-sealed zone** (hand-to-hand only) |
+| **4th Division relief station** | main hospital of Soul Society; deep underground wards (75th underground relief cell); also does chores like cleaning | 3 above-ground floors + stacked underground ward levels (6 m each) | Uryū/Chad/Ganju jailbreak; Kenpachi drops through the ceiling |
+| **6th Division** | prison ward cell (mattress, window, ornate chair), Byakuya's book-lined office, Hisana's shrine | — | Rukia's first cell; Byakuya vs Äs Nödt (TYBW) |
+| **12th Division / SRDI** | labs (Reinō research facility, spiritual-wave measurement, communications research incl. the 9th Communication Room), own gate, Kakaku Taihō replica below; Mayuri's shadowless lab | blocky lab halls, pipes, chimneys, tanks, screens (`#59E0B0` monitor glow) | Mayuri's traps; TYBW gate-building platform raised on giant limbs |
+| **13th Division / Ugendō** | pavilion over a pond full of stolen Kuchiki koi; training grounds (Rukia trained Orihime there) | pond 40 × 30 m, pavilion 12 × 10 m on stilts | calm duel arena on water |
+| **Shin'ō Academy** | multi-storey campus in Seireitei style; courtyard, classrooms, dorms, halls for Zanjutsu/Hakuda/Hohō/Kidō; uniforms red (girls)/blue (boys) with white | campus 150 × 120 m; Kidō range with targets | Kidō tutorial range |
+| **Senkaimon tower** | the only permanent gate, in a large courtyard on top of a tall tower; white light beam when open; run by the Kidō Corps (white hoods) | tower 40 × 40 × 50 m, gate 20 × 15 m | map transition, arrival cinematic |
+
+### 7.6 Muken (無間) — `muken`
+**Canon.** The 8th and last level of the Central Great Underground Prison: a voided space cut off from the
+world except for a **main tower** (entrance/exit); its darkness feels endless. Reserved for criminals who can't
+be executed. Aizen sits there bound by black seal straps; **19 keyholes in the floor** undo them (Shunsui may use
+up to 3; the master key is sealed in his chest). Unohana gets it as the arena to train Kenpachi; an **elevator**
+reaches the floor; the space contains **pillars**, and the fight leaves it full of blood and Minazuki's liquid.
+
+**Build.** 128 × 64 × 128 m @0.125 · floor `#0B0B0D` (very dark stone with faint grid seams `#15151A`) · pillars
+Ø 3–5 m rising into black (no visible ceiling; fog `#000000` density high beyond 40 m) · elevator shaft and
+tower base at one edge · Aizen's chair on a low dais with 19 floor keyholes · lighting only from characters'
+auras, a cold top light on the chair, and blood/liquid reflections.
+
+**Stage.** Kenpachi vs Unohana (Kenpachi repeatedly "dies" and is healed — story rule: respawn in place).
+**Performance.** ~1.7k chunks ≈ 55 MB.
+
+### 7.7 Rukongai (流魂街) — `rukongai`
+**Canon.** The largest, most populous part of Soul Society: **320 districts** — 80 in each of North, South,
+East and West — numbered by distance from the centre. District 1 is peaceful and orderly; the higher the
+number, the poorer and more violent, with a sharp drop beyond District 50; statistics say **nobody wears sandals
+beyond District 59**; District 80 is a lawless wasteland. Families are strangers living together. Shinigami
+defend assigned districts; Seireitei-controlled farmland and fisheries exist out here.
+
+| # | District | Region | Note |
+|---|---|---|---|
+| 1 | Junrinan 潤林安 | West | Hitsugaya, Hinamori, Jidanbō grew up here; faces the West Gate |
+| 3 | Hokutan 北端 | West | **Mt. Koifushi**, where Kaien trained Rukia |
+| 37 | Ryūgon 流厳 | East | Sasakibe showed Yamamoto his Bankai here |
+| 62 | Kagarashi 花枯 | North | Rangiku & Gin's origin (game source) |
+| 64 | Sabitsura 錆面 | West | villager disappearances investigated (TYBW) |
+| 76 | Sakahone 逆骨 | East | Ukitake's childhood; Mimihagi worshipped |
+| 78 | Inuzuri 戌吊 | South | Rukia & Renji's childhood; Hisana arrived here |
+| 79 | Kusajishi 草鹿 | North | Kenpachi found and named Yachiru here |
+| 80 | Zaraki 更木 | North | Kenpachi's origin |
+| ? | Fugai 郛外 | ? | forest in its 6th ward: **Hollowfication incident** (night) |
+
+**Story stages.** Arrival in West Rukongai → Ichigo vs Jidanbō at the gate · Ganju's boar gang chase ·
+**Kūkaku's cannon launch** (Reishukaku training then Kagizaki) · flashbacks: Kenpachi meets Yachiru (corpse field,
+District 79), Rukia & Renji's gang in Inuzuri, Kaien & Rukia at Mt. Koifushi, **Hollowfication incident** in Fugai
+forest (Visored vs Aizen/Gin/Tōsen, night, moon behind clouds).
+
+**Must-haves.** Feudal villages of wood and thatch along dirt roads · the Seireitei wall looming at the
+inner edge · rice paddies and forests · the Shiba house with its two giant stone arms holding a name banner and
+the tall black cannon.
+
+**Palette (est.)**
+| Element | District 1–30 | 31–60 | 61–80 |
+|---|---|---|---|
+| Roofs | kawara `#4A4E57` | thatch `#A68B5B` | rotten thatch `#7E6A4A`, planks |
+| Walls | plaster `#E8E0CF`, timber `#7C5C3F` | timber `#7A5A3C`, mud `#9E8261` | weathered `#6B5B4A`, scraps |
+| Ground | stone paving `#C9C1B1` | dirt `#A88B63` | mud `#7D6648`, dead grass `#A59A6A` |
+| Vegetation | gardens `#6E9E4C`, bamboo `#8CB255` | paddies `#9BC25A`, forest `#4E7A3A` | scrub `#7F8150`, dead trees `#5B4C3F` |
+| Sky / haze | `#86C1EC` / distant mountains `#8DA3B5` → `#B9C8D2` | same | dustier `#C9C3B0` haze |
+
+**Generator** (`maps/rukongai/generator.ts`)
+1. **Layout.** Pick a quadrant and a district range; district index `d` grows with distance from the Seireitei
+   edge; wealth `w(d)` = 1.0 at d=1 → 0.7 at d=50 → 0.1 at d=80 (steep after 50). Villages = Poisson clusters
+   along roads; road quality and density fall with `w`.
+2. **Terrain.** Rolling hills (amp 5–20 m), rivers, paddies on terraces in mid districts, forests (Fugai-like
+   dense cedar forest), mountains at the outer edge; the Seireitei wall + gate as backdrop at the inner edge.
+3. **Structures by `w`.** w > 0.7: tiled machiya rows, shops, small temples, inns · 0.4–0.7: thatched minka
+   farmhouses (12 × 8 m, 6 m ridge) with storehouses · 0.2–0.4: shacks 4 × 4 m, lean-tos · < 0.2: burned-out
+   ruins, collapsed huts, stockades.
+4. **Props.** Wells, carts, drying racks, scarecrows, Jizō statues, lanterns, fences, boars (Ganju's gang mounts).
+5. **Set pieces.** **Shiba house** (below); **West Gate** (§7.2); **Mt. Koifushi** (grassy slope with a carp-shaped
+   rock, `design`); **Fugai forest clearing** (camp, moonlight); optional: the **real Karakura disc** (§6.9).
+6. **Weathering.** Soot on poor huts, mud splashes, rot.
+7. **Bake.** NPC rules: footwear off beyond District 59; hostility up with `d`.
+
+**Shiba house & Kakaku Taihō (花鶴大砲).** Kūkaku moves and redesigns her house at will; it used to be near the
+West Gate. Current look: a modest central house fronted by **two huge stone human arms rising from the ground,
+gripping a banner with her name** (Koganehiko and Shiroganehiko crank the arms so the fists open). Behind it
+the **Kakaku Taihō**: a tall, slender **black** cannon that dwarfs the house, normally hidden by a **tan mould**
+(Uryū mistakes it for a chimney). It rests in a dark underground chamber (vents near the ceiling) reached by a
+passage from the house; the ground roof splits into two halves and a wooden platform with stone steps lifts the
+cannon up. Passengers enter through a round hatch that spirals open when punched; the inside is dark and
+featureless. **Reishukaku**: clear orb with a red crane emblem that turns pooled reiryoku into a semi-transparent
+blue "cannonball" barrier (unstable if concentration slips → explodes). *Kagizaki* (Flower Crane Archery 2nd
+Style): Kūkaku fires, Ganju steers by incantation. The cannon later launches the Tenchūren straight up.
+Build (est.): house 14 × 10 m; arms 12–15 m tall; banner 16 × 3 m (`#F3EFE6`, black text); cannon 6 m wide,
+40–50 m tall (`#1F1F22`, mould `#C8B08A`); underground chamber 20 × 20 × 50 m.
+Hooks: **launch mini-game** (balance the barrier, steer — crash into the Shakonmaku if interrupted).
+
+**Destruction.** Low-H wood, thatch and mud: the most satisfying collapses in the game; fire spreads
+fast (very flammable thatch).
+
+**Performance.** 384 m @0.25: 48 × 48 × L≈1.8 → ~4.1k chunks ≈ 130 MB.
+
+**Sources.** wiki/Rukongai · Template:RukongaiDistricts · Shiba_Clan · Kūkaku_Shiba · Kakaku_Taihō · Reishukaku ·
+Battle_in_Fugai_Forest · The_Hollowfication_Incident.
+
+### 7.8 Seireitei TYBW variants — `seireitei_tybw`
+- **1st invasion.** Several gigantic **pillars of blue fire** (Ø 8–15 m, 150 m+, emissive `#79C6FF` core
+  `#E6F6FF`) erupt across the city; Sternritter step out of them. Black-and-blue Wandenreich presence;
+  the **1st Division barracks** is erased by a giant reishi flame column. Yamamoto's Bankai **Zanka no Tachi**
+  turns the area around him into a dried, cracked heat field (`Field`: water evaporates, ground paints `#B9A27A`
+  cracked, heat haze). Yhwach's **time limit** outside the Schatten Bereich ends the invasion (shadow tendrils
+  pull the Quincy back) — canon story rule.
+- **2nd invasion ("replaced").** The Seireitei is swallowed by shadow and **replaced by the ice-covered
+  Wandenreich city** (§9.1) on the same footprint. Implement as a **swap event**: chunks of the Seireitei layout
+  dissolve into reishi particles (shadow wipe `#05070C`) while Wandenreich chunks condense in; roads keep their
+  rough alignment so both layouts share spawns. Mayuri's lab survives because it casts no shadows.
+- **Post-war / Hell arc.** Rebuilt Seireitei; Konsō Reisai at a captain's grave with floating **Jigoku no Rinki**
+  black blobs (harmless until cut — then acid splash).
+
 <!-- LOCATIONS_BODY -->
