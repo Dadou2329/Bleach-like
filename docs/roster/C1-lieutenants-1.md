@@ -539,4 +539,66 @@ Conventions used below
 - **AI notes:** Playful and teasing; avoids pure melee and controls space at mid range with the cloud; opens with Provoke vs groups, then Neko Rinbu; raises the ash shield when shot at; once per fight at <15% HP **plays dead** — if the player walks up, ash erupts from the ground around them. Duo AI with Hitsugaya: uses House whenever he raises ice. Idle tells: stretching, yawning, a sake bottle. Combat tells: flourish of the hilt (ash about to converge), both hands raised in a circle (Neko Rinbu), "Hausu!" (recall → melee).
 - **Callouts:** "Unare, Haineko!" · "Neko Rinbu!" · "Hausu!" · "Bakudō no nanajūnana — Tenteikūra!" · "Mirufīyu sakusen!" (Operation Mille-feuille — Japanese wording verify) · "Gentei kaijo!"
 
-<!-- C1-CONTINUES -->
+---
+
+## Team-ups & cross-character set pieces
+
+- **Academy field trip (tutorial):** 6th-year Hisagi leads first-years Renji, Kira and Momo on a Konsō exercise; giant Hollows kill one senior and maul another; Hisagi stays to hold them, gets his eye scars; the three freshmen turn back (anime: triple Shakkahō) until Aizen and Gin arrive. Teaches Shunpo, Kidō, guarding a downed ally.
+- **11th Division pair — Ikkaku + Yumichika:** strict "no interfering in a duel" AI rule; in TYBW vs zombie Bambietta, Yumichika's **Daichi Ten'yō** volley detonates the explosive spheres in mid-air to open a lane, Ikkaku stabs through, Yumichika severs the arm that grabs Ikkaku's face. Duo assist: *rock volley → charge*. [NEW: DuoCombo]
+- **Rangiku + Hitsugaya — "Operation Mille-feuille":** Rangiku layers ash (House), Hitsugaya ices each layer, the ash is recalled → multilayer vacuum-ice wall immune to fire, then a hollow ice blade. Duo technique on a shared input when both are on the field. [Construct, Shield, NEW: DuoCombo]
+- **Rangiku + Hinamori vs Tres Bestias:** Rangiku's taunts keep the trio's attention while Hinamori secretly strings a Kidō net; Tobiume + Fushibi detonate it around all three.
+- **Renji + Uryū vs Szayelaporro:** Renji's full-chant point-blank Shakkahō straight into Uryū's Sprenger.
+- **Renji + Rukia:** fall from the Royal Palace into the second invasion (Rukia carries the downed captains away while Renji takes Mask); *movie-only (Hell Verse)*: Jigoku no Kidō to escape Hell.
+- **Renji & Ichigo — "we swore on our souls":** the shared vision during the Byakuya fight; later both are cut down by Aizen on Sōkyoku Hill.
+- **Hisagi + Komamura vs Tōsen:** Kubikake slam → Komamura's Bankai trade → Hisagi's stab from Tōsen's back with the release-inside finisher.
+- **Kira the field medic:** sedates a panicking Yumichika (Gaten) and keeps Rangiku and Momo alive after Ayon — a support role in multi-character missions.
+- **Drinking buddies (hub scene):** Rangiku, Hisagi and Kira (often with Shunsui) — the post-Aizen sake night where Kira passes out and Rangiku keeps drinking.
+- **Jogimen Reibaku (epilogue one-shot):** all lieutenants + Ichigo vs a horde of Jigoku no Gaki in the Human World; Kira's late ×128 stomp, Ikkaku's warning that they have no reiatsu, Renji blindsided and chained by hell-empowered Szayelaporro. Natural **horde/co-op mode**.
+
+---
+
+## Engine features beyond the brief's primitive list
+
+| Tag | What it needs | Used by |
+|---|---|---|
+| `NEW: SegmentedWhip` | An articulated chain of rigid blade segments on a stretchable tether (verlet/IK): extend/retract, curve around obstacles, carve voxels along the swept path, wrap & constrict targets, variable segment count, per-segment collision | Zabimaru Shikai, Zazekka, Orochiō whip mode, Hihiō Zabimaru (giant scale), Hōzukimaru sansetsukon (3 links, 90° folds around guards) |
+| `NEW: Tether` | Single chains/tails as rope physics: anchor to terrain and **reel yourself in**, pull targets, **steer a thrown weapon through its chain**, nets/tripwires, chains catching on geometry; also a link between two actors | Sōō Zabimaru tail reel-in, Kazeshini (throws, grapple, Kubikake, chain nets), Ryūmon chain throws, Fushi no Kōjō nooses |
+| `NEW: ModularWeapon` | Weapon made of N reiatsu-joined parts that detach, float, sharpen, orbit-strike and reassemble; parts have HP and can be **permanently lost**; parts can **burrow** and erupt under a target | Hihiō Zabimaru reconstruction & burrowing segments, Higa Zekkō / Enhanced Higa Zekkō, Reiatsu Ropes |
+| `NEW: MirrorLimb` | Oversized extra arm rigged to copy the player's left-arm animation (IK), with its own hitboxes, grab, block (fur layer shreds to bone), spawnable copies and a spectral variant | Hihiō, Hihi Tenshō hands, "Two Kings" spectral Hihiō |
+| `NEW: JetBoost` | Thruster impulse from equipment added to strikes | Hihiō shoulder-disk flames |
+| `NEW: HeatMelt` | Temperature state on voxels: a red-hot weapon melts stone into slag on contact and detonates on impact (the brief's Environmental covers fire/freeze, not melting) | Heated Orochiō |
+| `NEW: LongChargeUlt` | A long (≈20 s) interruptible channel with an escalating, readable tell, movement allowed | Zagai Zekkō |
+| `NEW: ReleaseInterrupt` / `NEW: ReleaseInside` | Hitting/entangling an enemy weapon during its release animation cancels the transform; a Shikai released while the sealed blade is embedded in a target deals internal damage | Renji vs Senbonzakura; Hisagi vs Tōsen |
+| `NEW: Backfire` | Misfire chance when chaining casts | Renji's Kidō |
+| `NEW: RampMeterOnWeapon` | Per-fight meter filled by damage dealt/taken and a spin action, **rendered as engraved voxels on the weapon recoloring** from gray to crimson; scales damage/aura; brittleness (blade chipping/shatter) at max | Ryūmon Hōzukimaru dragon crest |
+| `NEW: HandSwapFeint` | Ambidextrous weapon-hand swap mid-combo that flips the attack side (beats directional reads) | Ikkaku sealed style |
+| `NEW: WitnessCheck` | Ability lock while allied NPCs of a group have line of sight | Ikkaku's Bankai, Yumichika's Ruri'iro Kujaku |
+| `NEW: MassMultiplier` | Stacking ×2 weight on **any** struck entity — enemy weapon, limb, body, world debris/voxel chunks, or the user's own foot; drives animation (drag, kneel), move/attack speed, physics mass (heavy chunks punch through floors, pinned enemies sink into soft voxels); all stacks clear when the Shikai seals | Wabisuke (incl. self-weighted stomp, debris rain) |
+| `NEW: Execute` | Context finisher on kneeling/pinned targets | Wabisuke reverse guillotine; Zaga Teppō on weakened foes |
+| `NEW: SurfaceTag` | Particles deposit **tags on voxels and actors**; a later trigger damages only tagged regions (deferred carve) | Haineko ash → flick-cut |
+| `NEW: DrainGrowth` + `NEW: PickupSpawn` | A bind construct that drains a resource into visible **buds** that store it, then **bloom** (release as damage) and drop **heal pickups** sized by the stored amount; flow reversible by absorber enemies | Ruri'iro Kujaku vines & petals |
+| `NEW: LifeLink` | Shared resource pool between two actors: wounds instantly undone at the pool's cost; mutual death if it empties; shared bar UI | Fushi no Kōjō (novel) |
+| `NEW: SelfRestore` | Incoming damage converted into reiatsu cost while a state is active | Kazeshini chain-life (novel) |
+| `NEW: Conduction` | Elemental effects travel along held objects and tethers | Tsuzuri Raiden through Kazeshini's chain |
+| `NEW: DebrisTelekinesis` | Lift loose voxel debris in a radius, hurl it, or use it to intercept projectiles | Daichi Ten'yō, Tenran (+ Kira's debris rain) |
+| `NEW: DuoCombo` | Ally-pair technique fusion on proximity + shared input | Operation Mille-feuille; Ikkaku/Yumichika rock-volley charge |
+| `NEW: Consumable` | Limited per-fight items tied to the model (visible removal/state) | Ikkaku's hilt styptic (pommel unscrews), Kira's Gaten drops, Hisagi's explosive choker/armbands |
+| `NEW: LimiterState` | Seal decal + ×5 unlock, context-gated (Human World) | Gentei Kaijo (Renji, Rangiku) |
+| `NEW: TeamComms` | Broadcast/ping to allies, reveal markers | Tenteikūra |
+| `NEW: Provoke` / `NEW: FakeDeath` | Enemy infighting status; feign-KO state that drops aggro and primes a crit | Rangiku |
+| `NEW: WeaponLock` | Entangle / trap / disarm an enemy weapon | Kazeshini, Hōzukimaru chain trap, Zabimaru on Senbonzakura |
+
+---
+
+## Gaps, uncertainties & things not found
+
+- **No "Sōō Zabimaru Kaiten"** exists in the sources. The spinning attack is **Sōō Zabimaru, Zagai Zekkō** (Hihiō whirls the snake overhead into a flaming disc). Orochiō is part of Sōō Zabimaru (covered above).
+- **Rangiku has no techniques called "Shōmyaku" or "Hōka"** in the sources. Her only named Haineko techniques are **Neko Rinbu** and **House**, plus the duo plan "Operation Mille-feuille" with Hitsugaya. Everything else (ash shield, shaping, flick-cut) is described but unnamed.
+- **Hisagi's Bankai ("Fūshi")** is **Fushi no Kōjō (風死絞縄)** and exists **only in the novel** *Can't Fear Your Own World*; in the manga he only claims to have mastered a Bankai nobody has seen.
+- **Higa Zekkō:** the Shikai version is only shown in the anime; the Bankai ("Enhanced") version is manga, but the fetched pages don't say which fight introduced it (most likely vs Szayelaporro — verify).
+- **Colors not stated anywhere in the sources (estimates given):** sealed hilts/sheaths of Hōzukimaru, Kazeshini, Wabisuke and Haineko's sheath; the Ōken clothing's tiger-stripe colors; Hihiō Zabimaru's fur-cowl color; the exact hue of Sōō Zabimaru's fur (the wiki says green — check against the TYBW anime); Yumichika's feather colors; Hisagi's stripe hue; Rangiku's eye color (manga vs anime differ); the badge plaque design; division flowers other than the 3rd's marigold.
+- **Gentei Reiin placement:** Rangiku's (and Hitsugaya's) seal is on the chest; **Renji's location isn't shown** in the fetched text.
+- **Ikkaku's kosode:** the shihakushō page calls it sleeveless in later arcs; earlier art has sleeves — verify per era.
+- **TYBW anime coverage:** the fetched pages don't say whether the later TYBW anime cours adapted Kira vs Lille Barro's clones or added new material for these six; re-check when updating.
+- **Hihi Tenshō's hand sign:** the page's name for the gesture was lost in the dump; it's a thumb-and-forefinger pinch that Hihiō copies.
+- Fandom's API rate-limited (HTTP 429) part of the session, so a few general pages (the stand-alone Gentei Kaijo and Lieutenant articles) weren't fetched; their content is covered through the battle and character pages cited above.
