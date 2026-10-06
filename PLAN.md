@@ -644,12 +644,12 @@ Heights in dossiers are given at 32 voxels/m (brief) — multiply by 1.5 for the
 **Vandenreich** — `H1-vandenreich-leaders.md`, `H2-sternritter-1.md`, `H3-sternritter-2.md`
 | Character | Tier | Wave | Signature systems |
 |---|---|---|---|
-| Yhwach | S | W4 | The Almighty (pre-dodge, nullify, rewrite), Auswählen, shadows, Soul King form |
-| Jugram Haschwalth | A | W4 | The Balance, Freund Schild |
-| Gerard Valkyrie | A | W4 | The Miracle: grows with damage into a city-scale giant |
-| Lille Barro | A | W4 | X-Axis pierce-everything shots, Jilliel / God form |
-| Askin Nakk Le Vaar | A | W4 | lethal-dose poison, Gift Ball, Gift Bereich |
-| Pernida Parnkgjas | A | W4 | the Left Arm of the Soul King, nerves |
+| Yhwach | S | W4 | **The Almighty**: future-ghost pre-dodge/parry, cancel abilities as they land, weapons stay broken, undo deaths; Auswählen map-wide faction drain; Medallion Bankai theft; shadows; Soul King form |
+| Jugram Haschwalth | A | W4 | The Balance (misfortune transfer, 3 reflection types), Freund Schild, day/night swap with Yhwach, anime "hAschwAlth" |
+| Gerard Valkyrie | A | W4 | The Miracle: grows with damage from ~2 m to a climbable 100 m+ giant, Vollständig Aschtonig |
+| Lille Barro | A | W4 | X-Axis shots that pass every guard and stop only at the target, Jilliel → God form |
+| Pernida Parnkgjas | B | W4 | the Compulsory: nerve takeover of skeletons (escape by cutting your own limb), limbs from terrain |
+| Askin Nakk Le Vaar | B | W4 | lethal-dose poison with adaptive immunity, Gift Ball, Gift Bereich, Vollständig Hasshein |
 | Gremmy Thoumeaux | A (S-candidate) | W4 | The Visionary: ~30-entry imagination menu (meteors, liquid floor, "bones made of cookies", clones), Focus meter |
 | Bazz-B, Bambietta, Quilge, Äs Nödt, Mask De Masculine (+ James) | A | W4 | Burner Finger 1–4 escalation · **bomb-tag anything** (voxel chunks too) · Sklaverei arena absorption & Jail, Vollständig Piskiel · line-of-sight fear · cheer-powered life link |
 | Candice, Liltotto, Giselle, Lloyd twins | A | W4 | chain lightning · **eats terrain and attacks** · zombifies roster characters · **copies any roster character (model + kit)** |

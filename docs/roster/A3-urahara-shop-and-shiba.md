@@ -58,7 +58,7 @@ Cross-roster links: Aizen (B2), Isshin & Kon (A1), Suì-Fēng & Byakuya (B1), Ma
 - **Weapons:**
   - **Sealed Benihime (shikomizue):** walking cane ≈**95 cm → 30 vox** with a **curved crook handle** (the handle *is* the hilt) and silver ferrule; the shaft is the sheath. The butt carries a **Gokon Tekkō** skull-in-flames emblem that knocks souls out of bodies on contact. Drawn blade: thin, straight, single-edged, ≈70 cm.
   - **Gotei-era sealed form:** ordinary katana ≈100 cm, black wrap, black saya worn under the sash, **oval tsuba with an embossed snowflake**.
-  - **Shikai Benihime:** sleek medium sword ≈**100 cm total → 32 vox** (blade ≈72 cm, straight, slim, a bit thicker than the cane blade); **black blade body with a straight silver edge**; the **tip is cut at a slant like a razor** instead of a point; **no tsuba — a U-shaped guard sleeves the first ~3 in (8 cm) of the blade, decorated with flower-petal shapes**; a **red cord wrapped three times** at the guard base with a **three-loop bow** on the back face and a **folded white paper ornament** dangling on the front; black-wrapped grip that **bends forward at the end**, pommel built as **three stacked overlaps**, **crimson tassel** hanging from the pommel.
+  - **Shikai Benihime:** sleek medium sword ≈**100 cm total → 32 vox** (estimate; the wiki calls it "somewhat short" — blade ≈72 cm, straight, slim, a bit thicker than the cane blade); **black blade body with a straight silver edge**; the **tip is cut at a slant like a razor** instead of a point; **no tsuba — a U-shaped guard sleeves the first ~3 in (8 cm) of the blade, decorated with flower-petal shapes**; a **red cord wrapped three times** at the guard base with a **three-loop bow** on the back face and a **folded white paper ornament** dangling on the front; black-wrapped grip that **bends forward at the end**, pommel built as **three stacked overlaps**, **crimson tassel** hanging from the pommel.
   - **Bankai:** no new weapon — the drawn cane-blade + the doll's hands (both channel restructuring).
 - **Forms & states (ordered):**
   1. **Sealed (cane / Hakuda / Kidō)** — default. Fastest, stealthiest; most Kidō and gadgets live here.
@@ -120,7 +120,7 @@ Cross-roster links: Aizen (B2), Isshin & Kon (A1), Suì-Fēng & Byakuya (B1), Ma
       - `Keikaigi (繫界儀, "World-Tying Rite")` — opens a **Garganta** between two wooden posts set in rock outcrops (incantation first, later silent and on demand). [NEW: Portal]
       - `Senkaimon (穿界門)` — builds and opens Senkaimon from the Human World (with Tessai), "*Kaijō*". [NEW: Portal]
       - `Soul King Palace gate` (TYBW) — orbs charged by captains' reiatsu + distortion energy + Heavenly Armor + Mayuri's pedestal. [NEW: Portal, NEW: PooledCharge]
-    - `Kaidō (回道)` — heals Ichigo, Uryū, Grimmjow. [Heal/Reject]
+    - `Kaidō (回道)` + medicine — regularly heals Ichigo and friends (and a special fast-healing medicine); patches up the downed Grimmjow in TYBW (method unstated). [Heal/Reject]
   - **E. Gadgets & inventions** (Tab wheel / story)
     - `Portable Gigai (ケータイ用義骸, Kētai-yō Gigai)` — inflatable decoy body swapped in during Shunpo; fooled Yammy and Aizen (the "Aizen" slash cuts a balloon). [Afterimage/Clone, Teleport, NEW: Substitution]
     - `Reiatsu-concealing cloak` — erases his presence (safe in the Dangai); with Kidō woven in it becomes near-invisible (Aizen's copy). [Sensing/Stealth]
@@ -199,7 +199,7 @@ Cross-roster links: Aizen (B2), Isshin & Kon (A1), Suì-Fēng & Byakuya (B1), Ma
     - V: **"Kannonbiraki" (the doors open)** — the doll cups the target between her hands like closing shrine doors; on release the target is fully restructured: massive damage + one permanent debuff of the player's choice for the fight (lost form/limb/elemental type), or used on terrain to rebuild a whole block into walls/bridges.
     - Universal execute (any form, meter + target <15% HP): **Kyūjūrokkei Kakafūmetsu** (pre-planted by any Kidō hit earlier in the fight; star prison = instant win vs non-boss, phase-skip vs boss).
 - **AI notes:** Fights like a magician — polite, joking, fan over his face, never at full output until cornered. **Phase 1 (sealed):** keeps distance with Shunpo, baits with obvious openings that are actually Portable Gigai swaps, Shibireyubi anyone who closes in; quietly lays hidden Kidō glyphs (players with sensing can see faint seals). **Analysis:** after seeing the same player technique twice he dodges it perfectly and will Tsuppane it on the third use — punish predictable players. **Phase 2 (≈60% HP or when the player transforms):** *Okiro, Benihime*; Nake to answer beams, Chikasumi vs heavies, Kamisori from off-angles, Shibari → Juzutsunagi when the player is grounded or stunned; detonates all glyphs at once ("chain reaction"). **Phase 3 (≈30% or player Bankai):** curtain drops — heals himself, opens the player's limbs, cuts a stitch path to reposition, edits the player's own Field. Desperation: Fūsatsu Kakei; if the player drops low, attempts Kakafūmetsu (QTE break). Tells: hat brim tilts down and the smile vanishes before a serious move; tapping the cane on the ground = glyph placed.
-- **Callouts:** "*Okiro, Benihime.*" · "*Nake, Benihime!*" · "*Kamisori, Benihime.*" · "*Shibari, Benihime.*" · "*Hiasobi, Benihime — Juzutsunagi.*" · "*Tsuppane, Benihime.*" · "*Bankai — Kannonbiraki Benihime Aratame.*" · "*Hadō no kyūjūichi — Senju Kōten Taihō.*" · "*Bakudō no rokujūichi — Rikujōkōrō.*" · "*Bakudō no rokujūsan — Sajō Sabaku.*" · "*Bakudō no nanajūkyū — Kuyō Shibari.*" · "*Hadō no sanjūni — Ōkasen.*" · "*Jūgeki Byakurai.*" · "*Hadō no kyūjūkyū — Goryūtenmetsu.*" [novel] · "*Kaijō!*" (Senkaimon unlock).
+- **Callouts:** "*Okiro, Benihime.*" · "*Nake, Benihime!*" · "*Kamisori, Benihime.*" · "*Shibari, Benihime.*" · "*Hiasobi, Benihime — Juzutsunagi.*" · "*Tsuppane, Benihime.*" · "*Bankai — Kannonbiraki Benihime Aratame.*" · "*Hadō no kyūjūichi — Senju Kōten Taihō.*" · "*Bakudō no rokujūichi — Rikujōkōrō.*" · "*Bakudō no rokujūsan — Sajō Sabaku.*" · "*Bakudō no nanajūkyū — Kuyō Shibari.*" · "*Hadō no sanjūni — Ōkasen.*" · "*Jūgeki Byakurai.*" · "*Hadō no kyūjūkyū — Goryūtenmetsu.*" [novel] · "*Kaijō!*" (the standard Senkaimon unlock word — not a confirmed Urahara line).
 
 ---
 
@@ -338,12 +338,12 @@ Cross-roster links: Aizen (B2), Isshin & Kon (A1), Suì-Fēng & Byakuya (B1), Ma
     - `Kūkanten'i (空間転位, "Spatial Displacement")` — **forbidden**: teleports a chosen chunk of space (a whole landscape with people in it, or a small object) to another place; active spells inside keep running. [Teleport(area), NEW: RegionTransfer]
     - `Kaidō (回道)` — highly proficient: healed Ichigo and friends repeatedly, closed the hole through Ururu's chest. [Heal/Reject]
     - `Barriers` — sets up a barrier and feeds it reiryoku for Hanatarō's treatment [anime-only]; co-builds the **Dangai trap that froze space** around Reigai captains with Urahara [anime-only]. [Shield, Field]
-    - `Gate work` — co-opens the Senkaimon with Urahara; **repairs a crack in the sky** after the Menos (tools from his bag + Kidō). [NEW: Portal, Heal/Reject (world voxels)]
+    - `Gate work` — co-opens the Senkaimon with Urahara; **repairs a crack in the sky** after the Menos (with equipment from his bag — method otherwise unstated). [NEW: Portal, Heal/Reject (world voxels)]
     - Plausible-but-unshown: as Grand Kidō Chief he can be given any Kidō in the shared library (flag as extrapolation).
   - **B. Hakuda & body**
     - `Tesshō (鉄掌, "Iron Palm")` — open-palm thrust that **shatters a Hollow's head** in one blow. [MeleeArc(smash), Blast(small)]
     - `Hollow-swatting` — fought off countless Hollows bare-handed the night of the Menos. [MeleeArc]
-    - `Soul Chain severing` — cuts Ichigo's Chain of Fate by hand, then rides the trapdoor down the shaft pinning him. [Status(chain cut), Grab]
+    - `Soul Chain severing` — severs Ichigo's Chain of Fate, then pins him as the floor drops away into the Shattered Shaft. [Status(chain cut), Grab]
     - `Tessai Death Catch` — leaping catch that snatches a falling bundle (and squashes Jinta). [Grab]
     - `Iron body` — Rukia hurt her foot kicking him; walked out of Ichigo's power explosion with cracked glasses. [passive armor]
 - **Passives & weaknesses:**

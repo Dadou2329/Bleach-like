@@ -290,7 +290,7 @@ incantation exists and how long it is (text deliberately not reproduced).
 | KS03 | Fūsatsu Kakei | 封殺火刑 | Seal-Slaying Fire Penance | unrevealed | | `Status(vent seal → self-burn)` |
 | KS04 | Kyūjūrokkei Kakafūmetsu | 九十六京火架封滅 | 96-Capital Fire-Frame Sealing Annihilation | unrevealed | | `Status(delayed seal)` `Bind` |
 | KS05 | Goyōgai | 五養蓋 | Five-Support Cover | unrevealed | | `Status(stasis)` |
-| KS06 | Hachigyō Sōgai | 八爻双崖 | Eight-Line Twin Cliffs | unrevealed | | `Field(erase / imperceptible)` |
+| KS06 | Hachigyō Sōgai | 八爻双崖 | Eight-Line Twin Cliffs | unrevealed | | `Field(imperceptible zone)` `Stealth` |
 | KS07 | Ryūbi no Jōmon | 竜尾の城門 | Dragon-Tail Castle Gate | medium | | `Construct(gate)` `Shield` |
 | KS08 | Kokō no Jōmon | 虎咬の城門 | Tiger-Bite Castle Gate | unrevealed | | `Shield(fang ports)` |
 | KS09 | Kigai no Jōmon | 亀鎧の城門 | Turtle-Armor Castle Gate | unrevealed | | `Shield(honeycomb)` |
@@ -836,13 +836,15 @@ incantation exists and how long it is (text deliberately not reproduced).
 
 #### KS06 · Hachigyō Sōgai (八爻双崖, "Eight-Line Twin Cliffs")
 - **Effect:** Hachigen claps twice — above and below his head — and raises a building-sized **two-layer
-  dislocation barrier** that erases what lies within from existence and removes the space from outsiders'
-  perception; nobody outside even thinks to approach it. Standard Kidō can't undo it; only Orihime (whose power is
-  similar) perceived and entered it.
-- **User:** Hachigen Ushōda. **Tags:** `Field(erase)` `Sensing/Stealth(imperceptible zone)`
-- **Impl:** two modes: **Erase** — deletes all world voxels and non-boss entities inside a ~15 m box (no debris,
-  clean vanish); **Hide** — the box becomes unperceivable: not rendered for enemies, no lock-on, AI pathing ignores
-  it (safe room / ambush nest).
+  dislocation barrier** (二重断層結界). Whatever is inside is wiped from existence *as far as outsiders are concerned*:
+  the space drops out of their awareness so completely that the idea of approaching it never occurs to them (it hid
+  the Visored's warehouse hideout). Standard Shinigami Kidō can't undo it and even other Visored can't slip through;
+  only Orihime, whose power works similarly, perceived and entered it.
+- **User:** Hachigen Ushōda. **Tags:** `Field(imperceptible zone)` `Sensing/Stealth`
+- **Impl:** box volume (~15 × 15 × 10 m) that becomes **unperceivable** to anyone outside: contents not rendered for
+  them, no Reiatsu signatures leak, no lock-on, AI pathing routes around it without "noticing"; only
+  rejection-type powers (Orihime) can see/enter. Not dispellable by normal Kidō (Noren Mekuri fails). It does **not**
+  damage voxels — it is the hideout/safe-room tool (story hub, co-op rest zone, ambush nest).
 
 #### KS07–KS10 · The four Castle Gates (城門 *jōmon*) and KS11 Shijū Saimon (四獣塞門, "Four-Beast Blockade Gate")
 - **KS07 Ryūbi no Jōmon** (Dragon-Tail): a dozen-plus pillars arranged by hand gestures into a giant door/shield wall.
@@ -951,8 +953,8 @@ Dome, pyramid, wall and net barriers used by Byakuya, Isane, Ginrei, Kidō Corps
 - **Effect:** the caster grips thin air and peels away an illusion/concealment; the revealed thing glows blue-violet
   as it fades in.
 - **User:** Shinji Hirako. **Tags:** `Sensing(dispel)`
-- **Impl:** cone dispel: strips Kyokkō, stealth fields, Hachigyō Sōgai *hide* mode (not erase), Gemelos/illusory
-  clones in range. (Kyōka Suigetsu's complete hypnosis is a dossier-level exception.)
+- **Impl:** cone dispel: strips Kyokkō, ordinary stealth fields and illusory clones in range. It cannot undo
+  Hachigyō Sōgai (canon: standard Kidō can't), and Kyōka Suigetsu's complete hypnosis is a dossier-level exception.
 
 #### KU08 · Sentan Hakuja (千反白蛇, "Thousand-Coil White Snake")
 - **Effect:** a long white cloth is spun to wrap targets in its coils; it tightens, flashes white, and teleports them
@@ -2039,7 +2041,7 @@ on Aizen). Control matters: superior Reiatsu can beat larger raw Reiryoku.
    `conductive`) with per-material response tables (absorbable, burnable, conducts, energy resistance).
 2. **Structural connectivity & collapse** (absorption, slices and pillar removals bring buildings down).
 3. **Carving operations:** sphere crater · thin and huge cylinder bores · planar slice with slide · *no-debris*
-   disintegration (Haien, Mushikuidama, Leiden Scherben, Hachigyō Sōgai) · rectangular prism delete (Heizen) ·
+   disintegration (Haien, Mushikuidama, Leiden Scherben) · rectangular prism delete (Heizen) ·
    pentagon crater (Sprenger) · radial uplift of chunks (Goryūtenmetsu) · **region copy-move** (Kūkanten'i) · region
    **time-freeze** (Jikanteishi) · material conversion (ice waves).
 4. **Debris system:** telekinetic pick-up/throw (Daichi Ten'yō), vortex suction (Tenran), impulse transfer into rubble
