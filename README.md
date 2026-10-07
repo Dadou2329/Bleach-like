@@ -170,6 +170,28 @@ G state, V flare); press **H** in game for the current character's moves.
   - F again: **Bankai, Jakuhō Raikōben**. A gold launcher closes round her arm and she can barely move. RMB
     or Q fires a homing missile twice her height whose recoil throws her back, unless E has first tied her
     down with the **Ginjōtan**. After two missiles, the Bankai ends.
+- **Shunsui Kyōraku**, Captain of the 8th Division: a big, lazy man under a straw hat, the pink flowered
+  kimono over his captain's haori, the daishō at his left hip. His cuts are unhurried and land hard. His moves:
+  - RMB: the **daishō**'s two tempos. The wakizashi is drawn and across first, and the tachi comes down
+    behind it.
+  - Q: **Tsukiyubi**. Two fingers on the target and a push of reishi that throws it metres back.
+  - E: Hadō #78 **Zangerin**, a ring of golden light at waist height that cuts clean through every wall it
+    passes.
+  - R: **"Nomō!"**, a sip of sake. A slow heal, and Katen warms to it.
+  - G: a layer comes off. The kimono, then the haori, is flung over the target to blind it. What he wears
+    decides what **Irooni** lets him cut: the colours are read off the voxels of each body.
+  - F: **"Hana kaze midarete… Katen Kyōkotsu"**: two great black scimitars, and children's games made real.
+    LMB is a two-blade string at two tempos. RMB is **Bushōgoma**, a spinning top of wind that becomes a
+    tornado round the target. Q is **Takaoni**: whoever is higher wins, so he is suddenly high over the
+    target and comes down on it. E is **Kageoni**: he sinks into his own shadow and rises out of the
+    target's. R is **Irooni**: he calls a colour, and his cuts count by how much of it he wears, then the
+    call passes to the other side.
+  - F again, once Katen is in the mood: **Bankai, Katen Kyōkotsu: Karamatsu Shinjū**. The sky turns gloomy,
+    black pine shadows spread over the ground, and the play's Acts go in order on Q, E, R and F. Act 1
+    opens on the partner the wounds the partner gave him. Act 2 is the dark spots, a bleed nothing heals.
+    Act 3 is the abyss: water rises over the field, and swimming up only drags the partner deeper. The Final
+    Act sheathes both swords and winds a white thread round the partner's throat until the cut glows gold
+    and bursts.
 - **Zaraki Kenpachi**: no pattern. Each press draws a different wild swing, punch or kick, and every hit of a
   string lands harder than the last. Weak hits bounce off his reiatsu. His moves:
   - RMB: a lazy wrist flick that cuts a building in half.
@@ -221,7 +243,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow][&fan=1][&eyes=open][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed][&fan=1][&eyes=open][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

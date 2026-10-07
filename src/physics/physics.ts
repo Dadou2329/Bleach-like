@@ -36,6 +36,11 @@ export class Physics {
   private queued = new Set<number>();
   time = 0;
   stats = { chunkColliders: 0, built: 0, buildMs: 0 };
+  /**
+   * Rapier traps (a WASM "unreachable") on a dead collider handle, and after a trap its world cannot be
+   * trusted: we then stop calling into it (debris falls back to plain sprites) rather than crash the game.
+   */
+  broken = false;
 
   constructor(readonly world: VoxelWorld) {
     this.rw = new RAPIER.World({ x: 0, y: -18, z: 0 }); // stylised heavier gravity for punchy falls
@@ -50,6 +55,7 @@ export class Physics {
 
   /** Request colliders for every chunk overlapping the voxel box (built over the next frames). */
   require(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, urgent = false): void {
+    if (this.broken) return;
     const w = this.world;
     const cx0 = Math.max(0, x0 >> CS_BITS), cy0 = Math.max(0, y0 >> CS_BITS), cz0 = Math.max(0, z0 >> CS_BITS);
     const cx1 = Math.min(w.cx - 1, x1 >> CS_BITS), cy1 = Math.min(w.cy - 1, y1 >> CS_BITS), cz1 = Math.min(w.cz - 1, z1 >> CS_BITS);
@@ -72,6 +78,24 @@ export class Physics {
   }
 
   private build(ci: number): void {
+    try {
+      this.buildChunk(ci);
+    } catch (e) {
+      this.fail(e);
+    }
+  }
+
+  /** Stop using Rapier for good (see `broken`). */
+  fail(e: unknown): void {
+    if (this.broken) return;
+    this.broken = true;
+    this.colliders.clear();
+    this.buildQueue.length = 0;
+    this.queued.clear();
+    console.warn('physics: Rapier failed, rigid-body debris disabled', e);
+  }
+
+  private buildChunk(ci: number): void {
     const t0 = performance.now();
     this.queued.delete(ci);
     const w = this.world;
@@ -79,13 +103,17 @@ export class Physics {
     const bx = cx << CS_BITS, by = cy << CS_BITS, bz = cz << CS_BITS;
     const chunk = w.chunks[ci];
     let entry = this.colliders.get(ci);
+    if (entry && !entry.body.isValid()) {
+      this.colliders.delete(ci);
+      entry = undefined;
+    }
     if (!entry) {
       const body = this.rw.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(bx * w.vs, by * w.vs, bz * w.vs));
       entry = { body, col: null, lastUsed: this.time, edits: 0, needsRebuild: false, lo: [0, 0, 0], hi: [-1, -1, -1] };
       this.colliders.set(ci, entry);
     }
     if (entry.col) {
-      this.rw.removeCollider(entry.col, false);
+      if (entry.col.isValid()) this.rw.removeCollider(entry.col, false);
       entry.col = null;
     }
     entry.needsRebuild = false;
@@ -125,11 +153,30 @@ export class Physics {
 
   /** Voxel edit hook: keep colliders in sync (removed voxel off, newly exposed neighbours on). */
   onVoxelEdit(x: number, y: number, z: number, oldV: number, newV: number): void {
+    if (this.broken) return;
     const w = this.world;
     const ci = (x >> CS_BITS) + w.cx * ((y >> CS_BITS) + w.cy * (z >> CS_BITS));
     const e = this.colliders.get(ci);
     if (!e) return;
     if (e.needsRebuild) return;
+    // a collider whose body is gone must never be touched (that is the trap): forget it and rebuild
+    if (!e.body.isValid() || (e.col && !e.col.isValid())) {
+      this.colliders.delete(ci);
+      if (!this.queued.has(ci)) {
+        this.queued.add(ci);
+        this.buildQueue.unshift(ci);
+      }
+      return;
+    }
+    try {
+      this.applyEdit(ci, e, x, y, z, oldV, newV);
+    } catch (err) {
+      this.fail(err);
+    }
+  }
+
+  private applyEdit(ci: number, e: ChunkCollider, x: number, y: number, z: number, oldV: number, newV: number): void {
+    const w = this.world;
     if (++e.edits > 1200 || !e.col) {
       e.needsRebuild = true;
       if (!this.queued.has(ci)) {
@@ -174,6 +221,15 @@ export class Physics {
 
   step(dt: number, buildBudgetMs = 3): void {
     this.time += dt;
+    if (this.broken) return;
+    try {
+      this.stepWorld(dt, buildBudgetMs);
+    } catch (e) {
+      this.fail(e);
+    }
+  }
+
+  private stepWorld(dt: number, buildBudgetMs: number): void {
     const t0 = performance.now();
     while (this.buildQueue.length > 0 && performance.now() - t0 < buildBudgetMs) this.build(this.buildQueue.shift()!);
     this.rw.timestep = Math.min(dt, 1 / 30);
@@ -182,7 +238,7 @@ export class Physics {
     if (Math.floor(this.time) !== Math.floor(this.time - dt)) {
       for (const [ci, e] of this.colliders) {
         if (this.time - e.lastUsed > 6 && !this.queued.has(ci)) {
-          this.rw.removeRigidBody(e.body);
+          if (e.body.isValid()) this.rw.removeRigidBody(e.body);
           this.colliders.delete(ci);
         }
       }

@@ -43,14 +43,15 @@ export class ShinsoExtension {
   private t = 0;
 
   constructor(readonly tipZ: number, core: THREE.ColorRepresentation = '#F6FBFF', rim: THREE.ColorRepresentation = '#9FD3FF', width = 0.07) {
-    for (const rot of [0, Math.PI / 2]) {
-      const geo = new THREE.PlaneGeometry(width, 1, 1, 1);
+    // the blade itself (two crossed planes) and a wider, fainter halo so it still reads across a town
+    for (const [rot, w, a] of [[0, width, 1], [Math.PI / 2, width, 1], [0, width * 4.5, 0.32], [Math.PI / 2, width * 4.5, 0.32]]) {
+      const geo = new THREE.PlaneGeometry(w, 1, 1, 1);
       // span z ∈ [0, 1]: the plane is built in XY, turn it to run along +Z
       geo.rotateX(Math.PI / 2);
       geo.translate(0, 0, 0.5);
       const mat = new THREE.ShaderMaterial({
         vertexShader: EXT_VERT, fragmentShader: EXT_FRAG, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-        uniforms: { uCore: { value: new THREE.Color(core) }, uRim: { value: new THREE.Color(rim) }, uA: { value: 1 }, uTime: { value: 0 } },
+        uniforms: { uCore: { value: new THREE.Color(core) }, uRim: { value: new THREE.Color(rim) }, uA: { value: a }, uTime: { value: 0 } },
       });
       const m = new THREE.Mesh(geo, mat);
       m.rotation.z = rot;

@@ -513,6 +513,14 @@ export class BenihimeBankai implements Projectile {
     const curtainTop = 12.5;
     this.curtain.position.y = this.anchor.y + curtainTop * (1 - this.curtain.scale.y);
     const lean = Math.min(1, Math.max(0, (this.t - 0.6) / 0.9)) * appear;
+    // seen from behind (the camera over his shoulder), the curtain would wall off the screen: it is
+    // only there for whoever faces him; the doll thins out instead of blocking the view
+    const cam = this.g.engine.gr.camera.position;
+    const bx = -Math.sin(this.yaw), bz = -Math.cos(this.yaw);
+    const behindCurtain = (cam.x - this.curtain.position.x) * bx + (cam.z - this.curtain.position.z) * bz > -0.6;
+    const behindDoll = (cam.x - this.anchor.x) * bx + (cam.z - this.anchor.z) * bz > -1.5;
+    this.curtain.visible = !behindCurtain;
+    (this.doll.material.userData.uniforms as { uDissolve: { value: number } }).uDissolve.value = behindDoll ? 0.55 : 0;
     const o = this.doll.object;
     o.position.copy(this.anchor);
     o.position.y += 1.2 - (1 - lean) * 3;

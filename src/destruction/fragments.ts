@@ -164,6 +164,11 @@ export class FragmentSystem {
   }
 
   private create(p: PieceSpec): void {
+    // without rigid bodies (Rapier failed) the piece goes as loose debris
+    if (this.physics.broken) {
+      this.toDebris(p.grid, p.w, p.h, p.d, p.pos, p.rot, p.vel);
+      return;
+    }
     const vs = this.world.vs;
     const coords: number[] = [];
     let massSum = 0, count = 0;
@@ -338,7 +343,7 @@ export class FragmentSystem {
   }
 
   private remove(f: Fragment): void {
-    this.physics.rw.removeRigidBody(f.body);
+    if (!this.physics.broken && f.body.isValid()) this.physics.rw.removeRigidBody(f.body);
     this.group.remove(f.mesh);
     f.mesh.geometry.dispose();
     for (const c of f.mesh.children) (c as THREE.Mesh).geometry.dispose();
@@ -350,11 +355,22 @@ export class FragmentSystem {
     for (let i = this.slidePlanes.length - 1; i >= 0; i--) {
       const sp = this.slidePlanes[i];
       if (this.physics.time > (sp.expires ?? 0) && sp.body) {
-        this.physics.rw.removeRigidBody(sp.body);
+        if (!this.physics.broken && sp.body.isValid()) this.physics.rw.removeRigidBody(sp.body);
         sp.body = undefined;
         sp.collider = undefined;
         this.slidePlanes.splice(i, 1);
       }
+    }
+    if (this.physics.broken) {
+      // the bodies are gone with the physics world: let the pieces go
+      for (const f of this.fragments.splice(0)) {
+        this.group.remove(f.mesh);
+        f.mesh.geometry.dispose();
+        for (const c of f.mesh.children) (c as THREE.Mesh).geometry.dispose();
+      }
+      this.slidePlanes.length = 0;
+      this.queue.length = 0;
+      return;
     }
     const t0 = performance.now();
     while (this.queue.length > 0 && performance.now() - t0 < 8) this.queue.shift()!();

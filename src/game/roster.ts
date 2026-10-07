@@ -32,6 +32,8 @@ import { URAHARA_DEF, UraharaKit } from './kits/urahara';
 import { YAMAMOTO_DEF, YamamotoKit } from './kits/yamamoto';
 import { GIN_DEF, GinKit } from './kits/gin';
 import { SUIFENG_DEF, SuifengKit } from './kits/suifeng';
+import { KYORAKU_DEF, KyorakuKit } from './kits/kyoraku';
+import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
 import { yamamotoAsset, yamamotoProp } from '../chars/yamamoto';
@@ -209,6 +211,20 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(suifengAsset('keisen').model, true);
       for (const k of ['gauntlet', 'launcher', 'guard', 'missile'] as const) buildCached(suifengProp(k), false);
+    },
+  },
+  {
+    id: 'kyoraku',
+    name: 'Shunsui Kyōraku',
+    kanji: '花天狂骨',
+    title: 'Captain, 8th Division',
+    color: '#e98fb5',
+    def: () => ({ ...KYORAKU_DEF, speed: { ...KYORAKU_DEF.speed } }),
+    kit: (f, g) => new KyorakuKit(f, g),
+    warm: () => {
+      buildCached(kyorakuAsset('haori').model, true);
+      buildCached(kyorakuAsset('shed').model, true);
+      for (const k of ['katen', 'kyokotsu', 'waki'] as const) buildCached(kyorakuProp(k), false);
     },
   },
   {

@@ -307,7 +307,8 @@ function haori(b: ModelBuilder, L: Landmarks): SpringDef[] {
     box([0, s.waistY, -0.2], [wx + 0.5, 4.2, wz + 0.5], { round: 2.4 }),
     capsule([1.8, sy + 1.4, sz - 0.6], [sx + 0.2, sy - 0.4, sz], 2.4, 2.4),
     capsule([-1.8, sy + 1.4, sz - 0.6], [-sx - 0.2, sy - 0.4, sz], 2.4, 2.4));
-  const shell = subtract(offset(form, 1.5), offset(form, 0.4));
+  // two voxels of cloth, reaching a little under the form, so the shell rasterises solid (no pinholes)
+  const shell = subtract(offset(form, 1.9), offset(form, -0.4));
   const armhole = (k: number) => capsule([k * (sx + 0.6), sy - 1.5, sz], [k * (sx + 0.6), sy - 8, sz], 3.2);
   // open down the front: a V from the back of the neck to the chest, then straight down past the sashes
   const top = s.chinY - 2.4;
