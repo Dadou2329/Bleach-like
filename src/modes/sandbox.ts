@@ -263,6 +263,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       player.body.prev.copy(player.body.pos);
       player.yaw = yaw;
       game.cam.yaw = yaw + Math.PI;
+      game.cam.snap();
     },
     spawn: (n = 1, dist = 8) => {
       for (let i = 0; i < n; i++) {

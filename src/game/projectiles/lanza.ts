@@ -166,7 +166,7 @@ class LanzaBlast implements Projectile {
         float h(vec3 p) { return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
         void main() {
           vec3 v = normalize(cameraPosition - vW);
-          float f = abs(dot(normalize(vN), v));
+          float f = clamp(abs(dot(normalize(vN), v)), 0.0, 1.0);
           float rim = pow(1.0 - f, 2.0);
           float n = h(floor(vP * 6.0 + uTime * 3.0));
           float fade = (1.0 - uT) * (1.0 - uT);

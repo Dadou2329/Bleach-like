@@ -12,7 +12,7 @@ import { KinematicBody } from './kinematic';
 import { Aura, type AuraStyle } from '../vfx/aura';
 import { SwordTrail } from '../vfx/trail';
 import { AfterimagePool } from '../vfx/afterimage';
-import type { Game } from './game';
+import type { DamageOpts, Game } from './game';
 import { angleDelta, damp } from '../core/math';
 
 export interface PropDef {
@@ -130,6 +130,10 @@ export class Fighter {
   toughness = 0;
   /** called after this fighter takes damage */
   onHurt: ((amount: number, heavy: boolean) => void) | null = null;
+  /** checked before a hit lands: return true to stop it outright (Aizen's raised finger) */
+  parry: ((amount: number, from: Fighter | null, o: DamageOpts) => boolean) | null = null;
+  /** where opponents believe this fighter stands (Kyōka Suigetsu's copy); the duel AI fights this */
+  lure: THREE.Vector3 | null = null;
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};

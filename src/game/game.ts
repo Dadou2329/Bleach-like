@@ -248,6 +248,7 @@ export class Game {
   damage(t: Fighter, amount: number, from: Fighter | null, dir: THREE.Vector3, o: DamageOpts = {}): void {
     if (t.dead || t.invuln > 0) return;
     if (t.action?.invulnerable) return;
+    if (t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
     let dmg = amount * power * (1 - armor) * t.damageTaken;

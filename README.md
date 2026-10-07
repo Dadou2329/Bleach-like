@@ -41,6 +41,16 @@ G state, V flare); press **H** in game for the current character's moves.
 - **Kuchiki Byakuya**: a clean sword chain and Kidō, then **Senbonzakura**: a thousand-petal swarm streams
   through buildings. His **Bankai** raises rows of giant blades that shatter into a petal ocean (Gōkei, Senkei,
   Hakuteiken).
+- **Renji Abarai**: rough 11th-Division cuts with a katana. Hadō #31 **Shakkahō** goes off in his own hand
+  when he fires it again too soon; the fully chanted one is much bigger (and burns him too at point-blank range).
+  - F: **"Hoero, Zabimaru"**. The blade splits into six segments on a red thread. Each lash cuts along its
+    whole length, so a sweep slices a building in two. He also has the 25 m full-reach lash (RMB), the
+    blind-angle lash that curls round and strikes from behind (Q), the constriction (E), the whirlwind (R) and
+    **Higa Zekkō** (G).
+  - F again: **Bankai, Hihiō Zabimaru**. A thirty-metre bone snake rises out of a dust storm. Its skull
+    lunges, sweeps and smashes craters (RMB). **Hikotsu Taihō** (Q) fires a red beam from its jaws. It can bite
+    an enemy, lift it and drive it into the ground (E). Every vertebra can ring the target and strike at once
+    (R), and part of the body can burrow and burst up under the enemy (G).
 - **Zaraki Kenpachi**: no pattern. Each press draws a different wild swing, punch or kick, and every hit of a
   string lands harder than the last. Weak hits bounce off his reiatsu. His moves:
   - RMB: a lazy wrist flick that cuts a building in half.
@@ -59,6 +69,29 @@ G state, V flare); press **H** in game for the current character's moves.
   Oscuras**, which tunnels through the town.
 - **Ulquiorra, Segunda Etapa**: claws, a tail whip, a head-grab rush through buildings, and **Lanza del
   Relámpago**, whose explosion swallows a block. He regenerates while his reiatsu lasts.
+- **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
+  back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
+  stay on the battlefield and can be broken again.
+  - Sealed: a three-cut string, a point thrust, a burst of cold reiatsu that freezes anyone close, and a short
+    ice wave.
+  - F: **"Sōten ni zase, Hyōrinmaru"**. Storm clouds swallow the sky, and a chain with a crescent sickle hangs
+    from the pommel. He gains the homing **ice dragon** that freezes what it strikes, the chain-sickle that
+    hooks and hauls, and a long ice wave.
+  - F again: **Bankai, Daiguren Hyōrinmaru**. Ice wings and flight, dragon-arm cuts, the claw and the tail.
+    His techniques are **Ryūsenka** (a cross of ice), **Gunchō Tsurara**, **Hyōryū Senbi**, **Sennen Hyōrō**
+    (pillars that circle and slam shut into a tomb of real ice) and **Hyōten Hyakkasō** (snow through a hole
+    in the clouds that blooms into ice flowers). Twelve petals behind his back fall over time and with every
+    great technique. When the last one falls, the Bankai breaks.
+- **Sōsuke Aizen**: small, exact cuts with Kyōka Suigetsu held low. A raised finger sometimes stops a light
+  frontal blow outright. His moves:
+  - RMB: the passing stroke. He is past the target before the wound opens.
+  - Q: Hadō #90 **Kurohitsugi**, the black coffin.
+  - E: Hadō #63 **Raikōhō**.
+  - R: **Kyōka Suigetsu**. A perfect copy stays where he stood while he walks round behind you, then it
+    shatters like a mirror.
+  - G: the reveal. He crushes the glasses and sweeps his hair back.
+  - F: the **Hōgyoku**. The white Chrysalis brings a fused blade and instant regeneration. Q becomes the
+    fully incanted Kurohitsugi and E becomes Hadō #99 **Goryūtenmetsu**, five dragons of light.
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
@@ -69,7 +102,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|kenpachi|ulquiorra][&form=bankai|shikai|pantera|murcielago|segunda][&drawn=1][&mask=1|cracked][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
@@ -84,8 +117,8 @@ G state, V flare); press **H** in game for the current character's moves.
   debris.
 - `src/models`: voxel model DSL (SDF shapes per bone, auto-shading, pixel-art faces) and mesh building.
 - `src/anim`: rig, procedural locomotion, keyframed clips, sword IK, foot planting, spring bones.
-- `src/chars`: Ichigo, Grimmjow, Byakuya, Kenpachi, Ulquiorra (bodies, forms, weapons), Hollows, Menos Grande,
-  and their clips.
+- `src/chars`: Ichigo, Grimmjow, Byakuya, Renji, Kenpachi, Ulquiorra, Hitsugaya, Aizen (bodies, forms, weapons), Hollows,
+  Menos Grande, and their clips.
 - `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input.
 - `src/vfx`, `src/audio`, `src/ui`: auras, trails, energy shaders, procedural sound, HUD, start screen.
 - `src/maps`: Karakura Town generator and test maps.

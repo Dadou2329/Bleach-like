@@ -42,6 +42,12 @@ export class ActionCamera {
     this.pitch = Math.max(-1.25, Math.min(1.35, this.pitch + dy));
   }
 
+  /** Jump straight to the follow position on the next update (after a teleport, a respawn). */
+  snap(): void {
+    this.inited = false;
+    this.curDist = this.dist;
+  }
+
   zoom(steps: number): void {
     this.dist = Math.max(this.minDist, Math.min(this.maxDist, this.dist * Math.pow(1.12, steps)));
   }

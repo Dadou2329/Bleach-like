@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {
-  EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode,
+  EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode, Effect,
   SMAAEffect, VignetteEffect, ChromaticAberrationEffect, HueSaturationEffect, BrightnessContrastEffect,
 } from 'postprocessing';
 import { N8AOPostPass } from 'n8ao';
@@ -51,7 +51,23 @@ export const ATMO_DAY: Atmosphere = {
   contrast: 0.06,
 };
 
-/** WebGL renderer + scene + post stack (N8AO → bloom → grading/tone mapping → vignette → SMAA). */
+/**
+ * Drops NaN / Inf pixels (and caps absurd HDR values) before the bloom: one bad pixel from any shader would
+ * otherwise be smeared by the mip-chain blur into a black frame.
+ */
+class NanGuardEffect extends Effect {
+  constructor() {
+    super('NanGuardEffect', /* glsl */ `
+      void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+        vec3 c = inputColor.rgb;
+        // comparisons with NaN are false, so this also catches NaN where isnan() is optimised away
+        bool ok = abs(c.r) + abs(c.g) + abs(c.b) < 1e6 && !any(isnan(c)) && !any(isinf(c));
+        outputColor = ok ? vec4(clamp(c, 0.0, 256.0), inputColor.a) : vec4(0.0, 0.0, 0.0, inputColor.a);
+      }`);
+  }
+}
+
+/** WebGL renderer + scene + post stack (N8AO → NaN guard → bloom → grading/tone mapping → vignette → SMAA). */
 export class GameRenderer {
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
@@ -129,6 +145,8 @@ export class GameRenderer {
     this.brightness = new BrightnessContrastEffect({ contrast: 0.05 });
     this.tone = new ToneMappingEffect({ mode: ToneMappingMode.ACES_FILMIC });
     const vignette = new VignetteEffect({ darkness: 0.42, offset: 0.32 });
+    // the bloom reads the raw input buffer, so the guard needs a pass of its own in front of it
+    composer.addPass(new EffectPass(this.camera, new NanGuardEffect()));
     // convolution effects (chromatic aberration, SMAA) each need their own pass
     composer.addPass(new EffectPass(this.camera, this.bloom, this.tone, this.hueSat, this.brightness, vignette));
     composer.addPass(new EffectPass(this.camera, this.chroma));

@@ -55,7 +55,7 @@ void main() {
   float up = clamp(wn.y * 0.6 + 0.55, 0.0, 1.0);
   float lv = clamp(uLevel, 0.0, 2.5);
   wp.xyz += wn * uInflate * (0.45 + flame * 1.1) * (0.35 + 0.65 * min(lv, 1.0));
-  wp.y += pow(flame, 2.2) * up * uRise * lv;
+  wp.y += pow(max(flame, 0.0), 2.2) * up * uRise * lv;
   vN = wn;
   vW = wp.xyz;
   vFlame = flame;
@@ -75,7 +75,9 @@ varying float vFlame;
 ${NOISE}
 void main() {
   vec3 v = normalize(cameraPosition - vW);
-  float facing = abs(dot(normalize(vN), v));
+  // clamped: |dot| of two unit vectors can come out a hair above 1, and pow() of a negative base is NaN,
+  // which bloom smears over the whole frame
+  float facing = clamp(abs(dot(normalize(vN), v)), 0.0, 1.0);
   float fres = 1.0 - facing;
   float lv = clamp(uLevel, 0.0, 2.5);
   // flame tongues: vertically stretched noise scrolling up, eroded into separate licks
@@ -363,7 +365,7 @@ void main() {
   // sway grows with height, tongue narrows to a point
   float sway = (auNoise(vec3(v * 3.0 - t, vPhase * 9.0, 0.0)) - 0.5) * 0.55 * v;
   float x = vUv.x - 0.5 - sway;
-  float w = 0.5 * pow(1.0 - v, 0.75) * smoothstep(0.0, 0.18, v);
+  float w = 0.5 * pow(clamp(1.0 - v, 0.0, 1.0), 0.75) * smoothstep(0.0, 0.18, v);
   float n = auNoise(vec3(x * 6.0, v * 4.0 - t * 1.3, vPhase * 5.0));
   float body = 1.0 - smoothstep(w * 0.55, w, abs(x) + (n - 0.5) * 0.18);
   float fade = smoothstep(1.0, 0.45, v) * smoothstep(0.0, 0.08, v);

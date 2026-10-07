@@ -14,6 +14,12 @@ import { KENPACHI_DEF, KenpachiKit } from './kits/kenpachi';
 import { kenpachiAsset, kenpachiProp } from '../chars/kenpachi';
 import { ULQUIORRA_DEF, UlquiorraKit } from './kits/ulquiorra';
 import { ulquiorraAsset, ulquiorraProp } from '../chars/ulquiorra';
+import { HITSUGAYA_DEF, HitsugayaKit } from './kits/hitsugaya';
+import { hitsugayaAsset, hitsugayaProp } from '../chars/hitsugaya';
+import { AIZEN_DEF, AizenKit } from './kits/aizen';
+import { aizenAsset, aizenProp } from '../chars/aizen';
+import { RENJI_DEF, RenjiKit } from './kits/renji';
+import { renjiAsset, renjiProp } from '../chars/renji';
 
 export interface RosterEntry {
   id: string;
@@ -71,6 +77,19 @@ export const ROSTER: RosterEntry[] = [
     },
   },
   {
+    id: 'renji',
+    name: 'Renji Abarai',
+    kanji: '蛇尾丸',
+    title: 'Lieutenant, 6th Division',
+    color: '#ff5a5f',
+    def: () => ({ ...RENJI_DEF, speed: { ...RENJI_DEF.speed } }),
+    kit: (f, g) => new RenjiKit(f, g),
+    warm: () => {
+      buildCached(renjiAsset('bankai').model, true);
+      for (const k of ['hilt', 'seg0', 'seg1', 'seg2', 'seg3', 'seg4', 'seg5', 'handle', 'skull', 'vertebra'] as const) buildCached(renjiProp(k), false);
+    },
+  },
+  {
     id: 'kenpachi',
     name: 'Zaraki Kenpachi',
     kanji: '剣八',
@@ -95,6 +114,33 @@ export const ROSTER: RosterEntry[] = [
       buildCached(ulquiorraAsset('murcielago').model, true);
       buildCached(ulquiorraAsset('segunda').model, true);
       for (const k of ['katana', 'sheath-empty', 'luz', 'lanza'] as const) buildCached(ulquiorraProp(k), false);
+    },
+  },
+  {
+    id: 'hitsugaya',
+    name: 'Tōshirō Hitsugaya',
+    kanji: '氷輪丸',
+    title: 'Captain, 10th Division',
+    color: '#7fd6f5',
+    def: () => ({ ...HITSUGAYA_DEF, speed: { ...HITSUGAYA_DEF.speed } }),
+    kit: (f, g) => new HitsugayaKit(f, g),
+    warm: () => {
+      buildCached(hitsugayaAsset('bankai').model, true);
+      for (const k of ['sword', 'bankai-sword', 'crescent', 'dragon-head'] as const) buildCached(hitsugayaProp(k), false);
+    },
+  },
+  {
+    id: 'aizen',
+    name: 'Sōsuke Aizen',
+    kanji: '鏡花水月',
+    title: 'Captain, 5th Division',
+    color: '#9b6dff',
+    def: () => ({ ...AIZEN_DEF, speed: { ...AIZEN_DEF.speed } }),
+    kit: (f, g) => new AizenKit(f, g),
+    warm: () => {
+      buildCached(aizenAsset('traitor').model, true);
+      buildCached(aizenAsset('chrysalis').model, true);
+      for (const k of ['fused', 'glasses'] as const) buildCached(aizenProp(k), false);
     },
   },
 ];

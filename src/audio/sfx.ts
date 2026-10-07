@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter';
+  | 'mask' | 'crack' | 'shatter' | 'ting';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -403,6 +403,29 @@ export class Sfx {
             r.stop(tt + 0.4);
           }
           this.play('hitHeavy', pos, 0.8);
+        }
+        break;
+      }
+      case 'ting': {
+        // a blade stopped dead on a fingertip: a click and one clean, high, ringing note
+        const o = this.out(pos, 0.5 * I, 60);
+        if (!o) return;
+        const n = this.noise(0.03);
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 3200;
+        const gn = ctx.createGain();
+        this.env(gn, t, 0.001, 0.8, 0.03);
+        n.connect(hp).connect(gn).connect(o);
+        for (const [f0, a, d] of [[2637, 0.5, 0.9], [4186, 0.3, 0.6], [6623, 0.16, 0.35]]) {
+          const r = ctx.createOscillator();
+          r.type = 'sine';
+          r.frequency.value = f0 * (0.995 + Math.random() * 0.01);
+          const g = ctx.createGain();
+          this.env(g, t, 0.002, a, d);
+          r.connect(g).connect(o);
+          r.start(t);
+          r.stop(t + d + 0.1);
         }
         break;
       }

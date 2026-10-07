@@ -228,9 +228,10 @@ export function kosodeTorso(b: ModelBuilder, L: Landmarks, o: ShihakushoOpts): S
   // shoulder sockets: the parent owns the full joint ball
   const balls = [sphere([sx, sy - 0.5, sz], 3.3), sphere([-sx, sy - 0.5, sz], 3.3)];
   const torso = blend(3.2, chest, waist, trapL, trapR, ...balls);
+  // bands follow the spec (adult: spine 45–56, chest 54–80)
   addBands(b, torso, o.black, [
-    ['spine', 45, 56],
-    ['chest', 54, 80],
+    ['spine', s.hipsY, s.waistY + 5],
+    ['chest', s.chestY - 7, s.chinY + 8],
   ]);
   // big folds only (4 per side reads as cloth; 20 would be noise): drape from the shoulders to the
   // obi and a horizontal pull under the chest

@@ -61,11 +61,13 @@ export class DuelistAI implements Controller {
       f.wishHover = false;
       return;
     }
-    f.faceTarget = t.center();
-    _d.set(t.pos.x - f.pos.x, 0, t.pos.z - f.pos.z);
+    // an illusion: fight where the target appears to be
+    const tp = t.lure ?? t.pos;
+    f.faceTarget = t.lure ? new THREE.Vector3(tp.x, tp.y + t.def.height * 0.55, tp.z) : t.center();
+    _d.set(tp.x - f.pos.x, 0, tp.z - f.pos.z);
     const dist = Math.max(0.01, _d.length());
     _d.divideScalar(dist);
-    const dy = t.pos.y - f.pos.y;
+    const dy = tp.y - f.pos.y;
     const hp = f.hp / f.maxHp;
 
     // ---- forms and states by HP
