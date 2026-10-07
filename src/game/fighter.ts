@@ -126,6 +126,8 @@ export class Fighter {
   power = 1;
   /** incoming damage multiplier (masks, armour states) */
   damageTaken = 1;
+  /** reiatsu armour: hits weaker than this barely scratch (a quarter of the damage, no stagger) */
+  toughness = 0;
   /** called after this fighter takes damage */
   onHurt: ((amount: number, heavy: boolean) => void) | null = null;
   stats = { damageDealt: 0, kills: 0 };

@@ -17,6 +17,9 @@ interface ChunkCollider {
   /** pending per-voxel edits; if too many we rebuild instead */
   edits: number;
   needsRebuild: boolean;
+  /** the voxel collider's domain (chunk-local, inclusive): Rapier cannot grow it, so edits outside rebuild */
+  lo: [number, number, number];
+  hi: [number, number, number];
 }
 
 let rapierReady: Promise<void> | null = null;
@@ -78,7 +81,7 @@ export class Physics {
     let entry = this.colliders.get(ci);
     if (!entry) {
       const body = this.rw.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(bx * w.vs, by * w.vs, bz * w.vs));
-      entry = { body, col: null, lastUsed: this.time, edits: 0, needsRebuild: false };
+      entry = { body, col: null, lastUsed: this.time, edits: 0, needsRebuild: false, lo: [0, 0, 0], hi: [-1, -1, -1] };
       this.colliders.set(ci, entry);
     }
     if (entry.col) {
@@ -102,6 +105,13 @@ export class Physics {
             skin = !g(X + d, Y, Z) || !g(X - d, Y, Z) || !g(X, Y + d, Z) || !g(X, Y - d, Z) || !g(X, Y, Z + d) || !g(X, Y, Z - d);
           if (skin) coords.push(x, y, z);
         }
+    entry.lo = [CS, CS, CS];
+    entry.hi = [-1, -1, -1];
+    for (let i = 0; i < coords.length; i += 3)
+      for (let k = 0; k < 3; k++) {
+        if (coords[i + k] < entry.lo[k]) entry.lo[k] = coords[i + k];
+        if (coords[i + k] > entry.hi[k]) entry.hi[k] = coords[i + k];
+      }
     if (coords.length > 0) {
       const desc = RAPIER.ColliderDesc.voxels(new Int32Array(coords), { x: w.vs, y: w.vs, z: w.vs })
         .setFriction(0.8)
@@ -130,14 +140,34 @@ export class Physics {
     }
     const nowSolid = this.solid(newV);
     if (nowSolid === this.solid(oldV)) return;
-    e.col.setVoxel(x & CS_MASK, y & CS_MASK, z & CS_MASK, nowSolid);
+    // Rapier's voxel shape cannot grow past the domain it was built with (it traps): anything outside
+    // it — a deep crater exposing buried voxels, new solid placed in the air — rebuilds the chunk
+    const inside = (lx: number, ly: number, lz: number) => lx >= e.lo[0] && ly >= e.lo[1] && lz >= e.lo[2] && lx <= e.hi[0] && ly <= e.hi[1] && lz <= e.hi[2];
+    const rebuild = () => {
+      e.needsRebuild = true;
+      if (!this.queued.has(ci)) {
+        this.queued.add(ci);
+        this.buildQueue.unshift(ci);
+      }
+    };
+    const lx = x & CS_MASK, ly = y & CS_MASK, lz = z & CS_MASK;
+    if (!inside(lx, ly, lz)) {
+      if (nowSolid) rebuild();
+      return;
+    }
+    e.col.setVoxel(lx, ly, lz, nowSolid);
     if (!nowSolid) {
       // expose neighbours inside the same chunk (other chunks handle their own edges lazily)
       for (let n = 0; n < 6; n++) {
         let nx = x, ny = y, nz = z;
         if (n === 0) nx--; else if (n === 1) nx++; else if (n === 2) ny--; else if (n === 3) ny++; else if (n === 4) nz--; else nz++;
         if (nx >> CS_BITS !== x >> CS_BITS || ny >> CS_BITS !== y >> CS_BITS || nz >> CS_BITS !== z >> CS_BITS) continue;
-        if (this.solid(w.get(nx, ny, nz))) e.col.setVoxel(nx & CS_MASK, ny & CS_MASK, nz & CS_MASK, true);
+        if (!this.solid(w.get(nx, ny, nz))) continue;
+        if (!inside(nx & CS_MASK, ny & CS_MASK, nz & CS_MASK)) {
+          rebuild();
+          return;
+        }
+        e.col.setVoxel(nx & CS_MASK, ny & CS_MASK, nz & CS_MASK, true);
       }
     }
   }

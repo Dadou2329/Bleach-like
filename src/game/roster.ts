@@ -10,6 +10,8 @@ import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
 import { grimmjowAsset, grimmjowProp } from '../chars/grimmjow';
 import { BYAKUYA_DEF, ByakuyaKit } from './kits/byakuya';
 import { byakuyaProp } from '../chars/byakuya';
+import { KENPACHI_DEF, KenpachiKit } from './kits/kenpachi';
+import { kenpachiAsset, kenpachiProp } from '../chars/kenpachi';
 
 export interface RosterEntry {
   id: string;
@@ -64,6 +66,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(byakuyaProp('hilt'), false);
       buildCached(byakuyaProp('giant'), false);
+    },
+  },
+  {
+    id: 'kenpachi',
+    name: 'Zaraki Kenpachi',
+    kanji: '剣八',
+    title: 'Captain, 11th Division',
+    color: '#f6c823',
+    def: () => ({ ...KENPACHI_DEF, speed: { ...KENPACHI_DEF.speed } }),
+    kit: (f, g) => new KenpachiKit(f, g),
+    warm: () => {
+      buildCached(kenpachiAsset('bankai').model, true);
+      for (const k of ['cleaver', 'bankai-blade'] as const) buildCached(kenpachiProp(k), false);
     },
   },
 ];

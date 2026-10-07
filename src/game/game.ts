@@ -250,7 +250,10 @@ export class Game {
     if (t.action?.invulnerable) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
-    const dmg = amount * power * (1 - armor) * t.damageTaken;
+    let dmg = amount * power * (1 - armor) * t.damageTaken;
+    // reiatsu armour: a weak cut bounces off (Ichigo's hands bled on Kenpachi's skin)
+    const shrug = t.toughness > 0 && dmg < t.toughness;
+    if (shrug) dmg *= 0.25;
     t.hp -= dmg;
     t.flashT = 0.12;
     if (from) from.stats.damageDealt += dmg;
@@ -258,7 +261,7 @@ export class Game {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
       this.hud.damageNumber(t.center(), dmg, toPlayer ? '#ff6b6b' : o.heavy ? '#ffe066' : '#ffffff', byPlayer);
     }
-    const knock = (o.knock ?? 3) * (1 - armor) * (t.def.boss ? 0.02 : 1);
+    const knock = (o.knock ?? 3) * (1 - armor) * (t.def.boss ? 0.02 : 1) * (shrug ? 0.15 : 1);
     t.push.x += dir.x * knock;
     t.push.z += dir.z * knock;
     if (o.launch && !t.def.boss) {
@@ -268,7 +271,13 @@ export class Game {
     // flinch: pitch away from the hit
     const local = _v.copy(dir).applyAxisAngle(new THREE.Vector3(0, 1, 0), -t.yaw);
     t.anim.flinch(-local.z * 260, local.x * 200);
-    if (armor < 0.5 && !(t.def.boss && !o.heavy)) {
+    if (shrug && !o.quiet) {
+      // sparks off the skin instead of a stagger
+      const c = t.center();
+      for (let i = 0; i < 8; i++)
+        this.engine.glow.spawn({ x: c.x, y: c.y, z: c.z, vx: -dir.x * 4 + (Math.random() - 0.5) * 6, vy: Math.random() * 4, vz: -dir.z * 4 + (Math.random() - 0.5) * 6, size: 0.1, sizeEnd: 0.02, life: 0.25, r: 1, g: 0.85, b: 0.4, alpha: 1, alphaEnd: 0, tex: TEX_STREAK, stretch: 2.5, gravity: -8 });
+    }
+    if (armor < 0.5 && !shrug && !(t.def.boss && !o.heavy)) {
       if (o.heavy) {
         t.stopAction();
         t.hitstun = Math.max(t.hitstun, 0.55);

@@ -34,6 +34,8 @@ export interface KitAI {
   toggleOn?: () => boolean;
   /** keeps distance instead of brawling (ranged kits, or ranged forms) */
   ranged?: boolean | (() => boolean);
+  /** played once when the walk-in ends (a taunt, a stance) */
+  opener?: () => void;
 }
 
 export interface Kit {

@@ -14,7 +14,9 @@ import { buildMenos, MENOS_CLIPS, MENOS_STANCE } from './chars/menos';
 import { buildHollow, HOLLOW_CLIPS, HOLLOW_STANCE } from './chars/hollow';
 import { buildGrimmjow, grimmjowProp } from './chars/grimmjow';
 import { buildByakuya, byakuyaProp } from './chars/byakuya';
+import { buildKenpachi, kenpachiProp } from './chars/kenpachi';
 import { GRIMMJOW_CLIPS, GRIMMJOW_STANCE, PANTERA_CLIPS, PANTERA_STANCE } from './chars/grimmjowClips';
+import { KENPACHI_BANKAI_STANCE, KENPACHI_CLIPS, KENPACHI_SHIKAI_STANCE, KENPACHI_STANCE } from './chars/kenpachiClips';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -39,7 +41,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const who = params.get('char') ?? 'ichigo';
   const t0 = performance.now();
   const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) })
-    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : who === 'byakuya' ? buildByakuya() : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
+    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : who === 'byakuya' ? buildByakuya() : who === 'kenpachi' ? buildKenpachi(form === 'bankai' ? 'bankai' : 'sealed') : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
   if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
@@ -48,6 +50,13 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     if (f === 'sealed') ch.attach('sword', byakuyaProp('katana'), 'grip.R');
     if (f === 'shikai') ch.attach('sword', byakuyaProp('hilt'), 'grip.R');
     ch.attach('sheath', byakuyaProp('sheath'), 'hip.L');
+  }
+  if (who === 'kenpachi') {
+    const f = params.get('form') ?? 'sealed';
+    ch.attach('sword', kenpachiProp(f === 'shikai' ? 'cleaver' : f === 'bankai' ? 'bankai-blade' : 'nozarashi'), 'grip.R');
+    if (f !== 'bankai') ch.attach('sheath', kenpachiProp('saya'), 'hip.L');
+    if (f === 'sealed' && params.get('patch') !== '0') ch.attach('patch', kenpachiProp('eyepatch'), 'patch');
+    if (f === 'sealed' && params.get('rider') !== '0') ch.attach('rider', kenpachiProp('yachiru'), 'rider');
   }
   if (who === 'grimmjow' && form !== 'pantera') {
     if (params.get('drawn')) ch.attach('sword', grimmjowProp('katana'), 'grip.R');
@@ -61,7 +70,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     if (on) ch.attach('mask', m === 'cracked' ? cracked[cracked.length - 1] : m === 'cracked0' ? cracked[0] : hollowMask(), 'face');
   };
   setMask(params.get('mask'));
-  const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : 1;
+  const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : 1;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
   eng.gr.scene.add(ch.object);
@@ -118,8 +127,10 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   };
   let poseName = params.get('pose') ?? 'anim';
   const pantera = who === 'grimmjow' && form === 'pantera';
-  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : ICHIGO_STANCE, ch.springs);
-  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : ICHIGO_CLIPS);
+  const kpForm = params.get('form') ?? 'sealed';
+  const kpStance = kpForm === 'shikai' ? KENPACHI_SHIKAI_STANCE : kpForm === 'bankai' ? KENPACHI_BANKAI_STANCE : KENPACHI_STANCE;
+  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : who === 'kenpachi' ? kpStance : ICHIGO_STANCE, ch.springs);
+  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : who === 'kenpachi' ? KENPACHI_CLIPS : ICHIGO_CLIPS);
   const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
   eng.systems.push({ update: (dt) => anim.update(dt, loco) });
   const applyPose = (dt: number) => {

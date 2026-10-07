@@ -29,10 +29,29 @@ Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser wit
 | Tab / middle mouse | lock-on |
 | H | controls panel |
 
+The table shows Ichigo. Every character uses the same slots (LMB string, RMB heavy, Q/E/R skills, F release,
+G state, V flare); press **H** in game for the current character's moves.
+
 ### What's in this build
 - **Kurosaki Ichigo**: Shikai and Bankai forms with full voxel models, IK-driven sword animation, a procedural
   gait, spring-bone cloth, a flame aura and afterimages. His **Hollow mask** forms under a claw across the
   face, cracks as its time runs out and breaks into voxel shards.
+- **Grimmjow Jaegerjaquez**: a street-brawler string, Cero, Gran Rey Cero and Sonído, then **Pantera**
+  (a new body, claws that rake grooves into the world, Garra de la Pantera, Desgarrón).
+- **Kuchiki Byakuya**: a clean sword chain and Kidō, then **Senbonzakura**: a thousand-petal swarm streams
+  through buildings. His **Bankai** raises rows of giant blades that shatter into a petal ocean (Gōkei, Senkei,
+  Hakuteiken).
+- **Zaraki Kenpachi**: no pattern. Each press draws a different wild swing, punch or kick, and every hit of a
+  string lands harder than the last. Weak hits bounce off his reiatsu. His moves:
+  - RMB: a lazy wrist flick that cuts a building in half.
+  - Q: **Kendō: Ryōdan**, which splits the ground into a trench.
+  - E: a reiatsu shock wave.
+  - R: the **Leg Burst** charge through walls.
+  - G: the **eyepatch** comes off: a golden pillar, the reiatsu skull, swings that cut far past the blade.
+  - F: **"Nome, Nozarashi"**: the giant war-cleaver and Meteor Cleaver.
+  - F again: **Bankai**: the crimson oni, a distant bisection, power that tears at his own body.
+- **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
+  toggles states as its HP drops.
 - **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
   Clinic, the river with its bridge, parks and utility poles. Every voxel is destructible. Cut buildings slide
   apart along the cut and shatter into rubble.
@@ -41,7 +60,7 @@ Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser wit
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos][&form=bankai][&mask=1|cracked][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|kenpachi][&form=bankai|shikai|pantera][&mask=1|cracked][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
@@ -56,7 +75,8 @@ Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser wit
   debris.
 - `src/models`: voxel model DSL (SDF shapes per bone, auto-shading, pixel-art faces) and mesh building.
 - `src/anim`: rig, procedural locomotion, keyframed clips, sword IK, foot planting, spring bones.
-- `src/chars`: Ichigo (Shikai, Bankai, Zangetsu, Tensa Zangetsu), Hollows, Menos Grande, and their clips.
+- `src/chars`: Ichigo, Grimmjow, Byakuya, Kenpachi (bodies, forms, weapons), Hollows, Menos Grande, and their
+  clips.
 - `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input.
 - `src/vfx`, `src/audio`, `src/ui`: auras, trails, energy shaders, procedural sound, HUD, start screen.
 - `src/maps`: Karakura Town generator and test maps.

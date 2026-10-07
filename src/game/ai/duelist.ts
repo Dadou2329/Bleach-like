@@ -115,6 +115,10 @@ export class DuelistAI implements Controller {
     if (this.intro > 0) {
       this.intro -= dt;
       f.wish.copy(_d).multiplyScalar(dist > 9 ? 0.5 : 0);
+      if (this.intro <= 0 && ai.opener) {
+        f.wish.set(0, 0, 0);
+        ai.opener();
+      }
       return;
     }
 

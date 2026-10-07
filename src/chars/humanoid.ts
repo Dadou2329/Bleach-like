@@ -380,6 +380,9 @@ export interface CoatSkirtOpts {
   r1?: number;
   /** flame-like tattered hem (Tensa Zangetsu) or a straight hem (haori) */
   tatter?: boolean;
+  /** tatter notch depth (voxels, plus up to 4 at random) and extra points per panel */
+  tatterDepth?: number;
+  tatterTeeth?: number;
   /** leave the front open between these angles (degrees from the front, per side) */
   openFront?: number;
   res?: number;
@@ -411,12 +414,13 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
     b.bone(top, 'hips', pTop);
     b.bone(low, top, pLow);
     // flame tatters: 2-3 points per panel, or a straight hem
-    const nPts = 2 + (pi % 2);
+    const nPts = 2 + (pi % 2) + (o.tatterTeeth ?? 0);
+    const depth = o.tatterDepth ?? 6;
     const hem = (th: number) => {
       if (!o.tatter) return yHem + 1;
       const u = (th - a0) / (a1 - a0);
       const saw = Math.abs(((u * nPts) % 1) - 0.5) * 2; // 1 at the notches, 0 at the points
-      return yHem + 1 + saw * (6 + rng(pi * 7 + Math.floor(u * nPts)) * 4);
+      return yHem + 1 + saw * (depth + rng(pi * 7 + Math.floor(u * nPts)) * 4);
     };
     const shellSdf = (y0: number, y1: number) =>
       fn(
@@ -548,6 +552,30 @@ function rayEllipsoid(p: V3, d: V3, c: V3, R: V3): number {
   const a = dx * dx + dy * dy + dz * dz, bb = 2 * (ox * dx + oy * dy + oz * dz), cc = ox * ox + oy * oy + oz * oz - 1;
   const disc = bb * bb - 4 * a * cc;
   return disc < 0 ? 0 : (-bb + Math.sqrt(disc)) / (2 * a);
+}
+
+/**
+ * Tip of a spike exactly as spikeHair builds it (same cap defaults), and the growth direction there —
+ * for ornaments hung on the tips (Kenpachi's bells).
+ */
+export function spikeTip(L: Landmarks, sp: Spike, capR?: V3): { tip: V3; dir: V3 } {
+  const s = L.spec;
+  const c: V3 = [L.headC[0], L.headC[1] + 1.4, L.headC[2] - 0.5];
+  const R: V3 = capR ?? [s.head.w / 2 + 1.0, s.head.h / 2 + 0.9, s.head.d / 2 + 1.0];
+  const az = (sp.az * Math.PI) / 180, el = (sp.el * Math.PI) / 180;
+  const n: V3 = [Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)];
+  const root: V3 = [c[0] + n[0] * R[0] * 0.5, c[1] + n[1] * R[1] * 0.5, c[2] + n[2] * R[2] * 0.5];
+  const f = sp.flow ?? [0, 0, 0];
+  let dir: V3 = [n[0] + f[0], n[1] + f[1], n[2] + f[2]];
+  const dl = Math.hypot(...dir);
+  dir = [dir[0] / dl, dir[1] / dl, dir[2] / dl];
+  const len = rayEllipsoid(root, dir, c, R) + sp.len;
+  const B = sp.bend ?? [0, 0, 0];
+  const tip: V3 = [root[0] + (dir[0] + B[0]) * len, root[1] + (dir[1] + B[1]) * len, root[2] + (dir[2] + B[2]) * len];
+  // the centreline is root + (D·t + B·t²)·len: its tangent at t = 1 is D + 2B
+  const td: V3 = [dir[0] + 2 * B[0], dir[1] + 2 * B[1], dir[2] + 2 * B[2]];
+  const tl = Math.hypot(...td) || 1;
+  return { tip, dir: [td[0] / tl, td[1] / tl, td[2] / tl] };
 }
 
 /**
