@@ -7,15 +7,21 @@
 // spikes from the small Hollow hole on the sternum (empty: the hair behind shows through it). Crimson fur
 // ruffs round the neck, the wrists and the ankles; claws on the fingers and toes; the black hakama torn to
 // mid-shin and the white obi. Same skeleton as the Shinigami bodies, so Tensa Zangetsu and the clips fit.
+// The monochrome variant is Hollow Ichigo's own Full Hollow (dossier §2, look 4): the mask and horns black with
+// white lines, the hair white to the waist, black fur, the torn hakama white and the obi black.
 import { ModelBuilder } from '../models/builder';
-import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, halfSpace, intersect, sphere, spike, type V3 } from '../models/sdf';
+import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, halfSpace, intersect, sphere, spike, subtract, type V3 } from '../models/sdf';
 import { SPEC_ADULT_MALE, addBands, hakama, hands, head, humanoidSkeleton, obi, type Landmarks } from './humanoid';
 import type { SpringDef, ColliderDef } from '../anim/springs';
 import type { CharacterAsset } from './ichigo';
 
 const RES = 48;
 
-function palette(b: ModelBuilder): void {
+function palette(b: ModelBuilder, mono: boolean): void {
+  if (mono) {
+    paletteMono(b);
+    return;
+  }
   b.mat('skin', ['#F3EEE8', '#EEE8E2', '#D9D2CA', '#CEC6BE', '#9E968E'], { base: 1, rough: 0.6, shadeK: 0.9 });
   b.mat('mask', ['#F3F1EA', '#EEEBE3', '#DCD8CC', '#C2BDB0', '#A29C8E'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('mark', ['#141418'], { rough: 0.55 });
@@ -29,18 +35,37 @@ function palette(b: ModelBuilder): void {
   b.mat('claw', ['#F3EEE7', '#DDD5CB', '#B9B0A8'], { base: 0, rough: 0.3 });
   b.mat('black', ['#4A4956', '#3A3944', '#24232B', '#1A1A20', '#141418'], { base: 2, rough: 0.92, shadeK: 1, dither: 0.04 });
   b.mat('obi', ['#F1EEE8', '#E2DFD8', '#B8B4AC'], { base: 0, rough: 0.85, dither: 0.04 });
+  b.mat('band', ['#141418'], { rough: 0.55 });
 }
 
-const assetCache: { a?: CharacterAsset } = {};
-
-/** Cached (the revive must not re-run the DSL mid-fight). */
-export function ichigoHollowAsset(): CharacterAsset {
-  return (assetCache.a ??= buildIchigoHollow());
+/** The monochrome Full Hollow: black bone with white lines, white hair, black fur, the hakama white. */
+function paletteMono(b: ModelBuilder): void {
+  b.mat('skin', ['#F1EFE7', '#EAE8DE', '#D5D1C7', '#C1BBB3', '#9D968F'], { base: 1, rough: 0.6, shadeK: 0.9 });
+  b.mat('mask', ['#4A4956', '#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.4, shadeK: 1 });
+  b.mat('mark', ['#EDEBE6'], { rough: 0.5 });
+  b.mat('void', ['#141418'], { rough: 1 });
+  b.mat('iris', ['#F2D84E'], { rough: 0.3, glow: 1.6 });
+  b.mat('teeth', ['#F1EEE6', '#DDD8CC'], { base: 0, rough: 0.35 });
+  b.mat('gap', ['#141418'], { rough: 0.9 });
+  b.mat('horn', ['#4A4956', '#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.4, shadeK: 0.9 });
+  b.mat('hair', ['#F3F3F0', '#EDEBE6', '#DCDCD9', '#C8C8C8', '#A7AAB2'], { base: 1, rough: 0.6, shadeK: 0.85, dither: 0.05 });
+  b.mat('fur', ['#4A4956', '#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.9, shadeK: 0.9, dither: 0.14 });
+  b.mat('claw', ['#F3EEE7', '#DDD5CB', '#B9B0A8'], { base: 0, rough: 0.3 });
+  b.mat('black', ['#F3F2EE', '#ECEBE7', '#D9D9D7', '#C3C5C9', '#A2A6AE'], { base: 1, rough: 0.92, shadeK: 1, dither: 0.04 });
+  b.mat('obi', ['#3A3944', '#2A2930', '#1E1E24'], { base: 1, rough: 0.85, dither: 0.04 });
+  b.mat('band', ['#141418'], { rough: 0.55 });
 }
 
-export function buildIchigoHollow(): CharacterAsset {
-  const b = new ModelBuilder('ichigo-hollow', RES);
-  palette(b);
+const assetCache: { a?: CharacterAsset; mono?: CharacterAsset } = {};
+
+/** Cached (the revive must not re-run the DSL mid-fight). Mono: Hollow Ichigo's own, black and white. */
+export function ichigoHollowAsset(mono = false): CharacterAsset {
+  return mono ? (assetCache.mono ??= buildIchigoHollow(true)) : (assetCache.a ??= buildIchigoHollow());
+}
+
+export function buildIchigoHollow(mono = false): CharacterAsset {
+  const b = new ModelBuilder(mono ? 'ichigo-hollow-mono' : 'ichigo-hollow', RES);
+  palette(b, mono);
   const s = SPEC_ADULT_MALE;
   const L = humanoidSkeleton(b, s, { hakama: true });
   const [wx, wy, wz] = L.wrist;
@@ -49,7 +74,7 @@ export function buildIchigoHollow(): CharacterAsset {
   b.socket('palm.L', 'palm.L', [wx - 0.6, wy - 5, wz + 1]);
   b.socket('chest.front', 'chest', [0, s.chestY + 2.4, 7]);
   b.socket('back', 'chest', [1, 62, -7.5]);
-  const hd = helmet(b, L);
+  const hd = helmet(b, L, mono);
   b.socket('face', 'head', [0, s.chinY + 5.5, hd.front]);
   // the Cero gathers between the horn tips
   b.socket('horns', 'head', [0, s.chinY + 10.5, hd.front + 9]);
@@ -80,7 +105,7 @@ export function buildIchigoHollow(): CharacterAsset {
 // ---------------------------------------------------------------------------------------------- the mask
 
 /** The helmet: the whole head in bone, the face plate flat for the features, the horns and the marks. */
-function helmet(b: ModelBuilder, L: Landmarks): { front: number; chin: number } {
+function helmet(b: ModelBuilder, L: Landmarks, mono = false): { front: number; chin: number } {
   const s = L.spec;
   const hd = head(b, L, 'mask');
   const c = hd.chin, f = hd.front;
@@ -96,6 +121,8 @@ function helmet(b: ModelBuilder, L: Landmarks): { front: number; chin: number } 
     b.carve('head', ellipsoid([ex, c + 5.5, f + 0.2], [1.9, 1.05, 1.7], [0, 0, k * 14]));
     b.paint('head', ellipsoid([ex, c + 5.5, f - 0.8], [2.3, 1.4, 2.2], [0, 0, k * 14]), 'void');
     b.voxel('head', k > 0 ? 2 : -3, c + 5, f - 2, 'iris');
+    // black on black would lose the eye: a white rim round each hollow
+    if (mono) b.paint('head', subtract(ellipsoid([ex, c + 5.5, f - 0.2], [2.9, 1.75, 2.4], [0, 0, k * 14]), ellipsoid([ex, c + 5.5, f - 0.2], [2.2, 1.15, 3], [0, 0, k * 14])), 'mark', { where: b.isMat('mask') });
   }
   // the grin: upper and lower rows of teeth across the jaw, a black seam between them
   const g = b.grid('head');
@@ -220,7 +247,7 @@ function body(b: ModelBuilder, L: Landmarks): void {
     const back = y > sy - 1 ? -z - 4.5 : -z - 1;
     return Math.max(bottom - y, back);
   }, [-16, s.chestY - 8, -8], [16, s.chinY, 10]);
-  b.paint(['chest', 'spine', 'upperarm.L', 'upperarm.R'], band, 'mark', { where: b.isMat('skin') });
+  b.paint(['chest', 'spine', 'upperarm.L', 'upperarm.R'], band, 'band', { where: b.isMat('skin') });
   // the hole: small, at the sternum, clean through
   b.carve(['chest', 'spine'], cylinder([0, hy, -14], [0, hy, 14], 1.9));
 }

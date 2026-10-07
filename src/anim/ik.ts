@@ -147,8 +147,9 @@ export interface LegChain {
   arm: ArmChain;
 }
 
-export function legChain(rig: Rig, side: 'L' | 'R'): LegChain | null {
-  const thigh = rig.index(`thigh.${side}`), shin = rig.index(`shin.${side}`), foot = rig.index(`foot.${side}`);
+/** A leg (thigh → shin → foot); `prefix` names another pair (a centaur's front legs: 'fthigh.L' …). */
+export function legChain(rig: Rig, side: 'L' | 'R', prefix = ''): LegChain | null {
+  const thigh = rig.index(`${prefix}thigh.${side}`), shin = rig.index(`${prefix}shin.${side}`), foot = rig.index(`${prefix}foot.${side}`);
   if (thigh < 0 || shin < 0 || foot < 0) return null;
   const fw = new THREE.Vector3();
   rig.bones[foot].getWorldPosition(fw);

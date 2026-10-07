@@ -12,7 +12,7 @@ import * as THREE from 'three';
 import type { Game, Projectile } from '../game/game';
 import type { Fighter } from '../game/fighter';
 import { BoxShape, CapsuleShape, SphereShape } from '../destruction/shapes';
-import { GetsugaProjectile } from '../game/projectiles/getsuga';
+import { GetsugaProjectile, type GetsugaOpts } from '../game/projectiles/getsuga';
 import type { EnergyColors } from './energy';
 import { groundAt } from './iceArts';
 import { PropMesh } from '../game/characterFactory';
@@ -173,8 +173,8 @@ export function burnAt(g: Game, p: THREE.Vector3, r: number, int = 1, life = 1.4
 /** A burning crescent thrown off a swing; it cuts, and the ground it passes over catches fire. */
 export class FireWave extends GetsugaProjectile {
   private acc = 0;
-  constructor(private gg: Game, owner: Fighter, from: THREE.Vector3, dir: THREE.Vector3, side: THREE.Vector3, big: boolean, colors: EnergyColors = FIRE) {
-    super(gg, owner, from, dir, side, { radius: big ? 5 : 2.8, halfAngle: 1.1, speed: big ? 38 : 46, range: big ? 90 : 60, damage: big ? 140 : 60, cut: big ? 900 : 420, colors, dark: !!colors.dark });
+  constructor(private gg: Game, owner: Fighter, from: THREE.Vector3, dir: THREE.Vector3, side: THREE.Vector3, big: boolean, colors: EnergyColors = FIRE, over: Partial<GetsugaOpts> = {}) {
+    super(gg, owner, from, dir, side, { radius: big ? 5 : 2.8, halfAngle: 1.1, speed: big ? 38 : 46, range: big ? 90 : 60, damage: big ? 140 : 60, cut: big ? 900 : 420, colors, dark: !!colors.dark, ...over });
   }
   override update(dt: number, g: Game): void {
     super.update(dt, g);

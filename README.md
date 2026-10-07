@@ -50,6 +50,43 @@ G state, V flare); press **H** in game for the current character's moves.
     sword. Its moves are Sonído (E), the horn **Cero** (Q), a ground-shattering overhead (RMB) and a roar
     that flattens everything near (R). After about thirty seconds, or when it is beaten, a horn snaps, the
     hole closes and Ichigo comes back to himself with some strength left.
+- **Hollow Ichigo** (Zangetsu, Ichigo's inner Hollow): Ichigo's body with the colours inverted. He has white
+  skin and hair, black eyes with gold irises, a dark grin with a blue tongue, a white shihakushō with a black obi,
+  and a loose, hunched stance with the head cocked. The white Zangetsu has a black edge and hangs on a black
+  cloth, and he fights with it like a flail. His LMB string is two cuts, then the blade flung out on the cloth
+  and yanked back, a great upswing that launches, and a double whirl round him. RMB is the cleave. His moves:
+  - Q: **Getsuga Tenshō**, white with a red lip.
+  - E: **Deadly Darts**. The cleaver flies far on its cloth. E again tugs it onto a new line toward the target,
+    and a third press reels it in.
+  - R: the **flail whirlwind**. For five turns the blade circles him on the cloth and drags everyone near into
+    its path.
+  - G: the **bare hand**. A blade caught in his fist turns white and crumbles, disarming the attacker, and he
+    cuts them down. A Getsuga or Cero is swatted aside, along with any other shot near him.
+  - F: **Bankai**: a white coat lined in black and an all-white Tensa Zangetsu on a chain. The cuts are faster
+    and the Getsuga is bright red. E spins the blade round his hand by its chain and hurls it point first. It
+    impales whoever it hits, and he hauls them in on the chain. R is the **pincer**: red Getsuga from one side,
+    the other side, then from above.
+  - F (in Bankai, below 40% life): the **Full Hollow**, in black and white. It has a black horned mask with white
+    lines, white hair to the waist and black fur, and it regenerates. It fights with claw and blade: the horn
+    **Cero** (Q), Sonído (E), the shattering overhead (RMB) and the roar (R). It lasts thirty seconds, or until a
+    horn breaks.
+  - Passive, **"the king and the horse"**: the longer his opponent hesitates, the harder he hits (up to ×1.45).
+    Blows that land on him tame it.
+- **Isshin Kurosaki**, Ichigo's father, the town doctor and once Captain Isshin Shiba of the 10th Division: tall and
+  broad, spiky black hair, a goatee and stubble. He starts in his gigai, in a white lab coat, and fights the way he
+  wakes his son up. LMB is palm, elbow, knee and the **Isshin Flying Double Knee**; Q leaps that knee in from
+  range. RMB is **Chōhigezutsuki**, the Super Stubble Headbutt, which launches. E is **Oni Dekopin**, a forehead
+  flick that sends a man through the walls behind him. R is field medicine and G a charm that throws up a barrier
+  the next time he is hit.
+  - F: out of the gigai, the **Shinigami**: a black shihakushō and his captain's haori torn down to a sash, with
+    **Engetsu** (red wrap, hexagonal guard, blue tassel). LMB is kendō (men, kote, dō, tsuki), and every cut
+    breaks concrete. RMB is **Agitowari**, one vertical cut from the jaw down that splits what stands before him.
+    Q is his **Getsuga**: short and heavy, it leaves a crater. E is the flick and R the headbutt. G is **Kaikyō
+    Kotei**: four corded rods thrown round him hold whoever stands inside to a crawl.
+  - F again: **"Moero, Engetsu."** The blade and the tassel catch fire, every cut burns, and the Getsuga is a
+    crescent of fire that sets the ground alight. R is the **blood-flame blast**: blood wiped along the blade and
+    a pillar of fire that bursts on what it meets, paid for in his own life. His Bankai was never revealed, so
+    there is none.
 - **Grimmjow Jaegerjaquez**: a street-brawler string, Cero, Gran Rey Cero and Sonído, then **Pantera**
   (a new body, claws that rake grooves into the world, Garra de la Pantera, Desgarrón).
 - **Kuchiki Byakuya**: a clean sword chain and Kidō, then **Senbonzakura**: a thousand-petal swarm streams

@@ -6,6 +6,10 @@ import type { Kit } from './kits/kit';
 import { ICHIGO_DEF, IchigoKit } from './kits/ichigo';
 import { buildCached } from './characterFactory';
 import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
+import { HOLLOW_ICHIGO_DEF, HollowIchigoKit } from './kits/hollowIchigo';
+import { ISSHIN_DEF, IsshinKit } from './kits/isshin';
+import { isshinAsset, isshinProp } from '../chars/isshin';
+import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
 import { grimmjowAsset, grimmjowProp } from '../chars/grimmjow';
 import { BYAKUYA_DEF, ByakuyaKit } from './kits/byakuya';
@@ -94,6 +98,33 @@ export const ROSTER: RosterEntry[] = [
       buildCached(ichigoSword('bankai'), false);
       const sh = hollowMaskShatter();
       for (const m of [hollowMask(), ...sh.cracked, ...sh.shards.map((x) => x.model)]) buildCached(m, false);
+    },
+  },
+  {
+    id: 'hollowichigo',
+    name: 'Hollow Ichigo',
+    kanji: '白一護',
+    title: 'Zangetsu',
+    color: '#e9e6ee',
+    def: () => ({ ...HOLLOW_ICHIGO_DEF, speed: { ...HOLLOW_ICHIGO_DEF.speed } }),
+    kit: (f, g) => new HollowIchigoKit(f, g),
+    warm: () => {
+      buildCached(ichigoAsset('bankai', 'white').model, true);
+      buildCached(ichigoHollowAsset(true).model, true);
+      buildCached(ichigoSword('bankai', 'white'), false);
+    },
+  },
+  {
+    id: 'isshin',
+    name: 'Isshin Kurosaki',
+    kanji: '一心',
+    title: 'Former Captain, 10th Division',
+    color: '#f1d47b',
+    def: () => ({ ...ISSHIN_DEF, speed: { ...ISSHIN_DEF.speed } }),
+    kit: (f, g) => new IsshinKit(f, g),
+    warm: () => {
+      buildCached(isshinAsset('shinigami').model, true);
+      for (const k of ['engetsu', 'saya'] as const) buildCached(isshinProp(k), false);
     },
   },
   {

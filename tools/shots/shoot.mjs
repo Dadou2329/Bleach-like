@@ -66,10 +66,16 @@ const BLACK_GUARD = `(() => {
   };
   for (let i = 0; i < 12; i++) {
     eng.renderFrame(1e-4, 1);
-    if (!black()) return i;
+    if (!black()) {
+      // hold this frame: the live loop must not present another (possibly black) one before the screenshot
+      if (eng.stop) { eng.stop(); window.__shotHeld = true; }
+      return i;
+    }
   }
   return -1;
 })()`;
+// after the screenshot: the loop runs again (meshing and ready() need it)
+const RESUME = `(() => { const eng = window.__reishi && window.__reishi.engine; if (window.__shotHeld && eng && eng.start) { window.__shotHeld = false; eng.start(); } return 1; })()`;
 
 const { base, proc } = await ensureServer();
 const browser = await chromium.launch({
@@ -111,6 +117,7 @@ try {
       if (retries !== 0 && retries !== 'na') black.push(`s${s}:${retries}`);
       // a starved SwiftShader can take a while to hand over a frame; one failed shot must not end the run
       await page.screenshot({ path: out.replace(/\.png$/, `-s${s}.png`), timeout: 180000 }).catch((e) => errors.push(`shot s${s}: ` + e.message.split('\n')[0]));
+      await page.evaluate(RESUME).catch(() => {});
     }
     if (black.length) errors.push('black-frame retries ' + black.join(' '));
     const stats = await page.evaluate(() => (window.__reishi && window.__reishi.stats ? window.__reishi.stats() : null)).catch(() => null);

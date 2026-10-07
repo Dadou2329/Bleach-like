@@ -20,6 +20,11 @@ export const AURA_ICHIGO_SHIKAI: AuraStyle = { core: '#F9FFFF', body: '#7DDFFD',
 export const AURA_ICHIGO_BANKAI: AuraStyle = { core: '#FF8FA0', body: '#B3122E', rim: '#8E1F3F', dark: '#0A0A0C' };
 /** Hollowfied: black reiatsu edged in a hotter crimson */
 export const AURA_ICHIGO_HOLLOW: AuraStyle = { core: '#FF5C73', body: '#A30F27', rim: '#3D0710', dark: '#020203' };
+/** Hollow Ichigo (docs/roster/A1-ichigo.md §2): white reiatsu rimmed red in Shikai, red in Bankai, and in the
+ * Full Hollow black reiatsu with a pale edge */
+export const AURA_WHITE_SHIKAI: AuraStyle = { core: '#FFFFFF', body: '#D9D6E0', rim: '#D41A33' };
+export const AURA_WHITE_BANKAI: AuraStyle = { core: '#FFD3DA', body: '#E81C38', rim: '#7E0A17' };
+export const AURA_WHITE_HOLLOW: AuraStyle = { core: '#F3F3F0', body: '#7D7A88', rim: '#D41A33', dark: '#020203' };
 
 const NOISE = /* glsl */ `
 float auHash(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }

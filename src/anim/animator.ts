@@ -67,6 +67,8 @@ export class Animator {
   private neckHead: number[];
   /** extra per-frame overrides (e.g. root spin for spinning attacks, set by clip channel '@spin') */
   spin = 0;
+  /** how far behind the right hand the left one takes a two-handed grip (m): a lance is held wide */
+  twoHandGap = 0.115;
 
   constructor(readonly rig: Rig, stance: StanceDef, readonly springs: SpringSystem | null = null) {
     this.loco = new Locomotion(rig, stance);
@@ -80,7 +82,7 @@ export class Animator {
       { key: 'R2', chain: armChain(rig, 'R', 'grip2.R', '2'), g: mk([-1, -0.4, -0.4]) },
       { key: 'L2', chain: armChain(rig, 'L', 'grip2.L', '2'), g: mk([1, -0.4, -0.4]) },
     ].filter((x) => x.chain !== null);
-    this.legs = [legChain(rig, 'L'), legChain(rig, 'R')].filter((l): l is LegChain => l !== null);
+    this.legs = [legChain(rig, 'L'), legChain(rig, 'R'), legChain(rig, 'L', 'f'), legChain(rig, 'R', 'f')].filter((l): l is LegChain => l !== null);
     this.chest = rig.index('chest');
     this.rArm = rig.index('upperarm.R');
     this.neckHead = [rig.index('neck'), rig.index('head')].filter((i) => i >= 0);
@@ -239,7 +241,7 @@ export class Animator {
       swordQuat(_d, _e, _q);
       solveArm(this.rig, this.chainR, _g, _q, _p, Math.min(1, G.w));
       if (this.chainL && G.twoHand > 0.01) {
-        _gl.copy(_g).addScaledVector(_d, -0.115);
+        _gl.copy(_g).addScaledVector(_d, -this.twoHandGap);
         _p.set(1, -0.6, -0.2).applyQuaternion(_cq);
         solveArm(this.rig, this.chainL, _gl, _q, _p, Math.min(1, G.twoHand));
       }

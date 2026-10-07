@@ -10,8 +10,14 @@ import {
 import type { SpringDef, ColliderDef } from '../anim/springs';
 
 export type IchigoForm = 'shikai' | 'bankai';
+/** Kurosaki = Ichigo himself; white = Hollow Ichigo, his inner Hollow (dossier §2): the same body, the colours inverted. */
+export type IchigoLook = 'kurosaki' | 'white';
 
-function palette(b: ModelBuilder): void {
+function palette(b: ModelBuilder, look: IchigoLook = 'kurosaki'): void {
+  if (look === 'white') {
+    paletteWhite(b);
+    return;
+  }
   b.mat('skin', ['#F7D9C4', '#E9BBA0', '#C08A74', '#8E5F50'], { base: 1, rough: 0.7, dither: 0.08 });
   b.mat('hair', ['#FFC867', '#FFAD4C', '#F7962F', '#E8792A', '#C2591B', '#8F3E13'], { base: 2, rough: 0.65, shadeK: 0.85 });
   b.mat('brow', ['#C8661F']);
@@ -32,6 +38,38 @@ function palette(b: ModelBuilder): void {
   // Bankai coat: blue-black, crimson lining
   b.mat('coat', ['#46454F', '#34333B', '#1D1C22', '#16151A', '#121115'], { base: 2, rough: 0.8, shadeK: 1, dither: 0.04 });
   b.mat('lining', ['#C23A42', '#9E1F27', '#6E141B'], { base: 1, rough: 0.7 });
+}
+
+/**
+ * Hollow Ichigo, the inverted Ichigo (docs/roster/A1-ichigo.md §2 palette): grey-white skin and white hair, black
+ * sclerae with gold irises, a dark grin with a blue tongue; a white shihakushō over a black collar, black obi and
+ * tabi under white sandals, the kite strap in black. Bankai: the coat white, lined black. Whites stop at #F3F3F0,
+ * so the all-white figure keeps its form in hue-shifted greys (cooler in the hair, warmer in the skin).
+ */
+function paletteWhite(b: ModelBuilder): void {
+  b.mat('skin', ['#F1EFE7', '#EAE8DE', '#D5D1C7', '#C1BBB3', '#9D968F'], { base: 1, rough: 0.7, dither: 0.06 });
+  b.mat('hair', ['#F3F3F0', '#EDEBE6', '#DCDCD9', '#C8C8C8', '#A7AAB2', '#82868F'], { base: 1, rough: 0.65, shadeK: 0.85 });
+  b.mat('brow', ['#8E919A']);
+  b.mat('lid', ['#141418']);
+  b.mat('sclera', ['#141418'], { rough: 0.4 });
+  b.mat('iris', ['#F2D23F'], { rough: 0.3, glow: 0.3 });
+  b.mat('irisD', ['#C8962B'], { rough: 0.3, glow: 0.2 });
+  b.mat('hi', ['#F3F0D8'], { rough: 0.2 });
+  b.mat('mouth', ['#2A2A30']);
+  b.mat('teeth', ['#CFCCC4'], { rough: 0.35 });
+  b.mat('inner', ['#1B1C25']);
+  b.mat('tongue', ['#3A5DB8'], { rough: 0.4 });
+  b.mat('nail', ['#18181C'], { rough: 0.3 });
+  b.mat('black', ['#F3F2EE', '#ECEBE7', '#D9D9D7', '#C3C5C9', '#A2A6AE', '#7F848E'], { base: 1, rough: 0.9, shadeK: 1, dither: 0.04 });
+  b.mat('collar', ['#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.85, dither: 0.04 });
+  b.mat('obi', ['#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.85, dither: 0.04 });
+  b.mat('tabi', ['#3A3944', '#2A2930', '#1E1E24'], { base: 1, rough: 0.85 });
+  b.mat('straw', ['#ECEAE3', '#D6D2C9', '#B2ADA3'], { base: 1, rough: 0.95 });
+  b.mat('cord', ['#3A3944', '#24232B'], { base: 0 });
+  b.mat('red', ['#4A4956', '#2E2D35', '#1A1A20'], { base: 1, rough: 0.6 });
+  b.mat('seam', ['#141418']);
+  b.mat('coat', ['#F3F3F0', '#ECECE9', '#D9DAD8', '#C3C4C5', '#A2A5AA', '#7E8187'], { base: 1, rough: 0.8, shadeK: 1, dither: 0.04 });
+  b.mat('lining', ['#3A3944', '#26252C', '#18181C'], { base: 1, rough: 0.7 });
 }
 
 const CROWN: V3 = [0, 0.32, -0.5];
@@ -87,6 +125,24 @@ const FACE = [
   '. . . . . . . . . .',
 ];
 
+/**
+ * Hollow Ichigo's face, rows 9 → 0 (column 0 is his right): straight brows high over wide-open eyes — black sclera
+ * round a gold iris, darker below — and the grin: a dark crescent from cheek to cheek, a row of pale teeth, the blue
+ * tongue lolling over the lower lip.
+ */
+const FACE_WHITE = [
+  '. . . . . . . . . .',
+  '. b B B . . B B b .',
+  '. L L L . . L L L .',
+  '. W I W . . W I W .',
+  '. W i W . . W i W .',
+  '. . . . . . . . . .',
+  '. m . . . s . . m .',
+  '. . m T T T T m . .',
+  '. . . m U U m . . .',
+  '. . . . . . . . . .',
+];
+
 /** Red kite-link strap (Shikai v1): right shoulder → left hip, around the back. */
 function kiteStrap(b: ModelBuilder): void {
   const A: V3 = [-5, 70.5, 0]; // over the right trapezius
@@ -131,15 +187,18 @@ const assetCache = new Map<string, CharacterAsset>();
 const propCache = new Map<string, VoxelModel>();
 
 /** Cached builds (form swaps must not re-run the DSL mid-fight). */
-export function ichigoAsset(form: IchigoForm): CharacterAsset {
-  let a = assetCache.get(form);
-  if (!a) assetCache.set(form, (a = buildIchigo(form)));
+export function ichigoAsset(form: IchigoForm, look: IchigoLook = 'kurosaki'): CharacterAsset {
+  const key = `${look}:${form}`;
+  let a = assetCache.get(key);
+  if (!a) assetCache.set(key, (a = buildIchigo(form, look)));
   return a;
 }
 
-export function ichigoSword(form: IchigoForm): VoxelModel {
-  let m = propCache.get(form);
-  if (!m) propCache.set(form, (m = form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai()));
+export function ichigoSword(form: IchigoForm, look: IchigoLook = 'kurosaki'): VoxelModel {
+  const key = `${look}:${form}`;
+  const white = look === 'white';
+  let m = propCache.get(key);
+  if (!m) propCache.set(key, (m = form === 'bankai' ? buildTensaZangetsu(white) : buildZangetsuShikai(white)));
   return m;
 }
 
@@ -156,9 +215,10 @@ export function hollowMaskShatter(): Shattered {
   return (maskBroken ??= shatterModel(hollowMask(), { pieces: 9, seed: 11, crack: '#24181A', jitter: 1.2, levels: [0.25, 0.6] }));
 }
 
-export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
-  const b = new ModelBuilder(`ichigo-${form}`, 48);
-  palette(b);
+export function buildIchigo(form: IchigoForm = 'shikai', look: IchigoLook = 'kurosaki'): CharacterAsset {
+  const white = look === 'white';
+  const b = new ModelBuilder(white ? `ichigo-white-${form}` : `ichigo-${form}`, 48);
+  palette(b, look);
   const s = SPEC_ADULT_MALE;
   const L: Landmarks = humanoidSkeleton(b, s, { sleeves: true, hakama: true });
   // sockets: sword grips through the fists (grip axis = +Z), sheath on the back
@@ -175,11 +235,15 @@ export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
   // keep the eyes clear: no hair in front of the eye rows (the face plate itself is at z < front)
   b.carve(['head', 'bangs'], aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
   b.carve(['head', 'bangs'], aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
-  b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
+  if (white) {
+    const legend = { ...faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth', teeth: 'teeth', inner: 'inner' }), U: { mat: 'tongue' } };
+    b.stamp('head', hd.x0, hd.chin + 9, FACE_WHITE, legend, hd.front - 1);
+  } else b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
   // nose: a 1-voxel bump
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
 
   hands(b, L, 'skin');
+  if (white) blackNails(b, L);
   feet(b, L, 'tabi', 'straw', 'cord');
   if (form === 'shikai') {
     const o = { black: 'black', collar: 'collar', skin: 'skin', obi: 'obi' };
@@ -205,6 +269,14 @@ export function buildIchigo(form: IchigoForm = 'shikai'): CharacterAsset {
   return { model: b.build(), springs: [...base.springs.filter((sp) => !sp.bone.startsWith('sleeve')), ...tails.springs], colliders: [...base.colliders, ...tails.colliders], warnings: b.warnings };
 }
 
+/** Hollow Ichigo's black nails: the tips of the open fingers and of the thumb. */
+function blackNails(b: ModelBuilder, L: Landmarks): void {
+  const [wx, wy, wz] = L.wrist;
+  const tip = wy - L.spec.hand + 0.2;
+  b.paint('palm.L', aabb([wx - 2, tip - 1, wz - 2.2], [wx + 2, tip + 0.5, wz + 3]), 'nail', { mirror: true, where: b.isMat('skin') });
+  b.paint('palm.L', aabb([wx - 2.6, wy - 6.6, wz + 2.6], [wx - 0.2, wy - 6, wz + 4.8]), 'nail', { mirror: true, where: b.isMat('skin') });
+}
+
 /** Bankai coat sleeves: long, fitted at the shoulder, flaring to a ragged cuff with crimson inside. */
 function bankaiSleeves(b: ModelBuilder, L: Landmarks): void {
   const s = L.spec;
@@ -227,15 +299,25 @@ function bankaiSleeves(b: ModelBuilder, L: Landmarks): void {
 /**
  * Tensa Zangetsu (Bankai v1): black daitō, manji (卍) guard of four bent prongs, black wrapped handle
  * with rayskin diamonds, short chain with a broken last link. Same local frame as Zangetsu.
+ * White (Hollow Ichigo's): all white — blade, guard and handle — with a pale steel edge and a silver chain.
  */
-export function buildTensaZangetsu(): VoxelModel {
-  const b = new ModelBuilder('tensa-zangetsu', 48);
-  b.mat('blade', ['#3B4250', '#1E2026', '#121215', '#0E0E11'], { base: 2, rough: 0.25, metal: 0.7, shadeK: 0.7 });
-  b.mat('edge', ['#5C6678'], { rough: 0.15, metal: 0.8 });
-  b.mat('guard', ['#2A2A30', '#16161A', '#101013'], { base: 1, rough: 0.4, metal: 0.6 });
-  b.mat('wrap', ['#2E2E33', '#232327', '#18181B'], { base: 1, rough: 0.9 });
-  b.mat('ray', ['#4A4A52']);
-  b.mat('chain', ['#4A4C53', '#2E2F34', '#1C1D21'], { base: 1, rough: 0.35, metal: 0.8 });
+export function buildTensaZangetsu(white = false): VoxelModel {
+  const b = new ModelBuilder(white ? 'tensa-zangetsu-white' : 'tensa-zangetsu', 48);
+  if (white) {
+    b.mat('blade', ['#F3F3F0', '#E7E8EB', '#CDD0D6', '#A9ADB5'], { base: 1, rough: 0.25, metal: 0.45, shadeK: 0.7 });
+    b.mat('edge', ['#AEB6C4'], { rough: 0.15, metal: 0.8 });
+    b.mat('guard', ['#F0F0ED', '#D7D7D5', '#B1B2B5'], { base: 1, rough: 0.4, metal: 0.4 });
+    b.mat('wrap', ['#EDECE8', '#DAD8D3', '#BCBAB4'], { base: 1, rough: 0.9 });
+    b.mat('ray', ['#B9B6AF']);
+    b.mat('chain', ['#E8E9EC', '#C4C7CD', '#999DA6'], { base: 1, rough: 0.35, metal: 0.8 });
+  } else {
+    b.mat('blade', ['#3B4250', '#1E2026', '#121215', '#0E0E11'], { base: 2, rough: 0.25, metal: 0.7, shadeK: 0.7 });
+    b.mat('edge', ['#5C6678'], { rough: 0.15, metal: 0.8 });
+    b.mat('guard', ['#2A2A30', '#16161A', '#101013'], { base: 1, rough: 0.4, metal: 0.6 });
+    b.mat('wrap', ['#2E2E33', '#232327', '#18181B'], { base: 1, rough: 0.9 });
+    b.mat('ray', ['#4A4A52']);
+    b.mat('chain', ['#4A4C53', '#2E2F34', '#1C1D21'], { base: 1, rough: 0.35, metal: 0.8 });
+  }
   b.bone('root', null, [0, 0, 0]);
   // blade: 36 long, 3 wide, 1 thick, clipped point
   const z0 = 7.5, zEnd = 41, zTip = 44.5;
@@ -273,13 +355,21 @@ export function buildTensaZangetsu(): VoxelModel {
 /**
  * Zangetsu, Shikai v1: khyber-knife cleaver as tall as Ichigo (≈1.7 m), no guard, cloth-wrapped tang.
  * Local frame: origin at the grip centre, blade along +Z, edge toward −Y, flat faces ±X.
+ * White (Hollow Ichigo's): inverted — a silver-white blade with a black edge, the tang wrapped in black cloth.
  */
-export function buildZangetsuShikai(): VoxelModel {
-  const b = new ModelBuilder('zangetsu-shikai', 48);
-  b.mat('spine', ['#45454D', '#2B2B31', '#17171B'], { base: 1, rough: 0.35, metal: 0.6, shadeK: 0.6 });
-  b.mat('steel', ['#F5F6F8', '#DADDE2', '#A3A8B1'], { base: 1, rough: 0.22, metal: 0.9, shadeK: 0.6 });
-  b.mat('glint', ['#EEF0F3'], { rough: 0.15, metal: 0.8 });
-  b.mat('cloth', ['#F2EFE9', '#E8E4DC', '#C9CDD3', '#A9B3BE'], { base: 1, rough: 0.9 });
+export function buildZangetsuShikai(white = false): VoxelModel {
+  const b = new ModelBuilder(white ? 'zangetsu-shikai-white' : 'zangetsu-shikai', 48);
+  if (white) {
+    b.mat('spine', ['#F3F3F0', '#E2E4E8', '#C2C6CD', '#9DA2AB'], { base: 1, rough: 0.3, metal: 0.55, shadeK: 0.6 });
+    b.mat('steel', ['#3A3B42', '#25262B', '#17171B'], { base: 1, rough: 0.22, metal: 0.85, shadeK: 0.6 });
+    b.mat('glint', ['#5A5D67'], { rough: 0.15, metal: 0.8 });
+    b.mat('cloth', ['#3A3944', '#2A2930', '#1E1E24', '#141418'], { base: 1, rough: 0.9 });
+  } else {
+    b.mat('spine', ['#45454D', '#2B2B31', '#17171B'], { base: 1, rough: 0.35, metal: 0.6, shadeK: 0.6 });
+    b.mat('steel', ['#F5F6F8', '#DADDE2', '#A3A8B1'], { base: 1, rough: 0.22, metal: 0.9, shadeK: 0.6 });
+    b.mat('glint', ['#EEF0F3'], { rough: 0.15, metal: 0.8 });
+    b.mat('cloth', ['#F2EFE9', '#E8E4DC', '#C9CDD3', '#A9B3BE'], { base: 1, rough: 0.9 });
+  }
   b.bone('root', null, [0, 0, 0]);
   const z0 = 5.5, zEdgeEnd = 66, zTip = 75.5;
   const yS = 5, yE = -5.5;

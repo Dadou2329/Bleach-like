@@ -41,6 +41,12 @@ export interface StanceDef {
   freqScale?: number;
   /** speed scale for gait selection (giants walk at "high" speeds): speeds are divided by this */
   speedScale?: number;
+  /**
+   * A four-legged body (a centaur): 'hips' is the animal's body, the hind legs are 'thigh/shin/foot' and the
+   * front legs 'fthigh/fshin/ffoot'. The gait walks (four beats), trots (diagonal pairs) and gallops (the
+   * pairs nearly together, the body rocking); the human torso on top keeps its own lean and arms.
+   */
+  quad?: { stride?: number; rock?: number };
 }
 
 export interface LocoInput {
@@ -84,6 +90,22 @@ const AIR_DOWN: Record<string, Euler3> = {
 };
 
 const TAU = Math.PI * 2;
+
+/** a centaur in the air: front legs tucked and hind legs thrown back (rising), all four reaching (falling) */
+const QUAD_AIR_UP: Record<string, Euler3> = {
+  'fthigh.L': [-62, 0, 0], 'fshin.L': [105, 0, 0], 'ffoot.L': [30, 0, 0],
+  'fthigh.R': [-56, 0, 0], 'fshin.R': [98, 0, 0], 'ffoot.R': [30, 0, 0],
+  'thigh.L': [34, 0, 0], 'shin.L': [12, 0, 0], 'foot.L': [10, 0, 0],
+  'thigh.R': [38, 0, 0], 'shin.R': [10, 0, 0], 'foot.R': [10, 0, 0],
+  hips: [-6, 0, 0], spine: [8, 0, 0], 'upperarm.L': [-20, 0, 30], 'forearm.L': [-35, 0, 0],
+};
+const QUAD_AIR_DOWN: Record<string, Euler3> = {
+  'fthigh.L': [-34, 0, 0], 'fshin.L': [22, 0, 0], 'ffoot.L': [-8, 0, 0],
+  'fthigh.R': [-28, 0, 0], 'fshin.R': [18, 0, 0], 'ffoot.R': [-8, 0, 0],
+  'thigh.L': [-22, 0, 0], 'shin.L': [38, 0, 0], 'foot.L': [-6, 0, 0],
+  'thigh.R': [-16, 0, 0], 'shin.R': [32, 0, 0], 'foot.R': [-6, 0, 0],
+  hips: [5, 0, 0], spine: [-4, 0, 0], 'upperarm.L': [-10, 0, 45], 'forearm.L': [-25, 0, 0],
+};
 
 export class Locomotion {
   phase = 0;
@@ -167,7 +189,9 @@ export class Locomotion {
     const thigh = g('thigh'), knee = g('knee'), kneeSt = g('kneeSt');
     const air = W.air;
     const ground = 1 - air;
-    for (const side of ['L', 'R'] as const) {
+    const quad = st.quad;
+    if (quad) this.quadLegs(quad.stride ?? 0.8, ground, move);
+    else for (const side of ['L', 'R'] as const) {
       const s = side === 'L' ? sL : -sL;
       const c = side === 'L' ? cL : -cL;
       const sg = side === 'L' ? 1 : -1;
@@ -180,21 +204,27 @@ export class Locomotion {
     }
     // strafing: twist legs toward the movement direction, torso stays on target
     const strafeDeg = (this.strafe * 180) / Math.PI * move;
-    this.add('hips', 0, strafeDeg * 0.6, 0);
-    this.add('spine', 0, -strafeDeg * 0.35, 0);
-    this.add('chest', 0, -strafeDeg * 0.25, 0);
+    this.add('hips', 0, strafeDeg * (quad ? 0.45 : 0.6), 0);
+    this.add('spine', 0, -strafeDeg * (quad ? 0.25 : 0.35), 0);
+    this.add('chest', 0, -strafeDeg * (quad ? 0.2 : 0.25), 0);
 
-    const hipYaw = g('hipYaw'), chestYaw = g('chestYaw');
-    this.add('hips', 0, -hipYaw * sL, this.bank * 0.6, ground);
+    // a four-legged body does not twist with its stride: it rocks (the gallop) and the rider's torso rides it
+    const hipYaw = g('hipYaw') * (quad ? 0.15 : 1), chestYaw = g('chestYaw') * (quad ? 0.3 : 1);
+    this.add('hips', 0, -hipYaw * sL, this.bank * (quad ? 0.35 : 0.6), ground);
     this.add('spine', 0, hipYaw * 0.5 * sL, 0, ground);
     this.add('chest', 0, (hipYaw * 0.5 + chestYaw) * sL, 0, ground);
-    const lean = g('lean') + this.lean;
+    if (quad) {
+      const rock = (quad.rock ?? 5) * (W.sprint + W.run * 0.3);
+      this.add('hips', rock * Math.sin(TAU * p + 0.6), 0, 0, ground);
+      this.add('spine', -rock * 0.7 * Math.sin(TAU * p + 0.6), 0, 0, ground);
+    }
+    const lean = (g('lean') + this.lean) * (quad ? 0.45 : 1);
     this.add('spine', lean * 0.55, 0, -this.bank * 0.25);
     this.add('chest', lean * 0.45, 0, -this.bank * 0.15);
     this.add('head', -lean * 0.75, -(hipYaw * 0.5 + chestYaw) * sL * 0.6, this.bank * 0.2);
     this.add('neck', -lean * 0.15, 0, 0);
-    // arms: free arm swings against its leg; the weapon arm is IK'd (swing as fallback)
-    const arm = g('arm'), elbow = g('elbow');
+    // arms: free arm swings against its leg; the weapon arm is IK'd (swing as fallback); a centaur's arms ride
+    const arm = g('arm') * (quad ? 0.25 : 1), elbow = g('elbow') * (quad ? 0.35 : 1);
     this.add('upperarm.L', arm * sL * (st.swingL ?? 1), 0, 6 * move, ground);
     this.add('forearm.L', -elbow - arm * 0.35 * Math.max(0, sL), 0, 0, ground);
     this.add('upperarm.R', -arm * sL * (st.swingR ?? 1), 0, -6 * move, ground);
@@ -205,8 +235,8 @@ export class Locomotion {
     // ---- air: blend toward tuck (rising) / extended (falling)
     if (air > 0.001) {
       const up = W.rise;
-      for (const [n, v] of Object.entries(AIR_UP)) this.add(n, v[0], v[1], v[2], air * up);
-      for (const [n, v] of Object.entries(AIR_DOWN)) this.add(n, v[0], v[1], v[2], air * (1 - up));
+      for (const [n, v] of Object.entries(quad ? QUAD_AIR_UP : AIR_UP)) this.add(n, v[0], v[1], v[2], air * up);
+      for (const [n, v] of Object.entries(quad ? QUAD_AIR_DOWN : AIR_DOWN)) this.add(n, v[0], v[1], v[2], air * (1 - up));
       this.add('chest', 0, 0, 0);
     }
 
@@ -214,6 +244,37 @@ export class Locomotion {
     for (const [i, e] of this.E) pose.setEuler(i, e[0], e[1], e[2]);
     const bob = W.walk * WALK.bob * Math.cos(2 * TAU * p) + (W.run * RUN.bob + W.sprint * SPRINT.bob) * Math.cos(2 * TAU * p);
     pose.hips.set(0, (st.idleHips ?? 0) * idleW + bob * ground - 0.05 * move * ground - 0.02 * air, 0);
+  }
+
+  /**
+   * The four legs of a centaur on one phase: a four-beat walk (each front leg a quarter cycle after its hind
+   * leg), a trot (diagonal pairs together) and a gallop (each pair nearly together, the fronts after the
+   * hinds). Each leg swings like a human one (thigh forward, the lower leg folding back under it).
+   */
+  private quadLegs(stride: number, ground: number, move: number): void {
+    const W = this.w;
+    const tot = W.walk + W.run + W.sprint || 1;
+    const wW = W.walk / tot, wR = W.run / tot, wS = W.sprint / tot;
+    // where each leg sits in the cycle
+    const pairOff = 0.5 * (wW + wR) + 0.12 * wS; // left → right of a pair
+    const frontOff = 0.25 * wW + 0.5 * wR + 0.62 * wS; // hind → front, same side
+    const g = (key: 'thigh' | 'knee' | 'kneeSt') => (W.walk * WALK[key] + W.run * RUN[key] + W.sprint * SPRINT[key]) * stride;
+    const thigh = g('thigh'), knee = g('knee'), kneeSt = g('kneeSt');
+    const legs: [string, string, number, number][] = [
+      ['', 'L', 0, 1], ['', 'R', pairOff, -1], ['f', 'L', frontOff, 1], ['f', 'R', frontOff + pairOff, -1],
+    ];
+    for (const [pre, side, off, sg] of legs) {
+      const a = TAU * (this.phase + off);
+      const s = Math.sin(a), c = Math.cos(a);
+      const swing = Math.max(0, c);
+      // the front legs reach further forward and fold higher (the knee lifts); the hinds push off further back
+      const front = pre === 'f';
+      const tx = -thigh * s * (front ? 1.05 : 0.95) + (front ? 0 : 4 * move);
+      const kx = knee * Math.pow(swing, 1.35) * (front ? 1.15 : 0.9) + kneeSt * Math.max(0, -c) * 0.5 + kneeSt * 0.3 * move;
+      this.add(`${pre}thigh.${side}`, tx, 0, sg * 1.5 * move, ground);
+      this.add(`${pre}shin.${side}`, kx, 0, 0, ground);
+      this.add(`${pre}foot.${side}`, -0.6 * (tx + kx) + (s < -0.6 ? 14 * move : 0), 0, 0, ground);
+    }
   }
 
   /** Weapon grip target for the current blend (chest space). */

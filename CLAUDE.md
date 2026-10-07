@@ -33,7 +33,8 @@ scope and milestones and `README.md` for controls and modes.
   −forearm X, the torso bends forward with +X, and +Y turns left.
 - Gameplay: `game/game.ts` provides combat services (blade sweeps cut the world and hit fighters; damage,
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
-  Kits are in `game/kits/`, AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
+  Kits are in `game/kits/` (`vasto.ts`: the Full Hollow's moves, shared by Ichigo and Hollow Ichigo, whose models are
+  Ichigo's with `look: 'white'`), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `sealT/sealK`
   (power rejected: no releases or states, strength cut); `game.drain()` is damage over time without hitstun.
@@ -63,6 +64,10 @@ scope and milestones and `README.md` for controls and modes.
   its mist dome), `vfx/almighty.ts` (Yhwach: Zeichen bursts, Sankt Bogen and Qual Kreis bows of light, the Blut Vene
   Anhaben shell, sand, shadow spikes, future wounds, eye beams, the Zeichen emblem whose eye fires a CeroBeam, the
   eye swarm, Auswählen) and
+  `vfx/shiro.ts` (Hollow Ichigo: `TetherBlade`, a sword off the hand on a cloth or chain — thrown, steered,
+  orbited round a centre, stuck in a fighter and hauled back — and `Corrosion` of a caught blade), `vfx/engetsu.ts`
+  (Isshin: Engetsu's blade and tassel flames, the blood-flame pillar, the Kaikyō Kotei field, `Plow` — a flicked
+  fighter smashing through walls) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
