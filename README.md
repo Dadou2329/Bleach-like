@@ -210,6 +210,26 @@ G state, V flare); press **H** in game for the current character's moves.
   Oscuras**, which tunnels through the town.
 - **Ulquiorra, Segunda Etapa**: claws, a tail whip, a head-grab rush through buildings, and **Lanza del
   Relámpago**, whose explosion swallows a block. He regenerates while his reiatsu lasts.
+- **Coyote Starrk**, the Primera Espada: a tired slouch, the jacket's collar turned up round the bone jaw at his
+  throat, the katana hanging loose. **Lilynette**, the other half of his soul, follows him around with her
+  fists on her hips. His lazy cuts land clean, and his Cero needs no pose and no charge. His sealed moves:
+  - RMB: a **Cero** out of the open left hand, at once.
+  - Q: the same **Cero** out of his chest, point-blank and much bigger.
+  - E: **Sonído**. He is simply somewhere else, behind the target, and the afterimages he left draw its attack.
+  - R: **Lilynette** picks a fight: a flying kick, the horn, her scimitar drawn out of the stump of her snapped
+    horn, or her feeble green Cero from further off.
+  - G: the left glove comes off to show the **1**, and he stops pretending: harder hits, shorter cooldowns.
+  - F: **"Kechirase, Los Lobos"**. His hand on Lilynette's head, she comes apart in blue reiatsu into his two
+    pistols and the eyepiece over his left eye. The fur and the bandoleers come in, and his wounds close.
+- **Starrk, Los Lobos**: gun-kata on LMB (the right gun heavy, the left quick, a pistol-whip). His moves:
+  - RMB: the charged right-hand Cero.
+  - Q: **Cero Metralleta**. A ring of charge points blooms round the right barrel and keeps firing until the
+    shots fuse into one beam, which he steers.
+  - E: the left gun sprayed across in a fan of small Ceros.
+  - R: the **wolves** pour out of the bandoleers on his back. They hunt along the ground, some burrow and come
+    up under the target, then they stretch to lunge, bite and explode.
+  - G: **Colmillo**, the reishi sword drawn out of the bandoleer on his arm (G again for the gun).
+  - F: Lilynette fires the guns on her own for a while.
 - **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
   back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
   stay on the battlefield and can be broken again.
@@ -243,7 +263,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed][&fan=1][&eyes=open][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

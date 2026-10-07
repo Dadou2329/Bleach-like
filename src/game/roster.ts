@@ -33,6 +33,8 @@ import { YAMAMOTO_DEF, YamamotoKit } from './kits/yamamoto';
 import { GIN_DEF, GinKit } from './kits/gin';
 import { SUIFENG_DEF, SuifengKit } from './kits/suifeng';
 import { KYORAKU_DEF, KyorakuKit } from './kits/kyoraku';
+import { STARRK_DEF, StarrkKit } from './kits/starrk';
+import { lilynetteAsset, starrkAsset, starrkProp } from '../chars/starrk';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -252,6 +254,21 @@ export const ROSTER: RosterEntry[] = [
       buildCached(ulquiorraAsset('murcielago').model, true);
       buildCached(ulquiorraAsset('segunda').model, true);
       for (const k of ['katana', 'sheath-empty', 'luz', 'lanza'] as const) buildCached(ulquiorraProp(k), false);
+    },
+  },
+  {
+    id: 'starrk',
+    name: 'Coyote Starrk',
+    kanji: '群狼',
+    title: 'Primera Espada',
+    color: '#6db6ff',
+    def: () => ({ ...STARRK_DEF, speed: { ...STARRK_DEF.speed } }),
+    kit: (f, g) => new StarrkKit(f, g),
+    warm: () => {
+      buildCached(lilynetteAsset().model, true);
+      buildCached(starrkAsset('glove').model, true);
+      buildCached(starrkAsset('lobos').model, true);
+      for (const k of ['gunR', 'gunL', 'colmillo', 'wolf', 'lilyBlade'] as const) buildCached(starrkProp(k), false);
     },
   },
   {

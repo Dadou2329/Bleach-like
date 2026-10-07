@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow';
+  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -449,6 +449,74 @@ export class Sfx {
         const gn = ctx.createGain();
         this.env(gn, t, 0.001, 0.35, 0.06);
         n.connect(hp).connect(gn).connect(o);
+        break;
+      }
+      case 'gunshot': {
+        // a Cero out of a pistol: a hard thump, a bright crack and a short falling zap
+        const o = this.out(pos, 0.42 * I, 90);
+        if (!o) return;
+        const k = ctx.createOscillator();
+        k.type = 'sine';
+        k.frequency.setValueAtTime(150, t);
+        k.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+        const gk = ctx.createGain();
+        this.env(gk, t, 0.002, 0.9, 0.14);
+        k.connect(gk).connect(o);
+        k.start(t);
+        k.stop(t + 0.2);
+        const n = this.noise(0.08);
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = 2400;
+        bp.Q.value = 0.7;
+        const gn = ctx.createGain();
+        this.env(gn, t, 0.001, 0.7, 0.07);
+        n.connect(bp).connect(gn).connect(o);
+        const z = ctx.createOscillator();
+        z.type = 'sawtooth';
+        z.frequency.setValueAtTime(1800, t);
+        z.frequency.exponentialRampToValueAtTime(260, t + 0.16);
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 2200;
+        const gz = ctx.createGain();
+        this.env(gz, t, 0.002, 0.22, 0.16);
+        z.connect(lp).connect(gz).connect(o);
+        z.start(t);
+        z.stop(t + 0.22);
+        break;
+      }
+      case 'howl': {
+        // the pack: three wolf voices rising together, wavering, falling away
+        const o = this.out(pos, 0.3 * I, 120);
+        if (!o) return;
+        for (let i = 0; i < 3; i++) {
+          const t0 = t + i * 0.09;
+          const dur = 1.3 + i * 0.2;
+          const f0 = 330 + i * 70 + Math.random() * 20;
+          const s = ctx.createOscillator();
+          s.type = 'triangle';
+          s.frequency.setValueAtTime(f0 * 0.7, t0);
+          s.frequency.exponentialRampToValueAtTime(f0 * 1.25, t0 + dur * 0.35);
+          s.frequency.exponentialRampToValueAtTime(f0 * 0.8, t0 + dur);
+          const vib = ctx.createOscillator();
+          vib.frequency.value = 5.5 + i;
+          const vg = ctx.createGain();
+          vg.gain.value = f0 * 0.02;
+          vib.connect(vg).connect(s.frequency);
+          const lp = ctx.createBiquadFilter();
+          lp.type = 'lowpass';
+          lp.frequency.value = 1600;
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, t0);
+          g.gain.exponentialRampToValueAtTime(0.35, t0 + dur * 0.3);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+          s.connect(lp).connect(g).connect(o);
+          s.start(t0);
+          vib.start(t0);
+          s.stop(t0 + dur + 0.1);
+          vib.stop(t0 + dur + 0.1);
+        }
         break;
       }
       case 'purify': {

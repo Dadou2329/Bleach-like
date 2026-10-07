@@ -70,6 +70,7 @@ export function createCharMaterial(palette: THREE.Texture, params: THREE.Texture
   mat.envMap = envMap;
   mat.envMapIntensity = 0.55;
   live.add(mat);
+  mat.addEventListener('dispose', () => live.delete(mat));
   const uniforms: CharUniforms = {
     uPalette: { value: palette },
     uParams: { value: params },
