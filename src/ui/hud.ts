@@ -40,6 +40,8 @@ const CSS = `
 #hud .ab .tm { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--tint, #7ddffd); transform-origin: left; transform: scaleX(0); }
 #hud .vig { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 52%, rgba(40,0,6,.5) 82%, rgba(12,0,2,.85) 100%); }
 #hud .blind { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(8,7,10,.9) 0%, rgba(3,3,4,.97) 60%, rgba(0,0,0,1) 100%); }
+#hud .sakasama { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(246,163,199,0) 45%, rgba(246,163,199,.28) 75%, rgba(214,92,150,.55) 100%); }
+#hud .iff { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(226,178,58,0) 50%, rgba(226,178,58,.18) 78%, rgba(160,40,60,.5) 100%); }
 #hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; white-space: nowrap; }
 #hud .callout .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
 #hud .callout .rm { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(16px, 2.2vw, 28px); letter-spacing: 6px; margin-top: 8px; text-shadow: 0 2px 0 #000; }
@@ -99,6 +101,14 @@ export class Hud {
   /** Enma Kōrogi: the player's senses gone; a blow felt lets a glimpse through */
   private blindEl: HTMLElement;
   private blindLevel = 0;
+  /** the Inverted World: the player's view turned upside down (the canvas rolls over), pink at the edges */
+  private invEl: HTMLElement;
+  private invLevel = 0;
+  /** the canvas roll now (degrees), for projecting HUD marks onto the turned view */
+  private roll = 0;
+  /** Happōfusagari: friend and foe reversed — a gold and crimson edge */
+  private iffEl: HTMLElement;
+  private iffLevel = 0;
   private touchT = 0;
   private lastHp = -1;
   private vigLevel = 0;
@@ -112,6 +122,8 @@ export class Hud {
     this.root.innerHTML = `
       <div class="vig"></div>
       <div class="blind"></div>
+      <div class="sakasama"></div>
+      <div class="iff"></div>
       <div class="plate"><span class="name"></span><span class="form"></span>
         <div class="bar hp"><b></b><i></i></div><div class="bar rei"><i></i></div></div>
       <div class="abil"></div>
@@ -138,6 +150,8 @@ export class Hud {
     this.boss = q('.boss');
     this.vigEl = q('.vig');
     this.blindEl = q('.blind');
+    this.invEl = q('.sakasama');
+    this.iffEl = q('.iff');
     game.hud = this;
   }
 
@@ -183,7 +197,15 @@ export class Hud {
     const cam = this.game.engine.gr.camera;
     const v = p.clone().project(cam);
     const w = this.root.clientWidth, h = this.root.clientHeight;
-    return { x: (v.x * 0.5 + 0.5) * w, y: (-v.y * 0.5 + 0.5) * h, vis: v.z < 1 && v.z > -1 };
+    let x = (v.x * 0.5 + 0.5) * w, y = (-v.y * 0.5 + 0.5) * h;
+    if (this.roll !== 0) {
+      // the canvas is turned (the Inverted World): turn the mark with it about the screen centre
+      const a = (this.roll * Math.PI) / 180, k = 1 + 0.8 * Math.abs(Math.sin(a));
+      const dx = (x - w / 2) * k, dy = (y - h / 2) * k;
+      x = w / 2 + dx * Math.cos(a) - dy * Math.sin(a);
+      y = h / 2 + dx * Math.sin(a) + dy * Math.cos(a);
+    }
+    return { x, y, vis: v.z < 1 && v.z > -1 };
   }
 
   update(dt: number): void {
@@ -235,6 +257,22 @@ export class Hud {
     this.touchT = Math.max(0, this.touchT - dt);
     this.blindLevel += (blind - this.blindLevel) * Math.min(1, dt * (blind ? 6 : 3));
     this.blindEl.style.opacity = (this.blindLevel * (1 - (this.touchT / 0.22) * 0.55)).toFixed(3);
+    // the Inverted World: the whole view rolls over (the HUD stays upright), with a slow sway of vertigo
+    const inv = pl && pl.invertT > 0 && !pl.dead ? 1 : 0;
+    this.invLevel += (inv - this.invLevel) * Math.min(1, dt * (inv ? 3.2 : 2.6));
+    if (this.invLevel < 0.002 && !inv) this.invLevel = 0;
+    const turn = this.invLevel * this.invLevel * (3 - 2 * this.invLevel);
+    const roll = turn * 180 + (inv ? Math.sin(performance.now() * 0.0013) * 2.2 * turn : 0);
+    if (Math.abs(roll - this.roll) > 0.01 || (roll === 0 && this.roll !== 0)) {
+      this.roll = roll;
+      const k = 1 + 0.8 * Math.abs(Math.sin((roll * Math.PI) / 180));
+      const cv = this.game.engine.gr.renderer.domElement;
+      cv.style.transform = roll === 0 ? '' : `rotate(${roll.toFixed(2)}deg) scale(${k.toFixed(3)})`;
+    }
+    this.invEl.style.opacity = (this.invLevel * 0.95).toFixed(3);
+    const iff = pl && pl.iffT > 0 && !pl.dead ? 1 : 0;
+    this.iffLevel += (iff - this.iffLevel) * Math.min(1, dt * 3);
+    this.iffEl.style.opacity = this.iffLevel.toFixed(3);
     // callout
     if (this.calloutT > 0) {
       this.calloutT -= dt;

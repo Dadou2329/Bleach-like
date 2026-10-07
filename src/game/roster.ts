@@ -55,6 +55,9 @@ import { jizoAsset } from '../chars/mayuriBankai';
 import { UNOHANA_DEF, UnohanaKit } from './kits/unohana';
 import { unohanaAsset, unohanaProp } from '../chars/unohana';
 import { mantaAsset } from '../chars/unohanaMinazuki';
+import { SHINJI_DEF, ShinjiKit } from './kits/shinji';
+import { shinjiProp } from '../chars/shinji';
+import { flowerAsset } from '../chars/shinjiFlower';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -208,6 +211,16 @@ export const ROSTER: RosterEntry[] = [
       buildCached(mantaAsset().model, true);
       for (const k of ['bankai', 'dagger'] as const) buildCached(unohanaProp(k), false);
     },
+  },
+  {
+    id: 'shinji',
+    name: 'Shinji Hirako',
+    kanji: '平子',
+    title: 'Leader of the Visored',
+    color: '#f6a3c7',
+    def: () => ({ ...SHINJI_DEF, speed: { ...SHINJI_DEF.speed } }),
+    kit: (f, g) => new ShinjiKit(f, g),
+    warm: () => { buildCached(flowerAsset().model, true); for (const k of ['shikai', 'bankai', 'mask'] as const) buildCached(shinjiProp(k), false); },
   },
   {
     id: 'yoruichi',

@@ -136,7 +136,7 @@ const cut5 = cut('sh_cut5', {
 /** RMB: the two-handed draw-cut, level and long, a step through */
 const draw = cut('sh_draw', {
   dur: 0.8, step: 0.14, hit: 0.26,
-  swing: { a: [0, 0, 1], b: [1, -0.05, 0], c: [-0.08, 0.02, 0.08], r: 0.42, sense: 1, pole: [-0.5, -0.65, -0.55], twoHand: [0, 1, 1, 1, 0], keys: [[0, -100, 'out'], [0.18, -150, 'inOut'], [0.27, 40, 'outExpo'], [0.42, 100, 'out'], [0.8, 60, 'inOut']] },
+  swing: { a: [0, 0, 1], b: [1, -0.05, 0], c: [-0.08, 0.02, 0.08], r: 0.42, sense: 1, pole: [-0.5, -0.65, -0.55], twoHand: [0, 1, 1, 1, 0], keys: [[0, -100, 'out'], [0.18, -150, 'inOut'], [0.3, 40, 'out'], [0.44, 100, 'out'], [0.8, 60, 'inOut']] },
   wind: { hips: [0, -30, 4], spine: [4, -14, 0], chest: [4, -20, -2], head: [-4, 24, 8], 'thigh.L': [-10, 0, 7], 'thigh.R': [14, 0, -3], 'shin.R': [22, 0, 0], 'upperarm.L': [-40, -30, 20], 'forearm.L': [-60, 0, 0] },
   strike: { hips: [8, 24, 4], spine: [10, 14, 0], chest: [8, 24, -2], head: [-8, -20, 8], 'thigh.L': [-48, 0, 7], 'shin.L': [52, 0, 0], 'thigh.R': [28, 0, -3], 'shin.R': [22, 0, 0] },
   windHips: [0, -0.06, -0.04], strikeHips: [0, -0.16, 0.22],

@@ -53,7 +53,7 @@ function palette(b: ModelBuilder): void {
   b.mat('inner', ['#5E2028']);
   b.mat('shirt', ['#F3F3F0', '#E8E8E4', '#D6D6D2', '#BDBEC3', '#9FA1A9'], { base: 1, rough: 0.75, shadeK: 0.9 });
   b.mat('tie', ['#3A3A46', '#2A2A34', '#1F1F27', '#16161C'], { base: 1, rough: 0.6 });
-  b.mat('slacks', ['#9A9DA5', '#7E8189', '#666970', '#4E5056'], { base: 1, rough: 0.85, shadeK: 0.9 });
+  b.mat('slacks', ['#8C8F97', '#7A7D85', '#64676E', '#4E5056'], { base: 1, rough: 0.85, shadeK: 0.9 });
   b.mat('belt', ['#3A302A', '#2B2522', '#1E1A18'], { base: 1, rough: 0.5 });
   b.mat('buckle', ['#D4D8DE', '#A9AEB6'], { base: 0, rough: 0.3, metal: 0.8 });
   b.mat('shoe', ['#5A4434', '#3B2B22', '#2A1F18', '#1A1410'], { base: 1, rough: 0.4, shadeK: 0.85 });
@@ -164,10 +164,10 @@ function shirt(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
   const ey = L.elbow[1], wy = L.wrist[1];
   // the open neck: a V down to the second button
   const neck = intersect(ellipsoid([0, s.chinY - 4, 3.2], [3, 4.6, 5.5]), halfSpace([0, 0, 0], [0, 0, -1]));
-  const shell = subtract(offset(torso, 0.9), neck);
-  addBands(b, intersect(shell, aabb([-30, s.waistY - 6, -30], [30, 90, 30])), 'shirt', [['hips', s.waistY - 6, s.waistY - 5], ['spine', s.waistY - 5, s.chestY - 6], ['chest', s.chestY - 6, 90]]);
+  const shell = subtract(offset(torso, 1.0), offset(torso, -1.0), neck);
+  addBands(b, intersect(shell, aabb([-30, s.waistY - 6, -30], [30, 90, 30])), 'shirt', [['hips', s.waistY - 6, s.waistY - 4], ['spine', s.waistY - 5, s.chestY - 4], ['chest', s.chestY - 6, 90]]);
   // the collar: a folded band standing round the neck, its points lying open on the chest
-  const ring = intersect(torus([0, s.chinY - 3.6, L.headC[2] - 0.6], 3.4, 1.1, [90, 0, 0]), halfSpace([0, 0, 2.6], [0, 0, 1]));
+  const ring = intersect(torus([0, s.chinY - 4.2, L.headC[2] - 0.8], 3.3, 1.0), halfSpace([0, 0, 2.2], [0, 0, 1]));
   b.add('chest', ring, 'shirt', { thr: 0.2 });
   for (const k of [1, -1]) {
     const pt = smoothPath([[k * 3.2, s.chinY - 3.2, 1.6], [k * 3.0, s.chinY - 5.0, 3.6], [k * 1.8, s.chinY - 7.4, 4.4]], 3);
@@ -176,17 +176,14 @@ function shirt(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
   // the placket and its buttons (the tie hangs over most of them)
   b.paint(['chest', 'spine'], aabb([-0.5, s.waistY - 6, 2], [0.5, s.chinY - 7.5, 9]), 'shirt', { shade: 2, where: b.isMat('shirt') });
   // sleeves: loose, folds at the elbow, cuffs at the wrist
-  b.add('upperarm.L', blend(1.4, sphere([sx, sy - 0.6, sz], 3.6), capsule([sx, sy - 1, sz], [sx, ey + 0.5, sz], 3.0, 2.6)), 'shirt', { mirror: true });
+  b.add('upperarm.L', blend(1.4, sphere([sx, sy - 1.1, sz], 3.2), capsule([sx, sy - 1.2, sz], [sx, ey + 0.5, sz], 3.0, 2.6)), 'shirt', { mirror: true });
   b.add('forearm.L', blend(1.2, sphere([sx, ey, sz], 2.8), capsule([sx, ey - 0.5, sz], [sx, wy + 1.8, sz], 2.8, 2.4)), 'shirt', { mirror: true });
   b.add('forearm.L', cylinder([sx, wy + 0.4, sz], [sx, wy + 2.4, sz], 2.55), 'shirt', { mirror: true });
   b.paint('forearm.L', cylinder([sx, wy + 2.2, sz], [sx, wy + 2.7, sz], 2.9), 'shirt', { shade: 3, mirror: true, where: b.isMat('shirt') });
   b.add('forearm.L', capsule([sx, wy + 3, sz], [sx, wy - 0.4, sz], 1.6), 'skin', { mirror: true, only: 'empty' });
   b.paint('upperarm.L', capsule([sx + 2.6, ey + 2.5, sz + 1.6], [sx + 2.8, ey - 0.5, sz - 1.4], 0.55), 'shirt', { shade: 3, mirror: true, where: b.isMat('shirt') });
   // creases: under the arms, and pulled toward the belt where it is tucked in
-  for (const k of [1, -1]) {
-    b.paint('chest', capsule([k * 5.5, s.chestY - 2, s.chest[1] + 0.8], [k * 3, s.waistY + 2, s.waist[1] + 0.9], 0.6), 'shirt', { shade: 3, where: b.isMat('shirt') });
-    b.paint('spine', capsule([k * 4.5, s.waistY + 1, s.waist[1] + 1], [k * 2, s.waistY - 4, s.waist[1] + 0.9], 0.55), 'shirt', { shade: 3, where: b.isMat('shirt') });
-  }
+  for (const k of [1, -1]) b.paint('spine', capsule([k * 4.2, s.waistY + 0.5, s.waist[1] + 1], [k * 2.2, s.waistY - 3.5, s.waist[1] + 0.9], 0.5), 'shirt', { shade: 2, where: b.isMat('shirt') });
 }
 
 /** The loose dark tie: the knot pulled down from the collar, the blade hanging down the placket to the belt. */
@@ -227,7 +224,6 @@ function slacks(b: ModelBuilder, L: Landmarks): void {
   b.add('shin.L', blend(1.2, sphere([kx, ky, kz], 3.5), capsule([kx, ky, kz], [ax, ay + 1.6, az], 3.4, 3.3)), 'slacks', { mirror: true });
   // the pressed crease down the front of each leg, a break over the shoe
   b.paint('thigh.L', capsule([hx, hy - 2, hz + 4.6], [kx, ky + 1, kz + 3.7], 0.45), 'slacks', { shade: 0, mirror: true, where: b.isMat('slacks') });
-  b.paint('shin.L', capsule([kx, ky - 1, kz + 3.5], [ax, ay + 3, az + 3.4], 0.45), 'slacks', { shade: 0, mirror: true, where: b.isMat('slacks') });
   b.paint('shin.L', torus([ax, ay + 2.6, az], 3.4, 0.45), 'slacks', { shade: 3, mirror: true, where: b.isMat('slacks') });
   // the fly and the pockets
   b.paint('hips', aabb([-0.4, s.hipsY - 4, 3], [0.4, s.waistY - 6, 8]), 'slacks', { shade: 3, where: b.isMat('slacks') });
@@ -247,20 +243,32 @@ function slacks(b: ModelBuilder, L: Landmarks): void {
  * The bob: a helmet of straight blond hair from the crown down to the jaw, cut straight at the bottom, the
  * fringe cut straight across at the brows; the face open between the two sides.
  */
+/**
+ * The bob's volume (model voxels): a bell rounded over the crown, falling straight and flaring a little toward
+ * the ends, squarish in plan (a helmet, not an egg, so the fringe covers the corners of the forehead too).
+ * `grow` swells it evenly (the mask's nemes is built round it); `drop` lets it hang lower.
+ */
+function bobField(L: Landmarks, grow = 0, drop = 0): (x: number, y: number, z: number) => number {
+  const s = L.spec;
+  const c = s.chinY;
+  const cz = L.headC[2] - 0.6;
+  const yTop = c + s.head.h + 1.4 + grow, yBot = c + 0.4 - drop;
+  return (x, y, z) => {
+    const t = Math.max(0, Math.min(1, (c + 9 - y) / (c + 9 - yBot)));
+    const rx = s.head.w / 2 + 1.5 + t * 0.6 + grow, rz = s.head.d / 2 + 1.4 + t * 0.5 + grow;
+    const crown = y > c + 9 ? (y - (c + 9)) / (yTop - (c + 9)) : 0;
+    const k = Math.sqrt(Math.max(0, 1 - crown * crown));
+    const e = (Math.abs(x / (rx * k + 1e-3)) ** 3 + Math.abs((z - cz) / (rz * k + 1e-3)) ** 3) ** (1 / 3) - 1;
+    return Math.max(e * Math.min(rx, rz) * 0.9, yBot - y, y - yTop);
+  };
+}
+
 function bob(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }): void {
   const s = L.spec;
   const c = hd.chin;
   const cz = L.headC[2] - 0.6;
   const yTop = c + s.head.h + 1.4, yBot = c + 0.4;
-  const shell = fn((x, y, z) => {
-    // a bell: rounded over the crown, falling straight, flaring a little toward the ends
-    const t = Math.max(0, Math.min(1, (c + 9 - y) / (c + 9 - yBot)));
-    const rx = s.head.w / 2 + 1.5 + t * 0.6, rz = s.head.d / 2 + 1.4 + t * 0.5;
-    const crown = y > c + 9 ? (y - (c + 9)) / (yTop - (c + 9)) : 0;
-    const k = Math.sqrt(Math.max(0, 1 - crown * crown));
-    const e = Math.hypot(x / (rx * k + 1e-3), (z - cz) / (rz * k + 1e-3)) - 1;
-    return Math.max(e * Math.min(rx, rz) * 0.9, yBot - y, y - yTop);
-  }, [-10, yBot - 1, cz - 10], [10, yTop + 1, cz + 10]);
+  const shell = fn(bobField(L), [-10, yBot - 1, cz - 10], [10, yTop + 1, cz + 10]);
   // the face open from the jaw up to the fringe's straight edge
   const face = aabb([-4.4, yBot - 2, hd.front - 2.5], [4.4, c + 7.5, hd.front + 6]);
   b.add('head', subtract(shell, face), 'hair', { only: 'empty', thr: 0.2 });
@@ -344,31 +352,34 @@ function buildMask(): VoxelModel {
   const b = new ModelBuilder('shinji-mask', 48);
   b.mat('bone', ['#F7F4EC', '#EFEBE0', '#DED7C9', '#C9C3B4', '#ACA595'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('dark', ['#0C0C10'], { rough: 0.9 });
-  b.mat('iris', ['#C9CCD2'], { rough: 0.3, glow: 1.4 });
+  b.mat('iris', ['#B4B7BE'], { rough: 0.3, glow: 0.45 });
   b.mat('teeth', ['#F3EEE4'], { rough: 0.35 });
   b.mat('gap', ['#120D0D'], { rough: 0.9 });
   b.bone('root', null, [0, 0, 0]);
-  // the face and the crown: the front of an egg over the face, the skull cap behind it
+  // where the mask sits on his head: the 'face' socket (chin + 5.5, the front of the face) is its origin
+  const L = humanoidSkeleton(new ModelBuilder('shinji-mask-frame', SHINJI_RES), SPEC);
+  const front = Math.round(L.headC[2] + SPEC.head.d / 2);
+  const oy = SPEC.chinY + 5.5;
+  // the face: the front of an egg over the face
   const face = intersect(ellipsoid([0, 0.2, -3.8], [6.4, 7.8, 6.6]), fn((_x, _y, z) => -0.5 - z, [-9, -10, -12], [9, 10, 4]));
-  const crown = intersect(ellipsoid([0, 2.2, -5.6], [7.2, 6.6, 7.4]), halfSpace([0, -1.5, 0], [0, -1, 0]));
-  // the hood: wide flaps behind the cheeks flaring toward the shoulders, the lappet down the back of the neck
-  const hood = fn((x, y, z) => {
-    const ax = Math.abs(x);
-    if (y > 4.5 || y < -9) return 1;
-    const t = (4.5 - y) / 13.5;
-    const out = 6.2 + t * 1.7;
-    return Math.max(ax - out, (out - 1.4) - ax, z + 0.8 - t * 0.8, -12 - z + t * 2.6, y - 4.5, -9 - y);
-  }, [-10, -10, -14], [10, 6, 2]);
-  const lappet = box([0, -6.9, -10.6], [3.4, 6.4, 0.9], { round: 0.6 });
-  b.add('root', blend(1.2, face, crown), 'bone');
-  b.add('root', hood, 'bone', { thr: 0.25 });
+  // the nemes: the hair's own volume swollen a little and let down to the jaw, so the hood covers the bob
+  // (only the tips peek out below it), the face left open for the plate above
+  const hair = bobField(L, 1.4, 1.6);
+  const nemes = subtract(
+    fn((x, y, z) => hair(x, y + oy, z + front), [-12, -9, -18], [12, 12, 4]),
+    box([0, -4, 2.2], [4.3, 6.4, 3.4]),
+  );
+  const zBack = L.headC[2] - 0.6 - front - (SPEC.head.d / 2 + 1.9 + 1.4);
+  const lappet = box([0, -8.4, zBack + 0.9], [3.6, 5.6, 0.9], { round: 0.6 });
+  b.add('root', face, 'bone');
+  b.add('root', nemes, 'bone', { thr: 0.25 });
   b.add('root', lappet, 'bone');
   // the nemes stripes: shallow bands across the flaps and the lappet
   b.paint('root', fn((x, y) => (Math.abs(x) > 5.6 || y < -5.2 ? Math.abs(((y + 40) % 2.2) - 1.1) - 0.32 : 1), [-11, -15, -14], [11, 6, 2]), 'bone', { shade: 3, where: b.isMat('bone') });
   // the eye slits, long and slanting down toward the temples
   for (const sx of [-1, 1]) {
     b.carve('root', ellipsoid([sx * 2.7, 0.4, 2.4], [2.4, 0.75, 2.6], [0, 0, sx * -14]));
-    b.paint('root', ellipsoid([sx * 2.7, 0.4, 1.4], [2.8, 1.1, 2.6], [0, 0, sx * -14]), 'dark');
+    b.paint('root', ellipsoid([sx * 2.7, 0.4, 1.4], [2.6, 0.85, 2.6], [0, 0, sx * -14]), 'dark');
     b.voxel('root', sx > 0 ? 2 : -3, 0, 0, 'iris');
   }
   // a ridge down the nose

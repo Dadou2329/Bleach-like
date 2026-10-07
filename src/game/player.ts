@@ -42,14 +42,15 @@ export class PlayerController implements Controller {
       if (this.lock) this.lock = null;
       else this.lock = g.nearestEnemy(f, 45, _f, 70) ?? g.nearestEnemy(f, 30);
     }
-    if (this.lock && (this.lock.dead || this.lock.pos.distanceTo(f.pos) > 60)) this.lock = null;
+    // a lock is lost when the world turns over (Inverted World) or friend and foe swap (Happōfusagari)
+    if (this.lock && (this.lock.dead || this.lock.pos.distanceTo(f.pos) > 60 || f.invertT > 0 || (f.iffT > 0 && this.lock.team !== f.team))) this.lock = null;
     if (this.assist && (this.assist.dead || !f.action)) this.assist = null;
     f.faceTarget = this.lock ? this.lock.center() : this.assist ? this.assist.center() : null;
     g.cam.lockTarget = this.lock ? this.lock.center() : null;
     if (g.hud) g.hud.lockTarget = this.lock;
     if (f.dead) return;
     // ---- jump / air-step / hover (riding a summon, the kit reads jump/descend as climb/dive)
-    if (!f.mounted && inp.pressed('jump', 140)) {
+    if (!f.mounted && !f.rooted && inp.pressed('jump', 140)) {
       if (f.grounded || f.body.airTime < 0.1) {
         f.body.vel.y = f.def.speed.jump;
         f.body.grounded = false;
@@ -65,7 +66,7 @@ export class PlayerController implements Controller {
     }
     if (inp.held('jump')) this.jumpHeldT += dt;
     else this.jumpHeldT = 0;
-    if (!f.mounted && !f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
+    if (!f.mounted && !f.rooted && !f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
       f.hovering = true;
       this.reishiStep(f);
     }

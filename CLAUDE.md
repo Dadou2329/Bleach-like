@@ -40,7 +40,11 @@ scope and milestones and `README.md` for controls and modes.
   `game.rejectNear(at, r, by, fields)` undoes enemy shots (and fields) that implement `Projectile.reject`.
   `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs). `disarmT`
   (weapon knocked away: the player and duel AI cannot use LMB/RMB, the blade prop hides). `mounted`/`mountVy`:
-  riding a summon (the body floats, the kit steers the climb rate; jumps and air-steps are off).
+  riding a summon (the body floats, the kit steers the climb rate; jumps and air-steps are off). `rooted`: no
+  walking, jumping or Shunpo (Shinji inside his flower). `invertT` (the Inverted World: `nearestEnemy` finds no one,
+  the duel AI goes for the mirror image through itself, the player's canvas rolls 180° and the lock drops;
+  `inhale(k, dur)` builds `scent` to it, then `invertImmuneT`). `iffT` (friend and foe reversed: `enemiesOf` returns
+  its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -54,7 +58,9 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/jizo.ts` (Mayuri's gadgets, poison clouds, Kyōdo Yon and the Bankai creature, a giant at 6 vox/m driven
   procedurally as a projectile), `vfx/minazuki.ts` (Unohana: daggers, Hyapporankan pins, Byakurai/Raikōhō, the
   manta mount, the flung weapon, the blood flood's rain, liquid slashes, the blade sphere, pool blades; floods
-  take a `FloodLook` for colour and effect) and
+  take a `FloodLook` for colour and effect), `vfx/sakanade.ts` (Shinji: the pink mist cloud, Hadō #91's ten lights, the
+  Cero bar, the Bankai flower — a voxel model at 12 vox/m whose petal bones open about their ring tangents — with
+  its mist dome) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 

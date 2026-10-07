@@ -159,6 +159,23 @@ export class Fighter {
   /** senses gone (Enma Kōrogi): it cannot see, hear or feel where anyone is while blindT runs */
   blindT = 0;
   /**
+   * The Inverted World (Sakanade's mist): up and down, left and right, front and back reversed while invertT
+   * runs. It sees everyone mirrored through itself: the AI chases the mirror image, the player's view turns
+   * over and the aim assist is lost. `scent` is how much of the mist it has breathed (0..1, see inhale);
+   * after the world rights itself it has adapted for invertImmuneT.
+   */
+  invertT = 0;
+  invertImmuneT = 0;
+  scent = 0;
+  /**
+   * Friend and foe reversed (Happōfusagari's mist) while iffT runs: its own side are its enemies and its
+   * enemies its friends, for targeting and for every blow it lands. iffFrom: where the mist pours from.
+   */
+  iffT = 0;
+  iffFrom: THREE.Vector3 | null = null;
+  /** rooted to the spot (inside a construct of its own): no walking, jumping or Shunpo, it can still turn and act */
+  rooted = false;
+  /**
    * power rejected (Rokuten Shishun): while sealT runs the fighter cannot release or toggle a state and hits
    * with only (1 − sealK) of its strength
    */
@@ -237,7 +254,6 @@ export class Fighter {
     this.bladeActive = false;
   }
 
-  /** Slow this fighter by fraction k for t seconds (the stronger slow wins while both run). */
   /** time round this fighter runs slow: actions, animation and movement all crawl */
   dilate(k: number, t: number): void {
     if (this.dilateT <= 0 || k >= this.dilateK) this.dilateK = k;
@@ -245,6 +261,20 @@ export class Fighter {
     this.slow(k, t);
   }
 
+  /**
+   * Breathe in Sakanade's mist (k of a lungful): at a full lungful the world turns over for `dur` seconds.
+   * Returns true on the breath that inverts it; an adapted (or already inverted) fighter breathes in vain.
+   */
+  inhale(k: number, dur: number): boolean {
+    if (this.dead || this.invertT > 0 || this.invertImmuneT > 0) return false;
+    this.scent = Math.min(1, this.scent + k);
+    if (this.scent < 1) return false;
+    this.scent = 0;
+    this.invertT = dur;
+    return true;
+  }
+
+  /** Slow this fighter by fraction k for t seconds (the stronger slow wins while both run). */
   slow(k: number, t: number): void {
     if (this.slowT <= 0 || k >= this.slowK) this.slowK = k;
     this.slowT = Math.max(this.slowT, t);
@@ -259,6 +289,7 @@ export class Fighter {
   /** Shunpo: near-instant dash with afterimages. */
   dash(dir: THREE.Vector3): boolean {
     if (this.dead || this.dashT > 0 || this.hitstun > 0.15) return false;
+    if (this.rooted) return false;
     if (this.action && !this.action.canCancel(DASH_PROBE)) return false;
     if (!this.spendRei(4)) return false;
     this.stopAction();
@@ -285,6 +316,16 @@ export class Fighter {
     if (this.slowT > 0 && (this.slowT -= dt) <= 0) this.slowK = 0;
     if (this.dilateT > 0 && (this.dilateT -= dt) <= 0) this.dilateK = 0;
     if (this.blindT > 0) this.blindT = Math.max(0, this.blindT - dt);
+    if (this.invertT > 0 && (this.invertT -= dt) <= 0) {
+      this.invertT = 0;
+      this.invertImmuneT = 4;
+    }
+    if (this.invertImmuneT > 0) this.invertImmuneT = Math.max(0, this.invertImmuneT - dt);
+    if (this.scent > 0) this.scent = Math.max(0, this.scent - dt * 0.12);
+    if (this.iffT > 0 && (this.iffT -= dt) <= 0) {
+      this.iffT = 0;
+      this.iffFrom = null;
+    }
     if (this.sealT > 0 && (this.sealT -= dt) <= 0) this.sealK = 0;
     if (this.disarmT > 0) {
       this.disarmT -= dt;
@@ -361,7 +402,7 @@ export class Fighter {
     } else {
       // sprint (Shunpo run) while the dash key stays held after a dash
       if (!this.wishSprint || this.wish.lengthSq() < 0.01) this.sprinting = false;
-      const speed = (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1);
+      const speed = this.rooted ? 0 : (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1);
       const wx = this.wish.x * speed * mobility, wz = this.wish.z * speed * mobility;
       const accel = (b.grounded || this.hovering ? 70 : this.mounted ? 36 : 28) * dt;
       const dx = wx - b.vel.x, dz = wz - b.vel.z;

@@ -10,6 +10,7 @@ import type { AIMove, Kit, KitAI } from '../kits/kit';
 
 const _d = new THREE.Vector3();
 const _s = new THREE.Vector3();
+const _m = new THREE.Vector3();
 
 type Stance = 'press' | 'circle' | 'zone';
 
@@ -58,12 +59,24 @@ export class DuelistAI implements Controller {
       return;
     }
     this.tick(dt);
-    const t = g.nearestEnemy(f, 160);
+    let t = g.nearestEnemy(f, 160);
+    // the Inverted World: it still knows where they are, but the world is mirrored through it, so it goes for
+    // the mirror image (the empty air behind it) and its skills fly that way
+    let mirrored = false;
+    if (!t && f.invertT > 0 && f.blindT <= 0) {
+      t = nearest(g.enemiesOf(f), f, 160);
+      mirrored = t !== null;
+    }
     if (!t && f.blindT > 0) {
       this.groping(dt);
       return;
     }
     this.lastHp = f.hp;
+    if (!t && f.iffT > 0) {
+      // friend and foe reversed with none of its own side to turn on: it drifts about, lost, out of the mist
+      this.daze(dt);
+      return;
+    }
     this.guess = null;
     if (!t) {
       f.wish.set(0, 0, 0);
@@ -72,8 +85,9 @@ export class DuelistAI implements Controller {
       return;
     }
     // an illusion: fight where the target appears to be
-    const tp = t.lure ?? t.pos;
-    f.faceTarget = t.lure ? new THREE.Vector3(tp.x, tp.y + t.def.height * 0.55, tp.z) : t.center();
+    const seen = t.lure ?? t.pos;
+    const tp = mirrored ? _m.set(2 * f.pos.x - seen.x, seen.y, 2 * f.pos.z - seen.z) : seen;
+    f.faceTarget = t.lure || mirrored ? new THREE.Vector3(tp.x, tp.y + t.def.height * 0.55, tp.z) : t.center();
     _d.set(tp.x - f.pos.x, 0, tp.z - f.pos.z);
     const dist = Math.max(0.01, _d.length());
     _d.divideScalar(dist);
@@ -97,7 +111,7 @@ export class DuelistAI implements Controller {
 
     // ---- vertical: follow the target into the air, come down when it lands
     f.wishDescend = false;
-    if (dy > 1.4) {
+    if (dy > 1.4 && !f.rooted) {
       if (f.grounded && !f.busy) {
         f.body.vel.y = f.def.speed.jump;
         f.body.grounded = false;
@@ -263,6 +277,25 @@ export class DuelistAI implements Controller {
     }
   }
 
+  /** friend and foe reversed and no one left to fight: it wanders, drifting away from where the mist pours */
+  private daze(dt: number): void {
+    const f = this.f;
+    this.guessT -= dt;
+    if (!this.guess || this.guessT <= 0) {
+      this.guessT = 1.4 + Math.random() * 1.6;
+      let a = Math.random() * Math.PI * 2;
+      if (f.iffFrom) a = Math.atan2(f.pos.z - f.iffFrom.z, f.pos.x - f.iffFrom.x) + (Math.random() - 0.5) * 2.2;
+      this.guess = new THREE.Vector3(f.pos.x + Math.cos(a) * 7, f.pos.y, f.pos.z + Math.sin(a) * 7);
+    }
+    _d.set(this.guess.x - f.pos.x, 0, this.guess.z - f.pos.z);
+    const dist = _d.length();
+    f.faceTarget = null;
+    f.wishSprint = false;
+    f.wishHover = false;
+    if (dist > 0.8) f.wish.copy(_d.divideScalar(dist)).multiplyScalar(0.5);
+    else f.wish.set(0, 0, 0);
+  }
+
   private tick(dt: number): void {
     this.think -= dt;
     this.stanceT -= dt;
@@ -273,6 +306,15 @@ export class DuelistAI implements Controller {
     this.airStepT -= dt;
     for (const [k, v] of this.moveCd) this.moveCd.set(k, v - dt);
   }
+}
+
+function nearest(list: Fighter[], f: Fighter, range: number): Fighter | null {
+  let best: Fighter | null = null, bd = range;
+  for (const o of list) {
+    const d = o.pos.distanceTo(f.pos);
+    if (d < bd) { bd = d; best = o; }
+  }
+  return best;
 }
 
 function pick(moves: AIMove[]): AIMove {

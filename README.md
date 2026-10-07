@@ -147,6 +147,26 @@ G state, V flare); press **H** in game for the current character's moves.
     sky until the ground is a pool that slows her enemies and mends her. Every cut throws a liquid slash; RMB
     is the bisecting cut, Q a volley, E the sphere of blades, R blades drawn up out of the pool, and G
     regeneration. F seals it. A killing blow in the Bankai empties the pool at once.
+- **Shinji Hirako**, the leader of the Visored, in his Human World clothes: the blunt blond bob, the grin that
+  bares every upper tooth, a white shirt with a loose dark tie, grey slacks, Sakanade resting on his shoulder
+  and his other hand in his pocket. Sealed, LMB is a lazy one-handed string and RMB a two-handed draw-cut. His
+  moves:
+  - Q: **Tanma Otoshi**. He lays his palm over the target's face and it drops, asleep for a moment.
+  - E: Hadō #91 **Senju Kōten Taihō**, chantless. Ten points of light rise round him, fly at the target in a
+    converging barrage and end in one great blast.
+  - R: a **force blast** flicked from his fingers. It knocks whatever they were doing aside.
+  - G: the **Hollow mask**, a pharaoh's death mask with a long grin. He is faster and stronger, and E becomes
+    his **Cero**: a bar of crimson before the sword hand, then a very wide fan.
+  - F: **"Taorero, Sakanade."** The hilt becomes a ring and the sword spins round his finger. Every spin
+    vents a pink mist, and the cuts put some of it in the enemy. Q is **Sakasama no Sekai**: whoever breathes
+    in a full lungful has the world turned over (up and down, left and right, front and back). An AI goes for
+    the mirror image behind it. The player's view rolls upside down and the aim assist is lost. RMB is the
+    **counter stroke**, far worse on someone inverted, and R the **drop onto the nape**.
+  - F (in Shikai): **Bankai, Sakashima Yokoshima Happōfusagari**. A golden flower bursts up and shuts round
+    him, and its mist rolls out over the field. Everyone in it but him has friend and foe reversed: their
+    blows only find their own side. With no one of its own to turn on, an AI wanders off, lost. He is rooted
+    in the flower. LMB opens the petals on a cut, RMB is a ring thrust through them, Q pushes the mist
+    further, R clamps the petals shut and F uproots him (the mist lingers a while).
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
@@ -460,7 +480,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
