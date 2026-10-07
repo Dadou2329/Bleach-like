@@ -110,6 +110,43 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: **Rokuten Shishun** (anime only). The six circle her trailing crimson and turn aside what is fired at
     her. F again is the **Rejection**: her palm on the enemy rejects its power (no releases or states, its
     strength cut). Then she is spent.
+- **Mayuri Kurotsuchi**, captain of the 12th Division and president of the Research Institute: the painted
+  face (white, with a black mask band and gold eyes), the hat with two horns, golden ear cones, blue nails, a
+  purple cravat and the haori with 十二. His sword stays in a sleeve sheath at his belly. Sealed, LMB is plain
+  swordplay (a slash, a backhand, a needling stab); the rest is his inventions:
+  - RMB: **Jabarakaina**. His left arm shoots out on a chain of segments, seizes the enemy and hauls him in.
+  - Q: the **explosive membrane**, thrown from the palm: it sticks where it lands and blows a second later.
+  - E: the **sleeve net**. Sticky strands spray out in a cone and bind whoever they catch.
+  - R: a silent **palm Kidō**, a white bolt that bores through walls.
+  - G: the **Superhuman Drug**, diluted, jabbed into his own neck: for five seconds the world crawls round him.
+  - F: **"Kakimushire, Ashisogi Jizō"**. The sword becomes the trident with the baby's head. Every stab numbs;
+    three in a row and the limbs stop answering (paralysis). RMB is the deep stab (paralysis at once), Q is
+    **Kyōdo Yon** (a finger in the baby's eye: whoever hears the scream for four seconds is paralysed through)
+    and E the poison vapour from the baby's mouth.
+  - F again: **Bankai, Konjiki Ashisogi Jizō**. The giant golden-headed caterpillar rises out of the ground and
+    crawls after the enemy; his reiatsu turns red and drains. RMB it charges, Q it breathes the poison (a cloud
+    that eats whoever is not of his blood), E blades burst from its chest, R it devours. F is the
+    self-destruct protocol: it blows itself apart and he is back to the Shikai.
+  - Once per fight a killing blow does not kill him: **Nikushibuki**. He melts into a puddle, untouchable,
+    seeps along the ground and reforms weakened.
+- **Retsu Unohana**, captain of the 4th Division and the first Kenpachi: the thick braid hanging down her
+  front, the long-sleeved haori with 四, a wide white obi, and Minazuki (a long nodachi with a red hilt) at her
+  hip on a rope strap. As Retsu, LMB is an elegant nodachi string and RMB the long iai sweep. Her moves:
+  - Q: **Kaidō**. Her reiatsu comes back first, then her wounds close, even on the move.
+  - E: three **hidden daggers** flicked out of the sleeve.
+  - R: Bakudō #62 **Hyapporankan**. A rod of light splits into many and pins the target where it stands.
+  - F: **Minazuki**. The great one-eyed green manta rises under her feet and she rides it: fast, high
+    (Space climbs, descend dives) and healing as she goes. From its back LMB fires Hadō #4 **Byakurai** and
+    RMB #63 **Raikōhō**. F again lands.
+  - G: she undoes the braid and becomes **Yachiru**, the first Kenpachi: faster and crueller. Her strings
+    alternate between kendō and a flowing one-handed style ("eight thousand styles"). RMB flicks the weapon
+    out of the enemy's hand (**disarmed**: no LMB or RMB until they get it back), Q is the throat thrust (far
+    worse on a staggered or disarmed enemy), E a dagger from behind, R the back-of-the-hand guard that turns
+    a blow and counters, and G an emergency Kaidō.
+  - F (as Yachiru): **Bankai, Minazuki**. She draws her clenched hand along the blade, and blood pours from the
+    sky until the ground is a pool that slows her enemies and mends her. Every cut throws a liquid slash; RMB
+    is the bisecting cut, Q a volley, E the sphere of blades, R blades drawn up out of the pool, and G
+    regeneration. F seals it. A killing blow in the Bankai empties the pool at once.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
@@ -423,7 +460,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

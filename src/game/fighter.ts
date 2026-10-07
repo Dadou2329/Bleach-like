@@ -99,6 +99,9 @@ export class Fighter {
   dead = false;
   deathT = 0;
   hovering = false;
+  /** riding a summon (Minazuki): the body floats and the kit steers the climb rate (mountVy) */
+  mounted = false;
+  mountVy = 0;
   sprinting = false;
   private sprintGhostT = 0;
   // dash
@@ -145,6 +148,9 @@ export class Fighter {
   /** slowed (wading through a flood): the fraction of move speed taken away while slowT runs */
   slowK = 0;
   slowT = 0;
+  /** disarmed (the weapon knocked out of the hand): LMB and RMB do nothing while disarmT runs */
+  disarmT = 0;
+  private disarmHid = false;
   /** soaked through (s left): water attacks bite harder */
   wetT = 0;
   /** aged (Baraggan's touch): brittle bones — agedK more damage taken while agedT runs */
@@ -280,6 +286,19 @@ export class Fighter {
     if (this.dilateT > 0 && (this.dilateT -= dt) <= 0) this.dilateK = 0;
     if (this.blindT > 0) this.blindT = Math.max(0, this.blindT - dt);
     if (this.sealT > 0 && (this.sealT -= dt) <= 0) this.sealK = 0;
+    if (this.disarmT > 0) {
+      this.disarmT -= dt;
+      const w = this.visual.props.get(this.def.blade?.prop ?? 'sword');
+      if (this.disarmT > 0) {
+        if (w && w.visible) {
+          w.visible = false;
+          this.disarmHid = true;
+        }
+      } else if (this.disarmHid) {
+        if (w) w.visible = true;
+        this.disarmHid = false;
+      }
+    }
     if (this.agedT > 0 && (this.agedT -= dt) <= 0) this.agedK = 0;
     // inside a time field the fighter's own clock runs slow
     const adt = this.dilateT > 0 ? dt * (1 - this.dilateK) : dt;
@@ -344,7 +363,7 @@ export class Fighter {
       if (!this.wishSprint || this.wish.lengthSq() < 0.01) this.sprinting = false;
       const speed = (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1);
       const wx = this.wish.x * speed * mobility, wz = this.wish.z * speed * mobility;
-      const accel = (b.grounded || this.hovering ? 70 : 28) * dt;
+      const accel = (b.grounded || this.hovering ? 70 : this.mounted ? 36 : 28) * dt;
       const dx = wx - b.vel.x, dz = wz - b.vel.z;
       const dl = Math.hypot(dx, dz);
       const k = dl > accel ? accel / dl : 1;
@@ -357,8 +376,13 @@ export class Fighter {
           this.ghosts.spawn(0.3, 0.55);
         }
       }
-      // hover on reishi footholds
-      if (this.hovering) {
+      // riding: float, the kit holds the altitude
+      if (this.mounted) {
+        b.float = true;
+        b.vel.y = damp(b.vel.y, this.mountVy, 8, dt);
+        this.hovering = false;
+      } else if (this.hovering) {
+        // hover on reishi footholds
         b.float = true;
         b.vel.y = damp(b.vel.y, this.wishDescend ? -9 : 0, 6, dt);
         if (!this.wishHover && !this.wishDescend) this.hovering = false;
@@ -395,7 +419,7 @@ export class Fighter {
     const lx = vx * cy - vz * sy, lz = vx * sy + vz * cy;
     const fwdAccel = ((vx - this.prevVel.x) * sy + (vz - this.prevVel.z) * cy) / dt;
     this.prevVel.copy(b.vel);
-    this.anim.plant = this.hovering ? 0 : 1;
+    this.anim.plant = this.hovering || this.mounted ? 0 : 1;
     // footsteps at the two contact points of the gait cycle
     const ph = this.anim.loco.phase;
     if (b.grounded && Math.hypot(b.vel.x, b.vel.z) > 1.2 && ((this.prevPhase < 0.25 && ph >= 0.25) || (this.prevPhase < 0.75 && ph >= 0.75))) {
@@ -407,7 +431,7 @@ export class Fighter {
     this.prevPhase = ph;
     this.anim.update(adt, {
       vx: lx, vz: lz, vy: b.vel.y,
-      grounded: b.grounded || this.hovering,
+      grounded: b.grounded || this.hovering || this.mounted,
       turn: this.yawRate,
       accel: Math.max(-30, Math.min(30, fwdAccel)),
     });
@@ -521,6 +545,8 @@ export interface BladeSpec {
   reach?: number;
   /** half-thickness of the slab the blade cuts out of the world (m, default 0.07): a giant's sword */
   thick?: number;
+  /** called for each fighter the blade strikes (poisoned and paralysing edges) */
+  onHit?: (o: Fighter) => void;
 }
 
 class DashProbe extends FighterAction {

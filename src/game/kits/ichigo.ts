@@ -112,14 +112,34 @@ export class SwingAction extends FighterAction {
     this.comboAt = c.events.combo ?? this.dur * 0.6;
     f.bladeHits.clear();
     f.bladeSpec = this.info.spec;
+    // out of reach: dash in at once, so the arc arrives as the hit window opens (the push decays with
+    // pushDrag); the lunge stops at striking distance instead of running through the target
+    let dashed = false;
+    const tgt0 = f.faceTarget;
+    if (this.info.lunge && tgt0) {
+      const d = Math.hypot(tgt0.x - f.pos.x, tgt0.z - f.pos.z);
+      this.stopAt = 1.3;
+      if (d > this.stopAt + 0.25) {
+        const per = (1 - Math.exp(-f.pushDrag * Math.max(0.06, this.info.window[0]))) / f.pushDrag;
+        f.push.addScaledVector(f.forward(), Math.min(26, (d - this.stopAt) / per));
+        dashed = true;
+      }
+    }
     f.anim.play(this.clip, {
       onEvent: (n) => {
         if (n === 'step' && this.info.lunge) {
-          const fw = f.forward();
-          // close the distance to the target a bit more
-          const tgt = f.faceTarget;
-          const extra = tgt ? Math.min(5, Math.max(0, f.pos.distanceTo(tgt) - 2.2)) : 0;
-          f.push.addScaledVector(fw, this.info.lunge[0] + extra * 2.2);
+          if (!dashed) {
+            // no target known at the start (or already close): the plain lunge, stretched if the target is far
+            const tgt = f.faceTarget;
+            let push = this.info.lunge[0];
+            if (tgt) {
+              this.stopAt = 1.3;
+              const d = Math.hypot(tgt.x - f.pos.x, tgt.z - f.pos.z);
+              const per = (1 - Math.exp(-f.pushDrag * 0.08)) / f.pushDrag;
+              push = Math.min(24, Math.max(push, Math.max(0, d - this.stopAt) / per));
+            }
+            f.push.addScaledVector(f.forward(), push);
+          }
           if (this.info.lunge[1] > 0 && f.grounded) f.push.y = this.info.lunge[1];
         }
         if (n === 'fx' && this.info.impact && !this.impacted) {
@@ -146,10 +166,18 @@ export class SwingAction extends FighterAction {
 
   private swished = false;
   private matoiFired = false;
+  private stopAt = 0;
 
   override update(f: Fighter, g: Game, dt: number): void {
     super.update(f, g, dt);
     const t = this.t;
+    // the lunge stops at striking distance instead of running through the target
+    const tgt = f.faceTarget;
+    if (this.stopAt > 0 && tgt && Math.hypot(tgt.x - f.pos.x, tgt.z - f.pos.z) <= this.stopAt) {
+      f.push.x = 0;
+      f.push.z = 0;
+      this.stopAt = 0;
+    }
     if (!this.swished && t >= this.info.window[0] - 0.03) {
       this.swished = true;
       g.sfx.play(this.info.spec.damage >= 28 ? 'swingHeavy' : 'swing', f.center());

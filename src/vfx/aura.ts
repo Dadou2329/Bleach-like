@@ -117,7 +117,9 @@ function buildProxyGeometry(v: CharacterVisual): { geo: THREE.BufferGeometry; se
   };
   const parts: THREE.BufferGeometry[] = [];
   const segs: { bone: number; a: THREE.Vector3; b: THREE.Vector3; r: number }[] = [];
-  for (const [bn, to, r] of PROXIES) {
+  // a rig without the humanoid bones (creatures, summons) gets one capsule up from its root
+  const proxies: typeof PROXIES = PROXIES.some(([bn]) => rig.index(bn) >= 0) ? PROXIES : [[v.model.bones[0].name, [0, 0.6, 0], 0.4]];
+  for (const [bn, to, r] of proxies) {
     const bi = rig.index(bn);
     if (bi < 0) continue;
     const a = restWorld(bi);

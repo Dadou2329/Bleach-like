@@ -105,6 +105,10 @@ export class GameRenderer {
     r.toneMapping = THREE.NoToneMapping;
     r.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(r.domElement);
+    // a lost context renders black until it is restored (a GPU watchdog reset on a very long frame): say so,
+    // so captures that come out black can be told apart from a shader fault
+    r.domElement.addEventListener('webglcontextlost', () => console.warn('[reishi] WebGL context lost'));
+    r.domElement.addEventListener('webglcontextrestored', () => console.warn('[reishi] WebGL context restored'));
     this.pmrem = new THREE.PMREMGenerator(r);
 
     const w = r.domElement.width, h = r.domElement.height;

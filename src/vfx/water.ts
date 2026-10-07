@@ -302,6 +302,17 @@ void main() {
   gl_FragColor = vec4(col, clamp(a, 0.0, 0.92));
 }`;
 
+/** How a flood looks and what wading in it does (default: clear water that soaks and slows). */
+export interface FloodLook {
+  deep?: THREE.ColorRepresentation;
+  light?: THREE.ColorRepresentation;
+  foam?: THREE.ColorRepresentation;
+  /** soak whoever wades in it (wet fighters drip water) */
+  soak?: boolean;
+  /** slow taken by everyone but the owner */
+  slow?: number;
+}
+
 /** Standing water spread over the ground: it slows and soaks whoever wades in it, then drains. */
 export class Flood implements Projectile {
   done = false;
@@ -313,7 +324,7 @@ export class Flood implements Projectile {
   private acc = 0;
   readonly surface: number;
 
-  constructor(private g: Game, readonly owner: Fighter | null, at: THREE.Vector3, readonly R: number, readonly life = 12, readonly depth = 0.3) {
+  constructor(private g: Game, readonly owner: Fighter | null, at: THREE.Vector3, readonly R: number, readonly life = 12, readonly depth = 0.3, readonly look: FloodLook = {}) {
     const gy = groundAt(g, at.x, at.y + 1, at.z, 8) ?? at.y;
     this.center = new THREE.Vector3(at.x, gy, at.z);
     this.surface = gy + depth;
@@ -333,7 +344,12 @@ export class Flood implements Projectile {
     this.mat = new THREE.ShaderMaterial({
       vertexShader: FLOOD_VERT,
       fragmentShader: FLOOD_FRAG,
-      uniforms: { uTime: { value: 0 }, uR: { value: 0 }, uLevel: { value: 1 }, uC: { value: this.center.clone() }, uDeep: { value: DEEP.clone() }, uLight: { value: LIGHT.clone() }, uFoamC: { value: FOAM.clone().multiplyScalar(0.86) } },
+      uniforms: {
+        uTime: { value: 0 }, uR: { value: 0 }, uLevel: { value: 1 }, uC: { value: this.center.clone() },
+        uDeep: { value: look.deep !== undefined ? new THREE.Color(look.deep) : DEEP.clone() },
+        uLight: { value: look.light !== undefined ? new THREE.Color(look.light) : LIGHT.clone() },
+        uFoamC: { value: look.foam !== undefined ? new THREE.Color(look.foam) : FOAM.clone().multiplyScalar(0.86) },
+      },
       transparent: true,
       depthWrite: false,
       side: THREE.DoubleSide,
@@ -384,12 +400,13 @@ export class Flood implements Projectile {
     this.acc = 0;
     // wading: slowed and soaked; splashes kicked up by anyone moving through it
     const sp = WaterSpray.of(g);
+    const soak = this.look.soak ?? true;
     for (const f of g.fighters) {
       if (f.dead || !this.contains(f.pos)) continue;
-      f.wetT = Math.max(f.wetT, 5);
-      if (f !== this.owner) f.slow(0.35, 0.25);
+      if (soak) f.wetT = Math.max(f.wetT, 5);
+      if (f !== this.owner) f.slow(this.look.slow ?? 0.35, 0.25);
       const v = Math.hypot(f.body.vel.x, f.body.vel.z);
-      if (v > 1.5)
+      if (v > 1.5 && soak)
         for (let i = 0; i < Math.min(8, v); i++) sp.spawn(f.pos.x + (Math.random() - 0.5) * 0.5, this.surface, f.pos.z + (Math.random() - 0.5) * 0.5, f.body.vel.x * 0.2 + (Math.random() - 0.5) * 2, 1.5 + Math.random() * 2.5, f.body.vel.z * 0.2 + (Math.random() - 0.5) * 2, 0.05, 0.6, 0.6);
     }
   }

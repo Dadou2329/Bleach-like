@@ -49,6 +49,12 @@ import { TOSEN_DEF, TosenKit } from './kits/tosen';
 import { tosenAsset } from '../chars/tosen';
 import { ORIHIME_DEF, OrihimeKit } from './kits/orihime';
 import { FAIRY_NAMES, orihimeAsset, rikkaFairy } from '../chars/orihime';
+import { MAYURI_DEF, MayuriKit } from './kits/mayuri';
+import { mayuriProp } from '../chars/mayuri';
+import { jizoAsset } from '../chars/mayuriBankai';
+import { UNOHANA_DEF, UnohanaKit } from './kits/unohana';
+import { unohanaAsset, unohanaProp } from '../chars/unohana';
+import { mantaAsset } from '../chars/unohanaMinazuki';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -174,6 +180,33 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(orihimeAsset('rokuten').model, true);
       for (const n of FAIRY_NAMES) buildCached(rikkaFairy(n), false);
+    },
+  },
+  {
+    id: 'mayuri',
+    name: 'Kurotsuchi Mayuri',
+    kanji: '疋殺地蔵',
+    title: 'Captain, 12th Division',
+    color: '#f28fc0',
+    def: () => ({ ...MAYURI_DEF, speed: { ...MAYURI_DEF.speed } }),
+    kit: (f, g) => new MayuriKit(f, g),
+    warm: () => {
+      buildCached(jizoAsset().model, true);
+      buildCached(mayuriProp('trident'), false);
+    },
+  },
+  {
+    id: 'unohana',
+    name: 'Retsu Unohana',
+    kanji: '卯ノ花',
+    title: 'Captain, 4th Division',
+    color: '#9fe8b8',
+    def: () => ({ ...UNOHANA_DEF, speed: { ...UNOHANA_DEF.speed } }),
+    kit: (f, g) => new UnohanaKit(f, g),
+    warm: () => {
+      buildCached(unohanaAsset('yachiru').model, true);
+      buildCached(mantaAsset().model, true);
+      for (const k of ['bankai', 'dagger'] as const) buildCached(unohanaProp(k), false);
     },
   },
   {

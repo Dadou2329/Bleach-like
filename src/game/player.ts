@@ -48,8 +48,8 @@ export class PlayerController implements Controller {
     g.cam.lockTarget = this.lock ? this.lock.center() : null;
     if (g.hud) g.hud.lockTarget = this.lock;
     if (f.dead) return;
-    // ---- jump / air-step / hover
-    if (inp.pressed('jump', 140)) {
+    // ---- jump / air-step / hover (riding a summon, the kit reads jump/descend as climb/dive)
+    if (!f.mounted && inp.pressed('jump', 140)) {
       if (f.grounded || f.body.airTime < 0.1) {
         f.body.vel.y = f.def.speed.jump;
         f.body.grounded = false;
@@ -65,7 +65,7 @@ export class PlayerController implements Controller {
     }
     if (inp.held('jump')) this.jumpHeldT += dt;
     else this.jumpHeldT = 0;
-    if (!f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
+    if (!f.mounted && !f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
       f.hovering = true;
       this.reishiStep(f);
     }
@@ -81,8 +81,12 @@ export class PlayerController implements Controller {
       const d = f.wish.lengthSq() > 0.01 ? f.wish.clone() : _f.clone();
       f.dash(d);
     }
-    if (inp.pressed('attack')) { aimAt(); kit.attack(); }
-    if (inp.pressed('heavy')) { aimAt(); kit.heavy(); }
+    const atk = inp.pressed('attack'), hv = inp.pressed('heavy');
+    if ((atk || hv) && f.disarmT > 0) g.hud?.showBanner('Disarmed');
+    else {
+      if (atk) { aimAt(); kit.attack(); }
+      if (hv) { aimAt(); kit.heavy(); }
+    }
     if (inp.pressed('skill1')) { this.assist = null; kit.skill1(); }
     if (inp.pressed('skill2')) { this.assist = null; kit.skill2?.(); }
     if (inp.pressed('skill3')) { this.assist = null; kit.skill3?.(); }

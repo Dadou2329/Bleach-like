@@ -164,13 +164,13 @@ export class DuelistAI implements Controller {
       else if (this.pressT <= 0) {
         this.chainLeft--;
         this.pressT = 0.13 + Math.random() * 0.12;
-        kit.attack();
+        if (f.disarmT <= 0) kit.attack();
         if (this.chainLeft === 0 && Math.random() < 0.3) this.queueHeavy = 0.35;
       }
     }
     if (this.queueHeavy > 0) {
       this.queueHeavy -= dt;
-      if (this.queueHeavy <= 0) kit.heavy();
+      if (this.queueHeavy <= 0 && f.disarmT <= 0) kit.heavy();
     }
 
     // ---- movement
@@ -259,7 +259,7 @@ export class DuelistAI implements Controller {
     if (dist > 2.2) f.wish.copy(_d.normalize()).multiplyScalar(0.5);
     else {
       f.wish.set(0, 0, 0);
-      if (!f.busy && Math.random() < dt * 2.5) kit.attack();
+      if (!f.busy && f.disarmT <= 0 && Math.random() < dt * 2.5) kit.attack();
     }
   }
 

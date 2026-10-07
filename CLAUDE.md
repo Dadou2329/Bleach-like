@@ -38,6 +38,9 @@ scope and milestones and `README.md` for controls and modes.
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `sealT/sealK`
   (power rejected: no releases or states, strength cut); `game.drain()` is damage over time without hitstun.
   `game.rejectNear(at, r, by, fields)` undoes enemy shots (and fields) that implement `Projectile.reject`.
+  `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs). `disarmT`
+  (weapon knocked away: the player and duel AI cannot use LMB/RMB, the blade prop hides). `mounted`/`mountVy`:
+  riding a summon (the body floats, the kit steers the climb rate; jumps and air-steps are off).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -47,7 +50,11 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/tengen.ts` (mirror rigs: a giant built on a fighter's skeleton copies his bone rotations each frame, so his
   clips drive it; its sword sweeps through `bladeSweep` with its own hit set and `BladeSpec.thick`),
   `vfx/suzumushi.ts` (sound rings, the blade rain, the Bankai dome, wing flutter), `vfx/rikka.ts` (the six
-  fairies as voxel props with a rim glow, the Santen triangle, the Sōten dome, Tsubaki, Shiten, Rokuten) and
+  fairies as voxel props with a rim glow, the Santen triangle, the Sōten dome, Tsubaki, Shiten, Rokuten),
+  `vfx/jizo.ts` (Mayuri's gadgets, poison clouds, Kyōdo Yon and the Bankai creature, a giant at 6 vox/m driven
+  procedurally as a projectile), `vfx/minazuki.ts` (Unohana: daggers, Hyapporankan pins, Byakurai/Raikōhō, the
+  manta mount, the flung weapon, the blood flood's rain, liquid slashes, the blade sphere, pool blades; floods
+  take a `FloodLook` for colour and effect) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 

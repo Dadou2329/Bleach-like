@@ -674,7 +674,7 @@ export class OrihimeKit implements Kit {
     crimsonRejection(g, palm);
     if (!t || t.pos.distanceTo(f.pos) > 2.4) return;
     const dir = _v.subVectors(t.pos, f.pos).setY(0).normalize();
-    g.damage(t, 110, f, dir.clone(), { knock: 26, launch: 6, heavy: true, energy: true, hitstop: 0.2, shake: 0.7 });
+    g.damage(t, 85, f, dir.clone(), { knock: 26, launch: 6, heavy: true, energy: true, hitstop: 0.2, shake: 0.7 });
     t.sealT = 14;
     t.sealK = 0.4;
     t.aura.target = 0.05;

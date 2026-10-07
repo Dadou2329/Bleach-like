@@ -250,6 +250,7 @@ export class Game {
         const weak = o.def.weakAbove !== undefined && hitY > o.pos.y + o.def.height * o.def.weakAbove ? 3 : 1;
         this.damage(o, spec.damage * weak, f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake });
         this.sparks(o.center(), _w, f.def.aura.body);
+        spec.onHit?.(o);
       }
     }
     // ---- world: thin box spanning the swept region
