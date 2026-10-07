@@ -192,7 +192,7 @@ export class Game {
    * Blade swept from (pb, pt) to (cb, ct) this frame: hit enemies along the blade and cut the world
    * where the blade passed.
    */
-  bladeSweep(f: Fighter, pb: THREE.Vector3, pt: THREE.Vector3, cb: THREE.Vector3, ct: THREE.Vector3, spec: BladeSpec): void {
+  bladeSweep(f: Fighter, pb: THREE.Vector3, pt: THREE.Vector3, cb: THREE.Vector3, ct: THREE.Vector3, spec: BladeSpec, hits: Set<number> = f.bladeHits): void {
     // ---- fighters
     // Between the two samples the blade turns about its base (snapping strikes can cover well over 90°
     // in a frame, and a straight chord between the tips would cut through the wielder instead of the arc
@@ -206,7 +206,7 @@ export class Game {
     _qa.setFromUnitVectors(d0, d1);
     const reach = spec.reach ?? 0.18;
     for (const o of this.enemiesOf(f)) {
-      if (f.bladeHits.has(o.id)) continue;
+      if (hits.has(o.id)) continue;
       let hit = false;
       let hitY = 0;
       const bottom = o.pos.y + 0.1, top = o.pos.y + o.def.height;
@@ -226,7 +226,7 @@ export class Game {
         }
       }
       if (hit) {
-        f.bladeHits.add(o.id);
+        hits.add(o.id);
         _v.subVectors(ct, pt);
         _v.y *= 0.3;
         if (_v.lengthSq() < 1e-4) f.forward(_v);
@@ -258,7 +258,7 @@ export class Game {
       _q.setFromRotationMatrix(_m);
       const center = new THREE.Vector3().addVectors(midPrev, midCur).multiplyScalar(0.5);
       center.addScaledVector(bladeDir, 0.08);
-      const shape = new BoxShape(center, new THREE.Vector3(len * 0.55 + 0.1, 0.07, sl * 0.5 + 0.08), _q.clone());
+      const shape = new BoxShape(center, new THREE.Vector3(len * 0.55 + 0.1, spec.thick ?? 0.07, sl * 0.5 + 0.08), _q.clone());
       const r = this.engine.destruction.carve(shape, { mode: 'cut', power: spec.cut, dir: sweep.clone(), sparks: [0.7, 0.85, 1], dust: 0.6 });
       if (r.removed > 0 && f === this.player) this.shake(Math.min(0.12, r.removed / 4000));
     }
@@ -282,7 +282,7 @@ export class Game {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
       this.hud.damageNumber(t.center(), dmg, toPlayer ? '#ff6b6b' : o.heavy ? '#ffe066' : '#ffffff', byPlayer);
     }
-    const knock = (o.knock ?? 3) * (1 - armor) * (t.def.boss ? 0.02 : 1) * (shrug ? 0.15 : 1);
+    const knock = (o.knock ?? 3) * (1 - armor) * t.knockTaken * (t.def.boss ? 0.02 : 1) * (shrug ? 0.15 : 1);
     t.push.x += dir.x * knock;
     t.push.z += dir.z * knock;
     if (o.launch && !t.def.boss) {

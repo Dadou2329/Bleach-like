@@ -43,6 +43,8 @@ import { NNOITRA_DEF, NnoitraKit } from './kits/nnoitra';
 import { nnoitraAsset, nnoitraProp } from '../chars/nnoitra';
 import { BARAGGAN_DEF, BaragganKit } from './kits/baraggan';
 import { baragganAsset, baragganProp } from '../chars/baraggan';
+import { KOMAMURA_DEF, KomamuraKit } from './kits/komamura';
+import { giantAsset, komamuraProp } from '../chars/komamura';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -328,6 +330,20 @@ export const ROSTER: RosterEntry[] = [
       buildCached(nnoitraAsset('patch').model, true);
       buildCached(nnoitraAsset('santa').model, true);
       for (const k of ['scythe', 'tongue'] as const) buildCached(nnoitraProp(k), false);
+    },
+  },
+  {
+    id: 'komamura',
+    name: 'Sajin Komamura',
+    kanji: '天譴',
+    title: 'Captain, 7th Division',
+    color: '#d8322b',
+    def: () => ({ ...KOMAMURA_DEF, speed: { ...KOMAMURA_DEF.speed } }),
+    kit: (f, g) => new KomamuraKit(f, g),
+    warm: () => {
+      buildCached(giantAsset('limbs').model, true);
+      buildCached(giantAsset('whole').model, true);
+      buildCached(komamuraProp('giantSword'), false);
     },
   },
   {

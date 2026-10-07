@@ -324,6 +324,31 @@ G state, V flare); press **H** in game for the current character's moves.
   - G: **enraged**. The breath runs faster and further, and it costs him his own flesh.
   - F: **Respira Total**. The miasma floods out on every side, and every building round him rots and comes
     down.
+- **Sajin Komamura**, captain of the 7th Division: a 2.88 m wolf in a sleeveless white haori, iron weights on
+  his shoulders, light brown gauntlets and plated iron boots, with the long katana **Tenken**. He is heavy:
+  knockback barely moves him. LMB is two great one-handed cuts, a straight left from the gauntlet and a
+  two-handed chop that cracks the ground. His sealed moves:
+  - RMB: the **Earth-Splitting Draw**. Tenken goes up over his head in both hands and comes down through the
+    ground, which splits open in a line in front of him.
+  - Q: the **overhead throw**. He seizes the target, hoists them over his head and drives them into the ground.
+  - E: the **haymaker**, which sends the target flying through the street.
+  - R: the **iron forearm**. A blow from the front is caught on the gauntlet, then he shoves through the
+    attacker.
+  - G: the **roar**. Those near him reel, and for a while weak blows barely scratch him.
+  - F: **"Todoroke, Tenken"**.
+- **Komamura, Shikai (Tenken)**: every move is copied by one of Tenken's **phantom limbs**, the arm, fist or leg
+  of an armoured giant that materialises above and behind him, strikes at seven times his size and dissolves
+  into red reishi. Each cut swings a giant sword. RMB opens a 40 m chasm, Q is the phantom fist, E the phantom
+  stomp, and F calls **"Bankai — Kokujō Tengen Myō'ō"**.
+- **Komamura, Bankai (Kokujō Tengen Myō'ō)**: a 30 m armoured samurai giant rises out of the ground behind him
+  and to his left. It has a horned kabuto, eyes glaring from under its brim, a menpō, and black ropes coiled
+  round its laced cuirass. It copies everything he does, bone for bone, and the camera pulls back to show it.
+  - Its sword sweeps halve buildings.
+  - RMB: **Heavenly Punishment**, a giant overhead that splits the ground for 70 m and cuts every building on
+    that line in two.
+  - Q: the giant fist. E: the giant stomp.
+  - F: the **One Blow**, the giant's full-weight cut.
+  - The giant burns reiatsu while it stands; when he runs dry it dissolves back into reishi.
 - **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
   back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
   stay on the battlefield and can be broken again.
@@ -357,7 +382,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

@@ -128,9 +128,10 @@ class CutAction extends FighterAction {
       onEvent: (n) => {
         if (n === 'slam') this.kit.slam(f.pos.clone().addScaledVector(f.forward(), 2.6), 1.8, 30);
         if (n !== 'step') return;
+        // step into the cut; the scythes are shorter than Santa Teresa, so he closes in further once released
         const tgt = f.faceTarget;
-        const extra = tgt ? Math.min(5, Math.max(0, f.pos.distanceTo(tgt) - 2.4)) : 0;
-        f.push.addScaledVector(f.forward(), 6 + extra * 3);
+        const extra = tgt ? Math.min(5, Math.max(0, f.pos.distanceTo(tgt) - (santa ? 1.5 : 2.4))) : 0;
+        f.push.addScaledVector(f.forward(), 6 + extra * 3.4);
         g.sfx.play(slam || spin ? 'swingHeavy' : 'swing', f.center(), 0.8);
       },
     });
@@ -807,10 +808,18 @@ export class NnoitraKit implements Kit {
     const d = _v.length();
     if (d < 2.5) return;
     _v.normalize();
-    const to = t.pos.clone().addScaledVector(_v, -1.8);
-    const gy = groundAt(g, to.x, to.y + 1, to.z, 6);
-    if (gy !== null) to.y = gy;
-    if (f.body.overlaps(to.x, to.y + 0.05, to.z)) return;
+    // the nearest free spot in front of the target (a wall or a tree may stand in the first)
+    let to: THREE.Vector3 | null = null;
+    for (const back of [1.8, 2.4, 3.2]) {
+      const p = t.pos.clone().addScaledVector(_v, -back);
+      const gy = groundAt(g, p.x, p.y + 1, p.z, 6);
+      if (gy !== null) p.y = gy;
+      if (!f.body.overlaps(p.x, p.y + 0.05, p.z)) {
+        to = p;
+        break;
+      }
+    }
+    if (!to) return;
     f.ghosts.spawn(1.2, 1);
     f.body.pos.copy(to);
     f.body.prev.copy(to);

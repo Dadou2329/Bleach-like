@@ -130,6 +130,8 @@ export class Fighter {
   energyTaken = 1;
   /** reiatsu armour: hits weaker than this barely scratch (a quarter of the damage, no stagger) */
   toughness = 0;
+  /** knockback multiplier (a very heavy body barely moves) */
+  knockTaken = 1;
   /** called after this fighter takes damage */
   onHurt: ((amount: number, heavy: boolean) => void) | null = null;
   /** checked when a hit would kill: return true to survive it (the kit sets hp itself) */
@@ -507,6 +509,8 @@ export interface BladeSpec {
   heavy?: boolean;
   /** how far past the blade's line a hit still connects (m, default 0.18): huge heads, broad blades */
   reach?: number;
+  /** half-thickness of the slab the blade cuts out of the world (m, default 0.07): a giant's sword */
+  thick?: number;
 }
 
 class DashProbe extends FighterAction {

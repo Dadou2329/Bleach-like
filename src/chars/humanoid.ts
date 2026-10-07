@@ -386,6 +386,11 @@ export interface CoatSkirtOpts {
   tatterTeeth?: number;
   /** leave the front open between these angles (degrees from the front, per side) */
   openFront?: number;
+  /**
+   * widen every panel by this many degrees on each side (not at the open front) and hang every other
+   * panel a little further out, so neighbours overlap instead of opening slits (a white coat over black)
+   */
+  overlap?: number;
   res?: number;
 }
 
@@ -406,9 +411,13 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
   ];
   const springs: SpringDef[] = [];
   const rng = (k: number) => Math.abs(Math.sin(k * 91.7 + 3.1) * 4375.85) % 1;
+  const ov = o.overlap ?? 0;
   panels.forEach(([name, a0d, a1d], pi) => {
-    const a0 = (a0d * Math.PI) / 180, a1 = (a1d * Math.PI) / 180;
-    const am = (a0 + a1) / 2;
+    const am = (((a0d + a1d) / 2) * Math.PI) / 180;
+    // widened for the overlap, except along the open front
+    const a0 = ((a0d - (name === 'F.L' ? 0 : ov)) * Math.PI) / 180, a1 = ((a1d + (name === 'F.R' ? 0 : ov)) * Math.PI) / 180;
+    const dR = ov > 0 && pi % 2 === 1 ? 1.8 : 0;
+    const Rp = (y: number) => R(y) + dR;
     const top = `coat.${name}`, low = `coat.${name}.2`;
     const pTop: V3 = [Math.sin(am) * (r0 - 1), yTop, cz + Math.cos(am) * (r0 - 1)];
     const pLow: V3 = [Math.sin(am) * R(ySplit), ySplit, cz + Math.cos(am) * R(ySplit)];
@@ -429,7 +438,7 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
           const dz = z - cz;
           const rho = Math.hypot(x, dz);
           const th = Math.atan2(x, dz);
-          const dr = Math.abs(rho - R(y)) - 0.85;
+          const dr = Math.abs(rho - Rp(y)) - 0.85;
           // angular extent (handle the ±180° wrap for the back panels)
           let da = 0;
           const lo = Math.min(a0, a1), hi = Math.max(a0, a1);
@@ -438,17 +447,17 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
           const dyTop = y - y1, dyBot = Math.max(y0, hem(th)) - y;
           return Math.max(dr, da, dyTop, dyBot);
         },
-        [-r1 - 2, y0 - 1, cz - r1 - 2],
-        [r1 + 2, y1 + 1, cz + r1 + 2],
+        [-r1 - 2 - dR, y0 - 1, cz - r1 - 2 - dR],
+        [r1 + 2 + dR, y1 + 1, cz + r1 + 2 + dR],
       );
     b.add(top, shellSdf(ySplit - 1, yTop), o.mat);
     b.add(low, shellSdf(yHem - 2, ySplit + 1), o.mat);
     // lining: inner half of the shell
-    const lining = fn((x, y, z) => Math.hypot(x, z - cz) - (R(y) - 0.15), [-r1 - 2, yHem - 3, cz - r1 - 2], [r1 + 2, yTop + 1, cz + r1 + 2]);
+    const lining = fn((x, y, z) => Math.hypot(x, z - cz) - (Rp(y) - 0.15), [-r1 - 2 - dR, yHem - 3, cz - r1 - 2 - dR], [r1 + 2 + dR, yTop + 1, cz + r1 + 2 + dR]);
     b.paint([top, low], lining, o.lining, { where: b.isMat(o.mat) });
     // a fold down the middle of each panel
     const fx = Math.sin(am), fz = Math.cos(am);
-    b.paint([top, low], capsule([fx * (R(yTop) + 0.6), yTop - 2, cz + fz * (R(yTop) + 0.6)], [fx * (R(yHem + 8) + 0.6), yHem + 8, cz + fz * (R(yHem + 8) + 0.6)], 0.7), o.mat, { shade: 3 });
+    b.paint([top, low], capsule([fx * (Rp(yTop) + 0.6), yTop - 2, cz + fz * (Rp(yTop) + 0.6)], [fx * (Rp(yHem + 8) + 0.6), yHem + 8, cz + fz * (Rp(yHem + 8) + 0.6)], 0.7), o.mat, { shade: 3 });
     const tailTop = [(pLow[0] - pTop[0]) / res, (pLow[1] - pTop[1]) / res, (pLow[2] - pTop[2]) / res] as [number, number, number];
     const hemP: V3 = [Math.sin(am) * R(yHem + 4), yHem + 4, cz + Math.cos(am) * R(yHem + 4)];
     const tailLow = [(hemP[0] - pLow[0]) / res, (hemP[1] - pLow[1]) / res, (hemP[2] - pLow[2]) / res] as [number, number, number];

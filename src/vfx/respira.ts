@@ -146,10 +146,11 @@ export class RespiraTotal implements Projectile {
     this.carveAcc += dt;
     if (this.carveAcc > 0.05 && this.t < this.o.dur) {
       this.carveAcc = 0;
-      for (let i = 0; i < 3; i++) {
+      // (two bites a step keep the remeshing affordable; the wave still levels what stands near him)
+      for (let i = 0; i < 2; i++) {
         const a = Math.random() * Math.PI * 2;
-        const p = new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.random() * 6, c.z + Math.sin(a) * r);
-        g.engine.destruction.carve(new SphereShape(p, 2.4), { mode: 'rot', power: this.o.power, edge: 0.4, dust: 0.6 });
+        const p = new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.random() * 5, c.z + Math.sin(a) * r);
+        g.engine.destruction.carve(new SphereShape(p, 2.1), { mode: 'rot', power: this.o.power, edge: 0.4, dust: 0.6 });
       }
       // the ground round him decays as the wave passes
       const a = Math.random() * Math.PI * 2;
