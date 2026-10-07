@@ -47,6 +47,8 @@ import { KOMAMURA_DEF, KomamuraKit } from './kits/komamura';
 import { giantAsset, komamuraProp } from '../chars/komamura';
 import { TOSEN_DEF, TosenKit } from './kits/tosen';
 import { tosenAsset } from '../chars/tosen';
+import { ORIHIME_DEF, OrihimeKit } from './kits/orihime';
+import { FAIRY_NAMES, orihimeAsset, rikkaFairy } from '../chars/orihime';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -159,6 +161,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(uryuAsset('letzt').model, true);
       for (const k of ['seele', 'glasses', 'cross'] as const) buildCached(uryuProp(k), false);
+    },
+  },
+  {
+    id: 'orihime',
+    name: 'Orihime Inoue',
+    kanji: '盾舜六花',
+    title: 'Shun Shun Rikka',
+    color: '#ffc94a',
+    def: () => ({ ...ORIHIME_DEF, speed: { ...ORIHIME_DEF.speed } }),
+    kit: (f, g) => new OrihimeKit(f, g),
+    warm: () => {
+      buildCached(orihimeAsset('rokuten').model, true);
+      for (const n of FAIRY_NAMES) buildCached(rikkaFairy(n), false);
     },
   },
   {

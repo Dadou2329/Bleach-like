@@ -19,6 +19,8 @@ import type { Kit } from '../game/kits/kit';
 import type { VoxelWorld } from '../voxel/world';
 import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
+import { SphereShape } from '../destruction/shapes';
+import type { CarveMode } from '../destruction/destruction';
 import { pauseOverlay, showStart, type StartChoice } from '../ui/start';
 
 function groundAt(w: VoxelWorld, x: number, z: number): number {
@@ -289,6 +291,8 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       }
     },
     freeze: (on = true) => { eng.timeScale = on ? 0 : 1; },
+    /** blast a sphere out of the world (tests: craters to restore, walls to cut) */
+    carve: (x: number, y: number, z: number, r: number, mode: CarveMode = 'smash', power = 600) => eng.destruction.carve(new SphereShape(new THREE.Vector3(x, y, z), r), { mode, power }).removed,
     spots: town?.spots ?? {},
     game,
     engine: eng,

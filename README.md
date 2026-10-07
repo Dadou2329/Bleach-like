@@ -95,6 +95,21 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: **Quincy: Letzt Stil**, for 25 seconds. The wing on his right shoulder drinks the reishi out of the
     walls round him, every arrow bursts, and the charged shot goes through everything. Afterwards his powers
     are sealed for a while.
+- **Orihime Inoue**, in the white dress of Las Noches: waist-length orange hair, the two six-petal hairpins
+  of **Shun Shun Rikka** at her temples. The six fairies fly out of the pins for every technique. LMB is the
+  karate Tatsuki taught her (a jab, a palm thrust, a front kick, both palms behind a small triangle). Her moves:
+  - RMB: **Koten Zanshun**. Tsubaki streaks at the enemy and splits what lies on his path. An enemy caught
+    mid-swing may swat him; broken, he stays out until Sōten Kisshun mends him.
+  - Q: **Santen Kesshun**. Hinagiku, Lily and Baigon hold up a golden triangle that turns aside whatever strikes
+    its face; shots die on it.
+  - E: **Sōten Kisshun**. Ayame and Shun'ō spread a dome over her, and what happened is undone: her wounds close,
+    and the ground and the buildings round her are put back the way they were, voxel by voxel.
+  - R: **Shiten Kōshun**. Tsubaki at the heart of a triangle; the first blow on it is fired back down its path.
+  - G: **Resolve**, "I reject". A golden pulse undoes enemy shots and fields round her (it tears Enma Kōrogi
+    apart), and while it holds her shields, heals and Tsubaki are stronger.
+  - F: **Rokuten Shishun** (anime only). The six circle her trailing crimson and turn aside what is fired at
+    her. F again is the **Rejection**: her palm on the enemy rejects its power (no releases or states, its
+    strength cut). Then she is spent.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
@@ -408,7 +423,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

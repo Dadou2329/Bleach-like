@@ -50,6 +50,12 @@ export class Javelin implements Projectile {
     this.mesh.lookAt(_v.copy(this.pos).add(this.dir));
   }
 
+  reject(at: THREE.Vector3, radius: number, by: Fighter): boolean {
+    if (this.done || by.team === this.owner.team || this.pos.distanceTo(at) > radius) return false;
+    this.done = true;
+    return true;
+  }
+
   update(dt: number, g: Game): void {
     this.t += dt;
     const o = this.o;

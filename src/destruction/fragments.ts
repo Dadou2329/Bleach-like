@@ -342,6 +342,26 @@ export class FragmentSystem {
     this.stats.settled++;
   }
 
+  /**
+   * Take away the falling pieces whose centre is within `radius` of `c` (Sōten Kisshun puts their voxels back
+   * where they were, so the pieces must go). Returns the centres of the pieces removed.
+   */
+  dissolveNear(c: THREE.Vector3, radius: number): THREE.Vector3[] {
+    const out: THREE.Vector3[] = [];
+    const vs = this.world.vs;
+    for (let i = this.fragments.length - 1; i >= 0; i--) {
+      const f = this.fragments[i];
+      if (!f.body.isValid()) continue;
+      const t = f.body.translation(), r = f.body.rotation();
+      _q.set(r.x, r.y, r.z, r.w);
+      const centre = new THREE.Vector3(f.w * vs * 0.5, f.h * vs * 0.5, f.d * vs * 0.5).applyQuaternion(_q).add(_v.set(t.x, t.y, t.z));
+      if (centre.distanceTo(c) > radius) continue;
+      out.push(centre);
+      this.remove(f);
+    }
+    return out;
+  }
+
   private remove(f: Fragment): void {
     if (!this.physics.broken && f.body.isValid()) this.physics.rw.removeRigidBody(f.body);
     this.group.remove(f.mesh);

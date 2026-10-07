@@ -391,6 +391,10 @@ export interface CoatSkirtOpts {
    * panel a little further out, so neighbours overlap instead of opening slits (a white coat over black)
    */
   overlap?: number;
+  /** cross-section depth/width ratio (an oval skirt that hugs the hips): constant or by height (default 1) */
+  depth?: number | ((y: number) => number);
+  /** flare profile: the radius grows with t^profile from the top (t = 0) to the hem (t = 1) (default 1) */
+  profile?: number;
   res?: number;
 }
 
@@ -404,7 +408,9 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
   const yTop = o.yTop ?? s.waistY - 2, ySplit = L.knee[1] + 4, yHem = o.yHem ?? 4;
   const r0 = o.r0 ?? 9.2, r1 = o.r1 ?? 15.5;
   const cz = -0.6;
-  const R = (y: number) => r0 + (r1 - r0) * Math.max(0, Math.min(1, (yTop - y) / (yTop - yHem)));
+  const prof = o.profile ?? 1;
+  const R = (y: number) => r0 + (r1 - r0) * Math.pow(Math.max(0, Math.min(1, (yTop - y) / (yTop - yHem))), prof);
+  const kz = (y: number) => (typeof o.depth === 'function' ? o.depth(y) : (o.depth ?? 1));
   const open = o.openFront ?? 6;
   const panels: [string, number, number][] = [
     ['F.L', open, 58], ['S.L', 62, 118], ['B.L', 122, 176], ['B.R', -176, -122], ['S.R', -118, -62], ['F.R', -58, -open],
@@ -419,8 +425,8 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
     const dR = ov > 0 && pi % 2 === 1 ? 1.8 : 0;
     const Rp = (y: number) => R(y) + dR;
     const top = `coat.${name}`, low = `coat.${name}.2`;
-    const pTop: V3 = [Math.sin(am) * (r0 - 1), yTop, cz + Math.cos(am) * (r0 - 1)];
-    const pLow: V3 = [Math.sin(am) * R(ySplit), ySplit, cz + Math.cos(am) * R(ySplit)];
+    const pTop: V3 = [Math.sin(am) * (r0 - 1), yTop, cz + Math.cos(am) * (r0 - 1) * kz(yTop)];
+    const pLow: V3 = [Math.sin(am) * R(ySplit), ySplit, cz + Math.cos(am) * R(ySplit) * kz(ySplit)];
     b.bone(top, 'hips', pTop);
     b.bone(low, top, pLow);
     // flame tatters: 2-3 points per panel, or a straight hem
@@ -435,10 +441,13 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
     const shellSdf = (y0: number, y1: number) =>
       fn(
         (x, y, z) => {
-          const dz = z - cz;
-          const rho = Math.hypot(x, dz);
-          const th = Math.atan2(x, dz);
-          const dr = Math.abs(rho - Rp(y)) - 0.85;
+          const k = kz(y);
+          const ez = (z - cz) / k;
+          const rho = Math.hypot(x, ez);
+          const th = Math.atan2(x, ez);
+          // the radial error in true distance (an oval's radius grows faster along its short axis)
+          const gl = k === 1 || rho < 1e-6 ? 1 : Math.hypot(x, ez / k) / rho;
+          const dr = Math.abs(rho - Rp(y)) / gl - 0.85;
           // angular extent (handle the ±180° wrap for the back panels)
           let da = 0;
           const lo = Math.min(a0, a1), hi = Math.max(a0, a1);
@@ -453,13 +462,13 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
     b.add(top, shellSdf(ySplit - 1, yTop), o.mat);
     b.add(low, shellSdf(yHem - 2, ySplit + 1), o.mat);
     // lining: inner half of the shell
-    const lining = fn((x, y, z) => Math.hypot(x, z - cz) - (Rp(y) - 0.15), [-r1 - 2 - dR, yHem - 3, cz - r1 - 2 - dR], [r1 + 2 + dR, yTop + 1, cz + r1 + 2 + dR]);
+    const lining = fn((x, y, z) => Math.hypot(x, (z - cz) / kz(y)) - (Rp(y) - 0.15), [-r1 - 2 - dR, yHem - 3, cz - r1 - 2 - dR], [r1 + 2 + dR, yTop + 1, cz + r1 + 2 + dR]);
     b.paint([top, low], lining, o.lining, { where: b.isMat(o.mat) });
     // a fold down the middle of each panel
     const fx = Math.sin(am), fz = Math.cos(am);
-    b.paint([top, low], capsule([fx * (Rp(yTop) + 0.6), yTop - 2, cz + fz * (Rp(yTop) + 0.6)], [fx * (Rp(yHem + 8) + 0.6), yHem + 8, cz + fz * (Rp(yHem + 8) + 0.6)], 0.7), o.mat, { shade: 3 });
+    b.paint([top, low], capsule([fx * (Rp(yTop) + 0.6), yTop - 2, cz + fz * (Rp(yTop) + 0.6) * kz(yTop - 2)], [fx * (Rp(yHem + 8) + 0.6), yHem + 8, cz + fz * (Rp(yHem + 8) + 0.6) * kz(yHem + 8)], 0.7), o.mat, { shade: 3 });
     const tailTop = [(pLow[0] - pTop[0]) / res, (pLow[1] - pTop[1]) / res, (pLow[2] - pTop[2]) / res] as [number, number, number];
-    const hemP: V3 = [Math.sin(am) * R(yHem + 4), yHem + 4, cz + Math.cos(am) * R(yHem + 4)];
+    const hemP: V3 = [Math.sin(am) * R(yHem + 4), yHem + 4, cz + Math.cos(am) * R(yHem + 4) * kz(yHem + 4)];
     const tailLow = [(hemP[0] - pLow[0]) / res, (hemP[1] - pLow[1]) / res, (hemP[2] - pLow[2]) / res] as [number, number, number];
     springs.push({ bone: top, tail: tailTop, stiffness: 95, damping: 6, gravity: 9, limit: 45, radius: 0.1 });
     springs.push({ bone: low, tail: tailLow, stiffness: 50, damping: 4.5, gravity: 13, limit: 65, radius: 0.08 });

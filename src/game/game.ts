@@ -18,6 +18,11 @@ export interface Projectile {
   update(dt: number, g: Game): void;
   render?(dt: number, time: number): void;
   dispose(): void;
+  /**
+   * A rejection (Orihime's "I reject"): an enemy shot touching the sphere undoes itself (and an enemy field
+   * too, when `fields`). Returns true when it was rejected.
+   */
+  reject?(at: THREE.Vector3, radius: number, by: Fighter, fields: boolean): boolean;
 }
 
 export interface Controller {
@@ -105,6 +110,13 @@ export class Game {
 
   addProjectile(p: Projectile): void {
     this.projectiles.push(p);
+  }
+
+  /** "I reject": every enemy shot (and field, when `fields`) touching the sphere is undone; returns how many */
+  rejectNear(at: THREE.Vector3, radius: number, by: Fighter, fields = true): number {
+    let n = 0;
+    for (const p of this.projectiles) if (!p.done && p.reject?.(at, radius, by, fields)) n++;
+    return n;
   }
 
   addRing(pos: THREE.Vector3, r: number, color: THREE.ColorRepresentation, dur = 0.45): void {
@@ -272,7 +284,7 @@ export class Game {
     if (t.action?.invulnerable) return;
     if (t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
-    const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
+    const power = from ? from.power * (from === this.player ? this.playerPower : 1) * (1 - from.sealK) : 1;
     let dmg = amount * power * (1 - armor) * t.damageTaken * (o.energy ? t.energyTaken : 1) * (t.agedT > 0 ? 1 + t.agedK : 1);
     // reiatsu armour: a weak cut bounces off (Ichigo's hands bled on Kenpachi's skin)
     const shrug = t.toughness > 0 && dmg < t.toughness;

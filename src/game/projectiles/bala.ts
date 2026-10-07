@@ -26,6 +26,12 @@ export class BalaShot implements Projectile {
     g.engine.gr.scene.add(this.mesh);
   }
 
+  reject(at: THREE.Vector3, radius: number, by: Fighter): boolean {
+    if (this.done || by.team === this.owner.team || this.pos.distanceTo(at) > radius) return false;
+    this.done = true;
+    return true;
+  }
+
   update(dt: number, g: Game): void {
     const step = this.speed * dt;
     const hit = raycastVoxels(g.engine.world, this.pos.x, this.pos.y, this.pos.z, this.dir.x, this.dir.y, this.dir.z, step + 0.1);

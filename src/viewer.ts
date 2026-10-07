@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { Engine } from './engine';
 import { generateStage } from './maps/stage';
 import { QUALITY_HIGH, QUALITY_LOW } from './render/renderer';
-import { CharacterVisual } from './game/characterFactory';
+import { CharacterVisual, PropMesh } from './game/characterFactory';
 import { buildIchigo, buildTensaZangetsu, buildZangetsuShikai, hollowMask, hollowMaskShatter, type IchigoForm } from './chars/ichigo';
 import { buildIchigoHollow } from './chars/ichigoHollow';
 import { VASTO_CLIPS, VASTO_STANCE } from './chars/ichigoHollowClips';
@@ -42,6 +42,8 @@ import { buildGrillo } from './chars/tosenGrillo';
 import { ARROGANTE_STANCE, BARAGGAN_CLIPS, BARAGGAN_STANCE } from './chars/baragganClips';
 import { KOMAMURA_CLIPS, KOMAMURA_STANCE } from './chars/komamuraClips';
 import { TOSEN_CLIPS, TOSEN_STANCE } from './chars/tosenClips';
+import { buildOrihime, rikkaFairy, type FairyName } from './chars/orihime';
+import { ORIHIME_CLIPS, ORIHIME_STANCE } from './chars/orihimeClips';
 import { NNOITRA_CLIPS, NNOITRA_STANCE, SANTA_STANCE } from './chars/nnoitraClips';
 import { SOGYO_STANCE, UKITAKE_CLIPS, UKITAKE_STANCE } from './chars/ukitakeClips';
 import { COLMILLO_STANCE, LILY_ARMED_STANCE, LILY_CLIPS, LILY_STANCE, LOBOS_STANCE, STARRK_CLIPS, STARRK_STANCE } from './chars/starrkClips';
@@ -99,6 +101,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     : who === 'ukitake' ? buildUkitake()
     : who === 'komamura' ? (params.get('form') === 'giant' ? buildGiant() : params.get('form') === 'limbs' ? buildGiant('limbs') : buildKomamura())
     : who === 'tosen' ? (params.get('form') === 'grillo' ? buildGrillo() : buildTosen(params.get('form') === 'masked' ? 'masked' : 'traitor'))
+    : who === 'orihime' ? buildOrihime(params.get('form') === 'rokuten' ? 'rokuten' : 'hueco')
     : who === 'baraggan' ? buildBaraggan(params.get('form') === 'arrogante' ? 'arrogante' : 'sealed')
     : who === 'nnoitra' ? buildNnoitra((['patch', 'santa'].includes(params.get('form') ?? '') ? params.get('form') : 'sealed') as NnoitraForm)
     : who === 'harribel' ? buildHarribel((['unzipped', 'tiburon'].includes(params.get('form') ?? '') ? params.get('form') : 'sealed') as HarribelForm)
@@ -235,6 +238,19 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     ch.rig.setBoneVisible(drawn ? 'palm.R' : 'fist.R', false);
     ch.rig.setBoneVisible('fist.L', false);
   }
+  if (who === 'orihime') {
+    // hueco | rokuten; fairies=1 lines up the six Rikka at four times their size in front of her
+    ch.rig.setBoneVisible('fist.R', false);
+    ch.rig.setBoneVisible('fist.L', false);
+    if (params.get('fairies')) {
+      (['tsubaki', 'ayame', 'shuno', 'hinagiku', 'lily', 'baigon'] as FairyName[]).forEach((n, i) => {
+        const m = new PropMesh(rikkaFairy(n));
+        m.scale.setScalar(4);
+        m.position.set(16 - 1.0 + i * 0.4, 2, 16 + 0.55);
+        eng.gr.scene.add(m);
+      });
+    }
+  }
   if (who === 'komamura') {
     // the captain with Tenken | giant (the Bankai, at his own size: the game scales it up)
     const giant = params.get('form') === 'giant';
@@ -331,7 +347,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   };
   setMask(params.get('mask'));
   // body scale (close-ups) and full-view scale (released wings widen the full views)
-  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : 1;
+  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : 1;
   const viewScale = who === 'ulquiorra' && params.get('form') && params.get('form') !== 'sealed' ? 1.7 : who === 'hitsugaya' && form === 'bankai' ? 1.7 : bodyScale;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
@@ -400,8 +416,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const rjStance = form === 'bankai' ? HIHIO_STANCE : RENJI_STANCE;
   const rkStance = form === 'bankai' ? TOGAME_STANCE : RUKIA_STANCE;
   const chStance = kpForm === 'true' ? CHAD_TRUE_STANCE : CHAD_STANCE;
-  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : who === 'kenpachi' ? kpStance : who === 'ulquiorra' ? uqStance : who === 'aizen' ? azStance : who === 'hitsugaya' ? hgStance : who === 'renji' ? rjStance : who === 'rukia' ? rkStance : who === 'chad' ? chStance : who === 'uryu' ? URYU_STANCE : who === 'yoruichi' ? YORUICHI_STANCE : who === 'urahara' ? (kpForm === 'sealed' ? URAHARA_STANCE : BENIHIME_STANCE) : who === 'yamamoto' ? (kpForm === 'stripped' ? YAMAMOTO_BARE_STANCE : kpForm === 'shikai' || kpForm === 'tybw' ? RYUJIN_STANCE : YAMAMOTO_STANCE) : form === 'hollow' ? VASTO_STANCE : who === 'gin' ? GIN_STANCE : who === 'kyoraku' ? (kpForm === 'shikai' || kpForm === 'bankai' ? KATEN_STANCE : KYORAKU_STANCE) : who === 'starrk' ? (kpForm === 'lobos' ? (params.get('colmillo') ? COLMILLO_STANCE : LOBOS_STANCE) : STARRK_STANCE) : who === 'lilynette' ? (params.get('drawn') ? LILY_ARMED_STANCE : LILY_STANCE) : who === 'ukitake' ? (kpForm === 'shikai' ? SOGYO_STANCE : UKITAKE_STANCE) : who === 'harribel' ? (kpForm === 'tiburon' ? TIBURON_STANCE : HARRIBEL_STANCE) : who === 'nnoitra' ? (kpForm === 'santa' ? SANTA_STANCE : NNOITRA_STANCE) : who === 'baraggan' ? (kpForm === 'arrogante' ? ARROGANTE_STANCE : BARAGGAN_STANCE) : who === 'komamura' ? KOMAMURA_STANCE : who === 'tosen' ? TOSEN_STANCE : who === 'suifeng' ? (kpForm === 'bankai' ? RAIKOBEN_STANCE : kpForm === 'shikai' ? SUZUMEBACHI_STANCE : SUIFENG_STANCE) : ICHIGO_STANCE, ch.springs);
-  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : who === 'kenpachi' ? KENPACHI_CLIPS : who === 'ulquiorra' ? ULQUIORRA_CLIPS : who === 'aizen' ? AIZEN_CLIPS : who === 'hitsugaya' ? HITSUGAYA_CLIPS : who === 'renji' ? RENJI_CLIPS : who === 'rukia' ? RUKIA_CLIPS : who === 'chad' ? CHAD_CLIPS : who === 'uryu' ? URYU_CLIPS : who === 'yoruichi' ? YORUICHI_CLIPS : who === 'urahara' ? URAHARA_CLIPS : who === 'yamamoto' ? YAMAMOTO_CLIPS : form === 'hollow' ? VASTO_CLIPS : who === 'gin' ? GIN_CLIPS : who === 'kyoraku' ? KYORAKU_CLIPS : who === 'starrk' ? STARRK_CLIPS : who === 'lilynette' ? LILY_CLIPS : who === 'ukitake' ? UKITAKE_CLIPS : who === 'harribel' ? HARRIBEL_CLIPS : who === 'nnoitra' ? NNOITRA_CLIPS : who === 'baraggan' ? BARAGGAN_CLIPS : who === 'komamura' ? KOMAMURA_CLIPS : who === 'tosen' ? TOSEN_CLIPS : who === 'suifeng' ? SUIFENG_CLIPS : ICHIGO_CLIPS);
+  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : who === 'kenpachi' ? kpStance : who === 'ulquiorra' ? uqStance : who === 'aizen' ? azStance : who === 'hitsugaya' ? hgStance : who === 'renji' ? rjStance : who === 'rukia' ? rkStance : who === 'chad' ? chStance : who === 'uryu' ? URYU_STANCE : who === 'yoruichi' ? YORUICHI_STANCE : who === 'urahara' ? (kpForm === 'sealed' ? URAHARA_STANCE : BENIHIME_STANCE) : who === 'yamamoto' ? (kpForm === 'stripped' ? YAMAMOTO_BARE_STANCE : kpForm === 'shikai' || kpForm === 'tybw' ? RYUJIN_STANCE : YAMAMOTO_STANCE) : form === 'hollow' ? VASTO_STANCE : who === 'gin' ? GIN_STANCE : who === 'kyoraku' ? (kpForm === 'shikai' || kpForm === 'bankai' ? KATEN_STANCE : KYORAKU_STANCE) : who === 'starrk' ? (kpForm === 'lobos' ? (params.get('colmillo') ? COLMILLO_STANCE : LOBOS_STANCE) : STARRK_STANCE) : who === 'lilynette' ? (params.get('drawn') ? LILY_ARMED_STANCE : LILY_STANCE) : who === 'ukitake' ? (kpForm === 'shikai' ? SOGYO_STANCE : UKITAKE_STANCE) : who === 'harribel' ? (kpForm === 'tiburon' ? TIBURON_STANCE : HARRIBEL_STANCE) : who === 'nnoitra' ? (kpForm === 'santa' ? SANTA_STANCE : NNOITRA_STANCE) : who === 'baraggan' ? (kpForm === 'arrogante' ? ARROGANTE_STANCE : BARAGGAN_STANCE) : who === 'komamura' ? KOMAMURA_STANCE : who === 'tosen' ? TOSEN_STANCE : who === 'orihime' ? ORIHIME_STANCE : who === 'suifeng' ? (kpForm === 'bankai' ? RAIKOBEN_STANCE : kpForm === 'shikai' ? SUZUMEBACHI_STANCE : SUIFENG_STANCE) : ICHIGO_STANCE, ch.springs);
+  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : who === 'kenpachi' ? KENPACHI_CLIPS : who === 'ulquiorra' ? ULQUIORRA_CLIPS : who === 'aizen' ? AIZEN_CLIPS : who === 'hitsugaya' ? HITSUGAYA_CLIPS : who === 'renji' ? RENJI_CLIPS : who === 'rukia' ? RUKIA_CLIPS : who === 'chad' ? CHAD_CLIPS : who === 'uryu' ? URYU_CLIPS : who === 'yoruichi' ? YORUICHI_CLIPS : who === 'urahara' ? URAHARA_CLIPS : who === 'yamamoto' ? YAMAMOTO_CLIPS : form === 'hollow' ? VASTO_CLIPS : who === 'gin' ? GIN_CLIPS : who === 'kyoraku' ? KYORAKU_CLIPS : who === 'starrk' ? STARRK_CLIPS : who === 'lilynette' ? LILY_CLIPS : who === 'ukitake' ? UKITAKE_CLIPS : who === 'harribel' ? HARRIBEL_CLIPS : who === 'nnoitra' ? NNOITRA_CLIPS : who === 'baraggan' ? BARAGGAN_CLIPS : who === 'komamura' ? KOMAMURA_CLIPS : who === 'tosen' ? TOSEN_CLIPS : who === 'orihime' ? ORIHIME_CLIPS : who === 'suifeng' ? SUIFENG_CLIPS : ICHIGO_CLIPS);
   const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
   eng.systems.push({ update: (dt) => anim.update(dt, loco) });
   const applyPose = (dt: number) => {

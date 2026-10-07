@@ -270,6 +270,13 @@ export class EnmaKorogi implements Projectile {
     }
   }
 
+  /** "I reject" from someone inside or touching the dome tears it apart */
+  reject(at: THREE.Vector3, radius: number, by: Fighter, fields: boolean): boolean {
+    if (!fields || this.endT >= 0 || by.team === this.owner.team || at.distanceTo(this.centre) > this.radius + radius) return false;
+    this.shred();
+    return true;
+  }
+
   update(dt: number): void {
     this.t += dt;
     if (this.endT >= 0) {

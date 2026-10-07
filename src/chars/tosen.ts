@@ -107,8 +107,11 @@ export function buildTosen(form: TosenForm = 'traitor'): CharacterAsset {
   }, hd.front - 1);
   // the visor wraps round to the ears
   const cranium = box([0, hd.chin + 4 + (s.head.h - 4) / 2, hd.front - s.head.d / 2], [s.head.w / 2, (s.head.h - 4) / 2, s.head.d / 2], { round: 2.2 });
-  b.add('head', intersect(subtract(offset(cranium, 0.8), offset(cranium, -0.4)), aabb([-20, hd.chin + 5, hd.front - 7], [20, hd.chin + 7, hd.front + 2])), 'visor', { thr: 0.2 });
-  b.paint('head', aabb([-20, hd.chin + 5, hd.front - 8], [20, hd.chin + 6, hd.front + 2]), 'visor', { shade: 0, where: b.isMat('visor') });
+  // (under the Hollow mask the band would poke out of the open back: the mask covers his eyes instead)
+  if (form === 'traitor') {
+    b.add('head', intersect(subtract(offset(cranium, 0.8), offset(cranium, -0.4)), aabb([-20, hd.chin + 5, hd.front - 7], [20, hd.chin + 7, hd.front + 2])), 'visor', { thr: 0.2 });
+    b.paint('head', aabb([-20, hd.chin + 5, hd.front - 8], [20, hd.chin + 6, hd.front + 2]), 'visor', { shade: 0, where: b.isMat('visor') });
+  }
   const hair = braids(b, L, hd, form === 'traitor');
   hands(b, L, 'glove');
   arms(b, L);

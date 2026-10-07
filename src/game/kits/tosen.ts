@@ -91,6 +91,8 @@ class CutAction extends FighterAction {
   private comboAt = 0;
   private hitAt = -1;
   private kick: Strike | null = null;
+  /** the lunge stops when the target is this close (0 = not lunging) */
+  private stopAt = 0;
   queued = false;
   constructor(readonly kit: TosenKit, readonly clip: string, readonly index: number, readonly last: boolean) {
     super();
@@ -124,9 +126,19 @@ class CutAction extends FighterAction {
     f.anim.play(this.clip, {
       onEvent: (n) => {
         if (n !== 'step') return;
+        // close the gap so the edge arrives where the target stands: the push it takes to cover the gap by
+        // the time of the hit (the push decays with the fighter's drag); the lunge stops at striking distance
         const tgt = f.faceTarget;
-        const extra = tgt ? Math.min(4, Math.max(0, f.pos.distanceTo(tgt) - 1.8)) : 0;
-        f.push.addScaledVector(f.forward(), (this.kit.grillo ? 8 : 6) + extra * 3.2);
+        const base = this.kit.grillo ? 8 : 6;
+        let push = base;
+        if (tgt) {
+          const d = Math.hypot(tgt.x - f.pos.x, tgt.z - f.pos.z);
+          this.stopAt = this.kit.grillo ? 2.0 : 1.15;
+          const tau = Math.max(0.05, this.hitAt - f.anim.clip(this.clip)!.events!.step!);
+          const per = (1 - Math.exp(-f.pushDrag * tau)) / f.pushDrag;
+          push = Math.min(28, Math.max(base, Math.max(0, d - this.stopAt) / per));
+        }
+        f.push.addScaledVector(f.forward(), push);
         g.sfx.play(this.kit.grillo ? 'swingHeavy' : 'swing', f.center(), 0.8);
       },
     });
@@ -134,6 +146,13 @@ class CutAction extends FighterAction {
   override update(f: Fighter, g: Game, dt: number): void {
     super.update(f, g, dt);
     const t = this.t;
+    // the lunge ends at striking distance instead of carrying him into the target
+    const tgt = f.faceTarget;
+    if (this.stopAt > 0 && tgt && Math.hypot(tgt.x - f.pos.x, tgt.z - f.pos.z) <= this.stopAt) {
+      f.push.x = 0;
+      f.push.z = 0;
+      this.stopAt = 0;
+    }
     const open = this.hitAt >= 0 && t >= this.hitAt - 0.07 && t <= this.hitAt + 0.12;
     f.bladeActive = open && !this.kick;
     if (f.trail) f.trail.emitting = open && !this.kick;
@@ -898,7 +917,7 @@ export class TosenKit implements Kit {
     const kit = this;
     return {
       get reach() {
-        return kit.grillo ? 3.4 : 2.2;
+        return kit.grillo ? 3.4 : 1.8;
       },
       chain: 4,
       releaseAt: [0.8, 0.4],

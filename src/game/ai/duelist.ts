@@ -81,7 +81,7 @@ export class DuelistAI implements Controller {
     const hp = f.hp / f.maxHp;
 
     // ---- forms and states by HP
-    if (!f.busy && this.intro <= 0) {
+    if (!f.busy && this.intro <= 0 && f.sealT <= 0) {
       const stages = ai.releaseAt === undefined ? [] : Array.isArray(ai.releaseAt) ? ai.releaseAt : [ai.releaseAt];
       if (this.releases < stages.length && hp <= stages[this.releases]) {
         this.releases++;

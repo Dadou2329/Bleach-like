@@ -86,8 +86,14 @@ export class PlayerController implements Controller {
     if (inp.pressed('skill1')) { this.assist = null; kit.skill1(); }
     if (inp.pressed('skill2')) { this.assist = null; kit.skill2?.(); }
     if (inp.pressed('skill3')) { this.assist = null; kit.skill3?.(); }
-    if (inp.pressed('release', 200)) kit.release();
-    if (inp.pressed('mask', 200)) kit.toggle?.();
+    if (inp.pressed('release', 200)) {
+      if (f.sealT > 0) g.hud?.showBanner('Your power is rejected');
+      else kit.release();
+    }
+    if (inp.pressed('mask', 200)) {
+      if (f.sealT > 0) g.hud?.showBanner('Your power is rejected');
+      else kit.toggle?.();
+    }
     if (inp.pressed('flare', 200)) kit.toggleFlare();
     if (inp.pressed('help', 200)) g.hud?.toggleHelp();
   }

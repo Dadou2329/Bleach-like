@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl' | 'splash' | 'torrent';
+  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl' | 'splash' | 'torrent' | 'heal';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -574,6 +574,29 @@ export class Sfx {
         const gr = ctx.createGain();
         this.env(gr, t, 0.1, 1.2, dur - 0.1);
         r.connect(lp).connect(gr).connect(o);
+        break;
+      }
+      case 'heal': {
+        // Sōten Kisshun: a warm chord swelling in, shimmering a little, fading slowly
+        const o = this.out(pos, 0.32 * I, 70);
+        if (!o) return;
+        [1, 1.25, 1.5, 2].forEach((m, k) => {
+          const s = ctx.createOscillator();
+          s.type = 'triangle';
+          s.frequency.value = 392 * m * (1 + (Math.random() - 0.5) * 0.004);
+          const vib = ctx.createOscillator();
+          vib.frequency.value = 5 + k;
+          const vg = ctx.createGain();
+          vg.gain.value = 2.5;
+          vib.connect(vg).connect(s.frequency);
+          const g = ctx.createGain();
+          this.env(g, t + k * 0.07, 0.35, 0.12, 1.6);
+          s.connect(g).connect(o);
+          s.start(t + k * 0.07);
+          vib.start(t + k * 0.07);
+          s.stop(t + k * 0.07 + 2.2);
+          vib.stop(t + k * 0.07 + 2.2);
+        });
         break;
       }
       case 'purify': {
