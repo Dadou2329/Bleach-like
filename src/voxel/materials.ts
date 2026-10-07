@@ -200,6 +200,8 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'gravel_dark', colors: ['#55524c', '#615e58', '#6d6a64'], pattern: 'stone', hardness: 6, density: 1.8, flags: S, debris: 'rock' });
   add({ name: 'bone', colors: ['#d8d6cc', '#e4e2d8', '#efede4'], pattern: 'none', hardness: 25, density: 1.9, flags: S, debris: 'bone' });
   add({ name: 'reishi_crystal', colors: ['#7fd2ff', '#a0e0ff', '#c4eeff'], pattern: 'glass', hardness: 8, density: 1, flags: S | F_EMISSIVE | F_TRANSPARENT, debris: 'glass', glow: 2.0 });
+  // rotted by Baraggan's Respira: crumbly, dull brown-grey, falls apart at a touch
+  add({ name: 'decayed', colors: ['#3d362f', '#4a4239', '#574e44', '#62584c'], pattern: 'sand', hardness: 1.5, density: 0.8, flags: S, debris: 'dirt' });
 
   return t;
 }

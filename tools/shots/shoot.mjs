@@ -101,7 +101,13 @@ try {
       await page.waitForFunction(`(window.__pageError) || (${waitExpr})`, null, { timeout, polling: 250 }).catch((e) => errors.push('script wait: ' + e.message.split('\n')[0]));
       await page.waitForTimeout(400);
       // SwiftShader sometimes presents a fully black 3D frame (HUD intact); re-render until it does not
-      const retries = await page.evaluate(BLACK_GUARD).catch(() => 'na');
+      let retries = await page.evaluate(BLACK_GUARD).catch(() => 'na');
+      // early in a session the black can last a few seconds of wall time: wait and try again before giving up
+      for (let round = 1; retries === -1 && round <= 8; round++) {
+        await page.waitForTimeout(600);
+        const r2 = await page.evaluate(BLACK_GUARD).catch(() => 'na');
+        retries = r2 === -1 || r2 === 'na' ? r2 : `${round}x12+${r2}`;
+      }
       if (retries !== 0 && retries !== 'na') black.push(`s${s}:${retries}`);
       // a starved SwiftShader can take a while to hand over a frame; one failed shot must not end the run
       await page.screenshot({ path: out.replace(/\.png$/, `-s${s}.png`), timeout: 180000 }).catch((e) => errors.push(`shot s${s}: ` + e.message.split('\n')[0]));

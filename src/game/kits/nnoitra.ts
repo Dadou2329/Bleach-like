@@ -119,7 +119,7 @@ class CutAction extends FighterAction {
     const spec: BladeSpec = slam
       ? { damage: 34, knock: 12, launch: 6, heavy: true, hitstop: 0.1, shake: 0.4, cut: 600, reach: 0.55 }
       : santa
-        ? { damage: spin ? 18 : 16, knock: 7, launch: this.last ? 4 : 0, hitstop: 0.04, shake: 0.12, cut: 320, reach: 0.3 }
+        ? { damage: spin ? 18 : 16, knock: 7, launch: this.last ? 4 : 0, hitstop: 0.04, shake: 0.12, cut: 320, reach: 0.4 }
         : { damage: 22, knock: 10, launch: 0, hitstop: 0.05, shake: 0.16, cut: 420, reach: 0.55 };
     f.bladeSpec = spec;
     this.kit.extraSpec = spec;
@@ -214,7 +214,7 @@ class HeavyAction extends SkillAction {
     f.bladeHits.clear();
     this.kit.extraHits();
     const spec: BladeSpec = santa
-      ? { damage: 30, knock: 20, launch: 4, heavy: true, hitstop: 0.12, shake: 0.4, cut: 520, reach: 0.35 }
+      ? { damage: 30, knock: 20, launch: 4, heavy: true, hitstop: 0.12, shake: 0.4, cut: 520, reach: 0.45 }
       : { damage: 52, knock: 14, launch: 8, heavy: true, hitstop: 0.14, shake: 0.5, cut: 900, reach: 0.6 };
     f.bladeSpec = spec;
     this.kit.extraSpec = spec;
@@ -936,8 +936,12 @@ export class NnoitraKit implements Kit {
 
   ai(): KitAI {
     const sealed = () => this.form !== 'santa', santa = () => this.form === 'santa';
+    const kit = this;
     return {
-      reach: 2.6,
+      // the scythes are shorter than Santa Teresa on its haft: he closes in further once released
+      get reach() {
+        return kit.form === 'santa' ? 2 : 2.6;
+      },
       chain: 4,
       releaseAt: [0.5],
       toggleAt: 0.8,

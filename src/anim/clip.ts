@@ -10,6 +10,8 @@ export interface KeyDef {
   t: number;
   /** easing of the segment that ENDS at this key */
   ease?: EaseName;
+  /** the channels' (c) easing at this key when it differs from the bones' (swing arcs split into steps) */
+  cease?: EaseName;
   b?: Record<string, Euler3>;
   /** hips offset in metres */
   hips?: Euler3;
@@ -105,7 +107,7 @@ export class Clip {
       for (const [name, v] of Object.entries(k.c ?? {})) {
         let arr = chans.get(name);
         if (!arr) chans.set(name, (arr = []));
-        arr.push({ t: k.t, v, e: k.ease ?? 'inOut' });
+        arr.push({ t: k.t, v, e: k.cease ?? k.ease ?? 'inOut' });
       }
       if (k.hips) hips.push({ t: k.t, v: k.hips, e: k.ease ?? 'inOut' });
     }

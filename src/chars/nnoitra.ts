@@ -66,7 +66,7 @@ function palette(b: ModelBuilder): void {
   b.mat('sash', ['#2C2C32', '#1C1C20', '#141418'], { base: 1, rough: 0.8 });
   b.mat('gold', ['#F1D774', '#D9B23A', '#B08A22', '#86661A'], { base: 1, rough: 0.3, metal: 0.85 });
   b.mat('boot', ['#33333A', '#222227', '#18181C', '#141418'], { base: 1, rough: 0.45, metal: 0.1 });
-  b.mat('bone', ['#F4F1E8', '#EAE4D4', '#D6CDBA', '#BDB29C', '#9C917C'], { base: 1, rough: 0.42, shadeK: 1 });
+  b.mat('bone', ['#F3F0E7', '#EAE4D4', '#D6CDBA', '#BDB29C', '#9C917C'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('void', ['#060609'], { rough: 1 });
   // Santa Teresa
   b.mat('shell', ['#F2EEE3', '#ECE7DB', '#D9D2C2', '#C0B7A4', '#A0967F'], { base: 1, rough: 0.45, shadeK: 1 });
@@ -281,20 +281,21 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; ch
   const R = NNOITRA_RES;
   springs.push({ bone: 'hairB1', tail: [0, -9 / R, -1 / R], stiffness: 60, damping: 5, gravity: 9, limit: 40, radius: 0.05 });
   springs.push({ bone: 'hairB2', tail: [0, -8 / R, -0.5 / R], stiffness: 40, damping: 4.5, gravity: 10, limit: 45, radius: 0.05 });
-  // a lock down the right side of the face
-  const right = smoothPath([[-5.4, c + 12, front - 4], [-6.2, c + 8, front - 2.2], [-6.1, c + 2, front - 2.4], [-5.6, c - 4, front - 2.8]], 4);
-  b.add('head', tube(right, right.map((_, i) => 1.8 - i * 0.07)), 'hair', { thr: 0.3 });
-  // the left curtain: long straight locks falling over the eyepatch's outer edge, then out past the grin's
-  // corner and on down beside the jaw, their tips at different lengths
-  const locks: [V3[], number][] = [
-    [[[2.4, c + 14, front - 3], [3.6, c + 12, front + 0.2], [4.4, c + 9, front + 1.2], [5.4, c + 6.5, front + 0.6], [6.2, c + 4, front - 0.6], [6.4, c + 0, front - 1.6], [6.3, c - 2.5, front - 2]], 1.3],
-    [[[3.6, c + 14.5, front - 4], [5, c + 12, front - 0.8], [5.8, c + 8, front - 0.2], [6.6, c + 3, front - 1.4], [6.8, c - 4, front - 2.4]], 1.4],
-    [[[4.6, c + 14, front - 5.5], [6.2, c + 11, front - 2.8], [6.9, c + 6, front - 3], [7.1, c + 0, front - 3.4], [6.9, c - 5.5, front - 4]], 1.4],
-  ];
-  for (const [ctrl, r0] of locks) {
-    const path = smoothPath(ctrl, 4);
-    b.add('head', tube(path, path.map((_, i) => r0 * (1 - 0.6 * (i / (path.length - 1)) ** 1.6))), 'hair', { thr: 0.3 });
-  }
+  // the side curtains: straight strands packed edge to edge (each a little further back round the head), so
+  // they read as one sheet with grooves. The left one falls over the eyepatch's outer edge, bows out past the
+  // grin's corner and on down beside the jaw; the right one frames the cheek. The tips end at uneven lengths.
+  const curtain = (k: number, n: number, x0: number, dx: number, z0: number, dz: number, tips: number[], over: boolean) => {
+    for (let j = 0; j < n; j++) {
+      const x = k * (x0 + dx * j), z = z0 - dz * j, sx = k;
+      const ctrl: V3[] = over
+        ? [[x - sx * 1.5, c + 14, z - 4], [x, c + 11, z], [x + sx * 0.6, c + 8, z - 0.1], [x + sx * 1.6, c + 6, z - 0.5], [x + sx * 2.2, c + 3.5, z - 1.3], [x + sx * 2.3, tips[j], z - 1.9]]
+        : [[x - sx * 1, c + 13.5, z - 3], [x, c + 9, z], [x + sx * 0.4, c + 3, z - 0.4], [x + sx * 0.5, tips[j], z - 0.9]];
+      const path = smoothPath(ctrl, 4);
+      b.add('head', tube(path, path.map((_, i) => 1.15 * (1 - 0.55 * (i / (path.length - 1)) ** 2))), 'hair', { thr: 0.3 });
+    }
+  };
+  curtain(1, 5, 3.6, 0.9, front + 1.1, 1, [c - 1.5, c - 3.5, c - 2.5, c - 4.5, c - 3], true);
+  curtain(-1, 3, 5.5, 0.85, front - 2.2, 0.9, [c - 3.5, c - 2, c - 4], false);
   // the fringe: two locks parting high on the forehead
   for (const [x, tipY, r] of [[-3, c + 10.6, 1.3], [-0.6, c + 11, 1.2], [1.8, c + 10.2, 1.3]] as [number, number, number][]) {
     const top: V3 = [x, c + 13.4, front - 1.2];
@@ -521,8 +522,8 @@ function tendrils(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
  */
 function buildTeresa(): VoxelModel {
   const b = new ModelBuilder('nnoitra-teresa', NNOITRA_RES);
-  b.mat('gold', ['#F1D774', '#D9B23A', '#B08A22', '#86661A'], { base: 1, rough: 0.28, metal: 0.85 });
-  b.mat('edge', ['#F7E9A8'], { rough: 0.2, metal: 0.9 });
+  b.mat('gold', ['#F1D774', '#D9B23A', '#B08A22', '#86661A'], { base: 1, rough: 0.42, metal: 0.8 });
+  b.mat('edge', ['#F3E5A2'], { rough: 0.3, metal: 0.85 });
   b.mat('shaft', ['#3A3A42', '#2B2B30', '#1E1E22', '#141418'], { base: 1, rough: 0.5, metal: 0.3 });
   b.mat('steel', ['#B6BBC1', '#8C9096', '#6E7278'], { base: 1, rough: 0.3, metal: 0.85 });
   b.bone('root', null, [0, 0, 0]);
@@ -588,7 +589,7 @@ function buildTongue(): VoxelModel {
 function buildScythe(): VoxelModel {
   const b = new ModelBuilder('nnoitra-scythe', NNOITRA_RES);
   b.mat('bone', ['#F2EEE3', '#ECE7DB', '#D9D2C2', '#C0B7A4'], { base: 1, rough: 0.4 });
-  b.mat('edge', ['#FBF8F0'], { rough: 0.25 });
+  b.mat('edge', ['#F3F1EA'], { rough: 0.25 });
   b.mat('gold', ['#F1D774', '#E0B030', '#B08A22'], { base: 1, rough: 0.35, metal: 0.7 });
   b.bone('root', null, [0, 0, 0]);
   b.add('root', cylinder([0, 0, -22], [0, 0, 31], 1.05), 'bone');

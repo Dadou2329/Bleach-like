@@ -1,7 +1,7 @@
 // The destruction pipeline: carve shapes → debris & dust → integrity check → falling fragments.
 import * as THREE from 'three';
 import { NumSet } from '../core/numset';
-import { F_FLAMMABLE, F_INDESTRUCTIBLE, F_SOLID } from '../voxel/materials';
+import { F_FLAMMABLE, F_INDESTRUCTIBLE, F_LIQUID, F_SOLID } from '../voxel/materials';
 import type { VoxelWorld } from '../voxel/world';
 import type { DebrisSystem } from '../vfx/debris';
 import { TEX_GLOW, TEX_STREAK, type SpriteSystem } from '../vfx/sprites';
@@ -9,7 +9,7 @@ import type { FragmentSystem, SlidePlane } from './fragments';
 import { IntegrityChecker } from './integrity';
 import { BoxShape, type DamageShape } from './shapes';
 
-export type CarveMode = 'smash' | 'cut' | 'bore' | 'explode' | 'burn' | 'erase' | 'melt';
+export type CarveMode = 'smash' | 'cut' | 'bore' | 'explode' | 'burn' | 'erase' | 'melt' | 'rot';
 
 export interface CarveOptions {
   mode: CarveMode;
@@ -38,6 +38,8 @@ export interface CarveResult {
 }
 
 const _dir = new THREE.Vector3();
+/** the dust things rot to */
+const ROT_DUST = new THREE.Color('#7A6E5E');
 
 export class DestructionSystem {
   readonly integrity: IntegrityChecker;
@@ -67,6 +69,8 @@ export class DestructionSystem {
     const removedX: number[] = [], removedY: number[] = [], removedZ: number[] = [], removedM: number[] = [];
     const matCount = new Map<number, number>();
     const burnMap = new Map<number, number>();
+    // rot: what it cannot crumble yet it turns to decayed matter (which crumbles at the next breath)
+    const decayed = opts.mode === 'rot' && mats.has('decayed') ? mats.id('decayed') : -1;
     shape.forEachVoxel(vs, (x, y, z, depth) => {
       if (!w.inBounds(x, y, z)) return;
       const m = w.get(x, y, z);
@@ -89,6 +93,11 @@ export class DestructionSystem {
           return;
         }
         if (p < hard) return;
+      } else if (opts.mode === 'rot') {
+        if (p < hard) {
+          if (decayed > 0 && m !== decayed && p >= hard * 0.2 && !(f & F_LIQUID)) w.set(x, y, z, decayed);
+          return;
+        }
       } else if (p < hard) return;
       w.set(x, y, z, 0);
       removedX.push(x); removedY.push(y); removedZ.push(z); removedM.push(m);
@@ -100,7 +109,7 @@ export class DestructionSystem {
     if (n === 0) return { removed: 0, mainMaterial: 0 };
     // ---- debris
     const mode = opts.mode;
-    const debrisFrac = opts.debris ?? (mode === 'cut' ? 0.06 : mode === 'erase' || mode === 'melt' ? 0 : mode === 'bore' ? 0.18 : 0.35);
+    const debrisFrac = opts.debris ?? (mode === 'cut' ? 0.06 : mode === 'erase' || mode === 'melt' || mode === 'rot' ? 0 : mode === 'bore' ? 0.18 : 0.35);
     const target = Math.min(this.maxDebrisPerCarve, Math.ceil(n * debrisFrac));
     const impulse = opts.impulse ?? (mode === 'explode' ? 14 : mode === 'cut' ? 3 : 8);
     const c = shape.center;
@@ -116,11 +125,11 @@ export class DestructionSystem {
       this.debris.spawn(px, py, pz, _dir.x * sp + (Math.random() - 0.5) * 2, _dir.y * sp + 2 + Math.random() * 4, _dir.z * sp + (Math.random() - 0.5) * 2, size, removedM[i], 3 + Math.random() * 4);
     }
     // ---- dust
-    const dustAmt = (opts.dust ?? 1) * (mode === 'cut' ? 0.4 : mode === 'melt' || mode === 'erase' ? 0.1 : 1);
+    const dustAmt = (opts.dust ?? 1) * (mode === 'cut' ? 0.4 : mode === 'melt' || mode === 'erase' ? 0.1 : mode === 'rot' ? 1.6 : 1);
     const puffs = Math.min(40, Math.ceil(Math.sqrt(n) * 0.5 * dustAmt));
     let main = 0, mainN = 0;
     for (const [m, cnt] of matCount) if (cnt > mainN) { main = m; mainN = cnt; }
-    const dc = this.dustColor(main);
+    const dc = mode === 'rot' ? ROT_DUST.clone().lerp(this.dustColor(main), 0.25) : this.dustColor(main);
     for (let k = 0; k < puffs; k++) {
       const i = Math.floor(Math.random() * n);
       const px = (removedX[i] + 0.5) * vs, py = (removedY[i] + 0.5) * vs, pz = (removedZ[i] + 0.5) * vs;

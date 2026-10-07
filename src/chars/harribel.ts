@@ -63,7 +63,7 @@ function palette(b: ModelBuilder): void {
   b.mat('glove', ['#3A3A40', '#26262B', '#1A1A1E', '#141418'], { base: 1, rough: 0.6 });
   b.mat('sash', ['#2C2C32', '#1C1C20', '#141418'], { base: 1, rough: 0.8 });
   b.mat('shoe', ['#2E2E35', '#1A1A1C', '#141418'], { base: 1, rough: 0.45, metal: 0.1 });
-  b.mat('bone', ['#F4F1E8', '#ECE7DA', '#DAD3C2', '#C2BAA6', '#A39B87'], { base: 1, rough: 0.42, shadeK: 1 });
+  b.mat('bone', ['#F3F0E7', '#ECE7DA', '#DAD3C2', '#C2BAA6', '#A39B87'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('teeth', ['#F3F1EA'], { rough: 0.35 });
   b.mat('ink', ['#1A1A1E']);
   b.mat('void', ['#060609'], { rough: 1 });
@@ -630,7 +630,7 @@ function tiburonArmor(b: ModelBuilder, L: Landmarks, full: Sdf, springs: SpringD
 function buildTiburon(): VoxelModel {
   const b = new ModelBuilder('harribel-tiburon', HARRIBEL_RES);
   b.mat('steel', ['#E9EDF0', '#C9CED3', '#A9AEB4', '#868B92'], { base: 1, rough: 0.28, metal: 0.85 });
-  b.mat('edge', ['#F1F3F4'], { rough: 0.2, metal: 0.9 });
+  b.mat('edge', ['#F0F2F3'], { rough: 0.2, metal: 0.9 });
   b.mat('wrap', ['#8A55B0', '#6B3B8E', '#522B6E', '#3C1F52'], { base: 1, rough: 0.8 });
   b.mat('pommel', ['#B6BBC1', '#9A9FA6', '#7C8188'], { base: 1, rough: 0.35, metal: 0.8 });
   b.bone('root', null, [0, 0, 0]);
@@ -677,7 +677,7 @@ function buildSheath(withSword: boolean): VoxelModel {
   b.mat('sheath', ['#3A3A40', '#2A2A2E', '#1E1E22', '#141418'], { base: 1, rough: 0.55 });
   b.mat('trimS', ['#B6BBC1', '#9A9FA6', '#7C8188'], { base: 1, rough: 0.35, metal: 0.8 });
   b.mat('steel', ['#E9EDF0', '#C9CED3', '#A9AEB4', '#868B92'], { base: 1, rough: 0.28, metal: 0.85 });
-  b.mat('edge', ['#F1F3F4'], { rough: 0.2, metal: 0.9 });
+  b.mat('edge', ['#F0F2F3'], { rough: 0.2, metal: 0.9 });
   b.mat('wrap', ['#8A55B0', '#6B3B8E', '#522B6E', '#3C1F52'], { base: 1, rough: 0.8 });
   b.mat('pommel', ['#B6BBC1', '#9A9FA6', '#7C8188'], { base: 1, rough: 0.35, metal: 0.8 });
   b.bone('root', null, [0, 0, 0]);
@@ -705,7 +705,7 @@ function buildSheath(withSword: boolean): VoxelModel {
  */
 function buildPata(): VoxelModel {
   const b = new ModelBuilder('harribel-pata', HARRIBEL_RES);
-  b.mat('bone', ['#F4F1E8', '#ECE7DA', '#DAD3C2', '#C2BAA6', '#A39B87'], { base: 1, rough: 0.38, shadeK: 1 });
+  b.mat('bone', ['#F3F0E7', '#ECE7DA', '#DAD3C2', '#C2BAA6', '#A39B87'], { base: 1, rough: 0.38, shadeK: 1 });
   b.mat('gill', ['#2B2B2B', '#1E1E22'], { base: 0, rough: 0.6 });
   b.mat('rim', ['#C9C2B0', '#ADA591'], { base: 0, rough: 0.4 });
   b.bone('root', null, [0, 0, 0]);

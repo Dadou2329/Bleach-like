@@ -271,7 +271,7 @@ export class Game {
     if (t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
-    let dmg = amount * power * (1 - armor) * t.damageTaken;
+    let dmg = amount * power * (1 - armor) * t.damageTaken * (o.energy ? t.energyTaken : 1);
     // reiatsu armour: a weak cut bounces off (Ichigo's hands bled on Kenpachi's skin)
     const shrug = t.toughness > 0 && dmg < t.toughness;
     if (shrug) dmg *= 0.25;
@@ -315,6 +315,16 @@ export class Game {
     } else if (Math.random() < 0.3) this.sfx.play('hit', t.center(), 0.35);
     t.onHurt?.(dmg, o.heavy === true);
     if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, dir);
+  }
+
+  /** Damage over time (rot, poison, burns): the HP drains without a flinch, hitstun, sound or number; it can still kill. */
+  drain(t: Fighter, amount: number, from: Fighter | null): void {
+    if (t.dead || t.invuln > 0 || amount <= 0) return;
+    const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
+    const dmg = amount * power * t.damageTaken;
+    t.hp -= dmg;
+    if (from) from.stats.damageDealt += dmg;
+    if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, _w.set(0, 0, 0));
   }
 
   kill(t: Fighter, from: Fighter | null, dir: THREE.Vector3): void {
