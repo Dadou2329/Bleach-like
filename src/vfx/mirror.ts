@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import type { Game, Projectile } from '../game/game';
 import type { Fighter } from '../game/fighter';
 import { createCharMaterial, type CharMaterial } from '../render/charMaterial';
-import { TEX_GLOW, TEX_STREAK } from './sprites';
+import { TEX_GLOW, TEX_PUFF, TEX_STREAK } from './sprites';
 
 const GLASS_VERT = /* glsl */ `
 varying vec3 vN; varying vec3 vW;
@@ -138,7 +138,11 @@ export class MirrorDecoy implements Projectile {
   private brokenAt = -1;
   private height: number;
 
-  constructor(private g: Game, private owner: Fighter, readonly life = 2.5) {
+  /**
+   * `style`: 'mirror' (Kyōka Suigetsu: it breaks like glass) or 'shell' (Utsusemi: the cast-off shell that
+   * takes the blow; it comes apart into fluttering afterimage streaks).
+   */
+  constructor(private g: Game, private owner: Fighter, readonly life = 2.5, readonly style: 'mirror' | 'shell' = 'mirror') {
     const src = owner.visual;
     src.object.updateMatrixWorld(true);
     this.pos.copy(owner.pos);
@@ -206,6 +210,17 @@ export class MirrorDecoy implements Projectile {
     this.brokenAt = this.t;
     const g = this.g;
     const c = this.center();
+    if (this.style === 'shell') {
+      // the shell comes apart: a puff and a flutter of pale streaks, nothing solid left
+      for (let i = 0; i < 26; i++) {
+        const a = Math.random() * Math.PI * 2, s = 1 + Math.random() * 3;
+        const y = this.pos.y + Math.random() * this.height;
+        g.engine.glow.spawn({ x: c.x, y, z: c.z, vx: Math.cos(a) * s, vy: 0.5 + Math.random() * 1.5, vz: Math.sin(a) * s, size: 0.1, sizeEnd: 0.02, life: 0.5, r: 0.86, g: 0.82, b: 1, alpha: 0.9, alphaEnd: 0, tex: TEX_STREAK, stretch: 2, drag: 3 });
+      }
+      g.engine.dust.spawn({ x: c.x, y: c.y, z: c.z, size: 0.8, sizeEnd: 2.2, life: 0.5, r: 0.85, g: 0.82, b: 0.9, alpha: 0.35, alphaEnd: 0, tex: TEX_PUFF, drag: 2 });
+      g.sfx.play('shunpo', c, 0.6);
+      return;
+    }
     g.addProjectile(new GlassShards(g, c, new THREE.Vector3(0.35, this.height * 0.48, 0.3), 70, 5.5, 1.9, this.pos.y));
     g.sfx.play('shatter', c, 1.1);
     g.engine.glow.spawn({ x: c.x, y: c.y, z: c.z, size: 1.2, sizeEnd: 3.4, life: 0.3, r: 0.85, g: 0.8, b: 1, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });
@@ -222,7 +237,7 @@ export class MirrorDecoy implements Projectile {
       const u = m.userData.uniforms;
       u.uTime.value = time;
       u.uFlash.value.set(0.9, 0.86, 1, this.broken ? Math.max(0, 1 - k * 2.5) : 0);
-      u.uDissolve.value = this.broken ? Math.min(1, 0.25 + k) : 0;
+      u.uDissolve.value = this.broken ? Math.min(1, (this.style === 'shell' ? 0.45 : 0.25) + k * (this.style === 'shell' ? 1.6 : 1)) : 0;
     }
   }
 

@@ -10,7 +10,9 @@ scope and milestones and `README.md` for controls and modes.
   screenshot per script after `__reishi.ready()`. `tools/shots/probe.mjs --file script.js` evaluates JS and can
   screenshot. SwiftShader runs at about 1 fps, so drive the simulation deterministically with
   `__reishi.freeze()` plus `play(n)` (step and render) or `advance(n)` (step only). Use `freeCam(...)` for
-  framing. Add `&q=low` for speed. `shots/` is git-ignored.
+  framing. Add `&q=low` for speed. `shots/` is git-ignored. The tools start Vite with
+  `tools/shots/vite.shots.config.ts` (HMR off), so editing sources while a capture runs does not reload its
+  page; a server you started yourself with `npm run dev` on the same port still has HMR.
 
 ## Architecture (where things live)
 - World: `src/voxel/world.ts` holds 32³ brick-paletted chunks at 0.125 m. Materials are in

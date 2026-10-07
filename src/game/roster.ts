@@ -20,6 +20,19 @@ import { AIZEN_DEF, AizenKit } from './kits/aizen';
 import { aizenAsset, aizenProp } from '../chars/aizen';
 import { RENJI_DEF, RenjiKit } from './kits/renji';
 import { renjiAsset, renjiProp } from '../chars/renji';
+import { RUKIA_DEF, RukiaKit } from './kits/rukia';
+import { rukiaAsset, rukiaProp } from '../chars/rukia';
+import { CHAD_DEF, ChadKit } from './kits/chad';
+import { chadAsset } from '../chars/chad';
+import { URYU_DEF, UryuKit } from './kits/uryu';
+import { uryuAsset, uryuProp } from '../chars/uryu';
+import { YORUICHI_DEF, YoruichiKit } from './kits/yoruichi';
+import { yoruichiAsset } from '../chars/yoruichi';
+import { URAHARA_DEF, UraharaKit } from './kits/urahara';
+import { YAMAMOTO_DEF, YamamotoKit } from './kits/yamamoto';
+import { yamamotoAsset, yamamotoProp } from '../chars/yamamoto';
+import { uraharaProp } from '../chars/urahara';
+import { benihimeCurtain, benihimeDoll } from '../chars/uraharaBankai';
 
 export interface RosterEntry {
   id: string;
@@ -87,6 +100,86 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(renjiAsset('bankai').model, true);
       for (const k of ['hilt', 'seg0', 'seg1', 'seg2', 'seg3', 'seg4', 'seg5', 'handle', 'skull', 'vertebra'] as const) buildCached(renjiProp(k), false);
+    },
+  },
+  {
+    id: 'rukia',
+    name: 'Rukia Kuchiki',
+    kanji: '袖白雪',
+    title: '13th Division',
+    color: '#bfe6f7',
+    def: () => ({ ...RUKIA_DEF, speed: { ...RUKIA_DEF.speed } }),
+    kit: (f, g) => new RukiaKit(f, g),
+    warm: () => {
+      buildCached(rukiaAsset('bankai').model, true);
+      for (const k of ['shikai', 'bankai-sword', 'shirafune'] as const) buildCached(rukiaProp(k), false);
+    },
+  },
+  {
+    id: 'chad',
+    name: 'Yasutora Sado',
+    kanji: '巨人',
+    title: 'Fullbringer',
+    color: '#c04a9a',
+    def: () => ({ ...CHAD_DEF, speed: { ...CHAD_DEF.speed } }),
+    kit: (f, g) => new ChadKit(f, g),
+    warm: () => {
+      buildCached(chadAsset('gigante').model, true);
+      buildCached(chadAsset('true').model, true);
+    },
+  },
+  {
+    id: 'uryu',
+    name: 'Uryū Ishida',
+    kanji: '滅却師',
+    title: 'Quincy',
+    color: '#8fd0ff',
+    def: () => ({ ...URYU_DEF, speed: { ...URYU_DEF.speed } }),
+    kit: (f, g) => new UryuKit(f, g),
+    warm: () => {
+      buildCached(uryuAsset('letzt').model, true);
+      for (const k of ['seele', 'glasses', 'cross'] as const) buildCached(uryuProp(k), false);
+    },
+  },
+  {
+    id: 'yoruichi',
+    name: 'Yoruichi Shihōin',
+    kanji: '瞬神',
+    title: 'Flash Goddess',
+    color: '#b8a8ff',
+    def: () => ({ ...YORUICHI_DEF, speed: { ...YORUICHI_DEF.speed } }),
+    kit: (f, g) => new YoruichiKit(f, g),
+    warm: () => {
+      buildCached(yoruichiAsset('shunko').model, true);
+      buildCached(yoruichiAsset('raijin').model, true);
+    },
+  },
+  {
+    id: 'urahara',
+    name: 'Kisuke Urahara',
+    kanji: '紅姫',
+    title: 'Urahara Shop',
+    color: '#c8102e',
+    def: () => ({ ...URAHARA_DEF, speed: { ...URAHARA_DEF.speed } }),
+    kit: (f, g) => new UraharaKit(f, g),
+    warm: () => {
+      for (const k of ['shikai', 'cane-blade'] as const) buildCached(uraharaProp(k), false);
+      buildCached(benihimeDoll().model, true);
+      buildCached(benihimeCurtain(), false);
+    },
+  },
+  {
+    id: 'yamamoto',
+    name: 'Genryūsai Yamamoto',
+    kanji: '流刃若火',
+    title: 'Captain-Commander',
+    color: '#ff6a12',
+    def: () => ({ ...YAMAMOTO_DEF, speed: { ...YAMAMOTO_DEF.speed } }),
+    kit: (f, g) => new YamamotoKit(f, g),
+    warm: () => {
+      buildCached(yamamotoAsset('stripped').model, true);
+      buildCached(yamamotoAsset('tybw').model, true);
+      for (const k of ['katana', 'bankai'] as const) buildCached(yamamotoProp(k), false);
     },
   },
   {

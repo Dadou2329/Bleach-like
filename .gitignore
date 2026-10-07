@@ -10,3 +10,5 @@ coverage/
 /wiki_out/
 __pycache__/
 shots/
+# the capture harness itself is source
+!tools/shots/

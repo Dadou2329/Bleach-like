@@ -17,7 +17,6 @@ export class PlayerController implements Controller {
 
   constructor(readonly g: Game, readonly f: Fighter, readonly kit: Kit) {
     g.player = f;
-    f.aura.target = 0.25;
   }
 
   update(dt: number): void {

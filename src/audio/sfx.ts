@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter' | 'ting';
+  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -427,6 +427,28 @@ export class Sfx {
           r.start(t);
           r.stop(t + d + 0.1);
         }
+        break;
+      }
+      case 'arrow': {
+        // a bolt of light leaving the bow: a short bright zip over a breath of air
+        const o = this.out(pos, 0.32 * I, 60);
+        if (!o) return;
+        const z = ctx.createOscillator();
+        z.type = 'triangle';
+        z.frequency.setValueAtTime(2600, t);
+        z.frequency.exponentialRampToValueAtTime(620, t + 0.1);
+        const gz = ctx.createGain();
+        this.env(gz, t, 0.003, 0.45, 0.11);
+        z.connect(gz).connect(o);
+        z.start(t);
+        z.stop(t + 0.16);
+        const n = this.noise(0.09);
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 3800;
+        const gn = ctx.createGain();
+        this.env(gn, t, 0.001, 0.35, 0.06);
+        n.connect(hp).connect(gn).connect(o);
         break;
       }
       case 'purify': {
