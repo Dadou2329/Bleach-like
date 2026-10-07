@@ -8,6 +8,8 @@ import { buildCached } from './characterFactory';
 import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { HOLLOW_ICHIGO_DEF, HollowIchigoKit } from './kits/hollowIchigo';
 import { ISSHIN_DEF, IsshinKit } from './kits/isshin';
+import { NELLIEL_DEF, NelKit } from './kits/nelliel';
+import { nelAsset, nelProp } from '../chars/nelliel';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -436,6 +438,20 @@ export const ROSTER: RosterEntry[] = [
       buildCached(nnoitraAsset('patch').model, true);
       buildCached(nnoitraAsset('santa').model, true);
       for (const k of ['scythe', 'tongue'] as const) buildCached(nnoitraProp(k), false);
+    },
+  },
+  {
+    id: 'nelliel',
+    name: 'Nelliel Tu Odelschwanck',
+    kanji: '羚騎士',
+    title: 'Former Tres Espada',
+    color: '#6cc08a',
+    def: () => ({ ...NELLIEL_DEF, speed: { ...NELLIEL_DEF.speed } }),
+    kit: (f, g) => new NelKit(f, g),
+    warm: () => {
+      buildCached(nelAsset('child').model, true);
+      buildCached(nelAsset('gamuza').model, true);
+      buildCached(nelProp('lance'), false);
     },
   },
   {

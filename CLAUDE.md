@@ -29,7 +29,9 @@ scope and milestones and `README.md` for controls and modes.
   its own channels (`@gripL/@dirL/@edgeL/@poleL/@ikL`, `swingKeys({ hand: 'L' })`); a gauntlet blade along the
   forearm swings with `swingKeys({ pata: true })`. A second pair of arms uses `'R2'`/`'L2'`. Arcs wider than 60° are
   split into steps along the circle (channels interpolate in straight lines), so key the swing's real angles and
-  let the split follow them; probe blade paths numerically when a cut misses. Spring bones handle cloth and coats. Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
+  let the split follow them; probe blade paths numerically when a cut misses. Spring bones handle cloth and coats. A centaur is a stance with `quad` (Nelliel's Gamuza): 'hips' is the animal body, the hind legs
+  `thigh/shin/foot`, the front legs `fthigh/fshin/ffoot`; the locomotion walks, trots and gallops them and the leg IK plants all four.
+  `anim.twoHandGap` sets how far behind the right hand the left takes a two-handed grip (a lance is held wide). Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
   −forearm X, the torso bends forward with +X, and +Y turns left.
 - Gameplay: `game/game.ts` provides combat services (blade sweeps cut the world and hit fighters; damage,
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
@@ -67,7 +69,8 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/shiro.ts` (Hollow Ichigo: `TetherBlade`, a sword off the hand on a cloth or chain — thrown, steered,
   orbited round a centre, stuck in a fighter and hauled back — and `Corrosion` of a caught blade), `vfx/engetsu.ts`
   (Isshin: Engetsu's blade and tassel flames, the blood-flame pillar, the Kaikyō Kotei field, `Plow` — a flicked
-  fighter smashing through walls) and
+  fighter smashing through walls),
+  `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 

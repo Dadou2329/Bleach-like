@@ -89,8 +89,8 @@ const GSPEC: HumanoidSpec = {
 /** the animal body (voxels): the barrel's centre, the legs' joints (left side), the tail's root */
 const HORSE = {
   barrel: [0, 55, -30] as V3,
-  fore: { hip: [5.4, 56, 1] as V3, knee: [5.4, 25, 2.5] as V3, fetlock: [5.4, 7, 3] as V3 },
-  hind: { hip: [5.6, 57, -58] as V3, hock: [5.6, 25, -66] as V3, fetlock: [5.6, 7, -64.5] as V3 },
+  fore: { hip: [6.2, 56, 1] as V3, knee: [6.2, 25, 2.5] as V3, fetlock: [6.2, 7, 3] as V3 },
+  hind: { hip: [6.6, 57, -58] as V3, hock: [6.6, 25, -66] as V3, fetlock: [6.6, 7, -64.5] as V3 },
   tail: [0, 62, -69.5] as V3,
 };
 
@@ -101,21 +101,21 @@ function palette(b: ModelBuilder, form: NelForm): void {
   b.mat('brow', ['#3A8E68']);
   b.mat('lid', ['#2B2420']);
   b.mat('sclera', ['#F1EEE8']);
-  b.mat('iris', ['#B38B45']);
-  b.mat('irisD', ['#5E4320']);
+  b.mat('iris', ['#9A7039']);
+  b.mat('irisD', ['#4A3018']);
   b.mat('hi', ['#F3F3F0']);
-  b.mat('mouth', ['#9E4F55']);
+  b.mat('mouth', ['#7E3A42']);
   b.mat('teeth', ['#F3F1EA'], { rough: 0.35 });
   b.mat('scar', ['#D99A8C']);
-  b.mat('estigma', ['#B0162B']);
-  b.mat('gown', ['#7CC261', '#5FAA4B', '#4E953F', '#3F7D34', '#2F6127'], { base: 1, rough: 0.85, shadeK: 0.75 });
+  b.mat('estigma', ['#B32638']);
+  b.mat('gown', ['#7CC261', '#5FAA4B', '#4E953F', '#3F7D34', '#2F6127'], { base: 1, rough: 0.85, shadeK: 0.6 });
   b.mat('gownIn', ['#2F6127'], { rough: 0.9 });
   b.mat('bone', ['#F3F0E6', '#ECE6D8', '#DCD3C1', '#C9C0AC', '#A79E8A'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('void', ['#16161A'], { rough: 1 });
   b.mat('ink', ['#2A2A30']);
   if (form === 'gamuza') {
-    b.mat('coat', ['#A29F68', '#8E8B58', '#7D7A49', '#6B683D', '#585530', '#44422A'], { base: 2, rough: 0.8, shadeK: 0.9 });
-    b.mat('belly', ['#B8B48A', '#A5A077', '#8F8A63'], { base: 1, rough: 0.85 });
+    b.mat('coat', ['#9A9762', '#8A8756', '#7D7A49', '#6E6B3F', '#5C5935'], { base: 2, rough: 0.8, shadeK: 0.5, dither: 0.06 });
+    b.mat('belly', ['#B8B48A', '#A5A077', '#8F8A63'], { base: 1, rough: 0.85, shadeK: 0.5, dither: 0.06 });
     b.mat('tail', ['#34343A', '#26262B', '#1C1C20', '#141418'], { base: 1, rough: 0.6, shadeK: 0.8 });
     b.mat('armor', ['#F3F1EA', '#EBE7DC', '#D8D3C6', '#BFBAAE', '#A29D92'], { base: 1, rough: 0.38, shadeK: 1 });
     b.mat('sheath', ['#3A3A42', '#2A2A30', '#1E1E22', '#151517'], { base: 1, rough: 0.5, shadeK: 0.85 });
@@ -131,7 +131,7 @@ const FACE = [
   '. W I I . S I I W .',
   '. W * I . . I * W .',
   '. . i I . . I i . .',
-  'E E E E E E E E E E',
+  '. E E E E E E E E .',
   '. . . . . . . . . .',
   '. . . . . . . . . .',
   '. . . T m m T . . .',
@@ -196,11 +196,23 @@ export function buildNelliel(form: NelForm = 'adult'): CharacterAsset {
   legs(b, L);
   hands(b, L, 'skin');
   bareFeet(b, L);
-  top(b, L, full, true);
+  top(b, L, full, false);
   strip(b, L, full);
   const sk = coatSkirt(b, L, { mat: 'gown', lining: 'gownIn', yTop: s.hipsY + 3.5, yHem: 33, r0: 8.0, r1: 10.6, openFront: 0, depth: 0.8, profile: 0.8, res: NEL_RES, prefix: 'skirt' });
   springs.push(...sk.springs.filter((sp) => !sp.bone.endsWith('.2')).map((sp) => ({ ...sp, stiffness: 110, damping: 7, limit: 40, radius: 0.09 })));
+  const skirtBones = ['F.L', 'S.L', 'B.L', 'B.R', 'S.R', 'F.R'].flatMap((p) => [`skirt.${p}`, `skirt.${p}.2`]);
+  b.paint(skirtBones, aabb([-20, 20, -20], [20, 60, 20]), 'gown', { where: b.isMat('gown') });
+  for (const a of [-50, -10, 30, 75, 140, -120]) {
+    const r = (a * Math.PI) / 180;
+    b.paint(skirtBones, capsule([Math.sin(r) * 8.6, s.hipsY + 1, -0.6 + Math.cos(r) * 7], [Math.sin(r) * 11.6, 33, -0.6 + Math.cos(r) * 9.2], 0.8), 'gown', { shade: 2, where: b.isMat('gown') });
+  }
   raggedHem(b, 34, 3.2);
+  // smooth light on the thin cloth: the skirt's cone with six soft folds, the top over the body's form
+  const skirtForm = fn((x, y, z) => Math.hypot(x, (z + 0.6) / 0.8) - (8.0 + 2.6 * Math.max(0, Math.min(1, (s.hipsY + 3.5 - y) / (s.hipsY + 3.5 - 33)))), [-14, 28, -14], [14, s.hipsY + 6, 14]);
+  const folds = (x: number, _y: number, z: number) => { const a = Math.atan2(x, z); return Math.max(0, Math.cos(a * 4 + 0.4)) * 0.55 - 0.15; };
+  litShade(b, skirtBones, 'gown', skirtForm, { base: 1.7, k: 1.4, extra: (x, y, z) => folds(x, y, z) + Math.max(0, 38 - y) * 0.12 });
+  litShade(b, ['spine', 'chest'], 'gown', offset(clothBody(full, s), 1.0), { base: 1.6, k: 1.6 });
+  litShade(b, ['hips', 'spine', 'chest'], 'gown', offset(full, 1.0), { base: 1.6, k: 1.6, max: [6, s.chestY - 4, 20], min: [-6, s.hipsY, 0] });
   colliders.push(
     { bone: 'thigh.L', offset: [0, -0.14, 0.02], radius: 0.095 },
     { bone: 'thigh.R', offset: [0, -0.14, 0.02], radius: 0.095 },
@@ -323,9 +335,10 @@ function top(b: ModelBuilder, L: Landmarks, full: Sdf, sleeves: boolean): void {
     const d0 = Math.max(cloth.d(x, y, z) - 1.0, 0.05 - cloth.d(x, y, z));
     const dHem = hem(x, z) - y;
     const dTop = y - (sy + 3.2);
-    // the round neck
+    // the round neck; sleeveless, the shoulder balls left bare
     const dNeck = (s.neckR + 1.5) - Math.hypot(x, (z - nz) * 1.05);
-    return Math.max(d0, dHem, dTop, dNeck);
+    const dArm = sleeves ? -1 : Math.abs(x) - (sx - 1.8 + Math.max(0, bustY + 2 - y) * 0.6);
+    return Math.max(d0, dHem, dTop, dNeck, dArm);
   }, [-14, s.waistY - 2, -10], [14, sy + 5, 12]);
   addBands(b, shell, 'gown', [['spine', s.waistY - 4, s.chestY - 4], ['chest', s.chestY - 4, 100]]);
   // folds pulled across the bust and gathered under it
@@ -385,6 +398,31 @@ function number3(b: ModelBuilder, yBot: number, bones: string[]): void {
     return THREE[r].split(' ')[c] === 'x';
   };
   b.paint(bones, fn((x, y, z) => (z > -2.5 ? 1 : on(x, y) ? -1 : 1), [x0 - 1, yBot - 1, -12], [x0 + w + 1, yTop + 1, -2]), 'ink', { where: b.isMat('skin') });
+}
+
+/**
+ * Lock the surface of a smooth or thin piece to shades from its own analytic normal (light from above, ahead
+ * and on her left), so a big curved body and thin cloth shade in smooth bands instead of the stripes and rings
+ * the voxel staircase gives auto-shade. `form` is the piece's smooth shape (the body under the cloth).
+ */
+function litShade(b: ModelBuilder, bones: string[], mat: string, form: Sdf, o: { base?: number; k?: number; extra?: (x: number, y: number, z: number) => number; min?: V3; max?: V3 } = {}): void {
+  const Lx = 0.3, Ly = 0.82, Lz = 0.48;
+  const ll = Math.hypot(Lx, Ly, Lz);
+  const e = 0.8;
+  const isM = b.isMat(mat);
+  b.surfaceVoxels(bones, o.min ?? form.min, o.max ?? form.max, (bone, x, y, z) => {
+    const v = b.grid(bone).get(x, y, z);
+    if (!isM(v)) return;
+    const cx = x + 0.5, cy = y + 0.5, cz = z + 0.5;
+    const gx = form.d(cx + e, cy, cz) - form.d(cx - e, cy, cz);
+    const gy = form.d(cx, cy + e, cz) - form.d(cx, cy - e, cz);
+    const gz = form.d(cx, cy, cz + e) - form.d(cx, cy, cz - e);
+    const gl = Math.hypot(gx, gy, gz) || 1;
+    const lam = (gx * Lx + gy * Ly + gz * Lz) / (gl * ll);
+    const level = (o.base ?? 1.8) - lam * (o.k ?? 1.6) + (o.extra ? o.extra(cx, cy, cz) : 0);
+    const n = b.matOf(v).mat?.colors.length ?? 1;
+    b.voxel(bone, x, y, z, mat, Math.max(0, Math.min(n - 1, Math.round(level))));
+  });
 }
 
 // ---------------------------------------------------------------------------------------------- hair
@@ -491,9 +529,9 @@ function helmet(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; 
   b.add('head', blend(1.4, dome, snout, brow), 'bone');
   // the eye sockets: dark, one voxel deep, under the bony brow ridge
   for (const k of [-1, 1]) {
-    const ec: V3 = [k * 2.3, c + 13.2, hd.front + 2.4];
-    b.carve('head', ellipsoid(ec, [1.0, 0.85, 0.9]));
-    b.paint('head', ellipsoid([ec[0], ec[1], ec[2] - 1], [1.4, 1.2, 1.4]), 'void', { where: b.isMat('bone') });
+    const ec: V3 = [k * 2.2, c + 13.3, hd.front + 2.4];
+    b.carve('head', ellipsoid(ec, [0.8, 0.7, 0.9]));
+    b.paint('head', ellipsoid([ec[0], ec[1], ec[2] - 1], [1.1, 0.9, 1.4]), 'void', { where: b.isMat('bone') });
   }
   // the nasal notch
   b.paint('head', fn((x, y, z) => (z < hd.front + 1.4 ? 1 : Math.max(Math.abs(x) - (y - (c + 11.6)) * 0.45, y - (c + 13.0), c + 11.8 - y)), [-2, c + 11, hd.front], [2, c + 14, hd.front + 4]), 'void', { where: b.isMat('bone') });
@@ -557,7 +595,8 @@ function buildChild(): CharacterAsset {
   b.add('shin.L', capsule([kx, ky, kz], [ax, ay + 0.8, az], 1.7, 1.3), 'skin', { mirror: true });
   b.add('foot.L', blend(0.8, capsule([ax, ay + 0.6, az - 0.2], [ax, 1.2, az - 0.2], 1.4, 1.5), box([ax, 1.0, az + 1.2], [1.5, 1.0, 2.8], { round: 0.9 })), 'skin', { mirror: true });
   b.paint('foot.L', aabb([ax - 2, 0, az + 3.2], [ax + 2, 1.6, az + 5]), 'skin', { mirror: true, shade: 0 });
-  hands(b, L, 'skin', 0.8);
+  // little mitten hands (the open hand and the fist alike)
+  for (const bone of ['palm.L', 'fist.L']) b.add(bone, blend(0.8, sphere([wx, wy - 1.6, wz + 0.3], 1.7), capsule([wx, wy - 0.6, wz + 1.2], [wx - 0.6, wy - 2.2, wz + 2.2], 0.75)), 'skin', { mirror: true });
   // the gown: a little bell from the neck to the ankles, long sleeves, the hood gathered behind the neck
   const gown = fn((x, y, z) => {
     const t = Math.max(0, Math.min(1, (sy + 1 - y) / (sy + 1 - 4)));
@@ -568,7 +607,9 @@ function buildChild(): CharacterAsset {
   const shoulders = blend(1.6, capsule([sx - 1, sy, sz], [-sx + 1, sy, sz], 2.8), ellipsoid([0, sy + 0.5, -0.3], [4.6, 2.4, 3.8]));
   const gownAll = subtract(blend(1.2, gown, shoulders), cylinder([0, sy - 1, L.headC[2] - 0.4], [0, sy + 5, L.headC[2] - 0.4], s.neckR + 0.4));
   addBands(b, gownAll, 'gown', [['hips', 0, s.waistY - 1], ['spine', s.waistY - 1, s.chestY - 4], ['chest', s.chestY - 4, 40]]);
-  b.paint(['hips'], aabb([-12, 2, -12], [12, 4.6, 12]), 'gown', { shade: 3, where: b.isMat('gown') });
+  litShade(b, ['hips', 'spine', 'chest'], 'gown', gownAll, { base: 1.6, k: 1.5, extra: (x, y, z) => (y < 5.2 ? 0.9 : 0) + Math.max(0, Math.cos(Math.atan2(x, z) * 3 + 0.5)) * 0.45 - 0.1 });
+  // the round cheeks and jaw: smooth light (the staircase would stripe them)
+  litShade(b, ['head'], 'skin', ellipsoid([0, c + 4.6, L.headC[2] + 0.4], [7.2, 6.0, 6.4]), { base: 1.2, k: 1.2, min: [-9, c - 2, L.headC[2] - 2], max: [9, c + 6, 12] });
   // the hood, gathered behind the neck
   b.add('chest', blend(1.0, ellipsoid([0, sy + 1.2, -4.4], [4.6, 2.6, 2.4]), ellipsoid([0, sy - 1.2, -4.8], [3.4, 2.6, 1.8])), 'gown');
   b.paint('chest', torus([0, sy + 1.2, -3.2], 3.2, 0.7, [90, 0, 0]), 'gown', { shade: 3, where: b.isMat('gown') });
@@ -602,23 +643,23 @@ function childMask(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: numbe
   const hz = L.headC[2];
   const top = c + s.head.h;
   const skull = blend(1.6,
-    intersect(ellipsoid([0, top - 1.6, hz + 0.6], [8.0, 5.4, 8.0]), halfSpace([0, c + 11.8, 0], [0, -1, 0.15])),
-    box([0, c + 12.8, hd.front + 0.4], [5.6, 1.8, 1.6], { round: 1.4 }));
+    intersect(ellipsoid([0, top + 1.0, hz + 0.4], [7.8, 5.0, 7.8]), halfSpace([0, c + 13.4, 0], [0, -1, 0.2])),
+    box([0, c + 14.8, hd.front + 0.2], [5.2, 1.7, 1.6], { round: 1.4 }));
   b.add('head', skull, 'bone');
   for (const k of [-1, 1]) {
-    const ec: V3 = [k * 3.0, c + 13.6, hd.front + 2.0];
-    b.carve('head', ellipsoid(ec, [1.7, 1.6, 1.4]));
-    b.paint('head', ellipsoid([ec[0], ec[1], ec[2] - 1], [2.2, 2.0, 2.0]), 'void', { where: b.isMat('bone') });
+    const ec: V3 = [k * 3.0, c + 15.4, hd.front + 2.0];
+    b.carve('head', ellipsoid(ec, [1.0, 1.0, 1.2]));
+    b.paint('head', ellipsoid([ec[0], ec[1], ec[2] - 1], [1.3, 1.3, 1.8]), 'void', { where: b.isMat('bone') });
+    b.socket(k > 0 ? 'maskEye.L' : 'maskEye.R', 'head', [ec[0], ec[1], ec[2] + 0.4]);
   }
-  b.paint('head', box([0, c + 12.3, hd.front + 2.3], [0.6, 0.6, 0.8]), 'void', { where: b.isMat('bone') });
-  // the teeth: the four on the left (+X) broken off
-  for (const x of [-4.4, -3.0, -1.6, -0.2]) b.add('head', box([x, c + 11.1, hd.front + 1.0], [0.5, 1.0, 0.5]), 'teeth', { thr: 0.25 });
+  // the teeth over her forehead: the four on the left (+X) broken off
+  for (const x of [-4.2, -2.9, -1.6, -0.3]) b.add('head', box([x, c + 13.0, hd.front + 0.9], [0.45, 0.9, 0.5]), 'teeth', { thr: 0.25 });
   // the crack: a zigzag down the left side from the crown to the socket
   b.paint('head', fn((x, y, z) => {
     if (z < hz - 2) return 1;
-    const xc = 4.6 + Math.sin(y * 1.7) * 0.6 + (y - (c + 13)) * 0.15;
-    return Math.abs(x - xc) - 0.45;
-  }, [2, c + 12, hz - 4], [9, top + 2, hd.front + 4]), 'void', { where: b.isMat('bone') });
+    const xc = 5.6 + Math.sin(y * 1.7) * 0.5 + (y - (c + 17)) * 0.2;
+    return Math.abs(x - xc) - 0.4;
+  }, [3, c + 16.6, hz - 4], [9, top + 7, hd.front + 4]), 'void', { where: b.isMat('bone') });
 }
 
 // ---------------------------------------------------------------------------------------------- Gamuza
@@ -677,6 +718,11 @@ function buildGamuza(): CharacterAsset {
   arms(b, L, 'sheath');
   hands(b, L, 'sheath');
   horseBody(b, s);
+  litShade(b, ['spine', 'chest'], 'gown', offset(clothBody(full, s), 1.0), { base: 1.6, k: 1.6 });
+  // the fur begins at her hip line, a soft zigzag edge
+  const furLine = (x: number, z: number) => s.waistY - 4.5 + Math.abs(Math.sin(Math.atan2(x, z) * 5)) * 1.6;
+  b.paint('hips', fn((x, y, z) => y - furLine(x, z), [-20, 30, -30], [20, s.waistY + 1, 20]), 'coat', { where: b.isMat('skin') });
+  b.paint('hips', fn((x, y, z) => Math.abs(y - furLine(x, z) + 0.5) - 0.6, [-20, s.waistY - 9, -30], [20, s.waistY + 1, 20]), 'coat', { shade: 0, where: b.isMat('coat') });
   top(b, L, full, false);
   armor(b, L);
   number3(b, s.waistY + 1, ['spine']);
@@ -710,6 +756,9 @@ function horseBody(b: ModelBuilder, s: HumanoidSpec): void {
   b.add('hips', intersect(animal, aabb([-20, 30, -90], [20, yw - 1, 20])), 'coat');
   // the pale belly and the inside of the legs
   b.paint('hips', intersect(animal, halfSpace([0, 45, 0], [0, 1, 0])), 'belly', { where: b.isMat('coat') });
+  // smooth light over the big curves (auto-shade would terrace them into contour rings)
+  litShade(b, ['hips'], 'coat', animal, { base: 2.0, k: 1.7, min: [-20, 30, -90], max: [20, yw, 20] });
+  litShade(b, ['hips'], 'belly', animal, { base: 0.9, k: 1.2, min: [-20, 30, -90], max: [20, 50, 20] });
   // a darker dorsal stripe down the back (chamois), the chest's middle groove
   b.paint('hips', fn((x, y, z) => (z > -4 ? 1 : Math.abs(x) - 1.6 + (y - 62) * 0.04), [-4, 58, -80], [4, 74, -2]), 'coat', { shade: 4, where: b.isMat('coat') });
   b.paint('hips', fn((x, y, z) => (z < 6 ? 1 : Math.abs(x) - 0.5), [-2, 40, 4], [2, 60, 14]), 'coat', { shade: 4, where: b.isMat('coat') });

@@ -425,6 +425,35 @@ G state, V flare); press **H** in game for the current character's moves.
   - R: **High-Speed Regeneration**.
   - G: Indice Radar.
   - F: **Seis Guadañas**, a Sonído into the target, every blade round and the cross.
+- **Nelliel Tu Odelschwanck**, the former Tres Espada, in the armband era: tall and very curvy, long wavy green
+  hair, a ram's skull worn over her crown with its curled horns, the scar between her eyes and the crimson line
+  across her face, in the green rags of the gown she outgrew. She fights with economy, cuts and kicks woven
+  together: LMB is a forehand, a backhand, a kick to the neck and a spinning heel kick. Her moves:
+  - RMB: the **precise cut**, a gliding lunge and one diagonal that goes through guards and Hierro.
+  - Q: her pink **Cero**, from the mouth.
+  - E: **Cero Doble**. Her left palm stops a reishi attack from in front of her (a Cero, a Getsuga, Kidō),
+    she swallows it and fires it back fused with her own Cero. Blades and fists are not caught.
+  - R: **Sonído**: gone, and beside the target with a cut.
+  - G: the **armband**: a puff of smoke and she is **Nel Tu** (G again, or F, and she grows up).
+  - F: **"Utae, Gamuza"**. She holds the sword level before her, it steams, she names it, and the burst throws
+    everyone back.
+- **Nel Tu**: a tiny child with a huge head, the cartoon skull perched on top of it (cracked, four teeth
+  missing) and a green gown down to her bare feet. She is small enough that a lot passes over her, and takes
+  more from what does not. LMB is flailing slaps, a headbutt and a whirl. Her moves:
+  - RMB: **Nel Tamapunch**: a stun, and far worse for the men.
+  - Q: her **Cero Doble**: she gulps an attack and spits it straight back harder, then she is spent for a while.
+  - E: **Nel Shower**: a gag and a gush of green that heals her.
+  - R: **Chōkasoku**: the mask's eyes light and she rockets in head first.
+- **Nelliel, Gamuza**: a centaur — her torso on a chamois body with slim legs and cloven hooves, a black tail,
+  longer horns framing her face, white spaulders and black-sheathed arms. She walks, trots and gallops, the
+  fastest thing on four legs, with a double-ended lance. LMB is a thrust, the rear point swept round, the
+  reverse thrust with the other end and a rearing strike of the front hooves. Her moves:
+  - RMB: the **plunge**: she rears, comes down in a stomp that cracks the ground and drives the lance down.
+  - Q: **Lanzador Verde**. She flips the lance, rears back and hurls it: it spins up in an emerald spiral and
+    drills a straight tunnel through everything, through whoever it meets too. It re-forms in her hand.
+  - E: Cero Doble.
+  - R: **Galope**: a blue flash, and she is a few lengths off the target already charging, lance couched.
+  - F: the release burst again. G: sealed, back to the woman.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**
