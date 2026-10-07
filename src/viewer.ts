@@ -15,8 +15,10 @@ import { buildHollow, HOLLOW_CLIPS, HOLLOW_STANCE } from './chars/hollow';
 import { buildGrimmjow, grimmjowProp } from './chars/grimmjow';
 import { buildByakuya, byakuyaProp } from './chars/byakuya';
 import { buildKenpachi, kenpachiProp } from './chars/kenpachi';
+import { buildUlquiorra, ulquiorraProp, type UlquiorraForm } from './chars/ulquiorra';
 import { GRIMMJOW_CLIPS, GRIMMJOW_STANCE, PANTERA_CLIPS, PANTERA_STANCE } from './chars/grimmjowClips';
 import { KENPACHI_BANKAI_STANCE, KENPACHI_CLIPS, KENPACHI_SHIKAI_STANCE, KENPACHI_STANCE } from './chars/kenpachiClips';
+import { MURCIELAGO_STANCE, SEGUNDA_STANCE, ULQUIORRA_CLIPS, ULQUIORRA_STANCE, ULQUIORRA_SWORD_STANCE } from './chars/ulquiorraClips';
 
 const VIEWS: Record<string, [number, number, number, number, number, number]> = {
   // camera offset (x,y,z) and target (x,y,z) relative to the model origin
@@ -41,7 +43,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const who = params.get('char') ?? 'ichigo';
   const t0 = performance.now();
   const asset = who === 'menos' ? buildMenos(Number(params.get('seed') ?? 3)) : who === 'hollow' ? buildHollow({ seed: Number(params.get('seed') ?? 11) })
-    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : who === 'byakuya' ? buildByakuya() : who === 'kenpachi' ? buildKenpachi(form === 'bankai' ? 'bankai' : 'sealed') : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
+    : who === 'grimmjow' ? buildGrimmjow(form === 'pantera' ? 'pantera' : 'sealed') : who === 'byakuya' ? buildByakuya() : who === 'kenpachi' ? buildKenpachi(form === 'bankai' ? 'bankai' : 'sealed')
+    : who === 'ulquiorra' ? buildUlquiorra((['murcielago', 'segunda'].includes(params.get('form') ?? '') ? params.get('form') : 'sealed') as UlquiorraForm) : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
   const tModel = performance.now() - t0;
   const ch = new CharacterVisual(asset.model, asset.springs, asset.colliders);
   if (who === 'ichigo') ch.attach('sword', form === 'bankai' ? buildTensaZangetsu() : buildZangetsuShikai(), 'grip.R');
@@ -58,6 +61,14 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     if (f === 'sealed' && params.get('patch') !== '0') ch.attach('patch', kenpachiProp('eyepatch'), 'patch');
     if (f === 'sealed' && params.get('rider') !== '0') ch.attach('rider', kenpachiProp('yachiru'), 'rider');
   }
+  if (who === 'ulquiorra') {
+    const f = params.get('form') ?? 'sealed';
+    const d = params.get('drawn');
+    if (f === 'sealed') {
+      if (d) ch.attach('sword', ulquiorraProp('katana'), 'grip.R');
+      ch.attach('sheath', ulquiorraProp(d ? 'sheath-empty' : 'sheath'), 'hip.L');
+    } else if (d) ch.attach('sword', ulquiorraProp(f === 'segunda' ? 'lanza' : 'luz'), 'grip.R');
+  }
   if (who === 'grimmjow' && form !== 'pantera') {
     if (params.get('drawn')) ch.attach('sword', grimmjowProp('katana'), 'grip.R');
     ch.attach('sheath', grimmjowProp(params.get('drawn') ? 'sheath-empty' : 'sheath'), 'hip.L');
@@ -70,7 +81,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     if (on) ch.attach('mask', m === 'cracked' ? cracked[cracked.length - 1] : m === 'cracked0' ? cracked[0] : hollowMask(), 'face');
   };
   setMask(params.get('mask'));
-  const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : 1;
+  const viewScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'ulquiorra' && params.get('form') && params.get('form') !== 'sealed' ? 1.7 : 1;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
   eng.gr.scene.add(ch.object);
@@ -85,7 +96,10 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   let view = params.get('view') ?? 'three';
   const setView = (name: string) => {
     view = name;
-    const v = (VIEWS[name] ?? VIEWS.three).map((c) => c * viewScale);
+    // close-ups frame the head: scale by body height only (released Ulquiorra's wings widen the full views)
+    const close = name.startsWith('face') || name === 'bust';
+    const k = close && who === 'ulquiorra' ? 1 : viewScale;
+    const v = (VIEWS[name] ?? VIEWS.three).map((c) => c * k);
     cam.position.set(origin.x + v[0], origin.y + v[1], origin.z + v[2]);
     cam.lookAt(origin.x + v[3], origin.y + v[4], origin.z + v[5]);
   };
@@ -129,8 +143,9 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   const pantera = who === 'grimmjow' && form === 'pantera';
   const kpForm = params.get('form') ?? 'sealed';
   const kpStance = kpForm === 'shikai' ? KENPACHI_SHIKAI_STANCE : kpForm === 'bankai' ? KENPACHI_BANKAI_STANCE : KENPACHI_STANCE;
-  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : who === 'kenpachi' ? kpStance : ICHIGO_STANCE, ch.springs);
-  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : who === 'kenpachi' ? KENPACHI_CLIPS : ICHIGO_CLIPS);
+  const uqStance = kpForm === 'murcielago' ? MURCIELAGO_STANCE : kpForm === 'segunda' ? SEGUNDA_STANCE : params.get('drawn') ? ULQUIORRA_SWORD_STANCE : ULQUIORRA_STANCE;
+  const anim = new Animator(ch.rig, who === 'menos' ? MENOS_STANCE : who === 'hollow' ? HOLLOW_STANCE : who === 'grimmjow' ? (pantera ? PANTERA_STANCE : GRIMMJOW_STANCE) : who === 'kenpachi' ? kpStance : who === 'ulquiorra' ? uqStance : ICHIGO_STANCE, ch.springs);
+  anim.register(who === 'menos' ? MENOS_CLIPS : who === 'hollow' ? HOLLOW_CLIPS : who === 'grimmjow' ? (pantera ? PANTERA_CLIPS : GRIMMJOW_CLIPS) : who === 'kenpachi' ? KENPACHI_CLIPS : who === 'ulquiorra' ? ULQUIORRA_CLIPS : ICHIGO_CLIPS);
   const loco = { vx: 0, vz: 0, vy: 0, grounded: true, turn: 0, accel: 0 };
   eng.systems.push({ update: (dt) => anim.update(dt, loco) });
   const applyPose = (dt: number) => {

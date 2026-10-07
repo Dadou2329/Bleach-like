@@ -25,7 +25,22 @@ export interface CeroOpts {
   spiral?: boolean;
   /** colour gain (default 2.2): lower keeps saturated colours from blooming to white */
   gain?: number;
+  /** released-Espada Cero (Cero Oscuras): a near-black core drawn over the glow, which then reads as a rim */
+  dark?: THREE.ColorRepresentation;
 }
+
+const DARK_FRAG = /* glsl */ `
+uniform float uTime; uniform float uA; uniform vec3 uCol;
+varying vec2 vUv; varying vec3 vN; varying vec3 vW;
+float h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float n2(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(h(i), h(i + vec2(1, 0)), f.x), mix(h(i + vec2(0, 1)), h(i + vec2(1, 1)), f.x), f.y); }
+void main() {
+  vec3 v = normalize(cameraPosition - vW);
+  float f = abs(dot(normalize(vN), v));
+  float n = n2(vec2(vUv.x * 8.0, vUv.y * 40.0 - uTime * 30.0));
+  gl_FragColor = vec4(uCol, uA * smoothstep(0.12, 0.55, f) * (0.82 + n * 0.18));
+}`;
 
 const BEAM_FRAG = /* glsl */ `
 uniform float uTime; uniform float uA; uniform float uGain; uniform vec3 uCore; uniform vec3 uBody; uniform vec3 uRim;
@@ -61,6 +76,9 @@ export class CeroBeam implements Projectile {
   private core: THREE.Color;
   private body: THREE.Color;
   private rings: THREE.Mesh[] = [];
+  private darkBeam: THREE.Mesh | null = null;
+  private darkSphere: THREE.Mesh | null = null;
+  private darkU: Record<string, THREE.IUniform> | null = null;
 
   /**
    * @param emitter world-space object whose position is the muzzle (e.g. a socket)
@@ -92,6 +110,15 @@ export class CeroBeam implements Projectile {
         this.rings.push(r);
         this.group.add(r);
       }
+    }
+    if (o.dark) {
+      this.darkU = { uTime: { value: 0 }, uA: { value: 0 }, uCol: { value: new THREE.Color(o.dark) } };
+      const dm = new THREE.ShaderMaterial({ uniforms: this.darkU, vertexShader: vert, fragmentShader: DARK_FRAG, transparent: true, depthWrite: false, blending: THREE.NormalBlending, side: THREE.FrontSide });
+      this.darkBeam = new THREE.Mesh(bg, dm);
+      this.darkSphere = new THREE.Mesh(this.sphere.geometry, dm);
+      this.darkBeam.renderOrder = this.darkSphere.renderOrder = 8;
+      this.darkBeam.visible = false;
+      this.group.add(this.darkBeam, this.darkSphere);
     }
     this.group.traverse((c) => (c.frustumCulled = false));
     this.sphere.renderOrder = this.beam.renderOrder = 7;
@@ -191,6 +218,12 @@ export class CeroBeam implements Projectile {
       this.light.position.copy(m);
       this.light.intensity = 20 + k * 120;
       this.beam.visible = false;
+      if (this.darkSphere && this.darkU) {
+        this.darkSphere.position.copy(m);
+        this.darkSphere.scale.setScalar(r * 0.78);
+        this.darkU.uA.value = 0.6 + k * 0.35;
+        this.darkU.uTime.value = time;
+      }
       return;
     }
     const ft = this.t - o.charge;
@@ -207,6 +240,16 @@ export class CeroBeam implements Projectile {
     this.sphU.uA.value = fireA;
     this.light.position.copy(this.impact);
     this.light.intensity = 160 * fireA;
+    if (this.darkBeam && this.darkSphere && this.darkU) {
+      this.darkBeam.visible = this.beam.visible;
+      this.darkBeam.position.copy(m);
+      this.darkBeam.quaternion.copy(this.beam.quaternion);
+      this.darkBeam.scale.set(o.radius * pulse * 0.72, o.radius * pulse * 0.72, len);
+      this.darkSphere.position.copy(m);
+      this.darkSphere.scale.setScalar(o.radius * 1.0 * Math.max(0.3, fireA));
+      this.darkU.uA.value = fireA * 0.92;
+      this.darkU.uTime.value = time;
+    }
     // spiral rings ride the beam outward, spinning and pulsing
     for (let i = 0; i < this.rings.length; i++) {
       const r = this.rings[i];

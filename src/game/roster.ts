@@ -12,6 +12,8 @@ import { BYAKUYA_DEF, ByakuyaKit } from './kits/byakuya';
 import { byakuyaProp } from '../chars/byakuya';
 import { KENPACHI_DEF, KenpachiKit } from './kits/kenpachi';
 import { kenpachiAsset, kenpachiProp } from '../chars/kenpachi';
+import { ULQUIORRA_DEF, UlquiorraKit } from './kits/ulquiorra';
+import { ulquiorraAsset, ulquiorraProp } from '../chars/ulquiorra';
 
 export interface RosterEntry {
   id: string;
@@ -79,6 +81,20 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(kenpachiAsset('bankai').model, true);
       for (const k of ['cleaver', 'bankai-blade'] as const) buildCached(kenpachiProp(k), false);
+    },
+  },
+  {
+    id: 'ulquiorra',
+    name: 'Ulquiorra Cifer',
+    kanji: '黒翼大魔',
+    title: 'Cuarta Espada',
+    color: '#38d46a',
+    def: () => ({ ...ULQUIORRA_DEF, speed: { ...ULQUIORRA_DEF.speed } }),
+    kit: (f, g) => new UlquiorraKit(f, g),
+    warm: () => {
+      buildCached(ulquiorraAsset('murcielago').model, true);
+      buildCached(ulquiorraAsset('segunda').model, true);
+      for (const k of ['katana', 'sheath-empty', 'luz', 'lanza'] as const) buildCached(ulquiorraProp(k), false);
     },
   },
 ];

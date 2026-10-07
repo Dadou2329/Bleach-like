@@ -50,6 +50,15 @@ G state, V flare); press **H** in game for the current character's moves.
   - G: the **eyepatch** comes off: a golden pillar, the reiatsu skull, swings that cut far past the blade.
   - F: **"Nome, Nozarashi"**: the giant war-cleaver and Meteor Cleaver.
   - F again: **Bankai**: the crimson oni, a distant bisection, power that tears at his own body.
+- **Ulquiorra Cifer**: hands in his pockets. His sealed moves:
+  - kicks and the hand-spear;
+  - a green finger **Cero** and red **Bala**;
+  - Sonído;
+  - **G**: draws Murciélago.
+- **Ulquiorra, Murciélago**: black bat wings and flight, green rain, Luz de la Luna swung and thrown, and **Cero
+  Oscuras**, which tunnels through the town.
+- **Ulquiorra, Segunda Etapa**: claws, a tail whip, a head-grab rush through buildings, and **Lanza del
+  Relámpago**, whose explosion swallows a block. He regenerates while his reiatsu lasts.
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
@@ -60,7 +69,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|kenpachi][&form=bankai|shikai|pantera][&mask=1|cracked][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|kenpachi|ulquiorra][&form=bankai|shikai|pantera|murcielago|segunda][&drawn=1][&mask=1|cracked][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
@@ -75,8 +84,8 @@ G state, V flare); press **H** in game for the current character's moves.
   debris.
 - `src/models`: voxel model DSL (SDF shapes per bone, auto-shading, pixel-art faces) and mesh building.
 - `src/anim`: rig, procedural locomotion, keyframed clips, sword IK, foot planting, spring bones.
-- `src/chars`: Ichigo, Grimmjow, Byakuya, Kenpachi (bodies, forms, weapons), Hollows, Menos Grande, and their
-  clips.
+- `src/chars`: Ichigo, Grimmjow, Byakuya, Kenpachi, Ulquiorra (bodies, forms, weapons), Hollows, Menos Grande,
+  and their clips.
 - `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input.
 - `src/vfx`, `src/audio`, `src/ui`: auras, trails, energy shaders, procedural sound, HUD, start screen.
 - `src/maps`: Karakura Town generator and test maps.
