@@ -58,6 +58,8 @@ import { mantaAsset } from '../chars/unohanaMinazuki';
 import { SHINJI_DEF, ShinjiKit } from './kits/shinji';
 import { shinjiProp } from '../chars/shinji';
 import { flowerAsset } from '../chars/shinjiFlower';
+import { YHWACH_DEF, YhwachKit } from './kits/yhwach';
+import { yhwachAsset, yhwachProp } from '../chars/yhwach';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -221,6 +223,16 @@ export const ROSTER: RosterEntry[] = [
     def: () => ({ ...SHINJI_DEF, speed: { ...SHINJI_DEF.speed } }),
     kit: (f, g) => new ShinjiKit(f, g),
     warm: () => { buildCached(flowerAsset().model, true); for (const k of ['shikai', 'bankai', 'mask'] as const) buildCached(shinjiProp(k), false); },
+  },
+  {
+    id: 'yhwach',
+    name: 'Yhwach',
+    kanji: '全知全能',
+    title: 'Emperor of the Wandenreich',
+    color: '#4a78f0',
+    def: () => ({ ...YHWACH_DEF, speed: { ...YHWACH_DEF.speed } }),
+    kit: (f, g) => new YhwachKit(f, g),
+    warm: () => { for (const k of ['almighty', 'soulking'] as const) buildCached(yhwachAsset(k).model, true); for (const k of ['broadsword', 'mask'] as const) buildCached(yhwachProp(k), false); },
   },
   {
     id: 'yoruichi',

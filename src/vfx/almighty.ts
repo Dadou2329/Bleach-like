@@ -476,7 +476,7 @@ function eyeMesh(): THREE.Group {
 export class EyeBeams implements Projectile {
   done = false;
   private t = 0;
-  private eyes: { g: THREE.Group; off: THREE.Vector3; next: number }[] = [];
+  private eyes: { g: THREE.Group; off: THREE.Vector3; next: number; shots: number }[] = [];
 
   constructor(private g: Game, readonly owner: Fighter, private target: () => THREE.Vector3, readonly count = 14, readonly dmg = 7) {
     for (let i = 0; i < count; i++) {
@@ -485,7 +485,7 @@ export class EyeBeams implements Projectile {
       const gr = eyeMesh();
       gr.scale.setScalar(0.01);
       g.engine.gr.scene.add(gr);
-      this.eyes.push({ g: gr, off: new THREE.Vector3(Math.cos(a) * r, 1.0 + e + Math.random(), Math.sin(a) * r * 0.6 - 0.6), next: 0.35 + Math.random() * 0.3 });
+      this.eyes.push({ g: gr, off: new THREE.Vector3(Math.cos(a) * r, 1.0 + e + Math.random(), Math.sin(a) * r * 0.6 - 0.6), next: 0.35 + Math.random() * 0.3, shots: 0 });
     }
   }
 
@@ -500,8 +500,9 @@ export class EyeBeams implements Projectile {
     this.t += dt;
     const tp = this.target();
     for (const e of this.eyes) {
-      if (this.t < e.next || this.t > 1.5) continue;
-      e.next = this.t + 0.22 + Math.random() * 0.15;
+      if (this.t < e.next || this.t > 1.5 || e.shots >= 2) continue;
+      e.shots++;
+      e.next = this.t + 0.3 + Math.random() * 0.3;
       // a beam: straight at the target with a little spread, stopped by walls
       const from = this.eyePos(e, new THREE.Vector3());
       const to = tp.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 0.8));
@@ -642,7 +643,7 @@ export class ZeichenEmblem implements Projectile {
 export class EyeSwarm implements Projectile {
   done = false;
   private t = 0;
-  private bits: { g: THREE.Group; p: THREE.Vector3; v: THREE.Vector3; ph: number; bite: number }[] = [];
+  private bits: { g: THREE.Group; p: THREE.Vector3; v: THREE.Vector3; ph: number; bite: number; bites: number }[] = [];
   private bodyGeo = new THREE.SphereGeometry(0.22, 8, 6);
   private bodyMat = new THREE.MeshBasicMaterial({ color: '#0A090D' });
 
@@ -659,7 +660,7 @@ export class EyeSwarm implements Projectile {
       gr.traverse((o) => (o.frustumCulled = false));
       g.engine.gr.scene.add(gr);
       const a = Math.random() * Math.PI * 2;
-      this.bits.push({ g: gr, p: c.clone().add(new THREE.Vector3(Math.cos(a) * 0.8, (Math.random() - 0.5) * 1.2, Math.sin(a) * 0.8)), v: new THREE.Vector3(Math.cos(a) * 6, 3 + Math.random() * 3, Math.sin(a) * 6), ph: Math.random() * 6, bite: 0 });
+      this.bits.push({ g: gr, p: c.clone().add(new THREE.Vector3(Math.cos(a) * 0.8, (Math.random() - 0.5) * 1.2, Math.sin(a) * 0.8)), v: new THREE.Vector3(Math.cos(a) * 6, 3 + Math.random() * 3, Math.sin(a) * 6), ph: Math.random() * 6, bite: 0, bites: 0 });
     }
   }
 
@@ -676,7 +677,8 @@ export class EyeSwarm implements Projectile {
     }
     const tgt = this.victim;
     for (const b of this.bits) {
-      if (tgt) {
+      // spent after two bites: it drops away and melts back into the Black
+      if (tgt && b.bites < 2) {
         const c = tgt.center(_v);
         c.y += Math.sin(b.ph + this.t * 3) * 0.6;
         const d = _w.subVectors(c, b.p);
@@ -687,6 +689,7 @@ export class EyeSwarm implements Projectile {
           b.bite -= dt;
           if (b.bite <= 0) {
             b.bite = 0.45;
+            b.bites++;
             g.damage(tgt, this.bite, this.owner, d.clone().setY(0).normalize(), { knock: 0.5, quiet: true });
             tgt.slow(0.3, 0.5);
           }
@@ -707,7 +710,7 @@ export class EyeSwarm implements Projectile {
     const k = this.t > this.life - 0.5 ? Math.max(0, (this.life - this.t) / 0.5) : Math.min(1, this.t / 0.2);
     for (const b of this.bits) {
       b.g.position.copy(b.p);
-      b.g.scale.setScalar(Math.max(0.01, k));
+      b.g.scale.setScalar(Math.max(0.01, b.bites >= 2 ? k * 0.5 : k));
       if (b.v.lengthSq() > 0.01) b.g.quaternion.setFromUnitVectors(Z, _v.copy(b.v).normalize());
     }
   }

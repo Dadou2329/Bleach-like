@@ -33,6 +33,8 @@ export interface ArrowOpts {
   range?: number;
   quiet?: boolean;
   color?: THREE.ColorRepresentation;
+  /** called where it bursts (Yhwach's arrows open into a Zeichen) */
+  onBurst?: (p: THREE.Vector3, dir: THREE.Vector3) => void;
 }
 
 let arrowGeo: THREE.BufferGeometry | null = null;
@@ -120,6 +122,7 @@ export class ReishiArrow implements Projectile {
     if (this.done) return;
     this.done = true;
     const p = this.pos, r = this.o.burst ?? 0;
+    this.o.onBurst?.(p, this.dir);
     if (r > 0) {
       g.engine.destruction.carve(new SphereShape(p.clone(), r, 0.9), { mode: 'explode', power: 60 + r * 80, impulse: 6 + r * 3 });
       for (const e of g.enemiesOf(this.owner)) {

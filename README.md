@@ -167,6 +167,25 @@ G state, V flare); press **H** in game for the current character's moves.
     blows only find their own side. With no one of its own to turn on, an AI wanders off, lost. He is rooted
     in the flower. LMB opens the petals on a cut, RMB is a ring thrust through them, Q pushes the mist
     further, R clamps the petals shut and F uproots him (the mist lingers a while).
+- **Yhwach**, the Quincy King and emperor of the Wandenreich: the white double-breasted coat with the emblem,
+  the tattered maroon cloak, the long black hair and mutton chops, a hand on his hip. LMB is a measured sword
+  string that ends with him seizing a throat and driving it into the floor. His moves:
+  - RMB: he slashes at the sky, a bow of light looses an arrow into the ground before him, and he pulls it
+    out as the **broadsword** for one diagonal stroke that cuts through anything.
+  - Q: **Heilig Pfeil** from his fingertip, each arrow bursting into a Quincy Zeichen.
+  - E: **Sankt Bogen**, a great bow that forms in the sky and fires one huge arrow.
+  - R: **Qual Kreis**. Lightning crackles round the target, then a ring of bows fires into it from every side.
+  - G: **Blut Vene Anhaben**, a shell of veins that undoes shots and drains whoever touches it.
+  - F: **The Almighty**. His eyes open (three pupils each) and every wound before is undone. He sees each
+    blow coming and is behind the attacker before it lands. A technique that hits him twice no longer
+    touches him, and his first death is rewritten. Q's arrows now lead perfectly. E **rewrites** the
+    target's future: its weapon is broken (disarmed) and its power cut. R is a **future wound** that misses
+    now and lands later, through any guard. G sets **shadow blades** where the target will be.
+  - F again: **the Soul King**. The Black covers him and eyes open on it; his reiatsu turns crimson. He
+    fights with the broadsword while tendrils lash out from his hits. RMB is a forest of spikes, Q the
+    **eye beams**, E a swarm of one-eyed creatures, R the **Zeichen** of eye-pillars and its violet blast, G
+    **Auswählen** (pillars of light drain everyone near and heal him), and F a crimson exertion that brings
+    down what stands round him.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
@@ -480,7 +499,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

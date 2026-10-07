@@ -60,7 +60,9 @@ scope and milestones and `README.md` for controls and modes.
   manta mount, the flung weapon, the blood flood's rain, liquid slashes, the blade sphere, pool blades; floods
   take a `FloodLook` for colour and effect), `vfx/sakanade.ts` (Shinji: the pink mist cloud, Hadō #91's ten lights, the
   Cero bar, the Bankai flower — a voxel model at 12 vox/m whose petal bones open about their ring tangents — with
-  its mist dome) and
+  its mist dome), `vfx/almighty.ts` (Yhwach: Zeichen bursts, Sankt Bogen and Qual Kreis bows of light, the Blut Vene
+  Anhaben shell, sand, shadow spikes, future wounds, eye beams, the Zeichen emblem whose eye fires a CeroBeam, the
+  eye swarm, Auswählen) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
