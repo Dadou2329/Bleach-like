@@ -145,6 +145,12 @@ export class Fighter {
   slowT = 0;
   /** soaked through (s left): water attacks bite harder */
   wetT = 0;
+  /** aged (Baraggan's touch): brittle bones — agedK more damage taken while agedT runs */
+  agedK = 0;
+  agedT = 0;
+  /** time dilated (Senescencia): actions and animation run this fraction slower while dilateT runs */
+  dilateK = 0;
+  dilateT = 0;
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};
@@ -216,6 +222,13 @@ export class Fighter {
   }
 
   /** Slow this fighter by fraction k for t seconds (the stronger slow wins while both run). */
+  /** time round this fighter runs slow: actions, animation and movement all crawl */
+  dilate(k: number, t: number): void {
+    if (this.dilateT <= 0 || k >= this.dilateK) this.dilateK = k;
+    this.dilateT = Math.max(this.dilateT, t);
+    this.slow(k, t);
+  }
+
   slow(k: number, t: number): void {
     if (this.slowT <= 0 || k >= this.slowK) this.slowK = k;
     this.slowT = Math.max(this.slowT, t);
@@ -254,6 +267,10 @@ export class Fighter {
     this.flashT = Math.max(0, this.flashT - dt);
     this.wetT = Math.max(0, this.wetT - dt);
     if (this.slowT > 0 && (this.slowT -= dt) <= 0) this.slowK = 0;
+    if (this.dilateT > 0 && (this.dilateT -= dt) <= 0) this.dilateK = 0;
+    if (this.agedT > 0 && (this.agedT -= dt) <= 0) this.agedK = 0;
+    // inside a time field the fighter's own clock runs slow
+    const adt = this.dilateT > 0 ? dt * (1 - this.dilateK) : dt;
     if (this.dead) {
       this.deathT += dt;
       b.vel.x = damp(b.vel.x, 0, 4, dt);
@@ -267,7 +284,7 @@ export class Fighter {
     // ---- action
     const a = this.action;
     if (a) {
-      a.update(this, g, dt);
+      a.update(this, g, adt);
       if (a.done) {
         a.end(this, g);
         if (this.action === a) this.action = null;
@@ -376,7 +393,7 @@ export class Fighter {
       } else g.sfx.play('step', this.pos, this.sprinting ? 1.4 : 1);
     }
     this.prevPhase = ph;
-    this.anim.update(dt, {
+    this.anim.update(adt, {
       vx: lx, vz: lz, vy: b.vel.y,
       grounded: b.grounded || this.hovering,
       turn: this.yawRate,

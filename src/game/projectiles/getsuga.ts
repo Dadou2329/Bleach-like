@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import type { Game, Projectile } from '../game';
 import type { Fighter } from '../fighter';
 import { CrescentShape } from '../../destruction/shapes';
+import type { CarveMode } from '../../destruction/destruction';
 import { crescentGeometry, crescentMaterial, type EnergyColors } from '../../vfx/energy';
 import { TEX_GLOW, TEX_STREAK } from '../../vfx/sprites';
 
@@ -19,6 +20,10 @@ export interface GetsugaOpts {
   dark?: boolean;
   /** radial width of the band behind the leading edge (default radius × 0.42): small = a thin talon */
   band?: number;
+  /** how it carves the world (default a clean cut; Baraggan's Respira slash rots) */
+  mode?: CarveMode;
+  /** called once per fighter it hits (statuses: decay, wet…) */
+  onHit?: (f: Fighter) => void;
 }
 
 const _p = new THREE.Vector3();
@@ -90,7 +95,7 @@ export class GetsugaProjectile implements Projectile {
     // carve the crescent band where it is now
     const center = this.pos.clone().addScaledVector(this.dir, -this.o.radius);
     const shape = new CrescentShape(center, this.dir.clone(), this.side.clone(), this.o.radius, this.o.halfAngle, 0.38, 0.26);
-    const r = g.engine.destruction.carve(shape, { mode: 'cut', power: this.o.cut, dir: this.dir.clone(), sparks: [this.body.r, this.body.g, this.body.b], dust: 0.8 });
+    const r = g.engine.destruction.carve(shape, { mode: this.o.mode ?? 'cut', power: this.o.cut, dir: this.dir.clone(), sparks: [this.body.r, this.body.g, this.body.b], dust: 0.8 });
     if (r.removed > 300 && g.player && this.pos.distanceTo(g.player.pos) < 40) g.shake(0.08);
     // hit fighters crossing the band
     for (const f of g.enemiesOf(this.owner)) {
@@ -107,6 +112,7 @@ export class GetsugaProjectile implements Projectile {
       this.hit.add(f.id);
       const weak = f.def.weakAbove !== undefined && this.pos.y > f.pos.y + f.def.height * f.def.weakAbove ? 3 : 1;
       g.damage(f, this.o.damage * weak, this.owner, this.dir, { energy: true, knock: 14, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4 });
+      this.o.onHit?.(f);
       g.sparks(fc, this.dir, this.o.colors.body, 24);
     }
     // trailing motes from the arc + a soft core glow that reads from any angle

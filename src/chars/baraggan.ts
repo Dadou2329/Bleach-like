@@ -153,7 +153,7 @@ export function buildBaraggan(form: BaragganForm = 'sealed'): CharacterAsset {
     boneCrown(b, hd);
     hands(b, L, 'skin');
     coat(b, L, torso);
-    const skirt = coatSkirt(b, L, { mat: 'coat', lining: 'fur', yTop: s.waistY - 3, yHem: 6, r0: 11, r1: 14.6, openFront: 16 });
+    const skirt = coatSkirt(b, L, { mat: 'coat', lining: 'fur', yTop: s.waistY - 3, yHem: 6, r0: 10.8, r1: 12.6, openFront: 14 });
     // three black fur stripes round the hem
     const panels = ['F.L', 'S.L', 'B.L', 'B.R', 'S.R', 'F.R'].flatMap((p) => [`coat.${p}`, `coat.${p}.2`]);
     for (const y of [8, 11.2, 14.4]) b.paint(panels, aabb([-30, y, -30], [30, y + 1.8, 30]), 'fur', { where: b.isMat('coat') });
@@ -530,7 +530,9 @@ function boneArms(b: ModelBuilder, L: Landmarks): void {
   b.add('forearm.L', sphere([sx, ey - 0.4, sz], 1.9), 'skull', { mirror: true });
   b.add('forearm.L', cylinder([sx, wy + 0.4, sz], [sx, wy + 4.2, sz], 2.5), 'gold', { mirror: true });
   for (const y of [wy + 0.7, wy + 3.9]) b.add('forearm.L', torus([sx, y, sz], 2.5, 0.45), 'gold', { mirror: true, thr: 0.2 });
-  for (const dz of [-1.6, 1.6]) chainAlong(b, 'forearm.L', [[sx + 1.8, wy + 1, sz + dz], [sx + 2.4, wy - 3, sz + dz * 1.2], [sx + 2.2, wy - 7, sz + dz * 1.1]], 'gold', 0.75, true);
+  // one long chain and one short off each band, swinging below the hand
+  chainAlong(b, 'forearm.L', [[sx + 1.9, wy + 1, sz + 1.4], [sx + 2.5, wy - 3, sz + 1.7], [sx + 2.3, wy - 7.5, sz + 1.5]], 'gold', 0.9, true);
+  chainAlong(b, 'forearm.L', [[sx + 1.9, wy + 1, sz - 1.4], [sx + 2.4, wy - 2.5, sz - 1.7]], 'gold', 0.9, true);
   // the hands: a block of wrist bones, finger bones in segments; the fist curled round the grip channel
   const gy = wy - 4.3;
   b.add('palm.L', blend(0.7, box([sx, wy - 2, sz + 0.3], [1.3, 1.6, 2.1], { round: 0.8 }), capsule([sx, wy + 0.5, sz], [sx, wy - 1, sz], 1.2)), 'skull', { mirror: true });
@@ -566,7 +568,7 @@ function cloak(b: ModelBuilder, L: Landmarks, torso: Sdf): { springs: SpringDef[
   // folds down from the shoulders
   for (const k of [-1, 1]) for (const dz of [-4, 3]) b.paint(['chest', 'spine'], capsule([k * (sx - 1), sy + 1, dz], [k * (sx + 1.6), s.waistY - 6, dz * 1.4], 0.7), 'cloak', { shade: 4, where: b.isMat('cloak') });
   // below the waist: long panels to the ankles on spring chains, the black fringe at the hem
-  const skirt = coatSkirt(b, L, { mat: 'cloak', lining: 'cloakIn', yTop: s.waistY - 4, yHem: 3, r0: 11.6, r1: 15.8, openFront: 3 });
+  const skirt = coatSkirt(b, L, { mat: 'cloak', lining: 'cloakIn', yTop: s.waistY - 4, yHem: 3, r0: 11.4, r1: 14, openFront: 3 });
   const panels = ['F.L', 'S.L', 'B.L', 'B.R', 'S.R', 'F.R'].flatMap((p) => [`coat.${p}`, `coat.${p}.2`]);
   b.paint(panels, aabb([-30, 0, -30], [30, 6.4, 30]), 'fur', { where: b.isMat('cloak', 'cloakIn') });
   for (let i = 0; i < 30; i++) {
@@ -575,7 +577,7 @@ function cloak(b: ModelBuilder, L: Landmarks, torso: Sdf): { springs: SpringDef[
     const side = deg > 180 ? deg - 360 : deg;
     const panel = Math.abs(side) < 3 ? null : side > 0 ? (side < 60 ? 'F.L' : side < 120 ? 'S.L' : 'B.L') : side > -60 ? 'F.R' : side > -120 ? 'S.R' : 'B.R';
     if (!panel) continue;
-    const r = 15.4;
+    const r = 13.6;
     b.add(`coat.${panel}.2`, spike([Math.sin(a) * r, 4.6, -0.6 + Math.cos(a) * r], [Math.sin(a) * 0.25, -1, Math.cos(a) * 0.25], 2.6 + (i % 3) * 0.8, 1.1, 0.8, { tip: 0.3 }), 'fur', { thr: 0.3 });
   }
   // the fur collar: standing up round the skull, tattered into tufts

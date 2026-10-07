@@ -271,7 +271,7 @@ export class Game {
     if (t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
-    let dmg = amount * power * (1 - armor) * t.damageTaken * (o.energy ? t.energyTaken : 1);
+    let dmg = amount * power * (1 - armor) * t.damageTaken * (o.energy ? t.energyTaken : 1) * (t.agedT > 0 ? 1 + t.agedK : 1);
     // reiatsu armour: a weak cut bounces off (Ichigo's hands bled on Kenpachi's skin)
     const shrug = t.toughness > 0 && dmg < t.toughness;
     if (shrug) dmg *= 0.25;

@@ -41,6 +41,8 @@ import { HARRIBEL_DEF, HarribelKit } from './kits/harribel';
 import { harribelAsset, harribelProp } from '../chars/harribel';
 import { NNOITRA_DEF, NnoitraKit } from './kits/nnoitra';
 import { nnoitraAsset, nnoitraProp } from '../chars/nnoitra';
+import { BARAGGAN_DEF, BaragganKit } from './kits/baraggan';
+import { baragganAsset, baragganProp } from '../chars/baraggan';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -285,6 +287,19 @@ export const ROSTER: RosterEntry[] = [
       buildCached(starrkAsset('glove').model, true);
       buildCached(starrkAsset('lobos').model, true);
       for (const k of ['gunR', 'gunL', 'colmillo', 'wolf', 'lilyBlade'] as const) buildCached(starrkProp(k), false);
+    },
+  },
+  {
+    id: 'baraggan',
+    name: 'Baraggan Louisenbairn',
+    kanji: '髑髏大帝',
+    title: 'Segunda Espada',
+    color: '#b4232c',
+    def: () => ({ ...BARAGGAN_DEF, speed: { ...BARAGGAN_DEF.speed } }),
+    kit: (f, g) => new BaragganKit(f, g),
+    warm: () => {
+      buildCached(baragganAsset('arrogante').model, true);
+      buildCached(baragganProp('granCaida'), false);
     },
   },
   {

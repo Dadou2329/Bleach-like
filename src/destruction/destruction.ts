@@ -29,6 +29,8 @@ export interface CarveOptions {
   sparks?: [number, number, number];
   /** skip the integrity check (pure cosmetic carves) */
   noCollapse?: boolean;
+  /** rot: only turn things to decayed matter, never crumble them (Baraggan's aura, step by step) */
+  rotOnly?: boolean;
 }
 
 export interface CarveResult {
@@ -94,7 +96,7 @@ export class DestructionSystem {
         }
         if (p < hard) return;
       } else if (opts.mode === 'rot') {
-        if (p < hard) {
+        if (p < hard || opts.rotOnly) {
           if (decayed > 0 && m !== decayed && p >= hard * 0.2 && !(f & F_LIQUID)) w.set(x, y, z, decayed);
           return;
         }

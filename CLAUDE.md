@@ -19,21 +19,27 @@ scope and milestones and `README.md` for controls and modes.
   `src/voxel/materials.ts` (hardness, flags, patterns). Meshing runs in workers (`meshPool`) into a BatchedMesh
   (`render/worldRenderer.ts`).
 - Destruction: `destruction/` has carve shapes (sphere, capsule, box, crescent, cone), the integrity search,
-  Rapier fragments, slide planes and debris. Use `engine.destruction.carve(shape, {mode, power})`.
+  Rapier fragments, slide planes and debris. Use `engine.destruction.carve(shape, {mode, power})`; mode `'rot'`
+  crumbles what it beats to dust and turns the rest to `decayed` matter (`rotOnly` only decays).
 - Characters: author models with the DSL in `src/models/builder.ts`, in **voxel units** at 48 vox/m. The model
   faces +Z and +X is the character's LEFT. Ramps are ordered light → dark. Each bone has its own grid, so
   parts may overlap at joints. Run `autoShade()` then `lint()`.
 - Animation: `anim/animator.ts`. Locomotion is procedural; clips use eased Hermite keys. Sword clips are
   authored as swing arcs (`anim/swing.ts` → IK channels `@gripR/@dirR/@edgeR/@poleR/@ikR`). A left-hand weapon has
   its own channels (`@gripL/@dirL/@edgeL/@poleL/@ikL`, `swingKeys({ hand: 'L' })`); a gauntlet blade along the
-  forearm swings with `swingKeys({ pata: true })`. Spring bones handle cloth and coats. Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
+  forearm swings with `swingKeys({ pata: true })`. A second pair of arms uses `'R2'`/`'L2'`. Arcs wider than 60° are
+  split into steps along the circle (channels interpolate in straight lines), so key the swing's real angles and
+  let the split follow them; probe blade paths numerically when a cut misses. Spring bones handle cloth and coats. Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
   −forearm X, the torso bends forward with +X, and +Y turns left.
 - Gameplay: `game/game.ts` provides combat services (blade sweeps cut the world and hit fighters; damage,
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
-  Kits are in `game/kits/`, AI in `game/ai/`, projectiles in `game/projectiles/`.
+  Kits are in `game/kits/`, AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
+  (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`;
+  `game.drain()` is damage over time without hitstun.
 - VFX: `vfx/aura.ts` (flame cards + rim shell + pillar), `vfx/trail.ts`, `vfx/afterimage.ts`,
   `vfx/energy.ts` (crescents, rings), `vfx/water.ts` (voxel droplets, floods that slow and soak, torrents,
-  the water shader) and `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
+  the water shader), `vfx/respira.ts` (miasma, rot, the time dome), `vfx/teresa.ts` (chains, thrown weapons) and
+  `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
 ## Conventions

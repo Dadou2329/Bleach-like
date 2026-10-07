@@ -275,6 +275,55 @@ G state, V flare); press **H** in game for the current character's moves.
   - G: the arc **Cero**.
   - F: **Cascada Real**. The sky darkens, the river drops out of it onto the target, and a volley of La Gota
     follows.
+- **Nnoitra Gilga**, the Quinto Espada: very tall and rail-thin, long black hair over a white eyepatch, a
+  cheek-to-cheek grin, the spoon-shaped hood standing behind his head. He carries **Santa Teresa**, two gold
+  crescents back to back on a long shaft, on a chain to his waist. His **Hierro** is the hardest skin of any
+  Espada: light blows grind off it and do nothing, until whoever keeps hitting him gets used to it. LMB is
+  huge one-handed sweeps, a front kick and a two-handed slam into the ground. His moves:
+  - RMB: the **Crescent Smash**, a hop and an overhead that comes down like a falling building.
+  - Q: the **chain throw**. The weapon flies out on its chain and bites the first fighter it meets; Q again
+    (or when it stops) hauls it back and drags them in.
+  - E: the **whirl**. He spins it over his head by the chain, battering whoever is close, then throws it.
+  - R: his gold **Cero**, fired off the tip of his tongue with the 5 on it.
+  - G: the eyepatch torn off, showing the hole; after that G is **Indice Radar**, a finger in the ground and a
+    line of light to the target. While he has read them, he hits harder.
+  - F: **"Inore, Santa Teresa"**. He raises the weapon overhead and comes out of the light with crescent
+    horns, armoured arms and a mantis scythe in each of **four** hands; his wounds close.
+- **Nnoitra, Santa Teresa**: the four scythes cut a pair at a time, then in a chop and a full turn with all
+  four; he regenerates slowly all the time. His moves:
+  - RMB: the **Mantis Cross**, all four flung wide and snapped shut.
+  - Q: a scythe thrown overhand; another grows out of his wrist.
+  - E: the tongue Cero.
+  - R: **High-Speed Regeneration**.
+  - G: Indice Radar.
+  - F: **Seis Guadañas**, a Sonído into the target, every blade round and the cross.
+- **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
+  stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
+  wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**
+  like a sceptre. LMB is slow, enormous one-handed sweeps and a two-handed chop that cracks the ground. His
+  sealed moves:
+  - RMB: the **Casual Swing**, one lazy cleave whose cut runs on far past the blades and halves whatever
+    stands in its path.
+  - Q: the **aging touch**. A Sonído to the target's side and two fingers on a shoulder: their bones go
+    brittle, so they move slower and every blow lands harder for a while.
+  - E: the **royal throw**. A hand on the throat, lifted off the ground and flung through the street.
+  - R: the **royal flare**, a dark red shockwave of reiatsu.
+  - G: **Senescencia**. A dome of slowed time round him: whoever is inside moves, swings and animates at a
+    crawl. It drains his reiatsu.
+  - F: **"Kuchiro, Arrogante"**. He holds the axe out, bows his head, and black and purple flames from its eye
+    burn him down to a crowned skeleton in a purple cloak; his wounds close.
+- **Baraggan, Arrogante**: everything near him rots. The ground decays under his feet and walls beside him go
+  brown and crumbly, those who stay close wither, and Ceros and Kidō age before they reach him (they do much
+  less). His hits leave the rot in the wound, which keeps eating at the target. His moves:
+  - LMB: Gran Caída chops trailing miasma.
+  - RMB: the **Guillotine**, an overhead that rots a slab of the world in front of him into dust.
+  - Q: **Respira** (held). Black-purple miasma pours out of his open hand and creeps further out the longer he
+    breathes; stone crumbles and people wither where it rolls.
+  - E: the **Respira slash**, a crescent of rot.
+  - R: **Gran Caída** thrown. It spins out, rotting what it passes, and the chains bring it back.
+  - G: **enraged**. The breath runs faster and further, and it costs him his own flesh.
+  - F: **Respira Total**. The miasma floods out on every side, and every building round him rots and comes
+    down.
 - **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
   back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
   stay on the battlefield and can be broken again.
@@ -308,7 +357,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
@@ -323,8 +372,8 @@ G state, V flare); press **H** in game for the current character's moves.
   debris.
 - `src/models`: voxel model DSL (SDF shapes per bone, auto-shading, pixel-art faces) and mesh building.
 - `src/anim`: rig, procedural locomotion, keyframed clips, sword IK, foot planting, spring bones.
-- `src/chars`: Ichigo, Grimmjow, Byakuya, Renji, Rukia, Chad, Kenpachi, Ulquiorra, Hitsugaya, Aizen (bodies, forms,
-  weapons), Hollows, Menos Grande, and their clips.
+- `src/chars`: every fighter's body, forms and weapons (Ichigo, the Shinigami captains and lieutenants, the
+  Espada, Uryū, Chad, Yoruichi, Urahara…), Hollows, Menos Grande, and their clips.
 - `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input.
 - `src/vfx`, `src/audio`, `src/ui`: auras, trails, energy shaders, procedural sound, HUD, start screen.
 - `src/maps`: Karakura Town generator and test maps.
