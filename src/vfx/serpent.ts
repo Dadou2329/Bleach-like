@@ -107,7 +107,7 @@ export class DragonStrike implements Projectile {
     g.addRing(p.clone(), 7 * this.scale, d.color, 0.6);
     for (const f of g.enemiesOf(this.owner)) {
       const dist = f.center().distanceTo(p);
-      if (dist < 4 * this.scale) g.damage(f, this.damage * (0.5 + 0.5 * (1 - dist / (4 * this.scale))), this.owner, f.pos.clone().sub(p).setY(0.5).normalize(), { knock: 18, launch: 8, heavy: true, hitstop: 0.08, shake: 0.6 });
+      if (dist < 4 * this.scale) g.damage(f, this.damage * (0.5 + 0.5 * (1 - dist / (4 * this.scale))), this.owner, f.pos.clone().sub(p).setY(0.5).normalize(), { energy: true, knock: 18, launch: 8, heavy: true, hitstop: 0.08, shake: 0.6 });
     }
     g.engine.glow.spawn({ x: p.x, y: p.y, z: p.z, size: 2, sizeEnd: 7 * this.scale, life: 0.4, r: d.color.r, g: d.color.g, b: d.color.b, alpha: 1, alphaEnd: 0, tex: TEX_GLOW });
     for (let i = 0; i < 16; i++) {

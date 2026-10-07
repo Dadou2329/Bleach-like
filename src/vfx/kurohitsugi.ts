@@ -120,7 +120,7 @@ export class BlackCoffin implements Projectile {
       while (this.ticks < want) {
         this.ticks++;
         if (tgt && !tgt.dead && tgt.pos.distanceTo(new THREE.Vector3(this.center.x, this.center.y - 1.2 * this.scale, this.center.z)) < 2 * this.scale)
-          g.damage(tgt, (this.damage * 0.45) / (this.holdT / 0.12), this.owner, new THREE.Vector3(0, 0, 0), { quiet: true });
+          g.damage(tgt, (this.damage * 0.45) / (this.holdT / 0.12), this.owner, new THREE.Vector3(0, 0, 0), { energy: true, quiet: true });
       }
     }
     if (!this.broken && this.t >= this.closeT + this.holdT) {
@@ -128,7 +128,7 @@ export class BlackCoffin implements Projectile {
       // the break: the final cut and the shards fly
       if (tgt && !tgt.dead) {
         const d = tgt.center().distanceTo(this.center);
-        if (d < 2.5 * this.scale) g.damage(tgt, this.damage * 0.55, this.owner, new THREE.Vector3(0, 1, 0), { knock: 6, launch: 7, heavy: true, hitstop: 0.12, shake: 0.6 });
+        if (d < 2.5 * this.scale) g.damage(tgt, this.damage * 0.55, this.owner, new THREE.Vector3(0, 1, 0), { energy: true, knock: 6, launch: 7, heavy: true, hitstop: 0.12, shake: 0.6 });
       }
       for (const s of this.slabs) s.vel.copy(s.to).normalize().multiplyScalar(6 + Math.random() * 6).add(new THREE.Vector3(0, 3, 0));
       g.sfx.play('shatter', this.center, 1.2);

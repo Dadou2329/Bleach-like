@@ -106,7 +106,7 @@ export class GetsugaProjectile implements Projectile {
       if (Math.abs(pn) > 0.9 + f.def.radius) continue;
       this.hit.add(f.id);
       const weak = f.def.weakAbove !== undefined && this.pos.y > f.pos.y + f.def.height * f.def.weakAbove ? 3 : 1;
-      g.damage(f, this.o.damage * weak, this.owner, this.dir, { knock: 14, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4 });
+      g.damage(f, this.o.damage * weak, this.owner, this.dir, { energy: true, knock: 14, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4 });
       g.sparks(fc, this.dir, this.o.colors.body, 24);
     }
     // trailing motes from the arc + a soft core glow that reads from any angle

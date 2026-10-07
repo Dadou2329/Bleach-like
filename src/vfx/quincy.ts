@@ -94,7 +94,7 @@ export class ReishiArrow implements Projectile {
       const cy = Math.max(f.pos.y + 0.15, Math.min(f.pos.y + f.def.height - 0.15, p.y));
       if (Math.hypot(f.pos.x - p.x, cy - p.y, f.pos.z - p.z) > f.def.radius + 0.12 + (o.pierce ?? 0) * 0.5) continue;
       this.hit.add(f.id);
-      g.damage(f, o.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { knock: o.pierce ? 10 : 3 + (o.burst ?? 0) * 3, launch: o.pierce ? 3 : 0.5, heavy: !!o.pierce || (o.burst ?? 0) > 1.2, hitstop: o.quiet ? 0 : 0.03, shake: o.quiet ? 0 : 0.1, quiet: o.quiet, color: '#59B7EE' });
+      g.damage(f, o.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { energy: true, knock: o.pierce ? 10 : 3 + (o.burst ?? 0) * 3, launch: o.pierce ? 3 : 0.5, heavy: !!o.pierce || (o.burst ?? 0) > 1.2, hitstop: o.quiet ? 0 : 0.03, shake: o.quiet ? 0 : 0.1, quiet: o.quiet, color: '#59B7EE' });
       if (!o.pierce) {
         this.pos.copy(p);
         this.burst(g, f);
@@ -125,7 +125,7 @@ export class ReishiArrow implements Projectile {
       for (const e of g.enemiesOf(this.owner)) {
         if (e === f) continue;
         const d = e.center().distanceTo(p);
-        if (d < r + e.def.radius) g.damage(e, this.o.damage * 0.5, this.owner, e.pos.clone().sub(p).setY(0).normalize(), { knock: 6, launch: 2, quiet: this.o.quiet });
+        if (d < r + e.def.radius) g.damage(e, this.o.damage * 0.5, this.owner, e.pos.clone().sub(p).setY(0).normalize(), { energy: true, knock: 6, launch: 2, quiet: this.o.quiet });
       }
       if (r > 1) g.sfx.play('explode', p, Math.min(1.4, 0.4 + r * 0.3));
     } else g.engine.destruction.carve(new SphereShape(p.clone(), 0.22), { mode: 'bore', power: 120 });
@@ -231,7 +231,7 @@ export class SeeleShot implements Projectile {
       const p = this.pos.clone().addScaledVector(this.dir, along);
       if (p.distanceTo(f.center()) > f.def.radius + 0.6) continue;
       this.hit.add(f.id);
-      g.damage(f, this.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { knock: 12, launch: 3, heavy: true, hitstop: 0.1, shake: 0.4, color: '#9FE6FF' });
+      g.damage(f, this.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { energy: true, knock: 12, launch: 3, heavy: true, hitstop: 0.1, shake: 0.4, color: '#9FE6FF' });
       g.sparks(f.center(), this.dir, '#9FE6FF', 16);
     }
     this.pos.copy(b);
@@ -329,7 +329,7 @@ export class Sprenger implements Projectile {
     const c = this.center;
     for (const f of g.enemiesOf(this.owner)) {
       if (Math.hypot(f.pos.x - c.x, f.pos.z - c.z) > this.radius + f.def.radius + 0.6) continue;
-      g.damage(f, this.damage, this.owner, new THREE.Vector3(0, 1, 0), { knock: 4, launch: 12, heavy: true, hitstop: 0.16, shake: 0.7, color: '#F2EDB1' });
+      g.damage(f, this.damage, this.owner, new THREE.Vector3(0, 1, 0), { energy: true, knock: 4, launch: 12, heavy: true, hitstop: 0.16, shake: 0.7, color: '#F2EDB1' });
     }
     g.engine.destruction.carve(new SphereShape(c.clone().setY(c.y + 1), this.radius * 1.15, 0.8), { mode: 'explode', power: 420, impulse: 18 });
     g.addRing(c.clone(), this.radius * 4, '#F2EDB1', 0.6);

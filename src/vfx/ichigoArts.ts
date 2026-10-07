@@ -85,7 +85,7 @@ export class GroundGetsuga implements Projectile {
       if (Math.hypot(o.pos.x - this.pos.x, o.pos.z - this.pos.z) > this.o.width + o.def.radius + 0.3) continue;
       if (o.pos.y - this.pos.y > 2.4 || this.pos.y - o.pos.y > 1.5) continue;
       this.hit.add(o.id);
-      g.damage(o, this.o.damage, this.owner, this.dir.clone(), { knock: 6, launch: 11, heavy: true, hitstop: 0.1, shake: 0.4 });
+      g.damage(o, this.o.damage, this.owner, this.dir.clone(), { energy: true, knock: 6, launch: 11, heavy: true, hitstop: 0.1, shake: 0.4 });
     }
     if (this.dist >= this.o.range) this.done = true;
   }
@@ -193,7 +193,7 @@ export class ThrownBlade implements Projectile {
       if (Math.hypot(o.pos.x - this.pos.x, cy - this.pos.y, o.pos.z - this.pos.z) > 0.95 + o.def.radius) continue;
       this.hits.add(o.id);
       const k = this.returning ? _w.subVectors(h, this.pos).normalize().clone() : this.dir.clone();
-      g.damage(o, this.o.damage, this.owner, k, { knock: this.returning ? -6 : 12, launch: 3, heavy: !this.returning, hitstop: 0.08, shake: 0.3 });
+      g.damage(o, this.o.damage, this.owner, k, { energy: true, knock: this.returning ? -6 : 12, launch: 3, heavy: !this.returning, hitstop: 0.08, shake: 0.3 });
       g.sparks(o.center(), k, '#bfefff', 12);
     }
     if (Math.random() < 0.5) g.sfx.play('swing', this.pos, 0.35);

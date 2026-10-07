@@ -105,7 +105,7 @@ export class GarraDart implements Projectile {
       const d = f.center().distanceTo(p);
       if (d < r + 1.2 + f.def.radius) {
         const k = 1 - Math.min(1, d / (r + 1.2 + f.def.radius));
-        g.damage(f, this.o.damage * (0.4 + 0.6 * k), this.owner, f.pos.clone().sub(p).setY(0.25).normalize(), { knock: 14 * k + 4, launch: 6 * k + 2, heavy: true, hitstop: 0.06, shake: 0.5 });
+        g.damage(f, this.o.damage * (0.4 + 0.6 * k), this.owner, f.pos.clone().sub(p).setY(0.25).normalize(), { energy: true, knock: 14 * k + 4, launch: 6 * k + 2, heavy: true, hitstop: 0.06, shake: 0.5 });
       }
     }
     const glow = g.engine.glow, dust = g.engine.dust;

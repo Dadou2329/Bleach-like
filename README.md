@@ -192,6 +192,25 @@ G state, V flare); press **H** in game for the current character's moves.
     Act 3 is the abyss: water rises over the field, and swimming up only drags the partner deeper. The Final
     Act sheathes both swords and winds a white thread round the partner's throat until the cut glows gold
     and bursts.
+- **Jūshirō Ukitake**, Captain of the 13th Division: tall and thin, long white hair to his waist, the
+  long-sleeved haori lined in crimson. His cuts are quick and exact, and a thrust goes for the vital points.
+  Below half health his illness takes him now and then, doubled over and coughing. His sealed moves:
+  - RMB: a step-in slash with both hands.
+  - Q: Bakudō #8 **Seki**, a disc of light out of his palm that throws back whoever is close.
+  - E: Hadō #31 **Shakkahō**.
+  - R: **Kaidō**, a slow heal.
+  - G: he pushes through the illness for a while (stronger, no coughing), and pays for it after.
+  - F: **"Nami kotogotoku waga tate to nare, ikazuchi kotogotoku waga yaiba to nare — Sōgyo no Kotowari"**. The
+    blade comes apart into two, tied by a red rope with five square charms.
+- **Ukitake, Sōgyo no Kotowari**: the left blade drinks any reishi attack that comes at it from the front
+  (Ceros, Getsuga, Kidō, arrows, flames; not blades or fists). Beams end on its steel, and the charms light up
+  one by one as the store fills. LMB is the twin-blade dance. His moves:
+  - RMB: the rope lashed across between the two hilts.
+  - Q: the absorbing guard, which catches from a wider angle.
+  - E: the **return**. The stored attack goes back out of the right blade, faster and harder, in its own
+    colour (as a beam once there is enough of it).
+  - F: the charms shaken bright, so the next return hits half again as hard.
+  - There is no Bankai: it was never shown.
 - **Zaraki Kenpachi**: no pattern. Each press draws a different wild swing, punch or kick, and every hit of a
   string lands harder than the last. Weak hits bounce off his reiatsu. His moves:
   - RMB: a lazy wrist flick that cuts a building in half.
@@ -263,7 +282,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

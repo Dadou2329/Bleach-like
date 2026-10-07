@@ -85,7 +85,7 @@ export class BlueFire implements Projectile {
         if (along < 0 || along > o.len + f.def.radius) continue;
         const across = Math.sqrt(Math.max(0, to.lengthSq() - along * along));
         if (across > Math.tan(o.half) * along + f.def.radius + 0.4) continue;
-        g.damage(f, o.damage, this.owner, new THREE.Vector3(d.x, 0, d.z).normalize(), { knock: o.twin ? 18 : 12, launch: o.twin ? 6 : 3, heavy: !!o.twin, hitstop: 0.07, shake: 0.3, color: '#7FC7EC' });
+        g.damage(f, o.damage, this.owner, new THREE.Vector3(d.x, 0, d.z).normalize(), { energy: true, knock: o.twin ? 18 : 12, launch: o.twin ? 6 : 3, heavy: !!o.twin, hitstop: 0.07, shake: 0.3, color: '#7FC7EC' });
         g.sparks(f.center(), d, '#7FC7EC', 10);
       }
       // and the fire bursts where it meets the world

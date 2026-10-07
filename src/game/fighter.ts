@@ -136,6 +136,8 @@ export class Fighter {
   parry: ((amount: number, from: Fighter | null, o: DamageOpts) => boolean) | null = null;
   /** where opponents believe this fighter stands (Kyōka Suigetsu's copy); the duel AI fights this */
   lure: THREE.Vector3 | null = null;
+  /** beams end on this fighter instead of running on through it (a blade drinking them: Sōgyo no Kotowari) */
+  beamStop = false;
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};

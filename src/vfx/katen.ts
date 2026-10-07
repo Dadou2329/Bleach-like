@@ -487,7 +487,7 @@ export class ZangerinRing implements Projectile {
       if (this.center.y < o.pos.y - 0.4 || this.center.y > o.pos.y + o.def.height + 0.4) continue;
       this.hits.add(o.id);
       _v.set(o.pos.x - this.center.x, 0, o.pos.z - this.center.z).normalize();
-      g.damage(o, this.damage, this.owner, _v.clone(), { knock: 18, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4, color: '#f2c744' });
+      g.damage(o, this.damage, this.owner, _v.clone(), { energy: true, knock: 18, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4, color: '#f2c744' });
     }
     if (this.r >= this.maxR) this.done = true;
   }

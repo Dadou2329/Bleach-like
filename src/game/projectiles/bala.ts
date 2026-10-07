@@ -52,7 +52,7 @@ export class BalaShot implements Projectile {
     if (this.done) return;
     this.done = true;
     const p = this.pos;
-    if (f) g.damage(f, this.damage, this.owner, this.dir.clone(), { knock: 9, launch: 2, hitstop: 0.03, shake: 0.15 });
+    if (f) g.damage(f, this.damage, this.owner, this.dir.clone(), { energy: true, knock: 9, launch: 2, hitstop: 0.03, shake: 0.15 });
     g.engine.destruction.carve(new SphereShape(p.clone(), 0.75, 0.8), { mode: 'explode', power: 90, impulse: 10 });
     const c = new THREE.Color(this.color);
     g.engine.glow.spawn({ x: p.x, y: p.y, z: p.z, size: 0.6, sizeEnd: 2.2, life: 0.2, r: c.r, g: c.g, b: c.b, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });

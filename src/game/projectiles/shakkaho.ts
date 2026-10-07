@@ -110,7 +110,7 @@ export class Shakkaho implements Projectile {
       const dir = new THREE.Vector3().subVectors(f.pos, p).setY(0);
       if (dir.lengthSq() < 1e-4) dir.copy(this.dir).setY(0).negate();
       dir.normalize();
-      g.damage(f, this.o.damage * k * (f === this.owner ? 0.35 : 1), f === this.owner ? null : this.owner, dir, { knock: 6 + R * 4 * k, launch: 2 + R * k, heavy: R > 2, hitstop: 0.06, shake: 0.3 + R * 0.1 });
+      g.damage(f, this.o.damage * k * (f === this.owner ? 0.35 : 1), f === this.owner ? null : this.owner, dir, { energy: true, knock: 6 + R * 4 * k, launch: 2 + R * k, heavy: R > 2, hitstop: 0.06, shake: 0.3 + R * 0.1 });
     }
     g.engine.destruction.carve(new SphereShape(p.clone(), R * 0.85, 0.85), { mode: 'explode', power: 70 + R * 50, impulse: 8 + R * 3 });
     g.sfx.play('explode', p, Math.min(2, 0.6 + R * 0.35));

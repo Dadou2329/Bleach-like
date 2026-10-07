@@ -83,7 +83,7 @@ export class Javelin implements Projectile {
           return;
         }
         this.hit.add(f.id);
-        g.damage(f, o.damage, this.owner, this.dir.clone(), { knock: 16, launch: 4, heavy: true, hitstop: 0.08, shake: 0.4 });
+        g.damage(f, o.damage, this.owner, this.dir.clone(), { energy: true, knock: 16, launch: 4, heavy: true, hitstop: 0.08, shake: 0.4 });
         g.sparks(f.center(), this.dir, '#5CFF8A', 18);
       }
     }
@@ -115,7 +115,7 @@ export class Javelin implements Projectile {
       if (d > reach) continue;
       const k = 1 - d / reach;
       // the thrower is not spared by an explosion this size, only by distance
-      g.damage(f, this.o.damage * (0.35 + 0.65 * k), f.team === this.owner.team ? null : this.owner, f.pos.clone().sub(p).setY(0.4).normalize(), { knock: 34 * k + 8, launch: 14 * k + 4, heavy: true, hitstop: 0.14, shake: 1.2 });
+      g.damage(f, this.o.damage * (0.35 + 0.65 * k), f.team === this.owner.team ? null : this.owner, f.pos.clone().sub(p).setY(0.4).normalize(), { energy: true, knock: 34 * k + 8, launch: 14 * k + 4, heavy: true, hitstop: 0.14, shake: 1.2 });
     }
     g.sfx.play('explode', p, 2.4);
     g.sfx.play('bankai', p, 0.8);

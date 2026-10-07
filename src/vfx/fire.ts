@@ -223,7 +223,7 @@ export class Inferno implements Projectile {
         const d = to.length();
         if (d > this.len * grow + o.def.radius || d < 0.3) continue;
         if (Math.acos(Math.max(-1, Math.min(1, to.normalize().dot(this.dir)))) > this.half + 0.1) continue;
-        g.damage(o, this.dps * 0.15, this.owner, to.clone(), { knock: 1.5, quiet: true, color: '#FF8A2A' });
+        g.damage(o, this.dps * 0.15, this.owner, to.clone(), { energy: true, knock: 1.5, quiet: true, color: '#FF8A2A' });
       }
     }
     if (this.t > this.dur + 0.3) this.done = true;
@@ -311,7 +311,7 @@ export class FireDome implements Projectile {
       this.tick = 0.25;
       for (const o of g.enemiesOf(this.owner)) {
         if (Math.hypot(o.pos.x - c.x, o.pos.z - c.z) > this.radius) continue;
-        g.damage(o, this.dps * 0.25, this.owner, new THREE.Vector3(), { knock: 0, quiet: true, color: '#FF8A2A' });
+        g.damage(o, this.dps * 0.25, this.owner, new THREE.Vector3(), { energy: true, knock: 0, quiet: true, color: '#FF8A2A' });
       }
     }
     if (this.t > this.dur + 0.6) this.done = true;
@@ -402,7 +402,7 @@ export class FirePillars implements Projectile {
           const d = Math.hypot(o.pos.x - c.x, o.pos.z - c.z);
           const near = this.pillars.some((p) => Math.hypot(o.pos.x - p.x, o.pos.z - p.z) < 2.6);
           if (!near && !(merge > 0 && d < this.radius * Math.min(1, merge))) continue;
-          g.damage(o, (this.damage / ((this.dur - 0.9) / 0.2)) * (near ? 1.4 : 1), this.owner, o.pos.clone().sub(c).setY(0).normalize(), { knock: 1, launch: near ? 2 : 0, quiet: true, color: '#FF8A2A' });
+          g.damage(o, (this.damage / ((this.dur - 0.9) / 0.2)) * (near ? 1.4 : 1), this.owner, o.pos.clone().sub(c).setY(0).normalize(), { energy: true, knock: 1, launch: near ? 2 : 0, quiet: true, color: '#FF8A2A' });
         }
       }
     }
@@ -468,7 +468,7 @@ export class IttoKaso implements Projectile {
       const b = this.base;
       for (const o of g.enemiesOf(this.owner)) {
         if (Math.hypot(o.pos.x - b.x, o.pos.z - b.z) > 4.5 + o.def.radius) continue;
-        g.damage(o, this.damage, this.owner, new THREE.Vector3(0, 1, 0), { knock: 6, launch: 14, heavy: true, hitstop: 0.2, shake: 1, color: '#E3260F' });
+        g.damage(o, this.damage, this.owner, new THREE.Vector3(0, 1, 0), { energy: true, knock: 6, launch: 14, heavy: true, hitstop: 0.2, shake: 1, color: '#E3260F' });
       }
       g.engine.destruction.carve(new CapsuleShape(b.clone().setY(b.y - 2), b.clone().setY(b.y + 30), 3.6), { mode: 'explode', power: 1200, impulse: 20, dust: 0.8 });
       g.engine.destruction.carve(new SphereShape(b.clone(), 9, 0.3), { mode: 'burn', power: 800, dust: 0.3 });
@@ -510,7 +510,7 @@ export function eraseTrench(g: Game, owner: Fighter, from: THREE.Vector3, dir: T
     const along = to.dot(d);
     if (along < 0 || along > len) continue;
     if (to.addScaledVector(d, -along).length() > width / 2 + o.def.radius) continue;
-    g.damage(o, damage, owner, d.clone(), { knock: 4, launch: 6, heavy: true, hitstop: 0.14, shake: 0.6, color: '#FFF1C9' });
+    g.damage(o, damage, owner, d.clone(), { energy: true, knock: 4, launch: 6, heavy: true, hitstop: 0.14, shake: 0.6, color: '#FFF1C9' });
   }
   // the rim glows where it was cut away, then cools
   for (let s = 0; s < len; s += 0.8) {
@@ -605,7 +605,7 @@ export class SkeletonHorde implements Projectile {
         s.latch = 1.2;
         if (!s.hit) {
           s.hit = true;
-          g.damage(tg, this.damage, this.owner, to.normalize().clone(), { knock: 1, hitstop: 0.02, quiet: Math.random() < 0.6, color: '#FF6A1E' });
+          g.damage(tg, this.damage, this.owner, to.normalize().clone(), { energy: true, knock: 1, hitstop: 0.02, quiet: Math.random() < 0.6, color: '#FF6A1E' });
         }
         continue;
       }
@@ -618,7 +618,7 @@ export class SkeletonHorde implements Projectile {
     this.tick -= dt;
     if (clinging > 0 && !tg.dead && this.tick <= 0) {
       this.tick = 0.2;
-      g.damage(tg, clinging * 1.4, this.owner, new THREE.Vector3(), { knock: 0, quiet: true, color: '#FF6A1E' });
+      g.damage(tg, clinging * 1.4, this.owner, new THREE.Vector3(), { energy: true, knock: 0, quiet: true, color: '#FF6A1E' });
       tg.hitstun = Math.max(tg.hitstun, 0.25);
       tg.body.vel.x *= 0.3;
       tg.body.vel.z *= 0.3;

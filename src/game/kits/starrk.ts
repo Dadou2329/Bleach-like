@@ -207,7 +207,7 @@ class CeroHandAction extends SkillAction {
     this.playClip(f, 'st_cero', (n) => {
       if (n !== 'fire') return;
       const emitter = f.visual.rig.sockets.get('palm.L')!;
-      g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.03, fire: 0.36, radius: 0.42, damage: 62 * this.kit.serious(), power: 320, ...CERO, range: 90, track: 1.6, gain: 1.6 }));
+      g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.03, fire: 0.36, radius: 0.42, damage: 80 * this.kit.serious(), power: 320, ...CERO, range: 90, track: 1.6, gain: 1.2 }));
       g.sfx.play('beam', f.center(), 0.8);
     });
   }
@@ -225,7 +225,7 @@ class CeroChestAction extends SkillAction {
     this.playClip(f, 'st_cero_chest', (n) => {
       if (n !== 'fire') return;
       const emitter = f.visual.rig.sockets.get('hole')!;
-      g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.05, fire: 0.55, radius: 0.85, damage: 112 * this.kit.serious(), power: 640, ...CERO, range: 110, track: 0.9, gain: 1.45 }));
+      g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.05, fire: 0.55, radius: 0.85, damage: 112 * this.kit.serious(), power: 640, ...CERO, range: 110, track: 0.9, gain: 1.15 }));
       g.callout('虚閃', 'CERO', '#9fd0ff');
       g.sfx.play('beam', f.center(), 1.2);
       f.aura.flare(1.3, 0.3);
@@ -295,7 +295,7 @@ class ChargedAction extends SkillAction {
       if (n === 'charge') {
         const emitter = this.kit.muzzle('R');
         if (!emitter) return;
-        g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.43, fire: 0.5, radius: 0.72, damage: 120, power: 560, ...CERO, range: 120, track: 1.2, gain: 1.45 }));
+        g.addProjectile(new CeroBeam(g, f, emitter, () => this.kit.aim(), { charge: 0.43, fire: 0.5, radius: 0.72, damage: 150, power: 560, ...CERO, range: 120, track: 1.2, gain: 1.15 }));
         g.sfx.play('charge', f.center(), 0.6);
       }
       if (n === 'fireR') {
@@ -326,7 +326,7 @@ class MetralletaAction extends SkillAction {
         const aim = () => this.kit.aim();
         this.ring = new MetralletaRing(g, emitter, aim);
         g.addProjectile(this.ring);
-        g.addProjectile(new CeroBeam(g, f, emitter, aim, { charge: 0.12, fire: 2.6, radius: 0.6, damage: 64, power: 440, ...CERO, range: 120, track: 1.5, gain: 1.4 }));
+        g.addProjectile(new CeroBeam(g, f, emitter, aim, { charge: 0.12, fire: 2.6, radius: 0.6, damage: 45, power: 440, ...CERO, range: 120, track: 1.5, gain: 1.15 }));
         this.volley = new CeroVolley(g, f, { blast: 0.9, power: 160, carveEvery: 0.08, knock: 2, max: 360 });
         g.addProjectile(this.volley);
         this.firing = true;
@@ -348,7 +348,7 @@ class MetralletaAction extends SkillAction {
       _v.x += (Math.random() - 0.5) * 0.04;
       _v.y += (Math.random() - 0.5) * 0.04;
       _v.z += (Math.random() - 0.5) * 0.04;
-      this.volley.emit(p, _v, 70 + Math.random() * 10, 0.11, 1.6);
+      this.volley.emit(p, _v, 70 + Math.random() * 10, 0.11, 0.25);
     }
     if (Math.random() < 0.25) g.sfx.play('gunshot', f.center(), 0.5);
     if (f === g.player && Math.random() < 0.5) g.shake(0.04);
@@ -401,12 +401,14 @@ class SprayAction extends SkillAction {
     const range = t ? Math.max(2, Math.hypot(t.pos.x - p.x, t.pos.z - p.z)) : 20;
     const dy = t ? t.center().y - p.y : 0;
     dir.set(dir.x / flat, dy / range, dir.z / flat).normalize();
+    // the fan follows the barrel, pulled a little toward the target
+    const toT = t ? t.center().sub(p).normalize() : dir;
     for (let i = 0; i < 2; i++) {
-      _v.copy(dir);
+      _v.copy(dir).lerp(toT, 0.35).normalize();
       _v.x += (Math.random() - 0.5) * 0.08;
       _v.y += (Math.random() - 0.5) * 0.05;
       _v.z += (Math.random() - 0.5) * 0.08;
-      v.emit(p, _v, 85 + Math.random() * 15, 0.1, 3.2);
+      v.emit(p, _v, 85 + Math.random() * 15, 0.1, 2);
     }
     if (Math.random() < 0.4) g.sfx.play('gunshot', p, 0.45);
   }
@@ -665,7 +667,7 @@ export class StarrkKit implements Kit {
     const back = sock(f, 'back');
     this.showGuns(false);
     const t = this.target();
-    g.addProjectile(new WolfPack(g, f, back, f.forward(new THREE.Vector3()), this.glove ? 12 : 10, t, { damage: 30, blast: 1.3, power: 300 }));
+    g.addProjectile(new WolfPack(g, f, back, f.forward(new THREE.Vector3()), this.glove ? 10 : 8, t, { damage: 16, blast: 1.3, power: 300 }));
     g.callout('魂の同胞', 'LOS LOBOS — CAMARADA', '#9fd0ff');
     g.shake(f === g.player ? 0.3 : 0.1);
   }
@@ -691,13 +693,13 @@ export class StarrkKit implements Kit {
     if (this.autoShotT > 0 || f.dead) return;
     const t = this.near(45);
     if (!t) return;
-    this.autoShotT = 0.32;
+    this.autoShotT = 0.4;
     const m = this.muzzle('L');
     if (!m) return;
     m.updateWorldMatrix(true, false);
     const p = m.getWorldPosition(new THREE.Vector3());
     const dir = t.center().sub(p).normalize();
-    this.g.addProjectile(new CeroShot(this.g, f, p, dir, { speed: 100, size: 0.12, damage: 9, blast: 0.5, power: 80, knock: 3, home: t, homeRate: 2.4 }));
+    this.g.addProjectile(new CeroShot(this.g, f, p, dir, { speed: 100, size: 0.12, damage: 6, blast: 0.5, power: 80, knock: 3, home: t, homeRate: 2.4 }));
     this.g.sfx.play('gunshot', p, 0.6);
   }
 

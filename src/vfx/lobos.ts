@@ -55,6 +55,9 @@ export interface ShotOpts {
   knock?: number;
   launch?: number;
   heavy?: boolean;
+  /** colours (default: Starrk's blue) */
+  core?: THREE.ColorRepresentation;
+  body?: THREE.ColorRepresentation;
   /** steer toward this fighter… */
   home?: Fighter | null;
   /** …at this rate (rad/s) */
@@ -71,16 +74,22 @@ export class CeroShot implements Projectile {
   private halo: THREE.Mesh;
   private travelled = 0;
   private t = 0;
+  private cCore: THREE.Color;
+  private cBody: THREE.Color;
+  private cRim: THREE.Color;
 
   constructor(private g: Game, private owner: Fighter, origin: THREE.Vector3, dir: THREE.Vector3, readonly o: ShotOpts) {
     this.pos = origin.clone();
     this.dir = dir.clone().normalize();
-    this.core = new THREE.Mesh(ball(), new THREE.MeshBasicMaterial({ color: CORE.clone().multiplyScalar(2.2), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
-    this.halo = new THREE.Mesh(ball(), new THREE.MeshBasicMaterial({ color: BODY.clone().multiplyScalar(1.5), transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false }));
+    this.cCore = o.core ? new THREE.Color(o.core) : CORE;
+    this.cBody = o.body ? new THREE.Color(o.body) : BODY;
+    this.cRim = o.body ? this.cBody.clone().multiplyScalar(0.6) : RIM;
+    this.core = new THREE.Mesh(ball(), new THREE.MeshBasicMaterial({ color: this.cCore.clone().multiplyScalar(2.2), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    this.halo = new THREE.Mesh(ball(), new THREE.MeshBasicMaterial({ color: this.cBody.clone().multiplyScalar(1.5), transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false }));
     this.core.frustumCulled = this.halo.frustumCulled = false;
     this.core.renderOrder = this.halo.renderOrder = 7;
     g.engine.gr.scene.add(this.core, this.halo);
-    flash(g, origin, o.size * 6);
+    flash(g, origin, o.size * 6, this.cBody);
     this.render();
   }
 
@@ -114,8 +123,8 @@ export class CeroShot implements Projectile {
     this.pos.addScaledVector(this.dir, step);
     this.travelled += step;
     const glow = g.engine.glow;
-    glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: -this.dir.x * 8, vy: -this.dir.y * 8, vz: -this.dir.z * 8, size: o.size * 2.4, sizeEnd: o.size * 0.4, life: 0.12, r: BODY.r, g: BODY.g, b: BODY.b, alpha: 0.85, alphaEnd: 0, tex: TEX_STREAK, stretch: 4 });
-    if (Math.random() < 0.5) glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, vz: (Math.random() - 0.5) * 2, size: o.size * 1.6, sizeEnd: 0.02, life: 0.22, r: RIM.r, g: RIM.g, b: RIM.b, alpha: 0.6, alphaEnd: 0, tex: TEX_GLOW });
+    glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: -this.dir.x * 8, vy: -this.dir.y * 8, vz: -this.dir.z * 8, size: o.size * 2.4, sizeEnd: o.size * 0.4, life: 0.12, r: this.cBody.r, g: this.cBody.g, b: this.cBody.b, alpha: 0.85, alphaEnd: 0, tex: TEX_STREAK, stretch: 4 });
+    if (Math.random() < 0.5) glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, vz: (Math.random() - 0.5) * 2, size: o.size * 1.6, sizeEnd: 0.02, life: 0.22, r: this.cRim.r, g: this.cRim.g, b: this.cRim.b, alpha: 0.6, alphaEnd: 0, tex: TEX_GLOW });
     if (this.travelled > (o.range ?? 90)) this.pop(g, null);
   }
 
@@ -124,22 +133,22 @@ export class CeroShot implements Projectile {
     this.done = true;
     const o = this.o;
     const p = this.pos;
-    if (f) g.damage(f, o.damage, this.owner, this.dir.clone().setY(0.15).normalize(), { knock: o.knock ?? 8, launch: o.launch ?? 1.5, heavy: o.heavy, hitstop: o.heavy ? 0.07 : 0.03, shake: o.heavy ? 0.3 : 0.12 });
+    if (f) g.damage(f, o.damage, this.owner, this.dir.clone().setY(0.15).normalize(), { energy: true, knock: o.knock ?? 8, launch: o.launch ?? 1.5, heavy: o.heavy, hitstop: o.heavy ? 0.07 : 0.03, shake: o.heavy ? 0.3 : 0.12 });
     // the blast also catches whoever stands close
     if (o.blast > 0.8) for (const e of g.enemiesOf(this.owner)) {
       if (e === f) continue;
       const d = capsuleDist(e, p);
-      if (d < o.blast + e.def.radius) g.damage(e, o.damage * 0.5, this.owner, _v.subVectors(e.pos, p).setY(0.3).normalize().clone(), { knock: 10, launch: 3, hitstop: 0.03 });
+      if (d < o.blast + e.def.radius) g.damage(e, o.damage * 0.5, this.owner, _v.subVectors(e.pos, p).setY(0.3).normalize().clone(), { energy: true, knock: 10, launch: 3, hitstop: 0.03 });
     }
-    g.engine.destruction.carve(new SphereShape(p.clone(), o.blast, 0.8), { mode: 'explode', power: o.power, impulse: 6 + o.blast * 6, sparks: [BODY.r, BODY.g, BODY.b], dust: 0.5 });
+    g.engine.destruction.carve(new SphereShape(p.clone(), o.blast, 0.8), { mode: 'explode', power: o.power, impulse: 6 + o.blast * 6, sparks: [this.cBody.r, this.cBody.g, this.cBody.b], dust: 0.5 });
     const glow = g.engine.glow;
-    glow.spawn({ x: p.x, y: p.y, z: p.z, size: o.blast * 1.6, sizeEnd: o.blast * 3.4, life: 0.22, r: BODY.r, g: BODY.g, b: BODY.b, alpha: 0.95, alphaEnd: 0, tex: TEX_GLOW });
-    glow.spawn({ x: p.x, y: p.y, z: p.z, size: o.blast, sizeEnd: o.blast * 1.4, life: 0.1, r: CORE.r, g: CORE.g, b: CORE.b, alpha: 1, alphaEnd: 0, tex: TEX_GLOW });
+    glow.spawn({ x: p.x, y: p.y, z: p.z, size: o.blast * 1.6, sizeEnd: o.blast * 3.4, life: 0.22, r: this.cBody.r, g: this.cBody.g, b: this.cBody.b, alpha: 0.95, alphaEnd: 0, tex: TEX_GLOW });
+    glow.spawn({ x: p.x, y: p.y, z: p.z, size: o.blast, sizeEnd: o.blast * 1.4, life: 0.1, r: this.cCore.r, g: this.cCore.g, b: this.cCore.b, alpha: 1, alphaEnd: 0, tex: TEX_GLOW });
     for (let i = 0; i < 10; i++) {
       const a = Math.random() * Math.PI * 2, e = Math.random() * 2 - 0.5;
-      glow.spawn({ x: p.x, y: p.y, z: p.z, vx: Math.cos(a) * 9, vy: e * 6, vz: Math.sin(a) * 9, size: 0.16, sizeEnd: 0.02, life: 0.3, r: BODY.r, g: BODY.g, b: BODY.b, alpha: 1, alphaEnd: 0, tex: TEX_STREAK, stretch: 3, drag: 3 });
+      glow.spawn({ x: p.x, y: p.y, z: p.z, vx: Math.cos(a) * 9, vy: e * 6, vz: Math.sin(a) * 9, size: 0.16, sizeEnd: 0.02, life: 0.3, r: this.cBody.r, g: this.cBody.g, b: this.cBody.b, alpha: 1, alphaEnd: 0, tex: TEX_STREAK, stretch: 3, drag: 3 });
     }
-    if (o.blast > 1) g.addRing(p.clone(), o.blast * 3, STARRK_CERO.body, 0.35);
+    if (o.blast > 1) g.addRing(p.clone(), o.blast * 3, this.cBody, 0.35);
     g.sfx.play(o.blast > 1 ? 'explode' : 'impact', p, o.blast > 1 ? 0.9 : 0.5);
   }
 
@@ -284,7 +293,7 @@ export class CeroVolley implements Projectile {
     const last = this.hitT.get(f.id) ?? -1;
     const tick = this.t - last > 0.12;
     if (tick) this.hitT.set(f.id, this.t);
-    g.damage(f, dmg, this.owner, _s.copy(dir).setY(0.1).normalize(), { knock: tick ? (this.o.knock ?? 3) : 0, quiet: true });
+    g.damage(f, dmg, this.owner, _s.copy(dir).setY(0.1).normalize(), { energy: true, knock: tick ? (this.o.knock ?? 3) : 0, quiet: true });
     this.owed.set(f, (this.owed.get(f) ?? 0) + Math.max(0, before - f.hp));
   }
 
@@ -548,7 +557,7 @@ export class WolfPack implements Projectile {
           w.state = 'bite';
           w.t = 0;
           w.bite.subVectors(w.pos, tgt.pos);
-          g.damage(tgt, this.o.damage * 0.25, this.owner, _s.copy(w.vel).setY(0).normalize(), { knock: 2, hitstop: 0.02, quiet: true });
+          g.damage(tgt, this.o.damage * 0.2, this.owner, _s.copy(w.vel).setY(0).normalize(), { energy: true, knock: 2, hitstop: 0.02, quiet: true });
         } else if (w.t > 0.5) {
           w.state = 'hunt';
           w.t = life * 0.5;
@@ -595,7 +604,7 @@ export class WolfPack implements Projectile {
     const o = this.o;
     for (const e of g.enemiesOf(this.owner)) {
       const d = capsuleDist(e, p);
-      if (d < o.blast + e.def.radius || e === hit) g.damage(e, o.damage * (e === hit ? 1 : 0.6), this.owner, _v.subVectors(e.pos, p).setY(0.4).normalize().clone(), { knock: 14, launch: 4, heavy: e === hit, hitstop: 0.05, shake: 0.35 });
+      if (d < o.blast + e.def.radius || e === hit) g.damage(e, o.damage * (e === hit ? 1 : 0.6), this.owner, _v.subVectors(e.pos, p).setY(0.4).normalize().clone(), { energy: true, knock: 14, launch: 4, heavy: e === hit, hitstop: 0.05, shake: 0.35 });
     }
     g.engine.destruction.carve(new SphereShape(p.clone(), o.blast, 0.75), { mode: 'explode', power: o.power, impulse: 16, sparks: [BODY.r, BODY.g, BODY.b], dust: 0.7 });
     g.addRing(p.clone(), o.blast * 3.5, STARRK_CERO.body, 0.4);

@@ -219,7 +219,7 @@ export class RaikobenMissile implements Projectile {
       const fall = Math.max(0, 1 - d / (r * 1.6));
       const dir = o.center().sub(p).normalize();
       if (o.team === this.owner.team) continue;
-      g.damage(o, this.o.damage * fall, this.owner, dir, { knock: 30 * fall, launch: 14 * fall, heavy: true, hitstop: 0.15, shake: 1 });
+      g.damage(o, this.o.damage * fall, this.owner, dir, { energy: true, knock: 30 * fall, launch: 14 * fall, heavy: true, hitstop: 0.15, shake: 1 });
     }
     // the fireball: white, then gold, then orange, under a rising smoke column
     for (let i = 0; i < 90; i++) {

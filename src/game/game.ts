@@ -36,11 +36,18 @@ export interface DamageOpts {
   color?: THREE.ColorRepresentation;
   /** rapid small ticks (blade swarms, beams): no hit sound, hitstop, shake or number */
   quiet?: boolean;
+  /** a reishi attack (Cero, Getsuga, Kidō, arrows, flames) rather than a blade or a fist */
+  energy?: boolean;
 }
 
 const _v = new THREE.Vector3();
 const _w = new THREE.Vector3();
+const _a = new THREE.Vector3();
+const _b = new THREE.Vector3();
+const _c = new THREE.Vector3();
 const _q = new THREE.Quaternion();
+const _qa = new THREE.Quaternion();
+const _qb = new THREE.Quaternion();
 const _m = new THREE.Matrix4();
 
 export class Game {
@@ -187,19 +194,31 @@ export class Game {
    */
   bladeSweep(f: Fighter, pb: THREE.Vector3, pt: THREE.Vector3, cb: THREE.Vector3, ct: THREE.Vector3, spec: BladeSpec): void {
     // ---- fighters
+    // Between the two samples the blade turns about its base (snapping strikes can cover well over 90°
+    // in a frame, and a straight chord between the tips would cut through the wielder instead of the arc
+    // in front); the base itself moves straight.
+    const d0 = _a.subVectors(pt, pb), d1 = _b.subVectors(ct, cb);
+    const l0 = d0.length(), l1 = d1.length();
+    d0.divideScalar(l0 || 1);
+    d1.divideScalar(l1 || 1);
+    const turn = Math.acos(Math.max(-1, Math.min(1, d0.dot(d1))));
+    const steps = Math.min(12, Math.max(3, Math.ceil(turn / 0.26)));
+    _qa.setFromUnitVectors(d0, d1);
     for (const o of this.enemiesOf(f)) {
       if (f.bladeHits.has(o.id)) continue;
       let hit = false;
       let hitY = 0;
       const bottom = o.pos.y + 0.1, top = o.pos.y + o.def.height;
-      for (let si = 0; si <= 3 && !hit; si++) {
-        const k = si / 3;
+      for (let si = 0; si <= steps && !hit; si++) {
+        const k = si / steps;
+        _qb.identity().slerp(_qa, k);
+        const dir = _c.copy(d0).applyQuaternion(_qb);
+        const len = l0 + (l1 - l0) * k;
+        const bx = pb.x + (cb.x - pb.x) * k, by = pb.y + (cb.y - pb.y) * k, bz = pb.z + (cb.z - pb.z) * k;
         for (let bi = 0; bi <= 6 && !hit; bi++) {
-          const u = bi / 6;
-          // point on the swept blade quad
-          const x = (pb.x + (pt.x - pb.x) * u) * (1 - k) + (cb.x + (ct.x - cb.x) * u) * k;
-          const y = (pb.y + (pt.y - pb.y) * u) * (1 - k) + (cb.y + (ct.y - cb.y) * u) * k;
-          const z = (pb.z + (pt.z - pb.z) * u) * (1 - k) + (cb.z + (ct.z - cb.z) * u) * k;
+          const u = (bi / 6) * len;
+          // a point on the swept blade
+          const x = bx + dir.x * u, y = by + dir.y * u, z = bz + dir.z * u;
           const cy = Math.max(bottom, Math.min(top, y));
           const dx = x - o.pos.x, dy = y - cy, dz = z - o.pos.z;
           if (dx * dx + dy * dy + dz * dz < (o.def.radius + 0.18) ** 2) { hit = true; hitY = y; }

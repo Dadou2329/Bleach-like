@@ -322,7 +322,7 @@ export class ThunderColumn implements Projectile {
           const n = this.hit.get(o.id) ?? 0;
           this.hit.set(o.id, n + 1);
           const per = this.damage / (this.dur / 0.06);
-          g.damage(o, per, this.owner, new THREE.Vector3(0, 1, 0), { knock: 0, launch: n === 0 ? 4 : 0, heavy: n === 0, hitstop: n === 0 ? 0.12 : 0, shake: 0, quiet: n % 3 !== 0, color: '#F2B21C' });
+          g.damage(o, per, this.owner, new THREE.Vector3(0, 1, 0), { energy: true, knock: 0, launch: n === 0 ? 4 : 0, heavy: n === 0, hitstop: n === 0 ? 0.12 : 0, shake: 0, quiet: n % 3 !== 0, color: '#F2B21C' });
           o.hitstun = Math.max(o.hitstun, 0.3);
         }
       }
@@ -397,7 +397,7 @@ export class BlindOrb implements Projectile {
     const p = this.pos;
     for (const o of g.enemiesOf(this.owner)) {
       if (o.center().distanceTo(p) > 3.2) continue;
-      g.damage(o, this.damage, this.owner, o.pos.clone().sub(p).setY(0).normalize(), { knock: 3, hitstop: 0.05, color: '#FFF6C8' });
+      g.damage(o, this.damage, this.owner, o.pos.clone().sub(p).setY(0).normalize(), { energy: true, knock: 3, hitstop: 0.05, color: '#FFF6C8' });
       // blinded: it cannot act for a moment
       o.hitstun = Math.max(o.hitstun, 1.0);
     }
@@ -443,7 +443,7 @@ export class Kunai implements Projectile {
       const along = Math.max(0, Math.min(step, to.dot(this.dir)));
       const p = this.pos.clone().addScaledVector(this.dir, along);
       if (p.distanceTo(o.center()) > o.def.radius + 0.35) continue;
-      g.damage(o, this.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { knock: 2, hitstop: 0.02 });
+      g.damage(o, this.damage, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { energy: true, knock: 2, hitstop: 0.02 });
       g.sparks(p, this.dir, '#C8CCD4', 5);
       this.done = true;
       return;
@@ -486,7 +486,7 @@ export function shunkoBurst(g: Game, owner: Fighter, origin: THREE.Vector3, dir:
     if (along < -0.5 || along > len) continue;
     const off = to.addScaledVector(d, -along).length();
     if (off > 1 + along * 0.35 + o.def.radius) continue;
-    g.damage(o, damage, owner, d.clone(), { knock: 18, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4, color: new THREE.Color(style.edge).getStyle() });
+    g.damage(o, damage, owner, d.clone(), { energy: true, knock: 18, launch: 4, heavy: true, hitstop: 0.1, shake: 0.4, color: new THREE.Color(style.edge).getStyle() });
     o.hitstun = Math.max(o.hitstun, 0.45);
     hit.push(o);
   }

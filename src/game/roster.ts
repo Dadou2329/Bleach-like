@@ -35,6 +35,8 @@ import { SUIFENG_DEF, SuifengKit } from './kits/suifeng';
 import { KYORAKU_DEF, KyorakuKit } from './kits/kyoraku';
 import { STARRK_DEF, StarrkKit } from './kits/starrk';
 import { lilynetteAsset, starrkAsset, starrkProp } from '../chars/starrk';
+import { UKITAKE_DEF, UkitakeKit } from './kits/ukitake';
+import { ukitakeProp } from '../chars/ukitake';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -228,6 +230,16 @@ export const ROSTER: RosterEntry[] = [
       buildCached(kyorakuAsset('shed').model, true);
       for (const k of ['katen', 'kyokotsu', 'waki'] as const) buildCached(kyorakuProp(k), false);
     },
+  },
+  {
+    id: 'ukitake',
+    name: 'Jūshirō Ukitake',
+    kanji: '双魚理',
+    title: 'Captain, 13th Division',
+    color: '#9c1b2b',
+    def: () => ({ ...UKITAKE_DEF, speed: { ...UKITAKE_DEF.speed } }),
+    kit: (f, g) => new UkitakeKit(f, g),
+    warm: () => buildCached(ukitakeProp('sogyo'), false),
   },
   {
     id: 'kenpachi',

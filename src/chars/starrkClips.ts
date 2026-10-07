@@ -78,20 +78,27 @@ export const COLMILLO_STANCE: StanceDef = { ...LOBOS_STANCE, swingR: 0.15, grip:
 
 const SH: E = [-0.22, 0.2, 0.04];
 
-/** the lazy cuts */
+/**
+ * The lazy cuts. The arc crosses the front a little after 'hit' opens the window (the body's twist is
+ * part of where the blade points: the windup turns him right, the cut turns him back through square).
+ */
 const cut = (name: string, kind: 0 | 1 | 2): ClipDef => ({
-  name, dur: 0.56, fadeIn: 0.05, fadeOut: 0.2, events: { step: 0.07, hit: 0.15, combo: 0.25 },
+  name, dur: 0.6, fadeIn: 0.05, fadeOut: 0.2, events: { step: 0.06, hit: 0.15, combo: 0.27 },
   keys: mergeKeys(
     swingKeys(kind === 0
-      ? { a: [0, 0, 1], b: [1, -0.1, 0], c: SH, r: 0.4, pole: [-0.5, -0.65, -0.55], keys: [[0, -60, 'out'], [0.09, -114, 'out'], [0.16, 30, 'outExpo'], [0.28, 94, 'out'], [0.56, 60, 'inOut']] }
+      ? { a: [0, 0, 1], b: [1, -0.1, 0], c: SH, r: 0.4, pole: [-0.5, -0.65, -0.55], keys: [[0, -60, 'out'], [0.12, -114, 'out'], [0.21, 30, 'out'], [0.32, 94, 'out'], [0.6, 60, 'inOut']] }
       : kind === 1
-        ? { a: [0, 0, 1], b: [-0.85, 0.52, 0], c: [-0.1, 0.12, 0.06], r: 0.4, pole: [-0.3, -0.4, -0.85], keys: [[0, -140, 'out'], [0.09, -120, 'out'], [0.16, 44, 'outExpo'], [0.28, 100, 'out'], [0.56, 70, 'inOut']] }
-        : { a: [0, 0, 1], b: [0, -1, 0], c: [-0.1, 0.22, 0.1], r: 0.42, pole: [-0.7, -0.2, -0.65], keys: [[0, 30, 'out'], [0.09, -124, 'out'], [0.16, 6, 'outExpo'], [0.3, 20, 'out'], [0.56, 40, 'inOut']] }),
+        ? { a: [0, 0, 1], b: [-0.85, 0.52, 0], c: [-0.1, 0.12, 0.06], r: 0.4, pole: [-0.3, -0.4, -0.85], keys: [[0, -140, 'out'], [0.12, -120, 'out'], [0.21, 44, 'out'], [0.32, 100, 'out'], [0.6, 70, 'inOut']] }
+        : { a: [0, 0, 1], b: [0, -1, 0], c: [-0.04, 0.22, 0.1], r: 0.42, pole: [-0.7, -0.2, -0.65], keys: [[0, 30, 'out'], [0.12, -124, 'out'], [0.21, 6, 'out'], [0.34, 20, 'out'], [0.6, 40, 'inOut']] }),
     [
       key(0, I()),
-      key(0.09, I(kind === 1 ? { hips: [2, 16, 0], spine: [6, 12, 0], chest: [6, 16, 0], head: [-6, -8, 3] } : { hips: [2, -22, 0], spine: [6, -10, 0], chest: [4, -14, 0], head: [-6, 16, 3] }), [0, -0.03, 0], 'out'),
-      key(0.16, I(kind === 1 ? { hips: [2, -16, 0], spine: [6, -12, 0], chest: [4, -18, 0], head: [-6, 16, 3], 'thigh.L': [-22, 0, 5], 'shin.L': [24, 0, 0] } : { hips: [4, 12, 0], spine: [8, 10, 0], chest: [6, 16, 0], head: [-6, -4, 3], 'thigh.L': [-24, 0, 5], 'shin.L': [26, 0, 0], 'thigh.R': [12, 0, -5] }), [0, -0.06, 0.06], 'outExpo'),
-      key(0.56, I(), [0, -0.02, 0], 'inOut'),
+      key(0.12, I(kind === 1 ? { hips: [2, 16, 0], spine: [6, 12, 0], chest: [6, 16, 0], head: [-6, -8, 3] } : kind === 2 ? { hips: [-2, -10, 0], spine: [-4, -6, 0], chest: [-6, -8, 0], head: [-4, 8, 3] } : { hips: [2, -22, 0], spine: [6, -10, 0], chest: [4, -14, 0], head: [-6, 16, 3] }), [0, -0.03, 0], 'out'),
+      key(0.21, I(kind === 1
+        ? { hips: [2, -16, 0], spine: [6, -12, 0], chest: [4, -18, 0], head: [-6, 16, 3], 'thigh.L': [-22, 0, 5], 'shin.L': [24, 0, 0] }
+        : kind === 2
+          ? { hips: [6, 2, 0], spine: [10, 0, 0], chest: [8, 2, 0], head: [-8, 0, 3], 'thigh.L': [-26, 0, 5], 'shin.L': [28, 0, 0], 'thigh.R': [12, 0, -5] }
+          : { hips: [4, 12, 0], spine: [8, 10, 0], chest: [6, 16, 0], head: [-6, -4, 3], 'thigh.L': [-24, 0, 5], 'shin.L': [26, 0, 0], 'thigh.R': [12, 0, -5] }), [0, -0.06, 0.06], 'out'),
+      key(0.6, I(), [0, -0.02, 0], 'inOut'),
     ],
   ),
 });
@@ -212,14 +219,14 @@ const shotBoth: ClipDef = {
 
 /** the pistol-whip: the right gun swung across, butt first */
 const whip: ClipDef = {
-  name: 'st_whip', dur: 0.5, fadeIn: 0.04, fadeOut: 0.18, events: { step: 0.06, hit: 0.15, combo: 0.24 },
+  name: 'st_whip', dur: 0.52, fadeIn: 0.04, fadeOut: 0.18, events: { step: 0.05, hit: 0.15, combo: 0.26 },
   keys: mergeKeys(
-    swingKeys({ a: [0, 0, 1], b: [1, -0.1, 0], c: SH, r: 0.38, pole: [-0.5, -0.65, -0.55], keys: [[0, -60, 'out'], [0.08, -110, 'out'], [0.15, 30, 'outExpo'], [0.26, 80, 'out'], [0.5, 40, 'inOut']] }),
+    swingKeys({ a: [0, 0, 1], b: [1, -0.1, 0], c: SH, r: 0.38, pole: [-0.5, -0.65, -0.55], keys: [[0, -60, 'out'], [0.11, -110, 'out'], [0.19, 30, 'out'], [0.3, 80, 'out'], [0.52, 40, 'inOut']] }),
     [
       key(0, G()),
-      key(0.08, G({ hips: [2, -22, 0], spine: [6, -10, 0], chest: [4, -14, 0], head: [-6, 16, 3] }), [0, -0.03, 0], 'out'),
-      key(0.15, G({ hips: [4, 12, 0], spine: [8, 10, 0], chest: [6, 16, 0], head: [-6, -4, 3], 'thigh.L': [-24, 0, 5], 'shin.L': [26, 0, 0], 'thigh.R': [12, 0, -5] }), [0, -0.06, 0.06], 'outExpo'),
-      key(0.5, G(), [0, -0.03, 0], 'inOut'),
+      key(0.11, G({ hips: [2, -22, 0], spine: [6, -10, 0], chest: [4, -14, 0], head: [-6, 16, 3] }), [0, -0.03, 0], 'out'),
+      key(0.19, G({ hips: [4, 12, 0], spine: [8, 10, 0], chest: [6, 16, 0], head: [-6, -4, 3], 'thigh.L': [-24, 0, 5], 'shin.L': [26, 0, 0], 'thigh.R': [12, 0, -5] }), [0, -0.06, 0.06], 'out'),
+      key(0.52, G(), [0, -0.03, 0], 'inOut'),
     ],
   ),
 };
@@ -260,8 +267,8 @@ const spray: ClipDef = {
     [{ t: 0, c: ik(GUN_LOW) }, { t: 1.6, c: ik(GUN_LOW) }],
     [
       key(0, G()),
-      key(0.15, G({ hips: [0, -10, 0], spine: [2, -16, 0], chest: [0, -24, 0], head: [-6, 20, 0], ...AIM_L, 'thigh.L': [-16, 0, 8], 'thigh.R': [12, 0, -8] }), [0, -0.05, 0], 'outExpo'),
-      key(1.3, G({ hips: [0, 10, 0], spine: [2, 16, 0], chest: [0, 24, 0], head: [-6, -18, 0], ...AIM_L, 'thigh.L': [-16, 0, 8], 'thigh.R': [12, 0, -8] }), [0, -0.05, 0], 'inOut'),
+      key(0.15, G({ hips: [0, -6, 0], spine: [2, -8, 0], chest: [0, -12, 0], head: [-6, 14, 0], ...AIM_L, 'thigh.L': [-16, 0, 8], 'thigh.R': [12, 0, -8] }), [0, -0.05, 0], 'outExpo'),
+      key(1.3, G({ hips: [0, 6, 0], spine: [2, 8, 0], chest: [0, 12, 0], head: [-6, -12, 0], ...AIM_L, 'thigh.L': [-16, 0, 8], 'thigh.R': [12, 0, -8] }), [0, -0.05, 0], 'inOut'),
       key(1.6, G(), [0, -0.03, 0], 'inOut'),
     ],
   ),

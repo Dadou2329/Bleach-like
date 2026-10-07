@@ -9,6 +9,8 @@ import { CapsuleShape, SphereShape } from '../../destruction/shapes';
 import { raycastVoxels } from '../../voxel/raycast';
 import { TEX_GLOW, TEX_PUFF, TEX_STREAK } from '../../vfx/sprites';
 
+const _c = new THREE.Vector3();
+
 export interface CeroOpts {
   charge: number;
   fire: number;
@@ -163,11 +165,22 @@ export class CeroBeam implements Projectile {
       if (ang > 1e-4) this.dir.lerp(want, Math.min(1, (o.track * dt) / ang)).normalize();
       // beam end: first solid voxel along the ray
       const hit = raycastVoxels(g.engine.world, m.x, m.y, m.z, this.dir.x, this.dir.y, this.dir.z, o.range);
-      const len = hit ? hit.dist : o.range;
+      let len = hit ? hit.dist : o.range;
+      // a fighter catching the beam on a blade: it ends there
+      let caught = false;
+      for (const f of g.enemiesOf(this.owner)) {
+        if (!f.beamStop) continue;
+        const c = f.center();
+        const along = _c.subVectors(c, m).dot(this.dir);
+        if (along < 0 || along > len) continue;
+        if (_c.copy(m).addScaledVector(this.dir, along).distanceTo(c) > f.def.radius + o.radius + 0.3) continue;
+        len = Math.max(0.3, along - f.def.radius * 0.6);
+        caught = true;
+      }
       this.impact.copy(m).addScaledVector(this.dir, len);
       // drill: carve at the impact (bore), repeatedly
       this.carveAcc += dt;
-      if (hit && this.carveAcc > 1 / 30) {
+      if (hit && !caught && this.carveAcc > 1 / 30) {
         this.carveAcc = 0;
         const a = this.impact.clone().addScaledVector(this.dir, -o.radius * 0.5);
         const b = this.impact.clone().addScaledVector(this.dir, o.radius * 2.2);
@@ -184,7 +197,7 @@ export class CeroBeam implements Projectile {
           const last = this.hitT.get(f.id) ?? -1;
           if (this.t - last > 0.25) {
             this.hitT.set(f.id, this.t);
-            g.damage(f, o.damage * 0.25, this.owner, this.dir, { knock: 12, launch: 3, heavy: true, hitstop: 0.04, shake: 0.5 });
+            g.damage(f, o.damage * 0.25, this.owner, this.dir, { energy: true, knock: 12, launch: 3, heavy: true, hitstop: 0.04, shake: 0.5 });
           }
         }
       }
@@ -198,7 +211,7 @@ export class CeroBeam implements Projectile {
       g.addRing(this.impact.clone(), o.radius * 9, o.body, 0.8);
       for (const f of g.enemiesOf(this.owner)) {
         const d = f.center().distanceTo(this.impact);
-        if (d < o.radius * 4) g.damage(f, o.damage * (1 - d / (o.radius * 4)), this.owner, f.pos.clone().sub(this.impact).setY(0.3).normalize(), { knock: 20, launch: 8, heavy: true, hitstop: 0.1, shake: 0.8 });
+        if (d < o.radius * 4) g.damage(f, o.damage * (1 - d / (o.radius * 4)), this.owner, f.pos.clone().sub(this.impact).setY(0.3).normalize(), { energy: true, knock: 20, launch: 8, heavy: true, hitstop: 0.1, shake: 0.8 });
       }
       if (g.player && g.player.pos.distanceTo(this.impact) < 80) g.shake(0.7);
     }

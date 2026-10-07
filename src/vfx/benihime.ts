@@ -73,7 +73,7 @@ export class RazorArc implements Projectile {
       if (this.hit.has(f.id)) continue;
       if (f.center().distanceTo(this.pos) > f.def.radius + this.radius * 0.7) continue;
       this.hit.add(f.id);
-      g.damage(f, this.damage, this.owner, this.dir.clone().setY(0).normalize(), { knock: 6, launch: 1, hitstop: 0.06, shake: 0.2, color: '#E0203A' });
+      g.damage(f, this.damage, this.owner, this.dir.clone().setY(0).normalize(), { energy: true, knock: 6, launch: 1, hitstop: 0.06, shake: 0.2, color: '#E0203A' });
       g.sparks(f.center(), this.dir, '#E0203A', 14);
     }
     if (Math.random() < 0.8) g.engine.glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: -this.dir.x * 5, vy: -this.dir.y * 5, vz: -this.dir.z * 5, size: 0.3, sizeEnd: 0.03, life: 0.18, r: 0.95, g: 0.25, b: 0.3, alpha: 0.8, alphaEnd: 0, tex: TEX_STREAK, stretch: 3 });
@@ -341,7 +341,7 @@ export class Juzutsunagi implements Projectile {
     for (const f of g.enemiesOf(this.owner)) {
       const d = f.center().distanceTo(c);
       if (d > 4.2 + f.def.radius) continue;
-      g.damage(f, f === tg ? this.damage : this.damage * 0.5, this.owner, f.pos.clone().sub(c).setY(0).normalize(), { knock: 12, launch: 9, heavy: true, hitstop: 0.16, shake: 0.7, color: '#F37436' });
+      g.damage(f, f === tg ? this.damage : this.damage * 0.5, this.owner, f.pos.clone().sub(c).setY(0).normalize(), { energy: true, knock: 12, launch: 9, heavy: true, hitstop: 0.16, shake: 0.7, color: '#F37436' });
     }
     g.engine.destruction.carve(new SphereShape(c.clone(), 3.6, 0.85), { mode: 'explode', power: 520, impulse: 18 });
     g.addRing(c.clone().setY(tg.pos.y + 0.1), 14, '#F37436', 0.55);

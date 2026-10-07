@@ -75,7 +75,7 @@ export class FistBlast implements Projectile {
       const d = f === direct ? 0 : f.center().distanceTo(p);
       if (d > this.blast + f.def.radius) continue;
       const k = 1 - Math.min(1, d / (this.blast + f.def.radius)) * 0.5;
-      g.damage(f, this.damage * k, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { knock: 14 * k, launch: 4 * k, heavy: true, hitstop: 0.08, shake: 0.35 });
+      g.damage(f, this.damage * k, this.owner, new THREE.Vector3(this.dir.x, 0, this.dir.z).normalize(), { energy: true, knock: 14 * k, launch: 4 * k, heavy: true, hitstop: 0.08, shake: 0.35 });
     }
     g.engine.destruction.carve(new SphereShape(p.clone(), this.blast * 0.8, 0.9), { mode: 'explode', power: 90 + this.blast * 60, impulse: 10 + this.blast * 3 });
     g.addRing(p.clone(), this.blast * 3, '#DDF6F5', 0.4);
