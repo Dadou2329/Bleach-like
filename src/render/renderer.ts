@@ -67,6 +67,10 @@ class NanGuardEffect extends Effect {
   }
 }
 
+function finite3(v: THREE.Vector3): boolean {
+  return Number.isFinite(v.x) && Number.isFinite(v.y) && Number.isFinite(v.z);
+}
+
 /** WebGL renderer + scene + post stack (N8AO → NaN guard → bloom → grading/tone mapping → vignette → SMAA). */
 export class GameRenderer {
   readonly renderer: THREE.WebGLRenderer;
@@ -216,6 +220,11 @@ export class GameRenderer {
 
   /** Keep the sun's shadow box centred on `target`, snapped to shadow texels to avoid shimmering. */
   updateSun(target: THREE.Vector3): void {
+    // a non-finite target would put NaN in the shadow matrix and every shadowed pixel would go black
+    if (!finite3(target)) {
+      this.warnOnce('sun', `[reishi] non-finite shadow target ${target.toArray().join(',')}`);
+      return;
+    }
     const dir = this.atmo.sunDir;
     const range = this.quality.shadowRange;
     const texel = (range * 2) / this.quality.shadowMap;
@@ -233,7 +242,54 @@ export class GameRenderer {
 
   render(dt: number): void {
     this.time += dt;
+    this.guardFrame();
     this.sky.update(this.camera, this.atmo.sunDir, this.time);
     this.composer.render(dt);
+  }
+
+  private lastCam = { p: new THREE.Vector3(), q: new THREE.Quaternion(), fov: 62, ok: false };
+  private warned = new Set<string>();
+
+  private warnOnce(key: string, msg: string): void {
+    if (this.warned.has(key)) return;
+    this.warned.add(key);
+    console.warn(msg);
+  }
+
+  /**
+   * Whatever every pixel depends on must be finite: a NaN in the camera, in a light or in the sun turns the whole
+   * frame black (the NaN guard can only black out the bad pixels, and here they are all bad). Fall back to the
+   * last good camera, put out a broken light, and say which it was.
+   */
+  private guardFrame(): void {
+    const cam = this.camera;
+    if (!finite3(cam.position) || !Number.isFinite(cam.quaternion.x + cam.quaternion.y + cam.quaternion.z + cam.quaternion.w) || !Number.isFinite(cam.fov)) {
+      this.warnOnce('camera', `[reishi] non-finite camera ${cam.position.toArray().join(',')} fov ${cam.fov}`);
+      if (this.lastCam.ok) {
+        cam.position.copy(this.lastCam.p);
+        cam.quaternion.copy(this.lastCam.q);
+        cam.fov = this.lastCam.fov;
+        cam.updateProjectionMatrix();
+        cam.updateMatrixWorld();
+      }
+    } else {
+      this.lastCam.p.copy(cam.position);
+      this.lastCam.q.copy(cam.quaternion);
+      this.lastCam.fov = cam.fov;
+      this.lastCam.ok = true;
+    }
+    for (const o of this.scene.children) this.guardLights(o);
+  }
+
+  private guardLights(o: THREE.Object3D): void {
+    const l = o as THREE.Light;
+    if (l.isLight && l.visible) {
+      if (!finite3(o.position) || !Number.isFinite(l.intensity) || !l.matrixWorld.elements.every(Number.isFinite)) {
+        this.warnOnce(`light:${o.name || o.type}`, `[reishi] non-finite light ${o.name || o.type} at ${o.position.toArray().join(',')} intensity ${l.intensity}`);
+        l.intensity = 0;
+        o.visible = false;
+      }
+    }
+    for (const c of o.children) this.guardLights(c);
   }
 }

@@ -396,6 +396,8 @@ export interface CoatSkirtOpts {
   /** flare profile: the radius grows with t^profile from the top (t = 0) to the hem (t = 1) (default 1) */
   profile?: number;
   res?: number;
+  /** bone name prefix (default 'coat'): a second skirt over the first needs its own (a cloak over a coat) */
+  prefix?: string;
 }
 
 /**
@@ -424,7 +426,7 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
     const a0 = ((a0d - (name === 'F.L' ? 0 : ov)) * Math.PI) / 180, a1 = ((a1d + (name === 'F.R' ? 0 : ov)) * Math.PI) / 180;
     const dR = ov > 0 && pi % 2 === 1 ? 1.8 : 0;
     const Rp = (y: number) => R(y) + dR;
-    const top = `coat.${name}`, low = `coat.${name}.2`;
+    const top = `${o.prefix ?? 'coat'}.${name}`, low = `${o.prefix ?? 'coat'}.${name}.2`;
     const pTop: V3 = [Math.sin(am) * (r0 - 1), yTop, cz + Math.cos(am) * (r0 - 1) * kz(yTop)];
     const pLow: V3 = [Math.sin(am) * R(ySplit), ySplit, cz + Math.cos(am) * R(ySplit) * kz(ySplit)];
     b.bone(top, 'hips', pTop);
