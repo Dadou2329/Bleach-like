@@ -94,7 +94,7 @@ try {
     if (settle) await page.waitForTimeout(settle);
     const out = outs[i] ?? outs[0].replace(/\.png$/, `-${i}.png`);
     fs.mkdirSync(path.dirname(out), { recursive: true });
-    if (scripts.length === 0) await page.screenshot({ path: out });
+    if (scripts.length === 0) await page.screenshot({ path: out, timeout: 180000 });
     const black = [];
     for (let s = 0; s < scripts.length; s++) {
       await page.evaluate(scripts[s]);
@@ -103,7 +103,8 @@ try {
       // SwiftShader sometimes presents a fully black 3D frame (HUD intact); re-render until it does not
       const retries = await page.evaluate(BLACK_GUARD).catch(() => 'na');
       if (retries !== 0 && retries !== 'na') black.push(`s${s}:${retries}`);
-      await page.screenshot({ path: out.replace(/\.png$/, `-s${s}.png`) });
+      // a starved SwiftShader can take a while to hand over a frame; one failed shot must not end the run
+      await page.screenshot({ path: out.replace(/\.png$/, `-s${s}.png`), timeout: 180000 }).catch((e) => errors.push(`shot s${s}: ` + e.message.split('\n')[0]));
     }
     if (black.length) errors.push('black-frame retries ' + black.join(' '));
     const stats = await page.evaluate(() => (window.__reishi && window.__reishi.stats ? window.__reishi.stats() : null)).catch(() => null);

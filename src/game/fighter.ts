@@ -130,6 +130,8 @@ export class Fighter {
   toughness = 0;
   /** called after this fighter takes damage */
   onHurt: ((amount: number, heavy: boolean) => void) | null = null;
+  /** checked when a hit would kill: return true to survive it (the kit sets hp itself) */
+  onLethal: (() => boolean) | null = null;
   /** checked before a hit lands: return true to stop it outright (Aizen's raised finger) */
   parry: ((amount: number, from: Fighter | null, o: DamageOpts) => boolean) | null = null;
   /** where opponents believe this fighter stands (Kyōka Suigetsu's copy); the duel AI fights this */

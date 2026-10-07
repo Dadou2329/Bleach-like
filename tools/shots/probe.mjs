@@ -29,7 +29,7 @@ try {
   const code = args.file ? fs.readFileSync(String(args.file), 'utf8') : String(args.eval ?? 'JSON.stringify(window.__reishi.stats())');
   const res = await p.evaluate(code);
   console.log(typeof res === 'string' ? res : JSON.stringify(res));
-  if (args.shot) await p.screenshot({ path: String(args.shot) });
+  if (args.shot) await p.screenshot({ path: String(args.shot), timeout: 180000 }).catch((e) => console.log('screenshot failed:', e.message.split('\n')[0]));
 } finally {
   await b.close();
   if (proc) proc.kill();

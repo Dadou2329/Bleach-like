@@ -36,6 +36,20 @@ G state, V flare); press **H** in game for the current character's moves.
 - **Kurosaki Ichigo**: Shikai and Bankai forms with full voxel models, IK-driven sword animation, a procedural
   gait, spring-bone cloth, a flame aura and afterimages. His **Hollow mask** forms under a claw across the
   face, cracks as its time runs out and breaks into voxel shards.
+  - Shikai: a five-hit cleaver string, the ground-cracking chop and **Getsuga Tenshō** (Q). E drags the blade
+    up out of the ground, and a Getsuga runs along the earth, tearing a trench and throwing up whoever stands
+    on it. R throws Zangetsu on its cloth (**Deadly Darts**): it spins out, cuts what it meets and is hauled
+    back. R again reels it in early.
+  - F: **Bankai, Tensa Zangetsu**. The string is faster and the Getsuga turns black. E is a thrust whose
+    narrow black bolt tunnels through buildings. R raises the blade wrapped in reiatsu (**Getsuga Matoi**),
+    and for a while every cut throws a crescent of its own.
+  - G: the **Hollow mask**. Masked, R becomes the barrage: he flash-steps round the target and fires a black
+    Getsuga from each side, the last one point-blank.
+  - Killed in Bankai, he does not stay down: the body twitches and the **Full Hollow** rises in it. It has a
+    horned bone helmet, hair to the waist, the hole in the chest and crimson fur, and it fights with claw and
+    sword. Its moves are Sonído (E), the horn **Cero** (Q), a ground-shattering overhead (RMB) and a roar
+    that flattens everything near (R). After about thirty seconds, or when it is beaten, a horn snaps, the
+    hole closes and Ichigo comes back to himself with some strength left.
 - **Grimmjow Jaegerjaquez**: a street-brawler string, Cero, Gran Rey Cero and Sonído, then **Pantera**
   (a new body, claws that rake grooves into the world, Garra de la Pantera, Desgarrón).
 - **Kuchiki Byakuya**: a clean sword chain and Kidō, then **Senbonzakura**: a thousand-petal swarm streams
@@ -129,6 +143,33 @@ G state, V flare); press **H** in game for the current character's moves.
     of the tip erases a trench. **South** (Q): the charred dead rise and swarm the target. **North** (E):
     **Tenchi Kaijin**, a wave that turns everything to ash. **West** (R): the hidden heat made visible, and
     nothing that touches him survives it. The heat burns him too, and when it ends, it rains.
+- **Gin Ichimaru**, all grin and closed eyes in the white robe of Las Noches. Light one-handed flicks with
+  Shinsō, and the last one shoots the blade out of its point. His moves:
+  - RMB: **"Ikorose, Shinsō"**. The blade shoots out fifty metres, bores through walls and carries the
+    target along on its point.
+  - Q: the blade held long and swept across the front, halving buildings.
+  - E: **Hakufuku**. Phantom purple blossoms fall round the target, and it drops asleep.
+  - R: **Sentan Hakuja**. A white cloth coils round the target, and with a flash it is somewhere else, high up.
+  - G: the eyes open. The grin goes and he is serious.
+  - F: **Bankai, Kamishini no Yari**. Nothing about him changes but a pulse of violet. Thrusts reach across
+    the town near instantly, and every hit leaves a sliver of the blade inside. RMB is the swing that splits
+    the town, Q is **Butō** (both hands, the hilt at the chest, a pierce you barely see) and E is **Butō:
+    Renjin**, a wall of blades. R, **"Korose"**, turns every sliver to poison, and whoever carries one comes
+    apart from the inside.
+- **Suì-Fēng**, Commander-in-Chief of the Onmitsukidō: the fastest Shunpo in the game. Her LMB string mixes
+  reverse-grip punch-slashes and snapped kicks. Her moves:
+  - RMB: **Kazaguruma**, a windmill kick that sends the target flying.
+  - Q: the **speed clones**. She flashes round the target, leaves a copy at every step to draw its eye, and
+    strikes from behind.
+  - E: **Takigoi**. She catches the next blow and answers it.
+  - R: a binding Kidō.
+  - G: **Shunkō**. The haori comes off, wind streams over her back and arms, and every blow bursts.
+  - F: **"Jinteki Shakusetsu, Suzumebachi"**, a black-and-gold gauntlet with a stinger. Each sting leaves the
+    black **Hōmonka** crest where it lands, and a second sting on a crest is **Nigeki Kessatsu**, death in two
+    strikes. Q flashes to a crest and stings it, and E stings three places at once.
+  - F again: **Bankai, Jakuhō Raikōben**. A gold launcher closes round her arm and she can barely move. RMB
+    or Q fires a homing missile twice her height whose recoil throws her back, unless E has first tied her
+    down with the **Ginjōtan**. After two missiles, the Bankai ends.
 - **Zaraki Kenpachi**: no pattern. Each press draws a different wild swing, punch or kick, and every hit of a
   string lands harder than the last. Weak hits bounce off his reiatsu. His moves:
   - RMB: a lazy wrist flick that cuts a building in half.
@@ -180,7 +221,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw][&fan=1][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kenpachi|ulquiorra|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow][&fan=1][&eyes=open][&drawn=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

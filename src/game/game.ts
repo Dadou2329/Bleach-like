@@ -294,7 +294,7 @@ export class Game {
       if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
     } else if (Math.random() < 0.3) this.sfx.play('hit', t.center(), 0.35);
     t.onHurt?.(dmg, o.heavy === true);
-    if (t.hp <= 0) this.kill(t, from, dir);
+    if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, dir);
   }
 
   kill(t: Fighter, from: Fighter | null, dir: THREE.Vector3): void {

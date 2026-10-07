@@ -270,5 +270,127 @@ const maskOn: ClipDef = {
   ],
 };
 
-export const ICHIGO_CLIPS: ClipDef[] = [slash1, slash2, slash3, slash4, slash5, getsuga, release, dash, airstep, hitHeavy, maskOn];
+// ------------------------------------------------------------------ the fuller moveset
+
+const IDLE_BODY = { hips: [0, -12, 0], spine: [4, 4, 0], chest: [2, 8, 0], neck: [0, 0, 0], head: [3, 2, 0], 'thigh.L': [-12, 0, 5], 'shin.L': [14, 0, 0], 'foot.L': [-2, 0, 0], 'thigh.R': [10, 0, -6], 'shin.R': [16, 0, 0], 'foot.R': [-8, 0, 0], 'upperarm.L': [8, 0, 13], 'forearm.L': [-22, 0, 0], 'hand.L': [6, 0, 0] } as KeyDef['b'];
+const GRIP_IDLE = { '@gripR': [-0.27, -0.31, 0.2], '@dirR': [-0.12, -0.5, 0.86], '@edgeR': [0.1, -0.85, -0.5], '@poleR': [-0.55, -0.3, -0.8], '@ikR': [1, 0, 0] } as Record<string, [number, number, number]>;
+
+// Ground Getsuga: the blade dragged low behind, then torn up out of the ground and forward
+const plow: ClipDef = {
+  name: 'ig_plow',
+  dur: 0.95,
+  fadeIn: 0.07,
+  fadeOut: 0.26,
+  events: { step: 0.2, fx: 0.33, hit: 0.33 },
+  keys: mergeKeys(
+    swingKeys({
+      a: [0, 0, 1], b: [0, -1, 0], c: [-0.08, 0.12, 0.06], r: 0.44, pole: [-0.75, -0.2, -0.6],
+      keys: [[0, 40, 'out'], [0.2, 150, 'inOut'], [0.26, 140, 'linear'], [0.33, -40, 'outExpo'], [0.55, -62, 'out'], [0.95, 40, 'inOut']],
+    }),
+    [
+      body(0, IDLE_BODY),
+      body(0.2, { hips: [8, -30, 0], spine: [12, -18, 0], chest: [8, -22, 0], head: [-8, 26, 0], 'thigh.L': [-40, 0, 10], 'shin.L': [60, 0, 0], 'foot.L': [-20, 0, 0], 'thigh.R': [10, 0, -10], 'shin.R': [50, 0, 0], 'foot.R': [-30, 0, 0], 'upperarm.L': [-30, 0, 30], 'forearm.L': [-40, 0, 0] }, [0, -0.2, -0.04], 'inOut'),
+      body(0.33, { hips: [-4, 20, 0], spine: [-8, 16, 0], chest: [-12, 22, 0], head: [-6, -18, 0], 'thigh.L': [-36, 0, 8], 'shin.L': [30, 0, 0], 'foot.L': [6, 0, 0], 'thigh.R': [24, 0, -8], 'shin.R': [20, 0, 0], 'foot.R': [-10, 0, 0], 'upperarm.L': [10, 0, 50], 'forearm.L': [-10, 0, 0] }, [0, -0.04, 0.12], 'outExpo'),
+      body(0.55, { hips: [-6, 24, 0], spine: [-10, 18, 0], chest: [-14, 24, 0], head: [-6, -20, 0], 'thigh.L': [-34, 0, 8], 'shin.L': [28, 0, 0], 'thigh.R': [22, 0, -8], 'shin.R': [18, 0, 0], 'upperarm.L': [12, 0, 52], 'forearm.L': [-10, 0, 0] }, [0, -0.03, 0.14], 'out'),
+      body(0.95, IDLE_BODY, [0, -0.035, 0], 'inOut'),
+    ],
+    [{ t: 0, c: { '@look': [0.3, 0, 0] } }],
+  ),
+};
+
+// Deadly Darts: Zangetsu hurled overhand on its cloth; the arm stays out holding the cloth
+const toss: ClipDef = {
+  name: 'ig_throw',
+  dur: 0.7,
+  fadeIn: 0.06,
+  fadeOut: 0.2,
+  events: { step: 0.12, throw: 0.28 },
+  keys: mergeKeys(
+    [
+      { t: 0, c: GRIP_IDLE },
+      { t: 0.2, ease: 'out', c: { '@gripR': [-0.22, 0.42, -0.2], '@dirR': [-0.1, 0.3, -0.95], '@edgeR': [0, 0.95, 0.3], '@poleR': [-0.8, -0.2, -0.4], '@ikR': [1, 0, 0] } },
+      { t: 0.28, ease: 'outExpo', c: { '@gripR': [-0.12, 0.2, 0.56], '@dirR': [0.05, 0.05, 1], '@edgeR': [0, -1, 0.05], '@poleR': [-0.7, -0.6, 0], '@ikR': [1, 0, 0] } },
+      { t: 0.7, ease: 'out', c: { '@gripR': [-0.12, 0.16, 0.58], '@dirR': [0.05, 0, 1], '@edgeR': [0, -1, 0], '@poleR': [-0.7, -0.6, 0], '@ikR': [1, 0, 0] } },
+    ],
+    [
+      body(0, IDLE_BODY),
+      body(0.2, { hips: [-6, -24, 0], spine: [-10, -16, 0], chest: [-14, -22, 0], head: [-4, 24, 0], 'thigh.L': [-30, 0, 8], 'shin.L': [26, 0, 0], 'thigh.R': [16, 0, -8], 'shin.R': [26, 0, 0], 'upperarm.L': [-60, 0, 20], 'forearm.L': [-20, 0, 0] }, [0, -0.04, -0.06], 'out'),
+      body(0.28, { hips: [10, 16, 0], spine: [16, 12, 0], chest: [10, 18, 0], head: [-14, -16, 0], 'thigh.L': [-48, 0, 8], 'shin.L': [50, 0, 0], 'thigh.R': [26, 0, -8], 'shin.R': [28, 0, 0], 'upperarm.L': [10, 0, 40], 'forearm.L': [-30, 0, 0] }, [0, -0.1, 0.12], 'outExpo'),
+      body(0.7, { hips: [8, 12, 0], spine: [12, 10, 0], chest: [8, 14, 0], head: [-12, -12, 0], 'thigh.L': [-44, 0, 8], 'shin.L': [46, 0, 0], 'thigh.R': [24, 0, -8], 'shin.R': [26, 0, 0], 'upperarm.L': [8, 0, 34], 'forearm.L': [-30, 0, 0] }, [0, -0.09, 0.1], 'out'),
+    ],
+  ),
+};
+
+// the cloth hauled in and the blade caught
+const reel: ClipDef = {
+  name: 'ig_catch',
+  dur: 0.55,
+  fadeIn: 0.05,
+  fadeOut: 0.2,
+  events: { catch: 0.2 },
+  keys: mergeKeys(
+    [
+      { t: 0, c: { '@gripR': [-0.12, 0.16, 0.58], '@dirR': [0.05, 0, 1], '@edgeR': [0, -1, 0], '@poleR': [-0.7, -0.6, 0], '@ikR': [1, 0, 0] } },
+      { t: 0.2, ease: 'outExpo', c: { '@gripR': [-0.3, 0.02, -0.1], '@dirR': [-0.3, 0.6, 0.74], '@edgeR': [0, 0.78, -0.62], '@poleR': [-0.8, -0.4, -0.3], '@ikR': [1, 0, 0] } },
+      { t: 0.55, ease: 'inOut', c: GRIP_IDLE },
+    ],
+    [
+      body(0, { hips: [8, 12, 0], spine: [12, 10, 0], chest: [8, 14, 0], head: [-12, -12, 0], 'upperarm.L': [8, 0, 34], 'forearm.L': [-30, 0, 0] }),
+      body(0.2, { hips: [-6, -20, 0], spine: [-8, -12, 0], chest: [-10, -18, 0], head: [-4, 18, 0], 'thigh.L': [-20, 0, 8], 'shin.L': [20, 0, 0], 'thigh.R': [20, 0, -8], 'shin.R': [30, 0, 0], 'upperarm.L': [-10, 0, 30], 'forearm.L': [-30, 0, 0] }, [0, -0.06, -0.06], 'outExpo'),
+      body(0.55, IDLE_BODY, [0, -0.035, 0], 'inOut'),
+    ],
+  ),
+};
+
+// Getsuga thrust: drawn back to the hip, then driven straight out (the black bolt leaves the point)
+const thrust: ClipDef = {
+  name: 'ig_thrust',
+  dur: 0.82,
+  fadeIn: 0.06,
+  fadeOut: 0.24,
+  events: { step: 0.2, fx: 0.29, hit: 0.29 },
+  keys: mergeKeys(
+    [
+      { t: 0, c: GRIP_IDLE },
+      { t: 0.2, ease: 'inOut', c: { '@gripR': [-0.28, -0.22, -0.18], '@dirR': [0.1, 0.02, 1], '@edgeR': [0, -1, 0.02], '@poleR': [-0.8, -0.3, -0.3], '@ikR': [1, 0, 0] } },
+      { t: 0.29, ease: 'outExpo', c: { '@gripR': [-0.06, 0.04, 0.62], '@dirR': [0.05, 0, 1], '@edgeR': [0, -1, 0], '@poleR': [-0.7, -0.6, 0], '@ikR': [1, 0, 0] } },
+      { t: 0.5, ease: 'out', c: { '@gripR': [-0.07, 0.03, 0.6], '@dirR': [0.05, -0.02, 1], '@edgeR': [0, -1, 0], '@poleR': [-0.7, -0.6, 0], '@ikR': [1, 0, 0] } },
+      { t: 0.82, ease: 'inOut', c: GRIP_IDLE },
+    ],
+    [
+      body(0, IDLE_BODY),
+      body(0.2, { hips: [4, -34, 0], spine: [6, -20, 0], chest: [4, -24, 0], head: [-4, 30, 0], 'thigh.L': [-28, 0, 10], 'shin.L': [40, 0, 0], 'foot.L': [-12, 0, 0], 'thigh.R': [14, 0, -10], 'shin.R': [40, 0, 0], 'foot.R': [-20, 0, 0], 'upperarm.L': [-50, 0, 10], 'forearm.L': [-50, 0, 0] }, [0, -0.12, -0.04], 'inOut'),
+      body(0.29, { hips: [10, 14, 0], spine: [12, 10, 0], chest: [8, 14, 0], head: [-14, -12, 0], 'thigh.L': [-60, 0, 8], 'shin.L': [60, 0, 0], 'foot.L': [0, 0, 0], 'thigh.R': [34, 0, -8], 'shin.R': [24, 0, 0], 'foot.R': [-10, 0, 0], 'upperarm.L': [30, 0, 30], 'forearm.L': [-20, 0, 0] }, [0, -0.14, 0.2], 'outExpo'),
+      body(0.5, { hips: [10, 16, 0], spine: [12, 12, 0], chest: [8, 16, 0], head: [-14, -14, 0], 'thigh.L': [-58, 0, 8], 'shin.L': [58, 0, 0], 'thigh.R': [32, 0, -8], 'shin.R': [24, 0, 0], 'upperarm.L': [30, 0, 32], 'forearm.L': [-20, 0, 0] }, [0, -0.14, 0.2], 'out'),
+      body(0.82, IDLE_BODY, [0, -0.035, 0], 'inOut'),
+    ],
+    [{ t: 0, c: { '@look': [0.3, 0, 0] } }],
+  ),
+};
+
+// Getsuga Matoi: the blade raised upright before him, the left hand on the right wrist, the reiatsu
+// wrapping the blade
+const matoi: ClipDef = {
+  name: 'ig_matoi',
+  dur: 1.0,
+  fadeIn: 0.08,
+  fadeOut: 0.26,
+  events: { fx: 0.42 },
+  keys: mergeKeys(
+    [
+      { t: 0, c: GRIP_IDLE },
+      { t: 0.36, ease: 'out', c: { '@gripR': [-0.06, 0.02, 0.36], '@dirR': [0.05, 0.99, 0.1], '@edgeR': [0, -0.1, 0.99], '@poleR': [-0.8, -0.4, -0.4], '@ikR': [1, 0, 0] } },
+      { t: 0.7, ease: 'inOut', c: { '@gripR': [-0.06, 0.04, 0.36], '@dirR': [0.05, 0.99, 0.1], '@edgeR': [0, -0.1, 0.99], '@poleR': [-0.8, -0.4, -0.4], '@ikR': [1, 0, 0] } },
+      { t: 1.0, ease: 'inOut', c: GRIP_IDLE },
+    ],
+    [
+      body(0, IDLE_BODY),
+      body(0.36, { hips: [0, -20, 0], spine: [2, -8, 0], chest: [0, -10, 0], head: [-6, 16, 0], 'thigh.L': [-22, 0, 10], 'shin.L': [26, 0, 0], 'thigh.R': [18, 0, -10], 'shin.R': [24, 0, 0], 'upperarm.L': [-64, 0, -24], 'forearm.L': [-70, 0, 0], 'hand.L': [0, 0, 0] }, [0, -0.08, 0], 'out'),
+      body(0.7, { hips: [0, -22, 0], spine: [2, -8, 0], chest: [0, -12, 0], head: [-8, 18, 0], 'thigh.L': [-24, 0, 10], 'shin.L': [28, 0, 0], 'thigh.R': [18, 0, -10], 'shin.R': [26, 0, 0], 'upperarm.L': [-66, 0, -24], 'forearm.L': [-70, 0, 0] }, [0, -0.09, 0], 'inOut'),
+      body(1.0, IDLE_BODY, [0, -0.035, 0], 'inOut'),
+    ],
+  ),
+};
+
+export const ICHIGO_CLIPS: ClipDef[] = [slash1, slash2, slash3, slash4, slash5, getsuga, release, dash, airstep, hitHeavy, maskOn, plow, toss, reel, thrust, matoi];
 export const ICHIGO_COMBO = ['slash1', 'slash2', 'slash3', 'slash4', 'slash5'];

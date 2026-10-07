@@ -30,6 +30,10 @@ import { YORUICHI_DEF, YoruichiKit } from './kits/yoruichi';
 import { yoruichiAsset } from '../chars/yoruichi';
 import { URAHARA_DEF, UraharaKit } from './kits/urahara';
 import { YAMAMOTO_DEF, YamamotoKit } from './kits/yamamoto';
+import { GIN_DEF, GinKit } from './kits/gin';
+import { SUIFENG_DEF, SuifengKit } from './kits/suifeng';
+import { suifengAsset, suifengProp } from '../chars/suifeng';
+import { ginAsset } from '../chars/gin';
 import { yamamotoAsset, yamamotoProp } from '../chars/yamamoto';
 import { uraharaProp } from '../chars/urahara';
 import { benihimeCurtain, benihimeDoll } from '../chars/uraharaBankai';
@@ -180,6 +184,31 @@ export const ROSTER: RosterEntry[] = [
       buildCached(yamamotoAsset('stripped').model, true);
       buildCached(yamamotoAsset('tybw').model, true);
       for (const k of ['katana', 'bankai'] as const) buildCached(yamamotoProp(k), false);
+    },
+  },
+  {
+    id: 'gin',
+    name: 'Gin Ichimaru',
+    kanji: '神鎗',
+    title: 'Captain, 3rd Division',
+    color: '#b48cff',
+    def: () => ({ ...GIN_DEF, speed: { ...GIN_DEF.speed } }),
+    kit: (f, g) => new GinKit(f, g),
+    warm: () => {
+      buildCached(ginAsset('open').model, true);
+    },
+  },
+  {
+    id: 'suifeng',
+    name: 'Suì-Fēng',
+    kanji: '雀蜂',
+    title: 'Captain, 2nd Division',
+    color: '#f2c94c',
+    def: () => ({ ...SUIFENG_DEF, speed: { ...SUIFENG_DEF.speed } }),
+    kit: (f, g) => new SuifengKit(f, g),
+    warm: () => {
+      buildCached(suifengAsset('keisen').model, true);
+      for (const k of ['gauntlet', 'launcher', 'guard', 'missile'] as const) buildCached(suifengProp(k), false);
     },
   },
   {
