@@ -37,6 +37,10 @@ import { STARRK_DEF, StarrkKit } from './kits/starrk';
 import { lilynetteAsset, starrkAsset, starrkProp } from '../chars/starrk';
 import { UKITAKE_DEF, UkitakeKit } from './kits/ukitake';
 import { ukitakeProp } from '../chars/ukitake';
+import { HARRIBEL_DEF, HarribelKit } from './kits/harribel';
+import { harribelAsset, harribelProp } from '../chars/harribel';
+import { NNOITRA_DEF, NnoitraKit } from './kits/nnoitra';
+import { nnoitraAsset, nnoitraProp } from '../chars/nnoitra';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -281,6 +285,34 @@ export const ROSTER: RosterEntry[] = [
       buildCached(starrkAsset('glove').model, true);
       buildCached(starrkAsset('lobos').model, true);
       for (const k of ['gunR', 'gunL', 'colmillo', 'wolf', 'lilyBlade'] as const) buildCached(starrkProp(k), false);
+    },
+  },
+  {
+    id: 'harribel',
+    name: 'Tier Harribel',
+    kanji: '皇鮫后',
+    title: 'Tres Espada',
+    color: '#f2c230',
+    def: () => ({ ...HARRIBEL_DEF, speed: { ...HARRIBEL_DEF.speed } }),
+    kit: (f, g) => new HarribelKit(f, g),
+    warm: () => {
+      buildCached(harribelAsset('unzipped').model, true);
+      buildCached(harribelAsset('tiburon').model, true);
+      buildCached(harribelProp('pata'), false);
+    },
+  },
+  {
+    id: 'nnoitra',
+    name: 'Nnoitra Gilga',
+    kanji: '聖哭螳螂',
+    title: 'Quinta Espada',
+    color: '#f5d33b',
+    def: () => ({ ...NNOITRA_DEF, speed: { ...NNOITRA_DEF.speed } }),
+    kit: (f, g) => new NnoitraKit(f, g),
+    warm: () => {
+      buildCached(nnoitraAsset('patch').model, true);
+      buildCached(nnoitraAsset('santa').model, true);
+      for (const k of ['scythe', 'tongue'] as const) buildCached(nnoitraProp(k), false);
     },
   },
   {

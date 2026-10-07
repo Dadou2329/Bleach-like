@@ -24,15 +24,16 @@ scope and milestones and `README.md` for controls and modes.
   faces +Z and +X is the character's LEFT. Ramps are ordered light → dark. Each bone has its own grid, so
   parts may overlap at joints. Run `autoShade()` then `lint()`.
 - Animation: `anim/animator.ts`. Locomotion is procedural; clips use eased Hermite keys. Sword clips are
-  authored as swing arcs (`anim/swing.ts` → IK channels `@gripR/@dirR/@edgeR/@poleR/@ikR`). Spring bones handle
-  cloth and coats. Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
+  authored as swing arcs (`anim/swing.ts` → IK channels `@gripR/@dirR/@edgeR/@poleR/@ikR`). A left-hand weapon has
+  its own channels (`@gripL/@dirL/@edgeL/@poleL/@ikL`, `swingKeys({ hand: 'L' })`); a gauntlet blade along the
+  forearm swings with `swingKeys({ pata: true })`. Spring bones handle cloth and coats. Euler conventions: limbs swing forward with −X, the knee bends with +shin X, the elbow with
   −forearm X, the torso bends forward with +X, and +Y turns left.
 - Gameplay: `game/game.ts` provides combat services (blade sweeps cut the world and hit fighters; damage,
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
   Kits are in `game/kits/`, AI in `game/ai/`, projectiles in `game/projectiles/`.
 - VFX: `vfx/aura.ts` (flame cards + rim shell + pillar), `vfx/trail.ts`, `vfx/afterimage.ts`,
-  `vfx/energy.ts` (crescents, rings) and `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak,
-  ring).
+  `vfx/energy.ts` (crescents, rings), `vfx/water.ts` (voxel droplets, floods that slow and soak, torrents,
+  the water shader) and `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
 ## Conventions

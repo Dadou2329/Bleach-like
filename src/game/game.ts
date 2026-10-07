@@ -204,6 +204,7 @@ export class Game {
     const turn = Math.acos(Math.max(-1, Math.min(1, d0.dot(d1))));
     const steps = Math.min(12, Math.max(3, Math.ceil(turn / 0.26)));
     _qa.setFromUnitVectors(d0, d1);
+    const reach = spec.reach ?? 0.18;
     for (const o of this.enemiesOf(f)) {
       if (f.bladeHits.has(o.id)) continue;
       let hit = false;
@@ -221,7 +222,7 @@ export class Game {
           const x = bx + dir.x * u, y = by + dir.y * u, z = bz + dir.z * u;
           const cy = Math.max(bottom, Math.min(top, y));
           const dx = x - o.pos.x, dy = y - cy, dz = z - o.pos.z;
-          if (dx * dx + dy * dy + dz * dz < (o.def.radius + 0.18) ** 2) { hit = true; hitY = y; }
+          if (dx * dx + dy * dy + dz * dz < (o.def.radius + reach) ** 2) { hit = true; hitY = y; }
         }
       }
       if (hit) {

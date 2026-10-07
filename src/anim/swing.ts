@@ -22,6 +22,13 @@ export interface SwingDef {
   keys: [number, number, EaseName?, Euler3?, number?][];
   /** two-handed weight per key (optional, same length as keys) */
   twoHand?: number[];
+  /** which hand holds the blade (default the right): 'L' writes the left-hand channels, 'R2' / 'L2' a second pair of arms */
+  hand?: 'R' | 'L' | 'R2' | 'L2';
+  /**
+   * a gauntlet blade (a pata) that continues the forearm past the knuckles: the arc direction is the
+   * hand's down axis and the edge leads along the hand's forward axis (the IK's dir and edge swap roles)
+   */
+  pata?: boolean;
 }
 
 function norm(v: number[]): [number, number, number] {
@@ -45,12 +52,13 @@ export function swingKeys(s: SwingDef): KeyDef[] {
     const g: Euler3 = [s.c[0] + d[0] * r, s.c[1] + d[1] * r, s.c[2] + d[2] * r];
     d = norm([d[0] + n[0] * tilt, d[1] + n[1] * tilt, d[2] + n[2] * tilt]);
     const e = norm([(-st * a[0] + ct * b[0]) * sense, (-st * a[1] + ct * b[1]) * sense, (-st * a[2] + ct * b[2]) * sense]);
+    const h = s.hand ?? 'R';
     const c: Record<string, Euler3> = {
-      '@gripR': g,
-      '@dirR': d as unknown as Euler3,
-      '@edgeR': e as unknown as Euler3,
-      '@poleR': pole ?? s.pole ?? [-0.6, -0.5, -0.6],
-      '@ikR': [1, 0, 0],
+      [`@grip${h}`]: g,
+      [`@dir${h}`]: (s.pata ? e : d) as unknown as Euler3,
+      [`@edge${h}`]: (s.pata ? d : e) as unknown as Euler3,
+      [`@pole${h}`]: pole ?? s.pole ?? (h.startsWith('L') ? [0.6, -0.5, -0.6] : [-0.6, -0.5, -0.6]),
+      [`@ik${h}`]: [1, 0, 0],
     };
     if (s.twoHand) c['@twoHand'] = [s.twoHand[i] ?? 0, 0, 0];
     return { t, ease, c };

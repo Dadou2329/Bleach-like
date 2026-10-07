@@ -39,7 +39,7 @@ const CSS = `
 #hud .ab.on { border-color: var(--tint, #7ddffd); box-shadow: 0 0 12px var(--tint, rgba(125,223,253,.5)); }
 #hud .ab .tm { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--tint, #7ddffd); transform-origin: left; transform: scaleX(0); }
 #hud .vig { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 52%, rgba(40,0,6,.5) 82%, rgba(12,0,2,.85) 100%); }
-#hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; }
+#hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; white-space: nowrap; }
 #hud .callout .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
 #hud .callout .rm { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(16px, 2.2vw, 28px); letter-spacing: 6px; margin-top: 8px; text-shadow: 0 2px 0 #000; }
 #hud .dmg { position: absolute; font-family: 'Dela Gothic One', sans-serif; font-size: 18px; text-shadow: 0 2px 0 #000, 0 0 6px rgba(0,0,0,.8); will-change: transform, opacity; }
@@ -81,7 +81,7 @@ export class Hud {
   private comboT = 0;
   private banner: HTMLElement;
   private boss: HTMLElement;
-  private dmg: { el: HTMLElement; p: THREE.Vector3; t: number; vx: number }[] = [];
+  private dmg: { el: HTMLElement; p: THREE.Vector3; t: number; vx: number; oy: number }[] = [];
   private ebars = new Map<number, HTMLElement>();
   private abilities: AbilityInfo[] = [];
   private helpSig = '';
@@ -157,7 +157,10 @@ export class Hud {
     el.style.color = color;
     el.style.fontSize = `${Math.min(34, 14 + amount * 0.25)}px`;
     this.root.appendChild(el);
-    this.dmg.push({ el, p: p.clone(), t: 0, vx: (Math.random() - 0.5) * 0.8 });
+    // numbers landing together (two blades, a multi-hit) stack instead of printing over each other
+    let stack = 0;
+    for (const d of this.dmg) if (d.t < 0.3 && d.p.distanceTo(p) < 1.2) stack++;
+    this.dmg.push({ el, p: p.clone(), t: 0, vx: (Math.random() - 0.5) * 0.8, oy: -Math.min(4, stack) * 22 });
     if (this.dmg.length > 40) this.dmg.shift()!.el.remove();
     if (!combo) return;
     this.comboN++;
@@ -238,7 +241,7 @@ export class Hud {
         continue;
       }
       const pop = d.t < 0.08 ? 1.5 - d.t * 6 : 1;
-      d.el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%) scale(${pop})`;
+      d.el.style.transform = `translate(${s.x}px, ${s.y + d.oy}px) translate(-50%, -50%) scale(${pop})`;
       d.el.style.opacity = String(Math.min(1, (0.9 - d.t) * 3));
     }
     // combo counter

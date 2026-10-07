@@ -30,8 +30,8 @@ export interface ArmChain {
   grip: THREE.Vector3;
 }
 
-export function armChain(rig: Rig, side: 'L' | 'R', gripSocket: string): ArmChain | null {
-  const upper = rig.index(`upperarm.${side}`), fore = rig.index(`forearm.${side}`), hand = rig.index(`hand.${side}`);
+export function armChain(rig: Rig, side: 'L' | 'R', gripSocket: string, pair = ''): ArmChain | null {
+  const upper = rig.index(`upperarm${pair}.${side}`), fore = rig.index(`forearm${pair}.${side}`), hand = rig.index(`hand${pair}.${side}`);
   if (upper < 0 || fore < 0 || hand < 0) return null;
   const sock = rig.sockets.get(gripSocket);
   const grip = new THREE.Vector3();

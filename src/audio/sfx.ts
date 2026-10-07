@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl';
+  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl' | 'splash' | 'torrent';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -517,6 +517,63 @@ export class Sfx {
           s.stop(t0 + dur + 0.1);
           vib.stop(t0 + dur + 0.1);
         }
+        break;
+      }
+      case 'splash': {
+        // water hitting hard: a falling bloop under a hiss that closes down
+        const o = this.out(pos, 0.5 * I, 90);
+        if (!o) return;
+        const n = this.noise(0.6);
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.setValueAtTime(4200, t);
+        lp.frequency.exponentialRampToValueAtTime(500, t + 0.5);
+        const gn = ctx.createGain();
+        this.env(gn, t, 0.004, 0.8, 0.5);
+        n.connect(lp).connect(gn).connect(o);
+        const s = ctx.createOscillator();
+        s.type = 'sine';
+        s.frequency.setValueAtTime(520, t);
+        s.frequency.exponentialRampToValueAtTime(140, t + 0.18);
+        const gs = ctx.createGain();
+        this.env(gs, t, 0.003, 0.5, 0.2);
+        s.connect(gs).connect(o);
+        s.start(t);
+        s.stop(t + 0.3);
+        break;
+      }
+      case 'torrent': {
+        // a river let loose: a long rushing roar with a churning tremolo
+        const o = this.out(pos, 0.55 * I, 140);
+        if (!o) return;
+        const dur = 1.8;
+        const n = this.noise(dur);
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.setValueAtTime(600, t);
+        bp.frequency.linearRampToValueAtTime(900, t + dur * 0.4);
+        bp.frequency.linearRampToValueAtTime(420, t + dur);
+        bp.Q.value = 0.6;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.9, t + 0.12);
+        g.gain.setValueAtTime(0.9, t + dur * 0.6);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        const trem = ctx.createOscillator();
+        trem.frequency.value = 9;
+        const tg = ctx.createGain();
+        tg.gain.value = 0.25;
+        trem.connect(tg).connect(g.gain);
+        trem.start(t);
+        trem.stop(t + dur);
+        n.connect(bp).connect(g).connect(o);
+        const r = this.noise(dur);
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 180;
+        const gr = ctx.createGain();
+        this.env(gr, t, 0.1, 1.2, dur - 0.1);
+        r.connect(lp).connect(gr).connect(o);
         break;
       }
       case 'purify': {

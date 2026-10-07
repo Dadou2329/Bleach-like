@@ -249,6 +249,32 @@ G state, V flare); press **H** in game for the current character's moves.
     up under the target, then they stretch to lunge, bite and explode.
   - G: **Colmillo**, the reishi sword drawn out of the bandoleer on his arm (G again for the gun).
   - F: Lilynette fires the guns on her own for a while.
+- **Tier Harribel**, the Tres Espada: tall and very still, the high collar of her jacket hiding her face from
+  the nose down, three braids in her short golden hair, black paw-like gloves, and Tiburón (the wide blade
+  that is only an outline) across her back. LMB is an economical chain that changes hands every second cut,
+  the sword passing between her hands at her chest, and ends with both hands on the hilt. Her sealed moves:
+  - RMB: a power swing, wound round to her right, that blasts the target back.
+  - Q: **Ola Azul**. Yellow light fills the blade's window, and the swing flings it on as a flying blade.
+  - E: her **Cero**, charged along the blade and swept across as a very wide yellow arc.
+  - R: the **read**. She waits. Whoever attacks is answered from behind with one cut, and an attack from afar
+    is sidestepped.
+  - G: the **unzip**. The jacket opens on the bone mask over her lower face and the 3 on her breast. She is
+    stronger and quicker from then on.
+  - F: **"Ute, Tiburón"**. The water rises round her in two streams and closes into a spinning cocoon, which
+    she cuts open from inside with her wounds closed.
+- **Harribel, Tiburón**: the shark-fin spaulders, the bone armour and the two ribbons off her back; the pata, a
+  giant shark tooth with gills, over her right hand. The water is real in the world: it floods the ground,
+  slows and soaks whoever wades through it, and soaked targets take more from her water. Standing in it, she
+  is quicker and hits harder. LMB is cuts that trail water, ending in a full turn. Her moves:
+  - RMB: **La Gota**, a pressurised drop shaped like a shark's tooth that bursts through walls.
+  - Q: **Trident**, three high-pressure cuts thrown one after another.
+  - E: **Cascada**, a river poured out of the blade. It carries everything in its path off and floods the
+    street where it comes down.
+  - R: **Hirviendo** (held). Reishi and water that come at her from the front boil away, and whoever stands
+    close is scalded.
+  - G: the arc **Cero**.
+  - F: **Cascada Real**. The sky darkens, the river drops out of it onto the target, and a volley of La Gota
+    follows.
 - **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
   back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
   stay on the battlefield and can be broken again.
@@ -282,7 +308,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

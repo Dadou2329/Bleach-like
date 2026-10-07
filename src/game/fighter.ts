@@ -138,6 +138,11 @@ export class Fighter {
   lure: THREE.Vector3 | null = null;
   /** beams end on this fighter instead of running on through it (a blade drinking them: Sōgyo no Kotowari) */
   beamStop = false;
+  /** slowed (wading through a flood): the fraction of move speed taken away while slowT runs */
+  slowK = 0;
+  slowT = 0;
+  /** soaked through (s left): water attacks bite harder */
+  wetT = 0;
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};
@@ -208,6 +213,12 @@ export class Fighter {
     this.bladeActive = false;
   }
 
+  /** Slow this fighter by fraction k for t seconds (the stronger slow wins while both run). */
+  slow(k: number, t: number): void {
+    if (this.slowT <= 0 || k >= this.slowK) this.slowK = k;
+    this.slowT = Math.max(this.slowT, t);
+  }
+
   spendRei(n: number): boolean {
     if (this.rei < n) return false;
     this.rei -= n;
@@ -239,6 +250,8 @@ export class Fighter {
     const b = this.body;
     this.invuln = Math.max(0, this.invuln - dt);
     this.flashT = Math.max(0, this.flashT - dt);
+    this.wetT = Math.max(0, this.wetT - dt);
+    if (this.slowT > 0 && (this.slowT -= dt) <= 0) this.slowK = 0;
     if (this.dead) {
       this.deathT += dt;
       b.vel.x = damp(b.vel.x, 0, 4, dt);
@@ -298,7 +311,7 @@ export class Fighter {
     } else {
       // sprint (Shunpo run) while the dash key stays held after a dash
       if (!this.wishSprint || this.wish.lengthSq() < 0.01) this.sprinting = false;
-      const speed = this.sprinting ? sp.sprint : sp.run;
+      const speed = (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1);
       const wx = this.wish.x * speed * mobility, wz = this.wish.z * speed * mobility;
       const accel = (b.grounded || this.hovering ? 70 : 28) * dt;
       const dx = wx - b.vel.x, dz = wz - b.vel.z;
@@ -473,6 +486,8 @@ export interface BladeSpec {
   cut: number;
   /** stagger strength: 'light' flinch or 'heavy' knockdown */
   heavy?: boolean;
+  /** how far past the blade's line a hit still connects (m, default 0.18): huge heads, broad blades */
+  reach?: number;
 }
 
 class DashProbe extends FighterAction {

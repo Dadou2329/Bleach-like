@@ -47,6 +47,11 @@ export class Animator {
   private clips = new Map<string, Clip>();
   readonly active: ClipInstance[] = [];
   readonly grip: GripTarget = { p: new THREE.Vector3(), dir: new THREE.Vector3(0, 0, 1), edge: new THREE.Vector3(0, -1, 0), pole: new THREE.Vector3(-1, -0.4, -0.4), w: 0, twoHand: 0 };
+  /**
+   * Weapon grips only clips drive: the left hand ('@ikL', '@gripL', '@dirL', '@edgeL', '@poleL') and a second pair
+   * of arms where the rig has one ('@ikR2' … on upperarm2.R, '@ikL2' … on upperarm2.L).
+   */
+  readonly extraGrips: { key: string; chain: ArmChain | null; g: GripTarget }[];
   private chainR: ArmChain | null;
   private chainL: ArmChain | null;
   private legs: LegChain[];
@@ -69,6 +74,12 @@ export class Animator {
     this.tmp = new Pose(rig.count);
     this.chainR = armChain(rig, 'R', 'grip.R');
     this.chainL = armChain(rig, 'L', 'grip.L');
+    const mk = (pole: [number, number, number]): GripTarget => ({ p: new THREE.Vector3(), dir: new THREE.Vector3(0, 0, 1), edge: new THREE.Vector3(0, -1, 0), pole: new THREE.Vector3(...pole), w: 0, twoHand: 0 });
+    this.extraGrips = [
+      { key: 'L', chain: this.chainL, g: mk([1, -0.4, -0.4]) },
+      { key: 'R2', chain: armChain(rig, 'R', 'grip2.R', '2'), g: mk([-1, -0.4, -0.4]) },
+      { key: 'L2', chain: armChain(rig, 'L', 'grip2.L', '2'), g: mk([1, -0.4, -0.4]) },
+    ].filter((x) => x.chain !== null);
     this.legs = [legChain(rig, 'L'), legChain(rig, 'R')].filter((l): l is LegChain => l !== null);
     this.chest = rig.index('chest');
     this.rArm = rig.index('upperarm.R');
@@ -168,6 +179,7 @@ export class Animator {
     this.loco.write(pose);
     const G = this.grip;
     this.loco.grip(G);
+    for (const x of this.extraGrips) x.g.w = 0;
     this.spin = 0;
     let lookW = this.lookWeight;
     for (const a of this.active) {
@@ -186,6 +198,19 @@ export class Animator {
         G.w = Math.max(G.w, iw);
       }
       else if (this.rArm >= 0 && c.weights[this.rArm] > 0) G.w *= 1 - w;
+      for (const x of this.extraGrips) {
+        const k0 = x.key, X = x.g;
+        if (!c.channel(`@ik${k0}`, a.time, _c3)) continue;
+        const iw = _c3[0] * w;
+        if (iw <= 0) continue;
+        // the first clip to drive this hand sets it, later ones blend over it
+        const k = X.w <= 1e-4 ? 1 : iw;
+        if (c.channel(`@grip${k0}`, a.time, _c3)) X.p.lerp(_p.set(_c3[0], _c3[1], _c3[2]), k);
+        if (c.channel(`@dir${k0}`, a.time, _c3)) X.dir.lerp(_d.set(_c3[0], _c3[1], _c3[2]).normalize(), k).normalize();
+        if (c.channel(`@edge${k0}`, a.time, _c3)) X.edge.lerp(_e.set(_c3[0], _c3[1], _c3[2]).normalize(), k).normalize();
+        if (c.channel(`@pole${k0}`, a.time, _c3)) X.pole.lerp(_p.set(_c3[0], _c3[1], _c3[2]).normalize(), k).normalize();
+        X.w = Math.max(X.w, iw);
+      }
       if (c.channel('@twoHand', a.time, _c3)) G.twoHand = G.twoHand * (1 - w) + _c3[0] * w;
       if (c.channel('@look', a.time, _c3)) lookW = lookW * (1 - w) + _c3[0] * w;
       if (c.channel('@spin', a.time, _c3)) this.spin += _c3[0] * w;
@@ -218,6 +243,20 @@ export class Animator {
         _p.set(1, -0.6, -0.2).applyQuaternion(_cq);
         solveArm(this.rig, this.chainL, _gl, _q, _p, Math.min(1, G.twoHand));
       }
+    }
+    // the other hands' own weapons (an ambidextrous fighter switching hands, a second pair of arms)
+    for (const x of this.extraGrips) {
+      const X = x.g;
+      if (!x.chain || X.w <= 0.001 || this.chest < 0) continue;
+      const chest = this.rig.bones[this.chest];
+      chest.updateWorldMatrix(true, false);
+      chest.getWorldQuaternion(_cq);
+      _g.copy(X.p).applyMatrix4(chest.matrixWorld);
+      _d.copy(X.dir).applyQuaternion(_cq);
+      _e.copy(X.edge).applyQuaternion(_cq);
+      _p.copy(X.pole).applyQuaternion(_cq);
+      swordQuat(_d, _e, _q);
+      solveArm(this.rig, x.chain, _g, _q, _p, Math.min(1, X.w));
     }
     if (this.lookTarget && this.neckHead.length) lookAt(this.rig, this.neckHead, [0.35, 0.65], this.lookTarget, 1.0, 0.6, Math.max(0, Math.min(1, lookW)));
     this.springs?.update(dt);
