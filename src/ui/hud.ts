@@ -39,6 +39,7 @@ const CSS = `
 #hud .ab.on { border-color: var(--tint, #7ddffd); box-shadow: 0 0 12px var(--tint, rgba(125,223,253,.5)); }
 #hud .ab .tm { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--tint, #7ddffd); transform-origin: left; transform: scaleX(0); }
 #hud .vig { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 52%, rgba(40,0,6,.5) 82%, rgba(12,0,2,.85) 100%); }
+#hud .blind { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(8,7,10,.9) 0%, rgba(3,3,4,.97) 60%, rgba(0,0,0,1) 100%); }
 #hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; white-space: nowrap; }
 #hud .callout .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
 #hud .callout .rm { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(16px, 2.2vw, 28px); letter-spacing: 6px; margin-top: 8px; text-shadow: 0 2px 0 #000; }
@@ -95,6 +96,11 @@ export class Hud {
   /** dark-red screen edge (Hollow mask), 0..1 */
   vignette = 0;
   private vigEl: HTMLElement;
+  /** Enma Kōrogi: the player's senses gone; a blow felt lets a glimpse through */
+  private blindEl: HTMLElement;
+  private blindLevel = 0;
+  private touchT = 0;
+  private lastHp = -1;
   private vigLevel = 0;
 
   constructor(private game: Game, parent: HTMLElement) {
@@ -105,6 +111,7 @@ export class Hud {
     this.root.id = 'hud';
     this.root.innerHTML = `
       <div class="vig"></div>
+      <div class="blind"></div>
       <div class="plate"><span class="name"></span><span class="form"></span>
         <div class="bar hp"><b></b><i></i></div><div class="bar rei"><i></i></div></div>
       <div class="abil"></div>
@@ -130,6 +137,7 @@ export class Hud {
     this.banner = q('.banner');
     this.boss = q('.boss');
     this.vigEl = q('.vig');
+    this.blindEl = q('.blind');
     game.hud = this;
   }
 
@@ -219,6 +227,14 @@ export class Hud {
     }
     this.vigLevel += (this.vignette - this.vigLevel) * Math.min(1, dt * 4);
     this.vigEl.style.opacity = this.vigLevel.toFixed(3);
+    const blind = pl && pl.blindT > 0 && !pl.dead ? 1 : 0;
+    if (pl) {
+      if (blind && this.lastHp >= 0 && pl.hp < this.lastHp - 0.5) this.touchT = 0.22;
+      this.lastHp = pl.hp;
+    }
+    this.touchT = Math.max(0, this.touchT - dt);
+    this.blindLevel += (blind - this.blindLevel) * Math.min(1, dt * (blind ? 6 : 3));
+    this.blindEl.style.opacity = (this.blindLevel * (1 - (this.touchT / 0.22) * 0.55)).toFixed(3);
     // callout
     if (this.calloutT > 0) {
       this.calloutT -= dt;

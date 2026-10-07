@@ -352,6 +352,7 @@ class FistAction extends SkillAction {
   readonly name = 'fist';
   private fist: FistWindow | null = null;
   private hit = 0.3;
+  private bankai = false;
   constructor(kit: KomamuraKit) {
     super(kit);
     this.mobility = 0.08;
@@ -360,19 +361,28 @@ class FistAction extends SkillAction {
   override start(f: Fighter, g: Game): void {
     const kit = this.kit;
     this.hit = f.anim.clip('km_fist')?.events.hit ?? 0.3;
-    if (kit.form === 'bankai' && kit.giant) {
+    this.bankai = kit.form === 'bankai' && kit.giant !== null;
+    if (this.bankai && kit.giant) {
+      // the giant's fist comes down on the ground in front of it
       const gi = kit.giant;
-      this.fist = kit.fistWindow(() => gi.point('knuckle.L'), 5, 74, { knock: 44, launch: 9, heavy: true, hitstop: 0.14, shake: 0.6 }, 4);
+      gi.leanOn = false;
+      this.hit = f.anim.clip('km_pound')?.events.hit ?? 0.42;
+      this.fist = kit.fistWindow(() => gi.point('knuckle.L'), 5.5, 74, { knock: 30, launch: 12, heavy: true, hitstop: 0.14, shake: 0.6 }, 4.5);
     } else {
       const limb = kit.phantom('arm.L', 0.75, null);
       this.fist = kit.fistWindow(() => limb.point('knuckle.L'), 3, 56, { knock: 38, launch: 7, heavy: true, hitstop: 0.12, shake: 0.5 }, 2.6);
     }
-    this.playClip(f, 'km_fist', (n) => {
+    this.playClip(f, this.bankai ? 'km_pound' : 'km_fist', (n) => {
       if (n === 'step') {
-        kit.lunge(4);
+        kit.lunge(this.bankai ? 1 : 4);
         g.sfx.play('swingHeavy', f.center(), 1.3);
       }
+      if (n === 'hit' && this.bankai && kit.giant) kit.quake(ground(g, kit.giant.point('knuckle.L'), 16), 6.5, 46, 1400);
     });
+  }
+  override end(f: Fighter): void {
+    super.end(f);
+    if (this.kit.giant) this.kit.giant.leanOn = true;
   }
   override update(f: Fighter, g: Game, dt: number): void {
     super.update(f, g, dt);
@@ -392,10 +402,15 @@ class StompAction extends SkillAction {
   override start(f: Fighter, g: Game): void {
     const kit = this.kit;
     if (kit.form === 'shikai') this.limb = kit.phantom('leg.R', 0.8, null);
+    if (kit.giant) kit.giant.leanOn = false;
     this.playClip(f, 'km_stomp', (n) => {
       if (n === 'lift') g.sfx.play('swingHeavy', f.center(), 0.8);
       if (n === 'stomp') kit.stomp(this.limb);
     });
+  }
+  override end(f: Fighter): void {
+    super.end(f);
+    if (this.kit.giant) this.kit.giant.leanOn = true;
   }
 }
 
@@ -525,7 +540,8 @@ export class KomamuraKit implements Kit {
     }
     // the giant costs him while it stands; dry, it dissolves
     if (this.giant) {
-      if (!this.giant.ending) f.rei -= dt * 2.2;
+      // (more than the regeneration: it slowly runs him dry even while he stands still)
+      if (!this.giant.ending) f.rei -= dt * 8;
       this.giant.acting = f.action !== null;
       if (f.hp < this.hpSeen - 0.5) this.giant.flash();
       if ((f.rei <= 0 || f.dead) && !this.giant.ending) this.dismiss();
@@ -581,8 +597,8 @@ export class KomamuraKit implements Kit {
 
   giantSpec(last: boolean): BladeSpec {
     return last
-      ? { damage: 80, knock: 24, launch: 11, heavy: true, hitstop: 0.14, shake: 0.6, cut: 2800, reach: 2, thick: 0.45 }
-      : { damage: 64, knock: 22, launch: 5, heavy: true, hitstop: 0.11, shake: 0.45, cut: 2400, reach: 1.8, thick: 0.4 };
+      ? { damage: 80, knock: 24, launch: 11, heavy: true, hitstop: 0.14, shake: 0.6, cut: 2800, reach: 3, thick: 0.45 }
+      : { damage: 64, knock: 22, launch: 5, heavy: true, hitstop: 0.11, shake: 0.45, cut: 2400, reach: 2.8, thick: 0.4 };
   }
 
   fistWindow(at: () => THREE.Vector3, r: number, damage: number, opts: DamageOpts, carve: number): FistWindow {
@@ -595,7 +611,9 @@ export class KomamuraKit implements Kit {
     const p = w.at();
     for (const o of g.enemiesOf(f)) {
       if (o.dead || w.hits.has(o.id)) continue;
-      if (o.center(_v).distanceTo(p) > w.r + o.def.radius + o.def.height * 0.3) continue;
+      // against the body's whole height, not its middle: he and his giants strike from above
+      const cy = Math.max(o.pos.y + 0.2, Math.min(o.pos.y + o.def.height - 0.1, p.y));
+      if (Math.hypot(p.x - o.pos.x, p.y - cy, p.z - o.pos.z) > w.r + o.def.radius) continue;
       w.hits.add(o.id);
       _w.subVectors(o.pos, f.pos).setY(0).normalize();
       g.damage(o, w.damage, f, _w.clone(), w.opts);
@@ -907,7 +925,7 @@ export class KomamuraKit implements Kit {
     const kit = this;
     return {
       get reach() {
-        return kit.form === 'bankai' ? 6 : kit.form === 'shikai' ? 3.4 : 2.7;
+        return kit.form === 'bankai' ? 9 : kit.form === 'shikai' ? 3.4 : 2.7;
       },
       chain: 4,
       releaseAt: [0.85, 0.6],

@@ -132,11 +132,19 @@ export function buildKomamura(): CharacterAsset {
     springs.push({ bone: `sleeve.${side}`, tail: [0, -16 / R, -4 / R], stiffness: 38, damping: 5, gravity: 10, limit: 90, radius: 0.08 });
     springs.push({ bone: `hakama.${side}`, tail: [0, -26 / R, 0], stiffness: 70, damping: 6, gravity: 8, limit: 50, radius: 0.2 });
   }
+  // the haori hangs over a very wide hakama: the legs push it out as far as the hakama reaches
   const colliders: ColliderDef[] = [
-    ...haoriSprings.colliders,
+    { bone: 'thigh.L', offset: [0, -0.3, 0.02], radius: 0.28 },
+    { bone: 'thigh.R', offset: [0, -0.3, 0.02], radius: 0.28 },
+    { bone: 'shin.L', offset: [0, -0.04, 0], radius: 0.27 },
+    { bone: 'shin.R', offset: [0, -0.04, 0], radius: 0.27 },
+    { bone: 'shin.L', offset: [0, -0.32, 0.02], radius: 0.18 },
+    { bone: 'shin.R', offset: [0, -0.32, 0.02], radius: 0.18 },
+    { bone: 'hips', offset: [0, -0.1, 0], radius: 0.4 },
     { bone: 'chest', offset: [0, 0.08, 0], radius: 0.36 },
     { bone: 'spine', offset: [0, 0, 0.04], radius: 0.33 },
   ];
+  void haoriSprings.colliders;
   return { model: b.build(), springs, colliders, warnings: b.warnings };
 }
 
@@ -285,10 +293,10 @@ function sleeves(b: ModelBuilder, L: Landmarks): void {
   b.add('forearm.L', sphere([sx + 0.7, ey, sz - 0.5], 6.4), 'black', { mirror: true });
   b.paint('forearm.L', capsule([sx + 7.9, ey - 2, sz + 3], [sx + 8.2, ey - 7, sz - 3], 1), 'black', { shade: 3, mirror: true });
   // the bag
-  // the bag: a rounded fall of cloth under the forearm, thinner at the top where it leaves the sleeve
-  const bz = sz - 11;
-  b.add('sleeve.L', blend(3, capsule([sx + 1.2, ey - 1, bz + 2.5], [sx + 1.2, wy + 4, bz - 0.5], 3.6, 4.6), ellipsoid([sx + 1.2, wy + 2.5, bz - 0.5], [4.6, 5.4, 5.6])), 'black', { mirror: true });
-  for (const dz of [-2.2, 2]) b.paint('sleeve.L', capsule([sx + 5.6, ey - 3, bz + dz + 1], [sx + 5.4, wy + 1, bz + dz * 1.3 - 0.5], 0.9), 'black', { shade: 3, mirror: true });
+  // the bag: a flat fall of cloth behind the forearm, the lower corner rounded
+  const bz = sz - 9.5;
+  b.add('sleeve.L', blend(2, box([sx + 1, (ey + wy) / 2 + 1, bz], [2.4, (ey - wy) / 2 + 1, 4.4], { round: 2 }), ellipsoid([sx + 1, wy + 1.5, bz - 0.8], [2.6, 4.4, 5.2])), 'black', { mirror: true });
+  for (const dz of [-2.4, 1.8]) b.paint('sleeve.L', capsule([sx + 3.4, ey - 3, bz + dz], [sx + 3.4, wy - 1, bz + dz * 1.2 - 0.5], 0.8), 'black', { shade: 3, mirror: true });
 }
 
 /**
@@ -576,9 +584,9 @@ function giantTorso(b: ModelBuilder, L: Landmarks, sc: (v: number) => number): v
     b.paint(['spine', 'chest'], aabb([-90, y - 0.6, -90], [90, y + 0.6, 90]), 'armor', { shade: 0, where: b.isMat('armor') });
   }
   // lacing: short vertical cords down the plates, front and back
-  for (const x of [-sc(9), -sc(3), sc(3), sc(9)])
+  for (const x of [-sc(6), sc(6)])
     for (const zs of [1, -1])
-      b.paint(['spine', 'chest'], fn((px, py, pz) => Math.max(Math.abs(px - x) - 0.5, -(pz * zs)), [x - 2, gs.waistY - sc(6), -90], [x + 2, gs.chestY + sc(7), 90]), 'trim', { shade: 2, where: b.isMat('armor') });
+      b.paint(['spine', 'chest'], fn((px, py, pz) => Math.max(Math.abs(px - x) - 0.5, -(pz * zs)), [x - 2, gs.waistY - sc(6), -90], [x + 2, gs.chestY + sc(7), 90]), 'rope', { where: b.isMat('armor') });
   // the black ropes coiled round the chest: closed loops hugging the cuirass
   const loop = (y: number, tilt: number, r: number): V3[] => {
     const pts: V3[] = [];

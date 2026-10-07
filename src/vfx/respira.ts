@@ -18,14 +18,20 @@ export const BARAGGAN_RED = '#8B0E16';
 
 const MIASMA = new THREE.Color('#1B0E24');
 const MIASMA_HI = new THREE.Color('#4A2160');
+const MIASMA_LO = new THREE.Color('#6B3590');
 const SPARK = new THREE.Color('#9B5BD1');
 const _v = new THREE.Vector3();
 const _w = new THREE.Vector3();
 
 /** one puff of the miasma: dark smoke swelling as it drifts, now and then a violet spark */
 export function miasmaPuff(g: Game, x: number, y: number, z: number, vx: number, vy: number, vz: number, size = 1, life = 1.3): void {
-  const c = Math.random() < 0.35 ? MIASMA_HI : MIASMA;
-  g.engine.dust.spawn({ x, y, z, vx, vy, vz, size: 0.5 * size, sizeEnd: (2 + Math.random()) * size, life: life * (0.7 + Math.random() * 0.6), r: c.r, g: c.g, b: c.b, alpha: 0.78, alphaEnd: 0, drag: 1.4, spin: (Math.random() - 0.5) * 1.2, tex: TEX_PUFF });
+  const u = Math.random();
+  const c = u < 0.15 ? MIASMA_LO : u < 0.55 ? MIASMA_HI : MIASMA;
+  // a smoke, not a wall: thin puffs that thin out further as they spread
+  g.engine.dust.spawn({ x, y, z, vx, vy, vz, size: 0.5 * size, sizeEnd: (2 + Math.random()) * size, life: life * (0.7 + Math.random() * 0.6), r: c.r, g: c.g, b: c.b, alpha: 0.52, alphaEnd: 0, drag: 1.4, spin: (Math.random() - 0.5) * 1.2, tex: TEX_PUFF });
+  // a dull violet glow moving inside it
+  if (Math.random() < 0.12)
+    g.engine.glow.spawn({ x, y, z, vx: vx * 0.8, vy: vy * 0.8, vz: vz * 0.8, size: 0.8 * size, sizeEnd: 1.8 * size, life: life * 0.6, r: 0.32, g: 0.1, b: 0.45, alpha: 0.22, alphaEnd: 0, tex: TEX_GLOW, drag: 1.4 });
   if (Math.random() < 0.16)
     g.engine.glow.spawn({ x, y, z, vx: vx * 0.6 + (Math.random() - 0.5) * 2, vy: vy * 0.6 + Math.random(), vz: vz * 0.6 + (Math.random() - 0.5) * 2, size: 0.12, sizeEnd: 0.02, life: 0.5, r: SPARK.r, g: SPARK.g, b: SPARK.b, alpha: 0.9, alphaEnd: 0, tex: TEX_STREAK, stretch: 1.5, drag: 1.5 });
 }

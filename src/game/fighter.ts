@@ -150,6 +150,8 @@ export class Fighter {
   /** aged (Baraggan's touch): brittle bones — agedK more damage taken while agedT runs */
   agedK = 0;
   agedT = 0;
+  /** senses gone (Enma Kōrogi): it cannot see, hear or feel where anyone is while blindT runs */
+  blindT = 0;
   /** time dilated (Senescencia): actions and animation run this fraction slower while dilateT runs */
   dilateK = 0;
   dilateT = 0;
@@ -270,6 +272,7 @@ export class Fighter {
     this.wetT = Math.max(0, this.wetT - dt);
     if (this.slowT > 0 && (this.slowT -= dt) <= 0) this.slowK = 0;
     if (this.dilateT > 0 && (this.dilateT -= dt) <= 0) this.dilateK = 0;
+    if (this.blindT > 0) this.blindT = Math.max(0, this.blindT - dt);
     if (this.agedT > 0 && (this.agedT -= dt) <= 0) this.agedK = 0;
     // inside a time field the fighter's own clock runs slow
     const adt = this.dilateT > 0 ? dt * (1 - this.dilateK) : dt;

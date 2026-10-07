@@ -141,6 +141,8 @@ export class Game {
 
   /** Nearest enemy within range, optionally inside a cone around dir (degrees). */
   nearestEnemy(f: Fighter, range: number, dir?: THREE.Vector3, coneDeg = 180): Fighter | null {
+    // blinded: it senses no one (its kit's skills fly straight ahead)
+    if (f.blindT > 0) return null;
     let best: Fighter | null = null, bd = Infinity;
     const cosC = Math.cos((coneDeg * Math.PI) / 180);
     for (const o of this.enemiesOf(f)) {

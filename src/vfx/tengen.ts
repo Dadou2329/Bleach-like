@@ -23,6 +23,7 @@ const _v = new THREE.Vector3();
 const _w = new THREE.Vector3();
 const _q = new THREE.Quaternion();
 const IDQ = new THREE.Quaternion();
+const X_AXIS = new THREE.Vector3(1, 0, 0);
 
 /** Komamura's reiatsu, the colour the phantoms dissolve into */
 export const TENGEN_RED: [number, number, number] = [1, 0.22, 0.14];
@@ -38,9 +39,10 @@ abstract class Mirror implements Projectile {
   private mapFor: Rig | null = null;
   private isLeg: boolean[];
   private isHand: boolean[];
-  /** world placement of the root and its yaw */
+  /** world placement of the root, its yaw and a forward pitch about the root */
   readonly pos = new THREE.Vector3();
   yaw = 0;
+  pitch = 0;
   scale: number;
   /** 0 = fully there, 1 = gone */
   dissolve = 1;
@@ -104,10 +106,34 @@ abstract class Mirror implements Projectile {
     }
   }
 
+  /** what he is fighting: where he aims, or the nearest enemy ahead of him */
+  protected targetPoint(): THREE.Vector3 | null {
+    const f = this.owner;
+    if (f.faceTarget) return f.faceTarget.clone();
+    const t = this.g.nearestEnemy(f, 70, f.forward(_w), 75);
+    return t ? t.center() : null;
+  }
+
+  /** bend the copied pose forward at the spine and chest by `deg` (the head keeps looking ahead) */
+  protected bend(deg: number): void {
+    if (Math.abs(deg) < 0.5) return;
+    const rig = this.v.rig;
+    const add = (name: string, d: number) => {
+      const i = rig.index(name);
+      if (i < 0) return;
+      _q.setFromAxisAngle(X_AXIS, (d * Math.PI) / 180);
+      rig.bones[i].quaternion.premultiply(_q);
+    };
+    add('spine', deg * 0.6);
+    add('chest', deg * 0.4);
+    add('neck', -deg * 0.25);
+    add('head', -deg * 0.35);
+  }
+
   protected applyTransform(): void {
     const o = this.v.object;
     o.position.copy(this.pos);
-    o.rotation.set(0, this.yaw, 0);
+    o.rotation.set(this.pitch, this.yaw, 0, 'YXZ');
     o.scale.setScalar(this.scale);
     o.updateMatrixWorld(true);
   }
@@ -125,7 +151,53 @@ abstract class Mirror implements Projectile {
       this.prevTip.copy(this.tip);
       this.bladeValid = true;
     }
-    if (this.active && this.spec && this.dissolve < 0.5) this.g.bladeSweep(this.owner, this.prevBase, this.prevTip, this.base, this.tip, this.spec, this.hits);
+    if (this.active && this.spec && this.dissolve < 0.5) {
+      this.g.bladeSweep(this.owner, this.prevBase, this.prevTip, this.base, this.tip, this.spec, this.hits);
+      if (this.pressure > 0) this.pressureHits(this.spec);
+    }
+  }
+
+  /** how far below the blade a giant's swing still strikes (its wind and weight), m; 0 = only the blade */
+  pressure = 0;
+
+  /**
+   * A giant's blade passing over someone: anyone whose column lies under the swept blade, within `pressure`
+   * metres below it, is struck as if the edge had found them.
+   */
+  private pressureHits(spec: BladeSpec): void {
+    const g = this.g, f = this.owner;
+    const d0 = _v.subVectors(this.prevTip, this.prevBase), d1 = _w.subVectors(this.tip, this.base);
+    const l0 = d0.length(), l1 = d1.length();
+    if (l0 < 1e-3 || l1 < 1e-3) return;
+    d0.divideScalar(l0);
+    d1.divideScalar(l1);
+    const qa = new THREE.Quaternion().setFromUnitVectors(d0, d1);
+    const qb = new THREE.Quaternion();
+    const turn = Math.acos(Math.max(-1, Math.min(1, d0.dot(d1))));
+    const steps = Math.min(16, Math.max(3, Math.ceil(turn / 0.12)));
+    const dir = new THREE.Vector3(), p = new THREE.Vector3();
+    for (const o of g.enemiesOf(f)) {
+      if (o.dead || this.hits.has(o.id)) continue;
+      let hit = false;
+      for (let si = 0; si <= steps && !hit; si++) {
+        const k = si / steps;
+        qb.identity().slerp(qa, k);
+        dir.copy(d0).applyQuaternion(qb);
+        const len = l0 + (l1 - l0) * k;
+        const bx = this.prevBase.x + (this.base.x - this.prevBase.x) * k, by = this.prevBase.y + (this.base.y - this.prevBase.y) * k, bz = this.prevBase.z + (this.base.z - this.prevBase.z) * k;
+        for (let bi = 2; bi <= 12 && !hit; bi++) {
+          const u = (bi / 12) * len;
+          p.set(bx + dir.x * u, by + dir.y * u, bz + dir.z * u);
+          if (Math.hypot(p.x - o.pos.x, p.z - o.pos.z) > o.def.radius + (spec.reach ?? 0.2)) continue;
+          if (p.y > o.pos.y - 1.5 && p.y < o.pos.y + o.def.height + this.pressure) hit = true;
+        }
+      }
+      if (!hit) continue;
+      this.hits.add(o.id);
+      const away = new THREE.Vector3().subVectors(o.pos, f.pos).setY(0).normalize();
+      g.damage(o, spec.damage, f, away, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy, hitstop: spec.hitstop, shake: spec.shake });
+      g.sparks(o.center(), away, f.def.aura.body);
+    }
   }
 
   /** world position of a socket or bone of the mirror */
@@ -172,12 +244,12 @@ export class TenkenLimb extends Mirror {
 
   constructor(g: Game, owner: Fighter, readonly kind: LimbKind, readonly life: number, readonly offset: THREE.Vector3, scale = 7) {
     super(g, owner, 'limbs', scale, kind === 'arm.R');
+    this.yaw = owner.yaw;
     const rig = this.v.rig;
     for (const n of ['upperarm.L', 'upperarm.R', 'thigh.L', 'thigh.R']) rig.setBoneVisible(n, false);
     this.anchorBone = kind === 'arm.R' ? 'upperarm.R' : kind === 'arm.L' ? 'upperarm.L' : 'thigh.R';
     this.anchorSrc = this.anchorBone;
     rig.setBoneVisible(this.anchorBone, true);
-    this.yaw = owner.yaw;
   }
 
   override update(dt: number): void {
@@ -197,10 +269,9 @@ export class TenkenLimb extends Mirror {
 
   render(dt: number): void {
     const f = this.owner;
-    this.yaw = f.yaw;
     this.copyPose();
-    // the hiding of the other limbs must survive the pose copy (it only copies the hands' scale)
-    // place the root so the anchor joint sits at his joint + offset
+    // (the hiding of the other limbs survives the pose copy: it only copies the hands' scale)
+    // the anchor joint (shoulder or hip) hangs at his joint + offset
     const src = f.visual.rig;
     const sb = src.bones[src.index(this.anchorSrc)];
     sb.getWorldPosition(_v);
@@ -208,10 +279,29 @@ export class TenkenLimb extends Mirror {
     const left = new THREE.Vector3(fw.z, 0, -fw.x);
     const want = _v.clone().addScaledVector(left, this.offset.x).addScaledVector(fw, this.offset.z);
     want.y += this.offset.y;
-    // where the anchor lands for a root at the origin (ours, scaled, rotated with him)
+    // turn the phantom body to face what he fights, and pitch it down toward it so the strike, made at
+    // a giant's height, comes down on a man-sized target (his own aim is only right at his own size)
+    const tgt = this.targetPoint();
+    if (this.yaw === 0 && this.t < 0.02) this.yaw = f.yaw;
+    const anchor = this.v.rig.bones[this.v.rig.index(this.anchorBone)];
+    for (let it = 0; it < 2; it++) {
+      this.pos.set(0, 0, 0);
+      this.applyTransform();
+      anchor.getWorldPosition(_v);
+      this.pos.copy(want).sub(_v);
+      if (tgt) {
+        this.yaw = Math.atan2(tgt.x - this.pos.x, tgt.z - this.pos.z);
+        const d = Math.max(1, Math.hypot(tgt.x - want.x, tgt.z - want.z));
+        const drop = (Math.atan2(want.y - tgt.y, d) * 180) / Math.PI;
+        this.pitch = (Math.max(0, Math.min(this.kind === 'leg.R' ? 0 : 48, drop - (this.kind === 'arm.R' ? 4 : 0))) * Math.PI) / 180;
+      } else {
+        this.yaw = f.yaw;
+        this.pitch = this.kind === 'leg.R' ? 0 : 0.25;
+      }
+    }
     this.pos.set(0, 0, 0);
     this.applyTransform();
-    this.v.rig.bones[this.v.rig.index(this.anchorBone)].getWorldPosition(_v);
+    anchor.getWorldPosition(_v);
     this.pos.copy(want).sub(_v);
     this.applyTransform();
     // materialise fast, dissolve slow
@@ -245,13 +335,18 @@ export class TengenGiant extends Mirror {
   side = 5.5;
   private readonly rise: number;
   private stepAcc = 0;
+  /** degrees of forward bend added to his pose */
+  private lean = 0;
+  /** bend toward the target while he acts (sword swings); off for moves that already reach the ground */
+  leanOn = true;
+  /** set in the constructor: the giant's blade strikes what it passes over */
 
   constructor(g: Game, owner: Fighter, scale: number, riseT = 1.6) {
     super(g, owner, 'whole', scale, true);
     this.rise = riseT;
     this.yaw = owner.yaw;
+    this.pressure = 6;
     this.place(1);
-    this.pos.y -= scale * 2.9;
     this.setDissolve(0);
   }
 
@@ -296,8 +391,8 @@ export class TengenGiant extends Mirror {
       this.pos.z += (want.z - this.pos.z) * lerp;
       this.pos.y += (want.y - this.pos.y) * Math.min(1, lerp * 0.6);
     }
-    // face where he faces, converging a little on the point 16 m ahead of him
-    const aim = new THREE.Vector3().copy(f.renderPos).addScaledVector(fw, 16);
+    // face what he fights (or the point 16 m ahead of him)
+    const aim = this.targetPoint() ?? new THREE.Vector3().copy(f.renderPos).addScaledVector(fw, 16);
     const want2 = Math.atan2(aim.x - this.pos.x, aim.z - this.pos.z);
     let d = want2 - this.yaw;
     while (d > Math.PI) d -= Math.PI * 2;
@@ -309,6 +404,16 @@ export class TengenGiant extends Mirror {
     const f = this.owner;
     this.legK += ((this.acting ? 1 : 0.3) - this.legK) * Math.min(1, dt * 6);
     this.copyPose();
+    // while he swings it bends toward the target, so cuts made at a giant's height come down on it
+    const tgt = this.acting && this.leanOn ? this.targetPoint() : null;
+    let want = 0;
+    if (tgt) {
+      const shoulder = this.pos.y + this.scale * 2.2;
+      const d = Math.max(2, Math.hypot(tgt.x - this.pos.x, tgt.z - this.pos.z) - this.scale * 0.3);
+      want = Math.max(12, Math.min(52, (Math.atan2(shoulder - tgt.y, d) * 180) / Math.PI - 18));
+    }
+    this.lean += (want - this.lean) * Math.min(1, dt * 5);
+    this.bend(this.lean);
     if (this.rising) {
       // up out of the ground, the earth splitting round its feet
       const u = this.t / this.rise;

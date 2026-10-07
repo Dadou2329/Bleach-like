@@ -36,6 +36,10 @@ export class DuelistAI implements Controller {
   private releases = 0;
   private airStepT = 0;
   private lastTargetAction: unknown = null;
+  /** blinded: where it believes the enemy is, when it next changes its mind, its HP a tick ago */
+  private guess: THREE.Vector3 | null = null;
+  private guessT = 0;
+  private lastHp = -1;
   private intro: number;
   readonly aggression: number;
 
@@ -55,6 +59,12 @@ export class DuelistAI implements Controller {
     }
     this.tick(dt);
     const t = g.nearestEnemy(f, 160);
+    if (!t && f.blindT > 0) {
+      this.groping(dt);
+      return;
+    }
+    this.lastHp = f.hp;
+    this.guess = null;
     if (!t) {
       f.wish.set(0, 0, 0);
       f.faceTarget = null;
@@ -213,6 +223,45 @@ export class DuelistAI implements Controller {
   }
 
   private queueHeavy = 0;
+
+
+  /**
+   * Blind (Enma Kōrogi): it gropes toward where it last felt someone, swinging at the air, and turns on
+   * whoever just struck it (the touch is all that is left).
+   */
+  private groping(dt: number): void {
+    const { g, f, kit } = this;
+    let real: Fighter | null = null, rd = Infinity;
+    for (const o of g.enemiesOf(f)) {
+      const d = o.pos.distanceTo(f.pos);
+      if (d < rd) { rd = d; real = o; }
+    }
+    const hurt = this.lastHp >= 0 && f.hp < this.lastHp - 0.5;
+    this.lastHp = f.hp;
+    this.guessT -= dt;
+    if (real && (hurt || !this.guess)) {
+      const n = hurt ? 1.2 : 7;
+      this.guess = real.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * n, 0, (Math.random() - 0.5) * n));
+    }
+    if (this.guess && this.guessT <= 0) {
+      this.guessT = 1 + Math.random() * 1.2;
+      this.guess.add(new THREE.Vector3((Math.random() - 0.5) * 5, 0, (Math.random() - 0.5) * 5));
+    }
+    f.wishSprint = false;
+    f.wishHover = false;
+    if (!this.guess) {
+      f.wish.set(0, 0, 0);
+      return;
+    }
+    _d.set(this.guess.x - f.pos.x, 0, this.guess.z - f.pos.z);
+    const dist = _d.length();
+    f.faceTarget = new THREE.Vector3(this.guess.x, f.pos.y + f.def.height * 0.55, this.guess.z);
+    if (dist > 2.2) f.wish.copy(_d.normalize()).multiplyScalar(0.5);
+    else {
+      f.wish.set(0, 0, 0);
+      if (!f.busy && Math.random() < dt * 2.5) kit.attack();
+    }
+  }
 
   private tick(dt: number): void {
     this.think -= dt;

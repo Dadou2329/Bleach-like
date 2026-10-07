@@ -45,6 +45,8 @@ import { BARAGGAN_DEF, BaragganKit } from './kits/baraggan';
 import { baragganAsset, baragganProp } from '../chars/baraggan';
 import { KOMAMURA_DEF, KomamuraKit } from './kits/komamura';
 import { giantAsset, komamuraProp } from '../chars/komamura';
+import { TOSEN_DEF, TosenKit } from './kits/tosen';
+import { tosenAsset } from '../chars/tosen';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -344,6 +346,18 @@ export const ROSTER: RosterEntry[] = [
       buildCached(giantAsset('limbs').model, true);
       buildCached(giantAsset('whole').model, true);
       buildCached(komamuraProp('giantSword'), false);
+    },
+  },
+  {
+    id: 'tosen',
+    name: 'Kaname Tōsen',
+    kanji: '清虫',
+    title: 'Traitor, ex-Captain of the 9th',
+    color: '#ff8cc6',
+    def: () => ({ ...TOSEN_DEF, speed: { ...TOSEN_DEF.speed } }),
+    kit: (f, g) => new TosenKit(f, g),
+    warm: () => {
+      buildCached(tosenAsset('masked').model, true);
     },
   },
   {

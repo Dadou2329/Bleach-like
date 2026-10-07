@@ -349,6 +349,32 @@ G state, V flare); press **H** in game for the current character's moves.
   - Q: the giant fist. E: the giant stomp.
   - F: the **One Blow**, the giant's full-weight cut.
   - The giant burns reiatsu while it stands; when he runs dry it dissolves back into reishi.
+- **Kaname Tōsen**, the blind former captain of the 9th, as he stood in Aizen's army: long braids let down over
+  his back and shoulders, a thin smoky visor, a white sleeveless coat with an orange rope slung across it, long
+  black gloves and white boots. **Suzumushi** has an orange hilt and a teardrop tsuba with a small ring hanging
+  from its point. LMB is precise cuts (a level one at head height, a rising backhand, a lunging thrust) and a
+  snapping kick. His moves:
+  - RMB: the **side kick** that throws much bigger men through walls.
+  - Q: **"Nake, Suzumushi"**. The blade rings, and everyone near him drops, stunned, their ears ringing.
+  - E: **Benihikō**. He draws a half-circle round himself, and its afterimage breaks into a hundred thin blades
+    that rise like locusts and rain down on the target.
+  - R: a **disintegrating Kidō** out of his palm that unmakes what it touches.
+  - G: the **Hollow mask**. He is faster and stronger, he regenerates, and his reiatsu turns black.
+  - F: **"Bankai — Suzumushi Tsuishiki: Enma Kōrogi"**. Ten rings are thrown round the field and a black dome
+    rises between them, the kanji of a corpse's decay glowing on it. Inside, every enemy loses sight, hearing
+    and the sense of reiatsu: the AI gropes and swings at the air, and a player's screen goes dark except for
+    the brief glimpse a blow gives. A hard hit tears the dome apart.
+  - F with the mask on: **"Suzumushi Hyakushiki: Grillar Grillo"**.
+- **Tōsen, Grillar Grillo**: a hunched, four-armed cricket-Hollow about 4 m tall, black-furred, with a Hollow
+  hole through the chest, two spiralling silver horns hung with rings and chains, an elongated mask with huge
+  orange eyes, a bushy tail and two pairs of beating wings. For the first time, he can see. His moves:
+  - LMB: claws (the right, the left, then the lower pair together).
+  - RMB: the double slam.
+  - Q: **La Mirada**, a Cero swelling before each eye and merging into one beam.
+  - E: **Los Nueve Aspectos**, nine lime-green circles drawn in the air, then one crushing burst of sound.
+  - R: the screech.
+  - G: a wing-beat leap.
+  - F: La Mirada with all four Ceros.
 - **Tōshirō Hitsugaya**: a child captain with a nodachi longer than he is. When he draws it, the sheath on his
   back dissolves into frost. His ice is written into the world as real voxels, so frost, spikes and prisons
   stay on the battlefield and can be broken again.
@@ -382,7 +408,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1]`: model and animation viewer
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

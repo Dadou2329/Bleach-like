@@ -57,7 +57,7 @@ export const KOMAMURA_STANCE: StanceDef = {
 
 /** LMB 1: a great forehand diagonal, from high behind his right shoulder down across to his left */
 const cut1: ClipDef = {
-  name: 'km_cut1', dur: 0.86, fadeIn: 0.06, fadeOut: 0.24, events: { step: 0.14, hit: 0.3, combo: 0.44 },
+  name: 'km_cut1', dur: 0.86, fadeIn: 0.06, fadeOut: 0.24, events: { step: 0.14, hit: 0.24, combo: 0.44 },
   keys: mergeKeys(
     swingKeys({
       a: [0, 0, 1], b: [1, -0.62, 0], c: SH, r: 0.72, pole: [-0.5, -0.6, -0.6],
@@ -75,7 +75,7 @@ const cut1: ClipDef = {
 
 /** LMB 2: the rising backhand, from low on his left up across to high on his right */
 const cut2: ClipDef = {
-  name: 'km_cut2', dur: 0.8, fadeIn: 0.05, fadeOut: 0.24, events: { step: 0.1, hit: 0.26, combo: 0.4 },
+  name: 'km_cut2', dur: 0.8, fadeIn: 0.05, fadeOut: 0.24, events: { step: 0.1, hit: 0.2, combo: 0.4 },
   keys: mergeKeys(
     swingKeys({
       a: [0, 0, 1], b: [-0.85, 0.52, 0], c: [-0.14, 0.14, 0.08], r: 0.68, pole: [-0.3, -0.4, -0.85],
@@ -99,8 +99,8 @@ const punch: ClipDef = {
     [
       key(0, I()),
       key(0.09, I({ hips: [0, 14, 0], chest: [2, 12, 0], spine: [6, 8, 0], 'upperarm.L': [-40, 0, 22], 'forearm.L': [-116, 0, 0], 'hand.L': [0, 0, 0] }), [0, -0.04, -0.03], 'out'),
-      key(0.18, I({ hips: [4, -14, 0], chest: [8, -30, 0], spine: [8, -14, 0], head: [-8, 22, 0], 'upperarm.L': [-90, 0, -4], 'forearm.L': [-6, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-32, 0, 6], 'shin.L': [32, 0, 0], 'thigh.R': [22, 0, -6], 'shin.R': [20, 0, 0] }), [0, -0.08, 0.14], 'outExpo'),
-      key(0.3, I({ hips: [4, -12, 0], chest: [8, -28, 0], spine: [8, -12, 0], head: [-8, 20, 0], 'upperarm.L': [-86, 0, -2], 'forearm.L': [-10, 0, 0], 'thigh.L': [-30, 0, 6], 'shin.L': [30, 0, 0], 'thigh.R': [20, 0, -6] }), [0, -0.08, 0.13], 'out'),
+      key(0.18, I({ hips: [4, -6, 0], chest: [8, -14, 0], spine: [8, -8, 0], head: [-8, 22, 0], 'upperarm.L': [-90, 0, 6], 'forearm.L': [-6, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-32, 0, 6], 'shin.L': [32, 0, 0], 'thigh.R': [22, 0, -6], 'shin.R': [20, 0, 0] }), [0, -0.08, 0.14], 'outExpo'),
+      key(0.3, I({ hips: [4, -6, 0], chest: [8, -13, 0], spine: [8, -7, 0], head: [-8, 20, 0], 'upperarm.L': [-86, 0, 7], 'forearm.L': [-10, 0, 0], 'thigh.L': [-30, 0, 6], 'shin.L': [30, 0, 0], 'thigh.R': [20, 0, -6] }), [0, -0.08, 0.13], 'out'),
       key(0.62, I(), [0, -0.04, 0], 'inOut'),
     ],
   ),
@@ -162,8 +162,8 @@ const haymaker: ClipDef = {
     [
       key(0, I()),
       key(0.24, I({ hips: [0, 32, 0], spine: [-2, 20, 0], chest: [-4, 28, 4], head: [-6, -26, 0], 'upperarm.L': [20, 0, 46], 'forearm.L': [-96, 0, 0], 'thigh.L': [-12, 0, 10], 'thigh.R': [18, 0, -8], 'shin.R': [30, 0, 0] }), [0, -0.1, -0.05], 'inOut'),
-      key(0.36, I({ hips: [4, -24, 0], spine: [10, -18, 0], chest: [8, -34, 0], head: [-10, 26, 0], 'upperarm.L': [-84, 0, -18], 'forearm.L': [-86, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-46, 0, 6], 'shin.L': [44, 0, 0], 'thigh.R': [30, 0, -6], 'shin.R': [24, 0, 0], 'foot.R': [16, 0, 0] }), [0, -0.16, 0.18], 'outExpo'),
-      key(0.56, I({ hips: [4, -30, 0], spine: [10, -22, 0], chest: [8, -42, 0], head: [-10, 30, 0], 'upperarm.L': [-74, 0, -28], 'forearm.L': [-96, 0, 0], 'thigh.L': [-44, 0, 6], 'shin.L': [42, 0, 0], 'thigh.R': [28, 0, -6] }), [0, -0.16, 0.17], 'out'),
+      key(0.36, I({ hips: [8, -24, 0], spine: [18, -18, 0], chest: [14, -34, 0], head: [-22, 26, 0], 'upperarm.L': [-72, 0, -18], 'forearm.L': [-80, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-52, 0, 6], 'shin.L': [52, 0, 0], 'thigh.R': [32, 0, -6], 'shin.R': [28, 0, 0], 'foot.R': [16, 0, 0] }), [0, -0.24, 0.18], 'outExpo'),
+      key(0.56, I({ hips: [8, -30, 0], spine: [18, -22, 0], chest: [14, -42, 0], head: [-22, 30, 0], 'upperarm.L': [-64, 0, -28], 'forearm.L': [-90, 0, 0], 'thigh.L': [-50, 0, 6], 'shin.L': [50, 0, 0], 'thigh.R': [30, 0, -6] }), [0, -0.24, 0.17], 'out'),
       key(1.0, I(), [0, -0.04, 0], 'inOut'),
     ],
   ),
@@ -220,9 +220,24 @@ const fist: ClipDef = {
     [
       key(0, I()),
       key(0.18, I({ hips: [0, 22, 0], spine: [4, 14, 0], chest: [0, 18, 0], head: [-6, -18, 0], 'upperarm.L': [30, 0, 24], 'forearm.L': [-120, 0, 0], 'thigh.L': [-8, 0, 8], 'thigh.R': [14, 0, -8], 'shin.R': [24, 0, 0] }), [0, -0.08, -0.06], 'inOut'),
-      key(0.3, I({ hips: [6, -10, 0], spine: [10, -16, 0], chest: [10, -34, 0], head: [-10, 26, 0], 'upperarm.L': [-92, 0, -6], 'forearm.L': [-4, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-50, 0, 6], 'shin.L': [50, 0, 0], 'foot.L': [-6, 0, 0], 'thigh.R': [30, 0, -6], 'shin.R': [24, 0, 0], 'foot.R': [16, 0, 0] }), [0, -0.2, 0.28], 'outExpo'),
-      key(0.48, I({ hips: [6, -10, 0], spine: [10, -16, 0], chest: [10, -32, 0], head: [-10, 24, 0], 'upperarm.L': [-88, 0, -4], 'forearm.L': [-8, 0, 0], 'thigh.L': [-48, 0, 6], 'shin.L': [48, 0, 0], 'thigh.R': [28, 0, -6] }), [0, -0.2, 0.27], 'out'),
+      key(0.3, I({ hips: [6, -6, 0], spine: [10, -8, 0], chest: [10, -14, 0], head: [-10, 22, 0], 'upperarm.L': [-92, 0, 6], 'forearm.L': [-4, 0, 0], 'hand.L': [0, 0, 0], 'thigh.L': [-50, 0, 6], 'shin.L': [50, 0, 0], 'foot.L': [-6, 0, 0], 'thigh.R': [30, 0, -6], 'shin.R': [24, 0, 0], 'foot.R': [16, 0, 0] }), [0, -0.2, 0.28], 'outExpo'),
+      key(0.48, I({ hips: [6, -6, 0], spine: [10, -8, 0], chest: [10, -13, 0], head: [-10, 20, 0], 'upperarm.L': [-88, 0, 7], 'forearm.L': [-8, 0, 0], 'thigh.L': [-48, 0, 6], 'shin.L': [48, 0, 0], 'thigh.R': [28, 0, -6] }), [0, -0.2, 0.27], 'out'),
       key(0.95, I(), [0, -0.04, 0], 'inOut'),
+    ],
+  ),
+};
+
+/** Q (Bankai): the pound — the left fist raised high, then driven down into the ground as he drops to a knee */
+const pound: ClipDef = {
+  name: 'km_pound', dur: 1.15, fadeIn: 0.06, fadeOut: 0.26, events: { step: 0.22, hit: 0.42 },
+  keys: mergeKeys(
+    [grip(0, LOW), grip(0.42, { ...LOW, p: [-0.62, -0.3, -0.1] }, 'outExpo'), grip(1.15, LOW, 'inOut')],
+    [
+      key(0, I()),
+      key(0.26, I({ hips: [-4, 14, 0], spine: [-10, 8, 0], chest: [-12, 10, 0], head: [-14, -8, 0], 'upperarm.L': [-160, 0, 24], 'forearm.L': [-70, 0, 0], 'thigh.L': [-18, 0, 8], 'shin.L': [20, 0, 0], 'thigh.R': [10, 0, -8], 'shin.R': [14, 0, 0] }), [0, 0.02, -0.04], 'inOut'),
+      key(0.42, I({ hips: [20, -4, 0], spine: [32, -4, 0], chest: [20, -6, 0], head: [-40, 4, 0], 'upperarm.L': [-52, 0, -14], 'forearm.L': [-6, 0, 0], 'thigh.L': [-84, 0, 8], 'shin.L': [96, 0, 0], 'foot.L': [-8, 0, 0], 'thigh.R': [22, 0, -8], 'shin.R': [108, 0, 0], 'foot.R': [-20, 0, 0] }), [0, -0.74, 0.46], 'outExpo'),
+      key(0.66, I({ hips: [20, -4, 0], spine: [32, -4, 0], chest: [20, -6, 0], head: [-40, 4, 0], 'upperarm.L': [-52, 0, -14], 'forearm.L': [-8, 0, 0], 'thigh.L': [-84, 0, 8], 'shin.L': [96, 0, 0], 'thigh.R': [22, 0, -8], 'shin.R': [108, 0, 0] }), [0, -0.74, 0.46], 'out'),
+      key(1.15, I(), [0, -0.04, 0], 'inOut'),
     ],
   ),
 };
@@ -303,7 +318,7 @@ const oneBlow: ClipDef = {
 };
 
 export const KOMAMURA_CLIPS: ClipDef[] = [
-  cut1, cut2, punch, cut3, draw, throwK, haymaker, guard, shove, roar, fist, stomp, shikai, bankai, oneBlow,
+  cut1, cut2, punch, cut3, draw, throwK, haymaker, guard, shove, roar, fist, pound, stomp, shikai, bankai, oneBlow,
   ...ICHIGO_CLIPS.filter((c) => ['dash', 'airstep', 'hit_heavy'].includes(c.name)),
 ];
 export const KOMAMURA_CHAIN = ['km_cut1', 'km_cut2', 'km_punch', 'km_cut3'];
