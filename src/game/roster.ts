@@ -23,6 +23,7 @@ import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
 import { AARONIERO_DEF, AaronieroKit } from './kits/aaroniero';
+import { KAIEN_DEF, KAIEN_POSSESSED_DEF, KaienKit } from './kits/kaien';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
@@ -32,6 +33,7 @@ import { fraccionAsset } from '../chars/szayelFraccion';
 import { yammyAsset } from '../chars/yammy';
 import { zommariAsset, zommariProp } from '../chars/zommari';
 import { aaronieroAsset, aaronieroProp } from '../chars/aaroniero';
+import { kaienAsset, nejibanaProp } from '../chars/kaien';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -599,6 +601,30 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(aaronieroAsset('glotoneria').model, true);
       for (const k of ['capsule', 'kaien', 'katana', 'sheath-empty', 'nejibana', 'maw', 'mass', 'tentacle', 'glot-capsule', 'glot-kaien'] as const) buildCached(aaronieroProp(k), false);
+    },
+  },
+  {
+    id: 'kaien',
+    name: 'Kaien Shiba',
+    kanji: '捩花',
+    title: 'Lieutenant, 13th Division',
+    color: '#5ec4d6',
+    def: () => ({ ...KAIEN_DEF, speed: { ...KAIEN_DEF.speed } }),
+    kit: (f, g) => new KaienKit(f, g),
+    warm: () => {
+      buildCached(nejibanaProp('trident'), false);
+    },
+  },
+  {
+    id: 'kaien-possessed',
+    name: 'Kaien Shiba',
+    kanji: '霊体融合',
+    title: 'Possessed by Metastacia',
+    color: '#8fa08a',
+    def: () => ({ ...KAIEN_POSSESSED_DEF, speed: { ...KAIEN_POSSESSED_DEF.speed } }),
+    kit: (f, g) => new KaienKit(f, g, true),
+    warm: () => {
+      buildCached(kaienAsset('possessed').model, true);
     },
   },
   {

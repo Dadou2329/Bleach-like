@@ -84,7 +84,7 @@ export class PlayerController implements Controller {
       f.dash(d);
     }
     const atk = inp.pressed('attack'), hv = inp.pressed('heavy');
-    if ((atk || hv) && f.disarmT > 0) g.hud?.showBanner('Disarmed');
+    if ((atk || hv) && f.disarmT > 0 && !kit.bareHands?.()) g.hud?.showBanner('Disarmed');
     else if ((atk || hv) && f.armLockT > 0) g.hud?.showBanner('Your arm will not answer');
     else {
       if (atk) { aimAt(); kit.attack(); }

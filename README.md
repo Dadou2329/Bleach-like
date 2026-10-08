@@ -573,6 +573,29 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: the **army of 33,650**: a tentacle slammed down for every Hollow he has eaten, and more of the horde.
   - G: the tentacles curl over his head (a guard that also covers the capsule).
   - When he dies, his last sight goes to every Espada (Cognition Synchronization).
+- **Kaien Shiba**, the late Lieutenant of the 13th Division: spiky black hair, aqua-green eyes, a wide grin, the
+  standard shihakushō with the lieutenant's badge (十三) tied on his left arm and the Shiba whirlpool on his left wrist.
+  An honest fencer with an expert's Shunpo. LMB is a four-cut string. His sealed moves:
+  - RMB: the **blink double cut**: a Shunpo to the target's flank and two cuts at two limbs.
+  - Q: Shakkahō (anime); R: three at once without a chant.
+  - E: the **grab and rip** with his bare hand: the victim's weapon arm goes numb for three seconds.
+  - G: the **mentor's guard**: a blow inside it is turned aside and answered with a rising cut ("Again!").
+  - Disarmed (his sword shattered or knocked away) he fights on: LMB becomes a jab, hook and uppercut, RMB the grab.
+  - F: **"Suiten sakamake, Nejibana"**: the sword held upside down and twirled, water pouring off it, and it is the
+    silver trident with the blue tassel.
+- **Kaien, Nejibana**: the **spear dance** (LMB): every swing sheds an arc of water, the spin brings the corkscrew
+  butt round to drill what it passes, and the fourth crushing blow bursts a wave all round.
+  - RMB: the **crushing tide**: a thrust that pins (the weapon flicked away) while a wave rises behind and slams the
+    target onto the spear.
+  - Q: the **rising wave**, and as it falls back the **undertow** drags whoever is near toward him.
+  - E: the **spiral thrust**: a corkscrew jet that bores 20 m. R: the **tidal sweep**: a fan of water blades.
+  - G: the **spinning guard**: the trident turned like a wheel; shots in front are swept away and blows cut to ×0.3.
+  - F: the **Surge**: the ground floods, a great wave carries him in, and at its crest the crushing thrust.
+  - His heart: when he falls, his nearest ally gains +15 % power for the rest of the fight.
+- **Kaien (Possessed)**, a separate entry: Metastacia in his body, grey-green with black eyes and orange flame marks,
+  three tentacles over his shoulders. LMB claw, claw, bite (the bite heals him); RMB the **tentacle grab** (Spirit Body
+  Fusion: hooked, drained, its steps scrambled); Q a volley of tentacles; E the pounce; R **Metastacia's touch**: for
+  six seconds the next blade that strikes him shatters (once per fight).
 - **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
   flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
   plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath

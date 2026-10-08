@@ -182,13 +182,13 @@ export class DuelistAI implements Controller {
       else if (this.pressT <= 0) {
         this.chainLeft--;
         this.pressT = 0.13 + Math.random() * 0.12;
-        if (f.disarmT <= 0 && f.armLockT <= 0) kit.attack();
+        if ((f.disarmT <= 0 || !!kit.bareHands?.()) && f.armLockT <= 0) kit.attack();
         if (this.chainLeft === 0 && Math.random() < 0.3) this.queueHeavy = 0.35;
       }
     }
     if (this.queueHeavy > 0) {
       this.queueHeavy -= dt;
-      if (this.queueHeavy <= 0 && f.disarmT <= 0 && f.armLockT <= 0) kit.heavy();
+      if (this.queueHeavy <= 0 && (f.disarmT <= 0 || !!kit.bareHands?.()) && f.armLockT <= 0) kit.heavy();
     }
 
     // ---- movement

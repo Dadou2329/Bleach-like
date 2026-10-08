@@ -59,4 +59,9 @@ export interface Kit {
   ai(): KitAI;
   /** HUD form label */
   formName(): string;
+  /**
+   * still fights with bare hands when disarmed (Kaien kept punching after his sword shattered): while this returns
+   * true, LMB and RMB reach the kit even with disarmT running
+   */
+  bareHands?(): boolean;
 }

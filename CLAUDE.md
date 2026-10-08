@@ -115,7 +115,11 @@ scope and milestones and `README.md` for controls and modes.
   `WaveWall`, `TentacleStrike` — a voxel tentacle raised and slammed or swept — Spirit Body Fusion's lash, the blade
   shatter, the pool's boil, the slough of Kaien's face; the kit's `sunlit(g, p)` is the light query: a ray toward
   `atmo.sunDir` (32 m); `Fighter.scrambleT/scrambleA` turn a hooked victim's steps; `KitAI.goal` sends the duel AI
-  somewhere first — he walks for the shade) and
+  somewhere first — he walks for the shade); Kaien Shiba shares Nejibana with him: `chars/nejibana.ts` (the props),
+  `chars/kaienClips.ts` (the fencer's and the trident's clips), `game/kits/nejibanaMoves.ts` (the cuts with their water
+  arcs, Shakkahō, the release, the tide, the wave, the spiral; a kit implements `NejibanaHost`) and
+  `game/kits/soulHooks.ts` (Spirit Body Fusion's hooks: drain + scrambled steps); `Kit.bareHands()` lets a disarmed
+  fighter's LMB/RMB still reach its kit (fists) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
