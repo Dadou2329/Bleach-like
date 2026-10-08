@@ -54,8 +54,9 @@ export class BoneSnake implements Projectile {
   /** shaken out of line (0..1) */
   scatter = 0;
   private jitter: THREE.Vector3[] = [];
-  /** red reiatsu glow on the bone (0..1) */
+  /** red reiatsu glow on the bone (0..1), and its colour */
   glow = 0;
+  glowColor: [number, number, number] = [1, 0.3, 0.26];
   /** fighters already hit by the current swing */
   readonly hit = new Set<number>();
   /** damage dealt by a fast-moving skull (0 = harmless) */
@@ -209,8 +210,9 @@ export class BoneSnake implements Projectile {
     _q.setFromUnitVectors(Z, this.look);
     this.skull.quaternion.slerp(_q, 0.35);
     const gl = this.glow;
-    this.skull.material.userData.uniforms.uFlash.value.set(1, 0.3, 0.26, gl * 0.5);
-    this.bodyMat.userData.uniforms.uFlash.value.set(1, 0.3, 0.26, gl * 0.6);
+    const [cr, cg, cb] = this.glowColor;
+    this.skull.material.userData.uniforms.uFlash.value.set(cr, cg, cb, gl * 0.5);
+    this.bodyMat.userData.uniforms.uFlash.value.set(cr, cg, cb, gl * 0.6);
     for (let s = 0; s < SNAKE_SEGS; s++) {
       const p = this.segPos[s];
       const ahead = s === 0 ? this.head : this.segPos[s - 1];

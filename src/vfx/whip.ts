@@ -75,7 +75,7 @@ export class SegmentedWhip implements Projectile {
   private fillMat: ReturnType<typeof createCharMaterial>;
   private t = 0;
 
-  constructor(private g: Game, private owner: Fighter, private hilt: () => THREE.Object3D | null) {
+  constructor(private g: Game, private owner: Fighter, private hilt: () => THREE.Object3D | null, colors: { thread: string; trail: string; core: string } = { thread: '#FF6B6B', trail: '#FF6B6B', core: '#FFD1D1' }) {
     for (let i = 0; i < N; i++) {
       const m = new PropMesh(renjiProp(`seg${i}` as RenjiProp));
       m.castShadow = true;
@@ -92,9 +92,9 @@ export class SegmentedWhip implements Projectile {
     this.threadPos = new Float32Array((N + 1) * 3);
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(this.threadPos, 3));
-    this.thread = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: '#FF6B6B', transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false }));
+    this.thread = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: colors.thread, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false }));
     this.thread.frustumCulled = false;
-    this.trail = new SwordTrail(24, '#FF6B6B', '#FFD1D1');
+    this.trail = new SwordTrail(24, colors.trail, colors.core);
     const fb = buildCached(renjiProp('seg3'), false);
     this.fillMat = createCharMaterial(fb.palette, fb.params, 48);
     this.fill = new THREE.InstancedMesh(fb.geometry, this.fillMat, FILL_MAX);

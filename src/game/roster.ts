@@ -62,6 +62,8 @@ import { hitsugayaAsset, hitsugayaProp } from '../chars/hitsugaya';
 import { AIZEN_DEF, AizenKit } from './kits/aizen';
 import { aizenAsset, aizenProp } from '../chars/aizen';
 import { RENJI_DEF, RenjiKit } from './kits/renji';
+import { RENJI_TYBW_DEF, RenjiTybwKit } from './kits/renjiTybw';
+import { renjiTybwAsset, renjiTybwProp } from '../chars/renjiTybw';
 import { renjiAsset, renjiProp } from '../chars/renji';
 import { RUKIA_DEF, RukiaKit } from './kits/rukia';
 import { rukiaAsset, rukiaProp } from '../chars/rukia';
@@ -307,11 +309,31 @@ export const ROSTER: RosterEntry[] = [
     kanji: '蛇尾丸',
     title: 'Lieutenant, 6th Division',
     color: '#ff5a5f',
+    group: 'renji',
+    era: 'Lieutenant',
     def: () => ({ ...RENJI_DEF, speed: { ...RENJI_DEF.speed } }),
     kit: (f, g) => new RenjiKit(f, g),
     warm: () => {
       buildCached(renjiAsset('bankai').model, true);
       for (const k of ['hilt', 'seg0', 'seg1', 'seg2', 'seg3', 'seg4', 'seg5', 'handle', 'skull', 'vertebra'] as const) buildCached(renjiProp(k), false);
+    },
+  },
+  {
+    id: 'renji-tybw',
+    name: 'Renji Abarai',
+    kanji: '双王蛇尾丸',
+    title: 'Thousand-Year Blood War',
+    color: '#f5c542',
+    group: 'renji',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...RENJI_TYBW_DEF, speed: { ...RENJI_TYBW_DEF.speed } }),
+    kit: (f, g) => new RenjiTybwKit(f, g),
+    warm: () => {
+      buildCached(renjiTybwAsset('soo').model, true);
+      for (const k of ['hilt', 'seg0', 'seg1', 'seg2', 'seg3', 'seg4', 'seg5', 'skull', 'skull-flame', 'vertebra'] as const) buildCached(renjiProp(k), false);
+      for (const k of ['soo-blade', 'orochio', 'orochio-hot', 'tail-vert', 'fur-clump', 'hand-open', 'hand-fist'] as const) buildCached(renjiTybwProp(k), false);
+      for (const k of ['hihio', 'hihio-bare'] as const) buildCached(renjiTybwProp(k), true);
     },
   },
   {

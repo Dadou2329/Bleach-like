@@ -207,6 +207,24 @@ G state, V flare); press **H** in game for the current character's moves.
     lunges, sweeps and smashes craters (RMB). **Hikotsu Taihō** (Q) fires a red beam from its jaws. It can bite
     an enemy, lift it and drive it into the ground (E). Every vertebra can ring the target and strike at once
     (R), and part of the body can burrow and burst up under the enemy (G).
+  - **Eras**: Renji is one card with two chips — **Lieutenant** (the kit above) and **Thousand-Year Blood War**,
+    the card's default. TYBW: back from the Royal Palace in the **Ōken clothing** (tiger-striped bandana, black visor,
+    tiger-striped fur-hemmed jacket, white double-breasted mantle). Sealed R is the **catch** — the open hand stops a
+    blow dead and the elbow drives the attacker into a crater; the Shikai's lashes bat shots out of the air.
+    - F from the Shikai: **Bankai, Sōō Zabimaru**, the true name. The Ōken tears away, the reiatsu turns gold. The
+      right forearm is a snake skull with a blade in its mouth; the left shoulder carries **Hihiō**, the baboon
+      king's giant skeletal, green-furred arm, which copies his left arm. LMB: the arm-blade string (cut, cut, the
+      skull driven up, Hihiō's hammer-fist rupturing the street). RMB: Hihiō's punch, jet-boosted from the bone disk
+      on its shoulder. Q: **Orochiō**, the blade grown long and serrated; Q again while it lasts, the **whip-snake**
+      (the blade on its tail bites the target, lifts it and slams it down); RMB in Orochiō, the **red-hot throw** on
+      the tail, which punches through walls and blows up what it passes — RMB again hauls him to whatever it pinned.
+      E: **Zazekka**, the blade come apart into an exploding whip that bats big shots away. R: **Hihi Tenshō**, fur
+      clumps round the target sprouting giant hands that grab and crush. F: **Zaga Teppō** at arm's length (impale,
+      twist, a serpent skull of burning reishi bites down; a foe near the end is left an ash husk), or **Hikotsu
+      Taihō** out of Hihiō's palm at range. G: **Zagai Zekkō** — Hihiō whirls the skull overhead on its tail; it
+      swells into a flaming bone snake with a disc of fire round it while he walks (up to twenty seconds); G again
+      hurls it, and the crater grows with the charge. Idle, Hihiō's palm swallows shots from the front until its fur
+      is shredded; sealed in Bankai, a furless Hihiō still tears out of him once for a last weak Hikotsu Taihō.
 - **Rukia Kuchiki**: a quick, turning katana string closed by a Hakuda kick, and her Kidō: **Sōkatsui** (Q),
   **Hainawa** with **Rikujōkōrō** grown out of it (E; Q on a bound target fires the doubled **Sōren
   Sōkatsui**), **Byakurai** (R).
@@ -1006,7 +1024,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`)
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

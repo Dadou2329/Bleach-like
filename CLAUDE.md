@@ -44,7 +44,8 @@ scope and milestones and `README.md` for controls and modes.
   `ichigoAgent.ts`, `ichigoFullbring.ts` and `ichigoLizard.ts` (the Hollowfied body: it sheds into an inner
   `IchigoKit` in Bankai with the mask on), whose forms swap stance and clip sets with the body; Hitsugaya's TYBW era
   (`hitsugayaTybw.ts`) subclasses `HitsugayaKit` (its bodies come from `captainAsset()`/`bankaiAsset()`, Ryūsenka's
-  cross from `crest()`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
+  cross from `crest()`); Renji's TYBW era (`renjiTybw.ts`) subclasses `RenjiKit` (the Ōken body; F from the
+  Shikai is Sōō Zabimaru, whose Hihiō moves bring the arm out with `showHihio(secs, fist)`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
   the Lost Agent's restored Shikai run an inner `IchigoKit` with `era: 'agent' | 'lostagent'`, and the Soul Society
   entry is `IchigoKit` with `era: 'ss'`, where G lets the Hollow out: `Kit.possessed()` hands the player's body to a
   `DuelistAI` and the player's only input is the mash that tears the mask off), AI in `game/ai/`, projectiles in
@@ -139,6 +140,10 @@ scope and milestones and `README.md` for controls and modes.
   bites and drags back — white-matter regeneration and the husk cracking off),
   `vfx/hitsugayaTybw.ts` (TYBW Hitsugaya: `RokuiTrap`, `WovenWall` (real ice voxels, melted when it goes),
   `VacuumBlade` (pins: `rooted`), `FrostMarker`, `FreezeBox` — Shikai Hyōketsu), `flashFreeze`,
+  `vfx/sooZabimaru.ts` (TYBW Renji: `HihioArm`, the giant arm on his left shoulder — a mirror rig copying his left
+  arm's rotations, with a pose of its own for the umbrella and a furless ghost — Hihi Tenshō's hands, Zaga Teppō's
+  burning skull, Zagai Zekkō's whirl and disc; `TetherBlade` in `vfx/shiro.ts` takes a bead tether, `bore` and
+  `pullOwner` for the red-hot Orochiō) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

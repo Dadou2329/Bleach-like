@@ -1122,10 +1122,10 @@ export class RenjiKit implements Kit {
   comboIndex = 0;
   whip: SegmentedWhip | null = null;
   snake: BoneSnake | null = null;
-  private lastEnd = 0;
+  protected lastEnd = 0;
   private lastKido = -10;
   private curveSide = 1;
-  private cd = { heavy: 0, shakkaho: 0, chant: 0, curve: 0, wrap: 0, whirl: 0, higa: 0, taiho: 0, bite: 0, higa2: 0, burrow: 0 };
+  protected cd = { heavy: 0, shakkaho: 0, chant: 0, curve: 0, wrap: 0, whirl: 0, higa: 0, taiho: 0, bite: 0, higa2: 0, burrow: 0 };
 
   constructor(readonly f: Fighter, readonly g: Game) {
     f.data.kit = this;
@@ -1179,7 +1179,7 @@ export class RenjiKit implements Kit {
     return this.curveSide;
   }
 
-  private setHands(): void {
+  protected setHands(): void {
     const rig = this.f.visual.rig;
     rig.setBoneVisible('fist.R', true);
     rig.setBoneVisible('palm.R', false);
@@ -1214,7 +1214,7 @@ export class RenjiKit implements Kit {
     f.act(this.form === 'shikai' ? new LashAction(this, list[idx], idx, f) : new CutAction(this, list[idx], list[idx], idx), true);
   }
 
-  private special(a: FighterAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
+  protected special(a: FighterAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
     const f = this.f;
     if (this.cd[cdKey] > 0) return false;
     if (f.action && !f.action.canCancel(a)) return false;
@@ -1229,7 +1229,7 @@ export class RenjiKit implements Kit {
   }
 
   /** a target close enough for a technique that needs one */
-  private near(range: number): Fighter | null {
+  protected near(range: number): Fighter | null {
     const t = this.target();
     return t && t.pos.distanceTo(this.f.pos) <= range ? t : null;
   }
@@ -1380,7 +1380,7 @@ export class RenjiKit implements Kit {
     this.applyStats();
   }
 
-  private applyStats(): void {
+  protected applyStats(): void {
     const f = this.f;
     f.power = (this.form === 'bankai' ? 1.4 : this.form === 'shikai' ? 1.15 : 1) * (this.flare ? 1.25 : 1);
     f.damageTaken = this.form === 'bankai' ? 0.85 : 0.95;

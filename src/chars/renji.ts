@@ -22,7 +22,7 @@ export const RENJI_RES = (48 * 84) / 90;
 export type RenjiForm = 'lieutenant' | 'bankai';
 
 /** Tall, broad-shouldered, long-limbed, lean. */
-const SPEC: HumanoidSpec = {
+export const SPEC: HumanoidSpec = {
   ...SPEC_ADULT_MALE,
   shoulder: [10.2, 66.5, -0.5],
   upperArm: 14.8,
@@ -32,7 +32,7 @@ const SPEC: HumanoidSpec = {
   hips: [7.4, 4.7],
 };
 
-function palette(b: ModelBuilder, form: RenjiForm): void {
+export function palette(b: ModelBuilder, form: RenjiForm | 'none'): void {
   b.mat('skin', ['#F3CBA6', '#E9BA90', '#D9A47C', '#C99671', '#A8765A'], { base: 1, rough: 0.6, shadeK: 0.9 });
   b.mat('hair', ['#E84652', '#C7202F', '#A51A28', '#871321', '#6A0F1A'], { base: 1, rough: 0.5, shadeK: 0.85, dither: 0.06 });
   b.mat('band', ['#F3F3F0', '#E2E2E0', '#C8C8C6'], { base: 0, rough: 0.8 });
@@ -60,7 +60,7 @@ function palette(b: ModelBuilder, form: RenjiForm): void {
  * Sharp, cocky: the tattooed brows as single heavy strokes that break into a point toward the temples, a
  * skin row between them and the narrow eyes, a toothy smirk. Rows 9 → 0 (row 9 sits under the headband).
  */
-const FACE = [
+export const FACE = [
   '. . . . . . . . . .',
   '. T T T . . T T T .',
   'T . . . . . . . . T',
@@ -85,15 +85,15 @@ export function renjiAsset(form: RenjiForm): CharacterAsset {
 /**
  * 'katana' (sealed Zabimaru), 'sheath' / 'sheath-empty', 'hilt' (the Shikai's hilt and guard),
  * 'seg0'..'seg5' (the six Shikai segments, base → tip), 'handle' (the Bankai's bone tail end),
- * 'skull' and 'vertebra' (Hihiō Zabimaru, 16 vox/m).
+ * 'skull' and 'vertebra' (Hihiō Zabimaru, 16 vox/m); 'skull-flame' (the same skull of burning reishi: Zaga Teppō).
  */
-export type RenjiProp = 'katana' | 'sheath' | 'sheath-empty' | 'hilt' | 'seg0' | 'seg1' | 'seg2' | 'seg3' | 'seg4' | 'seg5' | 'handle' | 'skull' | 'vertebra';
+export type RenjiProp = 'katana' | 'sheath' | 'sheath-empty' | 'hilt' | 'seg0' | 'seg1' | 'seg2' | 'seg3' | 'seg4' | 'seg5' | 'handle' | 'skull' | 'skull-flame' | 'vertebra';
 
 export function renjiProp(kind: RenjiProp): VoxelModel {
   let m = propCache.get(kind);
   if (!m) {
     m = kind === 'katana' ? buildKatana(true) : kind === 'hilt' ? buildKatana(false) : kind === 'sheath' || kind === 'sheath-empty' ? buildSheath(kind === 'sheath')
-      : kind === 'handle' ? buildHandle() : kind === 'skull' ? buildSnakeSkull() : kind === 'vertebra' ? buildVertebra() : buildSegment(Number(kind.slice(3)));
+      : kind === 'handle' ? buildHandle() : kind === 'skull' || kind === 'skull-flame' ? buildSnakeSkull(kind === 'skull-flame') : kind === 'vertebra' ? buildVertebra() : buildSegment(Number(kind.slice(3)));
     propCache.set(kind, m);
   }
   return m;
@@ -123,6 +123,7 @@ export function buildRenji(form: RenjiForm = 'lieutenant'): CharacterAsset {
   b.stamp('head', hd.x0, hd.chin + 9, FACE, { ...faceLegend({ skin: 'skin', brow: 'tattoo', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), T: { mat: 'tattoo' } }, hd.front - 1);
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
   hair(b, L, hd);
+  headband(b, L, hd);
   tattoos(b, L);
   hands(b, L, 'skin');
   feet(b, L, 'tabi', 'straw', 'cord');
@@ -143,10 +144,9 @@ export function buildRenji(form: RenjiForm = 'lieutenant'): CharacterAsset {
 
 /**
  * Crimson hair: everything drawn up and back from a sharp widow's peak to a white tie high on the back of
- * the crown, where it bursts into a fan of thick spikes (the "pineapple"); the white headband round the
- * forehead, knotted at the back with two short tails on a spring bone.
+ * the crown, where it bursts into a fan of thick spikes (the "pineapple"); `long` (TYBW): the spikes grown out.
  */
-function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; chin: number }): void {
+export function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; chin: number }, long = false): void {
   const s = L.spec;
   const c = hd.chin, front = hd.front;
   const back = L.headC[2] - s.head.d / 2;
@@ -170,10 +170,20 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; ch
     [[0.75, 0.45, -0.6], 9, 2.8], [[-0.75, 0.45, -0.6], 9, 2.8], [[0, 0.55, -0.85], 10.5, 3.1],
     [[0.35, 0.1, -1], 8.5, 2.7], [[-0.35, 0.1, -1], 8.5, 2.7], [[0, -0.25, -1], 7.5, 2.6],
   ];
-  for (const [d, len, r] of tail) b.add('head', spike(tie, d, len, r, r * 0.6, { tip: 0.3 }), 'hair', { thr: 0.3 });
+  const grow = long ? 1.35 : 1;
+  for (const [d, len, r] of tail) b.add('head', spike(tie, d, len * grow, r * (long ? 1.12 : 1), r * (long ? 0.75 : 0.6), { tip: long ? 0.6 : 0.3 }), 'hair', { thr: 0.3 });
   // strands drawn back
   b.paint('head', fn((x) => Math.abs(((x + 40) % 2.2) - 1.1) - 0.32, [-9, c, -16], [9, c + 22, 9]), 'hair', { shade: 3, where: b.isMat('hair') });
-  // the headband: a white band round the forehead just under the hairline, knotted at the back
+  // the eyes clear
+  b.carve('head', aabb([-5, c + 4, front], [-1, c + 7, front + 6]));
+  b.carve('head', aabb([1, c + 4, front], [5, c + 7, front + 6]));
+}
+
+/** The white headband round the forehead just under the hairline, knotted at the back, two short tails on a spring bone. */
+export function headband(b: ModelBuilder, L: Landmarks, hd: { chin: number }): void {
+  const s = L.spec;
+  const c = hd.chin;
+  const back = L.headC[2] - s.head.d / 2;
   const by = c + 10.2;
   b.add('head', intersect(
     subtract(ellipsoid([0, by, L.headC[2] - 0.2], [6.6, 1.4, 6.9]), ellipsoid([0, by, L.headC[2] - 0.2], [5.4, 3, 5.7])),
@@ -181,13 +191,10 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; ch
   b.add('head', sphere([0, by, back - 0.6], 1.3), 'band');
   b.bone('band.tails', 'head', [0, by, back - 1]);
   for (const k of [-1, 1]) b.add('band.tails', capsule([k * 0.4, by, back - 1.2], [k * 1.6, by - 4.5, back - 2.4], 0.75, 0.6), 'band', { thr: 0.2 });
-  // the eyes clear
-  b.carve('head', aabb([-5, c + 4, front], [-1, c + 7, front + 6]));
-  b.carve('head', aabb([1, c + 4, front], [5, c + 7, front + 6]));
 }
 
 /** Tribal bands down both sides of the neck to the collar, jagged. */
-function tattoos(b: ModelBuilder, L: Landmarks): void {
+export function tattoos(b: ModelBuilder, L: Landmarks): void {
   const s = L.spec;
   const c = s.chinY;
   for (const k of [-1, 1]) {
@@ -242,7 +249,7 @@ function baboonGarb(b: ModelBuilder, L: Landmarks): void {
 
 // ---------------------------------------------------------------------------------------------- props
 
-function bladeMats(b: ModelBuilder): void {
+export function bladeMats(b: ModelBuilder): void {
   b.mat('steel', ['#E2E5E9', '#C9CDD2', '#A5AAB1', '#8B9096'], { base: 1, rough: 0.2, metal: 0.9, shadeK: 0.6 });
   b.mat('edge', ['#EEF1F4'], { rough: 0.12, metal: 0.8 });
   b.mat('spine', ['#9AA0A7', '#8B9096', '#6E737A'], { base: 1, rough: 0.3, metal: 0.85 });
@@ -362,13 +369,22 @@ function buildHandle(): VoxelModel {
  * jaw full of fangs, a hinged-open lower jaw, a ridge of horn-plates — and a great red mane round the back
  * of it. Origin at the back of the skull (where the first vertebra joins), looking along +Z.
  */
-function buildSnakeSkull(): VoxelModel {
-  const b = new ModelBuilder('hihio-skull', 16);
-  b.mat('bone', ['#F0E8D4', '#E6DCC4', '#CFC2A4', '#B9AC8E', '#8E8268'], { base: 1, rough: 0.7, shadeK: 0.9 });
-  b.mat('socket', ['#2A2018', '#1C1612']);
-  b.mat('fang', ['#F3F0E6', '#E2DCCB']);
-  b.mat('mane', ['#D23A44', '#B5232E', '#931B26', '#7E1620'], { base: 1, rough: 0.95, shadeK: 0.9, dither: 0.12 });
-  b.mat('glow', ['#FF8A7A', '#FF2E2E'], { glow: 2.2 });
+function buildSnakeSkull(flame = false): VoxelModel {
+  const b = new ModelBuilder(flame ? 'zaga-skull' : 'hihio-skull', 16);
+  if (flame) {
+    // burning reishi: the bone is flame, the mane a corona, the sockets white-hot
+    b.mat('bone', ['#FFD27A', '#FFAA44', '#FF6A2A', '#E2361C', '#B8260F'], { base: 2, rough: 0.5, glow: 1.5 });
+    b.mat('socket', ['#FFE9B0', '#FFD27A'], { glow: 3 });
+    b.mat('fang', ['#FFF1C2', '#FFD98A'], { glow: 2.4 });
+    b.mat('mane', ['#FF8A2A', '#E2361C', '#C42A14', '#9E1E0E'], { base: 1, rough: 0.6, glow: 1.2, dither: 0.12 });
+    b.mat('glow', ['#FFF6D8', '#FFE9B0'], { glow: 3.2 });
+  } else {
+    b.mat('bone', ['#F0E8D4', '#E6DCC4', '#CFC2A4', '#B9AC8E', '#8E8268'], { base: 1, rough: 0.7, shadeK: 0.9 });
+    b.mat('socket', ['#2A2018', '#1C1612']);
+    b.mat('fang', ['#F3F0E6', '#E2DCCB']);
+    b.mat('mane', ['#D23A44', '#B5232E', '#931B26', '#7E1620'], { base: 1, rough: 0.95, shadeK: 0.9, dither: 0.12 });
+    b.mat('glow', ['#FF8A7A', '#FF2E2E'], { glow: 2.2 });
+  }
   b.bone('root', null, [0, 0, 0]);
   // cranium and the long snout
   b.add('root', blend(3,

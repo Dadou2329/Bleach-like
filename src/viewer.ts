@@ -61,6 +61,7 @@ import { buildHitsugaya, hitsugayaProp } from './chars/hitsugaya';
 import { adultWings, buildHitsugayaAdult } from './chars/hitsugayaAdult';
 import { ADULT_CLIPS, ADULT_STANCE } from './chars/hitsugayaAdultClips';
 import { buildRenji, renjiProp, SEGMENT_BASE, SEGMENT_LEN, type RenjiProp } from './chars/renji';
+import { buildRenjiTybw, renjiTybwProp, type RenjiTybwProp } from './chars/renjiTybw';
 import { buildRukia, rukiaProp } from './chars/rukia';
 import { buildChad } from './chars/chad';
 import { buildUryu, uryuProp } from './chars/uryu';
@@ -144,7 +145,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     : who === 'aizen' ? buildAizen((['traitor', 'chrysalis'].includes(params.get('form') ?? '') ? params.get('form') : 'captain') as AizenForm)
     : who === 'hitsugaya' ? buildHitsugaya(form === 'bankai' ? 'bankai' : 'captain')
     : who === 'toshiro' ? (kForm() === 'adult' ? buildHitsugayaAdult() : buildHitsugaya(kForm() === 'tybw-hollow' ? 'tybw-hollow' : kForm() === 'tybw-bankai' ? 'tybw-bankai' : 'tybw'))
-    : who === 'renji' ? buildRenji(form === 'bankai' ? 'bankai' : 'lieutenant')
+    : who === 'renji' ? (kForm().startsWith('oken') ? buildRenjiTybw('oken') : kForm() === 'soo' ? buildRenjiTybw('soo') : buildRenji(form === 'bankai' ? 'bankai' : 'lieutenant'))
+    : who === 'hihio' ? { model: kForm() === 'skull-flame' ? renjiProp('skull-flame') : renjiTybwProp((['hihio-bare', 'fur-clump', 'hand-open', 'hand-fist', 'orochio', 'orochio-hot', 'soo-blade', 'tail-vert'].includes(kForm()) ? kForm() : 'hihio') as RenjiTybwProp), springs: [], colliders: [], warnings: [] }
     : who === 'rukia' ? buildRukia(form === 'bankai' ? 'bankai' : 'shinigami')
     : who === 'chad' ? buildChad((['gigante', 'true'].includes(params.get('form') ?? '') ? params.get('form') : 'human') as 'human' | 'gigante' | 'true')
     : who === 'uryu' ? buildUryu(params.get('form') === 'letzt' ? 'letzt' : 'quincy')
@@ -428,9 +430,16 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     ch.rig.setBoneVisible(drawn ? 'palm.R' : 'fist.R', false);
     ch.rig.setBoneVisible('fist.L', false);
   }
-  if (who === 'renji') {
+  if (who === 'renji' && (params.get('form') ?? '').startsWith('oken') === false && params.get('form') === 'soo') {
+    // Sōō Zabimaru: the blade out of the gauntlet's mouth (&orochio=1: Orochiō, =hot: red-hot)
+    const oro = params.get('orochio');
+    ch.attach('sword', renjiTybwProp(oro === 'hot' ? 'orochio-hot' : oro ? 'orochio' : 'soo-blade'), 'grip.R');
+    ch.rig.setBoneVisible('palm.R', false);
+    ch.rig.setBoneVisible('fist.L', false);
+  } else if (who === 'renji') {
     // sealed: the katana; shikai: the hilt with the six segments assembled on it; bankai: the bone handle
-    const f = params.get('form') ?? 'sealed';
+    // (oken / oken-shikai: the same, in the Ōken clothing)
+    const f = (params.get('form') ?? 'sealed').replace('oken-', '').replace('oken', 'sealed');
     if (f === 'shikai') {
       ch.attach('sword', renjiProp('hilt'), 'grip.R');
       let z = SEGMENT_BASE;
@@ -657,10 +666,12 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   };
   setMask(params.get('mask'));
   // body scale (close-ups) and full-view scale (released wings widen the full views)
-  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'toshiro' ? (kForm() === 'adult' ? 1.04 : 0.8) : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'szayel' ? 1.06 : who === 'yammy' ? (params.get('form') === 'ira' ? 6.3 : params.get('form') === 'ape' ? 7.2 : 1.32) : who === 'zommari' ? (params.get('form') ? 1.85 : 1.12) : who === 'kaien' ? 1.06 : who === 'tybw' || who === 'dangai' || who === 'fullbring' || who === 'lizard' ? 1.04 : who === 'aaroniero' ? (params.get('form') === 'glotoneria' ? 5.4 : 1.18) : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : 1;
+  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'toshiro' ? (kForm() === 'adult' ? 1.04 : 0.8) : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'szayel' ? 1.06 : who === 'yammy' ? (params.get('form') === 'ira' ? 6.3 : params.get('form') === 'ape' ? 7.2 : 1.32) : who === 'zommari' ? (params.get('form') ? 1.85 : 1.12) : who === 'kaien' ? 1.06 : who === 'tybw' || who === 'dangai' || who === 'fullbring' || who === 'lizard' ? 1.04 : who === 'aaroniero' ? (params.get('form') === 'glotoneria' ? 5.4 : 1.18) : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : who === 'hihio' ? ({ 'hihio-bare': 2.4, 'hand-open': 1.4, 'hand-fist': 1.4, 'fur-clump': 0.8, 'skull-flame': 2.6, 'tail-vert': 0.15, 'soo-blade': 1.1, orochio: 1.4, 'orochio-hot': 1.4 } as Record<string, number>)[kForm()] ?? 2.4 : 1;
   const viewScale = who === 'ulquiorra' && params.get('form') && params.get('form') !== 'sealed' ? 1.7 : who === 'hitsugaya' && form === 'bankai' ? 1.7 : who === 'toshiro' && (kForm() === 'tybw-bankai' || kForm() === 'tybw-hollow') ? 1.7 : bodyScale;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);
+  // the giant arm, the hands and the blades hang down from their origin: lift them clear of the floor
+  if (who === 'hihio') ch.object.position.y += kForm().startsWith('hand') ? 2.3 : kForm() === 'hihio' || kForm() === 'hihio-bare' || kForm() === 'bankai' ? 3.9 : ['soo-blade', 'orochio', 'orochio-hot'].includes(kForm()) ? 2.1 : 0.2;
   eng.gr.scene.add(ch.object);
   const pose = new Pose(ch.rig.count);
   const aura = new Aura(ch, form === 'bankai' ? AURA_ICHIGO_BANKAI : AURA_ICHIGO_SHIKAI, eng.glow);

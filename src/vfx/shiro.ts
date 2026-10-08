@@ -7,7 +7,8 @@ import * as THREE from 'three';
 import type { Game, Projectile } from '../game/game';
 import type { Fighter } from '../game/fighter';
 import type { VoxelModel } from '../models/builder';
-import { PropMesh } from '../game/characterFactory';
+import { PropMesh, buildCached } from '../game/characterFactory';
+import { createCharMaterial } from '../render/charMaterial';
 import { CapsuleShape, SphereShape } from '../destruction/shapes';
 import { groundAt } from './iceArts';
 import type { EnergyColors } from './energy';
@@ -33,6 +34,7 @@ const _s = new THREE.Vector3();
 const _col = new THREE.Color();
 const UP = new THREE.Vector3(0, 1, 0);
 const Y = new THREE.Vector3(0, 1, 0);
+const Z = new THREE.Vector3(0, 0, 1);
 
 /** Squared distance between the segments p1–q1 and p2–q2. */
 export function segSegDist2(p1: THREE.Vector3, q1: THREE.Vector3, p2: THREE.Vector3, q2: THREE.Vector3): number {
@@ -126,6 +128,55 @@ class ClothLine implements TetherLine {
 const MAX_LINKS = 420;
 const LINK = 0.07;
 
+/** A tether of bone beads (a vertebral tail): one small voxel model strung along the line, each bead aimed along it. */
+export class BeadLine implements TetherLine {
+  private mesh: THREE.InstancedMesh;
+  private mat: ReturnType<typeof createCharMaterial>;
+  private h = new THREE.Vector3();
+  private e = new THREE.Vector3();
+  constructor(g: Game, bead: VoxelModel, private gap: number, private max = 400) {
+    const b = buildCached(bead, false);
+    this.mat = createCharMaterial(b.palette, b.params, bead.res);
+    this.mesh = new THREE.InstancedMesh(b.geometry, this.mat, max);
+    this.mesh.frustumCulled = false;
+    this.mesh.castShadow = true;
+    this.mesh.count = 0;
+    g.engine.gr.scene.add(this.mesh);
+  }
+  /** a glow over every bead (rgb + strength) */
+  flash(r: number, gr: number, bl: number, k: number): void {
+    this.mat.userData.uniforms.uFlash.value.set(r, gr, bl, k);
+  }
+  hide(): void {
+    this.mesh.count = 0;
+  }
+  update(from: THREE.Vector3, to: THREE.Vector3, sag: number, t: number): void {
+    const h = this.h.copy(from), e = this.e.copy(to);
+    const span = h.distanceTo(e);
+    const n = Math.max(1, Math.min(this.max, Math.ceil(span / this.gap)));
+    this.mesh.count = n;
+    // a slow sideways sway along the slack tail
+    const across = _v.subVectors(e, h).cross(UP);
+    if (across.lengthSq() < 1e-8) across.set(1, 0, 0);
+    across.normalize();
+    const P = (u: number, out: THREE.Vector3) => out.lerpVectors(h, e, u).setY(h.y + (e.y - h.y) * u - sag * 4 * u * (1 - u)).addScaledVector(across, Math.sin(u * 7 + t * 4) * sag * 0.15 * Math.sin(u * Math.PI));
+    for (let i = 0; i < n; i++) {
+      P(i / n, _a);
+      P((i + 1) / n, _b);
+      _c.subVectors(_b, _a);
+      if (_c.lengthSq() < 1e-8) _c.set(0, 0, 1);
+      _q.setFromUnitVectors(Z, _c.normalize());
+      _m.compose(_d.addVectors(_a, _b).multiplyScalar(0.5), _q, _s.set(1, 1, 1));
+      this.mesh.setMatrixAt(i, _m);
+    }
+    this.mesh.instanceMatrix.needsUpdate = true;
+  }
+  dispose(): void {
+    this.mesh.removeFromParent();
+    this.mat.dispose();
+  }
+}
+
 /** The chain: oval rings along the line, every other one turned a quarter, as many as the span needs. */
 export class ChainLine implements TetherLine {
   private mesh: THREE.InstancedMesh;
@@ -174,7 +225,10 @@ export class ChainLine implements TetherLine {
 // ------------------------------------------------------------------ the blade on its tether
 
 export interface TetherStyle {
-  kind: 'cloth' | 'chain';
+  /** cloth, a metal chain, or beads of one small voxel model (`bead`, every `beadGap` m) */
+  kind: 'cloth' | 'chain' | 'beads';
+  bead?: VoxelModel;
+  beadGap?: number;
   color: THREE.ColorRepresentation;
   /** grip → tip (m, along the prop's +Z) */
   length: number;
@@ -186,6 +240,8 @@ export interface TetherStyle {
   glow: THREE.ColorRepresentation;
   /** chain link thickness (m) */
   thick?: number;
+  /** the prop's own frame onto the tether's (+Z along the blade, the edge −Y), for props built another way round */
+  frame?: THREE.Matrix4;
 }
 
 export interface TetherHit {
@@ -210,6 +266,15 @@ export interface ThrowOpts {
   impale?: boolean;
   /** pass through fighters (else it comes back off the first one it hits) */
   pierce?: boolean;
+  /**
+   * through walls: solid in its way is bored out (`power`) and each wall it enters blows up (`blast` radius, 0 for
+   * none) instead of stopping it
+   */
+  bore?: { power: number; blast: number };
+  /** impaled: how long it holds before the haul (s, default 0.45; reel() hauls sooner) */
+  pin?: number;
+  /** the haul brings him to the victim instead of the victim to him */
+  pullOwner?: boolean;
 }
 
 export interface OrbitOpts {
@@ -269,6 +334,11 @@ export class TetherBlade implements Projectile {
   private t = 0;
   private whoosh = 0;
   private pinFor = 0.45;
+  private inWall = false;
+  /** the tether line (for a glow over a bead tail) */
+  get tether(): TetherLine {
+    return this.line;
+  }
   private hitFx: THREE.Color;
   private butt = new THREE.Vector3();
 
@@ -278,7 +348,7 @@ export class TetherBlade implements Projectile {
     this.mesh.matrixAutoUpdate = false;
     this.mesh.visible = false;
     g.engine.gr.scene.add(this.mesh);
-    this.line = style.kind === 'chain' ? new ChainLine(g, style.color, style.thick) : new ClothLine(g, style.color);
+    this.line = style.kind === 'beads' && style.bead ? new BeadLine(g, style.bead, style.beadGap ?? 0.1) : style.kind === 'chain' ? new ChainLine(g, style.color, style.thick) : new ClothLine(g, style.color);
     this.grip.copy(hand());
     this.hitFx = new THREE.Color(style.glow);
   }
@@ -301,6 +371,8 @@ export class TetherBlade implements Projectile {
     this.modeT = 0;
     this.out = 0;
     this.hits.clear();
+    this.inWall = false;
+    this.pinFor = o.pin ?? 0.45;
     const h = this.hand();
     this.dir.subVectors(target, h);
     if (this.dir.lengthSq() < 1e-6) this.owner.forward(this.dir);
@@ -424,9 +496,20 @@ export class TetherBlade implements Projectile {
     this.pos.addScaledVector(this.dir, step);
     this.out += step;
     this.orient(dt, o.spin);
-    // into a wall or the ground: bite in and come back (the point-first blade sticks a moment)
+    // into a wall or the ground: bite in and come back (the point-first blade sticks a moment) — or bore through
     const tp = this.tip(_a);
-    if (this.out > 1.2 && g.engine.world.isSolidAtPos(tp.x, tp.y, tp.z)) {
+    if (o.bore && this.out > 1.2) {
+      const solid = g.engine.world.isSolidAtPos(tp.x, tp.y, tp.z);
+      if (solid) {
+        g.engine.destruction.carve(new SphereShape(tp.clone(), 0.9, 0.4), { mode: 'bore', power: o.bore.power, dir: this.dir.clone(), sparks: [1, 0.6, 0.25], dust: 0.4 });
+        if (!this.inWall && o.bore.blast > 0) {
+          g.engine.destruction.carve(new SphereShape(tp.clone(), o.bore.blast, 0.5), { mode: 'explode', power: o.bore.power, sparks: [1, 0.55, 0.2], dust: 0.6 });
+          g.sfx.play('explode', tp, 0.9);
+          g.shake(0.25);
+        }
+      }
+      this.inWall = solid;
+    } else if (this.out > 1.2 && g.engine.world.isSolidAtPos(tp.x, tp.y, tp.z)) {
       g.engine.destruction.carve(new SphereShape(tp.clone(), 1.1, 0.6), { mode: 'cut', power: o.hit.cut, dir: this.dir.clone(), sparks: [0.8, 0.85, 1], dust: 0.5 });
       g.sfx.play('impact', tp, 0.8);
       if (o.spin) this.toReturn();
@@ -539,10 +622,28 @@ export class TetherBlade implements Projectile {
       }
       return;
     }
-    // hauled in on the chain to a step in front of him
+    // hauled in on the chain to a step in front of him (or he is hauled to them)
     const o = this.owner;
     const dx = o.pos.x - v.pos.x, dz = o.pos.z - v.pos.z;
     const d = Math.hypot(dx, dz);
+    if (this.thr?.pullOwner) {
+      if (d < 2 || this.modeT > 1.2) {
+        this.victim = null;
+        this.caught = true;
+        this.done = true;
+        o.push.set(0, 0, 0);
+        return;
+      }
+      const step = Math.min(d - 1.8, 30 * dt);
+      o.body.pos.x -= (dx / d) * step;
+      o.body.pos.z -= (dz / d) * step;
+      o.body.vel.set(0, 0, 0);
+      o.yaw = Math.atan2(-dx, -dz);
+      const gy = groundAt(g, o.body.pos.x, o.body.pos.y + 1, o.body.pos.z, 4);
+      if (gy !== null) o.body.pos.y = Math.max(o.body.pos.y, gy);
+      o.ghosts.spawn(0.25, 0.7);
+      return;
+    }
     if (d < 2.2 || this.modeT > 1.4) {
       // the blade tears free
       g.damage(v, 12, o, _w.set(-dx, 0, -dz).normalize().clone(), { knock: 0, hitstop: 0.06 });
@@ -592,6 +693,7 @@ export class TetherBlade implements Projectile {
     yv.normalize().negate();
     const xv = _c.crossVectors(yv, z).normalize();
     _m.makeBasis(xv, yv, z).setPosition(this.grip);
+    if (this.style.frame) _m.multiply(this.style.frame);
     this.mesh.matrix.copy(_m);
     this.mesh.matrixWorldNeedsUpdate = true;
     this.mesh.visible = this.mode !== 'hold';
