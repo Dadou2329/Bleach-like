@@ -107,6 +107,10 @@ import { shinjiProp } from '../chars/shinji';
 import { flowerAsset } from '../chars/shinjiFlower';
 import { YHWACH_DEF, YhwachKit } from './kits/yhwach';
 import { yhwachAsset, yhwachProp } from '../chars/yhwach';
+import { HASCHWALTH_DEF, HaschwalthKit } from './kits/haschwalth';
+import { haschwalthAsset, haschwalthProp } from '../chars/haschwalth';
+import { BAZZB_DEF, BazzbKit } from './kits/bazzb';
+import { bazzbAsset, bazzbProp } from '../chars/bazzb';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -455,6 +459,32 @@ export const ROSTER: RosterEntry[] = [
     def: () => ({ ...YHWACH_DEF, speed: { ...YHWACH_DEF.speed } }),
     kit: (f, g) => new YhwachKit(f, g),
     warm: () => { for (const k of ['almighty', 'soulking'] as const) buildCached(yhwachAsset(k).model, true); for (const k of ['broadsword', 'mask'] as const) buildCached(yhwachProp(k), false); },
+  },
+  {
+    id: 'haschwalth',
+    name: 'Jugram Haschwalth',
+    kanji: '世界調和',
+    title: 'Sternritter Grandmaster "B" — The Balance',
+    color: '#e8c55a',
+    def: () => ({ ...HASCHWALTH_DEF, speed: { ...HASCHWALTH_DEF.speed } }),
+    kit: (f, g) => new HaschwalthKit(f, g),
+    warm: () => {
+      for (const k of ['night', 'vessel'] as const) buildCached(haschwalthAsset(k).model, true);
+      for (const k of ['sword', 'shield'] as const) buildCached(haschwalthProp(k), false);
+    },
+  },
+  {
+    id: 'bazzb',
+    name: 'Bazz-B',
+    kanji: '灼熱',
+    title: 'Sternritter "H" — The Heat',
+    color: '#ff7a1a',
+    def: () => ({ ...BAZZB_DEF, speed: { ...BAZZB_DEF.speed } }),
+    kit: (f, g) => new BazzbKit(f, g),
+    warm: () => {
+      buildCached(bazzbAsset('voll').model, true);
+      for (const k of ['crossbow', 'flame', 'halo'] as const) buildCached(bazzbProp(k), false);
+    },
   },
   {
     id: 'yoruichi',

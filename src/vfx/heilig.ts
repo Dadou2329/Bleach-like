@@ -987,9 +987,11 @@ export class LightPillar implements Projectile {
   done = false;
   private t = 0;
   private mesh: THREE.Mesh;
-  private mat = additive('#CFF6FD', 1.6, 0.6);
+  private mat: THREE.MeshBasicMaterial;
 
-  constructor(g: Game, private at: THREE.Vector3, readonly dur = 1.4, readonly height = 70) {
+  /** `color`: the Vollständig's own (Uryū's is a pale blue-white, Bazz-B's red) */
+  constructor(g: Game, private at: THREE.Vector3, readonly dur = 1.4, readonly height = 70, color: THREE.ColorRepresentation = '#CFF6FD') {
+    this.mat = additive(color, 1.6, 0.6);
     const geo = new THREE.CylinderGeometry(1, 1, height, 20, 1, true);
     this.mesh = new THREE.Mesh(geo, this.mat);
     this.mesh.frustumCulled = false;

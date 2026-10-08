@@ -210,7 +210,7 @@ export class Fighter {
   heavyB = 0;
   heavyW = 0;
   /** the last blow that reached it: game time, damage, whether the skin shrugged it off */
-  readonly lastHurt = { at: -1, dmg: 0, shrug: false };
+  readonly lastHurt: { at: number; dmg: number; shrug: boolean; from: Fighter | null } = { at: -1, dmg: 0, shrug: false, from: null };
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};

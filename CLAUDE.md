@@ -67,8 +67,8 @@ scope and milestones and `README.md` for controls and modes.
   (reiatsu on a higher plane: beyond `VEIL_RANGE` 8 m `nearestEnemy` skips it, a lock on it drops, the duel AI gropes).
   `heavyB/heavyW` (Wabisuke's doublings on the body and the weapon: `bodyPace` slows the feet, Shunpo and knockback,
   `canJump` is false from ×8, `weaponPace` slows actions and animation; a form change clears the weapon's; the kit
-  that adds them kneels, pins and clears them). `lastHurt` (game time, damage and shrug of the last blow that
-  reached it: an `onHit` can tell whether a cut really cut). `chars/reactionClips.ts` holds poses any humanoid rig
+  that adds them kneels, pins and clears them). `lastHurt` (game time, damage, shrug and source of the last blow
+  that reached it: an `onHit` can tell whether a cut really cut). `chars/reactionClips.ts` holds poses any humanoid rig
   can be forced into (`registerReactions(o.anim)`, then play `weighed_kneel` / `weighed_pin` / `slumber`). `lure`: where
   opponents believe the fighter stands (a decoy, Kyokkō's bent light): the duel AI fights it and the player's lock-on
   and reticle follow it (`seenCenter()`). Kits that build another roster character while a fight runs (Carbon-Copy's
@@ -99,6 +99,15 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/heilig.ts` (TYBW Uryū: the Heilig Bogen and its string, Antithesis' red link and the eyes, Leiden Scherben
   chips, the Standspitze, the Vollständig flechettes and their orbit, Sternenstaub, the Reishi Cage, Federzwinger,
   the Icosahedron Barrier and its beams, the pillar of light, the Schatten pool, `sklaverei()`),
+  `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
+  its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
+  `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand
+  carries the finger counts as hand variants `fing1-5.R`, shown by the kit),
+  `vfx/balance.ts` (Haschwalth: `StarBlast`, the four-point stars; `BalanceScales`, the giant scales that tip;
+  `TheKey`, the Hagal rune and its pillar; `InversionMark`; `BlackTorrent`; the black mend; the shield's flash; his
+  kit's Balance halves wounds through `damageTaken`, reflects them onto `lastHurt.from` in `onHurt` and stores the
+  shield's half; the night's foresight is a `parry` hook); the Sternritter models share `chars/sternritter.ts`
+  (pixel badges and Zeichen set into a coat, the order's long cape, a sheet of long hair on spring bones),
   `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower),
   `vfx/ryumon.ts` (Ikkaku: `RyumonRig` — the centre blade floating on its chains with the dragon crest filling slice by
   slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast),
@@ -158,3 +167,6 @@ scope and milestones and `README.md` for controls and modes.
 - Keep whites at or below `#F3F3F0` and blacks at or above `#141418` (bloom threshold 0.92, ACES).
 - Review every visual change with screenshots before committing, using several angles plus a close-up.
 - Commit and push to the working branch at each milestone. Never commit `shots/` or `node_modules`.
+- Roster exclusions (the user's decision): never add Huburt Alexander Kleich, Shaz Domino, Royd Lloyd, Loyd Lloyd,
+  Nianzol Weizol, Guenael Lee, NaNaNa Najahkoop, James, Mask De Masculine, Jerome Guizbatt, Berenice Gabrielli,
+  Driscoll Berci, Robert Accutrone, PePe Waccabrada, BG9, Quilge Opie, Äs Nödt or Cang Du.

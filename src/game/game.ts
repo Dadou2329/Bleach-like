@@ -304,6 +304,7 @@ export class Game {
     t.lastHurt.at = this.time;
     t.lastHurt.dmg = dmg;
     t.lastHurt.shrug = shrug;
+    t.lastHurt.from = from;
     if (from) from.stats.damageDealt += dmg;
     if (this.hud && !o.quiet) {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;

@@ -202,6 +202,8 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'reishi_crystal', colors: ['#7fd2ff', '#a0e0ff', '#c4eeff'], pattern: 'glass', hardness: 8, density: 1, flags: S | F_EMISSIVE | F_TRANSPARENT, debris: 'glass', glow: 2.0 });
   // rotted by Baraggan's Respira: crumbly, dull brown-grey, falls apart at a touch
   add({ name: 'decayed', colors: ['#3d362f', '#4a4239', '#574e44', '#62584c'], pattern: 'sand', hardness: 1.5, density: 0.8, flags: S, debris: 'dirt' });
+  // a floor turned to lava (Burner Finger 3): a dark red crust over glowing seams, hot yellow veins
+  add({ name: 'magma', colors: ['#5a160c', '#8e2412', '#c83a16', '#f0601e'], accent: '#ffc23a', pattern: 'stone', hardness: 4, density: 2.5, flags: S | F_EMISSIVE, debris: 'rock', glow: 1.5 });
 
   return t;
 }

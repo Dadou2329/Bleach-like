@@ -477,7 +477,9 @@ export class UryuTybwKit implements Kit {
       f.hp = Math.min(f.maxHp, f.hp + lost);
       const away = t.pos.clone().sub(f.pos).setY(0);
       if (away.lengthSq() < 1e-4) away.set(0, 0, 1);
-      g.damage(t, lost, null, away.normalize(), { unblockable: true, heavy: lost > 60, knock: 4, hitstop: 0.12, shake: 0.4, color: ANTI_RED });
+      // the same wound, exactly (his own strength does not scale a reversal), dealt by him
+      const k = Math.max(0.05, f.power * (f === g.player ? g.playerPower : 1) * (1 - f.sealK));
+      g.damage(t, lost / k, f, away.normalize(), { unblockable: true, heavy: lost > 60, knock: 4, hitstop: 0.12, shake: 0.4, color: ANTI_RED });
     }
     this.ledger.length = 0;
     this.prevHp = f.hp;

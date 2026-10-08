@@ -369,6 +369,50 @@ G state, V flare); press **H** in game for the current character's moves.
     **eye beams**, E a swarm of one-eyed creatures, R the **Zeichen** of eye-pillars and its violet blast, G
     **Auswählen** (pillars of light drain everyone near and heal him), and F a crimson exertion that brings
     down what stands round him.
+- **Jugram Haschwalth**, Sternritter Grandmaster "B" and the emperor's right hand: the white trench coat with the
+  dark-green fur strip down its left front, the green belt and gold buckle, the order's hooded cloak and blond
+  hair to the waist; the **Blade of Judgment** in his right hand and the **Freund Schild** on his left forearm.
+  LMB is a knightly string: a rising cut, a level cut, the pommel into the face, the execution. His moves:
+  - Passive: **The Balance**. While the shield is whole he takes half of every wound; the half he takes is
+    reflected onto whoever dealt it, and the half the shield drinks is stored as misfortune. Too much strain
+    shatters the shield, and a blow that disarms him knocks it away.
+  - RMB: **Judgment**, one vertical stroke that splits what stands before him and cuts a blade it meets in half
+    (disarmed for three seconds).
+  - Q: the sword blast, three four-pointed stars in a fan.
+  - E: **Tip the Scales**. Giant scales rise behind him and tip: everyone who wounded him takes back what the
+    shield drank, through any guard. With nothing stored, **the Key**: the Hagal rune burns over his raised sword
+    and a pillar of light comes down on what stands before him.
+  - R: **Fortune Inversion**. For six seconds the target's luck turns: its guard fails, its constructs split and
+    his blows cut deeper.
+  - G: the **Freund Schild** raised. Shots that reach it sink into the ground and blows from the front go into the
+    shield, but he walks slower. With the shield broken, G calls it back.
+  - F: **The Almighty**, for one night (40 seconds). His eyes turn red with three pupils; he loses The Balance and
+    sees the future once every three seconds — the next blow in that look misses. The black coats his blade. RMB
+    is the **foreseen verdict**, struck where the target will be; Q a **black slash**; E a **torrent** of black
+    that chases the target and swallows its shots; R black **thorns** that pin it; G the black **mends** him.
+  - F again: **hAschwAlth** (anime) for 25 seconds — black tears, black hands and a black sash. The blade's reach
+    grows, and RMB sends a wave of black before he strikes from behind. At dawn The Balance comes back.
+- **Bazz-B**, Sternritter "H" — The Heat: the tall red mohawk over shaved sides, the white coat open at the throat
+  over the neck chain, white trousers cropped over black military boots, black gloves and armbands with the white
+  skull. The finger count is the move. LMB up close is a street-brawler's string — a burning hook, a cross, the
+  **melting palm** (what it touches melts, a body it reaches burns on) and the **Burning Stomp**, a ring of fire from
+  his boot that blows away the shots and fields round him; at range LMB is the **Heilig Bogen**, a pistol-grip
+  crossbow whose bolts hole walls cleanly. His moves:
+  - RMB: **Burner Finger 1** — the index finger's beam, instant and thin, through every fighter on the line and a
+    straight round hole through every wall.
+  - Q: **Burner Finger 2** — two lit fingers drag two diagonal flame slashes that fly on and end in tall pillars of
+    fire.
+  - E: **Burner Finger 3** — three fingers at the floor: the ground turns to lava in a disc rolling out from the
+    target; standing in it burns and slows; it cools to a dark crust.
+  - R: **Burner Finger 4** — a great sword of fire grows from four fingers, its long crossguard round the hand. For
+    twelve seconds LMB is its three huge cuts, each blowing up where the blade ends; R again throws it, spinning on
+    through everything in its path.
+  - G: **Burning Full Fingers** — fire on all five fingertips, five streams spiralling into one cone of flame.
+  - Shift with a lock-on: the **collar grab** — he is behind the target with a hand on its collar; LMB fires Burner
+    Finger 1 point-blank, otherwise he slams it into the floor.
+  - F: **Quincy: Vollständig** for 40 seconds — a red pillar, the spiky red Zeichen halo and two thin rods of light
+    out of his shoulder blades. He flies and moves faster, and RMB fires Burner Finger 1 six times in half a second.
+    F again: the **Glory Thief** — every enemy in view is marked and a beam goes through cover into each, once.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
