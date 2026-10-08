@@ -139,6 +139,16 @@ scope and milestones and `README.md` for controls and modes.
   pillars and hands those voxels to the fragment system, so it falls even where it fused with a building. Bulk voxel
   writes at runtime (`world.fillBox`, end-exclusive, no edit hook) call `physics.invalidateBox()` to refresh colliders. His clones are roster-less fighters (`GremmyCloneKit` + a `DuelistAI`); his creations are kept and
   ended when he dies, and a `BrainCapsule` drops out of the body),
+  `vfx/xaxis.ts` (Lille: `tunnel()`, a straight bore segmented along any length; `xAxis()`/`xAxisLine()` — the
+  X-Axis, instant, `unblockable`, a round hole in the target and everything before it (the line version runs on through
+  every body and building); `PfeilBullet` (leads a runner); `Reticle`; `WingBarrage` from the wing barrels;
+  `divinePressure` (pins); `spiralTeleport`; `JudgementColumn`; `ExplosionTrail`, Sabaki no Kōmyō's wake;
+  `lightBall` (burns away lures and veils); `goldenRain`; `haloShatter`; `Trompete`, the trumpet drawn out of the
+  ground and its blast of spherical waves. His god forms are giants at 24 and 16 vox/m (`chars/lilleGod.ts`; the
+  wings' holes are sockets `barrel.0`…`barrel.23`), his heads ride the `headProp` socket as props. `Fighter.intangible`
+  lets every blow and drain pass through (`onPhase` sees what passed) except one carrying `DamageOpts.reflected` equal
+  to the target — his own power turned back on him (Freund Schild, Shiten Kōshun and Sōgyo no Kotowari's returned
+  shots set it; `CeroOpts`/`ShotOpts` carry it). A stance grip with `two` puts the left hand on the weapon too (a rifle)),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

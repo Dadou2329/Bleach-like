@@ -556,6 +556,34 @@ G state, V flare); press **H** in game for the current character's moves.
     stronger than his can hold: huge swings, and after five seconds it starts tearing itself apart (F lets go).
   - V: **Steel Body** (blows mostly glance off; a cut that lands gets the blade stuck in him; pressed hard, a bladed
     dome).
+- **Lille Barro**, Sternritter "X" — The X-Axis, God's sniper: tall and upright, dark skin, short white hair, the
+  left eye shut under a black X tattoo, a dark-green fur bicorne and pauldron, a long white cloak, and **Diagramm**, a
+  2.2 m rifle wrapped in fur with fins on the stock. He fights from far off: his dash away from the target is a long
+  backstep, and once every 10 seconds a blow from behind him is leapt clear. LMB fires five quick Heilig Pfeil bullets
+  (aimed where a runner will be); up close it is the stock string (butt-stroke, hip shot, fin smash). A lost rifle is
+  rebuilt in green reishi a second later. His moves:
+  - RMB: **Scoped Shot** — the dial clicks, an X reticle settles on them, then a bullet that takes a building apart.
+  - Q: **The X-Axis** — instant: a perfectly round hole through them and everything between; no guard, parry or
+    shield stops it, and nothing behind them is touched.
+  - E: **Bullet Hail**, a fan of bullets. R: **Long Snipe** ("line up") — a knee, the scope, one X-Axis through
+    everyone on the line and every building for 80 m.
+  - G: **open the left eye** — for 4 seconds every blow passes through him (only his own power turned back on him
+    lands: Freund Schild, Sōgyo no Kotowari, Shiten Kōshun). The third time it stays open.
+  - F (after the third opening, or below half health): **Quincy: Vollständig — Jilliel**, a 3.4 m angel in a holed
+    white robe closed up to the eyes, eight green wings with three holes each (24 barrels) and a green halo. He is
+    always intangible: the halo takes what passes through him, and when it breaks he can be hurt. Shift is a **Spiral
+    Teleport** (behind a locked target). LMB: three X-Axis shots from the wing holes; RMB: **Six-Hole Blast**; Q:
+    the **24-Barrel Barrage** into the ground round them; E: **Divine Pressure**, a pulse that pins everyone near; R:
+    a **Teleport-Snipe**, point-blank from behind; G: the **Descent** onto his stilt points; F: **Judgement of God**,
+    every hole converging into a green column that bores a pit.
+  - Killed as Jilliel, he rises as the 6.5 m **True Form**: an owl's eyes and beak on a long furred neck, long white
+    arms, gold wings and a small gold halo; he takes half damage and regenerates while the halo holds. LMB: long-arm
+    slashes, golden finger beams at range; RMB: **Sabaki no Kōmyō**, waves of thin gold light that cut everything and
+    leave explosions behind; Q: a golden X-Axis volley from every finger; E: the **Light Ball** that burns every shadow
+    away (decoys and the hidden are found — but its shadow on him stops his regeneration); R: **Grow Arms**, a second
+    pair (twice the beams); G: **Owl Eyes** (nothing surprises him); F: **Trompete** — the ground dissolves upward
+    into a golden trumpet bigger than he is, and its blast is a storm of spherical waves. Killed again, he bursts
+    into golden rain and six bird-like remnants fight on.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

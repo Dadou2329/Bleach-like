@@ -24,6 +24,8 @@ export interface GripDef {
   dir: Euler3;
   edge: Euler3;
   pole: Euler3;
+  /** the left hand joins the grip (a rifle, a lance carried two-handed): its weight */
+  two?: number;
 }
 
 export interface StanceDef {
@@ -293,10 +295,11 @@ export class Locomotion {
       [gd.air ?? gd.run ?? gd.idle, W.air],
     ];
     out.p.set(0, 0, 0); out.dir.set(0, 0, 0); out.edge.set(0, 0, 0); out.pole.set(0, 0, 0);
-    let tot = 0;
+    let tot = 0, two = 0;
     for (const [d, w] of parts) {
       if (w <= 1e-4) continue;
       tot += w;
+      two += (d.two ?? 0) * w;
       out.p.x += d.p[0] * w; out.p.y += d.p[1] * w; out.p.z += d.p[2] * w;
       out.dir.x += d.dir[0] * w; out.dir.y += d.dir[1] * w; out.dir.z += d.dir[2] * w;
       out.edge.x += d.edge[0] * w; out.edge.y += d.edge[1] * w; out.edge.z += d.edge[2] * w;
@@ -311,6 +314,6 @@ export class Locomotion {
     out.edge.normalize();
     out.pole.normalize();
     out.w = 1;
-    out.twoHand = 0;
+    out.twoHand = tot > 0 ? two / tot : 0;
   }
 }

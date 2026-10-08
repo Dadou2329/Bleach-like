@@ -628,7 +628,7 @@ export class OrihimeKit implements Kit {
   private blastBack(from: THREE.Vector3, to: THREE.Vector3, target: Fighter, amount: number): void {
     const { f, g } = this;
     const dir = _w.subVectors(to, from).setY(0).normalize();
-    g.damage(target, amount * 1.6 + 30, f, dir.clone(), { knock: 22, launch: 5, heavy: true, energy: true, hitstop: 0.14, shake: 0.5 });
+    g.damage(target, amount * 1.6 + 30, f, dir.clone(), { knock: 22, launch: 5, heavy: true, energy: true, reflected: target, hitstop: 0.14, shake: 0.5 });
     g.engine.destruction.carve(new CapsuleShape(from.clone(), to.clone(), 0.55), { mode: 'bore', power: 520, sparks: [2.4, 1.6, 0.5] });
     g.engine.destruction.carve(new SphereShape(to.clone(), 1.8), { mode: 'explode', power: 320, impulse: 12 });
     g.sfx.play('explode', to, 1.1);

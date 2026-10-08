@@ -380,6 +380,8 @@ export class UkitakeKit implements Kit {
   /** the charms' store: damage waiting to be fired back, and its colour */
   stored = 0;
   readonly storedColor = new THREE.Color('#FFF2C9');
+  /** whose attacks filled the store (the largest share is whose own power the return is) */
+  private storedBy = new Map<Fighter, number>();
   overdrive = false;
   absorbing = false;
   /** pushing through the illness (s left) */
@@ -535,6 +537,7 @@ export class UkitakeKit implements Kit {
       const c = new THREE.Color(o.color ?? from?.def.aura.body ?? '#FFF2C9');
       this.storedColor.lerp(c, took / (this.stored + took));
       this.stored += took;
+      if (from) this.storedBy.set(from, (this.storedBy.get(from) ?? 0) + took);
       const at = this.leftTipPoint();
       energyCatch(g, at, src ?? f.center().addScaledVector(f.forward(_w), 3), c, took);
       this.rope?.pulse(c, 1);
@@ -570,16 +573,19 @@ export class UkitakeKit implements Kit {
     }
     const s = this.stored;
     const dmg = s * 1.25 * (this.overdrive ? 1.5 : 1);
+    let reflected: Fighter | null = null, most = 0;
+    for (const [who, amt] of this.storedBy) if (amt > most) { most = amt; reflected = who; }
+    this.storedBy.clear();
     const c = this.storedColor.clone();
     const core = c.clone().lerp(new THREE.Color('#FFF2C9'), 0.6);
     if (s >= 150) {
       const radius = Math.min(1.1, 0.35 + s / 600);
-      g.addProjectile(new CeroBeam(g, f, this.tip, () => this.aim(), { charge: 0.02, fire: 0.45, radius, damage: dmg * 1.1, power: 300 + s, core, body: c, rim: c.clone().multiplyScalar(0.5), range: 120, track: 1.4, gain: 1.2 }));
+      g.addProjectile(new CeroBeam(g, f, this.tip, () => this.aim(), { charge: 0.02, fire: 0.45, radius, damage: dmg * 1.1, power: 300 + s, core, body: c, rim: c.clone().multiplyScalar(0.5), range: 120, track: 1.4, gain: 1.2, reflected }));
     } else {
       this.tip.updateWorldMatrix(true, false);
       const p = this.tip.getWorldPosition(new THREE.Vector3());
       const dir = this.aim().sub(p).normalize();
-      g.addProjectile(new CeroShot(g, f, p, dir, { speed: 110, size: 0.14 + Math.min(0.3, s / 400), damage: dmg, blast: 0.7 + s / 120, power: 120 + s * 2, knock: 10, launch: 2, heavy: s > 60, home: this.target(), homeRate: 1.2, core, body: c }));
+      g.addProjectile(new CeroShot(g, f, p, dir, { speed: 110, size: 0.14 + Math.min(0.3, s / 400), damage: dmg, blast: 0.7 + s / 120, power: 120 + s * 2, knock: 10, launch: 2, heavy: s > 60, home: this.target(), homeRate: 1.2, core, body: c, reflected }));
     }
     this.rope?.pulse(core, 1);
     g.sfx.play('beam', f.center(), Math.min(1.4, 0.5 + s / 300));

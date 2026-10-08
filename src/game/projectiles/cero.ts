@@ -29,6 +29,8 @@ export interface CeroOpts {
   gain?: number;
   /** released-Espada Cero (Cero Oscuras): a near-black core drawn over the glow, which then reads as a rim */
   dark?: THREE.ColorRepresentation;
+  /** whose own power this is, turned back (Sōgyo no Kotowari's return): it lands on them even through intangibility */
+  reflected?: Fighter | null;
 }
 
 const DARK_FRAG = /* glsl */ `
@@ -197,7 +199,7 @@ export class CeroBeam implements Projectile {
           const last = this.hitT.get(f.id) ?? -1;
           if (this.t - last > 0.25) {
             this.hitT.set(f.id, this.t);
-            g.damage(f, o.damage * 0.25, this.owner, this.dir, { energy: true, knock: 12, launch: 3, heavy: true, hitstop: 0.04, shake: 0.5 });
+            g.damage(f, o.damage * 0.25, this.owner, this.dir, { energy: true, reflected: o.reflected, knock: 12, launch: 3, heavy: true, hitstop: 0.04, shake: 0.5 });
           }
         }
       }
@@ -211,7 +213,7 @@ export class CeroBeam implements Projectile {
       g.addRing(this.impact.clone(), o.radius * 9, o.body, 0.8);
       for (const f of g.enemiesOf(this.owner)) {
         const d = f.center().distanceTo(this.impact);
-        if (d < o.radius * 4) g.damage(f, o.damage * (1 - d / (o.radius * 4)), this.owner, f.pos.clone().sub(this.impact).setY(0.3).normalize(), { energy: true, knock: 20, launch: 8, heavy: true, hitstop: 0.1, shake: 0.8 });
+        if (d < o.radius * 4) g.damage(f, o.damage * (1 - d / (o.radius * 4)), this.owner, f.pos.clone().sub(this.impact).setY(0.3).normalize(), { energy: true, reflected: o.reflected, knock: 20, launch: 8, heavy: true, hitstop: 0.1, shake: 0.8 });
       }
       if (g.player && g.player.pos.distanceTo(this.impact) < 80) g.shake(0.7);
     }

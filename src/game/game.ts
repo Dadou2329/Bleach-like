@@ -48,6 +48,11 @@ export interface DamageOpts {
   energy?: boolean;
   /** a feint or a blow round the guard: parries, catches and counter stances do not stop it */
   unblockable?: boolean;
+  /**
+   * the wound is this fighter's own power turned back on it (Freund Schild, Sōgyo no Kotowari, Shiten Kōshun): it lands
+   * even through intangibility
+   */
+  reflected?: Fighter | null;
 }
 
 const _v = new THREE.Vector3();
@@ -292,6 +297,10 @@ export class Game {
   damage(t: Fighter, amount: number, from: Fighter | null, dir: THREE.Vector3, o: DamageOpts = {}): void {
     if (t.dead || t.invuln > 0) return;
     if (t.action?.invulnerable) return;
+    if (t.intangible && o.reflected !== t) {
+      t.onPhase?.(amount, from, o);
+      return;
+    }
     if (!o.unblockable && t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) * (1 - from.sealK) : 1;
@@ -305,6 +314,7 @@ export class Game {
     t.lastHurt.dmg = dmg;
     t.lastHurt.shrug = shrug;
     t.lastHurt.from = from;
+    t.lastHurt.reflected = o.reflected === t;
     if (from) from.stats.damageDealt += dmg;
     if (this.hud && !o.quiet) {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
@@ -349,7 +359,7 @@ export class Game {
 
   /** Damage over time (rot, poison, burns): the HP drains without a flinch, hitstun, sound or number; it can still kill. */
   drain(t: Fighter, amount: number, from: Fighter | null): void {
-    if (t.dead || t.invuln > 0 || amount <= 0) return;
+    if (t.dead || t.invuln > 0 || amount <= 0 || t.intangible) return;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) : 1;
     const dmg = amount * power * t.damageTaken;
     t.hp -= dmg;

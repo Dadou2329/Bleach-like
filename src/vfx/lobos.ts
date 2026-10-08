@@ -63,6 +63,8 @@ export interface ShotOpts {
   /** …at this rate (rad/s) */
   homeRate?: number;
   range?: number;
+  /** whose own power this is, turned back (Sōgyo no Kotowari's return) */
+  reflected?: Fighter | null;
 }
 
 /** One Cero bullet out of a pistol: a white-hot core in a blue halo, a streak behind it, a blast where it lands. */
@@ -133,12 +135,12 @@ export class CeroShot implements Projectile {
     this.done = true;
     const o = this.o;
     const p = this.pos;
-    if (f) g.damage(f, o.damage, this.owner, this.dir.clone().setY(0.15).normalize(), { energy: true, knock: o.knock ?? 8, launch: o.launch ?? 1.5, heavy: o.heavy, hitstop: o.heavy ? 0.07 : 0.03, shake: o.heavy ? 0.3 : 0.12 });
+    if (f) g.damage(f, o.damage, this.owner, this.dir.clone().setY(0.15).normalize(), { energy: true, reflected: o.reflected, knock: o.knock ?? 8, launch: o.launch ?? 1.5, heavy: o.heavy, hitstop: o.heavy ? 0.07 : 0.03, shake: o.heavy ? 0.3 : 0.12 });
     // the blast also catches whoever stands close
     if (o.blast > 0.8) for (const e of g.enemiesOf(this.owner)) {
       if (e === f) continue;
       const d = capsuleDist(e, p);
-      if (d < o.blast + e.def.radius) g.damage(e, o.damage * 0.5, this.owner, _v.subVectors(e.pos, p).setY(0.3).normalize().clone(), { energy: true, knock: 10, launch: 3, hitstop: 0.03 });
+      if (d < o.blast + e.def.radius) g.damage(e, o.damage * 0.5, this.owner, _v.subVectors(e.pos, p).setY(0.3).normalize().clone(), { energy: true, reflected: o.reflected, knock: 10, launch: 3, hitstop: 0.03 });
     }
     g.engine.destruction.carve(new SphereShape(p.clone(), o.blast, 0.8), { mode: 'explode', power: o.power, impulse: 6 + o.blast * 6, sparks: [this.cBody.r, this.cBody.g, this.cBody.b], dust: 0.5 });
     const glow = g.engine.glow;

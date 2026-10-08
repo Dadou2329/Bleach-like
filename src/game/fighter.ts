@@ -143,6 +143,12 @@ export class Fighter {
   onLethal: (() => boolean) | null = null;
   /** checked before a hit lands: return true to stop it outright (Aizen's raised finger) */
   parry: ((amount: number, from: Fighter | null, o: DamageOpts) => boolean) | null = null;
+  /**
+   * intangible (Lille's X-Axis turned on himself): every blow passes through — no damage, no flinch, no knockback, and
+   * drains pass too — except its own power turned back on it (`DamageOpts.reflected`). `onPhase` sees what passed.
+   */
+  intangible = false;
+  onPhase: ((amount: number, from: Fighter | null, o: DamageOpts) => void) | null = null;
   /** where opponents believe this fighter stands (Kyōka Suigetsu's copy); the duel AI fights this */
   lure: THREE.Vector3 | null = null;
   /** beams end on this fighter instead of running on through it (a blade drinking them: Sōgyo no Kotowari) */
@@ -216,7 +222,7 @@ export class Fighter {
   heavyB = 0;
   heavyW = 0;
   /** the last blow that reached it: game time, damage, whether the skin shrugged it off */
-  readonly lastHurt: { at: number; dmg: number; shrug: boolean; from: Fighter | null } = { at: -1, dmg: 0, shrug: false, from: null };
+  readonly lastHurt: { at: number; dmg: number; shrug: boolean; from: Fighter | null; reflected?: boolean } = { at: -1, dmg: 0, shrug: false, from: null };
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};

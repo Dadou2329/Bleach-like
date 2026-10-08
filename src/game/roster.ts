@@ -125,6 +125,9 @@ import { ASKIN_DEF, AskinKit } from './kits/askin';
 import { askinAsset, askinProp } from '../chars/askin';
 import { GREMMY_DEF, GremmyKit } from './kits/gremmy';
 import { gremmyAsset, gremmyProp } from '../chars/gremmy';
+import { LILLE_DEF, LilleKit } from './kits/lille';
+import { lilleAsset, lilleProp } from '../chars/lille';
+import { jillielAsset, lilleGodProp, remnantAsset, trueFormAsset } from '../chars/lilleGod';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -600,6 +603,23 @@ export const ROSTER: RosterEntry[] = [
       buildCached(gremmyAsset('steel').model, true);
       buildCached(gremmyAsset('bulk').model, true);
       for (const k of ['brain', 'spike', 'bar', 'block', 'column', 'hand', 'meteor', 'rifle', 'missile', 'bomb', 'dome'] as const) buildCached(gremmyProp(k), false);
+    },
+  },
+  {
+    id: 'lille',
+    name: 'Lille Barro',
+    kanji: '万物貫通',
+    title: 'Sternritter "X" — The X-Axis',
+    color: '#7cf0a8',
+    def: () => ({ ...LILLE_DEF, speed: { ...LILLE_DEF.speed } }),
+    kit: (f, g) => new LilleKit(f, g),
+    warm: () => {
+      buildCached(lilleAsset('open').model, true);
+      buildCached(jillielAsset().model, true);
+      buildCached(trueFormAsset().model, true);
+      buildCached(remnantAsset().model, true);
+      buildCached(lilleProp('diagramm-r'), false);
+      for (const k of ['halo-green', 'halo-gold', 'head-god', 'head-owl', 'trompete', 'arm'] as const) buildCached(lilleGodProp(k), false);
     },
   },
   {

@@ -403,7 +403,8 @@ export class HaschwalthKit implements Kit {
     const { f, g } = this;
     const dir = t.pos.clone().sub(f.pos).setY(0);
     if (dir.lengthSq() < 1e-4) dir.set(0, 0, 1);
-    g.damage(t, amt / powerOf(g, f), f, dir.normalize(), { unblockable: true, heavy: big || amt > 60, knock: big ? 8 : 3, hitstop: big ? 0.1 : 0.04, shake: big ? 0.3 : 0.1, color: SCALES_GOLD });
+    // (their own misfortune turned back on them: it lands even on a body that blows pass through)
+    g.damage(t, amt / powerOf(g, f), f, dir.normalize(), { unblockable: true, reflected: t, heavy: big || amt > 60, knock: big ? 8 : 3, hitstop: big ? 0.1 : 0.04, shake: big ? 0.3 : 0.1, color: SCALES_GOLD });
     const c = t.center();
     for (let i = 0; i < (big ? 18 : 8); i++) {
       const a = Math.random() * Math.PI * 2;
