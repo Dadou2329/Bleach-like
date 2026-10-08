@@ -48,7 +48,7 @@ function palette(b: ModelBuilder, form: LiltottoForm): void {
   b.mat('skin', ['#FCE8DA', '#F8DCCB', '#ECCBB6', '#DDB49C', '#C49A82'], { base: 1, rough: 0.6, shadeK: 0.9 });
   b.mat('hair', ['#FFF1BE', '#F7E09A', '#F0D27C', '#DDB960', '#C9A24E', '#A9843A'], { base: 2, rough: 0.4, shadeK: 0.85, dither: 0.04 });
   b.mat('brow', ['#A9843A']);
-  b.mat('lid', ['#3B2A20']);
+  b.mat('lid', ['#4A3424']);
   b.mat('sclera', ['#F3F3F0']);
   b.mat('iris', ['#E2AE34']);
   b.mat('irisD', ['#8A5E12']);
@@ -70,7 +70,7 @@ const FACE = [
   '. . . . . . . . . .',
   '. B B B . . B B B .',
   '. . . . . . . . . .',
-  '. L L L . . L L L .',
+  '. . . . . . . . . .',
   'L L L L . . L L L L',
   '. W I i . . i I W .',
   '. . I I . . I I . .',
@@ -130,7 +130,7 @@ export function buildLiltotto(form: LiltottoForm = 'base'): CharacterAsset {
   b.socket('face', 'head', [0, s.chinY + 5, hd.front]);
   // the maw's hinge: the corners of the mouth, just in front of the face
   b.socket('mouth', 'head', [0, s.chinY + 1.8, hd.front + 0.4]);
-  b.socket('candy', 'head', [-1.6, s.chinY + 1.2, hd.front + 0.6], [10, -30, 0]);
+  b.socket('candy', 'head', [-1.2, s.chinY + 1.4, hd.front - 0.8], [16, -34, 0]);
   b.socket('eye.L', 'head', [2.5, s.chinY + 4.5, hd.front + 0.3]);
   b.socket('eye.R', 'head', [-2.5, s.chinY + 4.5, hd.front + 0.3]);
   b.socket('halo', 'head', [0, s.chinY + 20, hd.front - s.head.d - 2]);
@@ -252,7 +252,13 @@ function uniform(b: ModelBuilder, L: Landmarks, torso: Sdf): { springs: SpringDe
   const hz = backOf(b, ['spine'], 0, Math.round(s.waistY - 2.6))?.z ?? -4;
   b.add('spine', prism(heart.map(([u, v]) => [u * 1.1, v * 1.1]), [0, s.waistY - 2.8, hz - 0.6], [-1, 0, 0], [0, 1, 0], 0.7, 0.25), 'gold', { thr: 0.2 });
   // the skirt
-  return coatSkirt(b, L, { mat: 'coat', lining: 'coatIn', yTop: s.waistY - 3, yHem: L.knee[1] + 2.5, r0: 6.0, r1: 9.0, openFront: 0, overlap: 4, res: LILTOTTO_RES, depth: 0.85 });
+  const sk = coatSkirt(b, L, { mat: 'coat', lining: 'coatIn', yTop: s.waistY - 3, yHem: L.knee[1] + 2.5, r0: 6.4, r1: 8.6, openFront: 0, overlap: 4, res: LILTOTTO_RES, depth: 0.85 });
+  // the coat-sized colliders would throw a child's skirt out like a tutu
+  const colliders: ColliderDef[] = [
+    { bone: 'thigh.L', offset: [0, -0.1, 0.01], radius: 0.065 },
+    { bone: 'thigh.R', offset: [0, -0.1, 0.01], radius: 0.065 },
+  ];
+  return { springs: sk.springs, colliders };
 }
 
 /** Dark leggings with a scatter of small light crosses; short white boots. */
@@ -266,10 +272,10 @@ function legs(b: ModelBuilder, L: Landmarks): void {
   b.add('shin.L', blend(1, sphere([kx, ky, kz], 2.1), capsule([kx, ky, kz], [ax, ay + 2, az], 2.1, 1.7)), 'legging', { mirror: true });
   // the motif: small crosses in a loose grid down the fronts and sides
   const cross = fn((x, y, z) => {
-    const v = ((y + 40) % 4.2) - 2.1;
-    const k = Math.floor((y + 40) / 4.2) % 2 === 0 ? 0 : 1.8;
-    const uu = ((x + 40 + k) % 3.6) - 1.8;
-    return Math.min(Math.max(Math.abs(uu) - 0.5, Math.abs(v) - 1.2), Math.max(Math.abs(uu) - 1.2, Math.abs(v) - 0.5)) + (z < -1.5 ? 2 : 0);
+    const v = ((y + 40) % 5.4) - 2.7;
+    const k = Math.floor((y + 40) / 5.4) % 2 === 0 ? 0 : 2.4;
+    const uu = ((x + 40 + k) % 4.8) - 2.4;
+    return Math.min(Math.max(Math.abs(uu) - 0.45, Math.abs(v) - 1.1), Math.max(Math.abs(uu) - 1.1, Math.abs(v) - 0.45)) + (z < 0 ? 2 : 0);
   }, [-20, 0, -20], [20, 60, 20]);
   b.paint(['thigh.L', 'thigh.R', 'shin.L', 'shin.R'], cross, 'motif', { where: b.isMat('legging') });
   // the boots to mid-calf
@@ -293,14 +299,15 @@ function fangWings(b: ModelBuilder, L: Landmarks): void {
     const root: V3 = [k * 3, sy - 4, -s.chest[1] - 1.6];
     b.bone(`wing.${side}`, 'chest', root);
     // the fangs: from the root out and up, longest in the middle of the fan, curling at the tips
-    const fan: [number, number, number][] = [[-24, 22, 2.0], [-6, 32, 2.4], [12, 40, 2.6], [30, 42, 2.6], [48, 36, 2.4], [66, 26, 2.0], [82, 18, 1.7]];
+    const fan: [number, number, number][] = [[-20, 24, 3.6], [6, 34, 4.4], [32, 38, 4.6], [56, 32, 4.2], [80, 22, 3.4]];
     for (const [el, len, r] of fan) {
       const e = (el * Math.PI) / 180;
       const dir: V3 = [k * Math.cos(e), Math.sin(e), -0.35];
-      b.add(`wing.${side}`, spike([root[0], root[1], root[2]], dir, len, r, r * 0.8, { bend: [0, -0.18, -0.05], taper: 1.1, tip: 0.5, side: [0, 0, 1] }), 'fang', { thr: 0.25 });
+      const base: V3 = [root[0] + k * Math.cos(e) * 2, root[1] + Math.sin(e) * 2, root[2]];
+      b.add(`wing.${side}`, spike(base, dir, len, r, r * 0.7, { bend: [0, -0.22, -0.05], taper: 1.25, tip: 0.6, side: [0, 0, 1] }), 'fang', { thr: 0.25 });
     }
     // the root knot the fangs grow from
-    b.add(`wing.${side}`, sphere(root, 3.0), 'fang');
+    b.add(`wing.${side}`, sphere(root, 4.0), 'fang');
   }
 }
 
@@ -331,10 +338,10 @@ function jawWings(b: ModelBuilder, L: Landmarks): void {
     const P = (a: number, h: number): V3 => [root[0] + k * a * 0.95, root[1] + h, root[2] - a * 0.3];
     for (const sgn of [1, -1]) {
       const arc = smoothPath([P(0, 0), P(8, sgn * 9), P(20, sgn * 12), P(32, sgn * 8), P(38, sgn * 1.5)], 4);
-      b.add(`jaw.${side}`, tube(arc, arc.map((_, i) => 2.2 - i * 0.08)), 'fang', { thr: 0.2 });
+      b.add(`jaw.${side}`, tube(arc, arc.map((_, i) => 3.2 - i * 0.1)), 'fang', { thr: 0.2 });
       for (let i = 3; i < arc.length - 2; i += 2) {
         const p = arc[i];
-        b.add(`jaw.${side}`, spike(p, [0, -sgn, 0], 3.2, 0.9, 0.9, { tip: 0.3 }), 'fang', { thr: 0.25 });
+        b.add(`jaw.${side}`, spike([p[0], p[1] - sgn * 2, p[2]], [0, -sgn, 0], 4.4, 1.6, 1.4, { tip: 0.4 }), 'fang', { thr: 0.25 });
       }
     }
   }
@@ -457,9 +464,9 @@ function buildCandy(): VoxelModel {
   b.mat('stick', ['#F1F1EC', '#DCDCD6']);
   b.mat('candy', ['#F7A8C8', '#F28AB2', '#C0569A'], { base: 1, rough: 0.25 });
   b.bone('root', null, [0, 0, 0]);
-  b.add('root', cylinder([0, 0, -1], [0, 0, 6], 0.55), 'stick');
-  b.add('root', cylinder([0, 0, 6], [0, 0, 7.6], 2.4, 2.4, 0.6), 'candy');
-  b.paint('root', fn((x, y) => Math.abs(((Math.atan2(y, x) * 2 + Math.hypot(x, y) * 1.6) % 2.4 + 2.4) % 2.4 - 1.2) - 0.45, [-3, -3, 5], [3, 3, 9]), 'candy', { shade: 2 });
+  b.add('root', cylinder([0, 0, -1], [0, 0, 3.0], 0.9), 'stick');
+  b.add('root', sphere([0, 0, 4.4], 1.7), 'candy');
+  b.paint('root', fn((x, y, z) => Math.abs(((Math.atan2(y, x) * 2 + Math.hypot(x, y, z - 4.4) * 1.6) % 2.4 + 2.4) % 2.4 - 1.2) - 0.45, [-3, -3, 2], [3, 3, 7]), 'candy', { shade: 2 });
   b.autoShade({ up: 0.3, open: 1, front: 0 });
   b.lint();
   return b.build();

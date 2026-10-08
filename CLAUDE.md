@@ -108,6 +108,9 @@ scope and milestones and `README.md` for controls and modes.
   on a target, the flare, Barbarriel's coiling thread; `SkyBolt`, a mark then a bolt from the sky; `GalvanoBolt`, a
   beam boring a tunnel; `WingJavelin` (a blade swung into it breaks it); `SixWheel`; `StreamBolt`; `ElectroPillar`
   and `ElectroBlast`; `lightningBurst`),
+  `vfx/glutton.ts` (Liltotto: `GluttonMaw`, two jaws of voxel flesh on her mouth (or set in the world) whose `bite()`
+  erases their volume and returns the bodies in it; `BiteArrow`; `SporkTrap` and `GoldenCrunch`, bear traps (the
+  Crunch catches everyone, friend or foe); `SpifeWhip`, a whip of fang links; `arterie()`, Blut Arterie's veins),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

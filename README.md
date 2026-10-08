@@ -454,6 +454,24 @@ G state, V flare); press **H** in game for the current character's moves.
     target that leaps to the bodies near it; G is **Sklaverei** (drinking the world's reishi keeps the wings burning
     and marks her body); F again is **Electrocution** — a pillar of lightning surges round her, she squeezes it round
     her arm and throws it in a blast that gouges a long trench.
+- **Liltotto Lamperd**, Sternritter "G" — The Glutton: small, a straight blonde bob under the white peaked cap, bored
+  half-lidded gold eyes, a lollipop, the closed white uniform over a skirt, dark patterned leggings. She eats the map:
+  her mouth pushes out into a maw of jagged teeth bigger than she is, and whatever it closes on is simply gone. Her
+  LMB is the cleanest string of the Bambies (palm, knee, a low sweep) ending in a lunging chomp. She is always
+  hungry: the hungrier, the harder she bites; eating feeds her and mends her. Her moves:
+  - RMB: the **Arterie haymaker** — Blut Arterie's red veins down her arm, a punch that craters what it hits.
+  - Q: **The Glutton** — the maw lunges out and erases everything in its jaws; a body caught is bitten and held, a
+    weak one eaten whole.
+  - E: **Swallow** — the maw held open before her; shots and beams that reach it are eaten.
+  - R: the **Heilig Bogen**, a bow like a bear trap out of the heart case at her back: three toothed shots that bite
+    balls out of what they hit.
+  - G: **Feast** — the maw kept open as she walks, eating a tunnel through whatever is in her way (G again stops).
+  - F: **Quincy: Vollständig — Gagael** for 36 seconds: wings of golden fangs, the star halo, fang cuffs; she flies.
+    RMB is a maw big enough to take a floor out of a building; Q **Spork**, a cuff fired that unfolds into a bear
+    trap; E **Spife**, a whip of fangs cracked down along the ground; R **Golden Crunch**, a wave of gold along the
+    ground and a giant bear trap snapping shut on everyone at the end of it — her own side too; G **Sklaverei** (the
+    jaw wings, which snap at whoever comes close); F again **Full Course**, a house-sized maw closing over the target
+    — a weak one is swallowed whole.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

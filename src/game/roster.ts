@@ -115,6 +115,8 @@ import { BAMBIETTA_DEF, BambiettaKit } from './kits/bambietta';
 import { bambiettaAsset, bambiettaProp } from '../chars/bambietta';
 import { CANDICE_DEF, CandiceKit } from './kits/candice';
 import { candiceAsset, candiceProp } from '../chars/candice';
+import { LILTOTTO_DEF, LiltottoKit } from './kits/liltotto';
+import { liltottoAsset, liltottoProp } from '../chars/liltotto';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -514,6 +516,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(candiceAsset('barbarriel').model, true);
       for (const k of ['sword', 'bow', 'halo'] as const) buildCached(candiceProp(k), false);
+    },
+  },
+  {
+    id: 'liltotto',
+    name: 'Liltotto Lamperd',
+    kanji: '大食',
+    title: 'Sternritter "G" — The Glutton',
+    color: '#ffc83a',
+    def: () => ({ ...LILTOTTO_DEF, speed: { ...LILTOTTO_DEF.speed } }),
+    kit: (f, g) => new LiltottoKit(f, g),
+    warm: () => {
+      buildCached(liltottoAsset('gagael').model, true);
+      for (const k of ['maw.upper', 'maw.lower', 'trap.base', 'trap.jaw', 'bow', 'link', 'halo'] as const) buildCached(liltottoProp(k), false);
     },
   },
   {
