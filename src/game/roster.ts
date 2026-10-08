@@ -12,6 +12,8 @@ import { NELLIEL_DEF, NelKit } from './kits/nelliel';
 import { nelAsset, nelProp } from '../chars/nelliel';
 import { IKKAKU_DEF, IkkakuKit } from './kits/ikkaku';
 import { CREST_SLICES, ikkakuCrestSlice, ikkakuProp } from '../chars/ikkaku';
+import { RANGIKU_DEF, RangikuKit } from './kits/rangiku';
+import { rangikuProp } from '../chars/rangiku';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -467,6 +469,18 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       for (const k of ['spear', 'staff', 'head', 'guandao', 'spade', 'center'] as const) buildCached(ikkakuProp(k), false);
       for (let i = 0; i < CREST_SLICES; i++) buildCached(ikkakuCrestSlice(i), false);
+    },
+  },
+  {
+    id: 'rangiku',
+    name: 'Rangiku Matsumoto',
+    kanji: '灰猫',
+    title: 'Lieutenant, 10th Division',
+    color: '#f2a65a',
+    def: () => ({ ...RANGIKU_DEF, speed: { ...RANGIKU_DEF.speed } }),
+    kit: (f, g) => new RangikuKit(f, g),
+    warm: () => {
+      for (const k of ['hilt', 'blade'] as const) buildCached(rangikuProp(k), false);
     },
   },
   {

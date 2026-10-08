@@ -495,6 +495,39 @@ G state, V flare); press **H** in game for the current character's moves.
     a crater, and a screen of smoke.
   - G: **"Wake up, Hōzukimaru!"** He braces and dares the blow: taken, most of it feeds the crest, and he answers
     with the X at once.
+- **Rangiku Matsumoto**, Lieutenant of the 10th Division: the long wavy strawberry-blond mane, blue eyes and a
+  beauty mark, the kosode worn open, a pink stole draped over her arms, a gold chain and the badge on her sash,
+  and Haineko's empty sheath across the back of her obi. In the Human World the daffodil limiter seal sits on
+  her chest and holds her back until she releases it. LMB is a cut, a roundhouse kick, a backhand cut and a
+  flying kick. A blow from behind while she lounges is answered with a back kick. Her sealed moves:
+  - RMB: the **wide cut**.
+  - Q: Hadō #31 **Shakkahō** from the left palm.
+  - E: the **provoke**. A beckoning hand and a smile: the target is rattled and takes more from every blow for a
+    while; in a crowd they turn on each other.
+  - R: **play dead**. She drops in a pool of her own blood and takes half damage. Whoever walks up to her or hits
+    her finds her behind them with the blade at their throat, then the cut (it cannot be parried).
+  - G: **Gentei Kaijo**. The seal dissolves in a column of reiatsu and she is herself again. After that, G is
+    Bakudō #77 **Tenteikūra**: the reiatsu net. For a while nothing on her side can be blinded or turned round,
+    and every enemy is laid bare (takes more damage).
+  - F: **"Unare, Haineko"**. The blade crumbles into ash and the cloud is flicked out round her.
+- **Rangiku, Haineko**: only the hilt with its cat-head guard in her hand. The blade is a grey cloud of ash
+  drifting round her, and her moves draw on it; energy blasts thin it and it grows back out of the hilt (the HUD
+  shows how dense it is). She is only a hilt while the ash is out, so she takes more damage, and slows run off
+  her twice as fast. LMB flicks the hilt: ribbons of ash crack out right and left and cut at mid range, the ash
+  packs into a spear and is driven at the target, then erupts in a geyser under them. Her moves:
+  - RMB: the **ash tide**, a dense wave seven metres wide that rolls out eighteen and sandblasts through walls
+    slab by slab.
+  - Q: the **ash veil**. The cloud pours over the target, and the ash settles on them and on the ground and walls
+    round them.
+  - E: the **flick-cut**. Every grain that settled cuts at once: the more ash on them, the deeper (it cannot be
+    parried, and it needs no line of sight); the ground where it settled splits.
+  - R: **Neko Rinbu**. Both hands circle and the cloud whirls into a tornado round the target. They are drawn to
+    the eye and held while it cuts them and scours the ground and the walls round it, then it bursts outward. A
+    big enough energy blast from inside blows it apart.
+  - F: the **ash shield**, a dome of dense ash that swats shots away and takes energy blasts for her (they thin
+    it). F again lowers it.
+  - G: **"Hausu!"**. The ash splits into thin layers before her, a wall that stops shots, and then goes home: the
+    blade grows back and she is sealed again.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**

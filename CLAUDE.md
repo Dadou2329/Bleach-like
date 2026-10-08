@@ -73,7 +73,11 @@ scope and milestones and `README.md` for controls and modes.
   fighter smashing through walls),
   `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower),
   `vfx/ryumon.ts` (Ikkaku: `RyumonRig` — the centre blade floating on its chains with the dragon crest filling slice by
-  slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast) and
+  slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast),
+  `vfx/haineko.ts` (Rangiku: `AshGrains`, voxel grains in groups, each group a formation — cloud, stream, line,
+  column, tornado, wave, dome, layers, coat, patches, burst; `move`/`close` hand grains between groups so the ash
+  pours from move to move; driven by `game/projectiles/haineko.ts`'s `HainekoAsh`: density, coats, settled tags,
+  the flick-cut) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
