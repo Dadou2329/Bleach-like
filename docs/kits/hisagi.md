@@ -75,8 +75,8 @@ left arm. The novel Bankai is the third form, flagged [novel]. Later skins: acad
   the target), hits from behind (unblockable: it was not where they were looking); 30-40 the yank.
 - *Kubikake* (E): 0-8 the throw; 8 the chain catches the neck (if within 9 m); 8-30 hauled toward him and up;
   30 slammed into the ground (crater 1.4 m, heavy, stun 0.8 s).
-- *Fan spin* (RMB): 0-10 the sickles out to full chain; 10-70 orbit at 3.2 m, two passes per second, `cut` 420;
-  shots touching the circle are rejected.
+- *Fan spin* (RMB): 0-78 both sickles whirl round him, two passes per second, `cut` 420: one pays its chain out
+  from 1.3 to 3.4 m while the other winds in, so the whole disc is swept; shots inside 3.6 m are rejected.
 - *Hyapporankan* (Q sealed): 0-10 the rod thrown; 10 it splits: 40 rods rain round the target over 0.4 s; pinned:
   rooted + no attacks for 2.5 s (bosses 1 s).
 - *Explosive band* (E sealed): 0-8 the band torn off and thrown (arc, 14 m/s); 8+ a white flash (blindT 3 s within

@@ -528,6 +528,39 @@ G state, V flare); press **H** in game for the current character's moves.
     it). F again lowers it.
   - G: **"Hausu!"**. The ash splits into thin layers before her, a wall that stops shots, and then goes home: the
     blade grows back and she is sealed again.
+- **Shūhei Hisagi**, Lieutenant of the 9th Division: short spiky black hair, three scars straight down over his
+  right eye, "69" on his left cheek under a blue stripe, a black choker and black bands on both bare arms (the 9th
+  Division's sleeveless kosode), the badge tied on his left arm. He would rather not release: a calm swordsman
+  with a cut, a left elbow, the rising cut that launches and a heel drop (LMB). His sealed moves:
+  - RMB: the **draw-cut**, a lunging iai.
+  - Q: Bakudō #62 **Hyapporankan**: a rod of light that splits over the target into a rain of rods and pins them.
+  - E: an **explosive band** torn off and thrown: a white flash and a pall of smoke that blinds. He has three
+    (the choker and both armbands), and each one he uses is gone from him.
+  - R: Hadō #11 **Tsuzuri Raiden**: the blade crackles for a while and every cut paralyses.
+  - G: Bakudō #63 **Sajō Sabaku**: a yellow rope binds the target's upper body (no attacks).
+  - F: **"Kare, Kazeshini"**: the sword splits into the two sickles.
+- **Hisagi, Kazeshini**: a sickle in each fist, each two curved blades pointing opposite ways like a pinwheel, one
+  chain between them. LMB throws the right sickle and hauls it back, then the left, swings the chain wide, and
+  yanks the far sickle round so it comes at the target from behind. Fear builds as he takes blows and sharpens
+  Kazeshini. His moves:
+  - RMB: the **fan spin**, both sickles whirling round him at full chain length, cutting all round and swatting
+    shots out of the air.
+  - Q: the **steered throw**: out wide, round behind them and in, from where they were not looking (it goes
+    round guards).
+  - E: **Kubikake**: the chain round the neck, hauled in and slammed into the ground.
+  - R: the **chain bind**: the chain wraps them (rooted and disarmed, two blows on him shake it off) and Tsuzuri
+    Raiden runs down it.
+  - G: **chain-life** (from the novels): while it holds, wounds are re-linked and paid in reiatsu.
+  - F: **"Bankai — Fushi no Kōjō"** (from the novels).
+- **Hisagi, Fushi no Kōjō**: an orb of tangled black chains floats over him, a noose from his own neck running up
+  into it. Near it reishi stagnates: enemies' reiatsu does not come back. LMB is the Kazeshini string. His moves:
+  - RMB: **chain rain** from the orb.
+  - Q: the **noose link**: a chain drops over the target's neck. While linked neither of them loses HP; every
+    wound is paid twice over from both their reiatsu, and when the pool runs dry the link snaps.
+  - E: the orb's **tethers** seize the target and drag them in.
+  - R: **Hangman's Verdict**: once the pool is nearly dry, he cuts his own noose (it costs most of his HP) and
+    brings the blow down. It cannot be parried.
+  - G: an explosive band. F: unlinks and seals back to the Shikai.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**

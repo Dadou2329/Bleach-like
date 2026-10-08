@@ -77,7 +77,10 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/haineko.ts` (Rangiku: `AshGrains`, voxel grains in groups, each group a formation — cloud, stream, line,
   column, tornado, wave, dome, layers, coat, patches, burst; `move`/`close` hand grains between groups so the ash
   pours from move to move; driven by `game/projectiles/haineko.ts`'s `HainekoAsh`: density, coats, settled tags,
-  the flick-cut) and
+  the flick-cut),
+  `vfx/kazeshini.ts` (Hisagi: Tsuzuri Raiden arcs, Hyapporankan's rod rain, the explosive band, Sajō Sabaku's rope,
+  `ChainWrap`, `FushiOrb` — the novel Bankai's orb with its nooses and chain rain; the sickles themselves fly on
+  `TetherBlade`) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 

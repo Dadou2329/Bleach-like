@@ -219,6 +219,8 @@ export interface OrbitOpts {
   v: THREE.Vector3;
   /** tether length: centre → grip (m) */
   radius: number;
+  /** the length at the end: the tether pays out (or winds in) along the way, a spiral (default: radius) */
+  radius1?: number;
   a0: number;
   a1: number;
   dur: number;
@@ -501,7 +503,7 @@ export class TetherBlade implements Projectile {
     _a.copy(o.u).multiplyScalar(ca).addScaledVector(o.v, sa).normalize();
     this.axis.copy(_a);
     this.edge.copy(o.u).multiplyScalar(-sa * sense).addScaledVector(o.v, ca * sense).normalize();
-    this.grip.copy(c).addScaledVector(this.axis, o.radius);
+    this.grip.copy(c).addScaledVector(this.axis, o.radius1 === undefined ? o.radius : o.radius + (o.radius1 - o.radius) * k);
     // every full turn it may hit the same fighter again
     if (Math.abs(a - this.turnFrom) >= Math.PI * 2 - 0.05) {
       this.turnFrom = a;

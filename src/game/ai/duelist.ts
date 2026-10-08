@@ -35,6 +35,7 @@ export class DuelistAI implements Controller {
   private evadeCd = 0;
   private toggleCd = 0;
   private releases = 0;
+  private releaseCd = 0;
   private airStepT = 0;
   private lastTargetAction: unknown = null;
   /** blinded: where it believes the enemy is, when it next changes its mind, its HP a tick ago */
@@ -97,9 +98,12 @@ export class DuelistAI implements Controller {
     // ---- forms and states by HP
     if (!f.busy && this.intro <= 0 && f.sealT <= 0) {
       const stages = ai.releaseAt === undefined ? [] : Array.isArray(ai.releaseAt) ? ai.releaseAt : [ai.releaseAt];
-      if (this.releases < stages.length && hp <= stages[this.releases]) {
-        this.releases++;
+      if (this.releases < stages.length && hp <= stages[this.releases] && this.releaseCd <= 0) {
+        // a release it cannot pay for yet is tried again once the reiatsu is back
+        const act = f.action, form = kit.formName();
         kit.release();
+        if (f.action !== act || kit.formName() !== form) this.releases++;
+        else this.releaseCd = 1;
         return;
       }
       if (kit.toggle && ai.toggleAt !== undefined && hp <= ai.toggleAt && this.toggleCd <= 0 && !(ai.toggleOn?.() ?? false)) {
@@ -303,6 +307,7 @@ export class DuelistAI implements Controller {
     this.dashCd -= dt;
     this.evadeCd -= dt;
     this.toggleCd -= dt;
+    this.releaseCd -= dt;
     this.airStepT -= dt;
     for (const [k, v] of this.moveCd) this.moveCd.set(k, v - dt);
   }

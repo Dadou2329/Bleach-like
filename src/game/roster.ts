@@ -14,6 +14,8 @@ import { IKKAKU_DEF, IkkakuKit } from './kits/ikkaku';
 import { CREST_SLICES, ikkakuCrestSlice, ikkakuProp } from '../chars/ikkaku';
 import { RANGIKU_DEF, RangikuKit } from './kits/rangiku';
 import { rangikuProp } from '../chars/rangiku';
+import { HISAGI_DEF, HisagiKit } from './kits/hisagi';
+import { hisagiProp } from '../chars/hisagi';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -481,6 +483,18 @@ export const ROSTER: RosterEntry[] = [
     kit: (f, g) => new RangikuKit(f, g),
     warm: () => {
       for (const k of ['hilt', 'blade'] as const) buildCached(rangikuProp(k), false);
+    },
+  },
+  {
+    id: 'hisagi',
+    name: 'Shūhei Hisagi',
+    kanji: '風死',
+    title: 'Lieutenant, 9th Division',
+    color: '#3cc45a',
+    def: () => ({ ...HISAGI_DEF, speed: { ...HISAGI_DEF.speed } }),
+    kit: (f, g) => new HisagiKit(f, g),
+    warm: () => {
+      for (const k of ['sickle', 'orb'] as const) buildCached(hisagiProp(k), false);
     },
   },
   {
