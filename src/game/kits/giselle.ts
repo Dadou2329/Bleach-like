@@ -36,9 +36,9 @@ const AZHAL_CD = 22;
 const UNDYING_CD = 75;
 const TINT: Rgb = [0.72, 0.5, 1];
 /** the dead she keeps and calls out of her shadow, in turn */
-export const STORE = ['bambietta', 'hitsugaya-tybw', 'rangiku', 'candice'];
+export const STORE = ['bambietta', 'hitsugaya-tybw', 'rangiku', 'candice', 'meninas'];
 /** what each of them mumbles as it climbs out */
-const MUMBLE: Record<string, string> = { bambietta: 'Gigi… blood… give me blood…', rangiku: '…', candice: 'Ugh… my hair…', 'hitsugaya-tybw': '' };
+const MUMBLE: Record<string, string> = { bambietta: 'Gigi… blood… give me blood…', rangiku: '…', candice: 'Ugh… my hair…', meninas: 'Excuse me… sorry…', 'hitsugaya-tybw': '' };
 
 export const GISELLE_DEF: FighterDef = {
   id: 'giselle',

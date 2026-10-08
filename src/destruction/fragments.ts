@@ -18,6 +18,10 @@ export class Fragment {
   collider: RAPIER.Collider | null = null;
   /** while set, the piece slides on a smooth cut plane and ignores world voxels */
   slide: SlidePlane | null = null;
+  /** carried (a chunk ripped up to be thrown): kinematic, never settled or shattered until let go */
+  held = false;
+  /** thrown through what stands in front (the wall it was torn out of): world voxels ignored for this long */
+  ghostT = 0;
   slideT = 0;
   constructor(
     readonly grid: Uint8Array,
@@ -59,6 +63,7 @@ const G_WORLD = 0x0001, G_FRAG = 0x0002, G_SLIDE = 0x0004;
 export const GROUPS_FRAGMENT = (G_FRAG << 16) | 0xffff;
 const GROUPS_SLIDING = (G_FRAG << 16) | (G_FRAG | G_SLIDE);
 const GROUPS_SLIDE_PLANE = (G_SLIDE << 16) | G_FRAG;
+const GROUPS_GHOST = (G_FRAG << 16) | G_FRAG;
 void G_WORLD;
 
 interface PieceSpec {
@@ -122,6 +127,44 @@ export class FragmentSystem {
       for (let j = 0; j < g.length; j++) keys[j] = comp.voxels[g[j]];
       this.queue.push(() => this.extract(keys, opts));
     }
+  }
+
+  /**
+   * Pull voxels out of the world into one rigid piece now (not queued) and hand it over, held: a chunk ripped up to be
+   * carried and thrown (Meninas). Null when there is too little there to make a piece.
+   */
+  grab(keys: Float64Array): Fragment | null {
+    if (this.physics.broken) return null;
+    const before = this.fragments.length;
+    this.extract(keys, {});
+    if (this.fragments.length <= before) return null;
+    const f = this.fragments[this.fragments.length - 1];
+    f.held = true;
+    f.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
+    return f;
+  }
+
+  /**
+   * let a held piece go: dynamic again, with a velocity (thrown); `ghost` seconds passing through world voxels first
+   * (what it is thrown through is smashed by whoever throws it)
+   */
+  release(f: Fragment, vel: THREE.Vector3, angVel = new THREE.Vector3(), ghost = 0): void {
+    if (!f.body.isValid()) return;
+    f.held = false;
+    f.age = 0;
+    f.lastSpeed = vel.length();
+    f.body.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
+    f.body.setLinvel({ x: vel.x, y: vel.y, z: vel.z }, true);
+    f.body.setAngvel({ x: angVel.x, y: angVel.y, z: angVel.z }, true);
+    if (ghost > 0) {
+      f.ghostT = ghost;
+      f.collider?.setCollisionGroups(GROUPS_GHOST);
+    }
+  }
+
+  /** a piece that still exists (it may have settled, shattered or fallen out of the world) */
+  alive(f: Fragment): boolean {
+    return this.fragments.includes(f) && f.body.isValid();
   }
 
   /** Pull voxels out of the world into one rigid piece. */
@@ -211,7 +254,11 @@ export class FragmentSystem {
     this.fragments.push(frag);
     this.syncMesh(frag);
     this.stats.spawned++;
-    while (this.fragments.length > this.maxFragments) this.settle(this.fragments[0]);
+    while (this.fragments.length > this.maxFragments) {
+      const old = this.fragments.find((x) => !x.held);
+      if (!old) break;
+      this.settle(old);
+    }
   }
 
   private buildMesh(p: PieceSpec): THREE.Mesh {
@@ -407,6 +454,8 @@ export class FragmentSystem {
         }
       }
       this.syncMesh(f);
+      if (f.held) continue;
+      if (f.ghostT > 0 && (f.ghostT -= dt) <= 0) f.collider?.setCollisionGroups(f.slide ? GROUPS_SLIDING : GROUPS_FRAGMENT);
       const t = f.body.translation();
       const v = f.body.linvel();
       const speed = Math.hypot(v.x, v.y, v.z);

@@ -120,6 +120,17 @@ scope and milestones and `README.md` for controls and modes.
   blood. Her kit keeps the infection per fighter, raises roster characters as zombies (`rosterById` + the entry's kit +
   a `DuelistAI` wrapped in a `ZombieAI` that keeps the tint and cuts the strings when she falls) and makes puppets
   with the `puppetT/puppetBy` status),
+  `vfx/power.ts` (Meninas: `LiftedChunk`, a chunk of the world ripped out — `fragments.grab(keys)` pulls the voxels into
+  one rigid piece at once, `held` (kinematic, never settled) until `release()` throws it — carried, thrown on an arc or
+  carried over the target and dropped; `chunkKeys()` (the breakable voxels in a box); `DiamondPush`, a box carve turned
+  45° about its axis that bores a diamond tunnel and `Plow`s whoever it meets; `HeartArrow`; `flexCracks`; her swollen
+  arms are `muscle.upper/fore` props on the `bicep.*`/`fore.*` sockets, scaled as they grow),
+  `vfx/deathdealing.ts` (Askin: `GiftBall`, a slow ball that hangs as a mine (water bursts it); `GiftBad`, the oil-slick
+  pool (a thin-film shader); `GiftDeluxe`, the poison dome — `raise()` stretches it into a narrowing egg, `runWild()` when
+  he dies; `GiftBereich`, a one-way barrier — bodies inside are held at its edge, outsiders walk in; `GiftRing`;
+  `GiantGiftBall`; `PfeilShot`, a piercing arrow; `poisonTint`; `circleTrail`. His kit keeps a poison load per fighter
+  (drained with `game.drain`, a kneel at 1) and an immunity meter per attacker, keyed on its aura style (Hasshein: on
+  Hollow-or-not), enforced through `Fighter.parry`),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

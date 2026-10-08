@@ -119,6 +119,10 @@ import { LILTOTTO_DEF, LiltottoKit } from './kits/liltotto';
 import { liltottoAsset, liltottoProp } from '../chars/liltotto';
 import { GISELLE_DEF, GiselleKit, STORE } from './kits/giselle';
 import { giselleAsset, giselleProp, skeletonAsset } from '../chars/giselle';
+import { MENINAS_DEF, MeninasKit } from './kits/meninas';
+import { meninasAsset, meninasProp } from '../chars/meninas';
+import { ASKIN_DEF, AskinKit } from './kits/askin';
+import { askinAsset, askinProp } from '../chars/askin';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -553,6 +557,33 @@ export const ROSTER: RosterEntry[] = [
         buildCached(b.asset.model, true);
         for (const p of b.props) buildCached(p.model, false);
       }
+    },
+  },
+  {
+    id: 'meninas',
+    name: 'Meninas McAllon',
+    kanji: '力',
+    title: 'Sternritter "P" — The Power',
+    color: '#ff7eb8',
+    def: () => ({ ...MENINAS_DEF, speed: { ...MENINAS_DEF.speed } }),
+    kit: (f, g) => new MeninasKit(f, g),
+    warm: () => {
+      buildCached(meninasAsset('pornipora').model, true);
+      buildCached(meninasAsset('sklaverei').model, true);
+      for (const k of ['muscle.upper', 'muscle.fore', 'dumbbell', 'baton', 'halteres', 'bow', 'heart', 'halo'] as const) buildCached(meninasProp(k), false);
+    },
+  },
+  {
+    id: 'askin',
+    name: 'Askin Nakk Le Vaar',
+    kanji: '致死量',
+    title: 'Sternritter "D" — The Deathdealing',
+    color: '#9c5ceb',
+    def: () => ({ ...ASKIN_DEF, speed: { ...ASKIN_DEF.speed } }),
+    kit: (f, g) => new AskinKit(f, g),
+    warm: () => {
+      buildCached(askinAsset('hasshein').model, true);
+      for (const k of ['bow', 'staff', 'thermos', 'halo'] as const) buildCached(askinProp(k), false);
     },
   },
   {

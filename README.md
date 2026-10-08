@@ -485,7 +485,7 @@ G state, V flare); press **H** in game for the current character's moves.
     "Kneel!": the half infected drop to their knees; her zombies charge.
   - R: **Raise** — the fully infected become her puppets for five seconds (they strike themselves or turn on their
     own friends; the victim mashes G to break free); else a fresh corpse rises as her zombie; else one of her stored
-    dead climbs out of her shadow — zombie Bambietta, zombie Hitsugaya, zombie Rangiku, zombie Candice in turn, each
+    dead climbs out of her shadow — zombie Bambietta, zombie Hitsugaya, zombie Rangiku, zombie Candice, zombie Meninas in turn, each
     with its whole moveset, reddened. Two at a time; her zombies near her mend.
   - G: **Drink** from a zombie at hand when she is hurt (it whines); otherwise the **Heilig Bogen**, a bow of linked
     bones out of the heart case: three skull arrows that bite and infect.
@@ -494,6 +494,46 @@ G state, V flare); press **H** in game for the current character's moves.
     on a charge; Q **Dancing Dead Boys Club**, four cartoon skeletons that dance at the target — smashed, their bones
     fly back and pin its limbs; G **Sklaverei**; F again **Dead March**: every stored zombie climbs out at once and
     everyone half infected becomes her puppet.
+- **Meninas McAllon**, Sternritter "P" — The Power: the tallest of the Bambies, soft-spoken and dreamy — long wavy pink
+  hair, the cap turned sideways, a huge purple bow at the throat, the frilled white uniform. Nothing she does is fast or
+  clever; it is all simply too heavy to stop. Her LMB is four heavy punches, the last a hammer fist that craters the
+  ground and sends them through the walls behind; a target with its back to her takes half again. A dash into a wall
+  goes straight through it. Her moves:
+  - RMB: **The Power** — her right arm swells into veined muscle and the punch puts them through every building behind;
+    out of reach, the small **Heilig Bogen** with a heart grip (three heart arrows).
+  - Q: **Diamond Push** — her fingers frame a diamond and the shove bores a diamond-shaped tunnel, carrying them along it.
+  - E: **Lift & Throw** — she rips a real chunk out of the ground (or out of the wall beside her) and hurls it; in Muscle
+    Up the **Building Drop**: a whole section of the building lifted, carried over them and dropped.
+  - R: **Head-Grab Drive** — she is on them before they react, takes their head in one hand, runs them through
+    everything for a second and slams them into the ground.
+  - G: **Muscle Up** for 10 seconds: both arms swollen, harder blows that plough on through what hits her.
+  - F: **Quincy: Vollständig — Pornipora** for 30 seconds: wings of four great pink hearts a side, a spiky halo, two
+    pink dumbbells of reishi; she flies. LMB **Dumbbell Duster**; RMB a bigger Diamond Push; Q **Baton Beat**, the
+    handles stretched into batons spun round her; E **Halteres**, a dumbbell turned into a huge blade and the dive
+    onto them; G **Sklaverei** (the heart armour); F again the Building Drop from the sky.
+- **Askin Nakk Le Vaar**, Sternritter "D" — The Deathdealing: tall, slim and lazy, black hair slicked back with one strand
+  down his face, the ribbed grey collar, baggy white harem trousers in pointed black boots, three coloured bracers on
+  the left wrist. He sets the lethal dose of anything he has taken in. Everything he does poisons: the poison in a body
+  drains its life and, once it is full, drops it to its knees ("that's fatal"). Fight him for about a minute (less if you
+  hit hard) and his body has your reiatsu down: your blows fizzle and his wounds from you close — unless your reiatsu
+  changes (a release, a mask). A dash away from a swing is his **Lethal Step**: it looks fatal, he lies there, he gets up.
+  A lethal blow only staggers him once in a while. His LMB is lazy (a jab, a kick, a finger-gun arrow, a gut punch).
+  - RMB: the **Heilig Bogen** springs out of his bracers: three piercing arrows.
+  - Q: **Gift Ball** — a slow purple ball that drifts at the target and hangs in the air as a mine (six at once); one
+    touch is a dose. On someone already poisoned it is a **Hybrid Gift Ball** (heavier, the legs go, reiatsu drains).
+    Water washes them away.
+  - E: **Gift Bad** — an oil-slick pool under the target: while they stand in it every dose counts double and their
+    reiatsu drains.
+  - R: **Taste** — he licks the blood off his hand: whoever he just hurt finds its own blood a lethal dose (a heal
+    dilutes it); a soaked target has the water in it poisoned; with nothing to taste, a sip of café au lait.
+  - G: **Analyse** — immune at once to whoever hurt him last.
+  - F: **Quincy: Vollständig — Hasshein** for 40 seconds: wings of linked circles like molecules, a halo with a circle on
+    every point, an orange visor, the Reishi Staff studded with balls; he flies, and zig-zags leave circles hanging.
+    RMB **Mass Gift Balls** (the staff's balls split into fifteen); Q **Gift Ring** (a ring hurled at one body part —
+    the eyes, then the weapon arm, the legs, the heart); E **Gift Ball Deluxe**, a dome of poison round him (E again
+    raises the concentration: it stretches into an egg); R **Gift Bereich** (its edge becomes a one-way wall: no one
+    inside gets out); F again a **giant Gift Ball** rolled through the buildings. If he dies inside his dome, it runs
+    wild.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
