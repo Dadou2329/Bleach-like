@@ -511,6 +511,31 @@ G state, V flare); press **H** in game for the current character's moves.
   - F at a full meter (or by itself when it overflows): the **rage evolution**. An explosion of reiatsu and he is a
     15 m ape, knuckle-walking, horned and fully healed; LMB becomes knuckle slams and a belly flop, and he keeps
     growing. Poor Pesquisa: his skills fly where he faces, without lock-on help.
+- **Zommari Rureaux**, the Séptima Espada: tall and serene in a long white coat to the shins, a bald head with a
+  ridge of bone spikes from brow to nape, skull earrings, a necklace of bone beads, dark skin and golden eyes. He
+  has the fastest Sonído of the Espada (Shift blinks the furthest). LMB is a calm one-handed sword string. His
+  sealed moves:
+  - RMB: the **triangulated cut**: two copies appear on two more sides of the target and all three cut at once.
+  - Q: **Gemelos Sonído**: he blinks behind the target and leaves up to five copies of himself round it. They are
+    solid, fight with his sword and bleed when cut, so nobody can tell which one is real.
+  - E: **substitution**: he trades places with his nearest copy.
+  - R: **all sides**: every copy lunges at once.
+  - G: **meditation**, palms together: he heals and gathers reiatsu until he moves or is hit.
+  - F: **"Shizumare, Brujería"**: the sword hangs level before his chest and folds five times into a squared
+    spiral, he claps and twists his head, and the foam swallows him (a full heal).
+- **Zommari, Brujería**: his bone-armoured torso, studded with eyes, sits on a great ribbed pink bulb ringed with
+  one-eyed faces. He hovers slowly. Every move is **Amor**: an eye glows purple for a beat (the tell), then a dark
+  sun mark prints on what he looked at, and that part obeys him for a few seconds. One eye, one hold, 58 at most.
+  - LMB: the palm eye on the **weapon arm**: it will not attack, and now and then it hits its own owner.
+  - RMB: the **forced march**: the marked legs take a big step toward him.
+  - Q: the **legs**: they walk their owner to him, and it cannot jump or dash.
+  - E: the **head**: the whole body is his, frozen with its own blade at its throat, bleeding.
+  - R: **objects**: shots in his gaze are seized and dropped, and the target's weapon is taken from its hand.
+  - F: the **forehead eyes**: eight slits open and mark the legs of everyone in front.
+  - G: **El Embrion**: the bulb closes over him and almost nothing gets through. When it opens, the body eyes are
+    blind and bleeding for 12 s, and only the forehead eyes work.
+  - Counterplay: walls and constructs in the line of sight take the gaze instead; a Shunpo at the instant it lands
+    dodges it; a body already bound by Kidō cannot be walked; a heavy blow on him breaks one hold.
 - **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
   flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
   plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath

@@ -41,7 +41,8 @@ scope and milestones and `README.md` for controls and modes.
   Kits are in `game/kits/` (`vasto.ts`: the Full Hollow's moves, shared by Ichigo and Hollow Ichigo, whose models are
   Ichigo's with `look: 'white'`), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
-  `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `sealT/sealK`
+  `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `armLockT` (the weapon arm
+  seized by Amor: LMB/RMB do nothing, the weapon stays in the hand), `sealT/sealK`
   (power rejected: no releases or states, strength cut); `game.drain()` is damage over time without hitstun.
   `game.rejectNear(at, r, by, fields)` undoes enemy shots (and fields) that implement `Projectile.reject`.
   `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs); `unblockable` (on a
@@ -105,7 +106,10 @@ scope and milestones and `README.md` for controls and modes.
   `PeacockVines` with `BRANCH_LOOK`),
   `vfx/ira.ts` (Yammy: the `IraShell` shield, Gonzui's `soulWisps`, the Cero's `Fissure`, the Oscuras backfire, the
   rage burst; his giant forms set `Fighter.giant` (no jumps) and `ghosts.enabled = false`, and the kit scales the
-  visual, hurt capsule, speeds and gait with his rage) and
+  visual, hurt capsule, speeds and gait with his rage),
+  `vfx/brujeria.ts` (Zommari: Amor's `SunMark` decal bound to a limb, the purple glint and gaze streak, the
+  `FoldingSword` of the release, the foam, the copies' blood; his kit's holds use `Fighter.armLockT` (the weapon arm
+  seized: no LMB/RMB, the weapon kept), `rooted` and the `amor_hostage` reaction) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

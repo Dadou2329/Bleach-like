@@ -21,6 +21,7 @@ import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
 import { MOMO_DEF, MomoKit } from './kits/momo';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
+import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
@@ -28,6 +29,7 @@ import { momoProp } from '../chars/momo';
 import { szayelAsset, szayelProp } from '../chars/szayel';
 import { fraccionAsset } from '../chars/szayelFraccion';
 import { yammyAsset } from '../chars/yammy';
+import { zommariAsset, zommariProp } from '../chars/zommari';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -569,6 +571,19 @@ export const ROSTER: RosterEntry[] = [
     kit: (f, g) => new YammyKit(f, g),
     warm: () => {
       for (const k of ['ira', 'ape'] as const) buildCached(yammyAsset(k).model, true);
+    },
+  },
+  {
+    id: 'zommari',
+    name: 'Zommari Rureaux',
+    kanji: '呪眼僧伽',
+    title: 'Séptima Espada',
+    color: '#c77dff',
+    def: () => ({ ...ZOMMARI_DEF, speed: { ...ZOMMARI_DEF.speed } }),
+    kit: (f, g) => new ZommariKit(f, g),
+    warm: () => {
+      for (const k of ['brujeria', 'blind'] as const) buildCached(zommariAsset(k).model, true);
+      buildCached(zommariProp('embrion'), false);
     },
   },
   {

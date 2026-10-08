@@ -398,6 +398,11 @@ export interface CoatSkirtOpts {
   res?: number;
   /** bone name prefix (default 'coat'): a second skirt over the first needs its own (a cloak over a coat) */
   prefix?: string;
+  /**
+   * the shell's half-thickness (voxels, default 0.85), thickened inward: a long skirt over empty space shades cleanly
+   * only when its inner face is out of the shading kernel's reach (a thin shell reads as vertical streaks)
+   */
+  thick?: number;
 }
 
 /**
@@ -420,6 +425,7 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
   const springs: SpringDef[] = [];
   const rng = (k: number) => Math.abs(Math.sin(k * 91.7 + 3.1) * 4375.85) % 1;
   const ov = o.overlap ?? 0;
+  const thick = o.thick ?? 0.85;
   panels.forEach(([name, a0d, a1d], pi) => {
     const am = (((a0d + a1d) / 2) * Math.PI) / 180;
     // widened for the overlap, except along the open front
@@ -449,7 +455,7 @@ export function coatSkirt(b: ModelBuilder, L: Landmarks, o: CoatSkirtOpts): { sp
           const th = Math.atan2(x, ez);
           // the radial error in true distance (an oval's radius grows faster along its short axis)
           const gl = k === 1 || rho < 1e-6 ? 1 : Math.hypot(x, ez / k) / rho;
-          const dr = Math.abs(rho - Rp(y)) / gl - 0.85;
+          const dr = Math.abs(rho - Rp(y) + thick - 0.85) / gl - thick;
           // angular extent (handle the ±180° wrap for the back panels)
           let da = 0;
           const lo = Math.min(a0, a1), hi = Math.max(a0, a1);

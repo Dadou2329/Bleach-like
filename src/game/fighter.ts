@@ -150,6 +150,8 @@ export class Fighter {
   slowT = 0;
   /** disarmed (the weapon knocked out of the hand): LMB and RMB do nothing while disarmT runs */
   disarmT = 0;
+  /** the weapon arm seized (Amor): LMB and RMB do nothing while armLockT runs, the weapon stays in the hand */
+  armLockT = 0;
   private disarmHid = false;
   /** soaked through (s left): water attacks bite harder */
   wetT = 0;
@@ -391,6 +393,7 @@ export class Fighter {
       }
     }
     if (this.agedT > 0 && (this.agedT -= dt) <= 0) this.agedK = 0;
+    if (this.armLockT > 0) this.armLockT = Math.max(0, this.armLockT - dt);
     // inside a time field the fighter's own clock runs slow; a weighted weapon drags every action
     const adt = (this.dilateT > 0 ? dt * (1 - this.dilateK) : dt) * this.weaponPace;
     if (this.dead) {

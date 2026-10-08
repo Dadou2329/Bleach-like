@@ -32,7 +32,22 @@ const SLUMP: B = {
   'upperarm.R': [6, 0, -6], 'forearm.R': [-8, 0, 0],
 };
 
+/** held hostage by its own body (Amor on the head): its own blade raised to its throat, the chin forced up */
+const HOSTAGE: B = {
+  spine: [-4, 0, 0], chest: [-6, 0, 0], neck: [-10, 0, 0], head: [-18, 0, 0],
+  'upperarm.R': [-62, 0, 24], 'forearm.R': [-104, 0, 0], 'hand.R': [0, 0, 20],
+  'upperarm.L': [-6, 0, 10], 'forearm.L': [-14, 0, 0],
+  'thigh.L': [-2, 0, 4], 'thigh.R': [-2, 0, -4],
+};
+
 export const REACTION_CLIPS: ClipDef[] = [
+  {
+    name: 'amor_hostage', dur: 0.4, fadeIn: 0.08, fadeOut: 0.3,
+    keys: [
+      { ...body(0, { head: [-6, 0, 0] }), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.4, HOSTAGE, [0, 0, 0], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+    ],
+  },
   {
     name: 'weighed_kneel', dur: 0.32, fadeIn: 0.05, fadeOut: 0.3,
     keys: [
