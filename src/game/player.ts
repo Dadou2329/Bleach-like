@@ -45,8 +45,9 @@ export class PlayerController implements Controller {
     // a lock is lost when the world turns over (Inverted World) or friend and foe swap (Happōfusagari)
     if (this.lock && (this.lock.dead || this.lock.pos.distanceTo(f.pos) > 60 || f.invertT > 0 || (f.iffT > 0 && this.lock.team !== f.team))) this.lock = null;
     if (this.assist && (this.assist.dead || !f.action)) this.assist = null;
-    f.faceTarget = this.lock ? this.lock.center() : this.assist ? this.assist.center() : null;
-    g.cam.lockTarget = this.lock ? this.lock.center() : null;
+    // a lock on someone hiding behind a decoy or bent light holds on where they seem to be
+    f.faceTarget = this.lock ? this.lock.seenCenter() : this.assist ? this.assist.center() : null;
+    g.cam.lockTarget = this.lock ? this.lock.seenCenter() : null;
     if (g.hud) g.hud.lockTarget = this.lock;
     if (f.dead) return;
     // ---- jump / air-step / hover (riding a summon, the kit reads jump/descend as climb/dive)

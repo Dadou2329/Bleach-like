@@ -319,7 +319,7 @@ export class Hud {
     } else this.combo.style.opacity = '0';
     // lock marker
     if (this.lockTarget && !this.lockTarget.dead) {
-      const s = this.project(this.lockTarget.center());
+      const s = this.project(this.lockTarget.seenCenter());
       this.lock.style.display = s.vis ? 'block' : 'none';
       this.lock.style.left = `${s.x}px`;
       this.lock.style.top = `${s.y}px`;

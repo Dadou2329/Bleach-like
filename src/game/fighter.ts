@@ -204,6 +204,7 @@ export class Fighter {
     const { asset, props } = def.build();
     this.visual = new CharacterVisual(asset.model, asset.springs, asset.colliders);
     for (const p of props) this.visual.attach(p.key, p.model, p.socket);
+    this.autoHands();
     this.anim = new Animator(this.visual.rig, def.stance, this.visual.springs);
     this.anim.register(def.clips);
     this.body = new KinematicBody(game.engine.world);
@@ -230,6 +231,28 @@ export class Fighter {
   /** chest-height centre (world) */
   center(out = new THREE.Vector3()): THREE.Vector3 {
     return out.set(this.body.pos.x, this.body.pos.y + this.def.height * 0.55, this.body.pos.z);
+  }
+
+  /**
+   * Rigs with both hand variants (open `palm.*`, gripping `fist.*`) show one per side: a hand holding a prop is a
+   * fist, an empty one is open. Kits that pose the hands themselves set them after this.
+   */
+  autoHands(): void {
+    const rig = this.visual.rig;
+    for (const side of ['R', 'L']) {
+      if (rig.index(`fist.${side}`) < 0 || rig.index(`palm.${side}`) < 0) continue;
+      const grip = rig.sockets.get(`grip.${side}`);
+      let held = false;
+      for (const p of this.visual.props.values()) if (grip && p.parent === grip) held = true;
+      rig.setBoneVisible(`fist.${side}`, held);
+      rig.setBoneVisible(`palm.${side}`, !held);
+    }
+  }
+
+  /** where opponents believe its centre is: the lure's (a decoy, bent light) or the real one */
+  seenCenter(out = new THREE.Vector3()): THREE.Vector3 {
+    const p = this.lure ?? this.body.pos;
+    return out.set(p.x, p.y + this.def.height * 0.55, p.z);
   }
 
   forward(out = new THREE.Vector3()): THREE.Vector3 {
@@ -565,6 +588,7 @@ export class Fighter {
     old.g.group.removeFromParent();
     this.visual = new CharacterVisual(build.asset.model, build.asset.springs, build.asset.colliders);
     for (const p of build.props) this.visual.attach(p.key, p.model, p.socket);
+    this.autoHands();
     this.anim = new Animator(this.visual.rig, this.def.stance, this.visual.springs);
     this.anim.register(this.def.clips);
     this.anim.loco.phase = old.a.loco.phase;

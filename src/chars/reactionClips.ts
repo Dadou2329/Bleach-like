@@ -23,6 +23,15 @@ const PIN: B = {
   'upperarm.R': [-62, 0, -16], 'forearm.R': [-18, 0, 0],
 };
 
+/** asleep where it stood (Hakufuku): sunk onto its knees, slumped forward, the arms hanging, the head lolled aside */
+const SLUMP: B = {
+  hips: [6, 0, 3], spine: [24, 0, 4], chest: [16, 0, 4], neck: [18, 0, 8], head: [24, 8, 20],
+  'thigh.L': [-4, 0, 8], 'shin.L': [98, 0, 0], 'foot.L': [32, 0, 0],
+  'thigh.R': [-2, 0, -8], 'shin.R': [98, 0, 0], 'foot.R': [32, 0, 0],
+  'upperarm.L': [6, 0, 6], 'forearm.L': [-8, 0, 0], 'hand.L': [6, 0, 0],
+  'upperarm.R': [6, 0, -6], 'forearm.R': [-8, 0, 0],
+};
+
 export const REACTION_CLIPS: ClipDef[] = [
   {
     name: 'weighed_kneel', dur: 0.32, fadeIn: 0.05, fadeOut: 0.3,
@@ -30,6 +39,14 @@ export const REACTION_CLIPS: ClipDef[] = [
       body(0, { hips: [4, 0, 0], spine: [8, 0, 0], 'thigh.L': [-30, 0, 4], 'shin.L': [50, 0, 0], 'thigh.R': [-24, 0, -4], 'shin.R': [44, 0, 0] }, [0, -0.18, 0]),
       body(0.12, { ...KNEEL, spine: [24, 0, 0], head: [10, 0, 0] }, [0, -0.44, -0.04], 'outExpo'),
       body(0.32, KNEEL, [0, -0.41, -0.05], 'inOut'),
+    ],
+  },
+  {
+    name: 'slumber', dur: 0.7, fadeIn: 0.12, fadeOut: 0.35,
+    keys: [
+      body(0, { hips: [4, 0, 0], spine: [10, 0, 0], neck: [8, 0, 0], head: [12, 0, 6], 'thigh.L': [-22, 0, 4], 'shin.L': [40, 0, 0], 'thigh.R': [-18, 0, -4], 'shin.R': [36, 0, 0] }, [0, -0.14, 0]),
+      body(0.36, { ...SLUMP, head: [16, 2, 8] }, [0, -0.43, -0.05], 'inOut'),
+      body(0.7, SLUMP, [0, -0.42, -0.05], 'inOut'),
     ],
   },
   {

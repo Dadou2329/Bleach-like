@@ -21,6 +21,7 @@ describe('Izuru Kira', () => {
     for (const n of [...WABISUKE_CHAIN, 'kw_pull', 'kw_guillotine', 'kw_penance', 'kw_parry', 'kw_stomp', 'kw_drop', 'kw_debris', 'kw_seal', 'kr_kaido', 'dash', 'hit_heavy']) expect(w).toContain(n);
   });
   it('has the shared kneel and pin reactions', () => {
-    expect(REACTION_CLIPS.map((c) => c.name)).toEqual(['weighed_kneel', 'weighed_pin']);
+    const names = REACTION_CLIPS.map((c) => c.name);
+    for (const n of ['weighed_kneel', 'weighed_pin']) expect(names).toContain(n);
   });
 });

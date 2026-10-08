@@ -592,6 +592,43 @@ G state, V flare); press **H** in game for the current character's moves.
   - R: **Debris Rain** (from the novels): Tenran tears chunks of street up, he strikes each until it weighs ×16,
     and they fall on the target.
   - G: Kaidō. F: seals Wabisuke.
+- **Yumichika Ayasegawa**, 5th Seat of the 11th Division: a jaw-length black bob, yellow and orange feathers at his
+  right eye, purple eyes, an orange collar and undersleeve under the shihakushō, a fuchsia sheath. A vain, elegant
+  duelist: the lunge, a slash, the rising flourish and the pirouette (LMB). His sealed moves:
+  - RMB: **Beautiful Swordfight**, a flurry of eight clashing cuts.
+  - Q: Hadō #57 **Daichi Ten'yō**: chunks of ground lifted round him (they stop shots) and hurled at the target.
+  - E: Hadō #31 **Shakkahō**. R: Bakudō #4 **Hainawa**, a rope of light (slowed and disarmed).
+  - G: the **hair fix**: a breath to put himself right (a little HP; slows, blindness and the like shaken off).
+  - F: **"Sake, Fuji Kujaku"**: the blade curves into a sickle and fans into four like a peacock's tail.
+- **Yumichika, Fuji Kujaku**: the false Shikai, sulking and barely stronger than the sword. LMB hooks and sweeps
+  with the fan; RMB the **fan spin**; Q Daichi Ten'yō; E the **blade catch** (a blow caught between the sickles, the
+  attacker disarmed, the riposte); R Beautiful Swordfight; G the hair fix. F: **"Sakikurue, Ruri'iro Kujaku"**, the
+  true Shikai, which he refuses to show while anyone of the 11th Division (Ikkaku, Kenpachi) is within 40 m.
+- **Yumichika, Ruri'iro Kujaku**: peacock vines pour from the hilt. LMB lashes a vine out to 5 m; RMB a **burst** of
+  seven. Q **ensnares** the target: the vines coil round it, root it and drink its reiatsu and blood (faster while it
+  struggles), buds swelling along them in its own colour. E **blooms** them: the stolen power turned on it (the
+  fuller the buds, the worse). R eats a **petal** from the flowers and heals by what it held. G spreads a **thicket**
+  over the ground that snags and drains whoever walks in. F seals. Two blows from the wrapped target tear it free.
+- **Momo Hinamori**, Lieutenant of the 5th Division: petite, with big round brown eyes, her dark hair in a bun
+  wrapped in an off-white cloth and two long locks framing her face, the badge (五 and a lily) on her left arm and
+  Tobiume long at her hip. The Kidō trap-layer, fragile up close: the thrust, two cuts and the rising cut (LMB). All
+  her Kidō is instant. Her sealed moves:
+  - RMB: Hadō #31 **Shakkahō**, quick to repeat.
+  - Q: Hadō #12 **Fushibi**: a web of fine threads strung round the target's ground (or round her), nearly invisible
+    to anyone but her. A thread snares whoever walks into it, and any of her fire bursting by it sets the whole web
+    off, strand after strand outward from the spark. Two webs at most.
+  - E: Bakudō #37 **Tsuriboshi** as a launch pad: the star net under her feet and a fireball beneath it. She is
+    flung high and the blast hits round where she stood.
+  - R: Bakudō #26 **Kyokkō**: the light bends round her and she fades out. Whoever fights her keeps attacking where
+    she was (their lock-on too), her Shunpo leaves no afterimage and her first blow out of hiding hits harder.
+  - G: **Hakufuku**: purple blossoms in the face. The senses blur, then the target falls asleep where it stands
+    (a blow wakes it).
+  - F: **"Hajike, Tobiume"**: the blade straightens and three jutte prongs spring out of it.
+  - Passive: Tsuriboshi catches her when she is knocked flying. If one she loves falls at her side (Aizen,
+    Hitsugaya, Shinji), grief takes her: she hits harder and stops guarding.
+- **Momo, Tobiume**: fireballs with a seagull's cry. LMB is the same string, the last cut flicking a fireball off the
+  prongs; RMB the **fireball** (aimed at the head); Q Fushibi; E the **volley**, five fireballs fanned (with a second
+  enemy near, two of them go for it); R the **ignition**, a fireball to every web she has laid; G **Kaidō**. F seals.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**

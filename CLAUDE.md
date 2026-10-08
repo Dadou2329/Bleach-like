@@ -9,7 +9,8 @@ scope and milestones and `README.md` for controls and modes.
 - Headless visuals: `node tools/shots/shoot.mjs --url "/?..." --out shots/x.png --script "js1||js2"` takes one
   screenshot per script after `__reishi.ready()`. `tools/shots/probe.mjs --file script.js` evaluates JS and can
   screenshot. SwiftShader runs at about 1 fps, so drive the simulation deterministically with
-  `__reishi.freeze()` plus `play(n)` (step and render) or `advance(n)` (step only). Use `freeCam(...)` for
+  `__reishi.freeze()` plus `play(n)` (step and render) or `advance(n)` (step only); blade sweeps are sampled when a
+  fighter renders, so a probe that checks sword hits must `play` every frame. Use `freeCam(...)` for
   framing. Add `&q=low` for speed. `shots/` is git-ignored. The tools start Vite with
   `tools/shots/vite.shots.config.ts` (HMR off), so editing sources while a capture runs does not reload its
   page; a server you started yourself with `npm run dev` on the same port still has HMR.
@@ -23,7 +24,9 @@ scope and milestones and `README.md` for controls and modes.
   crumbles what it beats to dust and turns the rest to `decayed` matter (`rotOnly` only decays).
 - Characters: author models with the DSL in `src/models/builder.ts`, in **voxel units** at 48 vox/m. The model
   faces +Z and +X is the character's LEFT. Ramps are ordered light → dark. Each bone has its own grid, so
-  parts may overlap at joints. Run `autoShade()` then `lint()`.
+  parts may overlap at joints. Run `autoShade()` then `lint()`. Rigs carry both hand variants (`palm.*` open, `fist.*`
+  gripping): a Fighter shows the fist on a side whose `grip.*` socket holds a prop and the open hand otherwise
+  (`autoHands()`, at spawn and on `setForm`); kits that pose the hands themselves set them afterwards.
 - Animation: `anim/animator.ts`. Locomotion is procedural; clips use eased Hermite keys. Sword clips are
   authored as swing arcs (`anim/swing.ts` → IK channels `@gripR/@dirR/@edgeR/@poleR/@ikR`). A left-hand weapon has
   its own channels (`@gripL/@dirL/@edgeL/@poleL/@ikL`, `swingKeys({ hand: 'L' })`); a gauntlet blade along the
@@ -53,7 +56,9 @@ scope and milestones and `README.md` for controls and modes.
   `canJump` is false from ×8, `weaponPace` slows actions and animation; a form change clears the weapon's; the kit
   that adds them kneels, pins and clears them). `lastHurt` (game time, damage and shrug of the last blow that
   reached it: an `onHit` can tell whether a cut really cut). `chars/reactionClips.ts` holds poses any humanoid rig
-  can be forced into (`registerReactions(o.anim)`, then play `weighed_kneel` / `weighed_pin`).
+  can be forced into (`registerReactions(o.anim)`, then play `weighed_kneel` / `weighed_pin` / `slumber`). `lure`: where
+  opponents believe the fighter stands (a decoy, Kyokkō's bent light): the duel AI fights it and the player's lock-on
+  and reticle follow it (`seenCenter()`).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -87,7 +92,12 @@ scope and milestones and `README.md` for controls and modes.
   `ChainWrap`, `FushiOrb` — the novel Bankai's orb with its nooses and chain rain; the sickles themselves fly on
   `TetherBlade`),
   `vfx/wabisuke.ts` (Kira: weight tags and rings, `TenranWind`, the Enkōsen disc, the Tōzanshō pyramid, the
-  Tsuriboshi net, Kaidō and Gaten, the Debris Rain chunks, the heavy stomp) and
+  Tsuriboshi net, Kaidō and Gaten, the Debris Rain chunks, the heavy stomp),
+  `vfx/kujaku.ts` (Yumichika: `VineMesh`, a tube rebuilt along a moving path each frame in the peacock pattern;
+  `PeacockVines`: lashes, the ensnare's coils with buds in the victim's colour, the bloom, the wither, the thicket),
+  `vfx/tobiume.ts` (Momo: `FushibiNet`, the hidden web — threads between anchors that snare and, lit by her fire, blow
+  up strand by strand outward from the spark; the Tsuriboshi star net; `KyokkoVeil`, a hidden fighter's faint
+  refraction drawn with its own afterimage pool; Hakufuku's blossoms) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

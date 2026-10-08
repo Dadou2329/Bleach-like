@@ -5,6 +5,7 @@ import type { Game } from './game';
 import type { Kit } from './kits/kit';
 import { ICHIGO_DEF, IchigoKit } from './kits/ichigo';
 import { buildCached } from './characterFactory';
+import { registerRoster } from './registry';
 import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { HOLLOW_ICHIGO_DEF, HollowIchigoKit } from './kits/hollowIchigo';
 import { ISSHIN_DEF, IsshinKit } from './kits/isshin';
@@ -16,8 +17,12 @@ import { RANGIKU_DEF, RangikuKit } from './kits/rangiku';
 import { rangikuProp } from '../chars/rangiku';
 import { HISAGI_DEF, HisagiKit } from './kits/hisagi';
 import { KIRA_DEF, KiraKit } from './kits/kira';
+import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
+import { MOMO_DEF, MomoKit } from './kits/momo';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
+import { yumichikaProp } from '../chars/yumichika';
+import { momoProp } from '../chars/momo';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -512,6 +517,30 @@ export const ROSTER: RosterEntry[] = [
     },
   },
   {
+    id: 'yumichika',
+    name: 'Yumichika Ayasegawa',
+    kanji: '孔雀',
+    title: '5th Seat, 11th Division',
+    color: '#4cc46a',
+    def: () => ({ ...YUMICHIKA_DEF, speed: { ...YUMICHIKA_DEF.speed } }),
+    kit: (f, g) => new YumichikaKit(f, g),
+    warm: () => {
+      for (const k of ['fuji', 'ruri'] as const) buildCached(yumichikaProp(k), false);
+    },
+  },
+  {
+    id: 'momo',
+    name: 'Momo Hinamori',
+    kanji: '飛梅',
+    title: 'Lieutenant, 5th Division',
+    color: '#e53935',
+    def: () => ({ ...MOMO_DEF, speed: { ...MOMO_DEF.speed } }),
+    kit: (f, g) => new MomoKit(f, g),
+    warm: () => {
+      buildCached(momoProp('tobiume'), false);
+    },
+  },
+  {
     id: 'komamura',
     name: 'Sajin Komamura',
     kanji: '天譴',
@@ -565,6 +594,8 @@ export const ROSTER: RosterEntry[] = [
     },
   },
 ];
+
+registerRoster(ROSTER);
 
 export function rosterEntry(id: string | null | undefined): RosterEntry {
   return ROSTER.find((r) => r.id === id) ?? ROSTER[0];

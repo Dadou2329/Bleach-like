@@ -5,7 +5,7 @@ import * as THREE from 'three';
 export type SfxName =
   | 'swing' | 'swingHeavy' | 'hit' | 'hitHeavy' | 'impact' | 'crumble' | 'getsuga' | 'getsugaBlack'
   | 'shunpo' | 'step' | 'airstep' | 'charge' | 'beam' | 'explode' | 'roar' | 'roarBig' | 'bankai' | 'flare' | 'purify'
-  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl' | 'splash' | 'torrent' | 'heal';
+  | 'mask' | 'crack' | 'shatter' | 'ting' | 'arrow' | 'gunshot' | 'howl' | 'splash' | 'torrent' | 'heal' | 'cry';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
@@ -597,6 +597,31 @@ export class Sfx {
           s.stop(t + k * 0.07 + 2.2);
           vib.stop(t + k * 0.07 + 2.2);
         });
+        break;
+      }
+      case 'cry': {
+        // a seagull's cry (Tobiume's fireballs): two harsh calls that jump up and slide away
+        const o = this.out(pos, 0.22 * I, 90);
+        if (!o) return;
+        for (let i = 0; i < 2; i++) {
+          const t0 = t + i * 0.2;
+          const dur = i ? 0.26 : 0.18;
+          const f0 = 760 + Math.random() * 60 - i * 90;
+          const s = ctx.createOscillator();
+          s.type = 'sawtooth';
+          s.frequency.setValueAtTime(f0 * 0.82, t0);
+          s.frequency.exponentialRampToValueAtTime(f0 * 1.35, t0 + 0.04);
+          s.frequency.exponentialRampToValueAtTime(f0 * 0.72, t0 + dur);
+          const bp = ctx.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.frequency.value = 2100;
+          bp.Q.value = 1.6;
+          const g = ctx.createGain();
+          this.env(g, t0, 0.015, 0.5, dur);
+          s.connect(bp).connect(g).connect(o);
+          s.start(t0);
+          s.stop(t0 + dur + 0.05);
+        }
         break;
       }
       case 'purify': {

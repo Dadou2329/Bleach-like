@@ -21,6 +21,10 @@ export interface ShakkahoOpts {
   backfire?: boolean;
   /** the blast burns its caster too when he stands inside it (the full chant at point-blank range) */
   scorch?: boolean;
+  /** another fire's colours (Tobiume's fireballs): the core, the shell, the light */
+  palette?: { core: string; shell: string; light: string };
+  /** where it went off (Fushibi's nets catch fire from it) */
+  onBurst?: (at: THREE.Vector3) => void;
 }
 
 let geo: THREE.BufferGeometry | null = null;
@@ -41,11 +45,11 @@ export class Shakkaho implements Projectile {
     this.dir = dir.clone().normalize();
     geo ??= new THREE.IcosahedronGeometry(1, 2);
     const mat = (c: string, gain: number, op: number) => new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(gain), transparent: true, opacity: op, blending: THREE.AdditiveBlending, depthWrite: false });
-    this.core = new THREE.Mesh(geo, mat('#FFC9A0', 2.2, 0.95));
-    this.shell = new THREE.Mesh(geo, mat('#E3262E', 1.6, 0.55));
+    this.core = new THREE.Mesh(geo, mat(o.palette?.core ?? '#FFC9A0', 2.2, 0.95));
+    this.shell = new THREE.Mesh(geo, mat(o.palette?.shell ?? '#E3262E', 1.6, 0.55));
     this.core.scale.setScalar(o.size * 0.55);
     this.shell.scale.setScalar(o.size);
-    this.light = new THREE.PointLight('#FF5A2A', 6 * o.size, 10 + o.size * 8, 1.6);
+    this.light = new THREE.PointLight(o.palette?.light ?? '#FF5A2A', 6 * o.size, 10 + o.size * 8, 1.6);
     this.group.add(this.core, this.shell, this.light);
     this.group.position.copy(this.pos);
     this.group.traverse((c) => (c.frustumCulled = false));
@@ -104,6 +108,7 @@ export class Shakkaho implements Projectile {
     if (this.done) return;
     this.done = true;
     const p = this.pos;
+    this.o.onBurst?.(p);
     const R = this.o.blast;
     // everyone in the blast (the caster too, when it goes off in his hand or he is too close)
     for (const f of g.fighters) {
