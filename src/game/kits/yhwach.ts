@@ -678,7 +678,8 @@ export class YhwachKit implements Kit {
   /** G (Soul King): Auswählen — the black ring and the pillars on everyone near */
   auswahlen(): void {
     const { f, g } = this;
-    const victims = g.enemiesOf(f).filter((o) => !o.dead && o.pos.distanceTo(f.pos) < 34);
+    // the Blood War Uryū survived it with his power whole: it does not touch him
+    const victims = g.enemiesOf(f).filter((o) => !o.dead && o.pos.distanceTo(f.pos) < 34 && o.def.id !== 'uryu-tybw');
     // a Quincy loses far more: his power is taken back
     for (const o of victims) if (o.def.id === 'uryu') { o.sealT = Math.max(o.sealT, 18); o.sealK = Math.max(o.sealK, 0.5); }
     g.addProjectile(new Auswahlen(g, f, victims, true, 22, (amount) => {

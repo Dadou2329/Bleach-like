@@ -62,6 +62,9 @@ const FACE = [
   '. . . . . . . . . .',
 ];
 
+/** shared with the Blood War body (uryuTybw.ts) */
+export { SPEC as URYU_SPEC, FACE as URYU_FACE };
+
 const assetCache = new Map<UryuForm, CharacterAsset>();
 const propCache = new Map<string, VoxelModel>();
 

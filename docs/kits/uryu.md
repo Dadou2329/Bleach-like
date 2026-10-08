@@ -25,7 +25,7 @@ Uryū is one card with era chips (roster entries sharing `group: 'uryu'`).
 | RMB | the power shot (a charged arrow that holes bodies and walls) | **Sternenstaub** — flechettes merge into a giant arrow with a Zeichen-star tip; gathered behind the target when it is far |
 | Q | **instant Licht Regen** (no charge: a barrage at once) | **Reishi Cage** — a pentagon-panelled orb round the target that detonates in a Quincy Zeichen |
 | E | **Antithesis** — the wounds of the last 6 s swapped between him and the target (he heals what he lost, it takes it), and his statuses handed to it | **Antithesis (enhanced)** — also the positions |
-| R | **Standspitze** once a match (the Still-Silver arrowhead: the target's power is sealed 10 s); then **Leiden Scherben** — chips planted (≤ 5) that fire arrows at enemies passing, R with chips down detonates them all | **Federzwinger** — five flechette rods round the target: a pentagonal cage that drains its reiatsu and seals its releases |
+| R | **Standspitze** once a match (the Still-Silver arrowhead: the target's power is sealed 10 s); then **Leiden Scherben** — chips planted (≤ 5) that fire arrows at enemies passing, R with the target among them (or all five down) detonates them all | **Federzwinger** — five flechette rods round the target: a pentagonal cage that drains its reiatsu and seals its releases |
 | F | Vollständig | **Sklaverei** — reishi torn out of the world round him (the voxels dissolve into streams): heals and refills |
 | G | **Blut Vene** (on: damage taken ×0.45, reiatsu drains; off: normal) | **Icosahedron Barrier** (shots and blows stopped); G again: the panels unfold and fire dozens of beams |
 | Passive | Auswählen immune · Hollow-reiatsu resistant | flight; flechettes orbit him |
@@ -63,7 +63,8 @@ Uryū is one card with era chips (roster entries sharing `group: 'uryu'`).
   in the last 6 s (≤ 260), the target takes the same (unblockable); his slow/seal/root/burn pass to it.
 - Standspitze: 0-24 draw · 24 loosed (60 m/s): on a hit 30 dmg, `sealT` 10 s, `sealK` 0.5, its forms' gains cut.
 - Leiden Scherben: a chip lands where he aims (≤ 30 m); an enemy within 2.5 m of a chip trips it: 6 arrows (14 dmg);
-  R with chips down: every chip dissolves the reishi round it (r 2.5, no rubble) and blasts 40.
+  R with the target within 4.5 m of a chip (or all five down): every chip dissolves the reishi round it (r 2.5, no
+  rubble) and blasts 40.
 - Vollständig: 0-60 the pillar of light, the wings; 45 s; F inside: Sklaverei (2 s channel: heals 18 %/s while
   world voxels within 6 m dissolve toward him).
 - Federzwinger: five rods rain round the target (r 2.2) at 18 · cage 5 s: `sealT` 5 s, reiatsu −8/s, rooted.

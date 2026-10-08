@@ -96,6 +96,9 @@ scope and milestones and `README.md` for controls and modes.
   orbited round a centre, stuck in a fighter and hauled back — and `Corrosion` of a caught blade), `vfx/engetsu.ts`
   (Isshin: Engetsu's blade and tassel flames, the blood-flame pillar, the Kaikyō Kotei field, `Plow` — a flicked
   fighter smashing through walls),
+  `vfx/heilig.ts` (TYBW Uryū: the Heilig Bogen and its string, Antithesis' red link and the eyes, Leiden Scherben
+  chips, the Standspitze, the Vollständig flechettes and their orbit, Sternenstaub, the Reishi Cage, Federzwinger,
+  the Icosahedron Barrier and its beams, the pillar of light, the Schatten pool, `sklaverei()`),
   `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower),
   `vfx/ryumon.ts` (Ikkaku: `RyumonRig` — the centre blade floating on its chains with the dragon crest filling slice by
   slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast),

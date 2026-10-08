@@ -35,9 +35,46 @@ export interface ArrowOpts {
   color?: THREE.ColorRepresentation;
   /** called where it bursts (Yhwach's arrows open into a Zeichen) */
   onBurst?: (p: THREE.Vector3, dir: THREE.Vector3) => void;
+  /** the Blood War arrow: a broad head and a Zeichen-shaped tail with bent-back arms (Heilig Bogen) */
+  zeichen?: boolean;
 }
 
 let arrowGeo: THREE.BufferGeometry | null = null;
+let heiligGeo: THREE.BufferGeometry | null = null;
+
+function mergeGeos(parts: THREE.BufferGeometry[]): THREE.BufferGeometry {
+  const pos: number[] = [];
+  for (const gg of parts) pos.push(...((gg.index ? gg.toNonIndexed() : gg).attributes.position.array as Float32Array));
+  const merged = new THREE.BufferGeometry();
+  merged.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  return merged;
+}
+
+/** A Heilig Pfeil of the Blood War: a thin shaft, a broad diamond head, five arms at the tail bent back. Along +Z. */
+function heiligGeometry(): THREE.BufferGeometry {
+  if (heiligGeo) return heiligGeo;
+  const parts: THREE.BufferGeometry[] = [];
+  const shaft = new THREE.CylinderGeometry(0.016, 0.012, 0.95, 5, 1, true);
+  shaft.translate(0, -0.47, 0);
+  parts.push(shaft);
+  const head = new THREE.ConeGeometry(0.075, 0.24, 4);
+  head.translate(0, 0.12, 0);
+  parts.push(head);
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2;
+    // an arm out from the tail, then bent back along the shaft
+    const out = new THREE.BoxGeometry(0.012, 0.012, 0.11);
+    out.translate(0, 0, 0.055);
+    out.rotateY(a);
+    out.translate(0, -0.86, 0);
+    const back = new THREE.BoxGeometry(0.012, 0.09, 0.012);
+    back.translate(Math.sin(a) * 0.11, -0.9, Math.cos(a) * 0.11);
+    parts.push(out, back);
+  }
+  heiligGeo = mergeGeos(parts);
+  heiligGeo.rotateX(Math.PI / 2);
+  return heiligGeo;
+}
 
 export class ReishiArrow implements Projectile {
   done = false;
@@ -52,7 +89,7 @@ export class ReishiArrow implements Projectile {
     this.pos = origin.clone();
     this.dir = dir.clone().normalize();
     this.col = new THREE.Color(o.color ?? '#59B7EE');
-    if (!arrowGeo) {
+    if (!arrowGeo && !o.zeichen) {
       // a needle of light: a long thin shaft and a bright diamond head
       const shaft = new THREE.CylinderGeometry(0.018, 0.012, 0.9, 6, 1, true);
       shaft.translate(0, -0.45, 0);
@@ -65,7 +102,7 @@ export class ReishiArrow implements Projectile {
       merged.rotateX(Math.PI / 2);
       arrowGeo = merged;
     }
-    this.mesh = new THREE.Mesh(arrowGeo, new THREE.MeshBasicMaterial({ color: this.col.clone().multiplyScalar(2.4), transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false }));
+    this.mesh = new THREE.Mesh(o.zeichen ? heiligGeometry() : arrowGeo!, new THREE.MeshBasicMaterial({ color: this.col.clone().multiplyScalar(2.4), transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false }));
     this.mesh.scale.setScalar(o.size ?? 1);
     this.mesh.frustumCulled = false;
     this.mesh.renderOrder = 7;
@@ -116,6 +153,14 @@ export class ReishiArrow implements Projectile {
     this.mesh.position.copy(this.pos);
     _q.setFromUnitVectors(Z, this.dir);
     this.mesh.quaternion.copy(_q);
+  }
+
+  /** an enemy rejection field or barrier undoes it */
+  reject(at: THREE.Vector3, radius: number, by: Fighter): boolean {
+    if (by === this.owner || this.done || this.pos.distanceTo(at) > radius) return false;
+    this.done = true;
+    this.mesh.visible = false;
+    return true;
   }
 
   private burst(g: Game, f: Fighter | null): void {

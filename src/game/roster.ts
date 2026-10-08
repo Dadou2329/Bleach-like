@@ -71,6 +71,8 @@ import { CHAD_DEF, ChadKit } from './kits/chad';
 import { chadAsset } from '../chars/chad';
 import { URYU_DEF, UryuKit } from './kits/uryu';
 import { uryuAsset, uryuProp } from '../chars/uryu';
+import { URYU_TYBW_DEF, UryuTybwKit } from './kits/uryuTybw';
+import { uryuTybwAsset, uryuTybwProp } from '../chars/uryuTybw';
 import { YORUICHI_DEF, YoruichiKit } from './kits/yoruichi';
 import { yoruichiAsset } from '../chars/yoruichi';
 import { URAHARA_DEF, UraharaKit } from './kits/urahara';
@@ -368,11 +370,30 @@ export const ROSTER: RosterEntry[] = [
     kanji: '滅却師',
     title: 'Quincy',
     color: '#8fd0ff',
+    group: 'uryu',
+    era: 'Hueco Mundo',
     def: () => ({ ...URYU_DEF, speed: { ...URYU_DEF.speed } }),
     kit: (f, g) => new UryuKit(f, g),
     warm: () => {
       buildCached(uryuAsset('letzt').model, true);
       for (const k of ['seele', 'glasses', 'cross'] as const) buildCached(uryuProp(k), false);
+    },
+  },
+  {
+    id: 'uryu-tybw',
+    name: 'Uryū Ishida',
+    kanji: '完全反立',
+    title: 'Sternritter "A" — The Antithesis',
+    color: '#47e2f8',
+    group: 'uryu',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...URYU_TYBW_DEF, speed: { ...URYU_TYBW_DEF.speed } }),
+    kit: (f, g) => new UryuTybwKit(f, g),
+    warm: () => {
+      buildCached(uryuTybwAsset('vollstandig').model, true);
+      for (const k of ['bogen', 'flechette', 'standspitze', 'chip'] as const) buildCached(uryuTybwProp(k), false);
+      buildCached(uryuProp('glasses'), false);
     },
   },
   {

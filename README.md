@@ -255,6 +255,29 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: **Quincy: Letzt Stil**, for 25 seconds. The wing on his right shoulder drinks the reishi out of the
     walls round him, every arrow bursts, and the charged shot goes through everything. Afterwards his powers
     are sealed for a while.
+  - **Eras**: Uryū is one card with two chips — **Hueco Mundo** (the kit above) and **Thousand-Year Blood War**,
+    the card's default: **Sternritter "A"**, in the white double-breasted trench coat (three Zeichen buttons each
+    side, the gold buckle, the winged-star pin), the long cape and the high clasped collar, his hair swept to the
+    right and tucked behind the left ear. The **Heilig Bogen**, a bow of light as tall as he is, forms in his left
+    hand; its arrows carry Zeichen tails. LMB: two shots and three in a blur; point-blank, a front kick and a palm
+    thrust that loose arrows into the target. RMB: the power shot that holes bodies and walls. Q: the **instant
+    Licht Regen**, no charge. E: **Antithesis** — two points light up and what happened between them is reversed:
+    the wounds he took in the last six seconds (up to 260) leave him and land on the target, and his statuses
+    (slow, seal, blindness, disarm…) go with them. R: the **Standspitze**, once a match — the Still-Silver head
+    seals the target's power for ten seconds; after it, **Leiden Scherben** chips (up to five) planted where he aims
+    loose arrows at an enemy that comes near, and R with the target among them (or all five down) sets them off,
+    dissolving the reishi round them without rubble. G: **Blut Vene** (damage taken ×0.45 while the reiatsu
+    drains). Shift with a lock-on: the **Schatten** — he sinks into his shadow and steps out of the target's.
+    Auswählen does not touch him.
+    - F: **Quincy: Vollständig** for 45 seconds: a pillar of light, two sharp crystal wings, crystal cuffs and
+      greaves, and he flies (Space climbs, Ctrl sinks). Twelve flechettes orbit him. LMB: flechette volleys, the
+      fourth the **composite Heilig Pfeil** that bores clean through buildings. RMB: **Sternenstaub**, a giant
+      star-tipped arrow — at a target over 20 m away it gathers behind it. Q: the **Reishi Cage**, a pentagon-panelled
+      orb that closes round the target and goes up in a Zeichen. E: Antithesis, now swapping their places too. R:
+      **Federzwinger**, five flechette rods round the target: a cage that roots it, drains its reiatsu and seals its
+      releases. F: **Sklaverei**, the world round him torn into reishi that streams into him and heals. G: the
+      **Icosahedron Barrier** (shots undone, blows cut to 40 %); G again — or when its six seconds run out — its panels
+      open and two dozen beams converge on the target.
 - **Orihime Inoue**, in the white dress of Las Noches: waist-length orange hair, the two six-petal hairpins
   of **Shun Shun Rikka** at her temples. The six fairies fly out of the pins for every technique. LMB is the
   karate Tatsuki taught her (a jab, a palm thrust, a front kick, both palms behind a small triangle). Her moves:
@@ -1024,7 +1047,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`)
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
