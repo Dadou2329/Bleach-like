@@ -111,6 +111,8 @@ import { HASCHWALTH_DEF, HaschwalthKit } from './kits/haschwalth';
 import { haschwalthAsset, haschwalthProp } from '../chars/haschwalth';
 import { BAZZB_DEF, BazzbKit } from './kits/bazzb';
 import { bazzbAsset, bazzbProp } from '../chars/bazzb';
+import { BAMBIETTA_DEF, BambiettaKit } from './kits/bambietta';
+import { bambiettaAsset, bambiettaProp } from '../chars/bambietta';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -484,6 +486,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(bazzbAsset('voll').model, true);
       for (const k of ['crossbow', 'flame', 'halo'] as const) buildCached(bazzbProp(k), false);
+    },
+  },
+  {
+    id: 'bambietta',
+    name: 'Bambietta Basterbine',
+    kanji: '爆撃',
+    title: 'Sternritter "E" — The Explode',
+    color: '#ff4d6d',
+    def: () => ({ ...BAMBIETTA_DEF, speed: { ...BAMBIETTA_DEF.speed } }),
+    kit: (f, g) => new BambiettaKit(f, g),
+    warm: () => {
+      buildCached(bambiettaAsset('zofiel').model, true);
+      for (const k of ['halo', 'boulder'] as const) buildCached(bambiettaProp(k), false);
     },
   },
   {

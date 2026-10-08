@@ -99,6 +99,10 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/heilig.ts` (TYBW Uryū: the Heilig Bogen and its string, Antithesis' red link and the eyes, Leiden Scherben
   chips, the Standspitze, the Vollständig flechettes and their orbit, Sternenstaub, the Reishi Cage, Federzwinger,
   the Icosahedron Barrier and its beams, the pillar of light, the Schatten pool, `sklaverei()`),
+  `vfx/explode.ts` (Bambietta: `blast()`, her explosion; `BombTag`, a fuse on a fighter or a point of the world;
+  `BombOrb`, which flies or falls and sticks; `KickedOrb`; `ArmedBoulder`; `ExplosiveGlobe`, the tantrum that hits
+  her own side too; `OrbRain`), the Sternritter kits share `game/kits/sternritter.ts` (Hirenkyaku's puff and streak,
+  `vollFlight`),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand
@@ -107,7 +111,8 @@ scope and milestones and `README.md` for controls and modes.
   `TheKey`, the Hagal rune and its pillar; `InversionMark`; `BlackTorrent`; the black mend; the shield's flash; his
   kit's Balance halves wounds through `damageTaken`, reflects them onto `lastHurt.from` in `onHurt` and stores the
   shield's half; the night's foresight is a `parry` hook); the Sternritter models share `chars/sternritter.ts`
-  (pixel badges and Zeichen set into a coat, the order's long cape, a sheet of long hair on spring bones),
+  (pixel badges and Zeichen set into a coat, the order's long cape, a sheet of long hair on spring bones, `peakedCap()`:
+  the order's cap, liftable and tipped back to sit on a mass of hair),
   `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower),
   `vfx/ryumon.ts` (Ikkaku: `RyumonRig` — the centre blade floating on its chains with the dragon crest filling slice by
   slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast),

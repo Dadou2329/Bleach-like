@@ -430,3 +430,34 @@ export class ExplosiveGlobe implements Projectile {
     this.mat.dispose();
   }
 }
+
+/** Flatland: orbs falling out of the sky over a wide disc round a point, one after another. */
+export class OrbRain implements Projectile {
+  done = false;
+  private t = 0;
+  private dropped = 0;
+
+  /** `chase`: every other orb falls where this fighter is now */
+  constructor(private g: Game, readonly owner: Fighter, readonly center: THREE.Vector3, readonly count = 40, readonly dur = 2.5, readonly radius = 11, readonly dmg = 18, readonly chase: Fighter | null = null) {}
+
+  update(dt: number): void {
+    const { g } = this;
+    this.t += dt;
+    if (this.owner.dead) {
+      this.done = true;
+      return;
+    }
+    const want = Math.min(this.count, Math.floor((this.t / this.dur) * this.count));
+    while (this.dropped < want) {
+      this.dropped++;
+      const onIt = this.chase && !this.chase.dead && this.dropped % 2 === 0;
+      const c = onIt ? this.chase!.pos : this.center;
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * (onIt ? 2 : this.radius);
+      const from = new THREE.Vector3(c.x + Math.cos(a) * r, c.y + 16 + Math.random() * 4, c.z + Math.sin(a) * r);
+      g.addProjectile(new BombOrb(g, this.owner, from, new THREE.Vector3((Math.random() - 0.5) * 0.2, -1, (Math.random() - 0.5) * 0.2), { dmg: this.dmg, r: 2.2, fuse: 0.2, speed: 14, gravity: 18, size: 0.24, life: 4 }));
+    }
+    if (this.dropped >= this.count) this.done = true;
+  }
+
+  dispose(): void {}
+}

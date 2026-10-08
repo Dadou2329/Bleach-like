@@ -413,6 +413,24 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: **Quincy: Vollständig** for 40 seconds — a red pillar, the spiky red Zeichen halo and two thin rods of light
     out of his shoulder blades. He flies and moves faster, and RMB fires Burner Finger 1 six times in half a second.
     F again: the **Glory Thief** — every enemy in view is marked and a beam goes through cover into each, once.
+- **Bambietta Basterbine**, Sternritter "E" — The Explode: long straight dark-purple hair to the hips, the white
+  peaked cap with its gold band and black peak, the white coat over a miniskirt, black stockings and white boots
+  trimmed red, the red heart buckle, the order's hooded cloak. Whatever her reishi touches becomes a bomb that goes
+  off a beat later. LMB is her short reishi dao — three quick cuts, each arming what it cuts (the small charges stack
+  to three), and a kick that sends an orb point-blank. Her moves:
+  - RMB: **Tag Strike**, one wound-up sweep that arms the target and the ground and walls along its arc; the charges
+    go off one after another.
+  - Q: three **bomb orbs** flicked off her fingers; each sticks to what it touches and blows.
+  - E: the **kick bomb**, a big orb booted along the ground that bounces and blows on the first body it meets —
+    cutting or guarding it does not help.
+  - R: the **explosive globe** — her tantrum, a sphere of explosion out of her whole body that flattens what stands
+    round her, her own side included.
+  - G: **arm & throw** — she rips a boulder out of the ground, arms it and throws it.
+  - Shift with a lock-on: behind the target with a bomb tag slapped on its back.
+  - F: **Quincy: Vollständig — Zofiel** for 40 seconds: a crimson pillar, great crimson wings with orbs budding
+    along them, the star halo; she flies. LMB sprays orbs from the wings, RMB darts forward carpet-bombing, Q darts
+    back hosing the pursuer, E turns the target itself into the bomb (unblockable), R is a bigger globe, G blows a
+    ring round herself that breaks whatever holds her, and F again is **Flatland**, a rain of orbs over the target.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

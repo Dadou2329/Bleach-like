@@ -10,7 +10,7 @@
 import { ModelBuilder, type VoxelModel } from '../models/builder';
 import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, intersect, offset, prism, smoothPath, sphere, spike, subtract, torus, tube, type Sdf, type V3 } from '../models/sdf';
 import { addBands, coatSkirt, faceLegend, hands, head, humanoidSkeleton, type HumanoidSpec, type Landmarks } from './humanoid';
-import { ZEICHEN_7, badge, frontOf, hairSheet, longCape } from './sternritter';
+import { ZEICHEN_7, badge, frontOf, hairSheet, longCape, peakedCap } from './sternritter';
 import type { CharacterAsset } from './ichigo';
 import type { ColliderDef, SpringDef } from '../anim/springs';
 
@@ -127,7 +127,7 @@ export function buildBambietta(form: BambiettaForm = 'base'): CharacterAsset {
   b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
   const hair = hairDo(b, L, hd);
-  cap(b, L, hd);
+  peakedCap(b, L, hd, { mat: 'coat', trim: 'coatIn', gold: 'gold', peak: 'peak' });
   hands(b, L, 'coat', 1.0);
   gloves(b, L);
   const torso = body(b, L);
@@ -175,54 +175,6 @@ function hairDo(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number
   b.carve('head', aabb([1, c + 4, front], [4.6, c + 7.2, front + 6]));
   b.paint('head', ellipsoid([0, c + 12.4, cz - 1.4], [3.6, 1.2, 4]), 'hair', { shade: 0, where: b.isMat('hair') });
   return hairSheet(b, L, hd, { mat: 'hair', res: BAMBIETTA_RES, yBot: s.hipsY - 3, width: hw + 1.2, thick: 1.8, out: 2.6 });
-}
-
-/**
- * The peaked cap: a short white crown flaring to a wide top, raised at the front, a narrow gold band, a thin black peak
- * angled down over the brow, the Zeichen in gold on the front of the crown.
- */
-function cap(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }): void {
-  const s = L.spec;
-  const c = hd.chin;
-  const cz = L.headC[2] - 0.4;
-  const hw = s.head.w / 2;
-  const yb = c + 10.8;
-  // the crown: from the band up 3.4, the top flaring out and raised at the front
-  const crown = fn((x, y, z) => {
-    const t = Math.max(0, Math.min(1, (y - yb) / 3.4));
-    const rx = hw + 1.0 + t * 1.5, rz = s.head.d / 2 + 0.8 + t * 1.8;
-    const zc = cz - t * 0.5;
-    const top = yb + 3.4 + Math.max(0, (z - cz) / (s.head.d / 2)) * 0.9;
-    return Math.max(Math.hypot(x / rx, (z - zc) / rz) - 1, yb - y, y - top);
-  }, [-12, yb - 1, cz - 12], [12, yb + 6, cz + 12]);
-  b.add('head', crown, 'coat', { thr: 0.2 });
-  b.carve('head', fn((x, y, z) => Math.max(Math.hypot(x / (hw + 0.4), (z - cz) / (s.head.d / 2 + 0.2)) - 1, yb + 0.6 - y, y - (yb + 2.6)), [-10, yb, cz - 10], [10, yb + 4, cz + 10]));
-  // the piping round the top's edge
-  b.paint('head', fn((x, y, z) => Math.max(Math.abs(Math.hypot(x / (hw + 2.4), (z - cz + 0.5) / (s.head.d / 2 + 2.5)) - 1) * 6 - 0.6, y - (yb + 4.6), yb + 2.4 - y), [-12, yb + 2, cz - 12], [12, yb + 5, cz + 12]), 'coatIn', { where: b.isMat('coat') });
-  // the narrow gold band round the base
-  b.paint('head', fn((x, y) => Math.max(Math.abs(y - (yb + 0.5)) - 0.55, Math.abs(x) - 20), [-12, yb - 1, cz - 12], [12, yb + 2, cz + 12]), 'gold', { where: b.isMat('coat') });
-  // the peak: a thin black visor angled down over the brow
-  const pz = cz + s.head.d / 2 + 0.4;
-  b.add('head', fn((x, y, z) => {
-    const u = (z - pz) / 3.6;
-    if (u < -0.3 || u > 1) return 1;
-    const w = hw * Math.sqrt(Math.max(0, 1 - u * u * 0.8));
-    const yc = yb + 0.1 - u * 1.3;
-    return Math.max(Math.abs(x) - w, Math.abs(y - yc) - 0.45);
-  }, [-9, yb - 3, pz - 2], [9, yb + 2, pz + 5]), 'peak', { thr: 0.2 });
-  // the Zeichen on the front of the crown
-  const at = (x: number, y: number) => {
-    const g = b.grid('head');
-    for (let z = 20; z > 0; z--) if (g.get(x, y, z) !== 0) return z;
-    return null;
-  };
-  const rows = ['. X .', 'X X X', 'X . X'];
-  rows.forEach((row, r) => row.split(' ').forEach((ch, ci) => {
-    if (ch !== 'X') return;
-    const x = ci - 1, y = Math.round(yb + 3.2 - r);
-    const z = at(x, y);
-    if (z !== null) b.voxel('head', x, y, z, 'gold', 0);
-  }));
 }
 
 /** White gloves, a red band at the cuff. */

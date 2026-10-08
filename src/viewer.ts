@@ -72,6 +72,7 @@ import { FINGER_HANDS, bazzbProp, buildBazzb, type BazzbProp } from './chars/baz
 import { BAZZB_CLIPS, BAZZB_STANCE } from './chars/bazzbClips';
 import { bambiettaProp, buildBambietta, type BambiettaProp } from './chars/bambietta';
 import { BAMBIETTA_CLIPS, BAMBIETTA_STANCE } from './chars/bambiettaClips';
+import { buildCandice, candiceProp, type CandiceForm, type CandiceProp } from './chars/candice';
 import { buildYoruichi, type YoruichiForm } from './chars/yoruichi';
 import { buildUrahara, uraharaProp } from './chars/urahara';
 import { buildYamamoto, yamamotoProp } from './chars/yamamoto';
@@ -164,6 +165,8 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     : who === 'bazzb' ? buildBazzb(params.get('form') === 'voll' ? 'voll' : 'base')
     : who === 'bambietta' ? buildBambietta(params.get('form') === 'zofiel' ? 'zofiel' : 'base')
     : who === 'bbprop' ? { model: bambiettaProp((params.get('form') === 'halo' ? 'halo' : 'dao') as BambiettaProp), springs: [], colliders: [], warnings: [] }
+    : who === 'candice' ? buildCandice((['barbarriel', 'sklaverei'].includes(params.get('form') ?? '') ? params.get('form') : 'base') as CandiceForm)
+    : who === 'ccprop' ? { model: candiceProp((['bow', 'halo'].includes(params.get('form') ?? '') ? params.get('form') : 'sword') as CandiceProp), springs: [], colliders: [], warnings: [] }
     : who === 'bzprop' ? { model: bazzbProp((['flame', 'halo'].includes(params.get('form') ?? '') ? params.get('form') : 'crossbow') as BazzbProp), springs: [], colliders: [], warnings: [] }
     : who === 'urahara' ? buildUrahara()
     : who === 'gin' ? buildGin(params.get('eyes') === 'open' ? 'open' : 'grin')
@@ -678,6 +681,22 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     ch.rig.setBoneVisible('fist.R', params.get('dao') !== '0');
     ch.rig.setBoneVisible('fist.L', false);
   }
+  if (who === 'candice') {
+    // Barbarriel: the halo, a wing sword in each hand (&swords=0: bare hands); &bow=1 the Heilig Bogen in the left
+    const voll = ['barbarriel', 'sklaverei'].includes(params.get('form') ?? '');
+    const swords = voll && params.get('swords') !== '0';
+    const bow = !!params.get('bow');
+    if (voll) ch.attach('halo', candiceProp('halo'), 'halo');
+    if (swords) {
+      ch.attach('sword', candiceProp('sword'), 'grip.R');
+      ch.attach('sword2', candiceProp('sword'), 'grip.L');
+    }
+    if (bow) ch.attach('bow', candiceProp('bow'), 'grip.L');
+    ch.rig.setBoneVisible('palm.R', !swords);
+    ch.rig.setBoneVisible('fist.R', swords);
+    ch.rig.setBoneVisible('palm.L', !swords && !bow);
+    ch.rig.setBoneVisible('fist.L', swords || bow);
+  }
   if (who === 'haschwalth') {
     ch.attach('sword', haschwalthProp('sword'), 'grip.R');
     if (params.get('shield') !== '0') ch.attach('shield', haschwalthProp('shield'), 'shield');
@@ -708,7 +727,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   };
   setMask(params.get('mask'));
   // body scale (close-ups) and full-view scale (released wings widen the full views)
-  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'toshiro' ? (kForm() === 'adult' ? 1.04 : 0.8) : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'szayel' ? 1.06 : who === 'yammy' ? (params.get('form') === 'ira' ? 6.3 : params.get('form') === 'ape' ? 7.2 : 1.32) : who === 'zommari' ? (params.get('form') ? 1.85 : 1.12) : who === 'kaien' ? 1.06 : who === 'tybw' || who === 'dangai' || who === 'fullbring' || who === 'lizard' ? 1.04 : who === 'aaroniero' ? (params.get('form') === 'glotoneria' ? 5.4 : 1.18) : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : who === 'haschwalth' ? 1.09 : who === 'bazzb' ? (params.get('form') === 'voll' ? 1.5 : 1.04) : who === 'bambietta' ? (params.get('form') === 'zofiel' ? 1.9 : 0.9) : who === 'bbprop' ? (params.get('form') === 'halo' ? 0.6 : 0.9) : who === 'bzprop' ? ({ crossbow: 0.9, flame: 2.6, halo: 0.6 } as Record<string, number>)[kForm()] ?? 1 : who === 'hwprop' ? (params.get('form') === 'shield' ? 1.2 : 1.6) : who === 'uryuprop' ? ({ bogen: 2.2, flechette: 0.35, standspitze: 0.15, chip: 0.2 } as Record<string, number>)[kForm()] ?? 1 : who === 'hihio' ? ({ 'hihio-bare': 2.4, 'hand-open': 1.4, 'hand-fist': 1.4, 'fur-clump': 0.8, 'skull-flame': 2.6, 'tail-vert': 0.15, 'soo-blade': 1.1, orochio: 1.4, 'orochio-hot': 1.4 } as Record<string, number>)[kForm()] ?? 2.4 : 1;
+  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'toshiro' ? (kForm() === 'adult' ? 1.04 : 0.8) : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'szayel' ? 1.06 : who === 'yammy' ? (params.get('form') === 'ira' ? 6.3 : params.get('form') === 'ape' ? 7.2 : 1.32) : who === 'zommari' ? (params.get('form') ? 1.85 : 1.12) : who === 'kaien' ? 1.06 : who === 'tybw' || who === 'dangai' || who === 'fullbring' || who === 'lizard' ? 1.04 : who === 'aaroniero' ? (params.get('form') === 'glotoneria' ? 5.4 : 1.18) : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : who === 'haschwalth' ? 1.09 : who === 'bazzb' ? (params.get('form') === 'voll' ? 1.5 : 1.04) : who === 'bambietta' ? (params.get('form') === 'zofiel' ? 1.9 : 0.9) : who === 'candice' ? (['barbarriel', 'sklaverei'].includes(params.get('form') ?? '') ? 2.0 : 0.96) : who === 'ccprop' ? ({ sword: 1.0, bow: 0.8, halo: 0.6 } as Record<string, number>)[kForm()] ?? 1 : who === 'bbprop' ? (params.get('form') === 'halo' ? 0.6 : 0.9) : who === 'bzprop' ? ({ crossbow: 0.9, flame: 2.6, halo: 0.6 } as Record<string, number>)[kForm()] ?? 1 : who === 'hwprop' ? (params.get('form') === 'shield' ? 1.2 : 1.6) : who === 'uryuprop' ? ({ bogen: 2.2, flechette: 0.35, standspitze: 0.15, chip: 0.2 } as Record<string, number>)[kForm()] ?? 1 : who === 'hihio' ? ({ 'hihio-bare': 2.4, 'hand-open': 1.4, 'hand-fist': 1.4, 'fur-clump': 0.8, 'skull-flame': 2.6, 'tail-vert': 0.15, 'soo-blade': 1.1, orochio: 1.4, 'orochio-hot': 1.4 } as Record<string, number>)[kForm()] ?? 2.4 : 1;
   const viewScale = who === 'ulquiorra' && params.get('form') && params.get('form') !== 'sealed' ? 1.7 : who === 'uryu' && params.get('form') === 'vollstandig' ? 1.6 : who === 'hitsugaya' && form === 'bankai' ? 1.7 : who === 'toshiro' && (kForm() === 'tybw-bankai' || kForm() === 'tybw-hollow') ? 1.7 : bodyScale;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);

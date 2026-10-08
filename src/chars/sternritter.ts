@@ -3,7 +3,7 @@
 // behind the collar and the shoulders to the ankles (rigid to the waist, spring panels below, open in front), and a
 // sheet of long straight hair falling down the back on three spring bones.
 import { ModelBuilder } from '../models/builder';
-import { aabb, blend, cylinder, ellipsoid, fn, intersect, offset, subtract, type Sdf, type V3 } from '../models/sdf';
+import { aabb, blend, cylinder, ellipsoid, fn, intersect, offset, rotate, subtract, type Sdf, type V3 } from '../models/sdf';
 import { addBands, coatSkirt, type Landmarks } from './humanoid';
 import type { ColliderDef, SpringDef } from '../anim/springs';
 
@@ -178,4 +178,69 @@ export function hairSheet(b: ModelBuilder, L: Landmarks, hd: { chin: number }, o
     { bone: 'spine', offset: [0, 0.02, -0.03], radius: 0.19 },
   ];
   return { springs, colliders };
+}
+
+export interface CapOpts {
+  mat: string;
+  /** the piping round the top */
+  trim: string;
+  gold: string;
+  peak: string;
+  /** raised above the head by (voxels): sitting on a mass of hair */
+  lift?: number;
+  /** tipped back by (degrees), about the band's back */
+  tilt?: number;
+  /** the crown and the peak widened by (voxels) */
+  grow?: number;
+}
+
+/**
+ * The order's peaked cap: a short white crown flaring to a wide top, raised at the front, a narrow gold band, a thin
+ * black peak angled down over the brow, the Zeichen in gold on the front of the crown.
+ */
+export function peakedCap(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }, o: CapOpts): void {
+  const s = L.spec;
+  const c = hd.chin;
+  const cz = L.headC[2] - 0.4;
+  const hw = s.head.w / 2 + (o.grow ?? 0);
+  const hd2 = s.head.d / 2 + (o.grow ?? 0);
+  const yb = c + 10.8 + (o.lift ?? 0);
+  const tilt = o.tilt ?? 0;
+  const tip = (sdf: Sdf): Sdf => (tilt ? rotate(sdf, [0, yb, cz - hd2], [-tilt, 0, 0]) : sdf);
+  // the crown: from the band up 3.4, the top flaring out and raised at the front
+  const crown = fn((x, y, z) => {
+    const t = Math.max(0, Math.min(1, (y - yb) / 3.4));
+    const rx = hw + 1.0 + t * 1.5, rz = hd2 + 0.8 + t * 1.8;
+    const zc = cz - t * 0.5;
+    const top = yb + 3.4 + Math.max(0, (z - cz) / hd2) * 0.9;
+    return Math.max(Math.hypot(x / rx, (z - zc) / rz) - 1, yb - y, y - top);
+  }, [-12 - hw + 5, yb - 1, cz - 12 - hd2 + 5.5], [12 + hw - 5, yb + 6, cz + 12 + hd2 - 5.5]);
+  b.add('head', tip(crown), o.mat, { thr: 0.2 });
+  b.carve('head', tip(fn((x, y, z) => Math.max(Math.hypot(x / (hw + 0.4), (z - cz) / (hd2 + 0.2)) - 1, yb + 0.6 - y, y - (yb + 2.6)), [-10, yb, cz - 10], [10, yb + 4, cz + 10])));
+  // the piping round the top's edge
+  b.paint('head', tip(fn((x, y, z) => Math.max(Math.abs(Math.hypot(x / (hw + 2.4), (z - cz + 0.5) / (hd2 + 2.5)) - 1) * 6 - 0.6, y - (yb + 4.6), yb + 2.4 - y), [-12, yb + 2, cz - 12], [12, yb + 5, cz + 12])), o.trim, { where: b.isMat(o.mat) });
+  // the narrow gold band round the base
+  b.paint('head', tip(fn((x, y) => Math.max(Math.abs(y - (yb + 0.5)) - 0.55, Math.abs(x) - 20), [-12, yb - 1, cz - 12], [12, yb + 2, cz + 12])), o.gold, { where: b.isMat(o.mat) });
+  // the peak: a thin black visor angled down over the brow
+  const pz = cz + hd2 + 0.4;
+  b.add('head', tip(fn((x, y, z) => {
+    const u = (z - pz) / 3.6;
+    if (u < -0.3 || u > 1) return 1;
+    const w = hw * Math.sqrt(Math.max(0, 1 - u * u * 0.8));
+    const yc = yb + 0.1 - u * 1.3;
+    return Math.max(Math.abs(x) - w, Math.abs(y - yc) - 0.45);
+  }, [-9, yb - 3, pz - 2], [9, yb + 2, pz + 5])), o.peak, { thr: 0.2 });
+  // the Zeichen on the front of the crown
+  const at = (x: number, y: number) => {
+    const g = b.grid('head');
+    for (let z = 20; z > 0; z--) if (g.get(x, y, z) !== 0) return z;
+    return null;
+  };
+  const rows = ['. X .', 'X X X', 'X . X'];
+  rows.forEach((row, r) => row.split(' ').forEach((ch, ci) => {
+    if (ch !== 'X') return;
+    const x = ci - 1, y = Math.round(yb + 3.2 - r + (tilt ? (hd2 * 2 + 1) * Math.sin((tilt * Math.PI) / 180) : 0));
+    const z = at(x, y);
+    if (z !== null) b.voxel('head', x, y, z, o.gold, 0);
+  }));
 }
