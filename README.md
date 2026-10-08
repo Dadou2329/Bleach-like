@@ -534,6 +534,28 @@ G state, V flare); press **H** in game for the current character's moves.
     raises the concentration: it stretches into an egg); R **Gift Bereich** (its edge becomes a one-way wall: no one
     inside gets out); F again a **giant Gift Ball** rolled through the buildings. If he dies inside his dome, it runs
     wild.
+- **Gremmy Thoumeaux**, Sternritter "V" — The Visionary: a slight boy with messy blond hair and red eyes, lost in an
+  oversized white trench coat, the sleeves hanging past his hands — he never lifts a finger. Whatever he imagines is
+  real, paid for with his Focus (the reiatsu bar). His dash is a blink. A big wound is "already healed" a moment later;
+  a steel bar stands up in front of a blow. His LMB makes things at the target: a stone spike out of the ground, a
+  swinging steel bar, a falling block, a stone column shot through them. Low on health, three big hits in a row give
+  him **Doubt** (no healing, softer steel) until he refocuses. Everything he made vanishes when he dies, and his real
+  body — a brain in a glass capsule — drops out. His moves:
+  - RMB: the **Giant Stone Hand** slammed down on them; up close, **Cookie Bones** ("…rakugan"): their bones turn to
+    sweets — the weapon drops, the legs buckle (it wears off once he looks at someone else).
+  - Q: the arsenal — a **ring of rifles** round him on full auto, then a **missile salvo**.
+  - E: the terrain — a **lava surge** rolling out at them (the floor melts), then **pillar rams** shot out of the
+    ground all round them.
+  - R: a **water cube** round them in the air (held, drowning); R again: the **crevice** — the ground splits, the
+    cube drops in and it seals over them.
+  - G: a **clone** (each one adds a quarter to everything he imagines, three at most); with three out, the **clone
+    bombs**.
+  - F: by clones — none: the **Stone Fort** (the ground lifted on pillars into a fortress, everyone on it with it; it
+    falls when he dies); one:
+    a **meteor**; two or more: **outer space** round them. Below a quarter of his health: **Imagined Strength** — a body
+    stronger than his can hold: huge swings, and after five seconds it starts tearing itself apart (F lets go).
+  - V: **Steel Body** (blows mostly glance off; a cut that lands gets the blade stuck in him; pressed hard, a bladed
+    dome).
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

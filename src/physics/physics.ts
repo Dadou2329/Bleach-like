@@ -77,6 +77,29 @@ export class Physics {
         }
   }
 
+  /**
+   * A bulk write that bypassed `onVoxelEdit` (`world.fillBox` at runtime: a construct raised in one go) over the
+   * inclusive voxel box: the colliders already built there are rebuilt.
+   */
+  invalidateBox(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number): void {
+    if (this.broken) return;
+    const w = this.world;
+    const cx0 = Math.max(0, x0 >> CS_BITS), cy0 = Math.max(0, y0 >> CS_BITS), cz0 = Math.max(0, z0 >> CS_BITS);
+    const cx1 = Math.min(w.cx - 1, x1 >> CS_BITS), cy1 = Math.min(w.cy - 1, y1 >> CS_BITS), cz1 = Math.min(w.cz - 1, z1 >> CS_BITS);
+    for (let cz = cz0; cz <= cz1; cz++)
+      for (let cy = cy0; cy <= cy1; cy++)
+        for (let cx = cx0; cx <= cx1; cx++) {
+          const ci = w.chunkIndex(cx, cy, cz);
+          const e = this.colliders.get(ci);
+          if (!e || e.needsRebuild) continue;
+          e.needsRebuild = true;
+          if (!this.queued.has(ci)) {
+            this.queued.add(ci);
+            this.buildQueue.unshift(ci);
+          }
+        }
+  }
+
   private build(ci: number): void {
     try {
       this.buildChunk(ci);

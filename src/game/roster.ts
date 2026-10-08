@@ -123,6 +123,8 @@ import { MENINAS_DEF, MeninasKit } from './kits/meninas';
 import { meninasAsset, meninasProp } from '../chars/meninas';
 import { ASKIN_DEF, AskinKit } from './kits/askin';
 import { askinAsset, askinProp } from '../chars/askin';
+import { GREMMY_DEF, GremmyKit } from './kits/gremmy';
+import { gremmyAsset, gremmyProp } from '../chars/gremmy';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -584,6 +586,20 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(askinAsset('hasshein').model, true);
       for (const k of ['bow', 'staff', 'thermos', 'halo'] as const) buildCached(askinProp(k), false);
+    },
+  },
+  {
+    id: 'gremmy',
+    name: 'Gremmy Thoumeaux',
+    kanji: '夢想家',
+    title: 'Sternritter "V" — The Visionary',
+    color: '#c9a8ff',
+    def: () => ({ ...GREMMY_DEF, speed: { ...GREMMY_DEF.speed } }),
+    kit: (f, g) => new GremmyKit(f, g),
+    warm: () => {
+      buildCached(gremmyAsset('steel').model, true);
+      buildCached(gremmyAsset('bulk').model, true);
+      for (const k of ['brain', 'spike', 'bar', 'block', 'column', 'hand', 'meteor', 'rifle', 'missile', 'bomb', 'dome'] as const) buildCached(gremmyProp(k), false);
     },
   },
   {

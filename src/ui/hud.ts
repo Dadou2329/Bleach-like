@@ -42,8 +42,8 @@ const CSS = `
 #hud .blind { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(8,7,10,.9) 0%, rgba(3,3,4,.97) 60%, rgba(0,0,0,1) 100%); }
 #hud .sakasama { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(246,163,199,0) 45%, rgba(246,163,199,.28) 75%, rgba(214,92,150,.55) 100%); }
 #hud .iff { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(226,178,58,0) 50%, rgba(226,178,58,.18) 78%, rgba(160,40,60,.5) 100%); }
-#hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; white-space: nowrap; }
-#hud .callout .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
+#hud .callout { position: absolute; left: 50%; top: 24%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: max-content; max-width: 92vw; }
+#hud .callout .kj { white-space: nowrap; font-family: 'Yuji Syuku', serif; font-size: clamp(48px, 8vw, 110px); line-height: 1; text-shadow: 0 0 18px currentColor, 0 4px 0 #000; }
 #hud .callout .rm { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(16px, 2.2vw, 28px); letter-spacing: 6px; margin-top: 8px; text-shadow: 0 2px 0 #000; }
 #hud .dmg { position: absolute; font-family: 'Dela Gothic One', sans-serif; font-size: 18px; text-shadow: 0 2px 0 #000, 0 0 6px rgba(0,0,0,.8); will-change: transform, opacity; }
 #hud .lock { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 2px solid #ff4757; transform: rotate(45deg); box-shadow: 0 0 10px #ff4757; display: none; }

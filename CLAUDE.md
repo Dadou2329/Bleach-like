@@ -131,6 +131,14 @@ scope and milestones and `README.md` for controls and modes.
   `GiantGiftBall`; `PfeilShot`, a piercing arrow; `poisonTint`; `circleTrail`. His kit keeps a poison load per fighter
   (drained with `game.drain`, a kneel at 1) and an immunity meter per attacker, keyed on its aura style (Hasshein: on
   Hollow-or-not), enforced through `Fighter.parry`),
+  `vfx/visionary.ts` (Gremmy: `dreamRipple`, the prismatic ring every creation appears with; `StoneSpike`, `SteelBar`,
+  `FallingBlock`, `PillarRam` (a column emerging like a piston, carving), `StoneHand`, `FirearmRing` (hitscan rifles),
+  `MissileSalvo`, `WaterCube` (holds and drowns; `crevice()` carves a slot, sinks it and fills the seal back in with
+  world voxels), `Meteor`, `OuterSpace`, `BladedDome`, `MetalBarBlock`; `raiseFort()` builds a platform on pillars out
+  of world voxels and lifts everyone on that ground (it keeps the platform's own voxels), `crumbleFort()` smashes the
+  pillars and hands those voxels to the fragment system, so it falls even where it fused with a building. Bulk voxel
+  writes at runtime (`world.fillBox`, end-exclusive, no edit hook) call `physics.invalidateBox()` to refresh colliders. His clones are roster-less fighters (`GremmyCloneKit` + a `DuelistAI`); his creations are kept and
+  ended when he dies, and a `BrainCapsule` drops out of the body),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand
