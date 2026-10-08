@@ -325,7 +325,7 @@ export class Hud {
       this.lock.style.top = `${s.y}px`;
     } else this.lock.style.display = 'none';
     // boss / rival bar
-    const boss = this.rival && !this.rival.dead ? this.rival : this.game.fighters.find((f) => f.def.boss && !f.dead);
+    const boss = this.rival && !this.rival.dead ? this.rival : this.game.fighters.find((f) => f.def.boss && !f.dead && f !== pl);
     if (boss) {
       this.boss.style.display = 'block';
       const t = boss.def.title ? ` <small>· ${boss.def.title.toUpperCase()}</small>` : '';

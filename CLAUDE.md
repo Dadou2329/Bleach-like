@@ -102,7 +102,10 @@ scope and milestones and `README.md` for controls and modes.
   refraction drawn with its own afterimage pool; Hakufuku's blossoms),
   `vfx/fornicaras.ts` (Szayelaporro: Rokureichū's `BugTag`, the device's `LabDome`, the `BurrowRidge` under the
   ground, Carbon-Copy's `CopyFountain`, a copy bursting, the doll's strand, Gabriel's egg; his wing-branches are
-  `PeacockVines` with `BRANCH_LOOK`) and
+  `PeacockVines` with `BRANCH_LOOK`),
+  `vfx/ira.ts` (Yammy: the `IraShell` shield, Gonzui's `soulWisps`, the Cero's `Fissure`, the Oscuras backfire, the
+  rage burst; his giant forms set `Fighter.giant` (no jumps) and `ghosts.enabled = false`, and the kit scales the
+  visual, hurt capsule, speeds and gait with his rage) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

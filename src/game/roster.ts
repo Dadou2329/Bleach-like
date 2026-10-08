@@ -20,12 +20,14 @@ import { KIRA_DEF, KiraKit } from './kits/kira';
 import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
 import { MOMO_DEF, MomoKit } from './kits/momo';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
+import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
 import { momoProp } from '../chars/momo';
 import { szayelAsset, szayelProp } from '../chars/szayel';
 import { fraccionAsset } from '../chars/szayelFraccion';
+import { yammyAsset } from '../chars/yammy';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -555,6 +557,18 @@ export const ROSTER: RosterEntry[] = [
       buildCached(szayelAsset('fornicaras').model, true);
       buildCached(szayelProp('balon'), false);
       for (const k of ['lumina', 'verona'] as const) buildCached(fraccionAsset(k).model, true);
+    },
+  },
+  {
+    id: 'yammy',
+    name: 'Yammy Llargo',
+    kanji: '憤獣',
+    title: 'Diez Espada',
+    color: '#ff5a1e',
+    def: () => ({ ...YAMMY_DEF, speed: { ...YAMMY_DEF.speed } }),
+    kit: (f, g) => new YammyKit(f, g),
+    warm: () => {
+      for (const k of ['ira', 'ape'] as const) buildCached(yammyAsset(k).model, true);
     },
   },
   {

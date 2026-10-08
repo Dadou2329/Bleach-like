@@ -16,11 +16,16 @@ export class BalaShot implements Projectile {
   private mesh: THREE.Mesh;
   private travelled = 0;
 
-  constructor(private owner: Fighter, g: Game, origin: THREE.Vector3, dir: THREE.Vector3, readonly damage = 16, readonly speed = 70, readonly range = 60, readonly color = '#E0302A') {
+  /** size: the bullet scaled up (Ira's giant Bala, the size of a car), its blast and its push with it */
+  private readonly size: number;
+
+  constructor(private owner: Fighter, g: Game, origin: THREE.Vector3, dir: THREE.Vector3, readonly damage = 16, readonly speed = 70, readonly range = 60, readonly color = '#E0302A', o: { size?: number } = {}) {
     this.pos = origin.clone();
     this.dir = dir.clone().normalize();
+    this.size = o.size ?? 1;
     geo ??= new THREE.IcosahedronGeometry(0.22, 1);
     this.mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(2.4), transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false }));
+    this.mesh.scale.setScalar(this.size);
     this.mesh.position.copy(this.pos);
     this.mesh.frustumCulled = false;
     g.engine.gr.scene.add(this.mesh);
@@ -42,7 +47,7 @@ export class BalaShot implements Projectile {
     }
     for (const f of g.enemiesOf(this.owner)) {
       const cy = Math.max(f.pos.y + 0.2, Math.min(f.pos.y + f.def.height - 0.2, this.pos.y));
-      if (Math.hypot(f.pos.x - this.pos.x, cy - this.pos.y, f.pos.z - this.pos.z) < f.def.radius + 0.35) {
+      if (Math.hypot(f.pos.x - this.pos.x, cy - this.pos.y, f.pos.z - this.pos.z) < f.def.radius + 0.35 * this.size) {
         this.pop(g, f);
         return;
       }
@@ -50,7 +55,7 @@ export class BalaShot implements Projectile {
     this.pos.addScaledVector(this.dir, step);
     this.travelled += step;
     const c = new THREE.Color(this.color);
-    g.engine.glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: -this.dir.x * 6, vy: -this.dir.y * 6, vz: -this.dir.z * 6, size: 0.4, sizeEnd: 0.05, life: 0.14, r: c.r, g: c.g, b: c.b, alpha: 0.9, alphaEnd: 0, tex: TEX_STREAK, stretch: 3 });
+    g.engine.glow.spawn({ x: this.pos.x, y: this.pos.y, z: this.pos.z, vx: -this.dir.x * 6, vy: -this.dir.y * 6, vz: -this.dir.z * 6, size: 0.4 * this.size, sizeEnd: 0.05 * this.size, life: 0.14, r: c.r, g: c.g, b: c.b, alpha: 0.9, alphaEnd: 0, tex: TEX_STREAK, stretch: 3 });
     if (this.travelled > this.range) this.pop(g, null);
   }
 
@@ -58,15 +63,22 @@ export class BalaShot implements Projectile {
     if (this.done) return;
     this.done = true;
     const p = this.pos;
-    if (f) g.damage(f, this.damage, this.owner, this.dir.clone(), { energy: true, knock: 9, launch: 2, hitstop: 0.03, shake: 0.15 });
-    g.engine.destruction.carve(new SphereShape(p.clone(), 0.75, 0.8), { mode: 'explode', power: 90, impulse: 10 });
+    const k = this.size;
+    if (f) g.damage(f, this.damage, this.owner, this.dir.clone(), { energy: true, knock: 9 * Math.sqrt(k), launch: 2 * Math.sqrt(k), heavy: k > 2, hitstop: 0.03 * Math.min(3, k), shake: 0.15 * Math.min(4, k) });
+    // a big one blows up whoever stands close as well
+    if (k > 2) for (const o of g.enemiesOf(this.owner)) {
+      if (o === f) continue;
+      const d = o.center().distanceTo(p);
+      if (d < 0.75 * k + o.def.radius) g.damage(o, this.damage * 0.5, this.owner, o.pos.clone().sub(p).setY(0.3).normalize(), { energy: true, knock: 12, launch: 5, heavy: true });
+    }
+    g.engine.destruction.carve(new SphereShape(p.clone(), 0.75 * k, 0.8), { mode: 'explode', power: 90 * Math.sqrt(k) * (k > 2 ? 1.6 : 1), impulse: 10 });
     const c = new THREE.Color(this.color);
-    g.engine.glow.spawn({ x: p.x, y: p.y, z: p.z, size: 0.6, sizeEnd: 2.2, life: 0.2, r: c.r, g: c.g, b: c.b, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });
+    g.engine.glow.spawn({ x: p.x, y: p.y, z: p.z, size: 0.6 * k, sizeEnd: 2.2 * k, life: 0.2 + 0.03 * k, r: c.r, g: c.g, b: c.b, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });
     for (let i = 0; i < 8; i++) {
       const a = Math.random() * Math.PI * 2;
-      g.engine.dust.spawn({ x: p.x, y: p.y, z: p.z, vx: Math.cos(a) * 3, vy: Math.random() * 2, vz: Math.sin(a) * 3, size: 0.4, sizeEnd: 1.2, life: 0.6, r: 0.5, g: 0.47, b: 0.45, alpha: 0.45, alphaEnd: 0, tex: TEX_PUFF, drag: 2 });
+      g.engine.dust.spawn({ x: p.x, y: p.y, z: p.z, vx: Math.cos(a) * 3 * Math.sqrt(k), vy: Math.random() * 2, vz: Math.sin(a) * 3 * Math.sqrt(k), size: 0.4 * k, sizeEnd: 1.2 * k, life: 0.6, r: 0.5, g: 0.47, b: 0.45, alpha: 0.45, alphaEnd: 0, tex: TEX_PUFF, drag: 2 });
     }
-    g.sfx.play('impact', p, 0.6);
+    g.sfx.play(k > 2 ? 'explode' : 'impact', p, 0.6 * Math.min(2.5, k));
   }
 
   render(): void {

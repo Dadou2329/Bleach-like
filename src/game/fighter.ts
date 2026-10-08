@@ -175,6 +175,8 @@ export class Fighter {
   iffFrom: THREE.Vector3 | null = null;
   /** rooted to the spot (inside a construct of its own): no walking, jumping or Shunpo, it can still turn and act */
   rooted = false;
+  /** a body too big to leave the ground (a kaiju): no jumps, air-steps or hovering */
+  giant = false;
   /**
    * power rejected (Rokuten Shishun): while sealT runs the fighter cannot release or toggle a state and hits
    * with only (1 − sealK) of its strength
@@ -325,7 +327,7 @@ export class Fighter {
 
   /** can leave the ground (jump, air-step, hover): not rooted, not too heavy */
   get canJump(): boolean {
-    return !this.rooted && this.heavyB < 3;
+    return !this.rooted && !this.giant && this.heavyB < 3;
   }
 
   spendRei(n: number): boolean {

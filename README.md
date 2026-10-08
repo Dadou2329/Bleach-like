@@ -485,6 +485,32 @@ G state, V flare); press **H** in game for the current character's moves.
   - F: **Gabriel**: a branch to the target's navel lays an egg. If he is killed while it lives, he climbs back out
     of them at half his life, draining them; out of Mayuri he wakes up drugged.
   - G: he eats a Fracción. Passives: Hierro; a heavy blow makes him furious (his hair!).
+- **Yammy Llargo**, the Diez Espada: a 2.3 m wall of muscle with a bald, ridged scalp, black sideburns and a thin
+  ponytail, orange brows, red marks under the eyes and the bone jaw of his mask on his chin, the jacket open on the
+  hole in his chest and "10" on his left shoulder. His sword stays at his hip; he fights with his fists. LMB is a
+  haymaker, a backhand, a double hammer fist and a shoulder check, each one cracking the ground. His sealed moves:
+  - RMB: **Bala**, six red bullets off alternating fists.
+  - Q: **Cero** from the mouth; a fissure tears open along the ground under it.
+  - E: **Gonzui**, one huge breath. Everyone in front is dragged toward him, weak Hollows' souls are sucked out and
+    swallowed, and it refills his reiatsu.
+  - R: the **limb rip**: he grabs whoever is in front, holds them up by the arm and tears at it (big damage, their
+    weapon arm useless for a while).
+  - G: the **Hierro brace**: super armour while he holds it.
+  - Passives: Hierro; left alone (no one has hurt him for ten seconds, he stands still) he dozes off on his feet,
+    banking reiatsu and rage and eating himself a little bigger.
+  - F: **"Buchikirero, Ira!"**: the reiatsu column, and he swells into the kaiju (a full heal).
+- **Yammy, Ira**: an 11 m centaur, his torso grown colossal on a white four-legged trunk with elephant legs, a bony
+  tail club, piston tubes on the elbows and the "1" melted off the tattoo. He tramples whatever he walks through
+  (Shift is a charge that runs people down), and every blow he takes makes him angrier and **bigger** (the meter on
+  F). LMB is giant punches, each followed by the elbow piston's second impact, then the tail club swept round.
+  - RMB: giant **Bala**, four bullets the size of cars. Q: the giant **Cero**, swept across what is in front of him.
+  - E: the **stomp quake**: rings of upheaval out to 12 m.
+  - R: **Cero Oscuras**, black with a crimson rim. It charges for a second and a half in front of his mouth, and a
+    strong shot into it then blows it up in his face.
+  - G: the **reiatsu shield**, then (G again, or after three seconds) the shell blown outward.
+  - F at a full meter (or by itself when it overflows): the **rage evolution**. An explosion of reiatsu and he is a
+    15 m ape, knuckle-walking, horned and fully healed; LMB becomes knuckle slams and a belly flop, and he keeps
+    growing. Poor Pesquisa: his skills fly where he faces, without lock-on help.
 - **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
   flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
   plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath

@@ -20,6 +20,8 @@ export class AfterimagePool {
   readonly group = new THREE.Group();
   private ghosts: Ghost[] = [];
   color = new THREE.Color('#9fd8ff');
+  /** off: no afterimages at all (a kaiju's charge leaves no trail of copies) */
+  enabled = true;
 
   constructor(private src: CharacterVisual, count = 10) {
     const u = src.material.userData.uniforms;
@@ -47,6 +49,7 @@ export class AfterimagePool {
 
   /** Snapshot the current pose. */
   spawn(life = 0.4, intensity = 1): void {
+    if (!this.enabled) return;
     let g = this.ghosts.find((x) => x.life <= 0);
     if (!g) g = this.ghosts.reduce((a, b) => (a.life < b.life ? a : b));
     this.src.object.updateMatrixWorld(true);

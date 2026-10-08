@@ -227,13 +227,14 @@ export class CeroBeam implements Projectile {
       const r = o.radius * (0.15 + 1.15 * Math.pow(k, 1.6)) * (1 + Math.sin(time * 30) * 0.05);
       this.sphere.position.copy(m);
       this.sphere.scale.setScalar(r);
-      this.sphU.uA.value = 0.5 + k * 0.5;
+      // a black Cero's orb: the glow kept to a thin rim, or its bloom would wash the black core out
+      this.sphU.uA.value = (0.5 + k * 0.5) * (this.darkSphere ? 0.3 : 1);
       this.light.position.copy(m);
-      this.light.intensity = 20 + k * 120;
+      this.light.intensity = (20 + k * 120) * (this.darkSphere ? 0.4 : 1);
       this.beam.visible = false;
       if (this.darkSphere && this.darkU) {
         this.darkSphere.position.copy(m);
-        this.darkSphere.scale.setScalar(r * 0.78);
+        this.darkSphere.scale.setScalar(r * 0.9);
         this.darkU.uA.value = 0.6 + k * 0.35;
         this.darkU.uTime.value = time;
       }
