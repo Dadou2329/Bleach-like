@@ -103,6 +103,11 @@ scope and milestones and `README.md` for controls and modes.
   `BombOrb`, which flies or falls and sticks; `KickedOrb`; `ArmedBoulder`; `ExplosiveGlobe`, the tantrum that hits
   her own side too; `OrbRain`), the Sternritter kits share `game/kits/sternritter.ts` (Hirenkyaku's puff and streak,
   `vollFlight`),
+  `vfx/thunder.ts` (Candice: `ThickBolts`, lightning as camera-facing ribbons (a core over a sheath) that read at a
+  distance; `Zap`, a flickering branching bolt between two points; `Crackle`, arcs crawling over a body — her charges
+  on a target, the flare, Barbarriel's coiling thread; `SkyBolt`, a mark then a bolt from the sky; `GalvanoBolt`, a
+  beam boring a tunnel; `WingJavelin` (a blade swung into it breaks it); `SixWheel`; `StreamBolt`; `ElectroPillar`
+  and `ElectroBlast`; `lightningBurst`),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

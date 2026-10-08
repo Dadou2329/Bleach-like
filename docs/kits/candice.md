@@ -74,11 +74,11 @@ One card (the Blood War). Not built: the Zombie (Giselle's) and the regrown arm 
 - String: palm 7 (10) · palm 7 (10) · kick 10 (12) · swat 12 (16, knock 14, a cone of sparks); each hit 1 charge (the swat 2).
 - Lightning Jump: 0.12 s as a bolt (invulnerable), 7 m (14 in Barbarriel), the bolt's line shocks for 14 + 1 charge.
 - Lightning Engulf: approach dash, 14 the clap; 0.9 s of lightning between the hands (8 ticks, 64 in all), paralysed 1.2 s.
-- Thunderbolt: bolts at 8 / 16 / 24 (14 each, 1 charge; chain 10 to one more body in 6 m; a scorch where it lands).
-- Sky Strike: 10 the hand up; marks at the target, bolts at 0.45 / 0.75 / 1.05 s (34 each in r 1.8, 2 charges; a bored crater, burnt ring).
+- Thunderbolt: bolts at 8 / 16 / 24 (17 each, 1 charge; chain 12 to one more body in 6 m; a scorch where it lands).
+- Sky Strike: 10 the hand up; marks at the target, bolts at 0.45 / 0.75 / 1.05 s (40 each in r 1.9, 2 charges; a crater, a burnt ring).
 - Galvano Blast: 0-12 the heart case clicked, the bow springs up; 12-60 the draw; 66 the bolt (130, r 1.1 bore along 70 m, protection burnt).
 - Rage Discharge: 18 the burst (30 in r 5, knock 16, launch 6; binds broken).
-- Barbarriel: release 40 (the burst, 40 in r 7); swords 6 / 6 / 7 / 10 (16, 16, 18, 34; the last cuts 2200); six: 0.3-1.6 s the wheel (8 a pass), then each wing flung (26); javelin 14 (60 m/s, 48 in r 2.4); The Thunderbolt 12 bolts over 1.5 s (24 each) and the strike (110 in r 2.6); stream 1.0 s (12 a tick, 8 ticks); Sklaverei 2 s; Electrocution 0-50 the pillar (8 a tick in r 3), 50-80 squeezed, 84 the blast (220, r 1.8 beam for 0.5 s along 60 m; 140 when not Sklaverei'd).
+- Barbarriel: release 40 (the burst, 40 in r 7); swords 6 / 6 / 7 / 10 (16, 16, 18, 34; the last cuts 2200); six: 0.3-1.6 s the wheel (8 a pass), then each wing flung (26); javelin 14 (60 m/s, 48 in r 2.4); The Thunderbolt 12 bolts over 1.5 s (24 each) and the strike (110 in r 3); stream 1.0 s (12 a tick, 8 ticks); Sklaverei 2 s; Electrocution 0-50 the pillar (8 a tick in r 3), 50-80 squeezed, 84 the blast (130, r 1.7 beam for 0.6 s along 60 m; 180 and r 2.3 after Sklaverei).
 
 ## 7. VFX / callouts
 Lightning: base electric blue `#3FB8FF` with a white core `#EAFBFF`; Barbarriel neon green `#5CFF5C` / `#2BE86E`, core

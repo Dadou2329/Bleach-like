@@ -113,6 +113,8 @@ import { BAZZB_DEF, BazzbKit } from './kits/bazzb';
 import { bazzbAsset, bazzbProp } from '../chars/bazzb';
 import { BAMBIETTA_DEF, BambiettaKit } from './kits/bambietta';
 import { bambiettaAsset, bambiettaProp } from '../chars/bambietta';
+import { CANDICE_DEF, CandiceKit } from './kits/candice';
+import { candiceAsset, candiceProp } from '../chars/candice';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -499,6 +501,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(bambiettaAsset('zofiel').model, true);
       for (const k of ['halo', 'boulder'] as const) buildCached(bambiettaProp(k), false);
+    },
+  },
+  {
+    id: 'candice',
+    name: 'Candice Catnipp',
+    kanji: '雷霆',
+    title: 'Sternritter "T" — The Thunderbolt',
+    color: '#5cff5c',
+    def: () => ({ ...CANDICE_DEF, speed: { ...CANDICE_DEF.speed } }),
+    kit: (f, g) => new CandiceKit(f, g),
+    warm: () => {
+      buildCached(candiceAsset('barbarriel').model, true);
+      for (const k of ['sword', 'bow', 'halo'] as const) buildCached(candiceProp(k), false);
     },
   },
   {

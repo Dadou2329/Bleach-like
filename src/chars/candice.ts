@@ -146,7 +146,10 @@ export function buildCandice(form: CandiceForm = 'base'): CharacterAsset {
   for (const k of [-1, 1]) b.carve('head', box([k * 5.4, hd.chin + 1.2, hd.front - 2], [0.9, 2.2, 3], { rot: [0, 0, k * 18] }));
   const hair = hairDo(b, L, hd);
   peakedCap(b, L, hd, { mat: 'coat', trim: 'coatIn', gold: 'gold', peak: 'peak', lift: 2.2, tilt: 7, grow: 0.7 });
-  // the face goes on over the plate the hair left clear
+  // the face plate at an even shade (the locks beside it would darken its edges), then the face over it
+  b.paint('head', aabb([-4.5, hd.chin + 0.5, hd.front - 1.5], [4.5, hd.chin + 10, hd.front + 1]), 'skin', { shade: 1, where: b.isMat('skin') });
+  // the jaw's stepped underside lit a shade lighter, so it does not read as a shadow (a beard) seen from below
+  b.paint('head', aabb([-5.5, hd.chin - 1, hd.front - 5], [5.5, hd.chin + 3.5, hd.front + 1]), 'skin', { shade: 0, where: b.isMat('skin') });
   const legend = { ...faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth', teeth: 'teeth' }), l: { mat: 'lip' } };
   b.stamp('head', hd.x0, hd.chin + 9, FACE, legend, hd.front - 1);
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
@@ -210,14 +213,14 @@ function hairDo(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number
   const yTop = c + 9, yBot = 29;
   const zc = (y: number) => {
     const t = Math.max(0, Math.min(1, (yTop - y) / (yTop - yBot)));
-    return backZ - 0.8 - Math.sin(Math.min(1, t * 2.4) * Math.PI * 0.5) * 3.2 + t * 0.8;
+    return backZ - 0.8 - Math.sin(Math.min(1, t * 2.4) * Math.PI * 0.5) * 2.4 + t * 0.6;
   };
   const sheet = fn((x, y, z) => {
     const t = Math.max(0, Math.min(1, (yTop - y) / (yTop - yBot)));
     const w = 8.8 + Math.sin(t * Math.PI) * 2.4 + Math.sin(y * 0.5) * 0.5;
     const bot = yBot + Math.abs(Math.sin(x * 0.7)) * 3.0;
     const wave = Math.sin(y * 0.55 + x * 0.3) * 0.5;
-    return Math.max(Math.abs(x) - w, Math.abs(z - zc(y) - wave) - (2.8 - t * 0.6), y - yTop, bot - y);
+    return Math.max(Math.abs(x) - w, Math.abs(z - zc(y) - wave) - (2.4 - t * 0.5), y - yTop, bot - y);
   }, [-13, yBot - 1, backZ - 13], [13, yTop + 1, backZ + 3]);
   const p1: V3 = [0, c + 5, backZ - 1.2], p2: V3 = [0, s.chestY + 4, zc(s.chestY + 4)], p3: V3 = [0, s.waistY - 4, zc(s.waistY - 4)];
   const bones: [string, string, V3, number, number][] = [['hair1', 'head', p1, p2[1] - 0.5, 200], ['hair2', 'hair1', p2, p3[1] - 0.5, p2[1] + 0.5], ['hair3', 'hair2', p3, -100, p3[1] + 0.5]];
@@ -231,7 +234,7 @@ function hairDo(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number
     b.add('hair3', tube(curl, curl.map((_, i) => 1.8 - i * 0.1)), 'hair', { thr: 0.3 });
   }
   // the waves: long diagonal bands of shade down the mass (structure, not noise)
-  const bands = (x: number, y: number) => Math.abs(((y * 0.9 + Math.abs(x) * 0.6 + 60) % 6.2) - 3.1) - 0.4;
+  const bands = (x: number, y: number) => Math.abs(((x + Math.sin(y * 0.22) * 1.4 + 60) % 2.8) - 1.4) - 0.36;
   b.paint(['hair1', 'hair2', 'hair3'], fn((x, y) => bands(x, y), [-14, yBot - 3, backZ - 14], [14, yTop + 2, backZ + 3]), 'hair', { shade: 3, where: b.isMat('hair') });
   b.paint('head', fn((x, y, z) => (z > front - 3 && Math.abs(x) < 4.8 ? 1 : bands(x, y)), [-14, c - 16, -14], [14, c + 17, 14]), 'hair', { shade: 3, where: b.isMat('hair') });
   b.paint('head', ellipsoid([0, c + 14.2, cz - 1.0], [4.2, 1.4, 4.6]), 'hair', { shade: 0, where: b.isMat('hair') });
@@ -279,9 +282,9 @@ function body(b: ModelBuilder, L: Landmarks): Sdf {
   return torso;
 }
 
-/** half-width of the jacket's opening at height y: narrow at the throat, wide over the collarbones, the inner bust bare, closed at the knot */
+/** half-width of the jacket's opening at height y: the lapels run from the open collar down over the bust to the knot */
 function openHalf(y: number): number {
-  const pts: [number, number][] = [[HEM_Y, 0.4], [BUST_Y - 1.6, 2.2], [BUST_Y + 2, 3.2], [SPEC.shoulder[1] - 1, 3.9], [SPEC.chinY - 3.4, 2.4]];
+  const pts: [number, number][] = [[HEM_Y, 0.4], [BUST_Y - 2, 1.8], [BUST_Y + 1, 2.5], [SPEC.shoulder[1] - 1, 2.9], [SPEC.chinY - 3.4, 2.4]];
   if (y <= pts[0][0]) return pts[0][1];
   for (let i = 1; i < pts.length; i++) if (y <= pts[i][0]) {
     const t = (y - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]);
@@ -291,24 +294,38 @@ function openHalf(y: number): number {
 }
 
 /**
- * The jacket: high-collared and long-sleeved, worn open over the bust and knotted under it — the hem level all round
- * just below the bust, the opening a deep V from the throat to the knot, piped along its edges, two gold buttons a
- * side; the open stand collar.
+ * The jacket: high-collared and long-sleeved, worn open and knotted under the bust — the cloth drawn smoothly over
+ * the bust (not hugging it), the hem level all round just below it, the lapels a deep V from the open stand collar
+ * down to the knot, standing a voxel proud; two gold buttons a side on the chest; the knot and its two short tails.
  */
 function jacket(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
   const s = L.spec;
+  const [cx, cz] = s.chest;
   const [sx, sy, sz] = s.shoulder;
   const nz = L.headC[2] - 0.8;
-  const hem = (x: number, z: number) => HEM_Y + (z < 0 ? 0.7 : 0) - Math.max(0, 1 - Math.abs(x) / 3.2) * 0.5;
+  // the cloth's form: the chest and the bust bridged in one smooth swell, the shoulders and the top of the waist
+  const cloth = blend(2.6,
+    box([0, s.chestY - 0.5, -0.3], [cx + 0.2, 5.4, cz], { round: 3 }),
+    ellipsoid([2.9, BUST_Y, cz + 0.5], [3.4, 3.1, 3.2]), ellipsoid([-2.9, BUST_Y, cz + 0.5], [3.4, 3.1, 3.2]),
+    capsule([2.2, sy + 1.3, sz - 0.7], [sx - 1.3, sy - 0.2, sz], 2.3, 2.4), capsule([-2.2, sy + 1.3, sz - 0.7], [-sx + 1.3, sy - 0.2, sz], 2.3, 2.4),
+    sphere([sx, sy - 0.5, sz], 2.7), sphere([-sx, sy - 0.5, sz], 2.7),
+    box([0, s.waistY + 1, -0.2], [s.waist[0], 2.6, s.waist[1]], { round: 2.4 }));
+  const hem = (x: number, z: number) => HEM_Y + (z < 0 ? 0.6 : 0) - Math.max(0, 1 - Math.abs(x) / 3.2) * 0.4;
   const shell = fn((x, y, z) => {
-    const d = torso.d(x, y, z) - 0.8;
+    const d = Math.min(cloth.d(x, y, z), torso.d(x, y, z)) - 0.9;
     const cut = Math.max(hem(x, z) - y, y - (sy + 6));
     const open = z > 0.5 && y < s.chinY ? openHalf(y) - Math.abs(x) : -1;
     return Math.max(d, cut, open);
   }, [-16, HEM_Y - 2, -12], [16, sy + 7, 12]);
   addBands(b, shell, 'coat', [['spine', 40, 52.5], ['chest', 52.5, 90]]);
-  // piping along the opening's edges and round the hem
-  b.paint(['chest', 'spine'], fn((x, y, z) => (z < 0.5 ? 1 : Math.abs(Math.abs(x) - openHalf(y) - 0.45) - 0.5), [-12, HEM_Y - 2, 0], [12, s.chinY, 14]), 'coatIn', { where: b.isMat('coat') });
+  // the lapels: the opening's edges standing a voxel proud, flat white
+  const lapel = fn((x, y, z) => {
+    if (z < 1 || y < HEM_Y + 0.3 || y > s.chinY - 3) return 1;
+    const e = Math.abs(x) - openHalf(y);
+    return Math.max(Math.abs(e - 0.7) - 0.7, cloth.d(x, y, z) - 1.8, 0.2 - cloth.d(x, y, z));
+  }, [-12, HEM_Y, 0], [12, s.chinY, 14]);
+  addBands(b, lapel, 'coat', [['spine', 40, 52.5], ['chest', 52.5, 90]], { shade: 1 });
+  // the hem's piping
   b.paint(['chest', 'spine'], fn((x, y, z) => Math.abs(y - hem(x, z) - 0.4) - 0.45, [-16, HEM_Y - 2, -12], [16, HEM_Y + 3, 12]), 'coatIn', { where: b.isMat('coat') });
   // the stand collar, open at the throat
   const collar = fn((x, y, z) => {
@@ -318,18 +335,17 @@ function jacket(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
     return Math.max(ring, z > nz + 1 ? 2.4 - Math.abs(x) : -1);
   }, [-8, sy - 2, nz - 8], [8, s.chinY + 1, nz + 8]);
   b.add('chest', collar, 'coat');
-  // the knot under the bust: the two fronts tied, the ends hanging
+  // the knot under the bust: the two fronts tied, two short tails
   const zf = (x: number, y: number) => {
     for (let z = 14; z > -14; z -= 0.1) if (torso.d(x, y, z) <= 0) return z;
     return 4;
   };
-  const kz = zf(0, HEM_Y) + 1.0;
-  b.add('spine', ellipsoid([0, HEM_Y - 0.2, kz], [1.8, 1.3, 1.2]), 'coat', { thr: 0.2 });
-  for (const k of [1, -1]) b.add('spine', capsule([k * 0.5, HEM_Y - 0.9, kz - 0.1], [k * 2.0, HEM_Y - 4.0, kz - 0.5], 0.85, 0.6), 'coat', { thr: 0.2 });
-  b.paint('spine', ellipsoid([0, HEM_Y - 0.2, kz + 0.9], [0.8, 0.6, 0.6]), 'coatIn', { where: b.isMat('coat') });
-  // two gold buttons on each front, above the bust
-  for (const k of [1, -1]) for (const y of [BUST_Y + 4.4, BUST_Y + 2.2]) {
-    const x = Math.round(k * (openHalf(y) + 1.5));
+  const kz = zf(0, HEM_Y) + 1.1;
+  b.add('spine', box([0, HEM_Y - 0.1, kz], [1.9, 1.2, 1.1], { round: 0.8 }), 'coat', { thr: 0.2, shade: 1 });
+  for (const k of [1, -1]) b.add('spine', box([k * 1.5, HEM_Y - 2.3, kz - 0.2], [0.75, 1.6, 0.5], { rot: [0, 0, k * 22], round: 0.3 }), 'coat', { thr: 0.2, shade: 2 });
+  // two gold buttons on each front, on the chest above the bust
+  for (const k of [1, -1]) for (const y of [BUST_Y + 4.6, BUST_Y + 2.4]) {
+    const x = Math.round(k * (openHalf(y) + 2.4));
     const at = frontOf(b, ['chest'], x, Math.round(y));
     if (at) b.voxel(at.bone, x, Math.round(y), at.z + 1, 'gold', 0);
   }
@@ -422,7 +438,7 @@ const norm = (v: V3): V3 => {
 function wings(b: ModelBuilder, L: Landmarks): void {
   const s = L.spec;
   const [, sy] = s.shoulder;
-  const fan: [number, number, number][] = [[40, 50, 9], [8, 56, 10], [-22, 46, 8.5]];
+  const fan: [number, number, number][] = [[40, 50, 11], [8, 56, 12.5], [-22, 46, 10.5]];
   for (const k of [1, -1]) {
     const side = k > 0 ? 'L' : 'R';
     fan.forEach(([el, len, w0], i) => {

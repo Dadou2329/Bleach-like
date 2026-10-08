@@ -11,6 +11,7 @@
 import type { ClipDef, KeyDef } from '../anim/clip';
 import type { StanceDef } from '../anim/locomotion';
 import { mergeKeys, swingKeys, type SwingDef } from '../anim/swing';
+import { ICHIGO_CLIPS } from './ichigoClips';
 
 type E = [number, number, number];
 const key = (t: number, b: Record<string, E>, hips?: E, ease?: KeyDef['ease']): KeyDef => ({ t, b, hips, ease });
@@ -295,5 +296,6 @@ const electro = bpose('cc_electro', 2.3, { pillar: 0.2, squeeze: 1.2, throw: 1.7
   key(2.3, BI(), [0, -0.02, 0], 'inOut'),
 ]);
 
-export const CANDICE_CLIPS: ClipDef[] = [palm1, palm2, kick, swat, engulf, point, sky, galvano, rage, release];
-export const BARBARRIEL_CLIPS: ClipDef[] = [sw1, sw2, sw3, sw4, six, javelin, thunder, stream, sklav, electro, release];
+const SHARED = ICHIGO_CLIPS.filter((c) => ['dash', 'airstep', 'hit_heavy'].includes(c.name));
+export const CANDICE_CLIPS: ClipDef[] = [palm1, palm2, kick, swat, engulf, point, sky, galvano, rage, release, ...SHARED];
+export const BARBARRIEL_CLIPS: ClipDef[] = [sw1, sw2, sw3, sw4, six, javelin, thunder, stream, sklav, electro, release, ...SHARED];

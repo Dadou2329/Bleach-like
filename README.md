@@ -431,6 +431,29 @@ G state, V flare); press **H** in game for the current character's moves.
     along them, the star halo; she flies. LMB sprays orbs from the wings, RMB darts forward carpet-bombing, Q darts
     back hosing the pursuer, E turns the target itself into the bomb (unblockable), R is a bigger globe, G blows a
     ring round herself that breaks whatever holds her, and F again is **Flatland**, a rain of orbs over the target.
+- **Candice Catnipp**, Sternritter "T" — The Thunderbolt: a huge mane of light-green hair under the white peaked cap,
+  zig-zag brows, the white jacket worn open and knotted under the bust, short shorts, bulky heeled white boots, the
+  green heart case on her hip. Lightning wherever she points; her LMB is an electric brawl (palm, palm, a heeled high
+  kick and the electrified swat) and every hit leaves a charge on the target — five and it is paralysed. Her moves:
+  - RMB: **Lightning Engulf** — she lunges in and claps lightning round the target between her hands.
+  - Q: the **Thunderbolt**, three forked bolts from her pointing hand; each leaps on to one more body nearby.
+  - E: **Sky Strike** — a hand to the sky and three bolts slam down where the target stands, a beat apart (a glowing
+    mark before each).
+  - R: **Galvano Blast** — the bow springs out of the heart case, she draws for a second and fires a 5-gigajoule bolt
+    that bores a tunnel through everything on its line and burns the target's protection away.
+  - G: **Rage Discharge**, lightning out of her whole body: binds broken, everyone round her thrown.
+  - Shift: Hirenkyaku; with a lock-on, or when something is about to hit her, a **Lightning Jump** — she turns into a
+    bolt and crosses through the target to its back, shocking what she passed through.
+  - "My hair!": a heavy blow sets her off — eight seconds of harder hits and a Galvano Blast that comes back sooner.
+    Holding the flare at full reiatsu for four seconds, the wings burst out by themselves.
+  - F: **Quincy: Vollständig — Barbarriel** for 24 seconds (then she is Exhausted): six lightning wings, the star halo
+    of electricity, flight and a lightning sword in each hand. LMB is four criss-cross cuts ending in a crossed double
+    cut; RMB, **"I've got six!"**, spins every wing on her back round her and flings them one by one; Q throws a wing
+    as the **Galvano Javelin** (a blade swung into it breaks it; the wings grow back, and fewer wings fly slower); E
+    is **The Thunderbolt**, a rain of bolts round the target and one colossal strike; R holds a thick bolt on the
+    target that leaps to the bodies near it; G is **Sklaverei** (drinking the world's reishi keeps the wings burning
+    and marks her body); F again is **Electrocution** — a pillar of lightning surges round her, she squeezes it round
+    her arm and throws it in a blast that gouges a long trench.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.
