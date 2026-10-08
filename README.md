@@ -454,6 +454,37 @@ G state, V flare); press **H** in game for the current character's moves.
   - E: Cero Doble.
   - R: **Galope**: a blue flash, and she is a few lengths off the target already charging, lance couched.
   - F: the release burst again. G: sealed, back to the woman.
+- **Szayelaporro Granz**, the Octava Espada: tall and very slender, chin-length pink hair swept to his right, two
+  shaved lines over his left ear and rectangular bone-framed glasses (his mask). His long white tunic is closed to
+  the chin, with three black stripes running down from the collar, and his sword hangs at his thigh on two frilly
+  purple cords. He fences one-handed with the other hand on his hip: the flèche, the back-of-wrist flick, the
+  rising cut and the turning slash (LMB). His sealed moves:
+  - RMB: **Rokureichū**: a needle thrust that plants a recording bug. Every technique the bugged enemy uses after
+    that is recorded, and once he has seen one three times it is **analysed**: it does nothing to him any more.
+  - Q: his **Fracción**, Lumina and Verona, two tiny fat twins who slap, belly-bump and get in the way of shots.
+  - E: the **trap panel**: a ring glows round the target's feet and the floor drops away into a pit.
+  - R: the **power-control device**: a pink scan dome. Bugged enemies inside it cannot release and hit weaker,
+    and an analysed technique fizzles as it starts. His Sonído inside it leaves a hologram they keep attacking.
+  - G: he **eats a Fracción**: it hurries over, he lifts it kicking over his mouth and swallows it whole for a
+    third of his life.
+  - F: **"Susure, Fornicarás"**: he lowers the blade point first into his mouth and swallows it, and his body
+    swells like a balloon before the release (a full heal).
+- **Szayelaporro, Fornicarás**: a grey segmented bodice, a long lilac skirt, white sleeves flaring from the elbow,
+  purple fingertips, and four grey wing-branches hung with red drops. LMB lashes the branches out, further with each
+  hit of the string (up to 8 m). His moves:
+  - RMB: the **burrowing branch**: it dives into the ground and bursts out under the target, wrapping and lifting it.
+  - Q: **Carbon-Copy**: a black fountain from his back rains over everything round him, and whoever it wets
+    sprouts a dark **copy of itself** with its own moves, fighting on his side. A copy that falls splits into two
+    smaller ones. Press Q again for the **finger snap**: every copy bursts.
+  - E: **Teatro de Titere**: a wing swallows the nearest enemy and spits them out, and a strand swells and bursts
+    into a **doll** of them in his hand. With the doll, his keys work it instead: LMB a flick (a cut on the
+    temple), RMB the stomach, Q the Achilles tendon (they drop to their knees), R the arm tendon (their weapon
+    falls), E the **Gran Final** (every piece crushed), G lets it go. A heavy blow makes him drop it, and Mayuri's
+    organs are dummies.
+  - R: **Telon Balon**: the wings close into a floating ball that barely takes damage.
+  - F: **Gabriel**: a branch to the target's navel lays an egg. If he is killed while it lives, he climbs back out
+    of them at half his life, draining them; out of Mayuri he wakes up drugged.
+  - G: he eats a Fracción. Passives: Hierro; a heavy blow makes him furious (his hair!).
 - **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
   flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
   plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath

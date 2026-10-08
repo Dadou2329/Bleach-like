@@ -19,10 +19,13 @@ import { HISAGI_DEF, HisagiKit } from './kits/hisagi';
 import { KIRA_DEF, KiraKit } from './kits/kira';
 import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
 import { MOMO_DEF, MomoKit } from './kits/momo';
+import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
 import { momoProp } from '../chars/momo';
+import { szayelAsset, szayelProp } from '../chars/szayel';
+import { fraccionAsset } from '../chars/szayelFraccion';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -538,6 +541,20 @@ export const ROSTER: RosterEntry[] = [
     kit: (f, g) => new MomoKit(f, g),
     warm: () => {
       buildCached(momoProp('tobiume'), false);
+    },
+  },
+  {
+    id: 'szayel',
+    name: 'Szayelaporro Granz',
+    kanji: '邪淫妃',
+    title: 'Octava Espada',
+    color: '#ff79b8',
+    def: () => ({ ...SZAYEL_DEF, speed: { ...SZAYEL_DEF.speed } }),
+    kit: (f, g) => new SzayelKit(f, g),
+    warm: () => {
+      buildCached(szayelAsset('fornicaras').model, true);
+      buildCached(szayelProp('balon'), false);
+      for (const k of ['lumina', 'verona'] as const) buildCached(fraccionAsset(k).model, true);
     },
   },
   {

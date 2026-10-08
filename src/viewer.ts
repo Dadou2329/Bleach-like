@@ -23,6 +23,7 @@ import { buildKira, kiraProp } from './chars/kira';
 import { KIRA_CLIPS, KIRA_STANCE, WABISUKE_CLIPS, WABISUKE_STANCE } from './chars/kiraClips';
 import { buildYumichika, yumichikaProp } from './chars/yumichika';
 import { buildMomo, momoProp } from './chars/momo';
+import { buildSzayel, szayelProp } from './chars/szayel';
 import { MOMO_CLIPS, MOMO_STANCE, TOBIUME_CLIPS } from './chars/momoClips';
 import { FUJI_CLIPS, FUJI_STANCE, RURI_CLIPS, RURI_STANCE, YUMICHIKA_CLIPS, YUMICHIKA_STANCE } from './chars/yumichikaClips';
 import { HAINEKO_CLIPS, HAINEKO_STANCE, RANGIKU_CLIPS, RANGIKU_STANCE } from './chars/rangikuClips';
@@ -149,6 +150,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     : who === 'kira' ? buildKira()
     : who === 'yumichika' ? buildYumichika()
     : who === 'momo' ? buildMomo()
+    : who === 'szayel' ? buildSzayel(params.get('form') === 'fornicaras' ? 'fornicaras' : 'sealed')
     : who === 'nelliel' ? buildNelliel((['child', 'gamuza'].includes(params.get('form') ?? '') ? params.get('form') : 'adult') as NelForm)
     : form === 'hollow' ? buildIchigoHollow()
     : buildIchigo(form === 'bankai' ? 'bankai' : 'shikai');
@@ -212,6 +214,14 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
     // both fists hold a sickle in the Shikai; sealed, the left hand is open
     ch.rig.setBoneVisible('palm.L', hf !== 'shikai' && hf !== 'bankai');
     ch.rig.setBoneVisible('palm.R', false);
+  }
+  if (who === 'szayel') {
+    if (params.get('form') !== 'fornicaras') {
+      ch.attach('sword', szayelProp('katana'), 'grip.R');
+      ch.attach('saya', szayelProp('sheath-empty'), 'hip.L');
+      ch.rig.setBoneVisible('palm.R', false);
+    } else ch.rig.setBoneVisible('fist.R', false);
+    ch.rig.setBoneVisible('fist.L', false);
   }
   if (who === 'momo') {
     ch.attach('sword', momoProp(params.get('form') === 'shikai' ? 'tobiume' : 'katana'), 'grip.R');
@@ -511,7 +521,7 @@ export async function bootViewer(app: HTMLElement, params: URLSearchParams): Pro
   };
   setMask(params.get('mask'));
   // body scale (close-ups) and full-view scale (released wings widen the full views)
-  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : 1;
+  const bodyScale = who === 'menos' ? 20 : who === 'hollow' ? 1.45 : who === 'kenpachi' ? 1.16 : who === 'hitsugaya' ? 0.8 : who === 'aizen' ? 1.03 : who === 'renji' ? 1.05 : who === 'rukia' ? 0.82 : who === 'chad' ? 1.1 : who === 'yoruichi' ? 0.9 : who === 'urahara' ? 1.08 : who === 'yamamoto' ? 0.9 : who === 'gin' ? 1.06 : who === 'suifeng' ? 0.84 : who === 'kyoraku' ? 1.12 : who === 'starrk' ? 1.06 : who === 'lilynette' ? 0.8 : who === 'ukitake' ? 1.06 : who === 'nnoitra' ? 1.22 : who === 'baraggan' ? 0.95 : who === 'komamura' ? 1.65 : who === 'tosen' ? (params.get('form') === 'grillo' ? 2.3 : 1.02) : who === 'orihime' ? 0.92 : who === 'mayuri' ? (params.get('form') === 'bankai' ? 7 : 1.02) : who === 'unohana' ? (params.get('form') === 'shikai' ? 5 : 0.94) : who === 'shinji' ? (params.get('form') === 'flower' ? 2.8 : 1.02) : who === 'yhwach' ? 1.16 : who === 'isshin' ? 1.07 : who === 'ikkaku' ? (params.get('form') === 'bankai' ? 1.3 : 1.05) : who === 'rangiku' ? 1.02 : who === 'hisagi' ? 1.04 : who === 'kira' ? 1 : who === 'yumichika' ? 0.98 : who === 'momo' ? 0.88 : who === 'szayel' ? 1.06 : who === 'nelliel' ? (params.get('form') === 'child' ? 0.56 : params.get('form') === 'gamuza' ? 1.38 : 1) : 1;
   const viewScale = who === 'ulquiorra' && params.get('form') && params.get('form') !== 'sealed' ? 1.7 : who === 'hitsugaya' && form === 'bankai' ? 1.7 : bodyScale;
   const origin = new THREE.Vector3(16, 2, 16);
   ch.object.position.copy(origin);

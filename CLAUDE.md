@@ -58,7 +58,9 @@ scope and milestones and `README.md` for controls and modes.
   reached it: an `onHit` can tell whether a cut really cut). `chars/reactionClips.ts` holds poses any humanoid rig
   can be forced into (`registerReactions(o.anim)`, then play `weighed_kneel` / `weighed_pin` / `slumber`). `lure`: where
   opponents believe the fighter stands (a decoy, Kyokkō's bent light): the duel AI fights it and the player's lock-on
-  and reticle follow it (`seenCenter()`).
+  and reticle follow it (`seenCenter()`). Kits that build another roster character while a fight runs (Carbon-Copy's
+  copies: `g.spawn` + the entry's kit + a `DuelistAI`) look it up with `rosterById` (`game/registry.ts`), since the
+  roster imports every kit.
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -97,7 +99,10 @@ scope and milestones and `README.md` for controls and modes.
   `PeacockVines`: lashes, the ensnare's coils with buds in the victim's colour, the bloom, the wither, the thicket),
   `vfx/tobiume.ts` (Momo: `FushibiNet`, the hidden web — threads between anchors that snare and, lit by her fire, blow
   up strand by strand outward from the spark; the Tsuriboshi star net; `KyokkoVeil`, a hidden fighter's faint
-  refraction drawn with its own afterimage pool; Hakufuku's blossoms) and
+  refraction drawn with its own afterimage pool; Hakufuku's blossoms),
+  `vfx/fornicaras.ts` (Szayelaporro: Rokureichū's `BugTag`, the device's `LabDome`, the `BurrowRidge` under the
+  ground, Carbon-Copy's `CopyFountain`, a copy bursting, the doll's strand, Gabriel's egg; his wing-branches are
+  `PeacockVines` with `BRANCH_LOOK`) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
