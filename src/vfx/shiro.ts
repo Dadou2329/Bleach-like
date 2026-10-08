@@ -127,11 +127,12 @@ const MAX_LINKS = 420;
 const LINK = 0.07;
 
 /** The chain: oval rings along the line, every other one turned a quarter, as many as the span needs. */
-class ChainLine implements TetherLine {
+export class ChainLine implements TetherLine {
   private mesh: THREE.InstancedMesh;
   private h = new THREE.Vector3();
   private e = new THREE.Vector3();
-  constructor(g: Game, color: THREE.ColorRepresentation) {
+  /** link thickness (m): the default fine chain, or a heavier one */
+  constructor(g: Game, color: THREE.ColorRepresentation, private thick = 0.024) {
     const geo = new THREE.TorusGeometry(1, 0.28, 5, 10);
     this.mesh = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ color, roughness: 0.32, metalness: 0.85 }), MAX_LINKS);
     this.mesh.frustumCulled = false;
@@ -139,10 +140,15 @@ class ChainLine implements TetherLine {
     this.mesh.count = 0;
     g.engine.gr.scene.add(this.mesh);
   }
+  /** hide the chain (no links drawn) */
+  hide(): void {
+    this.mesh.count = 0;
+  }
   update(from: THREE.Vector3, to: THREE.Vector3, sag: number): void {
     const h = this.h.copy(from), e = this.e.copy(to);
     const span = h.distanceTo(e);
-    const n = Math.max(2, Math.min(MAX_LINKS, Math.ceil((span * 1.03) / LINK)));
+    const link = LINK * (this.thick / 0.024);
+    const n = Math.max(2, Math.min(MAX_LINKS, Math.ceil((span * 1.03) / link)));
     this.mesh.count = n;
     const P = (u: number, out: THREE.Vector3) => out.lerpVectors(h, e, u).setY(h.y + (e.y - h.y) * u - sag * 4 * u * (1 - u));
     for (let i = 0; i < n; i++) {
@@ -153,7 +159,7 @@ class ChainLine implements TetherLine {
       const len = _c.length() || 1e-4;
       _q.setFromUnitVectors(Y, _c.divideScalar(len));
       if (i % 2) _q.multiply(_qt.setFromAxisAngle(Y, Math.PI / 2));
-      _m.compose(_d.addVectors(_a, _b).multiplyScalar(0.5), _q, _s.set(0.024, Math.max(0.02, len * 0.62), 0.024));
+      _m.compose(_d.addVectors(_a, _b).multiplyScalar(0.5), _q, _s.set(this.thick, Math.max(0.02, len * 0.62), this.thick));
       this.mesh.setMatrixAt(i, _m);
     }
     this.mesh.instanceMatrix.needsUpdate = true;
@@ -178,6 +184,8 @@ export interface TetherStyle {
   cutR: number;
   /** streak colour off the point */
   glow: THREE.ColorRepresentation;
+  /** chain link thickness (m) */
+  thick?: number;
 }
 
 export interface TetherHit {
@@ -188,6 +196,8 @@ export interface TetherHit {
   /** carve power along the path (0: none) */
   cut: number;
   hitstop?: number;
+  /** goes round a guard: parries and catches do not stop it */
+  unblockable?: boolean;
 }
 
 export interface ThrowOpts {
@@ -266,7 +276,7 @@ export class TetherBlade implements Projectile {
     this.mesh.matrixAutoUpdate = false;
     this.mesh.visible = false;
     g.engine.gr.scene.add(this.mesh);
-    this.line = style.kind === 'chain' ? new ChainLine(g, style.color) : new ClothLine(g, style.color);
+    this.line = style.kind === 'chain' ? new ChainLine(g, style.color, style.thick) : new ClothLine(g, style.color);
     this.grip.copy(hand());
     this.hitFx = new THREE.Color(style.glow);
   }
@@ -562,7 +572,7 @@ export class TetherBlade implements Projectile {
       const k = _v.copy(dir).setY(0);
       if (k.lengthSq() < 1e-4) k.subVectors(o.pos, this.owner.pos).setY(0);
       k.normalize();
-      g.damage(o, hit.damage, this.owner, k.clone(), { knock: hit.knock, launch: hit.launch, heavy: hit.heavy, hitstop: hit.hitstop ?? 0.07, shake: hit.heavy ? 0.35 : 0.2 });
+      g.damage(o, hit.damage, this.owner, k.clone(), { knock: hit.knock, launch: hit.launch, heavy: hit.heavy, hitstop: hit.hitstop ?? 0.07, shake: hit.heavy ? 0.35 : 0.2, unblockable: hit.unblockable });
       _col.copy(this.hitFx);
       g.sparks(o.center(), k, `#${_col.getHexString()}`, 12);
       if (!first) first = o;

@@ -588,6 +588,8 @@ export interface BladeSpec {
   thick?: number;
   /** called for each fighter the blade strikes (poisoned and paralysing edges) */
   onHit?: (o: Fighter) => void;
+  /** a feint or a blow round the guard: parries and counter stances do not stop it */
+  unblockable?: boolean;
 }
 
 class DashProbe extends FighterAction {

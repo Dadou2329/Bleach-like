@@ -43,6 +43,8 @@ export interface DamageOpts {
   quiet?: boolean;
   /** a reishi attack (Cero, Getsuga, Kidō, arrows, flames) rather than a blade or a fist */
   energy?: boolean;
+  /** a feint or a blow round the guard: parries, catches and counter stances do not stop it */
+  unblockable?: boolean;
 }
 
 const _v = new THREE.Vector3();
@@ -251,7 +253,7 @@ export class Game {
         // knock mostly away from the attacker, flavoured by the swing direction
         _w.subVectors(o.pos, f.pos).setY(0).normalize().multiplyScalar(0.6).add(_v.multiplyScalar(0.4)).normalize();
         const weak = o.def.weakAbove !== undefined && hitY > o.pos.y + o.def.height * o.def.weakAbove ? 3 : 1;
-        this.damage(o, spec.damage * weak, f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake });
+        this.damage(o, spec.damage * weak, f, _w, { knock: spec.knock, launch: spec.launch, heavy: spec.heavy || weak > 1, hitstop: spec.hitstop, shake: spec.shake, unblockable: spec.unblockable });
         this.sparks(o.center(), _w, f.def.aura.body);
         spec.onHit?.(o);
       }
@@ -286,7 +288,7 @@ export class Game {
   damage(t: Fighter, amount: number, from: Fighter | null, dir: THREE.Vector3, o: DamageOpts = {}): void {
     if (t.dead || t.invuln > 0) return;
     if (t.action?.invulnerable) return;
-    if (t.parry?.(amount, from, o)) return;
+    if (!o.unblockable && t.parry?.(amount, from, o)) return;
     const armor = t.action?.armor ?? 0;
     const power = from ? from.power * (from === this.player ? this.playerPower : 1) * (1 - from.sealK) : 1;
     let dmg = amount * power * (1 - armor) * t.damageTaken * (o.energy ? t.energyTaken : 1) * (t.agedT > 0 ? 1 + t.agedK : 1);

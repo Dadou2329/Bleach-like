@@ -85,6 +85,11 @@ export class SwordTrail {
     if (core) this.uniforms.uCore.value.set(core);
   }
 
+  /** Forget the samples (the blade changed hands or weapons: no streak from the old one to the new). */
+  reset(): void {
+    this.count = 0;
+  }
+
   /** Feed the blade segment for this frame. */
   update(dt: number, base: THREE.Vector3, tip: THREE.Vector3): void {
     this.now += dt;

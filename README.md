@@ -454,6 +454,47 @@ G state, V flare); press **H** in game for the current character's moves.
   - E: Cero Doble.
   - R: **Galope**: a blue flash, and she is a few lengths off the target already charging, lance couched.
   - F: the release burst again. G: sealed, back to the woman.
+- **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
+  flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
+  plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath
+  reversed in his left: LMB is a cut, the sheath hook (laid along his forearm), a thrust, and sword and sheath
+  slammed down together. His sealed moves:
+  - RMB: the **crossed press**, sword and sheath crossed and shoved through any guard, leaving the target off
+    balance.
+  - Q: the **hand swap**. The sword is tossed to his left hand for a cut from the side nobody was watching; it
+    goes round parries and counter stances.
+  - E: the **headbutt**.
+  - R: the **styptic** in the hilt: the pommel unscrewed and the paste smeared on the wound (three a fight).
+  - G: **Tsuki-Tsuki no Mai**, the lucky dance ("tsuiteru, tsuiteru, tsuitteru~"). For a while he hits harder
+    and now and then a blow just misses him; struck while dancing, the luck is gone.
+  - F: **"Nobiro, Hōzukimaru"**. The hilt slammed into the sheath's mouth: one spear.
+- **Ikkaku, Hōzukimaru**: a wax-wood spear with a red horsehair tassel. LMB is a thrust, the tassel end jabbed
+  back into the target, a sweep, and a turn on the spot into a thrust. His moves:
+  - RMB: the **smash**, the spear brought down two-handed; the street cracks round it.
+  - Q: **"Sakero"**. The thrust is met and the spear comes apart into the three-section staff: the head section
+    on its chain folds over and round the guard. It cannot be parried. The pieces lock together again.
+  - E: the **hurled segment**, the head section flung out on its chain; it knocks a man flying.
+  - R: the styptic. G: the dance.
+  - F: **"Bankai — Ryūmon Hōzukimaru"**. The pieces slammed together overhead in a tornado of red reiatsu.
+- **Ikkaku, Ryūmon Hōzukimaru**: a guandao in his right hand, a monk's spade in his left, and between them, on
+  heavy chains to their pommels, the great axe-like **centre blade** floating behind his back with a dragon crest
+  engraved on its face. The Bankai starts out asleep: every blow he deals or takes turns more of the crest red,
+  from the tail to the head, and the redder it is the harder he hits (spinning fills it fastest). LMB is
+  the guandao, the spade, the guandao rising, and both crashed down in an X with the centre blade falling after
+  them. His moves:
+  - RMB: the **X crash**, a leap and both blades down, a crater under them. With a full crest it is the
+    **Full-Crest Clash**: all three blades driven on through the target and everything in line behind it; then
+    the overstrained blades chip and the crest burns low.
+  - Q: the **Ryūmon spin**. He takes the centre handle in both hands and the whole rig becomes a pinwheel: the
+    outer blades whirl round him on short chains, cutting everything within four metres and swatting shots
+    away. Q again stops it.
+  - E: the **chain throw**, the spade flung on its chain and yanked back.
+  - R: the **centre-blade hurl**: the centre blade rolls out like a guillotine wheel, cutting a slot through
+    whatever it meets, and is hauled back on the chains.
+  - F: the **reiatsu explosion**. The centre blade raised, spun overhead and slammed into the ground: a red blast,
+    a crater, and a screen of smoke.
+  - G: **"Wake up, Hōzukimaru!"** He braces and dares the blow: taken, most of it feeds the crest, and he answers
+    with the X at once.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**

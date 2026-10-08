@@ -10,6 +10,8 @@ import { HOLLOW_ICHIGO_DEF, HollowIchigoKit } from './kits/hollowIchigo';
 import { ISSHIN_DEF, IsshinKit } from './kits/isshin';
 import { NELLIEL_DEF, NelKit } from './kits/nelliel';
 import { nelAsset, nelProp } from '../chars/nelliel';
+import { IKKAKU_DEF, IkkakuKit } from './kits/ikkaku';
+import { CREST_SLICES, ikkakuCrestSlice, ikkakuProp } from '../chars/ikkaku';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -452,6 +454,19 @@ export const ROSTER: RosterEntry[] = [
       buildCached(nelAsset('child').model, true);
       buildCached(nelAsset('gamuza').model, true);
       buildCached(nelProp('lance'), false);
+    },
+  },
+  {
+    id: 'ikkaku',
+    name: 'Ikkaku Madarame',
+    kanji: '鬼灯丸',
+    title: '3rd Seat, 11th Division',
+    color: '#e2363b',
+    def: () => ({ ...IKKAKU_DEF, speed: { ...IKKAKU_DEF.speed } }),
+    kit: (f, g) => new IkkakuKit(f, g),
+    warm: () => {
+      for (const k of ['spear', 'staff', 'head', 'guandao', 'spade', 'center'] as const) buildCached(ikkakuProp(k), false);
+      for (let i = 0; i < CREST_SLICES; i++) buildCached(ikkakuCrestSlice(i), false);
     },
   },
   {

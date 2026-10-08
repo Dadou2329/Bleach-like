@@ -41,7 +41,8 @@ scope and milestones and `README.md` for controls and modes.
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `sealT/sealK`
   (power rejected: no releases or states, strength cut); `game.drain()` is damage over time without hitstun.
   `game.rejectNear(at, r, by, fields)` undoes enemy shots (and fields) that implement `Projectile.reject`.
-  `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs). `disarmT`
+  `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs); `unblockable` (on a
+  BladeSpec, `TetherHit` or `DamageOpts`) skips the target's `parry` hook (Ikkaku's hand swap and "Sakero"). `disarmT`
   (weapon knocked away: the player and duel AI cannot use LMB/RMB, the blade prop hides). `mounted`/`mountVy`:
   riding a summon (the body floats, the kit steers the climb rate; jumps and air-steps are off). `rooted`: no
   walking, jumping or Shunpo (Shinji inside his flower). `invertT` (the Inverted World: `nearestEnemy` finds no one,
@@ -70,7 +71,9 @@ scope and milestones and `README.md` for controls and modes.
   orbited round a centre, stuck in a fighter and hauled back — and `Corrosion` of a caught blade), `vfx/engetsu.ts`
   (Isshin: Engetsu's blade and tassel flames, the blood-flame pillar, the Kaikyō Kotei field, `Plow` — a flicked
   fighter smashing through walls),
-  `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower) and
+  `vfx/gamuza.ts` (Nelliel: Lanzador Verde's drilling lance, Galope's flash, the release burst, Nel's smoke and shower),
+  `vfx/ryumon.ts` (Ikkaku: `RyumonRig` — the centre blade floating on its chains with the dragon crest filling slice by
+  slice, held as a pinwheel, hurled as a wheel, swooping after a cut — the Bankai tornado, the reiatsu blast) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
