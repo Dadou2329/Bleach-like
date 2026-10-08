@@ -85,6 +85,34 @@ G state, V flare); press **H** in game for the current character's moves.
     cuts through everything; a blow meant to break his weapon breaks only the shell.
   - Passives: once a fight a killing blow leaves him standing; the third identical blow in a row from one foe is
     read and turned aside.
+- **Ichigo, Agent of the Shinigami** (the Agent chip): 174 cm in his Karakura High uniform, the grey blazer open over
+  a white shirt. As a **human**: karate (jab, reverse punch, roundhouse, spinning back kick), RMB the concrete-cracker
+  axe kick, Q the **catch and judo throw**, E the **baseball bat** of the first night, R the **charm** that turns one big
+  blow aside, F **Kon's pill** — his soul pops out of his body, and Kon keeps the body and fights beside him on his
+  super legs.
+  - **Substitute Shinigami**: the first sword, a plain katana as tall as he is (brass collar, bronze guard, red grip,
+    two light-blue tassels), its brown sheath slung on his back. LMB three wide two-handed swings that bite into walls
+    — one can stick, and LMB again wrenches it free; RMB the cleave that upturns the street; Q the **Ichigo Homerun**,
+    a backhanded batter's swing that launches; E the **mask-breaker** (three times the damage on a Hollow, the lesser
+    ones purified); R the **Cero block** — the flat raised, a shot's energy filling an overload meter; R again, or
+    full, throws it back as a wave; overfilled, it vents skyward and burns him. G: a reiatsu surge.
+  - F: **"Zangetsu!"** — the blade bursts into the cleaver and the first swing tears a trench: the Shikai, with the
+    Hueco Mundo kit and no Bankai yet.
+- **Ichigo, Soul Society** (the Soul Society chip): the Hueco Mundo kit before the Visored mask. G **lets the Hollow
+  out**: the half mask grows over his face and for 12 seconds the inner Hollow fights with his body — the player
+  watches, and G six times tears the mask off early. It hits harder, takes less and catches a blade now and then; in
+  Bankai, R is its **pincer** — three blinks, left, right and above, each with a black Getsuga. Lean on it and it comes
+  out by itself: the third black Getsuga inside 30 seconds lets it loose.
+- **Ichigo, Hollowfied** (the Hollowfied chip): the body the Hollow took during the Visored training — white and
+  heavier, maroon chevrons and bands, bone spikes on the shoulders, talons, three-toed clawed feet, a long banded
+  tail, the orange hair grown to the shoulder blades, the torn hakama, and the first full mask grown over the whole
+  head, broken open round the right eye. It fights like a beast: LMB claw rakes, the tail lash (a whirl that brings
+  the tail through the front) and a two-handed maul; RMB the low 360° tail sweep; Q the **two-finger Cero**;
+  E **High-Speed Regeneration** (a quarter of its life back — and wounds close by themselves whenever nothing has hit
+  it for a moment); R the **arm-maw** — the left arm drops off and a worm with a studded tongue lunges 7 m out of the
+  stump, bites, and drags its catch back before a new arm grows; G the roar that tears off whatever binds it; Shift a
+  lunge. F: **the husk cracks** from the shoulders and bursts — Ichigo stands in his Bankai with the mask on, and the
+  rest of the fight is the Hueco Mundo kit.
 - **Ichigo, Fake Karakura Town** (the Fake Karakura chip): out of the Dangai, 181 cm, the orange hair grown long
   down his back, a calm face; the Bankai coat open at the chest, the right sleeve gone — a bare arm, a black glove,
   the pommel chain spiralling up to the biceps — and a Tensa Zangetsu with longer, thinner prongs.
@@ -106,6 +134,27 @@ G state, V flare); press **H** in game for the current character's moves.
     through the ground. It cannot be blocked and it seals the power of whoever it strikes.
   - After it he is **spent**: a human in his Karakura High uniform, on one knee, then up with his karate (jab,
     reverse punch, front kick, roundhouse; RMB the concrete-cracker axe kick) and nothing else.
+- **Ichigo, Lost Agent** (the Lost Agent chip): 181 cm in a black long-sleeved top and light grey trousers; every dash
+  springs off the green flicker of **Bringer Light**. F climbs the ladder:
+  - **Fullbring, the badge**: the badge in his fist projects Tensa Zangetsu's guard — a large black manji outlined in
+    crimson. Karate with it (jab, guard bash, roundhouse, rising guard), RMB the guard ram, R the focused leg. Q the
+    **manji blast**: each shot in a row loses a blade (six at most), and under three blades it breaks on the first thing
+    it touches; three in a row leaves him wide open. E the six-bar manji, always whole. G braces the guard: the next
+    big blow is taken whole.
+  - **Fullbring, clad**: a ragged robe of black reiatsu over his clothes, white at the collar, the sleeve ends and the
+    sash; a black blade over the right forearm, crimson streaks whipping round the arm. LMB arm-blade cuts and kicks,
+    RMB the berserk sweep, G the **berserk surge** (eight seconds half again as strong, eating at his own life).
+  - **Fullbring, complete** (an explosive completion): a black bodysuit under bone-white armour — ribs, a high collar,
+    shoulder caps, forearm and shin plates — a white band across the nose, the black machete with the badge for its
+    guard, its white sheath on his back. A dash at a foe puts him behind it. LMB machete string, RMB the energy-held
+    swing, Q the **manji barrage**, E the **Fullbring Getsuga** (small and very fast), R the **first-strike cut** (the
+    foe's sword arm locked), G the **catch**: a blow caught one-handed and countered.
+  - F: **restored** — Rukia's sword through him from behind, and the Shikai is back with a silver hilt, a grey wrap
+    and a short chain: the Hueco Mundo kit with a far bigger Getsuga; G the cloth wraps his wounds.
+  - F: **Bankai** — Tensa Zangetsu with a long curved blade, three teeth on its back, a jagged guard and a long chain
+    looping to his gloved hand; the open coat held by three white X marks. RMB the shockwave swing, Q the Getsuga,
+    E **catch & crush** (a blast crushed in the left hand), R the **sword-breaker** (the foe's weapon knocked away),
+    F the **re-release** that shatters every dome and field round him, G the rage aura (red-black lightning).
 - **Hollow Ichigo** (Zangetsu, Ichigo's inner Hollow): Ichigo's body with the colours inverted. He has white
   skin and hair, black eyes with gold irises, a dark grin with a blue tongue, a white shihakushō with a black obi,
   and a loose, hunched stance with the head cocked. The white Zangetsu has a black edge and hangs on a black
@@ -918,6 +967,25 @@ G state, V flare); press **H** in game for the current character's moves.
     (pillars that circle and slam shut into a tomb of real ice) and **Hyōten Hyakkasō** (snow through a hole
     in the clouds that blooms into ice flowers). Twelve petals behind his back fall over time and with every
     great technique. When the last one falls, the Bankai breaks.
+  - **Eras**: Hitsugaya is one card with two chips — **Captain** (the kit above) and **Thousand-Year Blood War**, the
+    card's default. TYBW: the hair grown longer, and the kit grown with it:
+    - Shikai R: **Rokui Hyōketsujin** — six snowflake sigils bloom in a hexagon round the target; lines of ice shoot
+      from each into whoever stands inside, then the hexagon closes into a pillar of ice. G: **Ryōjin Hyōheki**, a
+      wall of woven ice threads that takes every shot; G again fires **Shinkū no Kōri no Yaiba** out of it — a hollow
+      blade of vacuum-ice that impales and pins.
+    - Bankai: E again while the Senbi crescent flies is **Zekkū** (the ice taken in hand and sent after the target);
+      F is Hyōten Hyakkasō; the first big blow from each opponent hits **Zanhyō Ningyō**, an ice double, and he is
+      behind the attacker. G: the **Shin'eiyaku** — the Hollowfied Bankai, once a match for twenty seconds: darker
+      ice, an ice sash, a white ice half-mask over the left eye and two horns; harder blows (more than twice as hard
+      on a Quincy), and Ryūsenka blooms **Hyōrinmaru's crest**, a cross of ice twice the size.
+    - When the last petal falls the Bankai **completes**: he is the adult — 175 cm, the white spikes long, ice on the
+      shoulders, forearms, knees and shoes. Every cut that lands leaves frost (the third in a row freezes the
+      target); RMB the **Freeze-Cut** (a level sweep: everything on its plane freezes and splits, 40 m out); Q the
+      **flash-freeze** gesture (the target frozen where it stands, every shot along the line stopped); E **Function
+      Stop** (a power shut off: no releases, no states, strength cut — longer on a frozen target); every Shunpo
+      landing leaves a frost marker, and R is **Shikai Hyōketsu** — the box between the last four freezes,
+      fighters, ground, shots and fields (with no markers, a box round the target); G the contact-freeze aura; F thin
+      wings and flight. The body pays (HP drains); after forty seconds he is a child again, sealed and spent.
 - **Sōsuke Aizen**: small, exact cuts with Kyōka Suigetsu held low. A raised finger sometimes stops a light
   frontal blow outright. His moves:
   - RMB: the passing stroke. He is past the target before the wound opens.
@@ -938,7 +1006,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|aizen][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1]`: model and animation viewer
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).

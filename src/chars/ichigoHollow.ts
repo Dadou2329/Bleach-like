@@ -168,10 +168,11 @@ function helmet(b: ModelBuilder, L: Landmarks, mono = false): { front: number; c
 
 // ---------------------------------------------------------------------------------------------- hair
 
-/** Straight orange hair from under the helmet to the waist: a curtain on three spring bones. */
-function mane(b: ModelBuilder, L: Landmarks): SpringDef[] {
+/** Straight orange hair from under the helmet to the waist (len 1; the lizard's, to the shoulder blades, about half):
+ *  a curtain on three spring bones. */
+export function mane(b: ModelBuilder, L: Landmarks, len = 1): SpringDef[] {
   const c = L.spec.chinY;
-  const P: V3[] = [[0, c + 6, -6.2], [0, c - 8, -8.8], [0, c - 20, -9.2], [0, c - 33, -8.4]];
+  const P: V3[] = [[0, c + 6, -6.2], [0, c + 6 - 14 * len, -8.8], [0, c + 6 - 26 * len, -9.2], [0, c + 6 - 39 * len, -8.4]];
   const W = [5.6, 6.4, 6, 4.8];
   const names = ['mane1', 'mane2', 'mane3'];
   b.bone('mane1', 'head', P[0]);
@@ -264,7 +265,7 @@ function claws(b: ModelBuilder, L: Landmarks): void {
 }
 
 /** The hakama torn short and ragged: V notches round the hem, a couple of rents. */
-function tatters(b: ModelBuilder, L: Landmarks, hem: number, R: number): void {
+export function tatters(b: ModelBuilder, L: Landmarks, hem: number, R: number): void {
   const [hx] = L.spec.hip;
   for (let i = 0; i < 14; i++) {
     const a = (i / 14) * Math.PI * 2 + 0.2;

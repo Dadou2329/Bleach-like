@@ -64,4 +64,9 @@ export interface Kit {
    * true, LMB and RMB reach the kit even with disarmT running
    */
   bareHands?(): boolean;
+  /**
+   * a takeover (Soul Society Ichigo's Hollow let out): while this returns true the player's controller hands the body
+   * to the kit (which drives it with its own AI) and only G — fighting it off — still reaches the kit
+   */
+  possessed?(): boolean;
 }

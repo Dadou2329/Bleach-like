@@ -12,14 +12,16 @@ import { ModelBuilder, type VoxelModel } from '../models/builder';
 import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, halfSpace, intersect, offset, prism, sphere, spike, subtract, tube, type Sdf, type V3 } from '../models/sdf';
 import {
   coatSkirt, faceLegend, feet, hakama, hands, head, humanoidSkeleton, kosodeSleeves, kosodeTorso, obi, spikeHair,
-  type HumanoidSpec, type Landmarks,
+  type HumanoidSpec, type Landmarks, type Spike,
 } from './humanoid';
 import type { CharacterAsset } from './ichigo';
 import type { ColliderDef, SpringDef } from '../anim/springs';
 
 /** 70 voxels = 1.33 m */
 export const HITSUGAYA_RES = 70 / 1.33;
-export type HitsugayaForm = 'captain' | 'bankai';
+/** 'tybw*': the Thousand-Year Blood War look (the hair grown longer); 'tybw-hollow': the Bankai Hollowfied by the
+ *  Shin'eiyaku — darker ice, an ice sash across the chest, a white ice half-mask over the left eye, two horns */
+export type HitsugayaForm = 'captain' | 'bankai' | 'tybw' | 'tybw-bankai' | 'tybw-hollow';
 
 /** A child: the adult face plate and head, a short torso, short limbs, narrow shoulders. */
 const SPEC: HumanoidSpec = {
@@ -44,7 +46,7 @@ const SPEC: HumanoidSpec = {
   foot: { len: 10, w: 4.4, heel: 2.6 },
 };
 
-function palette(b: ModelBuilder): void {
+export function palette(b: ModelBuilder, hollow = false): void {
   b.mat('skin', ['#FBEBDD', '#F3D8C4', '#E6C5AE', '#D7B39C', '#BE9A82'], { base: 1, rough: 0.6, shadeK: 0.9 });
   b.mat('hair', ['#EDF0F2', '#DCE3E8', '#C3D1DE', '#A9B9C9', '#8C9DB0', '#6F8094'], { base: 1, rough: 0.5, shadeK: 0.9, dither: 0.06 });
   b.mat('brow', ['#B9C6D3']);
@@ -66,13 +68,21 @@ function palette(b: ModelBuilder): void {
   b.mat('straw', ['#C9A96B', '#A8874F', '#86683A'], { base: 1, rough: 0.9 });
   b.mat('cord', ['#5B4632']);
   // Daiguren Hyōrinmaru
-  b.mat('ice', ['#CBEFFC', '#A9E2F7', '#86CDEE', '#5DB4E0', '#3A8CC4'], { base: 1, rough: 0.12, metal: 0.1, shadeK: 0.85, glow: 0.3 });
-  b.mat('iceDeep', ['#4EA8D9', '#357FB8', '#265F94'], { base: 1, rough: 0.15, glow: 0.3 });
+  if (hollow) {
+    // the Hollow-tainted Bankai: denser, darker ice
+    b.mat('ice', ['#A9CBE0', '#8DB6D1', '#6C9DBE', '#4F7FA3', '#3A6488'], { base: 1, rough: 0.14, metal: 0.1, shadeK: 0.85, glow: 0.25 });
+    b.mat('iceDeep', ['#3A6488', '#2C4E6E', '#213B54'], { base: 1, rough: 0.16, glow: 0.25 });
+    b.mat('mask', ['#F3F6F8', '#EAF3F9', '#D2E2EE', '#B4CADB'], { base: 1, rough: 0.25, shadeK: 0.9 });
+    b.mat('horn', ['#BFD8EA', '#9DBDD6', '#7FA2BF', '#5F85A6'], { base: 1, rough: 0.2, shadeK: 0.9 });
+  } else {
+    b.mat('ice', ['#CBEFFC', '#A9E2F7', '#86CDEE', '#5DB4E0', '#3A8CC4'], { base: 1, rough: 0.12, metal: 0.1, shadeK: 0.85, glow: 0.3 });
+    b.mat('iceDeep', ['#4EA8D9', '#357FB8', '#265F94'], { base: 1, rough: 0.15, glow: 0.3 });
+  }
   b.mat('petal', ['#C9C0F0', '#A89BE3', '#7E70CF', '#5E50AE'], { base: 1, rough: 0.2, shadeK: 0.9, glow: 0.6 });
 }
 
 /** The scowl: brows pulled down toward the nose over large, sharp turquoise eyes; a flat, small mouth. Rows 9 → 0. */
-const FACE = [
+export const FACE = [
   '. . . . . . . . . .',
   '. B B . . . . B B .',
   '. . B B . . B B . .',
@@ -114,9 +124,11 @@ export const SHEATH_SOCKET = { pos: [-4.6, 55, -8.2] as V3, rot: [95.2, 28.5, -3
 
 export function buildHitsugaya(form: HitsugayaForm = 'captain'): CharacterAsset {
   const b = new ModelBuilder(`hitsugaya-${form}`, HITSUGAYA_RES);
-  palette(b);
+  const tybw = form.startsWith('tybw');
+  const hollow = form === 'tybw-hollow';
+  palette(b, hollow);
   const s = SPEC;
-  const bankai = form === 'bankai';
+  const bankai = form === 'bankai' || form === 'tybw-bankai' || hollow;
   const L = humanoidSkeleton(b, s, { sleeves: true, hakama: true });
   b.socket('grip.R', 'fist.R', [-L.wrist[0] + 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
   b.socket('grip.L', 'fist.L', [L.wrist[0] - 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
@@ -132,7 +144,7 @@ export function buildHitsugaya(form: HitsugayaForm = 'captain'): CharacterAsset 
   b.socket('face', 'head', [0, s.chinY + 5.5, hd.front]);
   b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
-  hair(b, L, hd);
+  hair(b, L, hd, tybw);
   hands(b, L, 'skin');
   feet(b, L, 'tabi', 'straw', 'cord');
   const o = { black: 'black', collar: 'collar', skin: 'skin', obi: 'obi', hemR: 7.4, bag: 2.4 };
@@ -148,6 +160,7 @@ export function buildHitsugaya(form: HitsugayaForm = 'captain'): CharacterAsset 
     const ice = daiguren(b, L, hd);
     springs.push(...ice.springs);
   }
+  if (hollow) hollowfied(b, L, hd, torso);
   b.autoShade();
   b.lint();
   const R = HITSUGAYA_RES;
@@ -169,11 +182,17 @@ export function buildHitsugaya(form: HitsugayaForm = 'captain'): CharacterAsset 
  * Tall white spikes standing up and out like frost, a few locks falling over the forehead between the
  * eyes, side spikes flaring over the ears, the back swept up.
  */
-function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; chin: number }): void {
+export function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; chin: number }, tybw = false): void {
   const s = L.spec;
   const c = hd.chin;
   const front = hd.front;
-  spikeHair(b, L, 'hair', [
+  // TYBW: everything grown a fifth longer (and thicker, so the tips hold together), a heavier fringe down to the brows, the back hanging lower
+  const k = tybw ? 1.2 : 1;
+  const grow = (sp: Spike[]): Spike[] => sp.map((x) => ({ ...x, len: x.len * k, r: x.r * (tybw ? 1.15 : 1), flow: tybw && x.el < 40 && x.flow ? ([x.flow[0], x.flow[1] - 0.25, x.flow[2]] as V3) : x.flow }));
+  const fringe = tybw
+    ? [{ x: -2.4, tipY: c + 7.2, lean: -0.2, r: 1.2 }, { x: 2.2, tipY: c + 7.2, lean: 0.2, r: 1.2 }, { x: -5, tipY: c + 6.2, lean: -0.5, r: 1.2 }, { x: 4.8, tipY: c + 6.2, lean: 0.5, r: 1.2 }]
+    : [];
+  spikeHair(b, L, 'hair', grow([
     // the crown: tall spikes, leaning back and out
     { az: 0, el: 62, len: 7.5, r: 3.2, flat: 0.55, flow: [0, 0.6, -0.2] },
     { az: -35, el: 58, len: 7, r: 3, flat: 0.55, flow: [-0.25, 0.7, -0.1] },
@@ -200,12 +219,13 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; ch
     { az: 18, el: 30, len: 4.5, r: 2.4, flat: 0.55, flow: [0.2, 0.7, 0.5] },
     { az: -48, el: 26, len: 4, r: 2.3, flat: 0.55, flow: [-0.5, 0.5, 0.3] },
     { az: 48, el: 26, len: 4, r: 2.3, flat: 0.55, flow: [0.5, 0.5, 0.3] },
-  ], [
+  ]), [
     // forehead locks: short points; one between the eyes, two at the temples — the eyes stay clear
     { x: -0.4, tipY: c + 7.6, lean: 0.3, r: 1.1 },
     { x: -4.2, tipY: c + 8.2, lean: -0.6, r: 1.2 },
     { x: 4.0, tipY: c + 8.2, lean: 0.6, r: 1.2 },
-  ], { tufts: 4, hairline: c + s.head.h - 0.5, slope: 0.7, tuftFlow: [0, 0.5, -0.2] });
+    ...fringe,
+  ], { tufts: tybw ? 6 : 4, hairline: c + s.head.h - 0.5, slope: 0.7, tuftFlow: [0, 0.5, -0.2] });
   // keep the eyes clear of the side locks
   b.carve('head', aabb([-5, c + 4, front], [-1, c + 7, front + 6]));
   b.carve('head', aabb([1, c + 4, front], [5, c + 7, front + 6]));
@@ -214,7 +234,7 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; ch
 // ---------------------------------------------------------------------------------------------- haori
 
 /** Sleeveless white haori, open at the front, 十 in a rhombus on the back; the skirt on spring panels. */
-function haori(b: ModelBuilder, L: Landmarks, torso: Sdf): { springs: SpringDef[]; colliders: ColliderDef[] } {
+export function haori(b: ModelBuilder, L: Landmarks, torso: Sdf, res = HITSUGAYA_RES, hem = 7): { springs: SpringDef[]; colliders: ColliderDef[] } {
   const s = L.spec;
   const [sx, sy, sz] = s.shoulder;
   const top = s.chinY + 8;
@@ -256,14 +276,14 @@ function haori(b: ModelBuilder, L: Landmarks, torso: Sdf): { springs: SpringDef[
         }
     }
   });
-  return coatSkirt(b, L, { mat: 'haori', lining: 'haoriIn', yTop: s.waistY - 2, yHem: 7, r0: 8.2, r1: 11.2, openFront: 15, res: HITSUGAYA_RES });
+  return coatSkirt(b, L, { mat: 'haori', lining: 'haoriIn', yTop: s.waistY - 2, yHem: hem, r0: s.waist[0] + 2.7, r1: s.waist[0] + 5.7, openFront: 15, res });
 }
 
 /**
  * The green sash, bandolier-style: a band round the body in the plane through the right shoulder and the
  * left hip, riding on the haori; the round star clip on the chest.
  */
-function sash(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
+export function sash(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
   const s = L.spec;
   const [sx, sy] = s.shoulder;
   const p0: V3 = [-sx + 0.5, sy + 3.5, 0], p1: V3 = [s.waist[0] + 1.5, s.waistY - 3.5, 0];
@@ -414,6 +434,49 @@ function daiguren(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: numb
     }
   }
   return { springs };
+}
+
+/**
+ * The Hollowfied Bankai (the Shin'eiyaku, TYBW): an ice sash from the left shoulder across the chest to the right hip
+ * (like Hyōrinmaru's tail wound round him), a white ice half-mask over the left eye with a hole for it, and two horns.
+ */
+function hollowfied(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }, torso: Sdf): void {
+  const s = L.spec;
+  const [sx, sy] = s.shoulder;
+  // the sash: the green one's mirror, a band of ice scales riding over the haori
+  const p0: V3 = [sx - 0.5, sy + 3.5, 0], p1: V3 = [-s.waist[0] - 1.5, s.waistY - 3.5, 0];
+  const d: V3 = [p1[0] - p0[0], p1[1] - p0[1], 0];
+  const dl = Math.hypot(d[0], d[1]);
+  const n: V3 = [-d[1] / dl, d[0] / dl, 0];
+  const c: V3 = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2, 0];
+  const w = 1.8;
+  const slab = intersect(halfSpace([c[0] + n[0] * w, c[1] + n[1] * w, 0], n), halfSpace([c[0] - n[0] * w, c[1] - n[1] * w, 0], [-n[0], -n[1], 0]));
+  const band = intersect(subtract(offset(torso, 3.4), offset(torso, 1.6)), slab);
+  b.add('chest', intersect(band, aabb([-30, s.chestY - 7, -30], [30, 90, 30])), 'ice');
+  b.add('spine', intersect(band, aabb([-30, s.hipsY - 2, -30], [30, s.chestY - 7, 30])), 'ice');
+  // scales: darker chevrons along it
+  b.paint(['chest', 'spine'], fn((x, y) => {
+    const u = ((x - p0[0]) * d[0] + (y - p0[1]) * d[1]) / dl;
+    const v = (x - c[0]) * n[0] + (y - c[1]) * n[1];
+    return Math.abs((((u + Math.abs(v) * 0.8) % 2.6) + 2.6) % 2.6 - 1.3) - 0.35;
+  }, [-20, s.hipsY - 4, -12], [20, s.chinY, 12]), 'iceDeep', { where: b.isMat('ice') });
+  // the half-mask: a curved plate of white ice over the left half of the face, a hole for the eye, a ragged edge;
+  // the fringe in front of it is pushed aside so the plate reads
+  const ch = hd.chin, f = hd.front;
+  b.carve('head', intersect(ellipsoid([1.8, ch + 6, f - 4.5], [5.8, 6.4, 9]), aabb([-0.6, ch - 2, f + 0.4], [9, ch + 12, f + 6])));
+  const plate = intersect(
+    ellipsoid([1.8, ch + 6, f - 4.5], [5.4, 6.4, 5.6]),
+    fn((x, y, z) => Math.max(f - 0.6 - z, -0.2 - x + 0.9 * Math.sin(y * 1.4)), [-4, ch - 2, f - 6], [9, ch + 14, f + 3]),
+  );
+  b.add('head', plate, 'mask');
+  // the plate outlined in pale blue so it reads against the white hair (its footprint seen from the front is an
+  // ellipse 3.9 × 4.6 with the ragged inner edge), and one crack of deep ice running down from the eye hole
+  const foot = (x: number, y: number) => Math.max((Math.hypot((x - 1.8) / 3.9, (y - ch - 6) / 4.6) - 1) * 3.9, -0.2 - x + 0.9 * Math.sin(y * 1.4));
+  b.paint('head', fn((x, y) => { const d = foot(x, y); return Math.max(d, -d - 0.8); }, [-2, ch - 1, f - 3], [8, ch + 12, f + 3]), 'horn', { where: b.isMat('mask'), shade: 2 });
+  b.paint('head', capsule([3.4, ch + 4.4, f + 1], [4, ch + 1.8, f + 1], 0.45), 'iceDeep', { where: b.isMat('mask') });
+  b.carve('head', ellipsoid([2.6, ch + 5.5, f + 0.8], [1.9, 1.1, 1.8], [0, 0, 12]));
+  // two horns from the temples, raking back and up past the hair
+  for (const k of [-1, 1]) b.add('head', spike([k * 4.6, ch + 10.2, f - 2.6], [k * 0.45, 0.55, -0.7], 11, 1.8, 1.5, { tip: 0.2, bend: [0, 0.05, 0] }), 'horn', { thr: 0.25 });
 }
 
 // ---------------------------------------------------------------------------------------------- props

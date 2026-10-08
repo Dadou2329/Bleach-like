@@ -11,7 +11,7 @@ import { FighterAction, type BladeSpec, type Fighter, type FighterDef } from '..
 import type { Game } from '../game';
 import type { VoxelModel } from '../../models/builder';
 import { ICHIGO_CLIPS, ICHIGO_COMBO, ICHIGO_STANCE } from '../../chars/ichigoClips';
-import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../../chars/ichigo';
+import { halfMask, halfMaskShatter, hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../../chars/ichigo';
 import { ichigoHollowAsset } from '../../chars/ichigoHollow';
 import { VASTO_CHAIN, VASTO_CLIPS, VASTO_STANCE } from '../../chars/ichigoHollowClips';
 import { AURA_ICHIGO_BANKAI, AURA_ICHIGO_HOLLOW, AURA_ICHIGO_SHIKAI } from '../../vfx/aura';
@@ -24,6 +24,7 @@ import { TEX_GLOW, TEX_PUFF, TEX_STREAK } from '../../vfx/sprites';
 import type { AbilityInfo } from '../../ui/hud';
 import type { Kit, KitAI } from './kit';
 import { HornCeroAction, RoarAction, SmashAction, SonidoAction, VastoStringAction } from './vasto';
+import { DuelistAI } from '../ai/duelist';
 
 type BladeDef = NonNullable<FighterDef['blade']>;
 const BLADE_SHIKAI: BladeDef = { prop: 'sword', base: [0, 0, 0.16], tip: [0, 0, 1.56], color: '#7DDFFD', core: '#F9FFFF' };
@@ -43,6 +44,12 @@ const MASK_COST = 20;
 const MATOI_TIME = 8;
 /** the Full Hollow lasts this long before a horn gives out */
 export const VASTO_TIME = 32;
+/** Soul Society: the Hollow, once let out, fights on its own this long (unless the mask is torn off first) */
+export const POSSESS_TIME = 12;
+/** presses of G that tear the half mask off */
+const POSSESS_MASH = 6;
+/** Soul Society: the third Black Getsuga inside this window lets the Hollow out by itself */
+const BLACK_WINDOW = 30;
 const VASTO_SPEED = { run: 15, sprint: 34, jump: 14.5, dash: 24, dashTime: 0.1 };
 
 const _v = new THREE.Vector3();
@@ -265,19 +272,21 @@ export class GetsugaAction extends FighterAction {
     const bankai = f.data.bankai === true;
     // the masked Getsuga: his "ultimate attack" — black, far bigger and faster
     const m = this.kit.masked;
+    const k = this.kit.getsugaScale;
     g.addProjectile(new GetsugaProjectile(g, f, origin, dir, side, {
-      radius: (bankai ? 3.4 : 2.6) * (m ? 1.3 : 1),
+      radius: (bankai ? 3.4 : 2.6) * (m ? 1.3 : 1) * k,
       halfAngle: 1.15,
       speed: (bankai ? 52 : 40) * (m ? 1.25 : 1),
-      range: (bankai ? 110 : 70) * (m ? 1.3 : 1),
-      damage: (bankai ? 140 : 80) * (m ? 1.6 : 1),
-      cut: (bankai ? 900 : 520) * (m ? 1.6 : 1),
+      range: (bankai ? 110 : 70) * (m ? 1.3 : 1) * k,
+      damage: (bankai ? 140 : 80) * (m ? 1.6 : 1) * k,
+      cut: (bankai ? 900 : 520) * (m ? 1.6 : 1) * k,
       colors: (f.data.getsugaColors as typeof GETSUGA_BLUE) ?? GETSUGA_BLUE,
       dark: bankai || m,
     }));
     g.shake(m ? 0.6 : 0.45);
     g.hitstop(0.06);
     g.sfx.play(bankai || m ? 'getsugaBlack' : 'getsuga', origin);
+    if (bankai) this.kit.blackGetsuga();
     f.aura.flare(1.8, 0.4);
     g.engine.gr.chroma.offset.set(0.004, 0.004);
     if (f === g.player) g.cam.punchFov(6);
@@ -640,6 +649,62 @@ class BarrageAction extends FighterAction {
 // ------------------------------------------------------------------ the Full Hollow
 
 /** Killed in Bankai: the body twitches, the Hollow takes it and rises. */
+/** The Hollow (Soul Society): the pincer — a Black Getsuga from one side of the foe, from the other, then from above. */
+class PincerAction extends FighterAction {
+  readonly name = 'pincer';
+  private step = -1;
+  private nextAt = 0;
+  constructor(readonly kit: IchigoKit, readonly target: Fighter) {
+    super();
+    this.invulnerable = true;
+    this.mobility = 0;
+    this.airGravity = 0;
+    this.trackTarget = false;
+  }
+  override update(f: Fighter, g: Game, dt: number): void {
+    super.update(f, g, dt);
+    const t = this.target;
+    if (t.dead) {
+      this.done = true;
+      return;
+    }
+    if (this.t >= this.nextAt && this.step < 2) {
+      this.step++;
+      this.nextAt = this.t + 0.42;
+      const away = _v.subVectors(f.pos, t.pos).setY(0);
+      if (away.lengthSq() < 1e-4) f.forward(away).negate();
+      away.normalize();
+      const side = new THREE.Vector3(-away.z, 0, away.x);
+      const p = this.step === 0 ? t.pos.clone().addScaledVector(side, 5).addScaledVector(away, 2)
+        : this.step === 1 ? t.pos.clone().addScaledVector(side, -5).addScaledVector(away, 2)
+          : t.pos.clone().addScaledVector(away, 1.5).add(new THREE.Vector3(0, 6, 0));
+      f.ghosts.spawn(0.35, 0.9);
+      f.body.pos.copy(p);
+      f.body.prev.copy(p);
+      f.body.vel.set(0, 0, 0);
+      f.push.set(0, 0, 0);
+      const c = t.center();
+      f.yaw = Math.atan2(c.x - p.x, c.z - p.z);
+      g.sfx.play('shunpo', f.center(), 0.7);
+      f.anim.play('getsuga', { speed: 2.4, onEvent: (n) => n === 'fx' && this.fire(f, g) });
+    }
+    if (this.step >= 2 && this.t >= this.nextAt) this.done = true;
+  }
+  private fire(f: Fighter, g: Game): void {
+    const origin = f.center();
+    const dir = this.target.center().sub(origin).normalize();
+    const fw = f.forward(_w);
+    const right = new THREE.Vector3(-fw.z, 0, fw.x);
+    const side = new THREE.Vector3(0, 1, 0).multiplyScalar(Math.cos(0.7)).addScaledVector(right, Math.sin(0.7));
+    side.addScaledVector(dir, -side.dot(dir));
+    if (side.lengthSq() < 1e-4) side.copy(right);
+    side.normalize();
+    g.addProjectile(new GetsugaProjectile(g, f, origin.clone().addScaledVector(dir, 1), dir, side, { radius: 3, halfAngle: 1.1, speed: 58, range: 60, damage: 90, cut: 700, colors: GETSUGA_BLACK, dark: true }));
+    g.sfx.play('getsugaBlack', origin);
+    g.shake(f === g.player ? 0.4 : 0.15);
+  }
+}
+
 class RiseAction extends FighterAction {
   readonly name = 'rise';
   constructor(readonly kit: IchigoKit) {
@@ -736,13 +801,35 @@ export class IchigoKit implements Kit {
   hollowUsed = false;
   private vastoIndex = 0;
   private vastoLast = 0;
-  readonly cd = { plow: 0, darts: 0, thrust: 0, matoi: 0, barrage: 0, cero: 0, sonido: 0, roar: 0, smash: 0 };
+  readonly cd = { plow: 0, darts: 0, thrust: 0, matoi: 0, barrage: 0, cero: 0, sonido: 0, roar: 0, smash: 0, pincer: 0, possess: 0 };
+  /**
+   * which era's Ichigo: Hueco Mundo (the mask, the Full Hollow), Soul Society (G lets the Hollow out), the Agent's
+   * Shikai, the Lost Agent's restored Shikai v2 (F and G belong to the kit that drives this one)
+   */
+  readonly era: 'hm' | 'ss' | 'agent' | 'lostagent';
+  /** the Getsuga's size and bite (the restored Shikai's lops the top off a mansion) */
+  readonly getsugaScale: number;
+  /** Soul Society: the Hollow has the body (s left), the presses of G fighting it, the AI it fights with */
+  possessT = 0;
+  private possessMash = 0;
+  private possessAI: DuelistAI | null = null;
+  private driving = false;
+  private blackShots: number[] = [];
+  private forceOut = false;
 
-  constructor(readonly f: Fighter, readonly g: Game) {
+  constructor(readonly f: Fighter, readonly g: Game, o: { era?: 'hm' | 'ss' | 'agent' | 'lostagent'; getsugaScale?: number } = {}) {
+    this.era = o.era ?? 'hm';
+    this.getsugaScale = o.getsugaScale ?? 1;
     f.data.kit = this;
     f.onHurt = (dmg, heavy) => this.onHurt(dmg, heavy);
     f.onLethal = () => this.onLethal();
+    f.parry = (amount, from, op) => this.parry(amount, from, op);
     this.hands();
+  }
+
+  /** a takeover: the player's controller hands the body over and only G (to fight it off) still reaches the kit */
+  possessed(): boolean {
+    return this.possessT > 0 && this.f === this.g.player;
   }
 
   /** the sword hand closed on the hilt, the left hand open */
@@ -759,6 +846,8 @@ export class IchigoKit implements Kit {
   }
 
   update(dt: number): void {
+    // the Hollow's own AI calls back in here: the clocks have already run this step
+    if (this.driving) return;
     const f = this.f;
     this.getsugaCd = Math.max(0, this.getsugaCd - dt);
     this.maskCd = Math.max(0, this.maskCd - dt);
@@ -787,6 +876,27 @@ export class IchigoKit implements Kit {
       if (lvl > this.crackLevel) this.crackMask(lvl);
       if (this.maskT <= 0) this.shatterMask();
       else this.maskFx(dt);
+    }
+    // Soul Society: the third Black Getsuga lets the Hollow out by itself
+    if (this.forceOut && !f.busy && !f.dead) {
+      this.forceOut = false;
+      this.letItOut(true);
+    }
+    if (this.possessT > 0) {
+      this.possessT -= dt;
+      if (this.possessT <= 0 || f.dead) this.tearOff(false);
+      else {
+        this.halfMaskFx();
+        // the Hollow fights with the player's body: its own AI drives the kit
+        if (this.possessAI && f === this.g.player) {
+          this.driving = true;
+          try {
+            this.possessAI.update(dt);
+          } finally {
+            this.driving = false;
+          }
+        }
+      }
     }
   }
 
@@ -858,7 +968,12 @@ export class IchigoKit implements Kit {
 
   release(): void {
     const f = this.f;
-    if (this.bankai || this.vasto || f.busy) return;
+    if (this.era === 'agent') {
+      if (f === this.g.player) this.g.hud?.showBanner('No Bankai yet');
+      return;
+    }
+    if (this.era === 'lostagent') return;
+    if (this.possessT > 0 || this.bankai || this.vasto || f.busy) return;
     if (!f.spendRei(40)) {
       if (f === this.g.player) this.g.hud?.showBanner('Not enough reiatsu');
       return;
@@ -890,8 +1005,13 @@ export class IchigoKit implements Kit {
     else this.special(new PlowAction(this), this.masked ? 12 : 20, 'plow', 3);
   }
 
-  /** R: Deadly Darts / Getsuga Matoi / the masked barrage / the roar. */
+  /** R: Deadly Darts / Getsuga Matoi / the masked barrage / the roar / (the Hollow) the pincer. */
   skill3(): void {
+    if (this.possessT > 0 && this.bankai) {
+      const t = this.near(45);
+      if (t) this.special(new PincerAction(this, t), 0, 'pincer', 6);
+      return;
+    }
     if (this.vasto) {
       this.special(new RoarAction(this), 10, 'roar', 7);
       return;
@@ -908,7 +1028,8 @@ export class IchigoKit implements Kit {
   }
 
   toggle(): void {
-    if (!this.vasto) this.mask();
+    if (this.era === 'ss') this.letItOut(false);
+    else if (this.era === 'hm' && !this.vasto) this.mask();
   }
 
   private target(): Fighter | null {
@@ -971,7 +1092,7 @@ export class IchigoKit implements Kit {
       f.hp = Math.max(1, f.hp);
       return true;
     }
-    if (this.hollowUsed || !this.bankai) return false;
+    if (this.era !== 'hm' || this.hollowUsed || !this.bankai) return false;
     this.hollowUsed = true;
     f.hp = 1;
     if (this.masked) this.shatterMask();
@@ -1050,17 +1171,21 @@ export class IchigoKit implements Kit {
 
   formName(): string {
     if (this.vasto) return `Full Hollow · ${Math.max(0, Math.ceil(this.vastoT))} s`;
+    if (this.possessT > 0) return `The Hollow · ${Math.ceil(this.possessT)} s · G ×${POSSESS_MASH - this.possessMash} to tear it off`;
     return (this.bankai ? 'Bankai — Tensa Zangetsu' : 'Shikai') + (this.masked ? ' · Hollow mask' : '') + (this.matoiT > 0 ? ' · Matoi' : '');
   }
 
   ai(): KitAI {
+    const hollow = () => this.possessT > 0;
     return {
       reach: 2.6,
-      chain: 5,
-      releaseAt: 0.75,
-      toggleAt: 0.5,
-      toggleOn: () => this.masked || this.maskCd > 0 || this.vasto,
+      chain: hollow() ? 6 : 5,
+      releaseAt: this.era === 'agent' || this.era === 'lostagent' ? undefined : 0.75,
+      toggleAt: this.era === 'agent' || this.era === 'lostagent' ? undefined : this.era === 'ss' ? 0.45 : 0.5,
+      toggleOn: () => this.masked || this.maskCd > 0 || this.vasto || this.possessT > 0 || this.cd.possess > 0,
       moves: [
+        // the Hollow: the pincer of Black Getsuga — from one side, the other, then above
+        { name: 'pincer', use: () => this.skill3(), min: 4, max: 40, weight: 3, cd: 6, when: () => hollow() && this.bankai },
         { name: 'getsuga', use: () => this.getsuga(), min: 6, max: 45, weight: 3, cd: 2.2, when: () => !this.vasto },
         { name: 'heavy', use: () => this.heavy(), min: 0, max: 3.2, weight: 1, cd: 3 },
         { name: 'plow', use: () => this.skill2(), min: 4, max: 26, weight: 1.4, cd: 5, when: () => !this.bankai && !this.vasto },
@@ -1073,6 +1198,113 @@ export class IchigoKit implements Kit {
         { name: 'roar', use: () => this.skill3(), min: 0, max: 7, weight: 1.2, cd: 8, when: () => this.vasto },
       ],
     };
+  }
+
+  /** Soul Society: a Black Getsuga fired; the third inside 30 s lets the Hollow out. */
+  blackGetsuga(): void {
+    if (this.era !== 'ss' || this.possessT > 0) return;
+    const now = this.g.time;
+    this.blackShots = this.blackShots.filter((t) => now - t < BLACK_WINDOW);
+    this.blackShots.push(now);
+    if (this.blackShots.length >= 3) {
+      this.blackShots.length = 0;
+      this.forceOut = true;
+    }
+  }
+
+  /**
+   * G (Soul Society): "let it out" — the Hollow's half mask grows over the left of his face and for 12 s the Hollow
+   * fights with his body on its own: no guard, cuts chained without a breath, half again the damage, the pincer of
+   * Black Getsuga, blades caught bare-handed. Pressed again while it rages: fighting it off — six presses tear the
+   * mask away.
+   */
+  letItOut(forced: boolean): void {
+    const { f, g } = this;
+    if (f.dead) return;
+    if (this.possessT > 0) {
+      if (forced) return;
+      this.possessMash++;
+      const p = this.faceWorld(_v);
+      this.chips(p, 4);
+      g.sfx.play('crack', p, 0.6 + this.possessMash * 0.12);
+      if (this.possessMash >= POSSESS_MASH) this.tearOff(true);
+      return;
+    }
+    if (!forced && (this.cd.possess > 0 || f.hitstun > 0)) return;
+    this.possessT = POSSESS_TIME;
+    this.possessMash = 0;
+    const v = f.visual;
+    const m = v.attach('halfmask', halfMask(), 'face');
+    m.userData.dissolve = 1;
+    m.userData.flash = 1;
+    this.maskFormT = 0;
+    v.rig.setBoneVisible('bangs', false);
+    f.stopAction();
+    this.applyLook();
+    this.applyStats();
+    const c = f.center();
+    g.callout('', forced ? 'THE HOLLOW BREAKS OUT' : 'THE HOLLOW TAKES OVER', '#ff3b52');
+    g.sfx.play('mask', c, 1.1);
+    f.aura.flare(1.8, 0.5);
+    g.addRing(f.pos.clone().setY(f.pos.y + 0.05), 9, AURA_ICHIGO_HOLLOW.body, 0.5);
+    g.shake(f === g.player ? 0.6 : 0.25);
+    g.hitstop(0.08);
+    // the player's body is the Hollow's for a while: its own AI fights with it
+    if (f === g.player) this.possessAI = new DuelistAI(g, f, this, { aggression: 1, intro: 0 });
+  }
+
+  /** The half mask torn away (or the Hollow subsiding): control comes back. */
+  tearOff(byHand: boolean): void {
+    const { f, g } = this;
+    if (this.possessT <= 0 && !f.visual.props.get('halfmask')) return;
+    this.possessT = 0;
+    this.possessAI = null;
+    this.cd.possess = 20;
+    const m = f.visual.props.get('halfmask');
+    if (m && !f.dead) {
+      m.updateWorldMatrix(true, false);
+      const origin = this.faceWorld(new THREE.Vector3());
+      const fw = f.forward();
+      g.addProjectile(new ShardBurst(g, halfMaskShatter().shards, m.matrixWorld, { origin, dir: fw, speed: byHand ? 5 : 2.5, life: 2.2 }));
+      g.sfx.play('shatter', origin, 0.9);
+    }
+    f.visual.detach('halfmask');
+    f.visual.rig.setBoneVisible('bangs', true);
+    if (byHand) {
+      g.callout('', 'TORN OFF', '#f3f3f0');
+      f.stopAction();
+      f.hitstun = Math.max(f.hitstun, 0.4);
+    }
+    this.applyLook();
+    this.applyStats();
+  }
+
+  /** The half mask materialising, the gold eye streaking behind fast moves. */
+  private halfMaskFx(): void {
+    const m = this.f.visual.props.get('halfmask');
+    if (!m) return;
+    if (this.maskFormT >= 0) {
+      this.maskFormT += 1 / 60;
+      const k = this.maskFormT;
+      m.userData.dissolve = Math.max(0, 1 - k / 0.3);
+      m.userData.flash = Math.max(0, 1 - k / 0.6);
+      if (k > 0.6) this.maskFormT = -1;
+    }
+    m.updateWorldMatrix(true, false);
+    _v.set(2.5 / 48, 0.5 / 48, 2.2 / 48).applyMatrix4(m.matrixWorld);
+    this.g.engine.glow.spawn({ x: _v.x, y: _v.y, z: _v.z, size: 0.05, sizeEnd: 0.01, life: 0.16, r: 1, g: 0.85, b: 0.3, alpha: 0.9, alphaEnd: 0, tex: TEX_GLOW });
+  }
+
+  /** The Hollow catches blades bare-handed now and then. */
+  private parry(_amount: number, from: Fighter | null, o: { energy?: boolean; quiet?: boolean }): boolean {
+    if (this.possessT <= 0 || !from || o.energy || o.quiet || Math.random() > 0.35) return false;
+    const { f, g } = this;
+    from.stopAction();
+    from.hitstun = Math.max(from.hitstun, 0.6);
+    const p = this.handWorld(_v);
+    g.sparks(p, f.forward(_w), AURA_ICHIGO_HOLLOW.body, 12);
+    g.sfx.play('ting', p, 0.9);
+    return true;
   }
 
   /** G: put the Hollow mask on (or tear it off early). */
@@ -1234,17 +1466,18 @@ export class IchigoKit implements Kit {
   /** Aura, trail, afterimages, rim light and HUD follow the form and the mask. */
   private applyLook(): void {
     const { f, g } = this;
-    const style = this.masked || this.vasto ? AURA_ICHIGO_HOLLOW : this.bankai ? AURA_ICHIGO_BANKAI : AURA_ICHIGO_SHIKAI;
+    const hollow = this.masked || this.vasto || this.possessT > 0;
+    const style = hollow ? AURA_ICHIGO_HOLLOW : this.bankai ? AURA_ICHIGO_BANKAI : AURA_ICHIGO_SHIKAI;
     const blade = this.bankai ? BLADE_BANKAI : BLADE_SHIKAI;
     f.aura.setStyle(style);
     f.ghosts.color.set(style.body);
     f.def = { ...f.def, aura: style, blade };
-    const tc = this.masked || this.vasto ? TRAIL_HOLLOW : blade;
+    const tc = hollow ? TRAIL_HOLLOW : blade;
     f.trail?.setColor(tc.color, tc.core);
-    f.data.getsugaColors = this.masked || this.bankai ? GETSUGA_BLACK : GETSUGA_BLUE;
+    f.data.getsugaColors = this.masked || this.bankai || this.possessT > 0 ? GETSUGA_BLACK : GETSUGA_BLUE;
     if (g.hud && f === g.player) {
       g.hud.form = this.formName();
-      g.hud.vignette = this.masked || this.vasto ? 1 : 0;
+      g.hud.vignette = hollow ? 1 : 0;
     }
   }
 
@@ -1264,8 +1497,8 @@ export class IchigoKit implements Kit {
       ...f.def,
       speed: { run: base.run * (m ? 1.22 : 1), sprint: base.sprint * (m ? 1.25 : 1), jump: base.jump * (m ? 1.12 : 1), dash: base.dash * (m ? 1.35 : 1), dashTime: base.dashTime },
     };
-    f.damageTaken = m ? 0.55 : 1;
-    f.power = (this.bankai ? 1.3 : 1) * (this.flare ? (this.bankai ? 1.23 : 1.35) : 1) * (m ? 1.75 : 1);
+    f.damageTaken = m ? 0.55 : this.possessT > 0 ? 0.8 : 1;
+    f.power = (this.bankai ? 1.3 : 1) * (this.flare ? (this.bankai ? 1.23 : 1.35) : 1) * (m ? 1.75 : 1) * (this.possessT > 0 ? 1.5 : 1);
     f.aura.target = this.flare ? 1 : m ? 0.34 : this.bankai ? 0.45 : 0.25;
   }
 
@@ -1313,10 +1546,12 @@ export class IchigoKit implements Kit {
       { key: 'Shift', name: 'Shunpo', kanji: '瞬歩', cost: 4 },
       { key: 'V', name: 'Flare', kanji: '霊圧', active: this.flare },
       { key: 'F', name: 'Bankai', kanji: '卍解', cost: 40, active: b, tint: '#ff6e86' },
-      {
-        key: 'G', name: m ? `Mask ${Math.ceil(this.maskT)}s` : 'Mask', kanji: '虚', cost: MASK_COST,
-        cd: m ? 0 : this.maskCd, cdMax: MASK_CD, active: m, timer: m ? this.maskT / MASK_TIME : 0, tint: '#ff3b52',
-      },
-    ];
+      this.era === 'ss'
+        ? { key: 'G', name: this.possessT > 0 ? `Fight it off ×${POSSESS_MASH - this.possessMash}` : 'Let it out', kanji: '虚', cd: this.possessT > 0 ? 0 : this.cd.possess, cdMax: 20, active: this.possessT > 0, timer: this.possessT / POSSESS_TIME, tint: '#ff3b52' }
+        : {
+          key: 'G', name: m ? `Mask ${Math.ceil(this.maskT)}s` : 'Mask', kanji: '虚', cost: MASK_COST,
+          cd: m ? 0 : this.maskCd, cdMax: MASK_CD, active: m, timer: m ? this.maskT / MASK_TIME : 0, tint: '#ff3b52',
+        },
+    ].filter((a) => (this.era !== 'agent' && this.era !== 'lostagent') || (a.key !== 'F' && a.key !== 'G'));
   }
 }

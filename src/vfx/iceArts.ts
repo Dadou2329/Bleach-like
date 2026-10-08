@@ -204,7 +204,7 @@ export class IceCrescent implements Projectile {
   private lastFrost = 0;
   private shape: { o: THREE.Vector3; d: THREE.Vector3; s: number }[] = [];
 
-  constructor(private g: Game, private owner: Fighter, origin: THREE.Vector3, dir: THREE.Vector3, readonly damage = 70, readonly scale = 1, readonly range = 45, readonly speed = 34) {
+  constructor(private g: Game, readonly owner: Fighter, origin: THREE.Vector3, dir: THREE.Vector3, readonly damage = 70, readonly scale = 1, readonly range = 45, readonly speed = 34) {
     this.pos = origin.clone();
     this.dir = dir.clone().normalize();
     this.side = new THREE.Vector3().crossVectors(this.dir, UP);
@@ -258,6 +258,28 @@ export class IceCrescent implements Projectile {
       this.done = true;
       g.addProjectile(new GlassShards(g, this.pos.clone(), new THREE.Vector3(1.6 * this.scale, 0.5, 0.5), 30, 4, 1.2, this.pos.y - 3, ICE_TINT, 0.9));
     }
+  }
+
+  /** seconds since it was loosed */
+  get age(): number {
+    return this.t;
+  }
+
+  /** Zekkū: the loosed ice taken in hand again and sent after a new aim (the crescent turns with it). */
+  steer(dir: THREE.Vector3): void {
+    const d = dir.clone().normalize();
+    _q.setFromUnitVectors(this.dir, d);
+    for (const sh of this.shape) {
+      sh.o.applyQuaternion(_q);
+      sh.d.applyQuaternion(_q);
+    }
+    this.dir.copy(d);
+    this.side.crossVectors(this.dir, UP);
+    if (this.side.lengthSq() < 1e-4) this.side.set(1, 0, 0);
+    this.side.normalize();
+    // a fresh run at what it missed
+    this.hit.clear();
+    this.t = Math.min(this.t, 0.2);
   }
 
   render(): void {

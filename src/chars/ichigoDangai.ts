@@ -320,7 +320,7 @@ function buildTensaV2(): VoxelModel {
     b.add('root', capsule(rot([0, 5.6]), rot([-4.6, 5.9]), 0.55, 0.4), 'guard', { thr: 0.2 });
   }
   b.add('root', cylinder([0, 0, 5.6], [0, 0, 6.9], 1.6), 'guard');
-  b.add('root', box([0, 0, -1.2], [1.25, 1.35, 6.6], { round: 0.5 }), 'wrap');
+  b.add('root', box([0, 0, -1.1], [1.25, 1.35, 6.9], { round: 0.5 }), 'wrap');
   b.paint('root', fn((x, y, z) => Math.abs(((Math.abs(y) + z) % 3 + 3) % 3 - 1.5) - 0.55, [-2, -2, -8], [2, 2, 5.4]), 'ray', { where: b.isMat('wrap') });
   b.add('root', box([0, 0, -8.1], [1.4, 1.5, 0.6], { round: 0.4 }), 'guard');
   b.autoShade({ up: 0.4, open: 2, front: 0 });

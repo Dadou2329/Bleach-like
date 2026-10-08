@@ -6,7 +6,7 @@ import type { Kit } from './kits/kit';
 import { ICHIGO_DEF, IchigoKit } from './kits/ichigo';
 import { buildCached } from './characterFactory';
 import { registerRoster } from './registry';
-import { hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
+import { halfMask, halfMaskShatter, hollowMask, hollowMaskShatter, ichigoAsset, ichigoSword } from '../chars/ichigo';
 import { HOLLOW_ICHIGO_DEF, HollowIchigoKit } from './kits/hollowIchigo';
 import { ISSHIN_DEF, IsshinKit } from './kits/isshin';
 import { NELLIEL_DEF, NelKit } from './kits/nelliel';
@@ -26,6 +26,14 @@ import { AARONIERO_DEF, AaronieroKit } from './kits/aaroniero';
 import { KAIEN_DEF, KAIEN_POSSESSED_DEF, KaienKit } from './kits/kaien';
 import { TYBW_DEF, TybwKit } from './kits/ichigoTybw';
 import { DANGAI_DEF, DangaiKit } from './kits/ichigoDangai';
+import { AGENT_DEF, AgentKit } from './kits/ichigoAgent';
+import { baseballBat, firstSheath, firstSword } from '../chars/ichigoAgent';
+import { FULLBRING_DEF, FullbringKit } from './kits/ichigoFullbring';
+import { LIZARD_DEF, LizardKit } from './kits/ichigoLizard';
+import { HITSUGAYA_TYBW_DEF, HitsugayaTybwKit } from './kits/hitsugayaTybw';
+import { adultWings, hitsugayaAdultAsset } from '../chars/hitsugayaAdult';
+import { lizardAsset, lizardMask, wormHead, wormSegment } from '../chars/ichigoLizard';
+import { fbArmBlade, fbGuard, fbMachete, fbSheath, fullbringAsset, tensaV3, zangetsuV2 } from '../chars/ichigoFullbring';
 import { dangaiAsset, mugetsuBlade } from '../chars/ichigoDangai';
 import { humanAsset } from '../chars/ichigoHuman';
 import { bankaiShell, tybwAsset, tybwBlade } from '../chars/ichigoTybw';
@@ -123,6 +131,58 @@ export interface RosterEntry {
 
 export const ROSTER: RosterEntry[] = [
   {
+    id: 'ichigo-agent',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Agent of the Shinigami',
+    color: '#e8a24a',
+    group: 'ichigo',
+    era: 'Agent',
+    def: () => ({ ...AGENT_DEF, speed: { ...AGENT_DEF.speed } }),
+    kit: (f, g) => new AgentKit(f, g),
+    warm: () => {
+      buildCached(ichigoAsset('substitute').model, true);
+      buildCached(ichigoAsset('shikai').model, true);
+      for (const m of [firstSword(), firstSheath(), baseballBat(), ichigoSword('shikai')]) buildCached(m, false);
+    },
+  },
+  {
+    id: 'ichigo-ss',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Soul Society',
+    color: '#7ddffd',
+    group: 'ichigo',
+    era: 'Soul Society',
+    def: () => ({ ...ICHIGO_DEF, id: 'ichigo-ss', speed: { ...ICHIGO_DEF.speed } }),
+    kit: (f, g) => new IchigoKit(f, g, { era: 'ss' }),
+    warm: () => {
+      buildCached(ichigoAsset('bankai').model, true);
+      buildCached(ichigoSword('bankai'), false);
+      const sh = halfMaskShatter();
+      for (const m of [halfMask(), ...sh.cracked, ...sh.shards.map((x) => x.model)]) buildCached(m, false);
+    },
+  },
+  {
+    id: 'ichigo-lizard',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Hollowfied',
+    color: '#d8343f',
+    group: 'ichigo',
+    era: 'Hollowfied',
+    def: () => ({ ...LIZARD_DEF, speed: { ...LIZARD_DEF.speed } }),
+    kit: (f, g) => new LizardKit(f, g),
+    warm: () => {
+      buildCached(lizardAsset().model, true);
+      for (const m of [lizardMask(), wormHead(), wormSegment()]) buildCached(m, false);
+      buildCached(ichigoAsset('bankai').model, true);
+      buildCached(ichigoSword('bankai'), false);
+      const sh = hollowMaskShatter();
+      for (const m of [hollowMask(), ...sh.cracked, ...sh.shards.map((x) => x.model)]) buildCached(m, false);
+    },
+  },
+  {
     id: 'ichigo',
     name: 'Kurosaki Ichigo',
     kanji: '一護',
@@ -153,6 +213,21 @@ export const ROSTER: RosterEntry[] = [
       buildCached(dangaiAsset('final').model, true);
       buildCached(humanAsset('school').model, true);
       buildCached(mugetsuBlade(), false);
+    },
+  },
+  {
+    id: 'ichigo-fullbring',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Lost Agent',
+    color: '#8fd16a',
+    group: 'ichigo',
+    era: 'Lost Agent',
+    def: () => ({ ...FULLBRING_DEF, speed: { ...FULLBRING_DEF.speed } }),
+    kit: (f, g) => new FullbringKit(f, g),
+    warm: () => {
+      for (const form of ['fb2', 'fb3', 'shikai2', 'bankai3'] as const) buildCached(fullbringAsset(form).model, true);
+      for (const m of [fbGuard(), fbArmBlade(), fbMachete(), fbSheath(), zangetsuV2(), tensaV3()]) buildCached(m, false);
     },
   },
   {
@@ -706,10 +781,30 @@ export const ROSTER: RosterEntry[] = [
     kanji: '氷輪丸',
     title: 'Captain, 10th Division',
     color: '#7fd6f5',
+    group: 'hitsugaya',
+    era: 'Captain',
     def: () => ({ ...HITSUGAYA_DEF, speed: { ...HITSUGAYA_DEF.speed } }),
     kit: (f, g) => new HitsugayaKit(f, g),
     warm: () => {
       buildCached(hitsugayaAsset('bankai').model, true);
+      for (const k of ['sword', 'bankai-sword', 'crescent', 'dragon-head'] as const) buildCached(hitsugayaProp(k), false);
+    },
+  },
+  {
+    id: 'hitsugaya-tybw',
+    name: 'Tōshirō Hitsugaya',
+    kanji: '氷輪丸',
+    title: 'Thousand-Year Blood War',
+    color: '#bfe8ff',
+    group: 'hitsugaya',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...HITSUGAYA_TYBW_DEF, speed: { ...HITSUGAYA_TYBW_DEF.speed } }),
+    kit: (f, g) => new HitsugayaTybwKit(f, g),
+    warm: () => {
+      for (const form of ['tybw-bankai', 'tybw-hollow'] as const) buildCached(hitsugayaAsset(form).model, true);
+      buildCached(hitsugayaAdultAsset().model, true);
+      buildCached(adultWings(), false);
       for (const k of ['sword', 'bankai-sword', 'crescent', 'dragon-head'] as const) buildCached(hitsugayaProp(k), false);
     },
   },

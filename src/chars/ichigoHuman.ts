@@ -13,7 +13,7 @@ export type HumanLook = 'school' | 'casual';
 /** 174 cm (school) or 181 cm (Lost Agent) on the 84-vox skeleton */
 export const HUMAN_RES: Record<HumanLook, number> = { school: 84 / 1.74, casual: 84 / 1.81 };
 
-function palette(b: ModelBuilder, look: HumanLook): void {
+export function humanPalette(b: ModelBuilder, look: HumanLook): void {
   ichigoPalette(b);
   b.mat('shirt', ['#F3F3F0', '#E7E7E4', '#CFCFCC', '#AEAEAD'], { base: 1, rough: 0.85, dither: 0.03 });
   if (look === 'school') {
@@ -30,13 +30,13 @@ function palette(b: ModelBuilder, look: HumanLook): void {
   b.mat('cord2', ['#C9A77A', '#8F7350'], { base: 0, rough: 0.8 });
 }
 
-const SIDEBURNS: Spike[] = [
+export const SIDEBURNS: Spike[] = [
   { az: -86, el: -14, len: 2.2, r: 2.4, flat: 0.55, flow: [0.05, -1.1, 0.25] },
   { az: 86, el: -14, len: 2.2, r: 2.4, flat: 0.55, flow: [-0.05, -1.1, 0.25] },
 ];
 
 /** The shirt (white, collar open) and over it the blazer's body, open down the front (or the casual black top). */
-function upperBody(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
+export function upperBody(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
   const s = L.spec;
   const [cx, cz] = s.chest, [wx, wz] = s.waist;
   const [sx, sy, sz] = s.shoulder;
@@ -78,7 +78,7 @@ function upperBody(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
 }
 
 /** Sleeves to the wrist: the blazer's (grey) or the top's (black). */
-function sleeves(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
+export function sleeves(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
   const s = L.spec;
   const [sx, sy, sz] = s.shoulder;
   const ey = L.elbow[1], wy = L.wrist[1];
@@ -95,7 +95,7 @@ function sleeves(b: ModelBuilder, L: Landmarks, look: HumanLook): void {
 }
 
 /** Trousers: straight legs, a crease down the front; loafers. */
-function legs(b: ModelBuilder, L: Landmarks): void {
+export function legs(b: ModelBuilder, L: Landmarks): void {
   const s = L.spec;
   const [hx, hy] = s.hip;
   const kneeY = L.knee[1];
@@ -118,7 +118,7 @@ function legs(b: ModelBuilder, L: Landmarks): void {
 }
 
 /** The Substitute Shinigami badge on its braided cord, at the left hip (Lost Agent). */
-function badge(b: ModelBuilder, L: Landmarks): void {
+export function badge(b: ModelBuilder, L: Landmarks): void {
   const s = L.spec;
   const p: V3 = [s.hips[0] + 1.6, s.hipsY - 3.5, 2.6];
   b.add('hips', box(p, [0.6, 2.4, 2], { round: 0.6 }), 'badge');
@@ -136,31 +136,11 @@ export function humanAsset(look: HumanLook): CharacterAsset {
 
 export function buildIchigoHuman(look: HumanLook = 'school'): CharacterAsset {
   const b = new ModelBuilder(`ichigo-human-${look}`, HUMAN_RES[look]);
-  palette(b, look);
+  humanPalette(b, look);
   const s = SPEC_ADULT_MALE;
   const L = humanoidSkeleton(b, s, {});
-  b.socket('grip.R', 'fist.R', [-L.wrist[0] + 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
-  b.socket('grip.L', 'fist.L', [L.wrist[0] - 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
-  b.socket('palm.R', 'palm.R', [-L.wrist[0], L.wrist[1] - 5, L.wrist[2] + 1]);
-  b.socket('palm.L', 'palm.L', [L.wrist[0], L.wrist[1] - 5, L.wrist[2] + 1]);
-  b.socket('back', 'chest', [1, 62, -7.5]);
-  b.socket('face', 'head', [0, s.chinY + 5.5, Math.round(L.headC[2] + s.head.d / 2)]);
-  b.socket('foot.R', 'foot.R', [-L.ankle[0], 1, L.ankle[2] + 6]);
-  b.socket('foot.L', 'foot.L', [L.ankle[0], 1, L.ankle[2] + 6]);
-  // the striking surfaces: knuckles, toes, the right heel (karate)
-  b.socket('knuckle.R', 'fist.R', [-L.wrist[0], L.wrist[1] - 4.3, L.wrist[2] + 3.4]);
-  b.socket('knuckle.L', 'fist.L', [L.wrist[0], L.wrist[1] - 4.3, L.wrist[2] + 3.4]);
-  b.socket('toe.R', 'foot.R', [-L.ankle[0], 1.5, L.ankle[2] + s.foot.len - s.foot.heel]);
-  b.socket('toe.L', 'foot.L', [L.ankle[0], 1.5, L.ankle[2] + s.foot.len - s.foot.heel]);
-  b.socket('heel.R', 'foot.R', [-L.ankle[0], 1.5, L.ankle[2] - s.foot.heel]);
-
-  const hd = head(b, L, 'skin');
-  b.bone('bangs', 'head', [0, s.chinY + 0.5, -0.8]);
-  spikeHair(b, L, 'hair', look === 'casual' ? [...ICHIGO_HAIR, ...SIDEBURNS] : ICHIGO_HAIR, [], { tufts: 46 });
-  b.carve(['head', 'bangs'], aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
-  b.carve(['head', 'bangs'], aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
-  b.stamp('head', hd.x0, hd.chin + 9, ICHIGO_FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
-  b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
+  humanSockets(b, L);
+  humanHead(b, L, look === 'casual');
   hands(b, L, 'skin');
   upperBody(b, L, look);
   sleeves(b, L, look);
@@ -176,5 +156,38 @@ export function buildIchigoHuman(look: HumanLook = 'school'): CharacterAsset {
   b.autoShade();
   b.lint();
   return { model: b.build(), springs, colliders, warnings: b.warnings };
+}
+
+/** The grips, palms, back, face and the striking surfaces (knuckles, toes, the right heel). */
+export function humanSockets(b: ModelBuilder, L: Landmarks): void {
+  const s = L.spec;
+  b.socket('grip.R', 'fist.R', [-L.wrist[0] + 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
+  b.socket('grip.L', 'fist.L', [L.wrist[0] - 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
+  b.socket('palm.R', 'palm.R', [-L.wrist[0], L.wrist[1] - 5, L.wrist[2] + 1]);
+  b.socket('palm.L', 'palm.L', [L.wrist[0], L.wrist[1] - 5, L.wrist[2] + 1]);
+  b.socket('back', 'chest', [1, 62, -7.5]);
+  b.socket('face', 'head', [0, s.chinY + 5.5, Math.round(L.headC[2] + s.head.d / 2)]);
+  b.socket('foot.R', 'foot.R', [-L.ankle[0], 1, L.ankle[2] + 6]);
+  b.socket('foot.L', 'foot.L', [L.ankle[0], 1, L.ankle[2] + 6]);
+  // the striking surfaces: knuckles, toes, the right heel (karate)
+  b.socket('knuckle.R', 'fist.R', [-L.wrist[0], L.wrist[1] - 4.3, L.wrist[2] + 3.4]);
+  b.socket('knuckle.L', 'fist.L', [L.wrist[0], L.wrist[1] - 4.3, L.wrist[2] + 3.4]);
+  b.socket('toe.R', 'foot.R', [-L.ankle[0], 1.5, L.ankle[2] + s.foot.len - s.foot.heel]);
+  b.socket('toe.L', 'foot.L', [L.ankle[0], 1.5, L.ankle[2] + s.foot.len - s.foot.heel]);
+  b.socket('heel.R', 'foot.R', [-L.ankle[0], 1.5, L.ankle[2] - s.foot.heel]);
+  b.socket('forearm.R', 'forearm.R', [-s.shoulder[0], L.elbow[1] - 6, 0]);
+}
+
+/** The head: the spiky orange hair (the Lost Agent's longer, with sideburns), the scowl, the nose. */
+export function humanHead(b: ModelBuilder, L: Landmarks, lostAgent: boolean, tufts = 46): { front: number; x0: number; chin: number } {
+  const s = L.spec;
+  const hd = head(b, L, 'skin');
+  b.bone('bangs', 'head', [0, s.chinY + 0.5, -0.8]);
+  spikeHair(b, L, 'hair', lostAgent ? [...ICHIGO_HAIR, ...SIDEBURNS] : ICHIGO_HAIR, [], { tufts });
+  b.carve(['head', 'bangs'], aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
+  b.carve(['head', 'bangs'], aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
+  b.stamp('head', hd.x0, hd.chin + 9, ICHIGO_FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
+  b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
+  return hd;
 }
 

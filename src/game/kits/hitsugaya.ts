@@ -47,7 +47,9 @@ export const HITSUGAYA_DEF: FighterDef = {
 
 const SPEED_BANKAI = { run: 11.5, sprint: 29, jump: 14, dash: 18, dashTime: 0.09 };
 
-type Form = 'sealed' | 'shikai' | 'bankai';
+/** 'adult': the Complete Bankai (TYBW kit only) */
+export type HitsugayaKitForm = 'sealed' | 'shikai' | 'bankai' | 'adult';
+type Form = HitsugayaKitForm;
 
 const _v = new THREE.Vector3();
 const _w = new THREE.Vector3();
@@ -284,8 +286,9 @@ class ThrustAction extends SkillAction {
       this.bloomed = true;
       const hit = g.enemiesOf(f).find((o) => f.bladeHits.has(o.id) && !o.dead);
       if (hit) {
-        g.addProjectile(new IcePrison(g, f, hit, 1.3, 130, 'cross', 1.3));
-        g.callout('竜霰架', 'RYŪSENKA', '#bfefff');
+        const cr = this.kit.crest();
+        g.addProjectile(new IcePrison(g, f, hit, 1.3, 130 * cr.k, 'cross', 1.3 * cr.k));
+        g.callout(cr.kanji, cr.name, '#bfefff');
         this.kit.losePetal();
       }
     }
@@ -594,10 +597,10 @@ export class HitsugayaKit implements Kit {
   petals = 12;
   sickle: (SickleChain & { anchorPos: () => THREE.Vector3 }) | null = null;
   storm: (Storm & { flash: () => void }) | null = null;
-  private lastEnd = 0;
-  private petalT = 0;
-  private flapping = false;
-  private cd = { heavy: 0, frost: 0, wave: 0, dragon: 0, chain: 0, tsurara: 0, senbi: 0, hyoro: 0, hyakkaso: 0, bankai: 0 };
+  protected lastEnd = 0;
+  protected petalT = 0;
+  protected flapping = false;
+  protected cd = { heavy: 0, frost: 0, wave: 0, dragon: 0, chain: 0, tsurara: 0, senbi: 0, hyoro: 0, hyakkaso: 0, bankai: 0 };
 
   constructor(readonly f: Fighter, readonly g: Game) {
     f.data.kit = this;
@@ -637,7 +640,20 @@ export class HitsugayaKit implements Kit {
     return this.g.nearestEnemy(this.f, 80, this.f.forward(), 70) ?? this.g.nearestEnemy(this.f, 80);
   }
 
-  private setHands(): void {
+  /** the bodies the kit swaps between (the TYBW kit wears its own) */
+  protected captainAsset() {
+    return hitsugayaAsset('captain');
+  }
+  protected bankaiAsset() {
+    return hitsugayaAsset('bankai');
+  }
+
+  /** Ryūsenka's cross of ice: its size and name (the Hollowfied Bankai blooms Hyōrinmaru's crest) */
+  crest(): { k: number; kanji: string; name: string } {
+    return { k: 1, kanji: '竜霰架', name: 'RYŪSENKA' };
+  }
+
+  protected setHands(): void {
     const rig = this.f.visual.rig;
     rig.setBoneVisible('fist.R', this.drawn);
     rig.setBoneVisible('palm.R', !this.drawn);
@@ -690,7 +706,7 @@ export class HitsugayaKit implements Kit {
     this.f.act(new StringAction(this, list[idx], idx), true);
   }
 
-  private special(a: SkillAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
+  protected special(a: FighterAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
     const f = this.f;
     if (this.cd[cdKey] > 0) return false;
     if (f.action && !f.action.canCancel(a)) return false;
@@ -809,7 +825,7 @@ export class HitsugayaKit implements Kit {
     this.petalT = 0;
     this.dropChain();
     f.def = { ...f.def, stance: DAIGUREN_STANCE, speed: { ...SPEED_BANKAI } };
-    f.setForm({ asset: hitsugayaAsset('bankai'), props: [] }, AURA_DAIGUREN, BLADE);
+    f.setForm({ asset: this.bankaiAsset(), props: [] }, AURA_DAIGUREN, BLADE);
     f.visual.attach('sword', hitsugayaProp('bankai-sword'), 'grip.R');
     f.bladeValid = false;
     this.setHands();
@@ -832,7 +848,7 @@ export class HitsugayaKit implements Kit {
     g.addProjectile(new GlassShards(g, c, new THREE.Vector3(1.6, 0.9, 0.8), 80, 5, 1.8, f.pos.y, ICE_TINT, 1.2));
     g.sfx.play('shatter', c, 1.4);
     f.def = { ...f.def, stance: HITSUGAYA_STANCE, speed: { ...HITSUGAYA_DEF.speed } };
-    f.setForm({ asset: hitsugayaAsset('captain'), props: [] }, AURA_HITSUGAYA, BLADE);
+    f.setForm({ asset: this.captainAsset(), props: [] }, AURA_HITSUGAYA, BLADE);
     f.visual.attach('sword', hitsugayaProp('sword'), 'grip.R');
     f.bladeValid = false;
     this.setHands();
@@ -857,7 +873,7 @@ export class HitsugayaKit implements Kit {
     if (this.petals === 0) this.endBankai();
   }
 
-  private makeChain(): void {
+  protected makeChain(): void {
     const { f, g } = this;
     this.dropChain();
     const anchor = () => {
@@ -872,12 +888,12 @@ export class HitsugayaKit implements Kit {
     g.addProjectile(ch);
   }
 
-  private dropChain(): void {
+  protected dropChain(): void {
     if (this.sickle) this.sickle.done = true;
     this.sickle = null;
   }
 
-  private burst(k: number): void {
+  protected burst(k: number): void {
     const { f, g } = this;
     f.aura.pillarBurst(2.2 * k);
     f.aura.flare(2 * k, 1);
@@ -899,7 +915,7 @@ export class HitsugayaKit implements Kit {
     }
   }
 
-  private applyStats(): void {
+  protected applyStats(): void {
     const f = this.f;
     f.power = (this.form === 'bankai' ? 1.5 : this.form === 'shikai' ? 1.2 : 1) * (this.flare ? 1.25 : 1);
     f.damageTaken = this.form === 'bankai' ? 0.8 : 0.95;

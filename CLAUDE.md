@@ -40,8 +40,15 @@ scope and milestones and `README.md` for controls and modes.
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
   Kits are in `game/kits/` (`vasto.ts`: the Full Hollow's moves, shared by Ichigo and Hollow Ichigo, whose models are
   Ichigo's with `look: 'white'`; Ichigo's eras are separate roster entries sharing `group: 'ichigo'` — one start-screen
-  card with era chips — e.g. `ichigoTybw.ts`, whose small blade sweeps through `game/offBlade.ts`, and `ichigoDangai.ts`,
-  whose forms swap stance and clip sets with the body), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
+  card with era chips — e.g. `ichigoTybw.ts`, whose small blade sweeps through `game/offBlade.ts`, `ichigoDangai.ts`,
+  `ichigoAgent.ts`, `ichigoFullbring.ts` and `ichigoLizard.ts` (the Hollowfied body: it sheds into an inner
+  `IchigoKit` in Bankai with the mask on), whose forms swap stance and clip sets with the body; Hitsugaya's TYBW era
+  (`hitsugayaTybw.ts`) subclasses `HitsugayaKit` (its bodies come from `captainAsset()`/`bankaiAsset()`, Ryūsenka's
+  cross from `crest()`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
+  the Lost Agent's restored Shikai run an inner `IchigoKit` with `era: 'agent' | 'lostagent'`, and the Soul Society
+  entry is `IchigoKit` with `era: 'ss'`, where G lets the Hollow out: `Kit.possessed()` hands the player's body to a
+  `DuelistAI` and the player's only input is the mash that tears the mask off), AI in `game/ai/`, projectiles in
+  `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `armLockT` (the weapon arm
   seized by Amor: LMB/RMB do nothing, the weapon stays in the hand), `scrambleT/scrambleA` (Spirit Body Fusion: every
@@ -127,6 +134,11 @@ scope and milestones and `README.md` for controls and modes.
   through everything in one plane — the Blood Chains wall and bind, `Eclipse` (sky tint and moon), `SkyCrescent`),
   `vfx/dangai.ts` (post-Dangai Ichigo: the shockwave every Bankai v2 blow throws, black smoke, the Final Getsuga and
   Mugetsu skies, `MugetsuCurtain` — a wall of black swept across everything ahead that seals what it strikes),
+  `vfx/fullbring.ts` (Lost Agent Ichigo: `ManjiBlast`, the spinning manji whose bite is its blade count, Bringer Light),
+  `vfx/lizard.ts` (Hollowfied Ichigo: `WormMaw` — the worm out of the left arm's stump, a chain of ring meshes that
+  bites and drags back — white-matter regeneration and the husk cracking off),
+  `vfx/hitsugayaTybw.ts` (TYBW Hitsugaya: `RokuiTrap`, `WovenWall` (real ice voxels, melted when it goes),
+  `VacuumBlade` (pins: `rooted`), `FrostMarker`, `FreezeBox` — Shikai Hyōketsu), `flashFreeze`,
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

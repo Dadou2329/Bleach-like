@@ -13,13 +13,13 @@ Each era is its own loadout; inside one, **F climbs the form ladder** and **G to
 
 | Era (id) | Ladder (F) | G | Model(s) | Status |
 |---|---|---|---|---|
-| **Agent of the Shinigami** (`ichigo-agent`) | Human (K0) → Kon's pill: the soul pops out → Substitute Shinigami with the first sword (K1) → "Zangetsu!": Shikai v1 | Human: spirit sight · Substitute: the reiatsu surge · Shikai: - | school uniform 174 cm; shihakushō + brown strap, the giant katana and sheath | planned (W3) |
-| **Soul Society** (`ichigo-ss`) | Shikai v1 → Bankai v1 | **"Let it out"**: the Hollow takes over (K8a half mask) | Shikai v1 / Bankai v1 + half mask | planned (W3) |
+| **Agent of the Shinigami** (`ichigo-agent`) | Human (K0) → Kon's pill: the soul pops out → Substitute Shinigami with the first sword (K1) → "Zangetsu!": Shikai v1 | Human: spirit sight · Substitute: the reiatsu surge · Shikai: - | school uniform 174 cm; shihakushō + brown strap, the giant katana and sheath | **built** |
+| **Soul Society** (`ichigo-ss`) | Shikai v1 → Bankai v1 | **"Let it out"**: the Hollow takes over (K8a half mask) | Shikai v1 / Bankai v1 + half mask | **built** |
 | **Hueco Mundo** (`ichigo`) | Shikai v1 → Bankai v1 | Hollow mask (11 s) | existing | **built** (K2/K3/K8c) |
-| **Hollowfied** (`ichigo-lizard`, boss entry) | the husk cracks and sloughs: Bankai v1 masked | - | the lizard Hollow body | planned (W3) |
-| **Fake Karakura** (`ichigo-dangai`) | Bankai v2 → Saigo no Getsuga Tenshō → Mugetsu → spent (human, no powers) | higher-plane presence | long-hair Bankai v2; the Final Getsuga form; school uniform | planned (W2) |
-| **Lost Agent** (`ichigo-fullbring`) | FB1 badge guard → FB2 clad → FB3 complete → Rukia's sword: Shikai v2 → Bankai v3 | FB1 manji guard · FB2 berserk surge · FB3 the catch · Shikai v2 cloth wrap · Bankai v3 rage aura | Lost Agent casual 181 cm; FB2 clad; FB3 armour; restored Shikai v2; Bankai v3 | planned (W2) |
-| **Thousand-Year Blood War** (`ichigo-tybw`) — *peak, the card's default* | True Shikai (dual) → Half-Hollow → True Bankai (→ the shell breaks) | Blut Vene · in Half-Hollow: **Blood Chains** [anime-only] | TYBW uniform with the twin blades; Half-Hollow (horn, white blade); Blood Chains; True Bankai's white cleaver | **this wave** |
+| **Hollowfied** (`ichigo-lizard`, boss entry) | the husk cracks and sloughs: Bankai v1 masked | the roar (tears off binds) | the lizard Hollow body | **built** |
+| **Fake Karakura** (`ichigo-dangai`) | Bankai v2 → Saigo no Getsuga Tenshō → Mugetsu → spent (human, no powers) | higher-plane presence | long-hair Bankai v2; the Final Getsuga form; school uniform | **built** |
+| **Lost Agent** (`ichigo-fullbring`) | FB1 badge guard → FB2 clad → FB3 complete → Rukia's sword: Shikai v2 → Bankai v3 | FB1 manji guard · FB2 berserk surge · FB3 the catch · Shikai v2 cloth wrap · Bankai v3 rage aura | Lost Agent casual 181 cm; FB2 clad; FB3 armour; restored Shikai v2; Bankai v3 | **built** |
+| **Thousand-Year Blood War** (`ichigo-tybw`) — *peak, the card's default* | True Shikai (dual) → Half-Hollow → True Bankai (→ the shell breaks) | Blut Vene · in Half-Hollow: **Blood Chains** [anime-only] | TYBW uniform with the twin blades; Half-Hollow (horn, white blade); Blood Chains; True Bankai's white cleaver | **built** |
 
 Skins (no mechanics): **Ōken garb** (TYBW; planned: the outer layers burn off on the first big energy hit),
 **adult** (epilogue; planned), white shihakushō [anime-only] (optional). "All Eras" (one ladder through every form) is

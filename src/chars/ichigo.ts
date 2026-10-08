@@ -9,7 +9,7 @@ import {
 } from './humanoid';
 import type { SpringDef, ColliderDef } from '../anim/springs';
 
-export type IchigoForm = 'shikai' | 'bankai';
+export type IchigoForm = 'shikai' | 'bankai' | 'substitute';
 /** Kurosaki = Ichigo himself; white = Hollow Ichigo, his inner Hollow (dossier §2): the same body, the colours inverted. */
 export type IchigoLook = 'kurosaki' | 'white';
 
@@ -38,6 +38,9 @@ export function ichigoPalette(b: ModelBuilder, look: IchigoLook = 'kurosaki'): v
   m('straw', ['#CDB683', '#B59C6A', '#8A6A3E'], { base: 1, rough: 0.95 });
   m('cord', ['#8A6A3E', '#5E4526'], { base: 0 });
   m('red', ['#C9403F', '#A3242B', '#6A1419'], { base: 1, rough: 0.6 });
+  // the first sword's brown leather strap (Agent of the Shinigami)
+  m('leather', ['#8A5E38', '#6E4B2C', '#4A3220'], { base: 1, rough: 0.75 });
+  m('buckle', ['#C9B07A', '#9C8250'], { base: 0, rough: 0.4, metal: 0.6 });
   m('seam', ['#3E0C10']);
   // Bankai coat: blue-black, crimson lining
   m('coat', ['#46454F', '#34333B', '#1D1C22', '#16151A', '#121115'], { base: 2, rough: 0.8, shadeK: 1, dither: 0.04 });
@@ -180,6 +183,36 @@ function kiteStrap(b: ModelBuilder): void {
   });
 }
 
+/**
+ * The first sword's strap (Agent of the Shinigami): a thick brown leather belt from the right shoulder to the left
+ * hip and round the back, holding the oversized sheath; a brass buckle over the sternum.
+ */
+function beltStrap(b: ModelBuilder): void {
+  const A: V3 = [-5, 70.5, 0];
+  const B: V3 = [9.5, 47.5, 0];
+  const ab = [B[0] - A[0], B[1] - A[1]];
+  const abl = Math.hypot(ab[0], ab[1]);
+  const t = [ab[0] / abl, ab[1] / abl];
+  const n = [-t[1], t[0]];
+  const half = 2.6;
+  const set = (bone: string, x: number, y: number, z: number, mat: string, shade: number) => b.grid(bone).set(x, y, z, b.val(mat, shade));
+  b.surfaceVoxels(['chest', 'spine', 'hips'], [-12, 44, -9], [12, 74, 9], (bone, x, y, z, nx, ny, nz) => {
+    const px = x + 0.5 - A[0], py = y + 0.5 - A[1];
+    const w = px * n[0] + py * n[1];
+    if (Math.abs(w) > half) return;
+    const along = px * t[0] + py * t[1];
+    const ox = x + nx, oy = y + ny, oz = z + nz;
+    // the brass buckle a third of the way down the front
+    if (z >= 0 && Math.abs(along - 9) < 1.6 && Math.abs(w) < 2.2) {
+      set(bone, ox, oy, oz, 'buckle', Math.abs(along - 9) > 0.9 || Math.abs(w) > 1.4 ? 1 : 0);
+      return;
+    }
+    // stitched edges darker, the face of the belt lit along its upper half
+    const edge = Math.abs(w) > half - 0.8;
+    set(bone, ox, oy, oz, 'leather', edge ? 2 : w > 0 ? 0 : 1);
+  });
+}
+
 export interface CharacterAsset {
   model: VoxelModel;
   springs: SpringDef[];
@@ -219,6 +252,19 @@ export function hollowMaskShatter(): Shattered {
   return (maskBroken ??= shatterModel(hollowMask(), { pieces: 9, seed: 11, crack: '#24181A', jitter: 1.2, levels: [0.25, 0.6] }));
 }
 
+let halfModel: VoxelModel | null = null;
+let halfBroken: Shattered | null = null;
+
+/** The half mask of the Soul Society possession (the left half of the face). */
+export function halfMask(): VoxelModel {
+  return (halfModel ??= buildHollowMask(true));
+}
+
+/** The half mask torn off: its shards. */
+export function halfMaskShatter(): Shattered {
+  return (halfBroken ??= shatterModel(halfMask(), { pieces: 6, seed: 7, crack: '#24181A', jitter: 1.1, levels: [0.4] }));
+}
+
 export function buildIchigo(form: IchigoForm = 'shikai', look: IchigoLook = 'kurosaki'): CharacterAsset {
   const white = look === 'white';
   const b = new ModelBuilder(white ? `ichigo-white-${form}` : `ichigo-${form}`, 48);
@@ -249,13 +295,14 @@ export function buildIchigo(form: IchigoForm = 'shikai', look: IchigoLook = 'kur
   hands(b, L, 'skin');
   if (white) blackNails(b, L);
   feet(b, L, 'tabi', 'straw', 'cord');
-  if (form === 'shikai') {
+  if (form === 'shikai' || form === 'substitute') {
     const o = { black: 'black', collar: 'collar', skin: 'skin', obi: 'obi' };
     kosodeTorso(b, L, o);
     kosodeSleeves(b, L, o);
     obi(b, L, o);
     hakama(b, L, o);
-    kiteStrap(b);
+    if (form === 'substitute') beltStrap(b);
+    else kiteStrap(b);
     b.autoShade();
     b.lint();
     const { springs, colliders } = shihakushoSprings();
@@ -403,8 +450,8 @@ export function buildZangetsuShikai(white = false): VoxelModel {
  * forehead, a jaw full of teeth and three red stripes on the left side; black sclera, gold irises.
  * Local frame: origin at the face-plate centre (eye level), +Z out of the face.
  */
-export function buildHollowMask(): VoxelModel {
-  const b = new ModelBuilder('ichigo-mask-1', 48);
+export function buildHollowMask(half = false): VoxelModel {
+  const b = new ModelBuilder(half ? 'ichigo-mask-half' : 'ichigo-mask-1', 48);
   b.mat('bone', ['#F7F5F0', '#EEE9DF', '#DED6C8', '#C2B8A8', '#A99F90'], { base: 1, rough: 0.42, shadeK: 1 });
   b.mat('stripe', ['#A51D29', '#861922', '#64141A'], { base: 1, rough: 0.5 });
   b.mat('dark', ['#0C0C10'], { rough: 0.9 });
@@ -436,11 +483,16 @@ export function buildHollowMask(): VoxelModel {
       if (p.ok) p.paint(y === -5 || seam.has(x) ? 'gap' : 'teeth');
     }
   }
-  // three thin stripes on the left (+X) side, from the forehead down across the eye to the cheek
-  const stripe = (x: number, y0: number, y1: number) => aabb([x, y1, -1], [x + 1, y0, 6]);
-  b.paint('root', stripe(1, 8, -1), 'stripe', { where: b.isMat('bone') });
-  b.paint('root', stripe(3, 8, -2), 'stripe', { where: b.isMat('bone') });
-  b.paint('root', stripe(5, 6, -1), 'stripe', { where: b.isMat('bone') });
+  if (half) {
+    // Soul Society: the mask grows over the left half of the face only, its edge torn and uneven down the middle
+    b.carve('root', fn((x, y) => x - (-0.4 + Math.sin(y * 1.35) * 1.1 + Math.sin(y * 3.1 + 1) * 0.5), [-9, -10, -3], [9, 10, 8]));
+  } else {
+    // three thin stripes on the left (+X) side, from the forehead down across the eye to the cheek
+    const stripe = (x: number, y0: number, y1: number) => aabb([x, y1, -1], [x + 1, y0, 6]);
+    b.paint('root', stripe(1, 8, -1), 'stripe', { where: b.isMat('bone') });
+    b.paint('root', stripe(3, 8, -2), 'stripe', { where: b.isMat('bone') });
+    b.paint('root', stripe(5, 6, -1), 'stripe', { where: b.isMat('bone') });
+  }
   b.autoShade({ up: 0.5, open: 2.4, front: 0.2 });
   b.lint();
   return b.build();

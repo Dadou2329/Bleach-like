@@ -23,6 +23,11 @@ export class PlayerController implements Controller {
     const { g, f, kit } = this;
     const inp = g.input;
     kit.update(dt);
+    // a takeover: the body is not the player's for now; only G — fighting it off — still answers
+    if (kit.possessed?.()) {
+      if (inp.pressed('mask', 120)) kit.toggle?.();
+      return;
+    }
     // ---- movement wish (camera relative)
     g.cam.flatForward(_f);
     _r.set(-_f.z, 0, _f.x);

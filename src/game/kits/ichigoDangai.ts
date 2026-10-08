@@ -108,9 +108,9 @@ interface Strike {
 
 /** the Final Getsuga form: the wound arm */
 const FINAL_STRIKES: Record<string, Strike> = {
-  fg_s1: { damage: 46, knock: 10, reach: 1.3, height: 1.25, radius: 1.35, lunge: 7, limb: 'knuckle.R', smash: 700 },
-  fg_s2: { damage: 50, knock: 6, launch: 3, reach: 1.25, height: 1.0, radius: 1.35, lunge: 6, limb: 'knuckle.R', smash: 800 },
-  fg_s3: { damage: 70, knock: 22, launch: 5, heavy: true, reach: 1.45, height: 1.2, radius: 1.45, lunge: 9, limb: 'palm.R', smash: 1000 },
+  fg_s1: { damage: 30, knock: 10, reach: 1.3, height: 1.25, radius: 1.35, lunge: 7, limb: 'knuckle.R', smash: 700 },
+  fg_s2: { damage: 33, knock: 6, launch: 3, reach: 1.25, height: 1.0, radius: 1.35, lunge: 6, limb: 'knuckle.R', smash: 800 },
+  fg_s3: { damage: 46, knock: 22, launch: 5, heavy: true, reach: 1.45, height: 1.2, radius: 1.45, lunge: 9, limb: 'palm.R', smash: 1000 },
 };
 
 /** the spent human: karate */
@@ -410,6 +410,8 @@ class SeizeAction extends SkillAction {
       g.damage(t, 10, f, f.forward(), { knock: 0, hitstop: 0.08, unblockable: true });
       g.sfx.play('hit', t.center(), 1);
     }, 1, true);
+    // the phases decide when it ends (the grab, the carry, the slam), not the held clip
+    this.dur = 99;
   }
   private beginCarry(f: Fighter, g: Game): void {
     const t = this.held!;
@@ -793,6 +795,8 @@ export class DangaiKit implements Kit {
   /** the Final Getsuga form's time left */
   finalT = 0;
   private sky: SkyTint | null = null;
+  /** after Mugetsu the sky comes back (sim time) */
+  private lightenAt = -1;
   private wasDashing = false;
   private dashFrom = new THREE.Vector3();
   private smokeT = 0;
@@ -817,6 +821,10 @@ export class DangaiKit implements Kit {
       if (f.rei <= 0 || this.form !== 'bankai') this.setVeil(false);
     }
     if (this.form === 'final') this.tendFinal(dt);
+    if (this.lightenAt >= 0 && g.time >= this.lightenAt) {
+      this.lightenAt = -1;
+      this.lighten();
+    }
     if (this.form === 'spent') {
       // nothing left: a human's breath for a dash, no more
       f.rei = Math.min(f.rei, f.maxRei);
@@ -1153,7 +1161,7 @@ export class DangaiKit implements Kit {
     f.hitstun = Math.max(f.hitstun, 1.6);
     blackSmoke(g, f.center(), 30, 1.2, 1.6);
     g.callout('', 'POWERS SPENT', '#d8d8d8');
-    setTimeout(() => this.lighten(), 2500);
+    this.lightenAt = g.time + 2.5;
     if (g.hud && f === g.player) g.hud.vignette = 0;
   }
 
