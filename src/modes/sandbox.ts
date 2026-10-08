@@ -68,7 +68,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
 
   // ---- duel rival
   let mode: 'waves' | 'duel' = params.get('vs') ? 'duel' : 'waves';
-  let rivalEntry = rosterEntry(params.get('vs') ?? (playerEntry.id === 'ichigo' ? ROSTER[ROSTER.length - 1].id : 'ichigo'));
+  let rivalEntry = rosterEntry(params.get('vs') ?? (playerEntry.id === 'ichigo' || playerEntry.group === 'ichigo' ? ROSTER[ROSTER.length - 1].id : 'ichigo'));
   let rival: Fighter | null = null;
   let rivalKit: Kit | null = null;
   const startDuel = (entry: RosterEntry, dist = 16) => {

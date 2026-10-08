@@ -39,7 +39,9 @@ scope and milestones and `README.md` for controls and modes.
 - Gameplay: `game/game.ts` provides combat services (blade sweeps cut the world and hit fighters; damage,
   hitstop, shake, ground impacts). `game/fighter.ts` holds movement and actions (subclass `FighterAction`).
   Kits are in `game/kits/` (`vasto.ts`: the Full Hollow's moves, shared by Ichigo and Hollow Ichigo, whose models are
-  Ichigo's with `look: 'white'`), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
+  Ichigo's with `look: 'white'`; Ichigo's eras are separate roster entries sharing `group: 'ichigo'` — one start-screen
+  card with era chips — e.g. `ichigoTybw.ts`, whose small blade sweeps through `game/offBlade.ts`, and `ichigoDangai.ts`,
+  whose forms swap stance and clip sets with the body), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `armLockT` (the weapon arm
   seized by Amor: LMB/RMB do nothing, the weapon stays in the hand), `scrambleT/scrambleA` (Spirit Body Fusion: every
@@ -53,7 +55,8 @@ scope and milestones and `README.md` for controls and modes.
   walking, jumping or Shunpo (Shinji inside his flower). `invertT` (the Inverted World: `nearestEnemy` finds no one,
   the duel AI goes for the mirror image through itself, the player's canvas rolls 180° and the lock drops;
   `inhale(k, dur)` builds `scent` to it, then `invertImmuneT`). `iffT` (friend and foe reversed: `enemiesOf` returns
-  its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`).
+  its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`). `veiled`
+  (reiatsu on a higher plane: beyond `VEIL_RANGE` 8 m `nearestEnemy` skips it, a lock on it drops, the duel AI gropes).
   `heavyB/heavyW` (Wabisuke's doublings on the body and the weapon: `bodyPace` slows the feet, Shunpo and knockback,
   `canJump` is false from ×8, `weaponPace` slows actions and animation; a form change clears the weapon's; the kit
   that adds them kneels, pins and clears them). `lastHurt` (game time, damage and shrug of the last blow that
@@ -120,6 +123,10 @@ scope and milestones and `README.md` for controls and modes.
   arcs, Shakkahō, the release, the tide, the wave, the spiral; a kit implements `NejibanaHost`) and
   `game/kits/soulHooks.ts` (Spirit Body Fusion's hooks: drain + scrambled steps); `Kit.bareHands()` lets a disarmed
   fighter's LMB/RMB still reach its kit (fists) and
+  `vfx/tybw.ts` (TYBW Ichigo: `ChainBlade` thrown and beckoned home, `CrossGetsuga` for Jūjishō, `PlanarSlash` — a cut
+  through everything in one plane — the Blood Chains wall and bind, `Eclipse` (sky tint and moon), `SkyCrescent`),
+  `vfx/dangai.ts` (post-Dangai Ichigo: the shockwave every Bankai v2 blow throws, black smoke, the Final Getsuga and
+  Mugetsu skies, `MugetsuCurtain` — a wall of black swept across everything ahead that seals what it strikes),
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

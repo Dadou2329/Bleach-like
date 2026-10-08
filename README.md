@@ -50,6 +50,62 @@ G state, V flare); press **H** in game for the current character's moves.
     sword. Its moves are Sonído (E), the horn **Cero** (Q), a ground-shattering overhead (RMB) and a roar
     that flattens everything near (R). After about thirty seconds, or when it is beaten, a horn snaps, the
     hole closes and Ichigo comes back to himself with some strength left.
+- **Ichigo's eras**: Ichigo is one card on the start screen with a chip per era under it (docs/kits/ichigo.md). The
+  card stands for his peak, the Thousand-Year Blood War; "Hueco Mundo" is the loadout above. The card wears the era
+  you pick.
+- **Ichigo, Thousand-Year Blood War** (the TYBW chip): 181 cm in the TYBW uniform — full sleeves gathered by black
+  bands, two white plates crossing in an X over the chest (red scales on the left shoulder and the right hip), the
+  white cloak tied round the waist with black jagged marks at the hem. The true Shikai is two black blades: the
+  large cleaver in the right hand (its handle reaching back a forearm, a slot along its back) and the small trench
+  knife with a knuckle guard in the left.
+  - LMB: a six-cut twin string (large forehand, small stab, large backhand, small rising cut, the twin X, the
+    overhead that cracks the ground). Close in, the sixth seizes the foe and hurls him through whatever stands
+    behind. LMB high in the air is the **descent**: he drops point-down and craters the ground.
+  - RMB: **Chain**. The large blade is hurled, buries itself in the foe (pinning him) or in a wall; RMB again is the
+    beckoning gesture and it flies home, cutting on the way back. Meanwhile LMB is the small blade's stabs.
+  - Q: the small blade's **Getsuga**, pointed and flicked (three charges). E: the large blade's Getsuga; inside 3 m
+    he impales the foe and fires through him. R: **Getsuga Jūjishō**, the two crescents fused into a cross that
+    undoes every shot and barrier in its path.
+  - G: **Blut Vene** (half damage, cyan veins where he is struck, an arrow caught bare-handed every two seconds).
+  - F: **Half-Hollowfication**: the large blade soaks Quincy reiatsu, whitens, and his reiatsu explodes. A horn on
+    the left, the left eye black and gold, black marks down the face to a hole at the neck, a tattered black
+    mantle. The white blade's cuts send their shock on through what stands behind; RMB seizes the sword arm and cuts
+    at the head; Q a white Getsuga; E **Gran Rey Cero** off the horn, paid in blood; R **Cero Creciente**, a
+    Getsuga swelling from gold to violet. The horn is a weak point: break it and he drops back to the Shikai.
+  - G in Half-Hollow: **Blood Chains** (anime-only). The sky darkens and a blood moon slides into eclipse; red skin,
+    two horns, the robe open over the chest, burning chains at the neck, wrists and ankles, black flames in his
+    footprints, a silver cleaver with a red tassel. Every Shunpo leaves a reiatsu clone that fights; every cut lands
+    again a second later. RMB binds the target in chains, E throws up a wall of chains that stops every shot, Q sends
+    the clones in, R drinks them into the blade for the **Blood Chains Getsuga** — a giant black crescent with a white
+    edge that stays hanging in the sky. G again releases it.
+  - F in Half-Hollow or Blood Chains: **True Bankai**. The two blades laid side by side, a pillar of fire, a lunar
+    eclipse: a 2.3 m white-shelled cleaver with the black blade for its core and a chain over its back. Three
+    colossal swings, the **golden Getsuga** (Q), the **golden cleave** that cuts 40 m in one plane (RMB), the guard
+    (E), impale and fire (R), Blut Vene (G). F: the **Shell Break** — the shell crumbles and the original Zangetsu
+    cuts through everything; a blow meant to break his weapon breaks only the shell.
+  - Passives: once a fight a killing blow leaves him standing; the third identical blow in a row from one foe is
+    read and turned aside.
+- **Ichigo, Fake Karakura Town** (the Fake Karakura chip): out of the Dangai, 181 cm, the orange hair grown long
+  down his back, a calm face; the Bankai coat open at the chest, the right sleeve gone — a bare arm, a black glove,
+  the pommel chain spiralling up to the biceps — and a Tensa Zangetsu with longer, thinner prongs.
+  - LMB: the Tensa Zangetsu string, a touch quicker; **every blow throws a shockwave** that strikes everyone
+    round where it lands.
+  - RMB: the **mountain-leveller** — one level sweep whose cut runs on 100 m across the land, 48 m wide.
+  - Q: the **Black Getsuga**, grown. E: **seize & relocate** — he is suddenly in front of the foe, takes its face in
+    his left hand, carries it 40 m in one Shunpo (through whatever is in the way) and slams it into the ground.
+  - R: the **bare-hand catch** — the open left hand up: a blade that meets it is caught (the attacker frozen, the
+    deflected force wrecking the ground), a shot or a Kidō is crushed in the fist.
+  - G: **reiatsu on a higher plane** — no aura; beyond 8 m no enemy can sense him or lock onto him (it drains
+    reiatsu). V: the black-crimson flare weighs down everyone within 14 m.
+  - F: **Saigo no Getsuga Tenshō**. He becomes the Getsuga: black hair to the waist, red eyes, bandages over the
+    torso, the right arm and the lower face, black flames on the chest and the left arm, the sky gone grey.
+    Twenty seconds of super armour (nothing staggers him, a quarter of every blow gets through), flicker-steps no
+    eye can follow, smoky strikes of the wound arm that go through walls, and the **black-blade thrust** (RMB).
+  - F in the form — or by itself when the twenty seconds run out — **Mugetsu**: the black blade grows in his hand,
+    the sky goes out, and one cut drops a curtain of black 150 m wide across everything ahead, tearing a fissure
+    through the ground. It cannot be blocked and it seals the power of whoever it strikes.
+  - After it he is **spent**: a human in his Karakura High uniform, on one knee, then up with his karate (jab,
+    reverse punch, front kick, roundhouse; RMB the concrete-cracker axe kick) and nothing else.
 - **Hollow Ichigo** (Zangetsu, Ichigo's inner Hollow): Ichigo's body with the colours inverted. He has white
   skin and hair, black eyes with gold irises, a dark grin with a blue tongue, a white shihakushō with a black obi,
   and a loose, hunched stance with the head cocked. The white Zangetsu has a black edge and hangs on a black

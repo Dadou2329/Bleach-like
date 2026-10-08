@@ -68,7 +68,8 @@ export class DuelistAI implements Controller {
       t = nearest(g.enemiesOf(f), f, 160);
       mirrored = t !== null;
     }
-    if (!t && f.blindT > 0) {
+    // blinded, or the foe's reiatsu on a higher plane out of reach of its senses: it gropes for where they might be
+    if (!t && (f.blindT > 0 || g.enemiesOf(f).some((o) => o.veiled && !o.dead))) {
       this.groping(dt);
       return;
     }

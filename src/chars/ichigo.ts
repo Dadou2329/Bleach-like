@@ -13,31 +13,35 @@ export type IchigoForm = 'shikai' | 'bankai';
 /** Kurosaki = Ichigo himself; white = Hollow Ichigo, his inner Hollow (dossier §2): the same body, the colours inverted. */
 export type IchigoLook = 'kurosaki' | 'white';
 
-function palette(b: ModelBuilder, look: IchigoLook = 'kurosaki'): void {
+export function ichigoPalette(b: ModelBuilder, look: IchigoLook = 'kurosaki'): void {
   if (look === 'white') {
     paletteWhite(b);
     return;
   }
-  b.mat('skin', ['#F7D9C4', '#E9BBA0', '#C08A74', '#8E5F50'], { base: 1, rough: 0.7, dither: 0.08 });
-  b.mat('hair', ['#FFC867', '#FFAD4C', '#F7962F', '#E8792A', '#C2591B', '#8F3E13'], { base: 2, rough: 0.65, shadeK: 0.85 });
-  b.mat('brow', ['#C8661F']);
-  b.mat('lid', ['#1B120C']);
-  b.mat('sclera', ['#EFECE6'], { rough: 0.4 });
-  b.mat('iris', ['#7A4A2C'], { rough: 0.3 });
-  b.mat('irisD', ['#3E2414'], { rough: 0.3 });
-  b.mat('hi', ['#F0ECE4'], { rough: 0.2 });
-  b.mat('mouth', ['#A9705F']);
-  b.mat('black', ['#4A4956', '#3A3944', '#24232B', '#1A1A20', '#141418'], { base: 2, rough: 0.92, shadeK: 1, dither: 0.04 });
-  b.mat('collar', ['#F3F1EC', '#E6E3DD', '#B9B5AF'], { base: 0, rough: 0.85, dither: 0.04 });
-  b.mat('obi', ['#F1EEE8', '#E2DFD8', '#B8B4AC'], { base: 0, rough: 0.85, dither: 0.04 });
-  b.mat('tabi', ['#F3F2EE', '#E4E2DD', '#C9C6BF'], { base: 0, rough: 0.85 });
-  b.mat('straw', ['#CDB683', '#B59C6A', '#8A6A3E'], { base: 1, rough: 0.95 });
-  b.mat('cord', ['#8A6A3E', '#5E4526'], { base: 0 });
-  b.mat('red', ['#C9403F', '#A3242B', '#6A1419'], { base: 1, rough: 0.6 });
-  b.mat('seam', ['#3E0C10']);
+  // a material already defined by the caller (a variant's skin) wins
+  const m = (name: string, colors: string[], o?: Parameters<ModelBuilder['mat']>[2]) => {
+    if (!b.mats.has(name)) b.mat(name, colors, o);
+  };
+  m('skin', ['#F7D9C4', '#E9BBA0', '#C08A74', '#8E5F50'], { base: 1, rough: 0.7, dither: 0.08 });
+  m('hair', ['#FFC867', '#FFAD4C', '#F7962F', '#E8792A', '#C2591B', '#8F3E13'], { base: 2, rough: 0.65, shadeK: 0.85 });
+  m('brow', ['#C8661F']);
+  m('lid', ['#1B120C']);
+  m('sclera', ['#EFECE6'], { rough: 0.4 });
+  m('iris', ['#7A4A2C'], { rough: 0.3 });
+  m('irisD', ['#3E2414'], { rough: 0.3 });
+  m('hi', ['#F0ECE4'], { rough: 0.2 });
+  m('mouth', ['#A9705F']);
+  m('black', ['#4A4956', '#3A3944', '#24232B', '#1A1A20', '#141418'], { base: 2, rough: 0.92, shadeK: 1, dither: 0.04 });
+  m('collar', ['#F3F1EC', '#E6E3DD', '#B9B5AF'], { base: 0, rough: 0.85, dither: 0.04 });
+  m('obi', ['#F1EEE8', '#E2DFD8', '#B8B4AC'], { base: 0, rough: 0.85, dither: 0.04 });
+  m('tabi', ['#F3F2EE', '#E4E2DD', '#C9C6BF'], { base: 0, rough: 0.85 });
+  m('straw', ['#CDB683', '#B59C6A', '#8A6A3E'], { base: 1, rough: 0.95 });
+  m('cord', ['#8A6A3E', '#5E4526'], { base: 0 });
+  m('red', ['#C9403F', '#A3242B', '#6A1419'], { base: 1, rough: 0.6 });
+  m('seam', ['#3E0C10']);
   // Bankai coat: blue-black, crimson lining
-  b.mat('coat', ['#46454F', '#34333B', '#1D1C22', '#16151A', '#121115'], { base: 2, rough: 0.8, shadeK: 1, dither: 0.04 });
-  b.mat('lining', ['#C23A42', '#9E1F27', '#6E141B'], { base: 1, rough: 0.7 });
+  m('coat', ['#46454F', '#34333B', '#1D1C22', '#16151A', '#121115'], { base: 2, rough: 0.8, shadeK: 1, dither: 0.04 });
+  m('lining', ['#C23A42', '#9E1F27', '#6E141B'], { base: 1, rough: 0.7 });
 }
 
 /**
@@ -73,7 +77,7 @@ function paletteWhite(b: ModelBuilder): void {
 }
 
 const CROWN: V3 = [0, 0.32, -0.5];
-const HAIR: Spike[] = [
+export const ICHIGO_HAIR: Spike[] = [
   // crown: chunky spikes up and back
   { az: 0, el: 70, len: 5, r: 4.2, flow: CROWN },
   { az: -42, el: 60, len: 5, r: 4, flow: CROWN },
@@ -112,7 +116,7 @@ const BANGS: Bang[] = [
 ];
 
 /** T2 scowl (characters.md §2.2), rows 9 → 0 of the 12-row adult male head. */
-const FACE = [
+export const ICHIGO_FACE = [
   '. . . . . . . . . .',
   '. b B . . . . B b .',
   '. L L B s s B L L .',
@@ -218,7 +222,7 @@ export function hollowMaskShatter(): Shattered {
 export function buildIchigo(form: IchigoForm = 'shikai', look: IchigoLook = 'kurosaki'): CharacterAsset {
   const white = look === 'white';
   const b = new ModelBuilder(white ? `ichigo-white-${form}` : `ichigo-${form}`, 48);
-  palette(b, look);
+  ichigoPalette(b, look);
   const s = SPEC_ADULT_MALE;
   const L: Landmarks = humanoidSkeleton(b, s, { sleeves: true, hakama: true });
   // sockets: sword grips through the fists (grip axis = +Z), sheath on the back
@@ -231,14 +235,14 @@ export function buildIchigo(form: IchigoForm = 'shikai', look: IchigoLook = 'kur
 
   const hd = head(b, L, 'skin');
   b.bone('bangs', 'head', [0, s.chinY + 0.5, -0.8]);
-  spikeHair(b, L, 'hair', HAIR, [], { tufts: 46 });
+  spikeHair(b, L, 'hair', ICHIGO_HAIR, [], { tufts: 46 });
   // keep the eyes clear: no hair in front of the eye rows (the face plate itself is at z < front)
   b.carve(['head', 'bangs'], aabb([-5, hd.chin + 4, hd.front], [-1, hd.chin + 7, hd.front + 6]));
   b.carve(['head', 'bangs'], aabb([1, hd.chin + 4, hd.front], [5, hd.chin + 7, hd.front + 6]));
   if (white) {
     const legend = { ...faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth', teeth: 'teeth', inner: 'inner' }), U: { mat: 'tongue' } };
     b.stamp('head', hd.x0, hd.chin + 9, FACE_WHITE, legend, hd.front - 1);
-  } else b.stamp('head', hd.x0, hd.chin + 9, FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
+  } else b.stamp('head', hd.x0, hd.chin + 9, ICHIGO_FACE, faceLegend({ skin: 'skin', brow: 'brow', lid: 'lid', sclera: 'sclera', iris: 'iris', pupil: 'irisD', hi: 'hi', mouth: 'mouth' }), hd.front - 1);
   // nose: a 1-voxel bump
   b.voxel('head', 0, hd.chin + 3, hd.front, 'skin', 1);
 

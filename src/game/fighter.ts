@@ -177,6 +177,11 @@ export class Fighter {
    */
   iffT = 0;
   iffFrom: THREE.Vector3 | null = null;
+  /**
+   * reiatsu on a higher plane (post-Dangai Ichigo): beyond VEIL_RANGE no enemy can sense it — `nearestEnemy` skips it,
+   * a lock on it drops and the duel AI hunts for where it might be
+   */
+  veiled = false;
   /** rooted to the spot (inside a construct of its own): no walking, jumping or Shunpo, it can still turn and act */
   rooted = false;
   /**

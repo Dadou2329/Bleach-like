@@ -13,6 +13,9 @@ import { TEX_GLOW, TEX_PUFF, TEX_RING, TEX_STREAK } from '../vfx/sprites';
 import type { Hud } from '../ui/hud';
 import { Sfx } from '../audio/sfx';
 
+/** how close a veiled fighter (reiatsu on a higher plane) must be before it can be sensed (m) */
+export const VEIL_RANGE = 8;
+
 export interface Projectile {
   done: boolean;
   update(dt: number, g: Game): void;
@@ -157,6 +160,7 @@ export class Game {
 
   /** Nearest enemy within range, optionally inside a cone around dir (degrees). */
   nearestEnemy(f: Fighter, range: number, dir?: THREE.Vector3, coneDeg = 180): Fighter | null {
+    // a veiled fighter (reiatsu on a higher plane) cannot be sensed beyond VEIL_RANGE
     // blinded: it senses no one (its kit's skills fly straight ahead); inverted: what it senses is a mirror
     // image (the duel AI aims at that; skills fly where it faces)
     if (f.blindT > 0 || f.invertT > 0) return null;
@@ -165,7 +169,7 @@ export class Game {
     for (const o of this.enemiesOf(f)) {
       _v.subVectors(o.pos, f.pos);
       const d = _v.length();
-      if (d > range) continue;
+      if (d > range || (o.veiled && d > VEIL_RANGE)) continue;
       if (dir && d > 0.5) {
         _v.y = 0;
         if (_v.normalize().dot(dir) < cosC) continue;

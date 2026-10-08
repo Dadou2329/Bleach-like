@@ -24,6 +24,11 @@ import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
 import { AARONIERO_DEF, AaronieroKit } from './kits/aaroniero';
 import { KAIEN_DEF, KAIEN_POSSESSED_DEF, KaienKit } from './kits/kaien';
+import { TYBW_DEF, TybwKit } from './kits/ichigoTybw';
+import { DANGAI_DEF, DangaiKit } from './kits/ichigoDangai';
+import { dangaiAsset, mugetsuBlade } from '../chars/ichigoDangai';
+import { humanAsset } from '../chars/ichigoHuman';
+import { bankaiShell, tybwAsset, tybwBlade } from '../chars/ichigoTybw';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
@@ -104,6 +109,12 @@ export interface RosterEntry {
   title: string;
   /** UI accent */
   color: string;
+  /** era loadouts of one character share a group (one card on the start screen, a chip per era) */
+  group?: string;
+  /** the era's chip label */
+  era?: string;
+  /** the card stands for this era (the character's peak) */
+  eraDefault?: boolean;
   def(): FighterDef;
   kit(f: Fighter, g: Game): Kit;
   /** build the other forms' meshes in idle time so a release does not hitch */
@@ -117,6 +128,8 @@ export const ROSTER: RosterEntry[] = [
     kanji: '一護',
     title: 'Substitute Shinigami',
     color: '#ff9a3c',
+    group: 'ichigo',
+    era: 'Hueco Mundo',
     def: () => ({ ...ICHIGO_DEF, speed: { ...ICHIGO_DEF.speed } }),
     kit: (f, g) => new IchigoKit(f, g),
     warm: () => {
@@ -124,6 +137,40 @@ export const ROSTER: RosterEntry[] = [
       buildCached(ichigoSword('bankai'), false);
       const sh = hollowMaskShatter();
       for (const m of [hollowMask(), ...sh.cracked, ...sh.shards.map((x) => x.model)]) buildCached(m, false);
+    },
+  },
+  {
+    id: 'ichigo-dangai',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Fake Karakura Town',
+    color: '#c2304f',
+    group: 'ichigo',
+    era: 'Fake Karakura',
+    def: () => ({ ...DANGAI_DEF, speed: { ...DANGAI_DEF.speed } }),
+    kit: (f, g) => new DangaiKit(f, g),
+    warm: () => {
+      buildCached(dangaiAsset('final').model, true);
+      buildCached(humanAsset('school').model, true);
+      buildCached(mugetsuBlade(), false);
+    },
+  },
+  {
+    id: 'ichigo-tybw',
+    name: 'Kurosaki Ichigo',
+    kanji: '一護',
+    title: 'Thousand-Year Blood War',
+    color: '#f6c343',
+    group: 'ichigo',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...TYBW_DEF, speed: { ...TYBW_DEF.speed } }),
+    kit: (f, g) => new TybwKit(f, g),
+    warm: () => {
+      for (const form of ['hollow', 'chains'] as const) buildCached(tybwAsset(form).model, true);
+      for (const k of ['large-white', 'large-veins', 'chains', 'bankai'] as const) buildCached(tybwBlade(k), false);
+      buildCached(ichigoSword('shikai'), false);
+      for (const s of bankaiShell().shards) buildCached(s.model, false);
     },
   },
   {
@@ -685,5 +732,6 @@ export const ROSTER: RosterEntry[] = [
 registerRoster(ROSTER);
 
 export function rosterEntry(id: string | null | undefined): RosterEntry {
-  return ROSTER.find((r) => r.id === id) ?? ROSTER[0];
+  // nothing asked for: the first character, in its peak era
+  return ROSTER.find((r) => r.id === id) ?? ROSTER.find((r) => r.group !== undefined && r.group === ROSTER[0].group && r.eraDefault) ?? ROSTER[0];
 }

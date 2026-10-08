@@ -23,6 +23,10 @@ const CSS = `
 #start .card .ck { font-family: 'Yuji Syuku', serif; font-size: 30px; line-height: 1.05; color: var(--c); }
 #start .card .cn { font-family: 'Dela Gothic One', sans-serif; font-size: 11px; letter-spacing: .06em; margin-top: 3px; }
 #start .card .ct { font-size: 9px; opacity: .7; margin-top: 2px; }
+#start .eras { display: none; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+#start .eras.on { display: flex; }
+#start .era { pointer-events: auto; cursor: pointer; padding: 4px 11px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: rgba(8,8,12,.6); border: 1px solid rgba(255,255,255,.2); color: #f3f1ec; }
+#start .era.sel { background: var(--c); color: #0b0b10; border-color: var(--c); }
 #start .modes { display: flex; gap: 8px; justify-content: center; }
 #start .mode { pointer-events: auto; cursor: pointer; padding: 6px 16px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; background: rgba(8,8,12,.6); border: 1px solid rgba(255,255,255,.2); color: #f3f1ec; }
 #start .mode.sel { background: #f3f1ec; color: #0b0b10; }
@@ -44,6 +48,12 @@ export interface StartFighter {
   kanji: string;
   title: string;
   color: string;
+  /** era loadouts of one character share a group: one card, with a chip per era under the grid */
+  group?: string;
+  /** the era's chip label */
+  era?: string;
+  /** the card stands for this era of its group (the character's peak) */
+  eraDefault?: boolean;
 }
 
 export function showStart(parent: HTMLElement, fighters: StartFighter[], init: StartChoice, onPlay: (c: StartChoice) => void, quality: 'high' | 'low'): void {
@@ -55,8 +65,13 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
   const other = quality === 'low' ? 'high' : 'low';
   const url = new URL(location.href);
   url.searchParams.set('q', other);
+  // one card per character: an era group shows its default era's card
+  const groupOf = (id: string) => fighters.find((f) => f.id === id)?.group;
+  const lead = (g: string) => fighters.find((f) => f.group === g && f.eraDefault) ?? fighters.find((f) => f.group === g)!;
+  const shown = fighters.filter((f) => !f.group || lead(f.group) === f);
   const cards = (kind: string) =>
-    fighters.map((f) => `<div class="card" data-kind="${kind}" data-id="${f.id}" style="--c:${f.color}"><div class="ck">${f.kanji}</div><div class="cn">${f.name}</div><div class="ct">${f.title}</div></div>`).join('');
+    shown.map((f) => `<div class="card" data-kind="${kind}" data-id="${f.id}" data-group="${f.group ?? ''}" style="--c:${f.color}"><div class="ck">${f.kanji}</div><div class="cn">${f.name}</div><div class="ct">${f.title}</div></div>`).join('');
+  const eras = (kind: string) => `<div class="eras" data-kind="${kind}"></div>`;
   el.innerHTML = `
     <div class="box">
       <div class="kj">霊子</div>
@@ -64,9 +79,10 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
       <div class="sub">a Bleach voxel brawler · Karakura Town</div>
       <div class="sec">Fighter</div>
       <div class="cards">${cards('char')}</div>
+      ${eras('char')}
       <div class="sec">Mode</div>
       <div class="modes"><button class="mode" data-mode="waves">Hollow waves</button><button class="mode" data-mode="duel">Duel</button></div>
-      <div class="vsrow"><div class="sec">Opponent</div><div class="cards">${cards('vs')}</div></div>
+      <div class="vsrow"><div class="sec">Opponent</div><div class="cards">${cards('vs')}</div>${eras('vs')}</div>
       <button class="play">PLAY</button>
       <div class="ctl">
         <div><b>WASD · Mouse</b><span>move · look</span></div>
@@ -90,7 +106,32 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
   const refresh = () => {
     el.querySelectorAll<HTMLElement>('.card').forEach((c) => {
       const kind = c.dataset.kind as 'char' | 'vs';
-      c.classList.toggle('sel', choice[kind] === c.dataset.id);
+      const g = c.dataset.group;
+      c.classList.toggle('sel', choice[kind] === c.dataset.id || (!!g && groupOf(choice[kind]) === g));
+      // a grouped card wears the era chosen in its group (else its peak era)
+      if (g) {
+        const f = (groupOf(choice[kind]) === g ? fighters.find((x) => x.id === choice[kind]) : undefined) ?? lead(g);
+        c.style.setProperty('--c', f.color);
+        (c.querySelector('.ck') as HTMLElement).textContent = f.kanji;
+        (c.querySelector('.cn') as HTMLElement).textContent = f.name;
+        (c.querySelector('.ct') as HTMLElement).textContent = f.title;
+      }
+    });
+    // the era chips of the selected character
+    el.querySelectorAll<HTMLElement>('.eras').forEach((row) => {
+      const kind = row.dataset.kind as 'char' | 'vs';
+      const g = groupOf(choice[kind]);
+      row.classList.toggle('on', !!g);
+      if (!g) return;
+      const list = fighters.filter((f) => f.group === g);
+      row.innerHTML = list.map((f) => `<button class="era${f.id === choice[kind] ? ' sel' : ''}" data-id="${f.id}" style="--c:${f.color}">${f.era ?? f.name}</button>`).join('');
+      row.querySelectorAll<HTMLElement>('.era').forEach((b) =>
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          choice[kind] = b.dataset.id!;
+          refresh();
+        }),
+      );
     });
     el.querySelectorAll<HTMLElement>('.mode').forEach((m) => m.classList.toggle('sel', m.dataset.mode === choice.mode));
     (el.querySelector('.vsrow') as HTMLElement).classList.toggle('on', choice.mode === 'duel');
@@ -98,7 +139,10 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
   el.querySelectorAll<HTMLElement>('.card').forEach((c) =>
     c.addEventListener('click', (e) => {
       e.stopPropagation();
-      choice[c.dataset.kind as 'char' | 'vs'] = c.dataset.id!;
+      const kind = c.dataset.kind as 'char' | 'vs';
+      // a grouped card keeps the era already chosen in its group
+      const g = c.dataset.group;
+      if (!g || groupOf(choice[kind]) !== g) choice[kind] = c.dataset.id!;
       refresh();
     }),
   );

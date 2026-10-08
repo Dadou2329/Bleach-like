@@ -1,7 +1,7 @@
 // Player controller: maps input to fighter intents (camera-relative movement, jump / reishi air-steps /
 // hover, Shunpo / Sonído, lock-on, aim) and to the kit's slots (any character).
 import * as THREE from 'three';
-import type { Controller, Game } from './game';
+import { VEIL_RANGE, type Controller, type Game } from './game';
 import type { Fighter } from './fighter';
 import type { Kit } from './kits/kit';
 import { TEX_RING } from '../vfx/sprites';
@@ -43,7 +43,8 @@ export class PlayerController implements Controller {
       else this.lock = g.nearestEnemy(f, 45, _f, 70) ?? g.nearestEnemy(f, 30);
     }
     // a lock is lost when the world turns over (Inverted World) or friend and foe swap (Happōfusagari)
-    if (this.lock && (this.lock.dead || this.lock.pos.distanceTo(f.pos) > 60 || f.invertT > 0 || (f.iffT > 0 && this.lock.team !== f.team))) this.lock = null;
+    // and one on a veiled foe as soon as it is beyond sensing
+    if (this.lock && (this.lock.dead || this.lock.pos.distanceTo(f.pos) > 60 || f.invertT > 0 || (f.iffT > 0 && this.lock.team !== f.team) || (this.lock.veiled && this.lock.pos.distanceTo(f.pos) > VEIL_RANGE))) this.lock = null;
     if (this.assist && (this.assist.dead || !f.action)) this.assist = null;
     // a lock on someone hiding behind a decoy or bent light holds on where they seem to be
     f.faceTarget = this.lock ? this.lock.seenCenter() : this.assist ? this.assist.center() : null;
