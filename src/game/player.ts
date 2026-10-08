@@ -50,7 +50,7 @@ export class PlayerController implements Controller {
     if (g.hud) g.hud.lockTarget = this.lock;
     if (f.dead) return;
     // ---- jump / air-step / hover (riding a summon, the kit reads jump/descend as climb/dive)
-    if (!f.mounted && !f.rooted && inp.pressed('jump', 140)) {
+    if (!f.mounted && f.canJump && inp.pressed('jump', 140)) {
       if (f.grounded || f.body.airTime < 0.1) {
         f.body.vel.y = f.def.speed.jump;
         f.body.grounded = false;
@@ -66,7 +66,7 @@ export class PlayerController implements Controller {
     }
     if (inp.held('jump')) this.jumpHeldT += dt;
     else this.jumpHeldT = 0;
-    if (!f.mounted && !f.rooted && !f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
+    if (!f.mounted && f.canJump && !f.grounded && !f.hovering && inp.held('jump') && this.jumpHeldT > 0.28 && f.body.vel.y < 1.5 && f.dashT <= 0) {
       f.hovering = true;
       this.reishiStep(f);
     }

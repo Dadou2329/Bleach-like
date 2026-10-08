@@ -115,7 +115,7 @@ export class DuelistAI implements Controller {
 
     // ---- vertical: follow the target into the air, come down when it lands
     f.wishDescend = false;
-    if (dy > 1.4 && !f.rooted) {
+    if (dy > 1.4 && f.canJump) {
       if (f.grounded && !f.busy) {
         f.body.vel.y = f.def.speed.jump;
         f.body.grounded = false;

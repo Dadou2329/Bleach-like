@@ -561,6 +561,37 @@ G state, V flare); press **H** in game for the current character's moves.
   - R: **Hangman's Verdict**: once the pool is nearly dry, he cuts his own noose (it costs most of his HP) and
     brings the blow down. It cannot be parried.
   - G: an explosive band. F: unlinks and seals back to the Shikai.
+- **Izuru Kira**, Lieutenant of the 3rd Division: slender and a little stooped, pale-blond hair with a long bang
+  over his left eye, shadows under his eyes, the badge (三 and a marigold) tied on his left sleeve. A gloomy,
+  Kidō-rich swordsman: the thrust, a diagonal cut, the rising cut that launches and a flat cut (LMB). His sealed
+  moves:
+  - RMB: Bakudō #39 **Enkōsen**, a spinning yellow disc before his palm that turns blows and shots from the front
+    (two blows, or one heavy, break it). In the air: Hadō #31 **Shakkahō**.
+  - Q: Hadō #58 **Tenran**: the sword spun like a fan, then a widening tornado that pushes, lifts and tears up the
+    street.
+  - E: Bakudō #63 **Sajō Sabaku**. On a bound or stunned target within reach: **Gaten**, one drop on the neck and
+    they sleep.
+  - R: Bakudō #73 **Tōzanshō**: an inverted pyramid of light. At range it cages the target (rooted, its shots
+    stay inside); up close it closes round him and nothing gets in.
+  - G: **Kaidō**: he heals while he holds still (faster inside Tōzanshō). A blow ends it.
+  - F: **"Omote o agero, Wabisuke"**: the blade goes straight and its end folds into a square hook.
+  - Passive: Bakudō #37 **Tsuriboshi**, a net of light that catches him when he is knocked flying.
+- **Kira, Wabisuke**: every cut that lands doubles the weight of what it cut: the body, or the weapon if they were
+  swinging or parried it. Tags float up (×2, ×4 … ×1024) and indigo rings slide down whatever is heavy. The body
+  slows, from ×8 it cannot jump, at ×64 it kneels with its head bowed, at ×256 it is pinned and the ground gives
+  way under it; a weapon at ×128 falls from the hand. Skin that shrugs a blow off gains nothing, a weapon that is
+  not a blade cannot be weighted, and sealing (or his death) makes all of it vanish. His moves:
+  - LMB: the hook thrust, the backhand cut, the rising hook and the downward chop. The shots his swinging blade
+    touches drop short.
+  - RMB: the **hook pull**: the hook catches the neck and drags them down in front of him.
+  - Q: on a kneeling target, the **reverse guillotine** ("Omote o agero"); on a pinned one, **Penance**: ten
+    strikes first. Otherwise the **weighted parry**: the first blow is turned, the attacker's weapon doubles
+    twice and the counter cut follows.
+  - E: **Heavy Step**: his own foot doubled seven times, a crater stomp that doubles everyone in it. In the air,
+    the meteor drop (a fighter right under his foot is crushed).
+  - R: **Debris Rain** (from the novels): Tenran tears chunks of street up, he strikes each until it weighs ×16,
+    and they fall on the target.
+  - G: Kaidō. F: seals Wabisuke.
 - **Baraggan Louisenbairn**, the Segunda Espada and the old God-King of Hueco Mundo: short, barrel-chested and
   stooped, a huge white mustache, a scar over his shut right eye and a bone crown floating round his head. He
   wears a white coat lined with black fur and a belt of gold chains, and holds the double axe **Arrogante**

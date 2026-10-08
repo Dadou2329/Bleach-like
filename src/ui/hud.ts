@@ -189,6 +189,18 @@ export class Hud {
     this.comboT = 2.2;
   }
 
+  /** a word floated up from a point (a status tag: Wabisuke's ×64), not counted as a hit */
+  floatText(p: THREE.Vector3, text: string, color: string, px = 20): void {
+    const el = document.createElement('div');
+    el.className = 'dmg';
+    el.textContent = text;
+    el.style.color = color;
+    el.style.fontSize = `${px}px`;
+    this.root.appendChild(el);
+    this.dmg.push({ el, p: p.clone(), t: 0, vx: 0, oy: -30 });
+    if (this.dmg.length > 40) this.dmg.shift()!.el.remove();
+  }
+
   onKill(_f: Fighter): void {
     /* hook for score */
   }

@@ -49,6 +49,11 @@ scope and milestones and `README.md` for controls and modes.
   the duel AI goes for the mirror image through itself, the player's canvas rolls 180° and the lock drops;
   `inhale(k, dur)` builds `scent` to it, then `invertImmuneT`). `iffT` (friend and foe reversed: `enemiesOf` returns
   its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`).
+  `heavyB/heavyW` (Wabisuke's doublings on the body and the weapon: `bodyPace` slows the feet, Shunpo and knockback,
+  `canJump` is false from ×8, `weaponPace` slows actions and animation; a form change clears the weapon's; the kit
+  that adds them kneels, pins and clears them). `lastHurt` (game time, damage and shrug of the last blow that
+  reached it: an `onHit` can tell whether a cut really cut). `chars/reactionClips.ts` holds poses any humanoid rig
+  can be forced into (`registerReactions(o.anim)`, then play `weighed_kneel` / `weighed_pin`).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -80,8 +85,11 @@ scope and milestones and `README.md` for controls and modes.
   the flick-cut),
   `vfx/kazeshini.ts` (Hisagi: Tsuzuri Raiden arcs, Hyapporankan's rod rain, the explosive band, Sajō Sabaku's rope,
   `ChainWrap`, `FushiOrb` — the novel Bankai's orb with its nooses and chain rain; the sickles themselves fly on
-  `TetherBlade`) and
-  `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring).
+  `TetherBlade`),
+  `vfx/wabisuke.ts` (Kira: weight tags and rings, `TenranWind`, the Enkōsen disc, the Tōzanshō pyramid, the
+  Tsuriboshi net, Kaidō and Gaten, the Debris Rain chunks, the heavy stomp) and
+  `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
+  `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
 
 ## Conventions

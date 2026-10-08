@@ -297,16 +297,21 @@ export class Game {
     if (shrug) dmg *= 0.25;
     t.hp -= dmg;
     t.flashT = 0.12;
+    t.lastHurt.at = this.time;
+    t.lastHurt.dmg = dmg;
+    t.lastHurt.shrug = shrug;
     if (from) from.stats.damageDealt += dmg;
     if (this.hud && !o.quiet) {
       const toPlayer = t === this.player, byPlayer = from !== null && from === this.player;
       this.hud.damageNumber(t.center(), dmg, toPlayer ? '#ff6b6b' : o.heavy ? '#ffe066' : '#ffffff', byPlayer);
     }
-    const knock = (o.knock ?? 3) * (1 - armor) * t.knockTaken * (t.def.boss ? 0.02 : 1) * (shrug ? 0.15 : 1);
+    // a weighted body (Wabisuke) is hard to move
+    const heavy = 1 / (1 + 0.3 * t.heavyB);
+    const knock = (o.knock ?? 3) * (1 - armor) * t.knockTaken * (t.def.boss ? 0.02 : 1) * (shrug ? 0.15 : 1) * heavy;
     t.push.x += dir.x * knock;
     t.push.z += dir.z * knock;
     if (o.launch && !t.def.boss) {
-      t.body.vel.y = Math.max(t.body.vel.y, o.launch);
+      t.body.vel.y = Math.max(t.body.vel.y, o.launch / (1 + 0.5 * t.heavyB));
       t.hovering = false;
     }
     // flinch: pitch away from the hit

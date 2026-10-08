@@ -184,6 +184,16 @@ export class Fighter {
   /** time dilated (Senescencia): actions and animation run this fraction slower while dilateT runs */
   dilateK = 0;
   dilateT = 0;
+  /**
+   * Weight (Wabisuke's doublings): the body weighs 2^heavyB, the weapon 2^heavyW. The body: slower feet, a
+   * shorter Shunpo, smaller launches and knockback, a faster fall, no jumps from ×8 (the kit that adds the weight
+   * kneels and pins it); the weapon: actions and animation slow down. The kit that adds them clears them; a new
+   * form (a new weapon) drops the weapon's.
+   */
+  heavyB = 0;
+  heavyW = 0;
+  /** the last blow that reached it: game time, damage, whether the skin shrugged it off */
+  readonly lastHurt = { at: -1, dmg: 0, shrug: false };
   stats = { damageDealt: 0, kills: 0 };
   /** arbitrary per-kit state */
   readonly data: Record<string, unknown> = {};
@@ -280,6 +290,21 @@ export class Fighter {
     this.slowT = Math.max(this.slowT, t);
   }
 
+  /** the fraction of its speed the body's weight leaves it (Wabisuke) */
+  get bodyPace(): number {
+    return this.heavyB > 0 ? Math.max(0.25, 1 - 0.11 * this.heavyB) : 1;
+  }
+
+  /** the rate its actions run at under its weapon's weight (Wabisuke) */
+  get weaponPace(): number {
+    return this.heavyW > 0 ? 1 / (1 + 0.16 * this.heavyW) : 1;
+  }
+
+  /** can leave the ground (jump, air-step, hover): not rooted, not too heavy */
+  get canJump(): boolean {
+    return !this.rooted && this.heavyB < 3;
+  }
+
   spendRei(n: number): boolean {
     if (this.rei < n) return false;
     this.rei -= n;
@@ -341,8 +366,8 @@ export class Fighter {
       }
     }
     if (this.agedT > 0 && (this.agedT -= dt) <= 0) this.agedK = 0;
-    // inside a time field the fighter's own clock runs slow
-    const adt = this.dilateT > 0 ? dt * (1 - this.dilateK) : dt;
+    // inside a time field the fighter's own clock runs slow; a weighted weapon drags every action
+    const adt = (this.dilateT > 0 ? dt * (1 - this.dilateK) : dt) * this.weaponPace;
     if (this.dead) {
       this.deathT += dt;
       b.vel.x = damp(b.vel.x, 0, 4, dt);
@@ -383,7 +408,7 @@ export class Fighter {
     let mobility = this.hitstun > 0 ? 0 : this.action ? this.action.mobility : 1;
     if (this.dashT > 0) {
       this.dashT -= dt;
-      const v = (sp.dash / sp.dashTime);
+      const v = (sp.dash / sp.dashTime) * this.bodyPace;
       b.vel.set(this.dashDir.x * v, 0, this.dashDir.z * v);
       b.float = true;
       this.dashGhostT += dt;
@@ -402,7 +427,7 @@ export class Fighter {
     } else {
       // sprint (Shunpo run) while the dash key stays held after a dash
       if (!this.wishSprint || this.wish.lengthSq() < 0.01) this.sprinting = false;
-      const speed = this.rooted ? 0 : (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1);
+      const speed = this.rooted ? 0 : (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1) * this.bodyPace;
       const wx = this.wish.x * speed * mobility, wz = this.wish.z * speed * mobility;
       const accel = (b.grounded || this.hovering ? 70 : this.mounted ? 36 : 28) * dt;
       const dx = wx - b.vel.x, dz = wz - b.vel.z;
@@ -431,6 +456,8 @@ export class Fighter {
       } else {
         b.float = false;
         if (!b.grounded && this.wishDescend) b.vel.y = Math.min(b.vel.y, -16);
+        // a weighted body drops like a stone
+        if (!b.grounded && this.heavyB > 0) b.vel.y -= 6 * this.heavyB * dt;
         // airborne attacks hang
         if (!b.grounded && this.action && b.vel.y < 0) b.vel.y = Math.max(b.vel.y, -30 * this.action.airGravity);
       }
@@ -551,6 +578,8 @@ export class Fighter {
     this.aura.level = old.au.level;
     this.aura.target = old.au.target;
     this.def = { ...this.def, aura, blade: blade ?? this.def.blade };
+    // a new form, a new weapon: whatever weighed the old one down is gone (Rangiku's blade turned to ash)
+    this.heavyW = 0;
     this.ghosts = new AfterimagePool(this.visual, 12);
     this.ghosts.color.set(aura.body);
     if (this.trail && blade) this.trail.setColor(blade.color, blade.core);

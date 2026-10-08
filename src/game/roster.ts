@@ -15,7 +15,9 @@ import { CREST_SLICES, ikkakuCrestSlice, ikkakuProp } from '../chars/ikkaku';
 import { RANGIKU_DEF, RangikuKit } from './kits/rangiku';
 import { rangikuProp } from '../chars/rangiku';
 import { HISAGI_DEF, HisagiKit } from './kits/hisagi';
+import { KIRA_DEF, KiraKit } from './kits/kira';
 import { hisagiProp } from '../chars/hisagi';
+import { kiraProp } from '../chars/kira';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -495,6 +497,18 @@ export const ROSTER: RosterEntry[] = [
     kit: (f, g) => new HisagiKit(f, g),
     warm: () => {
       for (const k of ['sickle', 'orb'] as const) buildCached(hisagiProp(k), false);
+    },
+  },
+  {
+    id: 'kira',
+    name: 'Izuru Kira',
+    kanji: '侘助',
+    title: 'Lieutenant, 3rd Division',
+    color: '#4f8fe0',
+    def: () => ({ ...KIRA_DEF, speed: { ...KIRA_DEF.speed } }),
+    kit: (f, g) => new KiraKit(f, g),
+    warm: () => {
+      buildCached(kiraProp('wabisuke'), false);
     },
   },
   {
