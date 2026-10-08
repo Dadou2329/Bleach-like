@@ -178,6 +178,12 @@ export class Fighter {
   iffT = 0;
   iffFrom: THREE.Vector3 | null = null;
   /**
+   * the body taken over (Giselle's blood): while puppetT runs its own controller lets go — the player can only
+   * struggle (G cuts it short), the duel and Hollow AIs stand down — and puppetBy's kit moves it
+   */
+  puppetT = 0;
+  puppetBy: Fighter | null = null;
+  /**
    * reiatsu on a higher plane (post-Dangai Ichigo): beyond VEIL_RANGE no enemy can sense it — `nearestEnemy` skips it,
    * a lock on it drops and the duel AI hunts for where it might be
    */
@@ -390,6 +396,10 @@ export class Fighter {
     if (this.iffT > 0 && (this.iffT -= dt) <= 0) {
       this.iffT = 0;
       this.iffFrom = null;
+    }
+    if (this.puppetT > 0 && ((this.puppetT -= dt) <= 0 || this.dead || this.puppetBy?.dead)) {
+      this.puppetT = 0;
+      this.puppetBy = null;
     }
     if (this.sealT > 0 && (this.sealT -= dt) <= 0) this.sealK = 0;
     if (this.disarmT > 0) {

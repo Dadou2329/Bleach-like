@@ -63,7 +63,10 @@ scope and milestones and `README.md` for controls and modes.
   walking, jumping or Shunpo (Shinji inside his flower). `invertT` (the Inverted World: `nearestEnemy` finds no one,
   the duel AI goes for the mirror image through itself, the player's canvas rolls 180° and the lock drops;
   `inhale(k, dur)` builds `scent` to it, then `invertImmuneT`). `iffT` (friend and foe reversed: `enemiesOf` returns
-  its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`). `veiled`
+  its own side, so its blows and targeting turn on its allies; an AI with none drifts away from `iffFrom`). `puppetT/
+  puppetBy` (the body taken over by someone's blood: its own controller lets go — the player can only mash G to cut
+  it short, the duel and Hollow AIs stand down — and the puppeteer's kit moves it; `chars/reactionClips.ts` has
+  `puppet_stab`, a weapon driven into its own chest). `veiled`
   (reiatsu on a higher plane: beyond `VEIL_RANGE` 8 m `nearestEnemy` skips it, a lock on it drops, the duel AI gropes).
   `heavyB/heavyW` (Wabisuke's doublings on the body and the weapon: `bodyPace` slows the feet, Shunpo and knockback,
   `canJump` is false from ×8, `weaponPace` slows actions and animation; a form change clears the weapon's; the kit
@@ -111,6 +114,12 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/glutton.ts` (Liltotto: `GluttonMaw`, two jaws of voxel flesh on her mouth (or set in the world) whose `bite()`
   erases their volume and returns the bodies in it; `BiteArrow`; `SporkTrap` and `GoldenCrunch`, bear traps (the
   Crunch catches everyone, friend or foe); `SpifeWhip`, a whip of fang links; `arterie()`, Blut Arterie's veins),
+  `vfx/zombie.ts` (Giselle: `BloodSpray`, the shared pool of voxel blood drops; `BloodDrops`, flung blood that doses
+  what it touches and leaves `BloodPools` (wet decals that dose whoever stands in them); `bloodBurst()`; `SkullArrow`;
+  `ShadowGate`, the pool a zombie climbs out of; `BonePin`; `BoneRattle`; `infectionTint()`, a body reddening with her
+  blood. Her kit keeps the infection per fighter, raises roster characters as zombies (`rosterById` + the entry's kit +
+  a `DuelistAI` wrapped in a `ZombieAI` that keeps the tint and cuts the strings when she falls) and makes puppets
+  with the `puppetT/puppetBy` status),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

@@ -28,6 +28,13 @@ export class PlayerController implements Controller {
       if (inp.pressed('mask', 120)) kit.toggle?.();
       return;
     }
+    // a puppet (someone else's blood in the veins): only the struggle — G — still answers
+    if (f.puppetT > 0 && !f.dead) {
+      this.lock = null;
+      g.cam.lockTarget = null;
+      if (inp.pressed('mask', 120)) f.puppetT = Math.max(0, f.puppetT - 0.35);
+      return;
+    }
     // ---- movement wish (camera relative)
     g.cam.flatForward(_f);
     _r.set(-_f.z, 0, _f.x);

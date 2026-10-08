@@ -117,6 +117,8 @@ import { CANDICE_DEF, CandiceKit } from './kits/candice';
 import { candiceAsset, candiceProp } from '../chars/candice';
 import { LILTOTTO_DEF, LiltottoKit } from './kits/liltotto';
 import { liltottoAsset, liltottoProp } from '../chars/liltotto';
+import { GISELLE_DEF, GiselleKit, STORE } from './kits/giselle';
+import { giselleAsset, giselleProp, skeletonAsset } from '../chars/giselle';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -529,6 +531,28 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       buildCached(liltottoAsset('gagael').model, true);
       for (const k of ['maw.upper', 'maw.lower', 'trap.base', 'trap.jaw', 'bow', 'link', 'halo'] as const) buildCached(liltottoProp(k), false);
+    },
+  },
+  {
+    id: 'giselle',
+    name: 'Giselle Gewelle',
+    kanji: '死者',
+    title: 'Sternritter "Z" — The Zombie',
+    color: '#9a5cf2',
+    def: () => ({ ...GISELLE_DEF, speed: { ...GISELLE_DEF.speed } }),
+    kit: (f, g) => new GiselleKit(f, g),
+    warm: () => {
+      buildCached(giselleAsset('azhalbiora').model, true);
+      buildCached(skeletonAsset().model, true);
+      for (const k of ['bow', 'skull', 'bone', 'halo'] as const) buildCached(giselleProp(k), false);
+      // the dead she calls up: built now, not when the first climbs out
+      for (const id of STORE) {
+        const e = ROSTER.find((r) => r.id === id);
+        if (!e) continue;
+        const b = e.def().build();
+        buildCached(b.asset.model, true);
+        for (const p of b.props) buildCached(p.model, false);
+      }
     },
   },
   {

@@ -134,6 +134,7 @@ export class HollowAI implements Controller {
       f.wish.set(0, 0, 0);
       return;
     }
+    if (f.puppetT > 0) return;
     this.cd -= dt;
     this.strafeT -= dt;
     const target = g.nearestEnemy(f, 60);

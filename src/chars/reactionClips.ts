@@ -40,7 +40,29 @@ const HOSTAGE: B = {
   'thigh.L': [-2, 0, 4], 'thigh.R': [-2, 0, -4],
 };
 
+/** its own weapon turned on itself (Giselle's "Die!"): the right hand drives it into its own chest, doubled over */
+const STAB_UP: B = {
+  spine: [-6, 0, 0], chest: [-8, 0, 0], neck: [-6, 0, 0], head: [-10, 0, 0],
+  'upperarm.R': [-120, 0, 26], 'forearm.R': [-70, 0, 0], 'hand.R': [30, 0, 20],
+  'upperarm.L': [-20, 0, 14], 'forearm.L': [-30, 0, 0],
+};
+const STAB: B = {
+  hips: [6, 0, 0], spine: [22, 0, 0], chest: [16, 0, 0], neck: [12, 0, 0], head: [20, 0, 0],
+  'upperarm.R': [-36, 0, 34], 'forearm.R': [-118, 0, 0], 'hand.R': [50, 0, 40],
+  'upperarm.L': [-30, 0, -6], 'forearm.L': [-100, 0, 0],
+  'thigh.L': [-12, 0, 4], 'shin.L': [24, 0, 0], 'thigh.R': [-8, 0, -4], 'shin.R': [20, 0, 0],
+};
+
 export const REACTION_CLIPS: ClipDef[] = [
+  {
+    name: 'puppet_stab', dur: 0.5, fadeIn: 0.06, fadeOut: 0.3,
+    keys: [
+      { ...body(0, { head: [-4, 0, 0] }), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.16, STAB_UP, [0, 0.02, 0], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.25, STAB, [0, -0.1, -0.04], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.5, STAB, [0, -0.1, -0.04], 'inOut'), c: { '@ikR': [0, 0, 0] } },
+    ],
+  },
   {
     name: 'amor_hostage', dur: 0.4, fadeIn: 0.08, fadeOut: 0.3,
     keys: [

@@ -472,6 +472,28 @@ G state, V flare); press **H** in game for the current character's moves.
     ground and a giant bear trap snapping shut on everyone at the end of it — her own side too; G **Sklaverei** (the
     jaw wings, which snap at whoever comes close); F again **Full Course**, a house-sized maw closing over the target
     — a weak one is swallowed whole.
+- **Giselle Gewelle**, Sternritter "Z" — The Zombie: slim, very long black hair with two strands standing up like
+  antennae, a little white cap pinned on the side of the head, big blue eyes and a goofy grin, the long-sleeved white
+  coat over black leggings. Her blood is the weapon: every drop that lands on someone fills an infection meter (the
+  body reddens as it fills; a strong soul needs more blood, a living Quincy cannot be infected at all) and past half
+  it spreads by itself. Her LMB is weak and floppy on purpose (slaps, a kick, a bump), but while she bleeds every hit
+  flicks blood. A lethal blow only leaves her sprawled for a moment (once every 75 seconds). Her moves:
+  - RMB: **Bait** — she drops her guard and pleads; whoever cuts her in that moment is drenched in her blood, she
+    takes half the blow and grows it back, then straightens up grinning.
+  - Q: **Finger Bite** — she bites her thumb and flings a fan of blood; the puddles infect whoever stands in them.
+  - E: **Command** — "Die!": everyone fully infected turns their own weapon on themselves (the weakest just die);
+    "Kneel!": the half infected drop to their knees; her zombies charge.
+  - R: **Raise** — the fully infected become her puppets for five seconds (they strike themselves or turn on their
+    own friends; the victim mashes G to break free); else a fresh corpse rises as her zombie; else one of her stored
+    dead climbs out of her shadow — zombie Bambietta, zombie Hitsugaya, zombie Rangiku, zombie Candice in turn, each
+    with its whole moveset, reddened. Two at a time; her zombies near her mend.
+  - G: **Drink** from a zombie at hand when she is hurt (it whines); otherwise the **Heilig Bogen**, a bow of linked
+    bones out of the heart case: three skull arrows that bite and infect.
+  - F: **Quincy: Vollständig — Azhalbiora** for 30 seconds: great purple wings of bone, a skeletal tail, a skull-star
+    halo; she flies. LMB swings the tail and the wings; RMB **Munchy Munchy Babies**, skulls over her fists that bite
+    on a charge; Q **Dancing Dead Boys Club**, four cartoon skeletons that dance at the target — smashed, their bones
+    fly back and pin its limbs; G **Sklaverei**; F again **Dead March**: every stored zombie climbs out at once and
+    everyone half infected becomes her puppet.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

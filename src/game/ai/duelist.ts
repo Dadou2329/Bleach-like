@@ -59,6 +59,11 @@ export class DuelistAI implements Controller {
       f.wishSprint = false;
       return;
     }
+    // a puppet: the strings are someone else's; it only struggles
+    if (f.puppetT > 0) {
+      if (Math.random() < dt * 2) f.puppetT = Math.max(0, f.puppetT - 0.35);
+      return;
+    }
     this.tick(dt);
     let t = g.nearestEnemy(f, 160);
     // the Inverted World: it still knows where they are, but the world is mirrored through it, so it goes for
