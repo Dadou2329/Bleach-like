@@ -536,6 +536,43 @@ G state, V flare); press **H** in game for the current character's moves.
     blind and bleeding for 12 s, and only the forehead eyes work.
   - Counterplay: walls and constructs in the line of sight take the gaze instead; a Shunpo at the instant it lands
     dodges it; a body already bound by Kidō cannot be walked; a heavy blow on him breaks one hold.
+- **Aaroniero Arruruerie**, the Noveno Espada: very tall and upright in a long white robe to the floor, a frilled
+  noble's coat with a ruffled collar, a lace jabot and ruffled cuffs, one white glove on the left hand, and a tall
+  white mask with eight holes over his head. **Sunlight is his weakness**: a ray from his head toward the sun decides
+  whether he stands in light or shade (roofs, walls and the shade of buildings block it; open ground does not).
+  Masked, the light cannot touch him. LMB opens the glove on Glotonería's maw: a bite, a chop, a lash, the maw
+  slammed down. His true-form moves:
+  - RMB: **devour**: the maw seizes the enemy in front and, if it is a Hollow or badly hurt, eats it (he heals, and
+    each Hollow eaten makes him a little stronger and tougher).
+  - Q: **Spirit Body Fusion**: red tentacles fan out over his shoulders; whatever they hook is drained for three
+    seconds and its steps go astray. A heavy blow on him cuts them.
+  - E: the **aspect**, only in shadow: the hand drawn over the face and Kaien Shiba looks out.
+  - R: **Zanpakutō Destruction**: his back armed for six seconds; the next sword that strikes it shatters and its
+    owner is disarmed (once per fight).
+  - G: the **mask** on or off. Off, the glass capsule of red liquid with the two little heads is bare, and a blade
+    on it does three times the damage.
+  - F: **"Kuitsukuse, Glotonería"**.
+- **Aaroniero as Kaien Shiba** (only in shadow; step into the sun and the face sloughs off, baring the capsule):
+  a fencer's string with the sword, RMB a lunging thrust, Q Shakkahō, R three Shakkahō, E back to the mask, G
+  Glotonería, and F **"Suiten sakamake, Nejibana"**: the sword held upside down and twirled into the silver trident
+  with its blue tassel. Those who fought beside Kaien (Rukia, Ukitake) hesitate against his face.
+  - LMB: the **spear dance**: every swing sheds an arc of water; the fourth comes down overhead and a wave bursts
+    all round.
+  - RMB: the **crushing tide**: a thrust that pins the target (its weapon flicked away) while a wave rises behind
+    it and slams it onto the spear.
+  - Q: the **rising wave**: the spear driven into the ground and a wall of water lifting whoever it meets.
+  - R: the **spiral thrust**: a corkscrew jet of water that bores 20 m.
+- **Aaroniero, Glotonería**: his upper body rises from a vast purple mass 10 m across, lumpy and blotched, with
+  sprawling tentacles, lidded red eyes, toothed mouths and a blobfish face in front; eaten masks surface in the pool
+  round his waist. In shadow he wears Kaien's head, in light the bare capsule. Shift is a tentacle surge that
+  crushes what it crosses, LMB tentacle slams (the fourth sweeps round flat).
+  - RMB: Nejibana **impaling** from the upper body (in shadow) or a light-blue **Cero** from the capsule (in light).
+  - Q: the **horde**: eaten Hollows boil out of the pool and fight for him.
+  - E: the **tidal sweep**: a fan of water blades. R: the **swallow**: a tentacle drags the target into the front
+    mouth, which chews and spits it out.
+  - F: the **army of 33,650**: a tentacle slammed down for every Hollow he has eaten, and more of the horde.
+  - G: the tentacles curl over his head (a guard that also covers the capsule).
+  - When he dies, his last sight goes to every Espada (Cognition Synchronization).
 - **Ikkaku Madarame**, 3rd Seat of the 11th Division: tall and wiry, the gleaming bald head, red marks
   flicking out from the corners of his eyes, a cocky grin, the scar down his chest, bare feet in waraji and a gold
   plate stamped 龍 on his right shoulder. He fights with the sword in his right hand and the black sheath

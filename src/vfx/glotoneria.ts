@@ -98,12 +98,18 @@ export class WaveWall implements Projectile {
     const gy = groundAt(g, from.x, from.y + 2, from.z, 6) ?? from.y;
     this.at.set(from.x, gy, from.z);
     this.mat = waterMaterial({ flow: 3, foam: 0.9, scale: 0.7 });
-    // a curling sheet: a plane bent forward at the top
-    const geo = new THREE.PlaneGeometry(1, 1, 16, 10);
+    // a curling sheet: low at both ends, rising to a lip that curls forward over its own face (unit size: the mesh
+    // is scaled by width × height × height)
+    const geo = new THREE.PlaneGeometry(1, 1, 24, 14);
     const p = geo.attributes.position as THREE.BufferAttribute;
     for (let i = 0; i < p.count; i++) {
-      const y = p.getY(i) + 0.5;
-      p.setXYZ(i, p.getX(i), y, Math.sin(y * Math.PI * 0.5) ** 2 * 0.35 - Math.abs(p.getX(i)) * 0.15);
+      const x = p.getX(i), v = p.getY(i) + 0.5;
+      const end = 1 - Math.pow(Math.abs(x) * 2, 3) * 0.8;
+      const a = v * Math.PI * 0.85;
+      // up the face, then over: a quarter-and-more of a circle at the top
+      const y = (v < 0.6 ? v : 0.6 + Math.sin((v - 0.6) / 0.4 * Math.PI * 0.6) * 0.32) * end;
+      const z = (v < 0.6 ? Math.sin(a) * 0.08 : 0.08 + (1 - Math.cos((v - 0.6) / 0.4 * Math.PI * 0.6)) * 0.42) * end - Math.abs(x) * 0.25;
+      p.setXYZ(i, x, y, z);
     }
     geo.computeVertexNormals();
     this.mat.side = THREE.DoubleSide;
@@ -119,11 +125,20 @@ export class WaveWall implements Projectile {
     const k = this.t / this.dur;
     const pos = _v.copy(this.at).addScaledVector(this.dir, this.roll * Math.min(1, k * 1.3));
     const h = this.height * Math.sin(Math.min(1, k) * Math.PI);
-    // spray along the crest
+    // spray and foam along the crest, lower toward the ends
     const sp = WaterSpray.of(g);
-    for (let i = 0; i < 6; i++) {
-      const s = (Math.random() - 0.5) * this.width;
-      sp.spawn(pos.x + this.side.x * s, pos.y + h, pos.z + this.side.z * s, this.dir.x * 3 + (Math.random() - 0.5) * 2, 1 + Math.random() * 3, this.dir.z * 3 + (Math.random() - 0.5) * 2, 0.06 + Math.random() * 0.06, 0.8, 0.7);
+    for (let i = 0; i < 10; i++) {
+      const u = Math.random() - 0.5;
+      const s = u * this.width;
+      const hh = h * 0.92 * (1 - Math.pow(Math.abs(u) * 2, 3) * 0.8);
+      const fx = pos.x + this.side.x * s + this.dir.x * h * 0.35, fz = pos.z + this.side.z * s + this.dir.z * h * 0.35;
+      sp.spawn(fx, pos.y + hh, fz, this.dir.x * 4 + (Math.random() - 0.5) * 2, 1 + Math.random() * 3, this.dir.z * 4 + (Math.random() - 0.5) * 2, 0.06 + Math.random() * 0.07, 0.8, 0.7);
+      if (i < 3) g.engine.dust.spawn({ x: fx, y: pos.y + hh, z: fz, vx: this.dir.x * 2, vy: 0.6, vz: this.dir.z * 2, size: 0.5, sizeEnd: 1.4, life: 0.5, r: 0.91, g: 0.97, b: 1, alpha: 0.75, alphaEnd: 0, tex: TEX_PUFF, drag: 1.5 });
+    }
+    // churned water at its foot
+    if (Math.random() < 0.6) {
+      const s = (Math.random() - 0.5) * this.width * 0.8;
+      g.engine.dust.spawn({ x: pos.x + this.side.x * s, y: pos.y + 0.2, z: pos.z + this.side.z * s, vx: this.dir.x * 3, vy: 0.4, vz: this.dir.z * 3, size: 0.8, sizeEnd: 2, life: 0.6, r: 0.86, g: 0.95, b: 1, alpha: 0.5, alphaEnd: 0, tex: TEX_PUFF, drag: 1.2 });
     }
     if (h > 0.5)
       for (const o of g.enemiesOf(this.owner)) {
@@ -146,7 +161,8 @@ export class WaveWall implements Projectile {
     const pos = _v.copy(this.at).addScaledVector(this.dir, this.roll * Math.min(1, k * 1.3));
     this.mesh.position.copy(pos);
     this.mesh.lookAt(pos.clone().add(this.dir));
-    this.mesh.scale.set(this.width, Math.max(0.01, this.height * Math.sin(Math.min(1, k) * Math.PI)), 1);
+    const hh = Math.max(0.01, this.height * Math.sin(Math.min(1, k) * Math.PI));
+    this.mesh.scale.set(this.width, hh, hh);
     this.mat.uniforms.uTime.value = this.t;
     this.mat.uniforms.uAlpha.value = Math.min(1, (this.dur - this.t) * 4);
   }
@@ -217,6 +233,58 @@ export class TentacleStrike implements Projectile {
   dispose(): void {
     this.mesh.removeFromParent();
     this.mesh.material.dispose();
+  }
+}
+
+/**
+ * One of Spirit Body Fusion's red tentacles: a writhing tube shot from `from()` to `to()`; it stays out while `hold()`
+ * (hooked in a soul) and is drawn back when that ends.
+ */
+export class FusionTendril implements Projectile {
+  done = false;
+  private mesh: THREE.Mesh;
+  private mat: THREE.MeshStandardMaterial;
+  private t = 0;
+  private out = 0;
+  private retract = false;
+  private readonly phase = Math.random() * 6;
+  private readonly lift = 0.08 + Math.random() * 0.12;
+
+  constructor(g: Game, private from: () => THREE.Vector3, private to: () => THREE.Vector3, private hold: () => boolean, private radius = 0.055, look: { color: string; emissive: string } = { color: '#A8182C', emissive: '#4A0612' }) {
+    this.mat = new THREE.MeshStandardMaterial({ color: look.color, roughness: 0.45, emissive: look.emissive });
+    this.mesh = new THREE.Mesh(new THREE.BufferGeometry(), this.mat);
+    this.mesh.frustumCulled = false;
+    g.engine.gr.scene.add(this.mesh);
+  }
+
+  update(dt: number): void {
+    this.t += dt;
+    if (!this.retract && this.t > 0.22 && !this.hold()) this.retract = true;
+    this.out = this.retract ? this.out - dt * 4.5 : Math.min(1, this.out + dt * 7);
+    if (this.retract && this.out <= 0) this.done = true;
+  }
+
+  render(): void {
+    const a = this.from(), b = this.to();
+    const d = _v.subVectors(b, a);
+    const len = d.length();
+    const side = _w.set(-d.z, 0, d.x).normalize();
+    const k = Math.max(0.02, this.out);
+    const pts: THREE.Vector3[] = [];
+    for (let i = 0; i <= 9; i++) {
+      const u = (i / 9) * k;
+      const arch = Math.sin(u * Math.PI);
+      const w = Math.sin(u * Math.PI * 2.4 + this.t * 10 + this.phase) * 0.28 * arch * Math.min(1, len / 4);
+      pts.push(a.clone().addScaledVector(d, u).addScaledVector(side, w).setY(a.y + d.y * u + arch * len * this.lift));
+    }
+    this.mesh.geometry.dispose();
+    this.mesh.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 22, this.radius, this.radius > 0.15 ? 8 : 5, false);
+  }
+
+  dispose(): void {
+    this.mesh.removeFromParent();
+    this.mesh.geometry.dispose();
+    this.mat.dispose();
   }
 }
 

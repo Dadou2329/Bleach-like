@@ -36,6 +36,11 @@ export interface KitAI {
   ranged?: boolean | (() => boolean);
   /** played once when the walk-in ends (a taunt, a stance) */
   opener?: () => void;
+  /**
+   * a place to walk to instead of keeping its distance from the target (shade, a vantage point); it still faces
+   * and fights the target from there
+   */
+  goal?: () => { x: number; z: number } | null;
 }
 
 export interface Kit {

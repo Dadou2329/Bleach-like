@@ -42,7 +42,8 @@ scope and milestones and `README.md` for controls and modes.
   Ichigo's with `look: 'white'`), AI in `game/ai/`, projectiles in `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `armLockT` (the weapon arm
-  seized by Amor: LMB/RMB do nothing, the weapon stays in the hand), `sealT/sealK`
+  seized by Amor: LMB/RMB do nothing, the weapon stays in the hand), `scrambleT/scrambleA` (Spirit Body Fusion: every
+  step it wants to take is turned by `scrambleA`), `sealT/sealK`
   (power rejected: no releases or states, strength cut); `game.drain()` is damage over time without hitstun.
   `game.rejectNear(at, r, by, fields)` undoes enemy shots (and fields) that implement `Projectile.reject`.
   `BladeSpec.onHit(o)` runs after a blade sweep damages a fighter (Ashisogi Jizō's numbing stabs); `unblockable` (on a
@@ -109,7 +110,12 @@ scope and milestones and `README.md` for controls and modes.
   visual, hurt capsule, speeds and gait with his rage),
   `vfx/brujeria.ts` (Zommari: Amor's `SunMark` decal bound to a limb, the purple glint and gaze streak, the
   `FoldingSword` of the release, the foam, the copies' blood; his kit's holds use `Fighter.armLockT` (the weapon arm
-  seized: no LMB/RMB, the weapon kept), `rooted` and the `amor_hostage` reaction) and
+  seized: no LMB/RMB, the weapon kept), `rooted` and the `amor_hostage` reaction)
+  `vfx/glotoneria.ts` (Aaroniero: the `CapsuleGlass` pill of glass and red liquid round his true head, Nejibana's
+  `WaveWall`, `TentacleStrike` — a voxel tentacle raised and slammed or swept — Spirit Body Fusion's lash, the blade
+  shatter, the pool's boil, the slough of Kaien's face; the kit's `sunlit(g, p)` is the light query: a ray toward
+  `atmo.sunDir` (32 m); `Fighter.scrambleT/scrambleA` turn a hooked victim's steps; `KitAI.goal` sends the duel AI
+  somewhere first — he walks for the shade) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

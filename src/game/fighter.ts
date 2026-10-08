@@ -69,6 +69,8 @@ export abstract class FighterAction {
 }
 
 let FID = 0;
+const _scr = new THREE.Vector3();
+const _UP = new THREE.Vector3(0, 1, 0);
 
 export class Fighter {
   readonly id = ++FID;
@@ -177,6 +179,12 @@ export class Fighter {
   iffFrom: THREE.Vector3 | null = null;
   /** rooted to the spot (inside a construct of its own): no walking, jumping or Shunpo, it can still turn and act */
   rooted = false;
+  /**
+   * movement scrambled (Spirit Body Fusion: a parasite in the soul): while scrambleT runs every step it wants to take
+   * is turned by scrambleA (the kit that hooks it re-rolls the angle)
+   */
+  scrambleT = 0;
+  scrambleA = 0;
   /** a body too big to leave the ground (a kaiju): no jumps, air-steps or hovering */
   giant = false;
   /**
@@ -416,6 +424,8 @@ export class Fighter {
         this.bladeActive = false;
       }
     }
+    if (this.scrambleT > 0) this.scrambleT = Math.max(0, this.scrambleT - dt);
+    const wish = this.scrambleT > 0 ? _scr.copy(this.wish).applyAxisAngle(_UP, this.scrambleA) : this.wish;
     // ---- facing
     let wantYaw: number | null = null;
     const acting = this.action !== null;
@@ -423,7 +433,7 @@ export class Fighter {
       if (this.faceTarget) wantYaw = Math.atan2(this.faceTarget.x - b.pos.x, this.faceTarget.z - b.pos.z);
       else if (acting) wantYaw = Math.atan2(this.aimDir.x, this.aimDir.z);
     }
-    if (wantYaw === null && this.wish.lengthSq() > 0.01 && this.dashT <= 0) wantYaw = Math.atan2(this.wish.x, this.wish.z);
+    if (wantYaw === null && wish.lengthSq() > 0.01 && this.dashT <= 0) wantYaw = Math.atan2(wish.x, wish.z);
     const oldYaw = this.yaw;
     if (wantYaw !== null && this.dashT <= 0) {
       const rate = acting ? 22 : 13;
@@ -454,9 +464,9 @@ export class Fighter {
       mobility = 0;
     } else {
       // sprint (Shunpo run) while the dash key stays held after a dash
-      if (!this.wishSprint || this.wish.lengthSq() < 0.01) this.sprinting = false;
+      if (!this.wishSprint || wish.lengthSq() < 0.01) this.sprinting = false;
       const speed = this.rooted ? 0 : (this.sprinting ? sp.sprint : sp.run) * (this.slowT > 0 ? 1 - this.slowK : 1) * this.bodyPace;
-      const wx = this.wish.x * speed * mobility, wz = this.wish.z * speed * mobility;
+      const wx = wish.x * speed * mobility, wz = wish.z * speed * mobility;
       const accel = (b.grounded || this.hovering ? 70 : this.mounted ? 36 : 28) * dt;
       const dx = wx - b.vel.x, dz = wz - b.vel.z;
       const dl = Math.hypot(dx, dz);

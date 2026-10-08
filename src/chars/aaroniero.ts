@@ -69,6 +69,7 @@ function palette(b: ModelBuilder): void {
   b.mat('skin', ['#F7DCC4', '#F2D0B0', '#E8BDA0', '#C99A7E', '#AB7767'], { base: 1, rough: 0.6, shadeK: 0.9 });
   b.mat('white', ['#F3F3F0', '#ECEBE6', '#DCDAD3', '#C8C6BF', '#A9A8A2'], { base: 1, rough: 0.82, shadeK: 0.9 });
   b.mat('frill', ['#F3F3F0', '#E6E4DE', '#CFCCC4', '#B5B2AA'], { base: 0, rough: 0.82, shadeK: 1 });
+  b.mat('robe', ['#F3F3F0', '#E8E7E2', '#D9D7D0', '#C9C7C0'], { base: 1, rough: 0.85, shadeK: 0.5 });
   b.mat('glove', ['#F3F3F0', '#E8E7E2', '#D2D0C9'], { base: 0, rough: 0.6 });
   b.mat('shoe', ['#2E2E33', '#1F1F24', '#141418'], { base: 1, rough: 0.5 });
   b.mat('line', ['#ECECEC'], { rough: 0.6 });
@@ -120,7 +121,8 @@ export function buildAaroniero(form: AaronieroForm = 'sealed'): CharacterAsset {
   b.socket('grip.L', 'fist.L', [wx - 0.1, wy - 4.3, wz + 0.4]);
   b.socket('palm.R', 'palm.R', [-wx + 0.6, wy - 5, wz + 1]);
   b.socket('palm.L', 'palm.L', [wx - 0.6, wy - 5, wz + 1]);
-  b.socket('maw', 'hand.L', [wx, wy - 3, wz + 0.5]);
+  // the maw's mouth (+Z) along the hand: it bites where the fingers point
+  b.socket('maw', 'hand.L', [wx, wy - 3, wz + 0.5], [90, 0, 0]);
   b.socket('hip.L', 'hips', [s.hips[0] + 2.4, s.waistY - 6, 3.6], [-28, 180, -6]);
   b.socket('chest.front', 'chest', [0, s.chestY, s.chest[1] + 1]);
   b.socket('back', 'chest', [0, s.chestY + 2, -s.chest[1] - 1]);
@@ -219,7 +221,7 @@ function garb(b: ModelBuilder, L: Landmarks, glot: boolean): { springs: SpringDe
   b.add('forearm.L', ruffle([sx, wy + 0.8, sz], 3.1, 1.6, 8, 0.7, 'y'), 'frill', { mirror: true, thr: 0.2 });
   if (glot) return { springs: [], colliders: [] };
   // the garb's skirt to the floor, shoes peeking out
-  const skirt = coatSkirt(b, L, { mat: 'white', lining: 'white', yTop: s.waistY - 4, yHem: 2, r0: 9, r1: 13.6, profile: 2.6, openFront: 2, overlap: 3, thick: 1.9, res: AARONIERO_RES });
+  const skirt = coatSkirt(b, L, { mat: 'robe', lining: 'robe', yTop: s.waistY - 4, yHem: 2, r0: 9, r1: 13.6, profile: 4, openFront: 2, overlap: 3, thick: 1.9, res: AARONIERO_RES });
   const [ax, ay, az] = L.ankle;
   const f = s.foot;
   b.add('foot.L', intersect(box([ax, 2, az + (f.len / 2 - f.heel)], [2.6, 2, f.len / 2 + 0.4], { round: 1.4 }), halfSpace([0, 4.5, az + f.len - f.heel - 3], [0, 1, 0.6])), 'shoe', { mirror: true });
@@ -437,8 +439,8 @@ function buildSheath(full: boolean): VoxelModel {
  */
 function buildNejibana(): VoxelModel {
   const b = new ModelBuilder('nejibana', 48);
-  b.mat('steel', ['#E1E6EC', '#C9D0D8', '#8C95A2', '#676B73', '#4A4E58'], { base: 1, rough: 0.22, metal: 0.9, shadeK: 0.65 });
-  b.mat('edge', ['#F0F4F7'], { rough: 0.12, metal: 0.85 });
+  b.mat('steel', ['#D3DAE1', '#BCC4CD', '#8C95A2', '#676B73', '#4A4E58'], { base: 1, rough: 0.34, metal: 0.8, shadeK: 0.65 });
+  b.mat('edge', ['#DCE3E9'], { rough: 0.28, metal: 0.75 });
   b.mat('shaft', ['#B9C0C8', '#8C95A2', '#676B73'], { base: 1, rough: 0.3, metal: 0.8 });
   b.mat('tassel', ['#5A70E0', '#3A4FB0', '#2E376C', '#11172D'], { base: 1, rough: 0.9, shadeK: 0.8 });
   b.bone('root', null, [0, 0, 0]);

@@ -22,6 +22,7 @@ import { MOMO_DEF, MomoKit } from './kits/momo';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
+import { AARONIERO_DEF, AaronieroKit } from './kits/aaroniero';
 import { hisagiProp } from '../chars/hisagi';
 import { kiraProp } from '../chars/kira';
 import { yumichikaProp } from '../chars/yumichika';
@@ -30,6 +31,7 @@ import { szayelAsset, szayelProp } from '../chars/szayel';
 import { fraccionAsset } from '../chars/szayelFraccion';
 import { yammyAsset } from '../chars/yammy';
 import { zommariAsset, zommariProp } from '../chars/zommari';
+import { aaronieroAsset, aaronieroProp } from '../chars/aaroniero';
 import { isshinAsset, isshinProp } from '../chars/isshin';
 import { ichigoHollowAsset } from '../chars/ichigoHollow';
 import { GRIMMJOW_DEF, GrimmjowKit } from './kits/grimmjow';
@@ -584,6 +586,19 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       for (const k of ['brujeria', 'blind'] as const) buildCached(zommariAsset(k).model, true);
       buildCached(zommariProp('embrion'), false);
+    },
+  },
+  {
+    id: 'aaroniero',
+    name: 'Aaroniero Arruruerie',
+    kanji: '喰虚',
+    title: 'Noveno Espada',
+    color: '#9b4dd8',
+    def: () => ({ ...AARONIERO_DEF, speed: { ...AARONIERO_DEF.speed } }),
+    kit: (f, g) => new AaronieroKit(f, g),
+    warm: () => {
+      buildCached(aaronieroAsset('glotoneria').model, true);
+      for (const k of ['capsule', 'kaien', 'katana', 'sheath-empty', 'nejibana', 'maw', 'mass', 'tentacle', 'glot-capsule', 'glot-kaien'] as const) buildCached(aaronieroProp(k), false);
     },
   },
   {

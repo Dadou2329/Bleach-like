@@ -194,7 +194,20 @@ export class DuelistAI implements Controller {
     // ---- movement
     const want = this.stance === 'press' ? ai.reach * 0.8 : this.stance === 'circle' ? 7 : 13;
     const side = _s.set(-_d.z, 0, _d.x).multiplyScalar(this.strafe);
-    if (dist > want + 1) {
+    const goal = ai.goal?.();
+    const gd = goal ? Math.hypot(goal.x - f.pos.x, goal.z - f.pos.z) : 0;
+    if (goal && gd > 0.8) {
+      // somewhere to be first (the kit's): it goes there, still facing the target
+      f.wish.set((goal.x - f.pos.x) / gd, 0, (goal.z - f.pos.z) / gd);
+      f.wishSprint = gd > 6;
+      if (gd > 12 && this.dashCd <= 0 && !f.busy) {
+        this.dashCd = 1.2 + Math.random();
+        f.dash(f.wish.clone());
+      }
+    } else if (goal) {
+      f.wish.set(0, 0, 0);
+      f.wishSprint = false;
+    } else if (dist > want + 1) {
       f.wish.copy(_d).addScaledVector(side, dist < 12 ? 0.35 : 0.1).normalize();
       f.wishSprint = dist > 16;
       if (dist > 15 && this.dashCd <= 0 && !f.busy) {

@@ -1023,8 +1023,8 @@ export class BladeGlow {
 /** One of Trident's cuts: a crescent of high-pressure water that sheds spray as it flies. */
 export class WaterBlade extends GetsugaProjectile {
   private wg: Game;
-  constructor(g: Game, owner: Fighter, from: THREE.Vector3, dir: THREE.Vector3, side: THREE.Vector3, damage = 36, radius = 2.4) {
-    super(g, owner, from, dir, side, { radius, halfAngle: 0.9, speed: 58, range: 70, damage, cut: 640, colors: WATER_BLADE, band: radius * 0.3 });
+  constructor(g: Game, owner: Fighter, from: THREE.Vector3, dir: THREE.Vector3, side: THREE.Vector3, damage = 36, radius = 2.4, range = 70, cut = 640) {
+    super(g, owner, from, dir, side, { radius, halfAngle: 0.9, speed: 58, range, damage, cut, colors: WATER_BLADE, band: radius * 0.3 });
     this.wg = g;
   }
   override update(dt: number, g: Game): void {

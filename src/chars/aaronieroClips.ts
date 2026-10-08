@@ -221,7 +221,7 @@ const kRelease: ClipDef = {
 };
 
 export const KAIEN_CHAIN = ['kn_s1', 'kn_s2', 'kn_s3', 'kn_s4'];
-export const KAIEN_CLIPS: ClipDef[] = [...SHARED, kn1, kn2, kn3, kn4, shakkaho, kRelease, aspect];
+export const KAIEN_CLIPS: ClipDef[] = [...SHARED, kn1, kn2, kn3, kn4, shakkaho, kRelease, aspect, release];
 
 // ================================================================== Nejibana
 
