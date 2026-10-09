@@ -50,7 +50,7 @@ reflection that was struck: it shatters like glass and he steps out from behind 
 | Q | Hadō #73 **Sōren Sōkatsui** (双蓮蒼火墜): twin blue fire from both palms (15 m) | **Bunkō** (分光, Spectrum): a prism splits a beam into seven - red burns, orange explodes, yellow paralyses, green heals him, blue slows, indigo blinds, violet seals | **Kyōzō** (鏡像, Mirror Images): three glass copies of him climb out of the water and fight (12 s) | **Hyakkakyō** (百花鏡, the Kaleidoscope): the target shut in a turning kaleidoscope - blind, lost, cut from six mirrored angles (3 s) |
 | E | Bakudō #81 **Dankū** (断空): a wall before him stops every blow and shot from the front (3 s) | **Hansha** (反射, Reflection): a mirror before him (2.5 s); shots that reach it are undone and fired back, blows from the front glance off and return | **Kagami-watari** (鏡渡り, Crossing the Mirror): he sinks into the mirror, bursts out under the target with a rising cut, then drops on it from above | **Tenkyō Shōten** (天鏡焦点, the Heaven-Mirror's Focus): a vast mirror in the sky focuses the sun on the target - a pillar of light that bores a molten shaft |
 | R | Bakudō #79 **Kuyō Shibari** (九曜縛): nine black seals pin the target (3 s) | **Shōten** (焦点, Focal Point): a lens in the sky focuses sunlight into a white-hot point that follows the target (3 s), burning it and melting the ground | **Senkyō Kōrō** (千鏡光牢, Thousand-Mirror Prison of Light): a sphere of mirrors round the target, a ray fired in bounces from mirror to mirror (30 hits), then it shatters | **Kyōzō Hangyaku** (鏡像反逆, the Reflection Rebels): the target's own reflection steps out of the mirror and fights it on his side (a full copy, 15 s) |
-| G | Hadō #90 **Kurohitsugi** (黒棺): the Black Coffin, chantless | **Senkō** (閃光, Flash): the mirror flashes - everyone looking at him is blinded (4 s) and stunned; decoys and veils burn away | **Kyōha** (鏡波, Mirror Wave): the still water rises into a great wave of mirror-glass that crashes 90 m ahead and floods the ground | **Jōhari no Kagami** (浄玻璃鏡, the Crystal Mirror of Judgment): the King of Hell's mirror rises before the target and every blow it ever struck returns at once |
+| G | Hadō #90 **Kurohitsugi** (黒棺): the Black Coffin, chantless | **Senkō** (閃光, Flash): the mirror flashes - everyone looking at him is blinded (4 s) and stunned; decoys and veils burn away | **Kyōha** (鏡波, Mirror Wave): the still water rises into a great wave of mirror-glass that crashes 90 m ahead and floods the ground | **Jōhari no Kagami** (浄玻璃鏡, the Crystal Mirror of Judgment): the King of Hell's mirror rises behind the target and every blow it ever struck returns at once |
 | F | Shikai | Bankai | Final | seal everything |
 | V | reiatsu flare (violet) | flare | flare | flare |
 
@@ -88,7 +88,7 @@ reflection that was struck: it shatters like glass and he steps out from behind 
 | 28 | Hyakkakyō | slot Final/Q | kaleidoscope dome, blind + scramble + cuts |
 | 29 | Tenkyō Shōten | slot Final/E | sky mirror + pillar of sunlight |
 | 30 | Kyōzō Hangyaku | slot Final/R | copy of the target (`rosterById`) on his side |
-| 31 | Jōhari no Kagami | slot Final/G | a real mirror (`Reflector`) facing the target; damage = what it dealt |
+| 31 | Jōhari no Kagami | slot Final/G | a real mirror (`Reflector`) rising behind the target, facing him; damage = 900 + what it dealt |
 | 32 | Seal | F (Final) | back to sealed, the lake drained, the sky restored |
 | 33 | Shingan | passive | perception statuses cleared every step |
 | 34 | Kagami-gawari | passive | `onLethal`, once |
@@ -113,7 +113,7 @@ reflection that was struck: it shatters like glass and he steps out from behind 
 | Senkō | 0.18 flash | 20 + blind 4 s | - |
 | Kyōei echo | 0.12 after each cut | 60 % of the cut | - |
 | Mizukagami-tsuki | 0.3 stab | 220, unblockable, launch 14 | spike: smash r 1.4, power 1400 |
-| Kyōzō | 0.5 cast | copies: his Shikai string | - |
+| Kyōzō | 0.5 cast | copies: his Shikai string at half power, a small Kakudai (14 m) and Bunkō (36 m), no callouts | small: cut 900, bore power 400 |
 | Kagami-watari | under at 0.15, above at 0.55 | 120 + 200, unblockable | smash r 2.4, power 1800 at the landing |
 | Senkyō Kōrō | 0.3 cast, 1.8 s | 30 × 14, break 160 | burst r 3, power 1500 |
 | Kyōha | 0.8 rise, wave 90 m at 40 m/s | 260 heavy | smash along a 30 m front, flood 12 s |
@@ -122,7 +122,7 @@ reflection that was struck: it shatters like glass and he steps out from behind 
 | Hyakkakyō | 0.3 cast, 3 s | 18 cuts × 40 | small cuts |
 | Tenkyō Shōten | 0.6 open, 2.5 s | drain 360/s | bore r 5 down 20 m, melt round it |
 | Kyōzō Hangyaku | 0.4 cast | the copy fights | - |
-| Jōhari no Kagami | 1.0 rise, 1.6 judgment | max(900, everything it dealt) unblockable | burst r 6 |
+| Jōhari no Kagami | 0.3 cast, the mirror (4.2 × 6.6 m) rises behind the target over 0.8 s, judgment at 1.1 | 900 + everything it dealt in the fight (÷ his power), unblockable, reflected | - (the mirror shatters at 1.65) |
 
 Hitstop tiers: string 0.05-0.07, signature 0.12-0.16, Issen / Jōhari / Tenkyō Shōten 0.2 + slow motion.
 

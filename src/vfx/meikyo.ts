@@ -28,7 +28,7 @@ export const SPECTRUM = ['#FF4A5E', '#FF9A3C', '#FFE14A', '#5CEB7C', '#4AB4FF', 
 
 export const AURA_EVEN: AuraStyle = { core: '#F6F4FF', body: '#B9A8FF', rim: '#7FD8FF' };
 export const AURA_EVEN_BANKAI: AuraStyle = { core: '#F2FCFF', body: '#A8E8FF', rim: '#B9A8FF' };
-export const AURA_EVEN_FINAL: AuraStyle = { core: '#FFFFFF', body: '#EFE8FF', rim: '#FF9EDB' };
+export const AURA_EVEN_FINAL: AuraStyle = { core: '#F8F4FF', body: '#C9B6FF', rim: '#FF9EDB' };
 /** the Shikai's crescents: glass catching the light */
 export const PRISM_COLORS: EnergyColors = { core: '#FFFFFF', body: '#D2E2FF', rim: '#8E7CFF' };
 /** the Bankai's: mirror-water */
@@ -1339,6 +1339,18 @@ export class SunPillar implements Projectile {
   }
 }
 
+/** a soft glow round a rectangle: uSize is the plane's size, uRect the rectangle's half extents (metres) */
+const HALO_FRAG = /* glsl */ `
+uniform float uA; uniform vec3 uC; uniform vec2 uSize; uniform vec2 uRect;
+varying vec2 vUv;
+void main() {
+  vec2 p = (vUv - 0.5) * uSize;
+  vec2 q = abs(p) - uRect;
+  float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0);
+  float a = exp(-max(d, 0.0) * 1.5) * uA;
+  gl_FragColor = vec4(uC * a * 1.6, a);
+}`;
+
 const CRACK_FRAG = /* glsl */ `
 uniform float uK; uniform float uA; varying vec2 vUv;
 float h(float x) { return fract(sin(x * 127.1) * 43758.5453); }
@@ -1371,31 +1383,43 @@ export class JudgmentMirror implements Projectile {
   private crest: GlassMaterial;
   private crack: THREE.Mesh;
   private crackMat: THREE.ShaderMaterial;
+  private haloMat: THREE.ShaderMaterial;
   private broke = false;
   private base: THREE.Vector3;
+  /** the glass's size and the frame's width (metres) */
+  static readonly W = 4.2;
+  static readonly H = 6.6;
+  static readonly T = 0.46;
 
   constructor(private g: Game, private target: Fighter, at: THREE.Vector3, facing: THREE.Vector3, readonly o: { judgeAt: number; life: number; onJudge: () => void }) {
-    const W = 3.2, H = 5.2;
+    const { W, H, T: t } = JudgmentMirror;
     const gr = g.engine.gr;
     const low = gr.quality.pixelRatio < 1;
-    this.refl = new Reflector(new THREE.PlaneGeometry(W, H), { textureWidth: low ? 384 : 640, textureHeight: low ? 624 : 1040, clipBias: 0.003, multisample: 0, color: 0xd8dcf0 });
+    this.refl = new Reflector(new THREE.PlaneGeometry(W, H), { textureWidth: low ? 384 : 640, textureHeight: low ? 604 : 1006, clipBias: 0.003, multisample: 0, color: 0xd8dcf0 });
     this.refl.position.set(0, H / 2, 0.02);
     this.frameMat = new THREE.MeshStandardMaterial({ color: '#2B2338', roughness: 0.35, metalness: 0.4, envMap: gr.envMap });
-    this.trimMat = new THREE.MeshStandardMaterial({ color: '#D6C08A', roughness: 0.25, metalness: 0.9, envMap: gr.envMap });
-    const t = 0.32;
-    const bar = (w: number, h: number, x: number, y: number, m: THREE.Material) => {
-      const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.3), m);
+    this.trimMat = new THREE.MeshStandardMaterial({ color: '#D6C08A', roughness: 0.25, metalness: 0.9, envMap: gr.envMap, emissive: '#5E4A20', emissiveIntensity: 0.7 });
+    const box = (w: number, h: number, d: number, x: number, y: number, m: THREE.Material) => {
+      const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
       b.position.set(x, y, 0);
       return b;
     };
-    this.group.add(this.refl, bar(W + t * 2, t, 0, H + t / 2, this.frameMat), bar(W + t * 2, t, 0, -t / 2, this.frameMat), bar(t, H + t * 2, -W / 2 - t / 2, H / 2, this.frameMat), bar(t, H + t * 2, W / 2 + t / 2, H / 2, this.frameMat));
-    this.group.add(bar(W + t * 2.6, 0.08, 0, H + t + 0.04, this.trimMat), bar(W + t * 2.6, 0.08, 0, -t - 0.04, this.trimMat));
+    // the frame, and gold mouldings standing proud of it round the glass and round the outside
+    const fx = W / 2 + t / 2, ox = W / 2 + t + 0.05, ix = W / 2 + 0.04;
+    this.group.add(this.refl, box(W + t * 2, t, 0.3, 0, H + t / 2, this.frameMat), box(W + t * 2, t, 0.3, 0, -t / 2, this.frameMat), box(t, H + t * 2, 0.3, -fx, H / 2, this.frameMat), box(t, H + t * 2, 0.3, fx, H / 2, this.frameMat));
+    this.group.add(box(W + 0.16, 0.08, 0.36, 0, H + 0.04, this.trimMat), box(W + 0.16, 0.08, 0.36, 0, -0.04, this.trimMat), box(0.08, H + 0.16, 0.36, -ix, H / 2, this.trimMat), box(0.08, H + 0.16, 0.36, ix, H / 2, this.trimMat));
+    this.group.add(box(W + t * 2 + 0.2, 0.1, 0.36, 0, H + t + 0.05, this.trimMat), box(W + t * 2 + 0.2, 0.1, 0.36, 0, -t - 0.05, this.trimMat), box(0.1, H + t * 2 + 0.2, 0.36, -ox, H / 2, this.trimMat), box(0.1, H + t * 2 + 0.2, 0.36, ox, H / 2, this.trimMat));
+    for (const [x, y] of [[-fx, H + t / 2], [fx, H + t / 2], [-fx, -t / 2], [fx, -t / 2]]) {
+      const boss = new THREE.Mesh(new THREE.OctahedronGeometry(0.3), this.trimMat);
+      boss.position.set(x, y, 0.12);
+      this.group.add(boss);
+    }
     // the crest: a ring of violet light with an eye of glass over the top of the frame
     this.crest = glassMaterial('#F4ECFF', MEIKYO_VIOLET, 1.4);
-    const crestRing = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.09, 8, 40), this.trimMat);
-    crestRing.position.set(0, H + 0.95, 0);
-    const crestEye = new THREE.Mesh(new THREE.CircleGeometry(0.55, 32), this.crest);
-    crestEye.position.set(0, H + 0.95, 0.05);
+    const crestRing = new THREE.Mesh(new THREE.TorusGeometry(0.82, 0.11, 8, 40), this.trimMat);
+    crestRing.position.set(0, H + t + 1.05, 0);
+    const crestEye = new THREE.Mesh(new THREE.CircleGeometry(0.72, 32), this.crest);
+    crestEye.position.set(0, H + t + 1.05, 0.05);
     this.group.add(crestRing, crestEye);
     this.crackMat = new THREE.ShaderMaterial({
       uniforms: { uK: { value: 0 }, uA: { value: 1 } },
@@ -1406,6 +1430,17 @@ export class JudgmentMirror implements Projectile {
     this.crack = new THREE.Mesh(new THREE.PlaneGeometry(W, H), this.crackMat);
     this.crack.position.set(0, H / 2, 0.06);
     this.group.add(this.crack);
+    // a halo of violet light round the whole frame, behind it (the frame and the glass hide its middle)
+    const HW = W + 4, HH = H + 4.5;
+    this.haloMat = new THREE.ShaderMaterial({
+      uniforms: { uA: { value: 0 }, uC: { value: rgb('#B9A8FF') }, uSize: { value: new THREE.Vector2(HW, HH) }, uRect: { value: new THREE.Vector2(W / 2 + t, H / 2 + t) } },
+      vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+      fragmentShader: HALO_FRAG,
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+    });
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(HW, HH), this.haloMat);
+    halo.position.set(0, H / 2, -0.25);
+    this.group.add(halo);
     for (const m of this.group.children) {
       m.frustumCulled = false;
       m.renderOrder = 5;
@@ -1419,17 +1454,18 @@ export class JudgmentMirror implements Projectile {
   update(dt: number, g: Game): void {
     this.t += dt;
     const o = this.o;
+    const mid = JudgmentMirror.H / 2;
     if (!this.judged && this.t >= o.judgeAt) {
       this.judged = true;
       o.onJudge();
-      const c = this.group.position.clone().setY(this.base.y + 2.6);
+      const c = this.group.position.clone().setY(this.base.y + mid);
       prismBurst(g, c, 3);
       g.sfx.play('crack', c, 1.8);
     }
     if (!this.broke && this.t >= o.life) {
       this.broke = true;
-      const c = this.group.position.clone().setY(this.base.y + 2.6);
-      g.addProjectile(new GlassShatter(g, c, 60, 12, 0.45, 1.4, 3));
+      const c = this.group.position.clone().setY(this.base.y + mid);
+      g.addProjectile(new GlassShatter(g, c, 80, 12, 0.45, 1.4, 3));
       g.sfx.play('explode', c, 0.9);
       this.done = true;
     }
@@ -1439,10 +1475,13 @@ export class JudgmentMirror implements Projectile {
   render(): void {
     const rise = Math.min(1, this.t / 0.8);
     const e = rise * rise * (3 - 2 * rise);
-    this.group.position.set(this.base.x, this.base.y - 6.4 * (1 - e), this.base.z);
+    // it rises out of the ground (the whole of it, crest and all, starts below)
+    const depth = JudgmentMirror.H + JudgmentMirror.T + 2.2;
+    this.group.position.set(this.base.x, this.base.y - depth * (1 - e), this.base.z);
     this.crest.uniforms.uT.value = this.t;
     this.crest.uniforms.uFlash.value = this.judged ? Math.max(0, 1 - (this.t - this.o.judgeAt) * 3) : 0.2 + 0.2 * Math.sin(this.t * 6);
     this.crackMat.uniforms.uK.value = this.judged ? Math.min(1.2, (this.t - this.o.judgeAt) * 2.4) : 0;
+    this.haloMat.uniforms.uA.value = (0.55 + 0.15 * Math.sin(this.t * 7)) * e + (this.judged ? Math.max(0, 1.4 - (this.t - this.o.judgeAt) * 4) : 0);
   }
 
   dispose(): void {
@@ -1453,6 +1492,7 @@ export class JudgmentMirror implements Projectile {
     this.trimMat.dispose();
     this.crest.dispose();
     this.crackMat.dispose();
+    this.haloMat.dispose();
   }
 }
 

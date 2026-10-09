@@ -282,7 +282,7 @@ class CrossingAction extends SkillAction {
     f.anim.play('ev_dive', {});
     f.ghosts.spawn(0.5, 1);
     this.kit.lake?.ripple(f.pos, 1.4);
-    g.callout('鏡渡り', 'KAGAMI-WATARI', MEIKYO_CYAN);
+    this.kit.say('鏡渡り', 'KAGAMI-WATARI', MEIKYO_CYAN);
     g.sfx.play('shunpo', f.center(), 1);
   }
   override update(f: Fighter, g: Game, dt: number): void {
@@ -388,6 +388,11 @@ export class EvenKit implements Kit {
     this.hands();
     this.attachMuzzle();
     this.applyStats();
+  }
+
+  /** a technique's name on screen (his reflections fight in silence) */
+  say(kanji: string, romaji: string, color: string): void {
+    if (!this.mirror) this.g.callout(kanji, romaji, color);
   }
 
   // ---------------------------------------------------------------- per step
@@ -639,7 +644,7 @@ export class EvenKit implements Kit {
         return;
       }
       case 'shikai':
-        this.special(new Skill(this, 'shoten', 'ev_focus', 0.8, { raise: [0.2, () => this.g.callout('焦点', 'SHŌTEN', '#FFE7B0')], call: [0.45, () => this.shoten()] }, { mobility: 0.15 }), 28, 'focus', 8);
+        this.special(new Skill(this, 'shoten', 'ev_focus', 0.8, { raise: [0.2, () => this.say('焦点', 'SHŌTEN', '#FFE7B0')], call: [0.45, () => this.shoten()] }, { mobility: 0.15 }), 28, 'focus', 8);
         return;
       case 'bankai': {
         const t = this.target(45);
@@ -662,7 +667,7 @@ export class EvenKit implements Kit {
     if (this.form === 'sealed') {
       if (!f.spendRei(20)) return this.noRei();
       f.act(new Skill(this, 'release', 'ev_release', 0.9, {
-        name: [0.22, () => g.callout('映せ「明鏡」', 'UTSUSE, MEIKYŌ', MEIKYO_VIOLET)],
+        name: [0.22, () => this.say('映せ「明鏡」', 'UTSUSE, MEIKYŌ', MEIKYO_VIOLET)],
         shine: [0.48, () => this.toShikai()],
       }, { armor: 0.8, mobility: 0.1 }), true);
       g.addProjectile(new Glint(g, f, 0.5));
@@ -671,7 +676,7 @@ export class EvenKit implements Kit {
     if (this.form === 'shikai') {
       if (!f.spendRei(40)) return this.noRei();
       f.act(new Skill(this, 'bankai', 'ev_bankai', 1.5, {
-        name: [0.3, () => g.callout('卍解「明鏡止水」', 'BANKAI — MEIKYŌ SHISUI', MEIKYO_CYAN)],
+        name: [0.3, () => this.say('卍解「明鏡止水」', 'BANKAI — MEIKYŌ SHISUI', MEIKYO_CYAN)],
         lake: [0.85, () => this.toBankai()],
       }, { invulnerable: true, mobility: 0 }), true);
       g.sfx.play('bankai', f.center(), 1);
@@ -680,7 +685,7 @@ export class EvenKit implements Kit {
     if (this.form === 'bankai') {
       if (!f.spendRei(60)) return this.noRei();
       f.act(new Skill(this, 'kaigen', 'ev_kaigen', 1.6, {
-        name: [0.3, () => g.callout('開眼「光明遍照」', 'KAIGEN — KŌMYŌ HENJŌ', '#EFE8FF')],
+        name: [0.3, () => this.say('開眼「光明遍照」', 'KAIGEN — KŌMYŌ HENJŌ', '#EFE8FF')],
         rise: [0.75, () => this.toFinal()],
       }, { invulnerable: true, mobility: 0 }), true);
       g.addProjectile(new Glint(g, f, 0.7, '#E8DCFF', 0.6));
@@ -864,7 +869,7 @@ export class EvenKit implements Kit {
     f.damageTaken = this.mirror ? 1 : st.taken;
     f.knockTaken = this.form === 'final' ? 0 : this.form === 'bankai' ? 0.4 : 0.8;
     f.energyTaken = this.form === 'final' ? 0.6 : 1;
-    f.aura.target = this.flare ? 1 : this.form === 'final' ? 0.34 : this.form === 'bankai' ? 0.26 : this.form === 'shikai' ? 0.14 : 0.06;
+    f.aura.target = this.flare ? 1 : this.form === 'final' ? 0.24 : this.form === 'bankai' ? 0.22 : this.form === 'shikai' ? 0.14 : 0.06;
   }
 
   formName(): string {
@@ -897,7 +902,7 @@ export class EvenKit implements Kit {
       place(g, f, from.pos.clone().addScaledVector(back, from.def.radius + 1.3));
       f.yaw = Math.atan2(from.pos.x - f.pos.x, from.pos.z - f.pos.z);
     }
-    g.callout('鏡代わり', 'KAGAMI-GAWARI', MEIKYO_VIOLET);
+    this.say('鏡代わり', 'KAGAMI-GAWARI', MEIKYO_VIOLET);
     g.sfx.play('crack', c, 1.4);
     g.slowMo(0.6, 0.35);
     return true;
@@ -949,7 +954,7 @@ export class EvenKit implements Kit {
     if (!emitter) return;
     // one tick each (0.25 of the damage): a bolt of 58
     g.addProjectile(new CeroBeam(g, f, emitter, () => this.aim(new THREE.Vector3()), { charge: 0.02, fire: 0.2, radius: 0.15, damage: 232, power: 600, core: '#FFFFFF', body: '#CFE6FF', rim: '#6A8CE0', range: 95, track: 3, gain: 1.7 }));
-    if (i === 0) g.callout('破道の四「白雷・三連」', 'HADŌ #4 — BYAKURAI: SANREN', '#DDEBFF');
+    if (i === 0) this.say('破道の四「白雷・三連」', 'HADŌ #4 — BYAKURAI: SANREN', '#DDEBFF');
     g.sfx.play('shunpo', f.center(), 1.3);
   }
 
@@ -957,7 +962,7 @@ export class EvenKit implements Kit {
   private sorenSokatsui(): void {
     const { f, g } = this;
     const aim = this.aim(new THREE.Vector3());
-    g.callout('破道の七十三「双蓮蒼火墜」', 'HADŌ #73 — SŌREN SŌKATSUI', '#7FC8FF');
+    this.say('破道の七十三「双蓮蒼火墜」', 'HADŌ #73 — SŌREN SŌKATSUI', '#7FC8FF');
     g.sfx.play('getsuga', f.center(), 1.1);
     const hit = new Set<number>();
     for (const src of [this.sock('palm.L', new THREE.Vector3()), this.tipPoint(new THREE.Vector3())]) {
@@ -992,7 +997,7 @@ export class EvenKit implements Kit {
     const { f, g } = this;
     this.danku = new DankuWall(g, f, 3);
     g.addProjectile(this.danku);
-    g.callout('縛道の八十一「断空」', 'BAKUDŌ #81 — DANKŪ', '#DDEBFF');
+    this.say('縛道の八十一「断空」', 'BAKUDŌ #81 — DANKŪ', '#DDEBFF');
     g.sfx.play('ting', f.center(), 1.5);
   }
 
@@ -1001,7 +1006,7 @@ export class EvenKit implements Kit {
     const { f, g } = this;
     if (t.dead) return;
     g.addProjectile(new KuyoShibari(g, f, t, 3));
-    g.callout('縛道の七十九「九曜縛」', 'BAKUDŌ #79 — KUYŌ SHIBARI', '#8E4FD8');
+    this.say('縛道の七十九「九曜縛」', 'BAKUDŌ #79 — KUYŌ SHIBARI', '#8E4FD8');
   }
 
   /** Hadō #90 Kurohitsugi, chantless at full power */
@@ -1010,7 +1015,7 @@ export class EvenKit implements Kit {
     const t = this.target(40);
     const at = t ? t.center() : f.center().addScaledVector(f.forward(_w), 12);
     g.addProjectile(new BlackCoffin(g, f, t, at, 260, 1.15, 0.45, 1.5));
-    g.callout('破道の九十「黒棺」', 'HADŌ #90 — KUROHITSUGI', '#8E4FD8');
+    this.say('破道の九十「黒棺」', 'HADŌ #90 — KUROHITSUGI', '#8E4FD8');
   }
 
   // ---------------------------------------------------------------- Shikai: the glass
@@ -1020,7 +1025,7 @@ export class EvenKit implements Kit {
   private lensUp(): void {
     const { f, g } = this;
     const fw = this.flatAim();
-    this.lens = new GiantLens(g, f.center().addScaledVector(fw, 1.7), fw, 2.4, 0.75);
+    this.lens = new GiantLens(g, f.center().addScaledVector(fw, 1.7), fw, this.mirror ? 1.4 : 2.4, 0.75);
     g.addProjectile(this.lens);
     g.sfx.play('ting', f.center(), 1.6);
   }
@@ -1040,18 +1045,20 @@ export class EvenKit implements Kit {
     const right = new THREE.Vector3(fw.z, 0, -fw.x);
     const c = f.center();
     const origin = c.clone().addScaledVector(fw, 1.7);
+    // a reflection's lens is a small one: its cut reaches a street's width, not the whole district
+    const len = this.mirror ? 14 : 42, half = this.mirror ? 2 : 4;
     this.lens?.flash();
-    g.addProjectile(new PlanarSlash(g, f, origin, fw.clone(), right, { length: 42, width: 8, grow: 0.14, damage: 0, cut: 2200, color: '#CFE0FF', core: '#FFFFFF' }));
+    g.addProjectile(new PlanarSlash(g, f, origin, fw.clone(), right, { length: len, width: half * 2, grow: 0.14, damage: 0, cut: this.mirror ? 900 : 2200, color: '#CFE0FF', core: '#FFFFFF' }));
     for (const o of g.enemiesOf(f)) {
       _v.subVectors(o.center(), origin);
       const a = _v.dot(fw);
-      if (a < -1.5 || a > 42 + o.def.radius) continue;
-      if (Math.abs(_v.dot(right)) > 4 + o.def.radius) continue;
+      if (a < -1.5 || a > len + o.def.radius) continue;
+      if (Math.abs(_v.dot(right)) > half + o.def.radius) continue;
       if (Math.abs(_v.y) > 1.4 + o.def.height * 0.4) continue;
       g.damage(o, 140, f, fw.clone(), { knock: 16, launch: 5, heavy: true, hitstop: 0.14, shake: 0.6, unblockable: true, color: '#CFE0FF' });
       g.sparks(o.center(), fw, '#CFE0FF', 24);
     }
-    g.callout('拡大', 'KAKUDAI', '#CFE0FF');
+    this.say('拡大', 'KAKUDAI', '#CFE0FF');
     g.sfx.play('swingHeavy', c, 1.2);
     g.shake(0.4);
   }
@@ -1067,8 +1074,8 @@ export class EvenKit implements Kit {
     const dist = Math.max(4, aim.distanceTo(at));
     // fanned a little round the aim point: red on one side, violet on the other, crossing on the target
     const rays = SPECTRUM.map((color, i) => ({ color, to: aim.clone().addScaledVector(right, ((i - 3) * dist) / 34).add(_w.set(0, (i % 2 ? 0.2 : -0.2), 0)) }));
-    g.addProjectile(new PrismRays(g, f, at, () => this.tipPoint(new THREE.Vector3()), rays, { range: 80, radius: 0.35, power: 900, step: 0.035, onHit: (i, o, p) => this.prismHit(i, o, p) }));
-    g.callout('分光', 'BUNKŌ', '#FFFFFF');
+    g.addProjectile(new PrismRays(g, f, at, () => this.tipPoint(new THREE.Vector3()), rays, { range: this.mirror ? 36 : 80, radius: 0.35, power: this.mirror ? 400 : 900, step: 0.035, onHit: (i, o, p) => this.prismHit(i, o, p) }));
+    this.say('分光', 'BUNKŌ', '#FFFFFF');
   }
 
   /** one ray of the spectrum reaching someone: its damage and its colour's effect */
@@ -1119,7 +1126,7 @@ export class EvenKit implements Kit {
     const { f, g } = this;
     this.pane = new MirrorPane(g, f, s);
     g.addProjectile(this.pane);
-    g.callout('反射', 'HANSHA', MEIKYO_VIOLET);
+    this.say('反射', 'HANSHA', MEIKYO_VIOLET);
     g.sfx.play('ting', f.center(), 1.8);
   }
 
@@ -1176,7 +1183,7 @@ export class EvenKit implements Kit {
       if (o === g.player) g.engine.gr.chroma.offset.set(0.012, 0.012);
       g.hud?.floatText(o.center().setY(o.pos.y + o.def.height + 0.3), 'BLINDED', '#FFFFFF', 16);
     }
-    g.callout('閃光', 'SENKŌ', '#FFFFFF');
+    this.say('閃光', 'SENKŌ', '#FFFFFF');
     g.sfx.play('ting', c, 2.2);
   }
 
@@ -1214,7 +1221,7 @@ export class EvenKit implements Kit {
       g.damage(o, 220, f, _v.subVectors(o.pos, f.pos).setY(0).normalize().clone(), { knock: 3, launch: 14, heavy: true, hitstop: 0.14, shake: 0.7, unblockable: true, color: MEIKYO_CYAN });
     }
     this.lake?.ripple(p, 1.8);
-    g.callout('水鏡突き', 'MIZUKAGAMI-TSUKI', MEIKYO_CYAN);
+    this.say('水鏡突き', 'MIZUKAGAMI-TSUKI', MEIKYO_CYAN);
     g.sfx.play('crack', p, 1.4);
   }
 
@@ -1238,7 +1245,7 @@ export class EvenKit implements Kit {
       this.lake?.ripple(at, 1.2);
       prismBurst(g, c.center(), 1);
     }
-    g.callout('鏡像', 'KYŌZŌ', MEIKYO_CYAN);
+    this.say('鏡像', 'KYŌZŌ', MEIKYO_CYAN);
     g.sfx.play('ting', f.center(), 1.4);
   }
 
@@ -1274,7 +1281,7 @@ export class EvenKit implements Kit {
     const { f, g } = this;
     if (t.dead) return;
     g.addProjectile(new MirrorPrison(g, f, t, { radius: 2.6, life: 1.8, hits: 30, damage: 14, burst: 160, power: 1500 }));
-    g.callout('千鏡光牢', 'SENKYŌ KŌRŌ', MEIKYO_CYAN);
+    this.say('千鏡光牢', 'SENKYŌ KŌRŌ', MEIKYO_CYAN);
     g.sfx.play('ting', t.center(), 2);
   }
 
@@ -1286,7 +1293,7 @@ export class EvenKit implements Kit {
     o.y = (groundAt(g, o.x, f.pos.y + 1, o.z, 8) ?? f.pos.y) - 0.5;
     g.addProjectile(new MirrorWave(g, f, o, fw, { width: 36, height: 16, speed: 40, range: 90, damage: 260, rise: 0.45 }));
     this.lake?.ripple(o, 2.5);
-    g.callout('鏡波', 'KYŌHA', MEIKYO_CYAN);
+    this.say('鏡波', 'KYŌHA', MEIKYO_CYAN);
     g.sfx.play('torrent', o, 1.2);
     g.shake(0.5);
   }
@@ -1311,7 +1318,7 @@ export class EvenKit implements Kit {
       g.damage(o, 700, f, fw.clone(), { knock: 24, launch: 8, heavy: true, hitstop: 0.2, shake: 1.2, unblockable: true, color: '#EFE8FF' });
       lightSlash(g, o.center(), right, 5, '#FFFFFF');
     }
-    g.callout('一閃', 'ISSEN', '#EFE8FF');
+    this.say('一閃', 'ISSEN', '#EFE8FF');
     g.sfx.play('swingHeavy', f.center(), 1.4);
     g.sfx.play('explode', f.center(), 0.8);
     g.shake(1);
@@ -1338,7 +1345,7 @@ export class EvenKit implements Kit {
         t.hitstun = Math.max(t.hitstun, 0.2);
       });
     }
-    g.callout('百花鏡', 'HYAKKAKYŌ', '#FFB8F0');
+    this.say('百花鏡', 'HYAKKAKYŌ', '#FFB8F0');
     g.sfx.play('ting', t.center(), 1.6);
   }
 
@@ -1348,7 +1355,7 @@ export class EvenKit implements Kit {
     const t = this.target(90);
     const at = t ? t.pos.clone() : f.pos.clone().addScaledVector(this.flatAim(), 24);
     g.addProjectile(new SunPillar(g, f, t, at, { radius: 5, life: 2.6, dps: 360, follow: 5, height: 70 }));
-    g.callout('天鏡焦点', 'TENKYŌ SHŌTEN', '#FFE9B8');
+    this.say('天鏡焦点', 'TENKYŌ SHŌTEN', '#FFE9B8');
     g.sfx.play('charge', at, 1.6);
     g.shake(0.6);
   }
@@ -1378,7 +1385,7 @@ export class EvenKit implements Kit {
     this.copies.push({ f: c, t: 15 });
     prismBurst(g, c.center(), 2);
     g.addProjectile(new GlassShatter(g, c.center(), 24, 6, 0.3, 0.9, 2));
-    g.callout('鏡像反逆', 'KYŌZŌ HANGYAKU', '#FFB8F0');
+    this.say('鏡像反逆', 'KYŌZŌ HANGYAKU', '#FFB8F0');
     g.sfx.play('crack', c.center(), 1);
   }
 
@@ -1404,7 +1411,7 @@ export class EvenKit implements Kit {
         g.slowMo(0.6, 0.3);
       },
     }));
-    g.callout('浄玻璃鏡', 'JŌHARI NO KAGAMI', '#FFFFFF');
+    this.say('浄玻璃鏡', 'JŌHARI NO KAGAMI', '#FFFFFF');
     g.sfx.play('bankai', at, 0.8);
   }
 
@@ -1422,8 +1429,8 @@ export class EvenKit implements Kit {
         reach: 2.3,
         chain: 5,
         moves: [
-          { name: 'kakudai', use: () => this.heavy(), min: 3, max: 30, weight: 1.4, cd: 4 },
-          { name: 'bunko', use: () => this.skill1(), min: 5, max: 50, weight: 1, cd: 7 },
+          { name: 'kakudai', use: () => this.heavy(), min: 3, max: 14, weight: 1.2, cd: 6 },
+          { name: 'bunko', use: () => this.skill1(), min: 5, max: 36, weight: 1, cd: 8 },
         ],
       };
     return {
