@@ -54,12 +54,14 @@ import { grimmjowAsset, grimmjowProp } from '../chars/grimmjow';
 import { BYAKUYA_DEF, ByakuyaKit } from './kits/byakuya';
 import { byakuyaProp } from '../chars/byakuya';
 import { KENPACHI_DEF, KenpachiKit } from './kits/kenpachi';
+import { KENPACHI_TYBW_DEF, KenpachiTybwKit } from './kits/kenpachiTybw';
 import { kenpachiAsset, kenpachiProp } from '../chars/kenpachi';
 import { ULQUIORRA_DEF, UlquiorraKit } from './kits/ulquiorra';
 import { ulquiorraAsset, ulquiorraProp } from '../chars/ulquiorra';
 import { HITSUGAYA_DEF, HitsugayaKit } from './kits/hitsugaya';
 import { hitsugayaAsset, hitsugayaProp } from '../chars/hitsugaya';
 import { AIZEN_DEF, AizenKit } from './kits/aizen';
+import { AIZEN_TYBW_DEF, AizenTybwKit } from './kits/aizenTybw';
 import { aizenAsset, aizenProp } from '../chars/aizen';
 import { RENJI_DEF, RenjiKit } from './kits/renji';
 import { RENJI_TYBW_DEF, RenjiTybwKit } from './kits/renjiTybw';
@@ -750,11 +752,30 @@ export const ROSTER: RosterEntry[] = [
     kanji: '剣八',
     title: 'Captain, 11th Division',
     color: '#f6c823',
+    group: 'kenpachi',
+    era: 'Soul Society',
     def: () => ({ ...KENPACHI_DEF, speed: { ...KENPACHI_DEF.speed } }),
     kit: (f, g) => new KenpachiKit(f, g),
     warm: () => {
       buildCached(kenpachiAsset('bankai').model, true);
       for (const k of ['cleaver', 'bankai-blade'] as const) buildCached(kenpachiProp(k), false);
+    },
+  },
+  {
+    id: 'kenpachi-tybw',
+    name: 'Zaraki Kenpachi',
+    kanji: '野晒',
+    title: 'Thousand-Year Blood War',
+    color: '#ff6a1a',
+    group: 'kenpachi',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...KENPACHI_TYBW_DEF, speed: { ...KENPACHI_TYBW_DEF.speed } }),
+    kit: (f, g) => new KenpachiTybwKit(f, g),
+    warm: () => {
+      buildCached(kenpachiAsset('tybw').model, true);
+      buildCached(kenpachiAsset('tybw-bankai').model, true);
+      for (const k of ['cleaver', 'bankai-blade', 'stump', 'yachiru'] as const) buildCached(kenpachiProp(k), false);
     },
   },
   {
@@ -1055,12 +1076,29 @@ export const ROSTER: RosterEntry[] = [
     kanji: '鏡花水月',
     title: 'Captain, 5th Division',
     color: '#9b6dff',
+    group: 'aizen',
+    era: 'Soul Society',
     def: () => ({ ...AIZEN_DEF, speed: { ...AIZEN_DEF.speed } }),
     kit: (f, g) => new AizenKit(f, g),
     warm: () => {
       buildCached(aizenAsset('traitor').model, true);
       buildCached(aizenAsset('chrysalis').model, true);
       for (const k of ['fused', 'glasses'] as const) buildCached(aizenProp(k), false);
+    },
+  },
+  {
+    id: 'aizen-tybw',
+    name: 'Sōsuke Aizen',
+    kanji: '無間',
+    title: 'Thousand-Year Blood War',
+    color: '#7f3fd8',
+    group: 'aizen',
+    era: 'TYBW',
+    eraDefault: true,
+    def: () => ({ ...AIZEN_TYBW_DEF, speed: { ...AIZEN_TYBW_DEF.speed } }),
+    kit: (f, g) => new AizenTybwKit(f, g),
+    warm: () => {
+      for (const k of ['katana', 'chair', 'gag'] as const) buildCached(aizenProp(k), false);
     },
   },
 ];

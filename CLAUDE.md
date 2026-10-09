@@ -9,7 +9,7 @@ scope and milestones and `README.md` for controls and modes.
 - Headless visuals: `node tools/shots/shoot.mjs --url "/?..." --out shots/x.png --script "js1||js2"` takes one
   screenshot per script after `__reishi.ready()`. `tools/shots/probe.mjs --file script.js` evaluates JS and can
   screenshot. SwiftShader runs at about 1 fps, so drive the simulation deterministically with
-  `__reishi.freeze()` plus `play(n)` (step and render) or `advance(n)` (step only); blade sweeps are sampled when a
+  `__reishi.freeze()` (sets `engine.paused`; a slow-motion ending no longer un-freezes it) plus `play(n)` (step and render) or `advance(n)` (step only); blade sweeps are sampled when a
   fighter renders, so a probe that checks sword hits must `play` every frame. Use `freeCam(...)` for
   framing. Add `&q=low` for speed. `shots/` is git-ignored. The tools start Vite with
   `tools/shots/vite.shots.config.ts` (HMR off), so editing sources while a capture runs does not reload its
@@ -45,7 +45,12 @@ scope and milestones and `README.md` for controls and modes.
   `IchigoKit` in Bankai with the mask on), whose forms swap stance and clip sets with the body; Hitsugaya's TYBW era
   (`hitsugayaTybw.ts`) subclasses `HitsugayaKit` (its bodies come from `captainAsset()`/`bankaiAsset()`, Ryūsenka's
   cross from `crest()`); Renji's TYBW era (`renjiTybw.ts`) subclasses `RenjiKit` (the Ōken body; F from the
-  Shikai is Sōō Zabimaru, whose Hihiō moves bring the arm out with `showHihio(secs, fist)`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
+  Shikai is Sōō Zabimaru, whose Hihiō moves bring the arm out with `showHihio(secs, fist)`); Kenpachi's TYBW era
+  (`kenpachiTybw.ts`) subclasses `KenpachiKit` (bodies `kenpachiAsset('tybw' | 'tybw-bankai')`; its techniques are
+  `Move`s — a clip plus an event callback and a tick; the overload's torn arm hides `forearm.R` with
+  `rig.setBoneVisible` and hangs the 'stump' prop on 'elbow.R'); Aizen's TYBW era (`aizenTybw.ts`) subclasses
+  `AizenKit` (the body `aizenAsset('tybw')`; bound, `AIZEN_BOUND_STANCE` is a seated idle and the 'chair' prop
+  hangs on the root, `rooted` is held every step; F breaks the chair and switches to `AIZEN_STANCE`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
   the Lost Agent's restored Shikai run an inner `IchigoKit` with `era: 'agent' | 'lostagent'`, and the Soul Society
   entry is `IchigoKit` with `era: 'ss'`, where G lets the Hollow out: `Kit.possessed()` hands the player's body to a
   `DuelistAI` and the player's only input is the mash that tears the mask off), AI in `game/ai/` (the duel AI measures range to a big target's surface), projectiles in
@@ -220,7 +225,9 @@ scope and milestones and `README.md` for controls and modes.
   `vfx/sooZabimaru.ts` (TYBW Renji: `HihioArm`, the giant arm on his left shoulder — a mirror rig copying his left
   arm's rotations, with a pose of its own for the umbrella and a furless ghost — Hihi Tenshō's hands, Zaga Teppō's
   burning skull, Zagai Zekkō's whirl and disc; `TetherBlade` in `vfx/shiro.ts` takes a bead tether, `bore` and
-  `pullOwner` for the red-hot Orochiō) and
+  `pullOwner` for the red-hot Orochiō),
+  `vfx/nozarashi.ts` (TYBW Kenpachi: `SpaceRift`, a slit of outer space hanging along a cut; `YachiruSpirit`, Nozarashi
+  rising as a pink spirit into his hand; `CrimsonBlade`, The Perfect Crimson's blade of reiatsu on the cleaver) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).

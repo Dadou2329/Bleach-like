@@ -115,7 +115,7 @@ function clearance(g: Game, from: THREE.Vector3, dir: THREE.Vector3, want: numbe
 
 // ------------------------------------------------------------------ the strings
 
-class StringAction extends FighterAction {
+export class StringAction extends FighterAction {
   readonly name: string;
   private info: MoveInfo;
   private dur = 0;
@@ -171,7 +171,7 @@ class StringAction extends FighterAction {
   }
 }
 
-abstract class SkillAction extends FighterAction {
+export abstract class SkillAction extends FighterAction {
   protected dur = 1;
   constructor(readonly kit: AizenKit) {
     super();
@@ -196,7 +196,7 @@ abstract class SkillAction extends FighterAction {
  * RMB: the passing stroke. One step and he is already past the target, blade low and level behind
  * him; for a heartbeat nothing happens — then the cut opens.
  */
-class PassAction extends SkillAction {
+export class PassAction extends SkillAction {
   readonly name = 'pass';
   private dir = new THREE.Vector3();
   private from = new THREE.Vector3();
@@ -287,7 +287,7 @@ class PassAction extends SkillAction {
 }
 
 /** Incantation-less Kidō: Kurohitsugi, Raikōhō — and from the Chrysalis, Goryūtenmetsu. */
-class KidoAction extends SkillAction {
+export class KidoAction extends SkillAction {
   readonly name: string;
   constructor(kit: AizenKit, readonly kind: 'kurohitsugi' | 'raikoho' | 'dragons', readonly target: Fighter | null) {
     super(kit);
@@ -311,11 +311,13 @@ class KidoAction extends SkillAction {
       }
       if (n !== 'cast') return;
       if (k === 'kurohitsugi') {
-        const scale = chrys ? 2.3 : 1;
+        const big = chrys || this.kit.form === 'tybw';
+        const scale = big ? 2.3 : 1;
         const at = t ? t.pos.clone() : aim(f, g);
         at.y += 1.2 * scale;
-        g.addProjectile(new BlackCoffin(g, f, t, at, chrys ? 280 : 150, scale, chrys ? 0.7 : 0.5, chrys ? 1.6 : 1.3));
+        g.addProjectile(new BlackCoffin(g, f, t, at, chrys ? 280 : big ? 220 : 150, scale, big ? 0.7 : 0.5, big ? 1.6 : 1.3));
         if (chrys) g.callout('黒棺 · 完全詠唱', 'HADŌ #90 — KUROHITSUGI, FULLY INCANTED', '#b57dff');
+        else if (big) g.callout('破道の九十 黒棺', 'HADŌ #90 — KUROHITSUGI, FULL POWER', '#b57dff');
         else g.callout('黒棺', 'HADŌ #90 — KUROHITSUGI', '#b57dff');
         f.aura.flare(1.4, 0.8);
         g.sfx.play('charge', f.center(), 0.7);
@@ -333,7 +335,7 @@ class KidoAction extends SkillAction {
  * R: Kyōka Suigetsu. What the enemy sees stays where it was — a perfect copy, frozen — while the real
  * Aizen, unseen and untouchable, walks round behind them. The copy shatters like a mirror as he cuts.
  */
-class IllusionAction extends SkillAction {
+export class IllusionAction extends SkillAction {
   readonly name = 'illusion';
   private decoy: MirrorDecoy | null = null;
   private shownAt = -1;
@@ -396,7 +398,7 @@ class IllusionAction extends SkillAction {
 }
 
 /** The passive: one raised finger, and the blade stops on its tip. */
-class FingerAction extends SkillAction {
+export class FingerAction extends SkillAction {
   readonly name = 'finger';
   constructor(kit: AizenKit) {
     super(kit);
@@ -497,10 +499,10 @@ export class AizenKit implements Kit {
   form: AizenForm = 'captain';
   flare = false;
   comboIndex = 0;
-  private lastEnd = 0;
-  private cd = { heavy: 0, kuro: 0, raikoho: 0, dragons: 0, illusion: 0, parry: 0 };
-  private hurtT = 0;
-  private hidden = false;
+  protected lastEnd = 0;
+  protected cd = { heavy: 0, kuro: 0, raikoho: 0, dragons: 0, illusion: 0, parry: 0 };
+  protected hurtT = 0;
+  protected hidden = false;
   private glassesBroken: Shattered | null = null;
 
   constructor(readonly f: Fighter, readonly g: Game) {
@@ -555,7 +557,7 @@ export class AizenKit implements Kit {
     this.f.act(new StringAction(this, list[idx], idx), true);
   }
 
-  private special(a: SkillAction, cost: number, cdKey: keyof typeof this.cd, cd: number): void {
+  protected special(a: SkillAction, cost: number, cdKey: keyof typeof this.cd, cd: number): void {
     const f = this.f;
     if (this.cd[cdKey] > 0) return;
     if (f.action && !f.action.canCancel(a)) return;
@@ -634,7 +636,7 @@ export class AizenKit implements Kit {
   }
 
   /** The finger block: light, frontal, not while he is busy. */
-  private tryParry(amount: number, from: Fighter | null, o: DamageOpts): boolean {
+  protected tryParry(amount: number, from: Fighter | null, o: DamageOpts): boolean {
     const { f, g } = this;
     if (!from || o.heavy || o.quiet || this.cd.parry > 0 || this.hidden) return false;
     if (f.action || f.hitstun > 0 || f.dashT > 0 || f.dead) return false;
@@ -732,7 +734,7 @@ export class AizenKit implements Kit {
     this.applyStats();
   }
 
-  private applyStats(): void {
+  protected applyStats(): void {
     const f = this.f;
     f.power = (this.form === 'chrysalis' ? 1.6 : this.form === 'traitor' ? 1.2 : 1) * (this.flare ? 1.25 : 1);
     f.damageTaken = this.form === 'chrysalis' ? 0.7 : 0.85;

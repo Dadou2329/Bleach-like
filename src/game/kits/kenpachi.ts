@@ -11,7 +11,7 @@ import { FighterAction, type BladeSpec, type Fighter, type FighterDef } from '..
 import type { Game, Projectile } from '../game';
 import type { Kit, KitAI } from './kit';
 import type { AbilityInfo } from '../../ui/hud';
-import { KENPACHI_RES, kenpachiAsset, kenpachiProp } from '../../chars/kenpachi';
+import { KENPACHI_RES, kenpachiAsset, kenpachiProp, type KenpachiForm, type KenpachiProp } from '../../chars/kenpachi';
 import {
   KENPACHI_BANKAI_CHAIN, KENPACHI_BANKAI_STANCE, KENPACHI_CLIPS, KENPACHI_POOL, KENPACHI_SHIKAI_CHAIN, KENPACHI_SHIKAI_STANCE, KENPACHI_STANCE,
 } from '../../chars/kenpachiClips';
@@ -24,13 +24,13 @@ import type { AuraStyle } from '../../vfx/aura';
 
 export const AURA_KENPACHI: AuraStyle = { core: '#FFF2B3', body: '#F6C823', rim: '#B8860B' };
 export const AURA_KENPACHI_BANKAI: AuraStyle = { core: '#FFF4C2', body: '#FF6A1A', rim: '#B3231D' };
-const GOLD = '#F6C823';
-const EMBER = '#FF6A1A';
+export const GOLD = '#F6C823';
+export const EMBER = '#FF6A1A';
 
 type BladeDef = NonNullable<FighterDef['blade']>;
 const BLADE_SEALED: BladeDef = { prop: 'sword', base: [0, 0, 0.16], tip: [0, 0, 1.29], color: '#FFD84A', core: '#FFF6D0' };
-const BLADE_CLEAVER: BladeDef = { prop: 'sword', base: [0, -0.3, 0.62], tip: [0, -0.5, 2.25], color: '#FFD84A', core: '#FFF6D0' };
-const BLADE_BANKAI: BladeDef = { prop: 'sword', base: [0, -0.2, 0.16], tip: [0, -0.3, 1.5], color: '#FF7A2A', core: '#FFE2B0' };
+export const BLADE_CLEAVER: BladeDef = { prop: 'sword', base: [0, -0.3, 0.62], tip: [0, -0.5, 2.25], color: '#FFD84A', core: '#FFF6D0' };
+export const BLADE_BANKAI: BladeDef = { prop: 'sword', base: [0, -0.2, 0.16], tip: [0, -0.3, 1.5], color: '#FF7A2A', core: '#FFE2B0' };
 
 export const KENPACHI_DEF: FighterDef = {
   id: 'kenpachi',
@@ -56,7 +56,7 @@ export const KENPACHI_DEF: FighterDef = {
   height: 2.02,
 };
 
-const SPEED_BANKAI = { run: 11.5, sprint: 25, jump: 13.5, dash: 13, dashTime: 0.11 };
+export const SPEED_BANKAI = { run: 11.5, sprint: 25, jump: 13.5, dash: 13, dashTime: 0.11 };
 
 type Form = 'sealed' | 'shikai' | 'bankai';
 
@@ -65,7 +65,7 @@ const _w = new THREE.Vector3();
 const _m = new THREE.Matrix4();
 const UP = new THREE.Vector3(0, 1, 0);
 
-interface StrikeSpec {
+export interface StrikeSpec {
   damage: number;
   knock: number;
   launch?: number;
@@ -112,7 +112,7 @@ const MOVES: Record<string, MoveInfo> = {
 };
 
 /** Hit everything inside the strike sphere once; optional world smash at the same point. */
-function strike(f: Fighter, g: Game, s: StrikeSpec, hit: Set<number>, mul: number): { p: THREE.Vector3; landed: number } {
+export function strike(f: Fighter, g: Game, s: StrikeSpec, hit: Set<number>, mul: number): { p: THREE.Vector3; landed: number } {
   const fw = f.forward(_w);
   const p = new THREE.Vector3().copy(f.pos).addScaledVector(fw, s.reach);
   p.y += s.height;
@@ -138,7 +138,7 @@ function strike(f: Fighter, g: Game, s: StrikeSpec, hit: Set<number>, mul: numbe
  * Orientation of a thin cut slab in front of the fighter: local X along `fw`, local Z across, tilted
  * by `tiltDeg` about the forward axis (0 = horizontal slab, 90 = vertical), local Y the slab normal.
  */
-function slabQuat(fw: THREE.Vector3, tiltDeg: number): { q: THREE.Quaternion; across: THREE.Vector3; normal: THREE.Vector3 } {
+export function slabQuat(fw: THREE.Vector3, tiltDeg: number): { q: THREE.Quaternion; across: THREE.Vector3; normal: THREE.Vector3 } {
   const right = new THREE.Vector3(-fw.z, 0, fw.x);
   const across = right.clone().applyAxisAngle(fw, (tiltDeg * Math.PI) / 180);
   const normal = new THREE.Vector3().crossVectors(across, fw).normalize();
@@ -147,7 +147,7 @@ function slabQuat(fw: THREE.Vector3, tiltDeg: number): { q: THREE.Quaternion; ac
 }
 
 /** A golden sheet of light lying in a cut plane, a bright line down its middle, fading fast. */
-class CutFlash implements Projectile {
+export class CutFlash implements Projectile {
   done = false;
   private mesh: THREE.Mesh;
   private u: Record<string, THREE.IUniform>;
@@ -224,7 +224,7 @@ class Dismount implements Projectile {
 
 // ------------------------------------------------------------------ the string
 
-class SwingAction extends FighterAction {
+export class SwingAction extends FighterAction {
   readonly name: string;
   private info: MoveInfo;
   private dur = 0;
@@ -276,6 +276,7 @@ class SwingAction extends FighterAction {
         this.rehitDone = true;
         f.bladeHits.clear();
       }
+      if (f.bladeActive) this.kit.bladeTick();
       // landed hits feed the growth
       if (f.bladeHits.size > this.seen) {
         this.kit.landed(f.bladeHits.size - this.seen);
@@ -321,7 +322,7 @@ class SwingAction extends FighterAction {
 }
 
 /** Base for specials (the string can cancel into them). */
-abstract class SkillAction extends FighterAction {
+export abstract class SkillAction extends FighterAction {
   protected dur = 1;
   constructor(readonly kit: KenpachiKit) {
     super();
@@ -594,13 +595,17 @@ export class KenpachiKit implements Kit {
   flare = false;
   /** consecutive landed hits: every one makes the next bigger */
   growth = 0;
-  private growthT = 0;
-  private surged = false;
-  private lastClip = '';
-  private chainIndex = 0;
-  private lastEnd = 0;
-  private growProp = 1;
-  private cd = { heavy: 0, ryodan: 0, shock: 0, burst: 0 };
+  protected growthT = 0;
+  protected surged = false;
+  protected lastClip = '';
+  protected chainIndex = 0;
+  protected lastEnd = 0;
+  protected growProp = 1;
+  protected cd = { heavy: 0, ryodan: 0, shock: 0, burst: 0 };
+  /** the eyepatch prop flung away by unleash() (TYBW: the strapless one) */
+  protected patchProp: KenpachiProp = 'eyepatch';
+  /** the body the Bankai turns into (TYBW: the long-haired oni) */
+  protected bankaiForm: KenpachiForm = 'bankai';
   readonly skull: SkullAura;
 
   constructor(readonly f: Fighter, readonly g: Game) {
@@ -662,6 +667,9 @@ export class KenpachiKit implements Kit {
     if (this.growth >= 7 && (this.patchOff || this.form !== 'sealed')) this.skull.flare(0.55, 0.4);
   }
 
+  /** Called every step a string swing's blade is live (the TYBW cleaver shreds shots it passes). */
+  bladeTick(): void {}
+
   /** Swings cut far past the blade once the eyepatch is off, and in every release. */
   bigCuts(): boolean {
     return this.patchOff || this.form !== 'sealed';
@@ -671,7 +679,7 @@ export class KenpachiKit implements Kit {
     return this.g.nearestEnemy(this.f, 80, this.f.forward(), 70) ?? this.g.nearestEnemy(this.f, 80);
   }
 
-  private pick(): string {
+  protected pick(): string {
     if (this.form === 'shikai') return KENPACHI_SHIKAI_CHAIN[this.chainIndex++ % KENPACHI_SHIKAI_CHAIN.length];
     if (this.form === 'bankai') return KENPACHI_BANKAI_CHAIN[this.chainIndex++ % KENPACHI_BANKAI_CHAIN.length];
     // no pattern: anything but what he just did, the sword three times as often as a fist or a foot
@@ -703,7 +711,7 @@ export class KenpachiKit implements Kit {
 
   // ---------------------------------------------------------------- specials
 
-  private special(a: SkillAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
+  protected special(a: SkillAction, cost: number, cdKey: keyof typeof this.cd, cd: number): boolean {
     const f = this.f;
     if (this.cd[cdKey] > 0) return false;
     if (f.action && !f.action.canCancel(a)) return false;
@@ -773,7 +781,7 @@ export class KenpachiKit implements Kit {
    * A thin slab cut straight out in front: everything inside it is split (buildings slide apart) and
    * any enemy in its plane takes the hit. `tilt` 0 = horizontal, 90 = vertical.
    */
-  private slab(len: number, width: number, tilt: number, power: number, damage: number, height: number, o: { from?: number; heavy?: boolean; flash?: string; skip?: Set<number> } = {}): void {
+  protected slab(len: number, width: number, tilt: number, power: number, damage: number, height: number, o: { from?: number; heavy?: boolean; flash?: string; skip?: Set<number> } = {}): void {
     const { f, g } = this;
     const fw = f.forward();
     const from = o.from ?? 0.8;
@@ -944,7 +952,7 @@ export class KenpachiKit implements Kit {
       const fw = f.forward();
       const left = new THREE.Vector3(fw.z, 0, -fw.x);
       const r = KENPACHI_RES;
-      const shard = { model: kenpachiProp('eyepatch'), center: [-2.6 / r, 1.2 / r, 1 / r] as [number, number, number], voxels: 0 };
+      const shard = { model: kenpachiProp(this.patchProp), center: [-2.6 / r, 1.2 / r, 1 / r] as [number, number, number], voxels: 0 };
       const origin = new THREE.Vector3(...shard.center).applyMatrix4(patch.matrixWorld).addScaledVector(left, -0.3);
       g.addProjectile(new ShardBurst(g, [shard], patch.matrixWorld, { origin, dir: left.addScaledVector(fw, 0.3).normalize(), speed: 6, life: 3, dust: '#2a2a2e' }));
       f.visual.detach('patch');
@@ -1008,7 +1016,7 @@ export class KenpachiKit implements Kit {
     if (this.form === 'bankai') return;
     this.form = 'bankai';
     f.def = { ...f.def, stance: KENPACHI_BANKAI_STANCE, speed: { ...SPEED_BANKAI } };
-    f.setForm({ asset: kenpachiAsset('bankai'), props: [{ key: 'sword', model: kenpachiProp('bankai-blade'), socket: 'grip.R' }] }, AURA_KENPACHI_BANKAI, BLADE_BANKAI);
+    f.setForm({ asset: kenpachiAsset(this.bankaiForm), props: [{ key: 'sword', model: kenpachiProp('bankai-blade'), socket: 'grip.R' }] }, AURA_KENPACHI_BANKAI, BLADE_BANKAI);
     this.growProp = 1;
     this.patchOff = true;
     f.hp = Math.min(f.maxHp, f.hp + f.maxHp * 0.3);
@@ -1036,7 +1044,7 @@ export class KenpachiKit implements Kit {
     this.applyStats();
   }
 
-  private applyStats(): void {
+  protected applyStats(): void {
     const f = this.f;
     const formMul = this.form === 'bankai' ? 2.1 : this.form === 'shikai' ? 1.5 : 1;
     f.power = formMul * (this.patchOff && this.form === 'sealed' ? 1.4 : this.patchOff ? 1.1 : 1) * (this.flare ? 1.25 : 1) * (this.surged ? 1.2 : 1);

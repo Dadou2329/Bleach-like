@@ -41,6 +41,8 @@ export class Engine {
   readonly renderHooks: ((dt: number, alpha: number) => void)[] = [];
   /** global time scale (slow-mo) */
   timeScale = 1;
+  /** the sim clock stopped (pause menu, scripted captures); slow motion cannot undo it */
+  paused = false;
   /** remaining hitstop seconds (freezes the sim, keeps rendering) */
   hitstop = 0;
   simTime = 0;
@@ -120,7 +122,8 @@ export class Engine {
       const now = performance.now();
       const realDt = Math.min(0.1, (now - this.last) / 1000);
       this.last = now;
-      if (this.hitstop > 0) this.hitstop = Math.max(0, this.hitstop - realDt);
+      if (this.paused) this.acc = 0;
+      else if (this.hitstop > 0) this.hitstop = Math.max(0, this.hitstop - realDt);
       else {
         this.acc += realDt * this.timeScale;
         let steps = 0;

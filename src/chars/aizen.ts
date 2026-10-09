@@ -5,7 +5,10 @@
 // outfit, the hair swept back with a single strand over the forehead, the eyes sharpened. Hōgyoku —
 // the Chrysalis: a pure white shell from head to toe, solid violet eyes, four violet lines crossing
 // out from the orb below the chest, the shell opening into four long tails at the waist, heeled feet,
-// the sword fused into the right forearm. 1.86 m: the standard body at 45.3 vox/m.
+// the sword fused into the right forearm. TYBW, the Muken prisoner: a uniform of wide black leather bands with white
+// trim flaring into a tunic below the knee, a grey neckcloth capelet, a band across the right eye, the hair grown long
+// and loose; props: the restraint chair and the bands over the left eye and mouth he wears until the first key turns.
+// 1.86 m: the standard body at 45.3 vox/m.
 import { ModelBuilder, type VoxelModel } from '../models/builder';
 import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, halfSpace, intersect, offset, prism, smoothPath, sphere, spike, subtract, tube, type Sdf, type V3 } from '../models/sdf';
 import {
@@ -16,7 +19,7 @@ import type { CharacterAsset } from './ichigo';
 import type { ColliderDef, SpringDef } from '../anim/springs';
 
 export const AIZEN_RES = (48 * 84) / 89;
-export type AizenForm = 'captain' | 'traitor' | 'chrysalis';
+export type AizenForm = 'captain' | 'traitor' | 'chrysalis' | 'tybw';
 
 /** Tall and lean: level shoulders, narrow waist, long legs. */
 const SPEC: HumanoidSpec = {
@@ -51,6 +54,11 @@ function palette(b: ModelBuilder, form: AizenForm): void {
   b.mat('voidEye', form === 'chrysalis' ? ['#6E2BB8'] : ['#141418'], { glow: form === 'chrysalis' ? 0.8 : 0 });
   b.mat('tailIn', ['#4A2878', '#3A1D60', '#2A1448'], { base: 1, rough: 0.5 });
   b.mat('orb', ['#F2EEFF', '#C9B6FF', '#8E6BE8'], { base: 1, rough: 0.15, glow: 1.4 });
+  // the Muken prisoner
+  b.mat('leather', ['#3A3A40', '#2C2C31', '#212125', '#19191C', '#141418'], { base: 2, rough: 0.42, shadeK: 1, metal: 0.05 });
+  b.mat('leatherIn', ['#2A2A2E', '#1E1E22', '#161619'], { base: 1, rough: 0.6 });
+  b.mat('trim', ['#F0F0EE', '#E9E9E9', '#CFCFCD', '#AEAEAC'], { base: 1, rough: 0.6 });
+  b.mat('cape', ['#A6A6A9', '#929295', '#8C8C8E', '#747477', '#5C5C60'], { base: 2, rough: 0.9, shadeK: 0.95 });
 }
 
 /** Captain: gentle eyes drooping at the outer corners, soft brows, a mild closed smile. */
@@ -89,7 +97,7 @@ export function aizenAsset(form: AizenForm): CharacterAsset {
   return a;
 }
 
-export type AizenProp = 'katana' | 'sheath' | 'sheath-empty' | 'glasses' | 'fused';
+export type AizenProp = 'katana' | 'sheath' | 'sheath-empty' | 'glasses' | 'fused' | 'chair' | 'gag';
 
 /** The fused blade on the grip.R socket (Euler XYZ, radians): turned down the forearm, tipped forward. */
 export const FUSED_ATTACH: [number, number, number] = [Math.PI / 2 - 0.6, 0, 0];
@@ -97,7 +105,7 @@ export const FUSED_ATTACH: [number, number, number] = [Math.PI / 2 - 0.6, 0, 0];
 export function aizenProp(kind: AizenProp): VoxelModel {
   let m = propCache.get(kind);
   if (!m) {
-    m = kind === 'katana' ? buildKyoka() : kind === 'glasses' ? buildGlasses() : kind === 'fused' ? buildFusedBlade() : buildSheath(kind === 'sheath');
+    m = kind === 'katana' ? buildKyoka() : kind === 'glasses' ? buildGlasses() : kind === 'fused' ? buildFusedBlade() : kind === 'chair' ? buildChair() : kind === 'gag' ? buildGag() : buildSheath(kind === 'sheath');
     propCache.set(kind, m);
   }
   return m;
@@ -108,7 +116,8 @@ export function buildAizen(form: AizenForm = 'captain'): CharacterAsset {
   palette(b, form);
   const s = SPEC;
   const chrys = form === 'chrysalis';
-  const L = humanoidSkeleton(b, s, { sleeves: !chrys, hakama: !chrys });
+  const tybw = form === 'tybw';
+  const L = humanoidSkeleton(b, s, { sleeves: !chrys && !tybw, hakama: !chrys && !tybw });
   b.socket('grip.R', 'fist.R', [-L.wrist[0] + 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
   b.socket('grip.L', 'fist.L', [L.wrist[0] - 0.1, L.wrist[1] - 4.3, L.wrist[2] + 0.4]);
   b.socket('palm.R', 'palm.R', [-L.wrist[0] + 0.6, L.wrist[1] - 5, L.wrist[2] + 1]);
@@ -123,6 +132,9 @@ export function buildAizen(form: AizenForm = 'captain'): CharacterAsset {
   // the glasses prop sits on the head's own voxel lattice
   b.socket('glasses', 'head', [0, s.chinY + 5, hd.front]);
   if (chrys) return chrysalis(b, L, hd);
+  // the restraint chair stands where he does
+  b.socket('chair', 'root', [0, 0, 0]);
+  if (tybw) return prisoner(b, L, hd);
   b.stamp('head', hd.x0, hd.chin + 9, form === 'captain' ? FACE_CAPTAIN : FACE_TRAITOR, {
     B: { mat: 'brow' }, L: { mat: 'lid' }, W: { mat: 'sclera' }, I: { mat: 'iris' }, i: { mat: 'irisD' }, s: { mat: 'skin', shade: 3 }, m: { mat: 'mouth' },
   }, hd.front - 1);
@@ -226,6 +238,157 @@ function slickedHair(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: n
   b.add('head', tube(pts, pts.map((_, j) => 0.9 - j * 0.03)), 'hair', { thr: 0.3 });
   b.carve('head', aabb([-5, c + 4, front], [-1, c + 7, front + 6]));
   b.carve('head', aabb([1, c + 4, front], [5, c + 7, front + 6]));
+}
+
+// ---------------------------------------------------------------------------------------------- TYBW
+
+/**
+ * TYBW, the Muken prisoner: a uniform of wide horizontal black leather bands — a fitted jacket closing at the front with
+ * a white-trimmed crossing edge, flaring into a tunic below the knee; fitted sleeves with white cuffs; trousers and boots
+ * of the same — a grey neckcloth over the shoulders like a capelet, a leather band across the right eye, the hair grown
+ * long and loose down the back.
+ */
+function prisoner(b: ModelBuilder, L: Landmarks, hd: { front: number; x0: number; chin: number }): CharacterAsset {
+  const s = L.spec;
+  const c = hd.chin;
+  const [sx, sy, sz] = s.shoulder;
+  const ey = L.elbow[1], wy = L.wrist[1];
+  const [hx, hy, hz] = s.hip;
+  const [kx, ky, kz] = L.knee;
+  const [ax, ay, az] = L.ankle;
+  b.stamp('head', hd.x0, c + 9, FACE_TRAITOR, {
+    B: { mat: 'brow' }, L: { mat: 'lid' }, W: { mat: 'sclera' }, I: { mat: 'iris' }, i: { mat: 'irisD' }, s: { mat: 'skin', shade: 3 }, m: { mat: 'mouth' },
+  }, hd.front - 1);
+  b.voxel('head', 0, c + 3, hd.front, 'skin', 1);
+  curtainHair(b, L, hd);
+  const springs = longHair(b, L, hd);
+  // his back is slim: colliders that hug it, so the hair rests on it instead of being shoved off
+  const hair = { springs, colliders: [{ bone: 'chest', offset: [0, 0.07, 0.0] as const, radius: 0.115 }, { bone: 'spine', offset: [0, 0.02, 0.0] as const, radius: 0.105 }] };
+  eyeBand(b, L, hd);
+  hands(b, L, 'skin');
+  // the jacket: the crossing front edge is the white trim, the V filled with leather
+  const o = { black: 'leather', collar: 'trim', skin: 'leather', obi: 'leather' };
+  const torso = kosodeTorso(b, L, o);
+  // fitted sleeves, white cuffs
+  b.add('upperarm.L', blend(1.2, sphere([sx, sy - 0.5, sz], 3.4), capsule([sx, sy - 1, sz], [sx, ey, sz], 3.1, 2.9)), 'leather', { mirror: true });
+  b.add('forearm.L', blend(1, sphere([sx, ey, sz], 2.9), capsule([sx, ey, sz], [sx, wy + 1.2, sz], 2.85, 2.45)), 'leather', { mirror: true });
+  b.paint('forearm.L', cylinder([sx, wy + 0.2, sz], [sx, wy + 1.9, sz], 3.3), 'trim', { mirror: true, where: b.isMat('leather') });
+  // trousers and boots
+  b.add('hips', box([0, s.hipsY - 0.5, -0.3], [s.hips[0] + 0.8, 3.8, s.hips[1] + 0.8], { round: 2.6 }), 'leather');
+  b.add('thigh.L', blend(1.4, sphere([hx, hy, hz], 4.6), capsule([hx, hy, hz], [kx, ky + 1, kz], 4.6, 3.8)), 'leather', { mirror: true });
+  b.add('shin.L', blend(1.2, sphere([kx, ky, kz], 3.8), capsule([kx, ky, kz], [ax, ay + 2, az], 3.6, 3.1)), 'leather', { mirror: true });
+  b.add('foot.L', capsule([ax, ay + 5, az - 0.4], [ax, ay - 1, az - 0.4], 2.9, 2.8), 'leather', { mirror: true });
+  b.add('foot.L', intersect(box([ax, 2.2, az + 3], [2.8, 2.2, 6.3], { round: 1.6 }), halfSpace([0, 5.2, az + 6.5], [0, 1, 0.6])), 'leather', { mirror: true });
+  b.paint('foot.L', aabb([ax - 5, 0, az - 8], [ax + 5, 1, az + 12]), 'leatherIn', { mirror: true });
+  // the tunic below the jacket, to below the knee
+  const yHem = ky - 6;
+  const skirt = coatSkirt(b, L, { mat: 'leather', lining: 'leatherIn', yTop: s.waistY - 2, yHem, r0: s.hips[0] + 2.4, r1: 12.6, openFront: 9, res: AIZEN_RES });
+  // the bands: a seam every 2.6 voxels over everything leather, and white trim along the tunic's hem
+  const all = b.bones.map((x) => x.name);
+  b.paint(all, fn((_x, y) => Math.abs(((((y + 100) % 2.6) + 2.6) % 2.6) - 1.3) - 0.26, [-40, -2, -40], [40, 100, 40]), 'leather', { shade: 3, where: b.isMat('leather') });
+  b.paint(all.filter((n) => n.startsWith('coat')), fn((_x, y) => y - (yHem + 1.1), [-40, yHem - 6, -40], [40, yHem + 4, 40]), 'trim', { where: b.isMat('leather') });
+  capelet(b, L, torso);
+  b.autoShade();
+  b.lint();
+  return {
+    model: b.build(),
+    springs: [...skirt.springs, ...hair.springs],
+    colliders: [...skirt.colliders, ...hair.colliders],
+    warnings: b.warnings,
+  };
+}
+
+/**
+ * The hair grown long in Muken: a rounded mass from the back of the head, narrowing at the nape and spreading over the
+ * shoulder blades, ridged into five locks that part near the ends and taper to points (the middle one longest).
+ * Three spring bones down its length.
+ */
+function longHair(b: ModelBuilder, L: Landmarks, hd: { chin: number }): SpringDef[] {
+  const s = L.spec;
+  const c = hd.chin;
+  const hw = s.head.w / 2;
+  const back = L.headC[2] - s.head.d / 2;
+  const yTop = c + 9, yBot = s.chestY - 10, yCore = yBot + 5;
+  const tOf = (y: number) => Math.max(0, Math.min(1, (yTop - y) / (yTop - yBot)));
+  // lying on the back: out over the nape, then down the shoulder blades
+  const zc = (y: number) => {
+    const t = tOf(y);
+    return back - 0.5 - Math.sin(Math.min(1, t * 2.4) * Math.PI * 0.5) * 2.7 + t * 0.7;
+  };
+  const width = (y: number) => {
+    const t = tOf(y);
+    return t < 0.2 ? hw + 1.3 - (t / 0.2) * 1.8 : hw - 0.5 + ((t - 0.2) / 0.8) * 1.4;
+  };
+  const thick = (y: number) => 2.5 - tOf(y) * 0.7;
+  const LOCKS = [
+    { k: -1, tip: 2.4, dz: 0.2 },
+    { k: -0.5, tip: 0.8, dz: -0.1 },
+    { k: 0, tip: -1.4, dz: 0 },
+    { k: 0.5, tip: 0.4, dz: -0.2 },
+    { k: 1, tip: 2.8, dz: 0.1 },
+  ];
+  const lockX = (k: number, y: number) => k * width(y) * 0.76 * (1 + Math.max(0, (yCore + 4 - y) / 10) * 0.25);
+  const hair = fn((x, y, z) => {
+    if (y > yTop) return y - yTop;
+    const w = width(y), th = thick(y), z0 = zc(y);
+    // the core: thinner than the locks so they stand out as ridges; it stops above the parted ends
+    const core = Math.max((Math.hypot(x / (w * 0.92), (z - z0) / (th * 0.72)) - 1) * Math.min(w, th * 0.72), yCore - y);
+    let d = core;
+    for (const l of LOCKS) {
+      const tipY = yBot + l.tip;
+      const u = (y - tipY) / (yCore + 3 - tipY);
+      if (u <= 0) continue;
+      const taper = Math.sqrt(Math.min(1, u));
+      const rx = w * 0.3 * taper + 0.35, rz = th * taper + 0.3;
+      d = Math.min(d, (Math.hypot((x - lockX(l.k, y)) / rx, (z - z0 - l.dz) / rz) - 1) * Math.min(rx, rz));
+    }
+    return d;
+  }, [-16, yBot - 3, back - 14], [16, yTop + 1, back + 3]);
+  const ySplit1 = s.chestY + 6, ySplit2 = s.chestY - 2;
+  const p1: V3 = [0, c + 6, back - 1], p2: V3 = [0, ySplit1, zc(ySplit1)], p3: V3 = [0, ySplit2, zc(ySplit2)];
+  // each segment reaches up under the one above it, so a swing never opens a step between them
+  const bones: [string, string, V3, number, number][] = [['hair1', 'head', p1, p2[1] - 0.5, 300], ['hair2', 'hair1', p2, p3[1] - 0.5, p2[1] + 2.5], ['hair3', 'hair2', p3, -100, p3[1] + 2.5]];
+  for (const [name, parent, pivot, y0, y1] of bones) {
+    b.bone(name, parent, pivot);
+    b.add(name, intersect(hair, aabb([-24, y0, -40], [24, y1, 10])), 'hair', { thr: 0.25 });
+  }
+  // the partings between the locks, darker
+  b.paint(['hair1', 'hair2', 'hair3'], fn((x, y) => {
+    let g = 99;
+    for (let i = 0; i < LOCKS.length - 1; i++) g = Math.min(g, Math.abs(x - (lockX(LOCKS[i].k, y) + lockX(LOCKS[i + 1].k, y)) / 2));
+    return g - 0.45;
+  }, [-16, yBot - 3, back - 14], [16, yTop - 3, back + 3]), 'hair', { shade: 4, where: b.isMat('hair') });
+  const R = AIZEN_RES;
+  const tip: V3 = [0, yBot, zc(yBot)];
+  return [
+    { bone: 'hair1', tail: [(p2[0] - p1[0]) / R, (p2[1] - p1[1]) / R, (p2[2] - p1[2]) / R], stiffness: 52, damping: 5.5, gravity: 10, limit: 30, radius: 0.05 },
+    { bone: 'hair2', tail: [(p3[0] - p2[0]) / R, (p3[1] - p2[1]) / R, (p3[2] - p2[2]) / R], stiffness: 40, damping: 5, gravity: 11, limit: 40, radius: 0.05 },
+    { bone: 'hair3', tail: [(tip[0] - p3[0]) / R, (tip[1] - p3[1]) / R, (tip[2] - p3[2]) / R], stiffness: 30, damping: 4.5, gravity: 12, limit: 50, radius: 0.045 },
+  ];
+}
+
+/** A leather band round the head, slanting from over the right eye up across the forehead above the left brow. */
+function eyeBand(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }): void {
+  const s = L.spec;
+  const c = hd.chin;
+  const C: V3 = [0, c + 6, L.headC[2]];
+  const R: V3 = [s.head.w / 2 + 1, s.head.h / 2 + 1, s.head.d / 2 + 1];
+  const mid = (x: number) => c + 7.4 + 0.72 * x;
+  const e = (x: number, y: number, z: number) => Math.hypot((x - C[0]) / R[0], (y - C[1]) / R[1], (z - C[2]) / R[2]);
+  b.add('head', fn((x, y, z) => Math.max(Math.abs(e(x, y, z) - 0.94) * 7 - 1.25, Math.abs(y - mid(x)) - 1.75), [-10, c - 2, -12], [10, c + 18, 10]), 'leather', { thr: 0.25 });
+}
+
+/** The grey neckcloth: a short cloth over the shoulders, its hem falling in soft folds over the upper chest and back. */
+function capelet(b: ModelBuilder, L: Landmarks, torso: Sdf): void {
+  const s = L.spec;
+  const [sx, sy, sz] = s.shoulder;
+  const hem = (x: number, z: number) => s.chestY + 4.2 - Math.abs(x) * 0.12 + Math.sin(Math.atan2(z, x) * 5) * 0.6;
+  const body = blend(2, torso, sphere([sx, sy - 0.5, sz], 3.5), sphere([-sx, sy - 0.5, sz], 3.5));
+  const shell = subtract(offset(body, 1.25), offset(body, 0.2));
+  b.add('chest', intersect(shell, fn((x, y, z) => Math.max(hem(x, z) - y, y - (sy + 2.6)), [-24, s.chestY - 2, -16], [24, sy + 5, 16])), 'cape');
+  // folds
+  for (const [x, z] of [[4, 6], [-4, 6], [7.5, 2.5], [-7.5, 2.5], [3, -6.5], [-3, -6.5]] as [number, number][])
+    b.paint('chest', capsule([x, sy + 1, z], [x * 1.08, s.chestY + 3.6, z * 1.08], 0.6), 'cape', { shade: 3, where: b.isMat('cape') });
 }
 
 // ---------------------------------------------------------------------------------------------- haori
@@ -502,5 +665,76 @@ function buildFusedBlade(): VoxelModel {
   b.paint('root', fn((x, y, z) => Math.abs(y - (curve(z) - 0.2)) - 0.35 + (z < 4 ? 9 : 0), [-3, -4, 0], [3, 5, zTip + 1]), 'vein', { where: b.isMat('shell') });
   b.autoShade({ up: 0.4, open: 2, front: 0 });
   b.lint();
+  return b.build();
+}
+
+// ---------------------------------------------------------------------------------------------- TYBW props
+
+/**
+ * The restraint chair that confines his reiatsu (not described in canon: estimated) — a heavy high-backed seat of dark
+ * iron on a square plinth, broad armrests, pale seal glyphs down the back, leather straps with white trim over the
+ * armrests and the front of the seat. 24 vox/m; origin on the ground under his hips, +Z forward.
+ */
+function buildChair(): VoxelModel {
+  const b = new ModelBuilder('aizen-chair', 24);
+  b.mat('iron', ['#4A4A52', '#3A3A41', '#2B2B30', '#222226', '#1A1A1E'], { base: 2, rough: 0.45, metal: 0.6, shadeK: 0.85 });
+  b.mat('glyph', ['#E2DCC0', '#D8D2B0', '#B8B090'], { base: 1, rough: 0.5, glow: 0.25 });
+  b.mat('strap', ['#2C2C31', '#1E1E22', '#141418'], { base: 1, rough: 0.45 });
+  b.mat('trim', ['#F0F0EE', '#D8D8D6'], { base: 0, rough: 0.6 });
+  b.bone('root', null, [0, 0, 0]);
+  const zb = -4.6; // the backrest's front face
+  // plinth and seat (top at 12.5 vox = 0.52 m)
+  b.add('root', box([0, 2, 2], [8.6, 2, 9], { round: 0.6 }), 'iron');
+  b.add('root', box([0, 7.5, 2], [6.6, 3.6, 6.6], { round: 0.8 }), 'iron');
+  b.add('root', box([0, 11.6, 2.1], [7.2, 0.9, 7], { round: 0.6 }), 'iron');
+  // the high back with a headrest
+  b.add('root', box([0, 24.5, zb - 1], [7.4, 12.6, 1.9], { round: 0.8 }), 'iron');
+  b.add('root', box([0, 38, zb - 1.6], [5.4, 2.6, 1.6], { round: 1 }), 'iron');
+  b.add('root', box([0, 30.5, zb - 3], [8.2, 1, 0.8], { round: 0.4 }), 'iron');
+  // armrests on posts (top at 18.6 vox = 0.78 m)
+  for (const k of [-1, 1]) {
+    b.add('root', box([k * 8.2, 17.8, 2.4], [1.4, 0.8, 7.4], { round: 0.5 }), 'iron');
+    b.add('root', box([k * 8.2, 14.6, 7.8], [1, 2.6, 1], { round: 0.4 }), 'iron');
+    b.add('root', box([k * 8.2, 14.6, zb + 1], [1, 2.6, 1], { round: 0.4 }), 'iron');
+    // the straps over the armrest (wrists) and the front of the seat (shins)
+    for (const z of [0.4, 6.4]) {
+      b.add('root', box([k * 8.2, 17.8, z], [2.1, 1.5, 0.9], { round: 0.4 }), 'strap');
+      b.paint('root', box([k * 8.2, 17.8, z], [2.2, 1.6, 0.25]), 'trim', { where: b.isMat('strap') });
+    }
+    b.add('root', box([k * 3.6, 8.4, 8.7], [2.4, 0.9, 0.9], { round: 0.4 }), 'strap');
+  }
+  // seal glyphs down the back and round the plinth: rings with a cross
+  const glyph = (x: number, y: number) => {
+    b.paint('root', fn((px, py, pz) => Math.max(Math.abs(Math.hypot(px - x, py - y) - 2) - 0.4, Math.abs(pz - (zb + 0.1)) - 0.8), [x - 4, y - 4, zb - 2], [x + 4, y + 4, zb + 2]), 'glyph', { where: b.isMat('iron') });
+    b.paint('root', fn((px, py, pz) => Math.max(Math.min(Math.abs(px - x), Math.abs(py - y)) - 0.35, Math.hypot(px - x, py - y) - 1.6, Math.abs(pz - (zb + 0.1)) - 0.8), [x - 4, y - 4, zb - 2], [x + 4, y + 4, zb + 2]), 'glyph', { where: b.isMat('iron') });
+  };
+  glyph(0, 32);
+  glyph(0, 23);
+  glyph(-4, 27.5);
+  glyph(4, 27.5);
+  b.paint('root', fn((px, py, pz) => Math.max(Math.abs(py - 2) - 0.45, Math.abs(Math.abs(pz - 2) - 9.1) - 0.4, Math.abs(((px + 40) % 3) - 1.5) - 0.9), [-11, 0, -9], [11, 5, 13]), 'glyph', { where: b.isMat('iron') });
+  b.autoShade({ up: 0.4, open: 2, front: 0.3 });
+  b.lint(2);
+  return b.build();
+}
+
+/**
+ * The bands over his left eye and his mouth while he sits bound (the right eye's band is part of the body): leather
+ * strips round the front of the head, joined at the cheeks. Built on the head's lattice at the 'glasses' socket.
+ */
+function buildGag(): VoxelModel {
+  const b = new ModelBuilder('aizen-gag', AIZEN_RES);
+  b.mat('strap', ['#2C2C31', '#1E1E22', '#141418'], { base: 1, rough: 0.45 });
+  b.mat('trim', ['#F0F0EE', '#D8D8D6'], { base: 0, rough: 0.6 });
+  b.bone('root', null, [0, 0, 0]);
+  const e = (x: number, z: number) => Math.hypot(x / 6.1, (z + 5.4) / 6.5);
+  const shell = (y0: number, y1: number) => fn((x, y, z) => Math.max(Math.abs(e(x, z) - 1.02) * 6 - 0.85, y0 - y, y - y1, -6.5 - z), [-9, y0 - 1, -9], [9, y1 + 1, 4]);
+  b.add('root', shell(-1.2, 2.4), 'strap', { thr: 0.25 });
+  b.add('root', shell(-5.4, -2.4), 'strap', { thr: 0.25 });
+  // joined at both cheeks
+  for (const k of [-1, 1]) b.add('root', fn((x, y, z) => Math.max(Math.abs(e(x, z) - 1.02) * 6 - 0.85, Math.abs(x - k * 5.2) - 0.9, -5.4 - y, y - 2.4), [-9, -6, -9], [9, 3, 4]), 'strap', { thr: 0.25 });
+  b.paint('root', fn((_x, y) => Math.min(Math.abs(y - 2.1), Math.abs(y + 1), Math.abs(y + 2.6), Math.abs(y + 5.2)) - 0.3, [-9, -6, -9], [9, 3, 4]), 'trim', { where: b.isMat('strap') });
+  b.autoShade({ up: 0.4, open: 2, front: 0.3 });
+  b.lint(2);
   return b.build();
 }

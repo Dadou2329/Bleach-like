@@ -76,7 +76,7 @@ async function boot(): Promise<void> {
     advance: (n: number) => eng.advance(n),
     pause: () => eng.stop(),
     /** stop the sim clock but keep rendering (screenshots of exact sim states) */
-    freeze: (on = true) => { eng.timeScale = on ? 0 : 1; },
+    freeze: (on = true) => { eng.paused = on; },
     demo: (name: string) => runDemo(eng, name),
     engine: eng,
   };

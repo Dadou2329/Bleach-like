@@ -17,7 +17,7 @@ const grip = (t: number, p: E, dir: E, edge: E, pole: E, ease?: KeyDef['ease'], 
 });
 
 /** A copy of a clip under a new name, played `k` times faster. */
-function retime(src: ClipDef, name: string, k: number): ClipDef {
+export function retime(src: ClipDef, name: string, k: number): ClipDef {
   return {
     ...src,
     name,
@@ -38,7 +38,7 @@ const IDLE: Record<string, E> = {
   'upperarm.L': [6, 0, 10], 'forearm.L': [-14, 0, 0], 'hand.L': [6, 0, 0],
 };
 /** The sword lies on his right shoulder, its back on the trapezius, hilt forward. */
-const SHOULDER = { p: [-0.19, 0.17, 0.27] as E, dir: [-0.12, 0.42, -0.9] as E, edge: [0.05, 0.9, 0.42] as E, pole: [-0.3, -0.85, 0.42] as E };
+export const SHOULDER = { p: [-0.19, 0.17, 0.27] as E, dir: [-0.12, 0.42, -0.9] as E, edge: [0.05, 0.9, 0.42] as E, pole: [-0.3, -0.85, 0.42] as E };
 const RUN = { p: [-0.34, -0.27, -0.05] as E, dir: [-0.25, -0.33, -0.91] as E, edge: [0, -0.94, 0.33] as E, pole: [-0.8, -0.2, 0.5] as E };
 
 export const KENPACHI_STANCE: StanceDef = {
@@ -58,7 +58,7 @@ export const KENPACHI_STANCE: StanceDef = {
 };
 
 /** Shikai: the cleaver rests on the shoulder, its head high behind him. */
-const CL_SHOULDER = { p: [-0.19, 0.17, 0.29] as E, dir: [-0.08, 0.62, -0.78] as E, edge: [0.04, 0.78, 0.62] as E, pole: [-0.3, -0.85, 0.42] as E };
+export const CL_SHOULDER = { p: [-0.19, 0.17, 0.29] as E, dir: [-0.08, 0.62, -0.78] as E, edge: [0.04, 0.78, 0.62] as E, pole: [-0.3, -0.85, 0.42] as E };
 export const KENPACHI_SHIKAI_STANCE: StanceDef = {
   ...KENPACHI_STANCE,
   grip: {
@@ -93,7 +93,7 @@ export const KENPACHI_BANKAI_STANCE: StanceDef = {
   },
 };
 
-const REST = (over: Record<string, E> = {}): Record<string, E> => ({ ...IDLE, ...over });
+export const REST = (over: Record<string, E> = {}): Record<string, E> => ({ ...IDLE, ...over });
 const SH: E = [-0.22, 0.18, 0.04];
 
 // ------------------------------------------------------------------ sealed: the unpatterned string

@@ -744,6 +744,23 @@ G state, V flare); press **H** in game for the current character's moves.
   - G: the **eyepatch** comes off: a golden pillar, the reiatsu skull, swings that cut far past the blade.
   - F: **"Nome, Nozarashi"**: the giant war-cleaver and Meteor Cleaver.
   - F again: **Bankai**: the crimson oni, a distant bisection, power that tears at his own body.
+  - **Eras**: Kenpachi is one card with two chips — **Soul Society** (the kit above: bells, Yachiru on his shoulder)
+    and **Thousand-Year Blood War**, the card's default. TYBW: the hair grown out and hanging loose down his back, no
+    bells, the strapless grey-rimmed eyepatch, real **Shunpo**. Sealed: V **hides his reiatsu** (he can't be sensed
+    beyond 8 m; the first blow out of hiding is an ambush); R **Bait & Grab** — chest bared, the first blow taken at half
+    and its owner seized, head-butted and slammed (a shot is caught bare-handed). Every form: **adaptation** — the third
+    time the same technique lands on him he has its measure (it hurts a quarter less).
+    - F: **"Nome, Nozarashi"**. The cleaver shreds the shots it passes. Q **Space Cut**: a two-handed diagonal cleave
+      that tears a rift of outer space along the swing — shots and fields undone, whatever binds him cut away, the
+      near sucked in. E **Deflect**: the flat of the cleaver up — beams and shots dumped into the ground, a blade beaten
+      down and answered. R the **Giant Grapple**: a chokeslam, or a giant's leg torn out from under it. V **Skyfall
+      Cleave**: into the sky, everything above erased, one cut straight down through 60 m of world.
+    - F again: **Bankai**. Nozarashi rises as Yachiru and pours it into his hand: the crimson oni with horns and a wild
+      mane. Shift the oni's **pounce**; Q **Bite & Rip** (the victim's weapon arm torn useless); E the **launching
+      uppercut**; R **Shield Breaker** (no guard or parry stops it); G the **roar** (allies too); V **The Perfect
+      Crimson**, one vertical cut that splits the arena. The **overload** meter fills as he fights: at 100 the right arm
+      tears apart at the elbow — fists, kicks and a one-armed trip for 22 s until it is bound back. F in the Bankai
+      reseals before that happens.
 - **Ulquiorra Cifer**: hands in his pockets. His sealed moves:
   - kicks and the hand-spear;
   - a green finger **Cero** and red **Bala**;
@@ -1287,6 +1304,20 @@ G state, V flare); press **H** in game for the current character's moves.
   - G: the reveal. He crushes the glasses and sweeps his hair back.
   - F: the **Hōgyoku**. The white Chrysalis brings a fused blade and instant regeneration. Q becomes the
     fully incanted Kurohitsugi and E becomes Hadō #99 **Goryūtenmetsu**, five dragons of light.
+  - **Eras**: Aizen is one card with two chips — **Soul Society** (the kit above) and **Thousand-Year Blood War**,
+    the card's default: the **Muken prisoner** in a uniform of wide black leather bands with white trim, a grey
+    neckcloth over the shoulders, a band across the right eye, the hair grown long. He starts **strapped into the
+    chair** that confines his reiatsu, his face banded (the first thing he does turns a key: the bands over his left
+    eye and mouth fall). Bound he cannot walk: LMB **a glance** (blows of pressure where he looks), RMB the seated
+    **Kurohitsugi** at full power, Q **Raikōhō**, E the **reiatsu pillar** straight up out of the chair, R
+    **Kyōka Suigetsu** from Muken (you see him somewhere he is not), G the **presence** that grinds whoever comes
+    near, V the tide of shots **crushed by his aura**.
+    - F: **unbound**. The chair bursts apart and the blade comes out of his own hand. The captain's string and the
+      passing stroke, Q **Kurohitsugi** at full power, E Hadō #99 **Goryūtenmetsu**, R the **substitution** (you fight
+      a reflection; the real one is behind you), G Bakudō #81 **Dankū** (a wall of light that stops shots), V the
+      crushing presence. A barrier on his nape stops one blow from behind every 8 s.
+    - **Immortal**: the first lethal blow, the Hōgyoku closes him back up; after that he only goes down — the third
+      time he stays down.
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
