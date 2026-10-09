@@ -44,8 +44,9 @@ export const ATMO_DAY: Atmosphere = {
   hemiGround: '#6e604e',
   hemiIntensity: 1.15,
   fogColor: '#b9d2ea',
-  fogNear: 70,
-  fogFar: 330,
+  // the town is 320 m across: the haze starts past the next block and swallows the far side
+  fogNear: 90,
+  fogFar: 420,
   exposure: 1.0,
   saturation: 0.12,
   contrast: 0.06,

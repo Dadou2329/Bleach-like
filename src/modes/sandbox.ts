@@ -43,8 +43,9 @@ const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: 
 export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Promise<void> {
   const quality = params.get('q') === 'low' ? QUALITY_LOW : QUALITY_HIGH;
   const arena = params.get('map') === 'arena';
-  const town = arena ? null : generateKarakura(Number(params.get('seed') ?? 7));
-  const world = town ? town.world : generateTestArena(Number(params.get('seed') ?? 1));
+  const mapSeed = Number(params.get('seed') ?? (arena ? 1 : 7));
+  const town = arena ? null : generateKarakura(mapSeed);
+  const world = town ? town.world : generateTestArena(mapSeed);
   const eng = await Engine.create(app, world, quality);
   if (town) {
     // the town carried on past the map's edge, into the haze
@@ -63,7 +64,8 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   let playerEntry = rosterEntry(params.get('char'));
   let player!: Fighter;
   let kit!: Kit;
-  const setPlayer = (entry: RosterEntry, at?: THREE.Vector3, yaw = Math.PI * 0.25) => {
+  const spawnYaw = town ? town.spawnYaw : Math.PI * 0.25;
+  const setPlayer = (entry: RosterEntry, at?: THREE.Vector3, yaw = spawnYaw) => {
     if (player) game.remove(player);
     playerEntry = entry;
     player = game.spawn(entry.def(), (at ?? p0).clone(), 0);
@@ -192,8 +194,16 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   const rebuild = () => {
     const vs = world.vs;
     const c = new THREE.Vector3(W / 2, 0, D / 2);
-    eng.editLog.restore(c.x / vs, c.y / vs, c.z / vs, 1e6, -Infinity, 4_000_000);
+    // the log undoes what it still holds; once the damage has outgrown it, the town is built again from its seed
+    if (eng.editLog.overflowed) eng.resetWorld(town ? generateKarakura(mapSeed).world : generateTestArena(mapSeed));
+    else eng.editLog.restore(c.x / vs, c.y / vs, c.z / vs, 1e6, -Infinity, 4_000_000);
     eng.fragments.dissolveNear(c, 1e4);
+    // nobody is left inside the rebuilt walls
+    for (const f of game.fighters) {
+      if (!world.isSolidAtPos(f.pos.x, f.pos.y + 0.4, f.pos.z) && !world.isSolidAtPos(f.pos.x, f.pos.y + 1.2, f.pos.z)) continue;
+      f.body.pos.y = groundAt(world, f.pos.x, f.pos.z) + 0.05;
+      f.body.prev.copy(f.body.pos);
+    }
     hud.showBanner('THE TOWN IS WHOLE AGAIN', 2);
   };
   window.addEventListener('keydown', (e) => {
@@ -281,7 +291,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     for (const f of [...game.fighters]) game.remove(f);
     rival = null;
     rivalKit = null;
-    const yaw = Math.PI * 0.25;
+    const yaw = spawnYaw;
     const bx = Math.min(W - 8, Math.max(8, p0.x + Math.sin(yaw) * 16)), bz = Math.min(D - 8, Math.max(8, p0.z + Math.cos(yaw) * 16));
     const hostE = rosterEntry(hostId), guestE = rosterEntry(guestId);
     const a = game.spawn(hostE.def(), p0.clone(), 0);

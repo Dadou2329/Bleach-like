@@ -230,11 +230,24 @@ scope and milestones and `README.md` for controls and modes.
   rising as a pink spirit into his hand; `CrimsonBlade`, The Perfect Crimson's blade of reiatsu on the cleaver) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
-- Maps: `maps/karakura.ts` (default: the street grid, lots and special blocks; street level `G` = 14 m, the strata
-  below), `maps/townParts.ts` (sewers and footings, office towers, konbini, the shrine, Urahara Shop, street lamps,
-  traffic lights, bus stops, cars, carports, hip roofs; `lotFrame(lot)` builds in a lot's own street-facing frame),
-  `maps/testArena.ts`, `maps/stage.ts` (viewer). `render/backdrop.ts` draws the town past the map's edge (render only;
-  hills follow the fog colour).
+- Maps: `maps/karakura.ts` (default, 320 m: five roads each way with blocks numbered `(i, j)`, special blocks by
+  number, lots by frontage; street level `G` = 32 m (`TOWN_GROUND`), the strata below laid with `world.fillStrata`
+  (one shared packed chunk per chunk row, copied out on the first write); `w.compressHot()` packs what each phase
+  opened before the next), `maps/townParts.ts` (sewers and footings, office towers, konbini, the shrine, Urahara Shop
+  (returns its hatch), street lamps, traffic lights, bus stops, cars, carports, hip roofs; `lotFrame(lot)` builds in
+  a lot's own street-facing frame), `maps/cityParts.ts` (the railway viaduct, station platforms and building, the
+  train, the department store, the hospital, the car park, the petrol station, the construction site and its crane,
+  warehouses, the smokestack, tanks, pylons and lines, footbridges, curve mirrors, phone booths, hydrants, guard rails,
+  street trees, stop signs, bicycles, the police box, vans, lorries, buses, taxis, and `trainingGround` — Urahara's
+  cavern under a glowing painted sky), `maps/glyphs.ts` (sign lettering as pixel art: 13×13 kanji — 空座町駅,
+  浦原商店, 空座総合病院 — and a 3×5 Latin face; `stampText(b, text, mat, at)` lays it along any direction, and
+  `lotFrame(lot).cell(u, w)` gives the voxel of a lot-frame cell; text reads toward −u on a lot's street front),
+  `maps/testArena.ts`, `maps/stage.ts` (viewer). `TownInfo.spawnYaw` faces down the main street (an opponent placed
+  ahead lands on the road). `render/backdrop.ts` draws the
+  town past the map's edge (render only; hills follow the fog colour). The renderer skips buried chunks (all opaque,
+  walled in by opaque chunks: `Chunk.allOpaque`), grows its batch past `maxInstances`, and streams the first build
+  fast (`Engine.warming`); `Engine.resetWorld(fresh)` swaps in a regenerated map (Sandbox's Backspace once the edit
+  log has `overflowed`).
 - Modes (`modes/sandbox.ts`): Vs AI (`startDuel`), Sandbox (`game/sandboxRules.ts`: `unleash()` every step — full
   reiatsu, cooldown maps `cd*` and `*Cd`/`*Lock` numbers zeroed down to inner kits, `Fighter.immortal`; a kit with its
   own limit implements `Kit.sandbox()`), Vs Player 2 (`net/net.ts`: lobby codes on PeerJS or `?net=local`

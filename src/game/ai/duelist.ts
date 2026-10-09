@@ -65,12 +65,12 @@ export class DuelistAI implements Controller {
       return;
     }
     this.tick(dt);
-    let t = g.nearestEnemy(f, 160);
+    let t = g.nearestEnemy(f, 480);
     // the Inverted World: it still knows where they are, but the world is mirrored through it, so it goes for
     // the mirror image (the empty air behind it) and its skills fly that way
     let mirrored = false;
     if (!t && f.invertT > 0 && f.blindT <= 0) {
-      t = nearest(g.enemiesOf(f), f, 160);
+      t = nearest(g.enemiesOf(f), f, 480);
       mirrored = t !== null;
     }
     // blinded, or the foe's reiatsu on a higher plane out of reach of its senses: it gropes for where they might be

@@ -1326,15 +1326,22 @@ G state, V flare); press **H** in game for the current character's moves.
       time he stays down.
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
-- **Karakura Town**, generated procedurally: houses (gabled or hipped roofs, some with a carport and a car),
-  apartments, a shopping street, office towers of seven to twelve floors along the main road (parking basements, glass
-  curtain walls, lit floors, a core and a mast), konbini with their striped signs, Karakura High, the Kurosaki Clinic,
-  **Urahara Shop** with its sign and bare yard, a **shrine** (torii, stone lanterns, the copper-roofed hall, the sacred
-  tree), the river with its bridge, parks, street lamps, traffic lights, bus stops, parked cars and utility poles.
-  The ground goes **14 m deep** — topsoil, clay, an old gravel bed, rock, bedrock — with **sewer conduits** under the
-  roads (manholes in the asphalt) and a footing under every building, so the biggest techniques dig real craters.
-  Past the edge the town carries on into the haze toward the hills. Every voxel is destructible. Cut buildings slide
-  apart along the cut and shatter into rubble.
+- **Karakura Town**, generated procedurally on a 320 m square: houses (gabled or hipped roofs, gardens, some with
+  a carport and a car), apartments, shops, konbini, offices along the main street and a **downtown** of towers up to
+  seventeen floors round a **department store** (neon sign, rooftop playground), a **multi-storey car park**, a
+  **petrol station**, **Karakura General Hospital** (helipad, ambulance), Karakura High, the Kurosaki Clinic,
+  **Urahara Shop**, the **shrine**, a park, the **elevated railway** on its piers with **Karakura Station** (platforms,
+  canopies, a train standing at them, the forecourt with its bus terminal, taxis and police box), a **construction
+  site** with a 46 m tower crane, footbridges over the avenues, the river under two bridges and a high-voltage line,
+  and warehouses, tanks and a smokestack on the far bank. Street lamps, traffic lights, curve mirrors, stop signs,
+  street trees, bus stops, phone booths, hydrants, parked cars, vans and lorries.
+  The ground goes **32 m deep** — topsoil, clay, an old gravel bed, sand, rock with dark seams, granite, bedrock —
+  with **sewer conduits** under the roads and a footing under every building, so the biggest techniques dig real
+  craters. Dig deep enough under Urahara Shop (or climb down the hatch at the back of the shop) and you find his
+  **underground training ground**: a cavern under a painted sky, rock spires and all. Past the edge the town carries
+  on into the haze toward the hills. Every voxel is destructible. Cut buildings slide apart along the cut and shatter
+  into rubble; in Sandbox, Backspace puts the town back (rebuilding it from scratch once the damage outgrows the
+  undo log).
 - **Hollows** come in waves with seeded masks. They roar, claw and pounce.
 - Every third wave, a **Menos Grande** tears the sky open (Kūmon), crushes the town as it walks and fires a
   **Cero** that drills through buildings. Its mask is the weak point.

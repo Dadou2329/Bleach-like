@@ -1,4 +1,4 @@
-import { Chunk, CS, CS_BITS, CS_MASK, vidx } from './chunk';
+import { Chunk, CS, CS_BITS, CS_MASK, CS3, PackedChunk, vidx } from './chunk';
 import { MaterialTable, F_SOLID } from './materials';
 
 export type EditHook = (x: number, y: number, z: number, oldV: number, newV: number) => void;
@@ -22,6 +22,8 @@ export class VoxelWorld {
   readonly dirty = new Set<number>();
   /** chunk indices written since the last `takeTouched()` (colliders, compression bookkeeping) */
   private touched = new Set<number>();
+  /** chunks turned dense by writes since the last `compressHot()` (generation keeps its working set small) */
+  private hot = new Set<number>();
   /** optional per-voxel edit hook (restoration log, replicas); not called during generation */
   onEdit: EditHook | null = null;
   /** sim clock, stamped onto chunks for hot→cold compression */
@@ -98,8 +100,10 @@ export class VoxelWorld {
       c = this.chunks[ci] = new Chunk(0);
     }
     const lx = x & CS_MASK, ly = y & CS_MASK, lz = z & CS_MASK;
+    const wasDense = c.dense !== null;
     const old = c.set(vidx(lx, ly, lz), v);
     if (old === v) return old;
+    if (!wasDense) this.hot.add(ci);
     c.lastWrite = this.time;
     this.dirty.add(ci);
     this.touched.add(ci);
@@ -166,6 +170,7 @@ export class VoxelWorld {
             if (v === 0) continue;
             c = this.chunks[ci] = new Chunk(0);
           }
+          if (!c.dense) this.hot.add(ci);
           const d = c.ensureDense();
           for (let z = lz0; z < lz1; z++)
             for (let y = ly0; y < ly1; y++) {
@@ -183,11 +188,58 @@ export class VoxelWorld {
     for (let i = 0; i < this.chunks.length; i++) {
       const c = this.chunks[i];
       if (!c) continue;
-      bytes += c.compress();
+      bytes += c.compress(true);
       if (c.isEmptyUniform) this.chunks[i] = null;
       else n++;
     }
+    this.hot.clear();
     return { bytes, chunks: n };
+  }
+
+  /**
+   * Generation: once more than `limit` chunks have gone dense, pack them all again (their arrays are reused by the
+   * next ones), so a big map is built with a bounded working set instead of a dense array per chunk it touched.
+   */
+  compressHot(limit = 0): void {
+    if (this.hot.size <= limit) return;
+    for (const i of this.hot) {
+      const c = this.chunks[i];
+      if (!c) continue;
+      c.compress(true);
+      if (c.isEmptyUniform) this.chunks[i] = null;
+    }
+    this.hot.clear();
+  }
+
+  /**
+   * Generation: horizontal strata over the whole map, from the bottom up to `yTop` (exclusive); `matAt(y)` is the
+   * material of the voxel row at height y. Every column of chunks shares one immutable packed chunk per chunk layer
+   * (a write copies it out first), so deep ground costs next to nothing until something digs into it.
+   */
+  fillStrata(yTop: number, matAt: (y: number) => number): void {
+    const d = new Uint8Array(CS3);
+    for (let cy = 0; cy < this.cy && cy * CS < yTop; cy++) {
+      for (let ly = 0; ly < CS; ly++) {
+        const y = cy * CS + ly;
+        const m = y < yTop ? matAt(y) : 0;
+        for (let lz = 0; lz < CS; lz++) d.fill(m, vidx(0, ly, lz), vidx(0, ly, lz) + CS);
+      }
+      let uniform = true;
+      for (let i = 1; i < CS3; i++)
+        if (d[i] !== d[0]) {
+          uniform = false;
+          break;
+        }
+      const packed = uniform ? null : PackedChunk.fromDense(d);
+      for (let cz = 0; cz < this.cz; cz++)
+        for (let cx = 0; cx < this.cx; cx++) {
+          const ci = this.chunkIndex(cx, cy, cz);
+          const c = new Chunk(uniform ? d[0] : 0);
+          c.packed = packed;
+          this.chunks[ci] = uniform && d[0] === 0 ? null : c;
+          this.dirty.add(ci);
+        }
+    }
   }
 
   /** Compress chunks that have not been written for `idleSeconds`. */
@@ -218,17 +270,10 @@ export class VoxelWorld {
         for (let y = 0; y < CS; y++) {
           const o = 1 + P * (y + 1 + P * (z + 1));
           const s = vidx(0, y, z);
-          out.set(d.subarray(s, s + CS), o);
+          for (let x = 0; x < CS; x++) out[o + x] = d[s + x];
         }
     } else if (c && c.packed) {
-      const tmp = scratchDense;
-      c.packed.decodeInto(tmp);
-      for (let z = 0; z < CS; z++)
-        for (let y = 0; y < CS; y++) {
-          const o = 1 + P * (y + 1 + P * (z + 1));
-          const s = vidx(0, y, z);
-          out.set(tmp.subarray(s, s + CS), o);
-        }
+      c.packed.decodePadded(out, P);
     } else {
       const u = c ? c.uniform : 0;
       for (let z = 0; z < CS; z++)
@@ -237,16 +282,52 @@ export class VoxelWorld {
           out.fill(u, o, o + CS);
         }
     }
-    // border shell (6536 voxels) via generic get
+    // border shell (6536 voxels), read straight from the 26 neighbouring chunks
+    const nb = scratchNeighbours;
+    for (let dz = -1; dz <= 1; dz++)
+      for (let dy = -1; dy <= 1; dy++)
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = cxi + dx, ny = cyi + dy, nz = czi + dz;
+          const k = dx + 1 + 3 * (dy + 1 + 3 * (dz + 1));
+          if (ny < 0) {
+            nb[k] = null;
+            nbFill[k] = this.bedrockId;
+          } else if (nx < 0 || nz < 0 || nx >= this.cx || ny >= this.cy || nz >= this.cz) {
+            nb[k] = null;
+            nbFill[k] = 0;
+          } else {
+            const n = this.chunks[this.chunkIndex(nx, ny, nz)];
+            if (!n || n.isUniform) {
+              nb[k] = null;
+              nbFill[k] = n ? n.uniform : 0;
+            } else {
+              nb[k] = n;
+              nbFill[k] = -1;
+            }
+          }
+        }
+    const read = (x: number, y: number, z: number): number => {
+      const kx = x < 0 ? 0 : x >= CS ? 2 : 1, ky = y < 0 ? 0 : y >= CS ? 2 : 1, kz = z < 0 ? 0 : z >= CS ? 2 : 1;
+      const k = kx + 3 * (ky + 3 * kz);
+      const n = nb[k];
+      return n ? n.get(vidx(x & CS_MASK, y & CS_MASK, z & CS_MASK)) : nbFill[k];
+    };
     for (let z = -1; z <= CS; z++)
       for (let y = -1; y <= CS; y++) {
         const edgeYZ = z === -1 || z === CS || y === -1 || y === CS;
         const rowBase = P * (y + 1 + P * (z + 1));
         if (edgeYZ) {
-          for (let x = -1; x <= CS; x++) out[rowBase + x + 1] = this.get(bx + x, by + y, bz + z);
+          // a whole row in one neighbour that is uniform: fill it
+          const ky = y < 0 ? 0 : y >= CS ? 2 : 1, kz = z < 0 ? 0 : z >= CS ? 2 : 1;
+          const kMid = 1 + 3 * (ky + 3 * kz);
+          if (nb[kMid] === null && nb[kMid - 1] === null && nb[kMid + 1] === null && nbFill[kMid] === nbFill[kMid - 1] && nbFill[kMid] === nbFill[kMid + 1]) {
+            out.fill(nbFill[kMid], rowBase, rowBase + P);
+            continue;
+          }
+          for (let x = -1; x <= CS; x++) out[rowBase + x + 1] = read(x, y, z);
         } else {
-          out[rowBase] = this.get(bx - 1, by + y, bz + z);
-          out[rowBase + CS + 1] = this.get(bx + CS, by + y, bz + z);
+          out[rowBase] = read(-1, y, z);
+          out[rowBase + CS + 1] = read(CS, y, z);
         }
       }
   }
@@ -264,4 +345,6 @@ export class VoxelWorld {
   }
 }
 
-const scratchDense = new Uint8Array(CS * CS * CS);
+/** the 27 chunks around (and including) the one being padded; null with `nbFill` its value when uniform or outside */
+const scratchNeighbours: (Chunk | null)[] = new Array(27).fill(null);
+const nbFill = new Int16Array(27);

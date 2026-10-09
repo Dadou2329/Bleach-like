@@ -29,8 +29,9 @@ export class WorldRenderer {
   private slots = new Map<number, ChunkSlots>();
   /** chunk index → version currently being meshed */
   private inflight = new Map<number, number>();
-  /** completed results waiting to be uploaded */
+  /** completed results waiting to be uploaded (a queue read from `readyHead`, compacted now and then) */
   private ready: { ci: number; version: number; res: MeshResult }[] = [];
+  private readyHead = 0;
   private tmpMat = new THREE.Matrix4();
   private tmpGeo = new THREE.BufferGeometry();
   stats = { chunksMeshed: 0, opaqueVerts: 0, uploadsLastFrame: 0 };
@@ -42,7 +43,10 @@ export class WorldRenderer {
     transMat: THREE.Material,
     maxInstances = 24000,
   ) {
-    this.opaque = new THREE.BatchedMesh(maxInstances, 1 << 20, (1 << 20) * 1.5, opaqueMat);
+    // sized from the map's footprint (a town column of chunks reserves ~1300 vertices), so a big map does not stream in
+    // through a string of resizes, each copying and re-uploading the whole buffer
+    const verts = Math.min(12_000_000, Math.max(1 << 20, world.cx * world.cz * 1400));
+    this.opaque = new THREE.BatchedMesh(maxInstances, verts, Math.ceil(verts * 1.5), opaqueMat);
     this.trans = new THREE.BatchedMesh(Math.max(1024, maxInstances >> 2), 1 << 17, (1 << 17) * 1.5, transMat);
     for (const b of [this.opaque, this.trans]) {
       b.perObjectFrustumCulled = true;
@@ -62,7 +66,7 @@ export class WorldRenderer {
   }
 
   get pending(): number {
-    return this.world.dirty.size + this.inflight.size + this.ready.length;
+    return this.world.dirty.size + this.inflight.size + this.ready.length - this.readyHead;
   }
 
   /**
@@ -78,6 +82,13 @@ export class WorldRenderer {
       const list: { ci: number; d: number }[] = [];
       for (const ci of w.dirty) {
         if (this.inflight.has(ci)) continue; // will be re-queued when the in-flight job lands (version check)
+        // nothing to draw (all air, or deep ground walled in by more of it): settle it now, off the budget
+        const chunk = w.chunks[ci];
+        if (!chunk || chunk.isEmptyUniform || this.isBuried(ci)) {
+          w.dirty.delete(ci);
+          this.apply(ci, EMPTY);
+          continue;
+        }
         const [cx, cy, cz] = w.chunkCoords(ci);
         const dx = cx * CS * vs + half - camPos.x, dy = cy * CS * vs + half - camPos.y, dz = cz * CS * vs + half - camPos.z;
         list.push({ ci, d: dx * dx + dy * dy * 4 + dz * dz });
@@ -87,11 +98,7 @@ export class WorldRenderer {
       for (const { ci } of list) {
         if (submitted >= maxSubmit) break;
         w.dirty.delete(ci);
-        const chunk = w.chunks[ci];
-        if (!chunk || chunk.isEmptyUniform || this.isBuried(ci)) {
-          this.ready.push({ ci, version: chunk ? chunk.version : -1, res: { opaque: null, transparent: null } });
-          continue;
-        }
+        const chunk = w.chunks[ci]!;
         const [cx, cy, cz] = w.chunkCoords(ci);
         const vol = this.pool.borrowVolume(PAD3);
         w.copyPadded(cx, cy, cz, vol);
@@ -106,29 +113,42 @@ export class WorldRenderer {
     }
     // ---- upload
     let uploads = 0;
-    while (this.ready.length > 0 && uploads < maxUploads) {
-      const r = this.ready.shift()!;
+    while (this.readyHead < this.ready.length && uploads < maxUploads) {
+      const r = this.ready[this.readyHead++];
       this.apply(r.ci, r.res);
       uploads++;
+    }
+    if (this.readyHead === this.ready.length) {
+      this.ready.length = 0;
+      this.readyHead = 0;
+    } else if (this.readyHead > 4096) {
+      this.ready.splice(0, this.readyHead);
+      this.readyHead = 0;
     }
     this.stats.uploadsLastFrame = uploads;
   }
 
-  /** A uniform opaque chunk fully enclosed by uniform opaque neighbours has no visible faces. */
+  /**
+   * A chunk of nothing but opaque matter walled in by chunks like it has no visible face: the deep ground. Past the
+   * map's sides counts as walled in too (the ground's outer walls are hidden under the backdrop's street level).
+   */
   private isBuried(ci: number): boolean {
     const w = this.world;
     const c = w.chunks[ci];
-    if (!c || !c.isUniform || !isOpaqueId(w, c.uniform)) return false;
+    if (!c || !c.allOpaque(this.opaqueId)) return false;
     const [cx, cy, cz] = w.chunkCoords(ci);
     const nb: [number, number, number][] = [[cx - 1, cy, cz], [cx + 1, cy, cz], [cx, cy - 1, cz], [cx, cy + 1, cz], [cx, cy, cz - 1], [cx, cy, cz + 1]];
     for (const [x, y, z] of nb) {
       if (y < 0) continue; // below the map is bedrock
-      if (x < 0 || z < 0 || x >= w.cx || z >= w.cz || y >= w.cy) return false;
+      if (y >= w.cy) return false;
+      if (x < 0 || z < 0 || x >= w.cx || z >= w.cz) continue;
       const n = w.chunks[w.chunkIndex(x, y, z)];
-      if (!n || !n.isUniform || !isOpaqueId(w, n.uniform)) return false;
+      if (!n || !n.allOpaque(this.opaqueId)) return false;
     }
     return true;
   }
+
+  private opaqueId = (id: number): boolean => isOpaqueId(this.world, id);
 
   private apply(ci: number, res: MeshResult): void {
     let s = this.slots.get(ci);
@@ -166,6 +186,9 @@ export class WorldRenderer {
     const rv = Math.ceil(buf.vertexCount * 1.3) + 64;
     const ri = Math.ceil(buf.indexCount * 1.3) + 96;
     this.ensureCapacity(batch, rv, ri);
+    // a big map can hold more chunk meshes than the batch was made for: grow it
+    const free = (batch as unknown as { _availableInstanceIds: number[] })._availableInstanceIds.length;
+    if (batch.instanceCount >= batch.maxInstanceCount && free === 0) batch.setInstanceCount(Math.ceil(batch.maxInstanceCount * 1.5));
     slot.geo = batch.addGeometry(g, rv, ri);
     slot.inst = batch.addInstance(slot.geo);
     batch.setMatrixAt(slot.inst, this.tmpMat);
@@ -201,6 +224,8 @@ export class WorldRenderer {
     this.trans.dispose();
   }
 }
+
+const EMPTY: MeshResult = { opaque: null, transparent: null };
 
 function isOpaqueId(w: VoxelWorld, id: number): boolean {
   const f = w.mats.flags[id];

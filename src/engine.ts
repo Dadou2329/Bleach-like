@@ -107,7 +107,10 @@ export class Engine {
 
   renderFrame(dt: number, alpha = 1): void {
     const cam = this.gr.camera;
-    this.wr.update(cam.position, 32, 48);
+    // the map's first build streams in fast (behind the start screen); after that the per-frame budget stays small
+    if (this.warming && this.frames > 2 && this.wr.pending === 0) this.warming = false;
+    if (this.warming) this.wr.update(cam.position, 192, 256);
+    else this.wr.update(cam.position, 32, 48);
     for (const h of this.renderHooks) h(dt, alpha);
     this.gr.render(dt);
     this.frames++;
@@ -142,6 +145,26 @@ export class Engine {
 
   stop(): void {
     this.running = false;
+  }
+
+  /** the whole map is still being meshed for the first time */
+  private warming = true;
+
+  /**
+   * Put a freshly generated copy of the map (same size) in place of this one: every chunk swapped and re-meshed (fast,
+   * like the first build), the colliders rebuilt, the edit log forgotten. The falling pieces are the caller's to clear.
+   */
+  resetWorld(fresh: VoxelWorld): void {
+    const w = this.world;
+    if (fresh.cx !== w.cx || fresh.cy !== w.cy || fresh.cz !== w.cz) throw new Error('resetWorld: the new map is another size');
+    for (let i = 0; i < w.chunks.length; i++) {
+      if (w.chunks[i] === null && fresh.chunks[i] === null) continue;
+      w.chunks[i] = fresh.chunks[i];
+      w.dirty.add(i);
+    }
+    this.physics.invalidateBox(0, 0, 0, w.sx - 1, w.sy - 1, w.sz - 1);
+    this.editLog.clear();
+    this.warming = true;
   }
 
   get pendingWork(): number {

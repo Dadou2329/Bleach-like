@@ -5,6 +5,7 @@
 // collapses read right.
 import type { Rng } from '../core/rng';
 import type { Builder } from './build';
+import { stampText, textWidth } from './glyphs';
 import { tree } from './testArena';
 
 export type Lot = { x0: number; z0: number; x1: number; z1: number; face: 'n' | 's' | 'e' | 'w' };
@@ -27,7 +28,10 @@ export function lotFrame(lot: Lot) {
   };
   const pt = (u: number, w: number): [number, number] =>
     face === 'n' ? [x0 + u, z0 + w] : face === 's' ? [x1 - u, z1 - w] : face === 'w' ? [x0 + w, z1 - u] : [x1 - w, z0 + u];
-  return { W, D, box, pt, alongX };
+  /** the world voxel of the local cell [u, u+1)×[w, w+1) (what `box` fills for it) */
+  const cell = (u: number, w: number): [number, number] =>
+    face === 'n' ? [x0 + u, z0 + w] : face === 's' ? [x1 - u - 1, z1 - w - 1] : face === 'w' ? [x0 + w, z1 - u - 1] : [x1 - w - 1, z0 + u];
+  return { W, D, box, pt, cell, alongX };
 }
 
 /** A concrete footing under a footprint, `depthM` into the ground. */
@@ -197,10 +201,10 @@ export function hipRoof(b: Builder, x0: number, z0: number, x1: number, z1: numb
  * a blue curtain wall with lit bays, cladding bands at each floor, the concrete core rising through the roof, a
  * parapet with plant and a mast. Inset from the lot by 1.5 m.
  */
-export function office(b: Builder, lot: Lot, G: number, rng: Rng): void {
+export function office(b: Builder, lot: Lot, G: number, rng: Rng, floorsOverride?: number): void {
   const v = (m: number) => b.v(m);
   const x0 = lot.x0 + v(1.5), z0 = lot.z0 + v(1.5), x1 = lot.x1 - v(1.5), z1 = lot.z1 - v(1.5);
-  const floors = rng.int(7, 12), storey = v(3.4), h = floors * storey;
+  const floors = floorsOverride ?? rng.int(7, 12), storey = v(3.4), h = floors * storey;
   const slab = b.id('concrete'), clad = b.id(rng.pick(['cladding', 'concrete', 'tile_white', 'cladding'])), glass = b.id('glass_office');
   const lit = b.id('window_lit'), dark = b.id('metal_dark'), metal = b.id('metal');
   // basement: a parking level under the street, columns on a grid
@@ -313,7 +317,7 @@ export function konbini(b: Builder, lot: Lot, G: number, rng: Rng): void {
  * Urahara Shop (浦原商店): a small old wooden shop of one storey and a loft, sliding doors across the front under the
  * big white sign board, a tiled gable roof, and the bare earth yard in front where Jinta and Ururu sweep.
  */
-export function uraharaShop(b: Builder, lot: Lot, G: number): void {
+export function uraharaShop(b: Builder, lot: Lot, G: number): [number, number] {
   const v = (m: number) => b.v(m);
   const { W, D, box } = lotFrame(lot);
   const wood = b.id('wood_dark'), plaster = b.id('plaster_cream'), shoji = b.id('shoji'), slab = b.id('stone');
@@ -338,20 +342,23 @@ export function uraharaShop(b: Builder, lot: Lot, G: number): void {
   for (let u = u0; u < u1; u += v(0.9)) box(b, u, G + 2, w0, u + 1, G + v(2.4), w0 + 2, wood);
   box(b, u0, G + v(1.2), w0, u1, G + v(1.2) + 1, w0 + 2, wood);
   box(b, u0, G + v(2.4), w0, u1, G + H, w0 + 2, plaster);
-  // the sign board over the door: white with four dark characters
-  const sb0 = u0 + v(1.5), sb1 = u1 - v(1.5);
-  box(b, sb0 - 1, G + v(2.6), w0 - 2, sb1 + 1, G + v(3.8), w0, wood);
-  box(b, sb0, G + v(2.7), w0 - 3, sb1, G + v(3.7), w0 - 2, b.id('paint_white'));
-  const cw = Math.floor((sb1 - sb0) / 4);
-  for (let i = 0; i < 4; i++) {
-    const c0 = sb0 + i * cw + 2;
-    box(b, c0, G + v(2.85), w0 - 4, c0 + cw - 4, G + v(3.55), w0 - 3, b.id('metal_dark'));
-    box(b, c0 + 1, G + v(3.0), w0 - 4, c0 + cw - 5, G + v(3.4), w0 - 3, b.id('paint_white'));
-  }
+  // the sign board over the door: 浦原商店 in dark wood on white, in a dark frame
+  const name = '浦原商店', tw = textWidth(name, 1);
+  const mid = (u0 + u1) >> 1, sb0 = mid - (tw >> 1) - 2, sb1 = mid + (tw >> 1) + 3;
+  const by0 = G + v(2.45), by1 = by0 + 16;
+  box(b, sb0 - 1, by0 - 1, w0 - 2, sb1 + 1, by1 + 1, w0, wood);
+  box(b, sb0, by0, w0 - 3, sb1, by1, w0 - 2, b.id('paint_white'));
+  const { cell } = lotFrame(lot);
+  stampText(b, name, b.id('wood_dark'), (c, row) => {
+    const [x, z] = cell(mid + (tw >> 1) - c, w0 - 4);
+    return [x, by1 - 2 - row, z];
+  }, 1);
   // the roof
   gableRoofLocal(b, box, u0, w0, u1, w1, G + H, b.id('kawara'), v(0.7));
   // a bench and a broom against the wall
   box(b, u1 + v(0.4), G, w0 + v(0.6), Math.min(W - 1, u1 + v(2)), G + v(0.45), w0 + v(1.1), b.id('wood'));
+  // the hatch in the floor at the back of the shop (the way down to what is under it)
+  return lotFrame(lot).pt(((u0 + u1) >> 1) + v(2), w1 - v(2.2));
 }
 
 /** A gable roof in a lot frame: the ridge along u, eaves over the front and back. */

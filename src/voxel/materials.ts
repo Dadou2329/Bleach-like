@@ -220,6 +220,12 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'manhole', colors: ['#2d2e30', '#36373a', '#3f4043'], pattern: 'metal', hardness: 70, density: 4, flags: S, debris: 'metal', metalness: 0.5, roughness: 0.6 });
   add({ name: 'glass_office', colors: ['#24425c', '#2c506c', '#365e7e', '#426c8e'], accent: '#7d97ad', pattern: 'glass', hardness: 4, density: 1.2, flags: S, debris: 'glass', roughness: 0.25 });
   add({ name: 'cladding', colors: ['#8b9298', '#99a0a6', '#a7aeb4', '#b4bbc0'], accent: '#7a8187', pattern: 'stripe', hardness: 30, density: 2.2, flags: S, debris: 'metal', metalness: 0.3, roughness: 0.5 });
+  // Karakura v3: the railway, the deep rock, Urahara's painted sky
+  add({ name: 'rail', colors: ['#4a4440', '#57504a', '#655d56'], pattern: 'metal', hardness: 80, density: 5, flags: S, debris: 'metal', metalness: 0.7, roughness: 0.4 });
+  add({ name: 'train_steel', colors: ['#9ca2a7', '#a9afb4', '#b6bcc1', '#c3c9cd'], pattern: 'metal', hardness: 50, density: 3, flags: S, debris: 'metal', metalness: 0.55, roughness: 0.35 });
+  add({ name: 'granite', colors: ['#5c5453', '#69605f', '#766c6a', '#837876'], accent: '#4a4342', pattern: 'stone', hardness: 70, density: 2.8, flags: S, debris: 'rock' });
+  add({ name: 'sky_mural', colors: ['#6d9cc8', '#79a8d1', '#86b4da', '#93bfe2'], accent: '#d9e4ec', pattern: 'plaster', hardness: 40, density: 2.4, flags: S | F_EMISSIVE, debris: 'rock', glow: 0.55 });
+  add({ name: 'track_red', colors: ['#8a3b2d', '#974434', '#a44e3c'], pattern: 'sand', hardness: 4, density: 1.4, flags: S, debris: 'dirt' });
 
   return t;
 }

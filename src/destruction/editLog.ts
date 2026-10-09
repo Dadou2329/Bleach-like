@@ -2,20 +2,23 @@
 import type { VoxelWorld } from '../voxel/world';
 
 export class EditLog {
-  private x: Int32Array;
-  private y: Int32Array;
-  private z: Int32Array;
+  // voxel coordinates fit 16 bits (a world is at most 65536 voxels a side)
+  private x: Uint16Array;
+  private y: Uint16Array;
+  private z: Uint16Array;
   private oldV: Uint8Array;
   private newV: Uint8Array;
   private t: Float32Array;
   private head = 0;
   private size = 0;
+  /** edits have been pushed out of the ring since the last `clear()`: the oldest damage can no longer be undone */
+  overflowed = false;
   enabled = true;
 
-  constructor(private world: VoxelWorld, readonly capacity = 1 << 20) {
-    this.x = new Int32Array(capacity);
-    this.y = new Int32Array(capacity);
-    this.z = new Int32Array(capacity);
+  constructor(private world: VoxelWorld, readonly capacity = 1 << 21) {
+    this.x = new Uint16Array(capacity);
+    this.y = new Uint16Array(capacity);
+    this.z = new Uint16Array(capacity);
     this.oldV = new Uint8Array(capacity);
     this.newV = new Uint8Array(capacity);
     this.t = new Float32Array(capacity);
@@ -29,6 +32,14 @@ export class EditLog {
     this.t[i] = this.world.time;
     this.head = (i + 1) % this.capacity;
     if (this.size < this.capacity) this.size++;
+    else this.overflowed = true;
+  }
+
+  /** forget every edit (the world was rebuilt from scratch) */
+  clear(): void {
+    this.head = 0;
+    this.size = 0;
+    this.overflowed = false;
   }
 
   /**
