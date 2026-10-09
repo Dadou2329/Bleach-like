@@ -875,7 +875,8 @@ export class DadouKit implements Kit {
     const { f, g } = this;
     if (this.form === 'sealed') return;
     this.dismissGiant();
-    this.hells?.done !== true && this.hells && (this.hells.o.life = 0);
+    // the burning hells go out with him
+    if (this.hells && !this.hells.done) this.hells.o.life = 0;
     if (this.sky) this.sky.target = 0;
     this.sky = null;
     this.infernoT = 0;
@@ -1266,7 +1267,7 @@ export class DadouKit implements Kit {
     const { f, g } = this;
     g.addProjectile(new CeroBeam(g, f, this.chestMuzzle, () => this.aim(new THREE.Vector3()), { charge: 0.05, fire: 1.4, radius: 1.6, damage: 1200, power: 2400, core: '#FFD6E0', body: '#FF2A48', rim: '#7A0E3A', dark: '#120A12', range: 120, track: 1.2, gain: 1.9 }));
     this.say('獄炎砲', 'GOKUEN-HŌ', HELL_CRIMSON);
-    for (const o of g.enemiesOf(f)) if (o.pos.distanceTo(f.pos) < 120) this.after(0.6, () => !o.dead && this.ignite(o, 0.1));
+    hellFlash(g, this.chestMuzzle.getWorldPosition(new THREE.Vector3()), 1.4);
   }
 
   /** Kaen-rin: the wheel off his back as a buzzsaw of fire */
