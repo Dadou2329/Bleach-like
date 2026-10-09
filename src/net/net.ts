@@ -14,7 +14,7 @@ import type { Kit } from '../game/kits/kit';
 import type { Game } from '../game/game';
 
 /** bumped whenever the messages change: both sides must speak the same */
-export const NET_VERSION = 1;
+export const NET_VERSION = 2;
 
 /** the actions a pad carries, one bit each */
 export const NET_ACTIONS: Action[] = ['forward', 'back', 'left', 'right', 'jump', 'descend', 'dash', 'sprint', 'attack', 'heavy', 'skill1', 'skill2', 'skill3', 'release', 'mask', 'flare', 'lock', 'guard'];
@@ -23,7 +23,7 @@ export type NetMsg =
   | { t: 'hello'; char: string; map: string; v: number }
   | { t: 'start'; host: string; guest: string; map: string }
   | { t: 'pad'; h: number; p: number; y: number }
-  | { t: 'st'; p: [number, number, number]; v: [number, number, number]; yaw: number; hp: number; rei: number; dead: boolean; form: string }
+  | { t: 'st'; r: number; p: [number, number, number]; v: [number, number, number]; yaw: number; hp: number; rei: number; dead: boolean; form: string }
   | { t: 'round'; n: number }
   | { t: 'bye' };
 
@@ -40,8 +40,8 @@ export function parseMsg(d: unknown): NetMsg | null {
     case 'start': return str(m.host) && str(m.guest) && str(m.map, 16) ? { t: 'start', host: m.host, guest: m.guest, map: m.map } : null;
     case 'pad': return num(m.h) && num(m.p) && num(m.y) ? { t: 'pad', h: m.h | 0, p: m.p | 0, y: m.y } : null;
     case 'st':
-      return vec3(m.p) && vec3(m.v) && num(m.yaw) && num(m.hp) && num(m.rei) && typeof m.dead === 'boolean' && str(m.form, 96)
-        ? { t: 'st', p: m.p, v: m.v, yaw: m.yaw, hp: m.hp, rei: m.rei, dead: m.dead, form: m.form }
+      return num(m.r) && vec3(m.p) && vec3(m.v) && num(m.yaw) && num(m.hp) && num(m.rei) && typeof m.dead === 'boolean' && str(m.form, 96)
+        ? { t: 'st', r: m.r | 0, p: m.p, v: m.v, yaw: m.yaw, hp: m.hp, rei: m.rei, dead: m.dead, form: m.form }
         : null;
     case 'round': return num(m.n) ? { t: 'round', n: m.n | 0 } : null;
     case 'bye': return { t: 'bye' };
@@ -241,8 +241,8 @@ export interface NetSides {
 /**
  * The running match: sends this player's pad every step and a snapshot of their fighter every sixth, feeds the other
  * player's pad to `remotePad`, and eases the other fighter toward its owner's snapshots (snapping when far off);
- * HP, reiatsu and death follow the owner. A form that came out different here (a press refused while busy) is pressed
- * again until the names agree.
+ * HP, reiatsu and death follow the owner (the copy here cannot die of the blows it takes here: set it `immortal`). A
+ * form that came out different here (a press refused while busy) is pressed again until the names agree.
  */
 export class NetSession {
   readonly remotePad = new RemotePad();
@@ -254,6 +254,8 @@ export class NetSession {
   private formRetryT = 0;
   private formTries = 0;
   onRound: ((n: number) => void) | null = null;
+  /** the round being fought: snapshots from another round (sent before the news of a new one arrived) are dropped */
+  round = 1;
   onBye: (() => void) | null = null;
   /** seconds since the last message from the other player */
   quietT = 0;
@@ -267,13 +269,23 @@ export class NetSession {
     inp.pressListeners.add(onPress);
     this.offPress = () => inp.pressListeners.delete(onPress);
     t.onMessage = (m) => this.receive(m);
-    t.onClose = () => this.onBye?.();
+    t.onClose = () => this.bye();
+    // leaving the page says goodbye; a peer silent for 25 s (a closed laptop) is gone too
+    window.addEventListener('pagehide', () => this.t.send({ t: 'bye' }));
+  }
+
+  private gone = false;
+  private bye(): void {
+    if (this.gone) return;
+    this.gone = true;
+    this.onBye?.();
   }
 
   private receive(m: NetMsg): void {
     this.quietT = 0;
     if (m.t === 'pad') this.remotePad.apply(m.h, m.p, m.y);
     else if (m.t === 'st') {
+      if (m.r !== this.round) return;
       const s = this.sides.them();
       if (!s) return;
       const f = s.f;
@@ -294,14 +306,20 @@ export class NetSession {
         this.form = m.form;
         this.formTries = 0;
       }
-    } else if (m.t === 'round') this.onRound?.(m.n);
-    else if (m.t === 'bye') this.onBye?.();
+    } else if (m.t === 'round') {
+      this.round = m.n;
+      this.target = null;
+      this.form = '';
+      this.onRound?.(m.n);
+    }
+    else if (m.t === 'bye') this.bye();
   }
 
   /** one sim step */
   step(dt: number): void {
     const g = this.g;
     this.quietT += dt;
+    if (this.quietT > 25) this.bye();
     let h = 0;
     NET_ACTIONS.forEach((a, i) => { if (g.input.held(a)) h |= 1 << i; });
     this.t.send({ t: 'pad', h, p: this.pending, y: g.cam.yaw });
@@ -309,7 +327,7 @@ export class NetSession {
     const me = this.sides.me();
     if (me && ++this.stepN % 6 === 0) {
       const f = me.f;
-      this.t.send({ t: 'st', p: [f.body.pos.x, f.body.pos.y, f.body.pos.z], v: [f.body.vel.x, f.body.vel.y, f.body.vel.z], yaw: f.yaw, hp: f.hp, rei: f.rei, dead: f.dead, form: me.kit.formName() });
+      this.t.send({ t: 'st', r: this.round, p: [f.body.pos.x, f.body.pos.y, f.body.pos.z], v: [f.body.vel.x, f.body.vel.y, f.body.vel.z], yaw: f.yaw, hp: f.hp, rei: f.rei, dead: f.dead, form: me.kit.formName() });
     }
     const them = this.sides.them();
     if (!them || them.f.dead) return;

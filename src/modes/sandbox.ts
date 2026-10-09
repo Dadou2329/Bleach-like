@@ -295,6 +295,8 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     kit = host ? aKit : bKit;
     playerEntry = host ? hostE : guestE;
     remote = host ? { f: b, kit: bKit } : { f: a, kit: aKit };
+    // only its owner can down the other player's fighter (its snapshot says so); here it just takes the blows
+    remote.f.immortal = true;
     game.controllers.push(new PlayerController(game, player, kit));
     game.controllers.push(new PlayerController(game, remote.f, remote.kit, session!.remotePad, session!.remotePad, false));
     hud.abilityProvider = () => kit.abilities();
@@ -330,6 +332,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
           netDeadT += dt;
           if (netDeadT > 4.5) {
             netRound++;
+            session.round = netRound;
             net?.send({ t: 'round', n: netRound });
             spawnPair(hostId, guestId);
             hud.showBanner(`ROUND ${netRound}`, 2);

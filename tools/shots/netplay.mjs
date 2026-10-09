@@ -1,6 +1,7 @@
 // Vs Player 2 smoke test: two tabs of one headless browser join a lobby over the local BroadcastChannel transport
 // (?net=local), the host starts, then tab A walks and attacks while both tabs report what they see.
-//   node tools/shots/netplay.mjs [--port 5461] [--map arena] [--a ichigo] [--b grimmjow]
+//   node tools/shots/netplay.mjs [--port 5461] [--map arena] [--a ichigo] [--b grimmjow] [--real 1]
+// --real 1 goes through the real lobby broker and WebRTC instead (needs network access).
 // Writes shots/net-A.png and shots/net-B.png.
 import { chromium } from 'playwright-core';
 import { spawn } from 'node:child_process';
@@ -9,6 +10,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, arr) =>
 const PORT = Number(args.port ?? 5461);
 const MAP = args.map === 'town' ? '' : '&map=arena';
 const CA = args.a ?? 'ichigo', CB = args.b ?? 'grimmjow';
+const NET = args.real ? '' : '&net=local';
 const ping = (u) => new Promise((r) => http.get(u, (x) => { x.resume(); r(true); }).on('error', () => r(false)));
 let proc = null;
 if (!(await ping(`http://127.0.0.1:${PORT}/`))) {
@@ -24,14 +26,14 @@ try {
     p.on('pageerror', (e) => log(n, 'PAGEERROR', e.message));
     p.on('console', (m) => { if (m.type() === 'error') log(n, 'console.error', m.text().slice(0, 200)); });
   }
-  await A.goto(`http://127.0.0.1:${PORT}/?q=low${MAP}&net=local&char=${CA}`);
+  await A.goto(`http://127.0.0.1:${PORT}/?q=low${MAP}${NET}&char=${CA}`);
   await A.waitForFunction('window.__reishi && window.__reishi.ready()', null, { timeout: 600000 });
   log('A ready');
   await A.click('.mode[data-mode="online"]');
   await A.click('.lobby .host');
   const code = (await A.textContent('#start .code')).trim();
   log('lobby code', code, '| A status:', await A.textContent('#start .status'));
-  await B.goto(`http://127.0.0.1:${PORT}/?q=low${MAP}&net=local&char=${CB}&join=${code}`);
+  await B.goto(`http://127.0.0.1:${PORT}/?q=low${MAP}${NET}&char=${CB}&join=${code}`);
   await B.waitForFunction('window.__reishi && window.__reishi.ready()', null, { timeout: 600000 });
   log('B ready | B status:', await B.textContent('#start .status'));
   await A.waitForFunction(() => /Player 2 is in/.test(document.querySelector('#start .status')?.textContent ?? ''), null, { timeout: 120000 });
@@ -58,6 +60,23 @@ try {
   }
   await A.screenshot({ path: 'shots/net-A.png' });
   await B.screenshot({ path: 'shots/net-B.png' });
+  // B falls: both sides see it, and the host calls round 2 (both fighters back at their marks, full HP)
+  await B.evaluate(() => { const r = window.__reishi; r.game.damage(r.player, 1e6, null, r.player.forward(), {}); });
+  for (let i = 0; i < 20; i++) {
+    await new Promise((r) => setTimeout(r, 6000));
+    const a = await st(A), bb = await st(B);
+    const bDead = await B.evaluate(() => !!window.__reishi.player.dead);
+    log('A', JSON.stringify(a));
+    log('B', JSON.stringify(bb), 'deadMe=', bDead);
+    if (i > 2 && a.n === 2 && bb.n === 2 && !bDead && a.themHp > 0) {
+      log('round 2 on both tabs');
+      break;
+    }
+  }
+  // B leaves: A is told
+  await B.close();
+  await new Promise((r) => setTimeout(r, 4000));
+  log('A banner after B left:', await A.evaluate(() => document.querySelector('#hud .banner')?.textContent ?? '(no banner element)'));
 } finally {
   await b.close();
   if (proc) proc.kill();
