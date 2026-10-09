@@ -79,7 +79,7 @@ class SeatAction extends FighterAction {
 }
 
 /** Bakudō #81 Dankū: a wall of light before him that stops shots and beams. */
-class DankuWall implements Projectile {
+export class DankuWall implements Projectile {
   done = false;
   private t = 0;
   private mesh: THREE.Mesh;

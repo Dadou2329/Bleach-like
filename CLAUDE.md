@@ -85,7 +85,11 @@ scope and milestones and `README.md` for controls and modes.
   get a page in the start screen's Special characters wiki (`ui/wiki.ts`, `SPECIAL_WIKI`; keep it in step with the
   kit). Natacha (`natacha.ts`, the user's tribute character — keep her face, freckles and copper hair as they are)
   climbs four forms with F; her final form flies with `vollFlight` and plays the looping 'nt_float' clip (legs only)
-  whenever nothing else plays, so the gait never walks her in the air.
+  whenever nothing else plays, so the gait never walks her in the air. Even (`even.ts`, the user's second tribute
+  character, he/him — keep his face: the swept-up dark quiff, the round clear glasses (a 2× prop on the 'glasses'
+  socket), the grin, the violet cord on his left wrist) climbs the same four-form ladder; his Kyōzō copies are
+  `mirrorDef()` + `EvenKit(f, g, { mirror: true })` + a `DuelistAI`, and Kyōzō Hangyaku copies the target through
+  `rosterById`. `AfterimagePool.spawn(life, k, xf)` takes a transform (a ghost somewhere else: his mirror shadow).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -236,7 +240,13 @@ scope and milestones and `README.md` for controls and modes.
   `StarMarks`; `StarLines`, camera-facing ribbons between moving points; `StarDome`; `CalamityStar`; `NightSky`, the
   Bankai's night — a SkyTint, a star dome and a Milky Way band riding round the camera, shooting stars, the morning
   star — that ends with its owner; `FallingStar`; `Constellation` + `GiantSword`; `BlackStar`; `Supernova`; `TimeHalt`;
-  `DawnWall`; `LightPillar`; `passingSky`) and
+  `DawnWall`; `LightPillar`; `passingSky`),
+  `vfx/meikyo.ts` (Even: `glassMaterial` (fresnel + thin-film colours, additive) and `mirrorMaterial` (chrome on the sky's
+  env map); `Ribbons`, camera-facing quads with their own RGBA; `GlassShatter`; `Glint` on the glasses; `GiantLens`;
+  `MirrorPane`; `PrismRays` (one `onHit` per colour); `SunFocus`; `MirrorLake`, a three.js `Reflector` disc laid over
+  the ground that follows its owner at its own height (`inside()`, `ripple()`, `end()`); `CrystalSpike`; `MirrorPrison`;
+  `MirrorWave`; `Kaleidoscope`; `SunPillar`; `JudgmentMirror`, a standing `Reflector` in a frame that cracks;
+  `ReleaseLight`) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default, 320 m: five roads each way with blocks numbered `(i, j)`, special blocks by

@@ -21,6 +21,8 @@ import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
 import { MOMO_DEF, MomoKit } from './kits/momo';
 import { NATACHA_DEF, NatachaKit } from './kits/natacha';
 import { natachaAsset, natachaProp } from '../chars/natacha';
+import { EVEN_DEF, EvenKit } from './kits/even';
+import { evenAsset, evenProp } from '../chars/even';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
@@ -1117,6 +1119,20 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       for (const k of ['shikai', 'bankai', 'final'] as const) buildCached(natachaAsset(k).model, true);
       for (const k of ['shikai', 'bankai', 'final', 'halo'] as const) buildCached(natachaProp(k), false);
+    },
+  },
+  {
+    id: 'even',
+    name: 'Even',
+    kanji: '明鏡',
+    title: 'Grand Kidō Chief · Clear Mirror',
+    color: '#b9a8ff',
+    special: true,
+    def: () => ({ ...EVEN_DEF, speed: { ...EVEN_DEF.speed } }),
+    kit: (f, g) => new EvenKit(f, g),
+    warm: () => {
+      for (const k of ['shikai', 'bankai', 'final'] as const) buildCached(evenAsset(k).model, true);
+      for (const k of ['shikai', 'bankai', 'final', 'glassesLight', 'aureole'] as const) buildCached(evenProp(k), false);
     },
   },
 ];

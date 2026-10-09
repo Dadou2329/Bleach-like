@@ -47,13 +47,16 @@ export class AfterimagePool {
     }
   }
 
-  /** Snapshot the current pose. */
-  spawn(life = 0.4, intensity = 1): void {
+  /** Snapshot the current pose (moved by `xf` when given: a copy of the pose somewhere else, a reflection). */
+  spawn(life = 0.4, intensity = 1, xf?: THREE.Matrix4): void {
     if (!this.enabled) return;
     let g = this.ghosts.find((x) => x.life <= 0);
     if (!g) g = this.ghosts.reduce((a, b) => (a.life < b.life ? a : b));
     this.src.object.updateMatrixWorld(true);
-    this.src.rig.bones.forEach((b, i) => g!.bones[i].matrixWorld.copy(b.matrixWorld));
+    this.src.rig.bones.forEach((b, i) => {
+      g!.bones[i].matrixWorld.copy(b.matrixWorld);
+      if (xf) g!.bones[i].matrixWorld.premultiply(xf);
+    });
     g.mesh.visible = true;
     g.life = life;
     g.max = life;
@@ -78,6 +81,7 @@ export class AfterimagePool {
       prop.updateMatrixWorld(true);
       mesh.matrixAutoUpdate = false;
       mesh.matrix.copy(prop.matrixWorld);
+      if (xf) mesh.matrix.premultiply(xf);
       mesh.frustumCulled = false;
       mesh.renderOrder = 4;
       this.group.add(mesh);

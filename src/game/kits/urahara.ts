@@ -336,7 +336,7 @@ class BindAction extends SkillAction {
 }
 
 /** Bakudō #79 Kuyō Shibari: eight black holes with purple rims round the target and a ninth on its chest. */
-class KuyoShibari {
+export class KuyoShibari {
   done = false;
   private t = 0;
   private discs: THREE.Mesh[] = [];

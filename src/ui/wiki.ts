@@ -160,31 +160,154 @@ export const SPECIAL_WIKI: WikiEntry[] = [
       'Sandbox mode lets you try everything without limits.',
     ],
   },
+  {
+    id: 'even',
+    name: 'Even',
+    kanji: '明鏡',
+    title: 'Daikidōchō — the Grand Kidō Chief',
+    color: '#b9a8ff',
+    dedication: 'Even is a special character: an original, added to REISHI as a tribute to someone very important to its author. His look comes from him — the swept-up dark hair, the round clear glasses, the big grin, even the violet cord on his wrist — and his powers were written for him. Like Natacha, he is far stronger than anyone from the manga, on purpose.',
+    lore: [
+      'Even is the Daikidōchō, the Grand Kidō Chief of the Kidō Corps — the youngest ever to hold the post. He casts Hadō in the nineties without a word of the incantation, often while he is still talking, then pushes his glasses up his nose and grins. In the Corps they say nothing gets past his eyes: he has read a technique before it is finished, and answered it before it lands.',
+      'His Zanpakutō is a mirror. Whatever it sees clearly, it can reflect, bend, focus — and judge. Sealed, he fights as the Kidō master he is. Released, light itself obeys him: a lens that makes a cut a hundred times larger, a prism that splits a beam into seven, a mirror that sends every blow back where it came from.',
+      'His Bankai brings out his inner world — an endless salt flat under a layer of perfectly still water — and lays it over the battlefield. In that mirror everything has a reflection, and every reflection belongs to him. Past the Bankai, when he finally opens his eyes, he becomes light that reaches everything at once.',
+    ],
+    profile: [
+      ['Race', 'Shinigami'],
+      ['Affiliation', 'Kidō Corps (Kidōshū)'],
+      ['Title', 'Daikidōchō 大鬼道長 — the Grand Kidō Chief'],
+      ['Height', '181 cm'],
+      ['Hair', 'dark brown, almost black, swept up and back into a soft quiff, parted on his left, short at the sides (violet light runs through it in his final form)'],
+      ['Eyes', 'dark brown, behind round clear glasses (glowing violet in his final form, when the frames turn to light)'],
+      ['Smile', 'a big, open grin — he keeps it in the middle of a fight'],
+      ['Habit', 'pushes his glasses up with one finger before he gets serious — the lenses flash'],
+      ['Outfit', 'black shihakushō, a violet obi, the sleeveless cream haori of the Grand Kidō Chief with a violet hem of cream diamonds and a lens crest on the back; a thin violet cord on his left wrist'],
+    ],
+    zanpakuto: {
+      name: 'Meikyō',
+      kanji: '明鏡',
+      means: '"Clear Mirror" — a mirror so perfectly polished that it shows things exactly as they are. The Bankai completes the old saying 明鏡止水, meikyō shisui: "a clear mirror and still water", a mind so calm it reflects the world without distortion.',
+      text: [
+        'Sealed, Meikyō is a katana with a round black guard like a camera\'s lens — a black ring round a disc of glass, a fine silver ring engraved in it — a violet hilt wrap, and a violet-black sheath tied with the same violet cord he wears on his wrist.',
+        'Its spirit is a tall figure of clear glass whose face is a mirror: whoever looks into it sees themselves exactly as they are. Its power is light: it reflects, bends and focuses anything made of light or reiatsu, sees through every illusion, and in the Bankai turns the ground into the still mirror of his inner world.',
+      ],
+    },
+    forms: [
+      {
+        name: 'Sealed — Meikyō',
+        kanji: '封印',
+        look: 'The katana with the round black lens guard, the sheath at his left hip, the left hand resting on his hip.',
+        stats: ['Power ×1.6', 'Damage taken ×0.8', 'Shunpo 26 m', 'Every Kidō chantless'],
+        moves: [
+          { key: 'LMB', name: 'Seigan', kanji: '正眼', means: 'the middle guard (the point at the eyes)', text: 'Five clean cuts: a thrust, two diagonal cuts, a turning level cut and a rising cut that launches.' },
+          { key: 'RMB', name: 'Hadō #4 — Byakurai: Sanren', kanji: '白雷・三連', means: 'White Lightning, three in a row', text: 'Three bolts of white lightning from his fingertip, one after another; each one pierces everything on a 95 m line.' },
+          { key: 'Q', name: 'Hadō #73 — Sōren Sōkatsui', kanji: '双蓮蒼火墜', means: 'Twin Lotus Blue Fire Crash', text: 'Blue fire blasted from his left palm and from the blade\'s point together: two cones 15 m long that blow walls apart.' },
+          { key: 'E', name: 'Bakudō #81 — Dankū', kanji: '断空', means: 'Splitting Void', text: 'A wall of light before him for 3 seconds: every blow and every shot from the front stops on it.' },
+          { key: 'R', name: 'Bakudō #79 — Kuyō Shibari', kanji: '九曜縛', means: 'Nine Lights Bind', text: 'Nine black seals close round the target and hold it completely still for 3 seconds.' },
+          { key: 'G', name: 'Hadō #90 — Kurohitsugi', kanji: '黒棺', means: 'Black Coffin', text: 'The Black Coffin, chantless and at full power: slabs of black gravity lock round the target, stakes punch through it, and the coffin breaks apart.' },
+          { key: 'F', name: 'Utsuse, Meikyō', kanji: '映せ', text: 'He pushes his glasses up — they flash — and releases the Shikai.' },
+        ],
+      },
+      {
+        name: 'Shikai — Meikyō',
+        kanji: '始解',
+        command: 'Utsuse, Meikyō — 映せ「明鏡」',
+        means: 'Reflect, Clear Mirror',
+        look: 'The blade turns into a straight, double-edged blade of clear crystal that splits the light into colours inside it; the guard becomes a silver mirror ring round the lens.',
+        stats: ['Power ×2.5', 'Damage taken ×0.6', 'Reiatsu +3/s', 'Shunpo 28 m'],
+        moves: [
+          { key: 'LMB', name: 'Hari-giri', kanji: '玻璃斬り', means: 'Crystal Cuts', text: 'The same five cuts; each one throws a thin crescent of split light (14 m), the last a wide one (28 m).' },
+          { key: 'RMB', name: 'Kakudai', kanji: '拡大', means: 'Magnification', text: 'A great lens of glass forms in front of him and he cuts through it: the cut comes out a hundred times larger — a level slash 42 m long and 8 m wide through everything ahead. It cannot be blocked.' },
+          { key: 'Q', name: 'Bunkō', kanji: '分光', means: 'Spectrum (splitting the light)', text: 'A prism of glass appears; a beam goes in and comes out as seven rays, red to violet, each boring straight through everything for 80 m. Red burns, orange explodes, yellow paralyses, green heals him, blue slows, indigo blinds, violet seals the target\'s power.' },
+          { key: 'E', name: 'Hansha', kanji: '反射', means: 'Reflection', text: 'A tall hexagonal mirror stands before him for 2.5 seconds. Shots and beams that reach it are undone and fired back as light; blows from the front glance off it and come back on the attacker one and a half times as hard.' },
+          { key: 'R', name: 'Shōten', kanji: '焦点', means: 'Focal Point', text: 'A lens forms in the sky over the target and focuses the sun into a white-hot point that follows it for 3 seconds — burning it, and melting a glowing trench in the ground behind it.' },
+          { key: 'G', name: 'Senkō', kanji: '閃光', means: 'Flash', text: 'The mirror blade catches the sun: everyone looking at him is blinded for 4 seconds and stunned, and decoys, illusions and veils burn away. He grins when he does it.' },
+          { key: 'F', name: 'Bankai', kanji: '卍解', text: 'Releases the Bankai.' },
+        ],
+      },
+      {
+        name: 'Bankai — Meikyō Shisui',
+        kanji: '明鏡止水',
+        command: 'Bankai — 卍解「明鏡止水」',
+        means: 'Clear Mirror, Still Water',
+        look: 'He drives the blade point-down into the ground and the still water of his inner world spreads from it: a perfect mirror 60 m wide that follows him, reflecting the city, the sky and every fighter in it. The sky clears. His haori becomes a long white coat with sleeves, lined with mirror silver; the blade becomes a long faceted crystal with a core of light.',
+        stats: ['Power ×3.6', 'Damage taken ×0.45', 'Healed to full on release', 'Regenerates 1.5 % HP and 8 reiatsu per second', 'Enemies standing in the mirror are stilled (30 % slower, actions too)', 'Knockback ×0.4'],
+        moves: [
+          { key: 'LMB', name: 'Kyōei', kanji: '鏡影', means: 'Mirror Shadow', text: 'Every cut of the long crystal blade is repeated a moment later by his reflection, which rises on the far side of the target and cuts it from behind.' },
+          { key: 'RMB', name: 'Mizukagami-tsuki', kanji: '水鏡突き', means: 'Water-Mirror Thrust', text: 'He stabs the water at his feet — and a spike of crystal bursts out of the target\'s reflection right under it, launching it. It cannot be blocked.' },
+          { key: 'Q', name: 'Kyōzō', kanji: '鏡像', means: 'Mirror Images', text: 'Three reflections of him climb out of the water as glass copies and fight beside him for 12 seconds, then shatter.' },
+          { key: 'E', name: 'Kagami-watari', kanji: '鏡渡り', means: 'Crossing the Mirror', text: 'He sinks into the mirror, bursts out under the target with a rising cut that throws it high, then appears above it and drives it back down into the water. Unblockable, and nothing can touch him meanwhile.' },
+          { key: 'R', name: 'Senkyō Kōrō', kanji: '千鏡光牢', means: 'Thousand-Mirror Prison of Light', text: 'Mirrors fly in and close into a sphere round the target; a ray of light fired inside bounces from mirror to mirror and strikes it thirty times, then the sphere shatters outward.' },
+          { key: 'G', name: 'Kyōha', kanji: '鏡波', means: 'Mirror Wave', text: 'The still water rises into a great wave of mirror-glass 36 m wide and runs 90 m forward, smashing whatever it meets and throwing everyone on; where it breaks, the ground stays flooded.' },
+          { key: 'F', name: 'Kaigen', kanji: '開眼', text: 'Releases his final form.' },
+        ],
+      },
+      {
+        name: 'Final form — Kōmyō Henjō',
+        kanji: '光明遍照',
+        command: 'Kaigen — 開眼「光明遍照」',
+        means: 'Open the Eye: Light Shining on Everything',
+        look: 'He covers his glasses with his hand, then opens his arms and rises above the mirror in a pillar of light. His robe turns white and silver with violet light in its trim, violet light runs through his hair, his eyes glow violet, the frames of his glasses turn to light, and an aureole of twelve mirror shards opens behind him. The blade is pure light.',
+        stats: ['Power ×5.5', 'Damage taken ×0.15', 'Half of every blow returns to whoever struck it', 'Healed to full on release', 'Regenerates 3 % HP and 20 reiatsu per second', 'Flies: Space climbs, Ctrl sinks', 'Never knocked back; immune to every status'],
+        moves: [
+          { key: 'LMB', name: 'Kōjin', kanji: '光刃', means: 'Blades of Light', text: 'Before every cut he moves at the speed of light to a new side of the target; each cut throws a large crescent of light 42 m ahead.' },
+          { key: 'RMB', name: 'Issen', kanji: '一閃', means: 'A Single Flash', text: 'One level cut at the speed of light across the whole field: 160 m wide and 160 m deep, at the target\'s height. Every building in it is cut through. It cannot be blocked.' },
+          { key: 'Q', name: 'Hyakkakyō', kanji: '百花鏡', means: 'the Kaleidoscope (a "hundred-flower mirror")', text: 'The target is shut inside a turning kaleidoscope for 3 seconds — blind, its steps scrambled — while it is cut eighteen times from six mirrored angles.' },
+          { key: 'E', name: 'Tenkyō Shōten', kanji: '天鏡焦点', means: 'the Heaven-Mirror\'s Focus', text: 'A vast mirror opens in the sky and turns the sun on the target: a column of light 5 m wide that follows it, pins it down and bores a molten shaft into the ground while the sky turns white.' },
+          { key: 'R', name: 'Kyōzō Hangyaku', kanji: '鏡像反逆', means: 'the Reflection Rebels', text: 'The target\'s own reflection steps out of the mirror — a full copy of it, with all its powers — and fights it on his side for 15 seconds.' },
+          { key: 'G', name: 'Jōhari no Kagami', kanji: '浄玻璃鏡', means: 'the Crystal Mirror of Judgment', text: 'The mirror the King of Hell judges the dead with rises behind the target and shows it to itself. Then every blow it has struck in this fight comes back at once — and a great deal more besides. It cannot be blocked, and no intangibility or reflection escapes it.' },
+          { key: 'F', name: 'Seal', kanji: '封', text: 'Seals everything: back to the sealed katana; the mirror drains away and the sky returns.' },
+        ],
+      },
+    ],
+    passives: [
+      { key: '—', name: 'Shingan', kanji: '心眼', means: 'the Mind\'s Eye', text: 'Illusions do not work on him: he cannot be blinded, turned upside down, turned against his allies or have his steps scrambled.' },
+      { key: '—', name: 'Kagami-gawari', kanji: '鏡代わり', means: 'the Mirror Stand-in', text: 'The first time he would die, it turns out a reflection was struck instead: it shatters like glass and he steps out from behind the attacker at 50 % HP.' },
+      { key: '—', name: 'Daikidōchō', kanji: '大鬼道長', means: 'the Grand Kidō Chief', text: 'Every Kidō is cast without its incantation, at full power.' },
+      { key: 'V', name: 'Reiatsu flare', kanji: '霊圧', text: 'His reiatsu flares violet: +25 % power while it burns.' },
+      { key: 'Shift', name: 'Shunpo / Kōsoku', kanji: '光速', text: 'Flash steps that grow with each form (26 → 28 → 34 m); in the final form, Kōsoku: 40 m at the speed of light, leaving a line of light behind him.' },
+    ],
+    numbers: [
+      { label: 'Form', values: ['Sealed', 'Shikai', 'Bankai', 'Final'] },
+      { label: 'Power', values: ['×1.6', '×2.5', '×3.6', '×5.5'] },
+      { label: 'Damage taken', values: ['×0.8', '×0.6', '×0.45', '×0.15'] },
+      { label: 'Regeneration', values: ['—', '3 rei/s', '1.5 % HP + 8 rei /s', '3 % HP + 20 rei /s'] },
+      { label: 'Health · reiatsu', values: ['2600 · 400', '2600 · 400', '2600 · 400', '2600 · 400'] },
+    ],
+    tips: [
+      'Sealed, play the Kidō master: Kuyō Shibari holds the target still for Kurohitsugi, and Dankū shuts down anyone rushing in.',
+      'In the Shikai, Senkō blinds them before Kakudai; Bunkō\'s green ray heals you and the violet one seals their releases.',
+      'Raise Hansha just as a beam or a big blow comes in: all of it goes back.',
+      'In the Bankai, fight on the mirror: enemies standing in it are stilled. Call Kyōzō early — three more blades — and finish with Senkyō Kōrō.',
+      'In the final form, Jōhari no Kagami grows with everything your opponent has done: the harder they hit, the harder the judgment.',
+      'Sandbox mode lets you try everything without limits.',
+    ],
+  },
 ];
 
 const CSS = `
 #wiki { position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; background: rgba(4,5,12,.78); font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; color: #f3f1ec; pointer-events: auto; }
-#wiki .panel { position: relative; width: min(980px, 96vw); height: min(92vh, 1100px); display: flex; flex-direction: column; border: 1px solid rgba(255,210,122,.45); box-shadow: 0 0 40px rgba(255,210,122,.18); background:
+#wiki .panel { position: relative; width: min(980px, 96vw); height: min(92vh, 1100px); display: flex; flex-direction: column; border: 1px solid color-mix(in srgb, var(--acc, #ffd27a) 45%, transparent); box-shadow: 0 0 40px color-mix(in srgb, var(--acc, #ffd27a) 18%, transparent); background:
   radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.8), transparent), radial-gradient(1px 1px at 72% 9%, rgba(255,240,200,.7), transparent),
   radial-gradient(1.5px 1.5px at 88% 34%, rgba(200,215,255,.8), transparent), radial-gradient(1px 1px at 33% 62%, rgba(255,255,255,.6), transparent),
   radial-gradient(1px 1px at 58% 81%, rgba(255,240,200,.6), transparent), radial-gradient(1.5px 1.5px at 6% 88%, rgba(200,215,255,.7), transparent),
   linear-gradient(170deg, #121734 0%, #0c0f22 55%, #160f1c 100%); }
-#wiki .top { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid rgba(255,210,122,.25); }
-#wiki .top h2 { margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 18px; letter-spacing: .25em; text-transform: uppercase; color: #ffd27a; flex: 1; }
+#wiki .top { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid color-mix(in srgb, var(--acc, #ffd27a) 25%, transparent); }
+#wiki .top h2 { margin: 0; font-family: 'Dela Gothic One', sans-serif; font-size: 18px; letter-spacing: .25em; text-transform: uppercase; color: var(--acc, #ffd27a); flex: 1; }
 #wiki .top button { cursor: pointer; background: none; border: 1px solid rgba(255,255,255,.3); color: #f3f1ec; font-size: 13px; padding: 5px 12px; letter-spacing: .12em; }
-#wiki .top button:hover { border-color: #ffd27a; color: #ffd27a; }
+#wiki .top button:hover { border-color: var(--acc, #ffd27a); color: var(--acc, #ffd27a); }
 #wiki .tabs { display: flex; gap: 8px; padding: 10px 20px 0; flex-wrap: wrap; }
-#wiki .tab { cursor: pointer; padding: 6px 14px; border: 1px solid rgba(255,210,122,.35); background: rgba(255,210,122,.06); color: #f3f1ec; font-size: 12px; letter-spacing: .12em; }
-#wiki .tab.sel { background: #ffd27a; color: #141418; }
+#wiki .tab { cursor: pointer; padding: 6px 14px; border: 1px solid color-mix(in srgb, var(--acc, #ffd27a) 35%, transparent); background: color-mix(in srgb, var(--acc, #ffd27a) 6%, transparent); color: #f3f1ec; font-size: 12px; letter-spacing: .12em; }
+#wiki .tab.sel { background: var(--acc, #ffd27a); color: #141418; }
 #wiki .body { overflow-y: auto; padding: 8px 26px 30px; line-height: 1.55; font-size: 14px; }
 #wiki .hero { display: flex; gap: 22px; align-items: center; margin: 14px 0 6px; }
-#wiki .hero .hk { font-family: 'Yuji Syuku', serif; font-size: 64px; line-height: 1; color: #ffd27a; text-shadow: 0 0 22px rgba(255,210,122,.6); }
+#wiki .hero .hk { font-family: 'Yuji Syuku', serif; font-size: 64px; line-height: 1; color: var(--acc, #ffd27a); text-shadow: 0 0 22px color-mix(in srgb, var(--acc, #ffd27a) 60%, transparent); }
 #wiki .hero .nm { font-family: 'Dela Gothic One', sans-serif; font-size: 34px; letter-spacing: .12em; }
 #wiki .hero .tt { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; opacity: .8; }
-#wiki .ded { margin: 12px 0 4px; padding: 10px 14px; border-left: 3px solid #ffd27a; background: rgba(255,210,122,.08); font-style: italic; }
-#wiki h3 { font-family: 'Dela Gothic One', sans-serif; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; color: #ffd27a; margin: 24px 0 8px; border-bottom: 1px solid rgba(255,210,122,.22); padding-bottom: 4px; }
+#wiki .ded { margin: 12px 0 4px; padding: 10px 14px; border-left: 3px solid var(--acc, #ffd27a); background: color-mix(in srgb, var(--acc, #ffd27a) 8%, transparent); font-style: italic; }
+#wiki h3 { font-family: 'Dela Gothic One', sans-serif; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; color: var(--acc, #ffd27a); margin: 24px 0 8px; border-bottom: 1px solid color-mix(in srgb, var(--acc, #ffd27a) 22%, transparent); padding-bottom: 4px; }
 #wiki h4 { margin: 18px 0 4px; font-size: 17px; font-family: 'Dela Gothic One', sans-serif; letter-spacing: .06em; }
-#wiki h4 .k { font-family: 'Yuji Syuku', serif; color: #ffd27a; margin-left: 10px; font-size: 18px; }
+#wiki h4 .k { font-family: 'Yuji Syuku', serif; color: var(--acc, #ffd27a); margin-left: 10px; font-size: 18px; }
 #wiki .cmd { margin: 2px 0 6px; color: #c6d8ff; }
 #wiki .cmd i { opacity: .8; }
 #wiki .look { opacity: .92; }
@@ -192,16 +315,16 @@ const CSS = `
 #wiki .stats span { font-size: 12px; padding: 3px 9px; border: 1px solid rgba(198,216,255,.35); background: rgba(198,216,255,.07); }
 #wiki table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 13.5px; }
 #wiki td, #wiki th { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,.08); vertical-align: top; text-align: left; }
-#wiki th { color: #ffd27a; font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+#wiki th { color: var(--acc, #ffd27a); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
 #wiki td.key { width: 54px; white-space: nowrap; color: #141418; }
-#wiki td.key b { display: inline-block; min-width: 34px; text-align: center; background: #ffd27a; padding: 1px 6px; font-size: 12px; }
+#wiki td.key b { display: inline-block; min-width: 34px; text-align: center; background: var(--acc, #ffd27a); padding: 1px 6px; font-size: 12px; }
 #wiki td.mv { width: 230px; }
 #wiki td.mv b { display: block; }
-#wiki td.mv .wk { font-family: 'Yuji Syuku', serif; color: #ffd27a; }
+#wiki td.mv .wk { font-family: 'Yuji Syuku', serif; color: var(--acc, #ffd27a); }
 #wiki td.mv .mn { display: block; font-size: 12px; opacity: .7; font-style: italic; }
-#wiki .prof td:first-child { width: 120px; color: #ffd27a; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+#wiki .prof td:first-child { width: 120px; color: var(--acc, #ffd27a); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
 #wiki ul { margin: 6px 0; padding-left: 20px; }
-#wiki .wplay { margin-top: 22px; cursor: pointer; font-family: 'Dela Gothic One', sans-serif; letter-spacing: .25em; padding: 12px 28px; background: #ffd27a; color: #141418; border: none; font-size: 15px; }
+#wiki .wplay { margin-top: 22px; cursor: pointer; font-family: 'Dela Gothic One', sans-serif; letter-spacing: .25em; padding: 12px 28px; background: var(--acc, #ffd27a); color: #141418; border: none; font-size: 15px; }
 #wiki .wplay:hover { background: #fff0c8; }
 @media (max-width: 640px) { #wiki td.mv { width: auto; } #wiki .hero .hk { font-size: 44px; } #wiki .hero .nm { font-size: 24px; } #wiki .body { padding: 8px 14px 24px; } }
 `;
@@ -266,6 +389,7 @@ export function openWiki(parent: HTMLElement, entries: WikiEntry[] = SPECIAL_WIK
   const body = el.querySelector('.body') as HTMLElement;
   const show = (e: WikiEntry) => {
     cur = e;
+    el.style.setProperty('--acc', e.color);
     body.innerHTML = page(e, !!onPick);
     body.scrollTop = 0;
     el.querySelectorAll<HTMLElement>('.tab').forEach((t) => t.classList.toggle('sel', t.dataset.id === e.id));

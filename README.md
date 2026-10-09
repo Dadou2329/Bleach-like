@@ -1346,6 +1346,27 @@ G state, V flare); press **H** in game for the current character's moves.
       Ranbu**, eight stars cutting from eight sides; E the galaxy cannon; R **Hoshi no Toki**, time stopped for every
       enemy; G **Akatsuki**, the dawn swept across the whole field. F seals everything.
     - The first time she would die, the morning star brings her back (**Myōjō no Kago**).
+  - **Even**, 明鏡, the Grand Kidō Chief — added as a tribute to someone very important to the game's author, his face
+    drawn from him: dark hair swept up into a soft quiff, round clear glasses, dark eyes, a big grin, a thin violet cord
+    on his left wrist. Like Natacha he is far stronger than anyone from the manga, on purpose (docs/kits/even.md). His
+    Zanpakutō **Meikyō** (the clear mirror) reflects, bends, focuses — and judges.
+    - Sealed, the Kidō master, every spell chantless: the **Seigan** string; RMB Hadō #4 **Byakurai** three times; Q Hadō
+      #73 **Sōren Sōkatsui**; E Bakudō #81 **Dankū**; R Bakudō #79 **Kuyō Shibari**; G Hadō #90 **Kurohitsugi**.
+    - F: "**Utsuse, Meikyō**" — he pushes his glasses up and they flash. A blade of clear crystal: cuts throw split
+      light; RMB **Kakudai**, a cut through a giant lens that comes out a hundred times larger; Q **Bunkō**, a prism's
+      seven rays (burn, blast, paralysis, healing, slow, blindness, seal); E **Hansha**, a mirror that sends shots and
+      blows back; R **Shōten**, the sun focused on the target; G **Senkō**, the flash that blinds.
+    - F: **Bankai, Meikyō Shisui**. A real mirror of still water spreads round him and follows him, the sky clears;
+      enemies in it are stilled, he heals. His reflection repeats every cut; RMB a crystal spike out of the target's
+      reflection; Q **Kyōzō**, three glass copies of him; E **Kagami-watari**, through the mirror — under the target, then
+      over it; R **Senkyō Kōrō**, a sphere of mirrors with a ray bouncing inside; G **Kyōha**, a wave of mirror-glass.
+    - F: **Kaigen — Kōmyō Henjō**. Light: he flies, shrugs off every status, takes almost nothing and sends half of every
+      blow back; Shunpo at light speed. Cuts from every side; RMB **Issen**, one level cut across the whole field; Q
+      **Hyakkakyō**, the kaleidoscope; E **Tenkyō Shōten**, the sun brought down through a mirror in the sky; R
+      **Kyōzō Hangyaku**, the target's own reflection fights it; G **Jōhari no Kagami**, the judgment mirror — every blow
+      it ever struck comes back at once. F seals everything.
+    - Illusions never hold him (**Shingan**), and the first time he would die it was a reflection that broke
+      (**Kagami-gawari**).
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally on a 320 m square: houses (gabled or hipped roofs, gardens, some with
@@ -1369,7 +1390,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|natacha|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`; `natacha` takes `form=sealed|shikai|bankai|final` and `ntprop` shows `form=katana|saya|shikai|bankai|final|halo`)
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|natacha|even|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`; `natacha` takes `form=sealed|shikai|bankai|final` and `ntprop` shows `form=katana|saya|shikai|bankai|final|halo`; `even` takes `form=sealed|shikai|bankai|final` (`&glasses=0` without the glasses) and `evprop` shows `form=katana|saya|shikai|bankai|final|glasses|glassesLight|aureole`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=N`: Hollow waves (0: none). `/?sandbox`: Sandbox rules.
   `/?join=CODE`: open straight into a Vs Player 2 lobby. `/?net=local`: Vs Player 2 between two tabs of one browser
