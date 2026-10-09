@@ -62,7 +62,7 @@ const CSS = `
  * lockup sliced by one diagonal sword cut — the upper half slid along the cut, a line of light through it — with 霊子
  * (reishi, spirit particles) in faint calligraphy behind and small under it.
  */
-const LOGO = `<svg class="logo" viewBox="0 0 1000 250" role="img" aria-label="Bleach : Reishi">
+export const LOGO = `<svg class="logo" viewBox="0 0 1000 250" role="img" aria-label="Bleach : Reishi">
   <defs>
     <linearGradient id="lg-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#eef2f7"/><stop offset=".52" stop-color="#c9d2de"/><stop offset="1" stop-color="#8f9bad"/></linearGradient>
     <linearGradient id="lg-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1fcff"/><stop offset=".45" stop-color="#8fe4fd"/><stop offset=".55" stop-color="#5cc4f2"/><stop offset="1" stop-color="#2d74d0"/></linearGradient>
