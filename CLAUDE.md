@@ -153,6 +153,16 @@ scope and milestones and `README.md` for controls and modes.
   gait and camera following, Yammy-style; `CapeWall` writes `cape_red` world voxels and removes the ones still there;
   `TorrentArrow` tunnels and has no `reject`; `SlashWake`; `ShieldThrow`; the tower toss is Meninas' `LiftedChunk`.
   `data.unforeseen` hides a fighter from The Almighty's foresight),
+  `game/kits/pernida.ts` (Pernida: three bodies — the cloak (48/m humanoid), the Hand and the Arm (16/m, a quad stance
+  whose legs are nerve roots: `hips` is the knot, `spine` the wrist or the upper arm, `chest` the forearm, `palm` the
+  hand, fingers `f.<name>.1-3`); the Compulsory's grips live in the kit (`grip`/`free`) and pose the victim with the
+  `compel_twist`/`compel_fold`/`compel_ball` reaction clips; a victim that dashes while twisted tears free; nerves
+  planted per body feed the fold and the Progress meter; adaptation sets `damageTaken` from `parry` each hit (reset
+  every step); clones are `pernidaCloneDef()` + `PernidaCloneKit` + a `DuelistAI`),
+  `vfx/compulsory.ts` (Pernida: `NerveLine` — a `VineMesh` in the nerve look laid between moving points — `NerveLance`,
+  `NerveStorm`, the homing `NerveArrow` with its nerve tail, `StoneHands` (two stone left hands that rise and clap),
+  `WallHand` (out of a building's wall), `FingerChains` (instanced links between the fingertip bands, `snap`),
+  `shredBurst`, `fleshBurst`, `FingerSeed` (a severed finger that grows a clone)),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

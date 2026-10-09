@@ -130,6 +130,8 @@ import { lilleAsset, lilleProp } from '../chars/lille';
 import { jillielAsset, lilleGodProp, remnantAsset, trueFormAsset } from '../chars/lilleGod';
 import { GERARD_DEF, GerardKit } from './kits/gerard';
 import { gerardAsset, gerardProp } from '../chars/gerard';
+import { PERNIDA_DEF, PernidaKit } from './kits/pernida';
+import { pernidaAsset, pernidaProp } from '../chars/pernida';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -637,6 +639,19 @@ export const ROSTER: RosterEntry[] = [
       buildCached(gerardAsset('bare', true).model, true);
       buildCached(gerardAsset('asch', true).model, true);
       for (const k of ['hoffnung-gold', 'shield-asch', 'bow', 'helm-asch', 'wings'] as const) buildCached(gerardProp(k), false);
+    },
+  },
+  {
+    id: 'pernida',
+    name: 'Pernida Parnkgjas',
+    kanji: '強制',
+    title: 'Sternritter "C" — The Compulsory',
+    color: '#e8c866',
+    def: () => ({ ...PERNIDA_DEF, speed: { ...PERNIDA_DEF.speed } }),
+    kit: (f, g) => new PernidaKit(f, g),
+    warm: () => {
+      for (const k of ['voll', 'hand', 'arm', 'clone'] as const) buildCached(pernidaAsset(k).model, true);
+      for (const k of ['bow', 'bow-tip', 'stone-hand', 'finger', 'halo', 'mouth'] as const) buildCached(pernidaProp(k), false);
     },
   },
   {

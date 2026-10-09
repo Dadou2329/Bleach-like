@@ -53,7 +53,54 @@ const STAB: B = {
   'thigh.L': [-12, 0, 4], 'shin.L': [24, 0, 0], 'thigh.R': [-8, 0, -4], 'shin.R': [20, 0, 0],
 };
 
+/** the weapon arm wrung into a spiral by nerves in it (Pernida): the shoulder hiked, the elbow bent the wrong way, the
+ * forearm and the hand turned round on themselves; the body leaning away from its own arm */
+const TWIST: B = {
+  spine: [4, 0, 8], chest: [6, -10, 10], neck: [-6, 0, -8], head: [-10, 14, -10],
+  'upperarm.R': [-44, 70, -64], 'forearm.R': [46, 150, 0], 'hand.R': [60, 120, 40],
+  'upperarm.L': [-16, 0, 30], 'forearm.L': [-50, 0, 0],
+  'thigh.L': [-6, 0, 6], 'shin.L': [12, 0, 0], 'thigh.R': [-2, 0, -6], 'shin.R': [8, 0, 0],
+};
+/** folded the wrong way at every joint: the back bent backward, the knees reversed, the arms wrenched behind */
+const FOLD: B = {
+  hips: [-30, 0, 0], spine: [-48, 0, 6], chest: [-40, 0, -6], neck: [-30, 0, 0], head: [-30, 20, 0],
+  'thigh.L': [36, 0, 18], 'shin.L': [-46, 0, 0], 'foot.L': [30, 0, 0],
+  'thigh.R': [30, 0, -22], 'shin.R': [-52, 0, 0], 'foot.R': [26, 0, 0],
+  'upperarm.L': [40, 60, 70], 'forearm.L': [40, 120, 0], 'upperarm.R': [44, -60, -66], 'forearm.R': [46, -120, 0],
+};
+/** crushed into a ball: knees to the chest, the arms clamped round them, the head forced down */
+const BALL: B = {
+  hips: [60, 0, 0], spine: [70, 0, 0], chest: [50, 0, 0], neck: [40, 0, 0], head: [40, 0, 0],
+  'thigh.L': [-140, 0, 8], 'shin.L': [150, 0, 0], 'foot.L': [40, 0, 0],
+  'thigh.R': [-140, 0, -8], 'shin.R': [150, 0, 0], 'foot.R': [40, 0, 0],
+  'upperarm.L': [-70, -40, 20], 'forearm.L': [-130, 0, 0], 'upperarm.R': [-70, 40, -20], 'forearm.R': [-130, 0, 0],
+};
+
 export const REACTION_CLIPS: ClipDef[] = [
+  {
+    name: 'compel_twist', dur: 0.7, fadeIn: 0.06, fadeOut: 0.3,
+    keys: [
+      { ...body(0, { 'upperarm.R': [-20, 10, -20] }), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.25, { ...TWIST, 'forearm.R': [30, 80, 0], 'hand.R': [30, 60, 20] }, [0, -0.04, 0], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.7, TWIST, [0, -0.06, 0], 'inOut'), c: { '@ikR': [0, 0, 0] } },
+    ],
+  },
+  {
+    name: 'compel_fold', dur: 0.45, fadeIn: 0.04, fadeOut: 0.35,
+    keys: [
+      { ...body(0, TWIST, [0, -0.06, 0]), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.2, FOLD, [0, -0.5, -0.1], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.45, FOLD, [0, -0.55, -0.12], 'inOut'), c: { '@ikR': [0, 0, 0] } },
+    ],
+  },
+  {
+    name: 'compel_ball', dur: 0.4, fadeIn: 0.04, fadeOut: 0.35,
+    keys: [
+      { ...body(0, TWIST, [0, -0.06, 0]), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.18, BALL, [0, -0.4, 0], 'outExpo'), c: { '@ikR': [0, 0, 0] } },
+      { ...body(0.4, BALL, [0, -0.42, 0], 'inOut'), c: { '@ikR': [0, 0, 0] } },
+    ],
+  },
   {
     name: 'puppet_stab', dur: 0.5, fadeIn: 0.06, fadeOut: 0.3,
     keys: [

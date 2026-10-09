@@ -598,6 +598,22 @@ G state, V flare); press **H** in game for the current character's moves.
     stretched across the street. R: **Heilig Bogen** — the hands clasped and pulled apart into a red bow, an arrow of
     pure power that no guard or shield stops. G: **Blut Vene**. F: **Aschtonig**, the Zeichen drawn in his own blood.
     V: **Za Mirakuru** — with half a meter, the next step at once; with less, a pulse that finds the hidden.
+- **Pernida Parnkgjas**, Sternritter "C" — The Compulsory, the Left Arm of the Soul King: a small hooded thing in a
+  long white cloak, nothing under the hood but two gold points, one pale long-fingered hand out of its sleeve. Its
+  nerves do the work: every flick of the LMB string plants a **nerve** in its target, and the **Compulsory** (RMB)
+  fires nerves into a body — its weapon arm wrings into a spiral (seized, bleeding) until, with three nerves in it or
+  held long enough, the whole body folds the wrong way. The canon counter is yours: dash while twisted and you tear
+  your own arm free (the weapon is gone a few seconds); acid and lightning shake its nerves out. Shift is the
+  **Phantom Step** (it is simply behind you); Q the **Nerve Lance**; E **stone left hands** rising out of the ground to
+  clap; R **Heilig Bogen**, a nerve-tethered arrow that steers and circles back; G the anime's **Vollständig** (a gold
+  halo, two great hands for wings, flight, wing slaps and a wing that seizes and hurls); F **Unveil** — the cloak tears
+  and an enormous **left hand** rises out of it, the eye in its palm, chains between its fingertips, standing on
+  nerve roots. The Hand rakes, slams and swats; its Compulsory crushes a body into a ball and flings it; Q is a
+  **Nerve Storm** in every direction; R **five fingertip bows**; G tears off two fingers that grow into **clones**;
+  F breaks the chains and the **Left Arm** grows out of the wrist, eleven metres standing on its roots — it sweeps
+  through buildings, raises stone hands out of the walls, and **devours** (F) what it has crushed (poisoned flesh
+  makes it sick). It learns: a technique that keeps landing hits for less (**ADAPTED**), and every nerve it plants
+  feeds **Progress** (V) — straight to the Arm, then the **Gargantuan Arm** over the rooftops.
   - As a giant: LMB the backhand, the cleave through the buildings, the stomp; RMB **Branch Breaker** (the arm drawn
     back with a long laugh, the fist into the ground); Q the **tower toss** (the top of a building torn off and
     hurled); E the **gale breath**; R the **lariat**; G **grab and crush**.

@@ -6,18 +6,21 @@
 // on the face, because he tears it off. Nozarashi sealed: a chipped nodachi with a long serrated
 // guard and a bandaged hilt; Shikai: the giant war-cleaver; Bankai: crimson skin, horns and black
 // markings, and a jagged broken cleaver. 2.02 m: the standard body at 41.6 vox/m with longer arms.
+// TYBW (forms 'tybw' / 'tybw-bankai'): the spikes grown out and hanging free to mid-back on spring bones, no bells,
+// no choker, the strapless grey-rimmed eyepatch; the Bankai flares the hair into a mane round the horns. The torn arm
+// of the Bankai's overload is a stump prop on the right elbow.
 import { ModelBuilder, type VoxelModel } from '../models/builder';
 import { aabb, blend, box, capsule, cylinder, ellipsoid, fn, halfSpace, intersect, offset, prism, sphere, spike, subtract, torus, tube, type Sdf, type V3 } from '../models/sdf';
 import {
   SPEC_ADULT_MALE, coatSkirt, feet, hakama, hands, head, humanoidSkeleton, kosodeSleeves, kosodeTorso, shihakushoSprings, spikeHair, spikeTip,
-  type HumanoidSpec, type Landmarks, type Spike,
+  type Bang, type HumanoidSpec, type Landmarks, type Spike,
 } from './humanoid';
 import type { CharacterAsset } from './ichigo';
 import type { ColliderDef, SpringDef } from '../anim/springs';
 import { Rng } from '../core/rng';
 
 export const KENPACHI_RES = (48 * 84) / 97;
-export type KenpachiForm = 'sealed' | 'bankai';
+export type KenpachiForm = 'sealed' | 'bankai' | 'tybw' | 'tybw-bankai';
 
 /** Tall and rangy: broad shoulders, long arms and big hands, a thick neck. */
 const SPEC: HumanoidSpec = {
@@ -33,8 +36,10 @@ const SPEC: HumanoidSpec = {
   hips: [7.4, 4.9],
 };
 
+const isBankai = (form: KenpachiForm): boolean => form === 'bankai' || form === 'tybw-bankai';
+
 function palette(b: ModelBuilder, form: KenpachiForm): void {
-  const bankai = form === 'bankai';
+  const bankai = isBankai(form);
   b.mat('skin', bankai ? ['#E2584B', '#CB3B30', '#B3231D', '#97201A', '#7E1712', '#5E0F0C'] : ['#E8BC97', '#DAAA82', '#C8966E', '#B5835C', '#A47250', '#82573A'], { base: 2, rough: 0.6, shadeK: 0.9 });
   b.mat('scar', bankai ? ['#4A0C0A'] : ['#B87A6A', '#9E5F52'], { base: bankai ? 0 : 1, rough: 0.55 });
   b.mat('hair', ['#454F63', '#2B3140', '#22262F', '#1A1C22', '#16171B', '#141418'], { base: 3, rough: 0.45, shadeK: 0.85, dither: 0.06 });
@@ -149,20 +154,21 @@ export function kenpachiAsset(form: KenpachiForm): CharacterAsset {
   return a;
 }
 
-export type KenpachiProp = 'nozarashi' | 'saya' | 'eyepatch' | 'cleaver' | 'bankai-blade' | 'yachiru';
+export type KenpachiProp = 'nozarashi' | 'saya' | 'eyepatch' | 'eyepatch-tybw' | 'cleaver' | 'bankai-blade' | 'yachiru' | 'stump';
 
-/** Props: the sealed sword, its bandaged saya, the eyepatch, the Shikai cleaver, the Bankai blade. */
+/** Props: the sealed sword, its bandaged saya, the eyepatches, the Shikai cleaver, the Bankai blade, Yachiru, the torn arm. */
 export function kenpachiProp(kind: KenpachiProp): VoxelModel {
   let m = propCache.get(kind);
   if (!m) {
-    m = kind === 'nozarashi' ? buildNozarashi() : kind === 'saya' ? buildSaya() : kind === 'eyepatch' ? buildEyepatch() : kind === 'cleaver' ? buildCleaver() : kind === 'yachiru' ? buildYachiru() : buildBankaiBlade();
+    m = kind === 'nozarashi' ? buildNozarashi() : kind === 'saya' ? buildSaya() : kind === 'eyepatch' ? buildEyepatch() : kind === 'eyepatch-tybw' ? buildEyepatchTybw() : kind === 'cleaver' ? buildCleaver() : kind === 'yachiru' ? buildYachiru() : kind === 'stump' ? buildStump() : buildBankaiBlade();
     propCache.set(kind, m);
   }
   return m;
 }
 
 export function buildKenpachi(form: KenpachiForm = 'sealed'): CharacterAsset {
-  const bankai = form === 'bankai';
+  const bankai = isBankai(form);
+  const tybw = form === 'tybw' || form === 'tybw-bankai';
   const b = new ModelBuilder(`kenpachi-${form}`, KENPACHI_RES);
   palette(b, form);
   const s = SPEC;
@@ -176,6 +182,8 @@ export function buildKenpachi(form: KenpachiForm = 'sealed'): CharacterAsset {
   b.socket('chest.front', 'chest', [0, 61, 7]);
   // Yachiru's seat: on top of his left shoulder
   b.socket('rider', 'chest', [12, 69.4, -1.4]);
+  // what is left of the right arm after the Bankai's overload
+  b.socket('elbow.R', 'upperarm.R', [-L.elbow[0], L.elbow[1] + 0.5, L.elbow[2]]);
 
   const hd = head(b, L, 'skin');
   b.socket('face', 'head', [0, s.chinY + 5.5, hd.front]);
@@ -188,7 +196,7 @@ export function buildKenpachi(form: KenpachiForm = 'sealed'): CharacterAsset {
   b.voxel('head', 0, hd.chin + 4, hd.front, 'skin', 1);
   // a longer jaw: the chin drops one row
   b.add('head', box([0, hd.chin - 0.5, hd.front - 3], [1.9, 0.6, 2.4], { round: 0.5 }), 'skin');
-  hair(b, L, hd, bankai);
+  const hairRig = tybw ? longHair(b, L, hd, bankai) : (hair(b, L, hd, bankai), null);
   if (bankai) horns(b, hd);
   hands(b, L, 'skin', 1.25);
   feet(b, L, 'tabi', 'straw', 'cord');
@@ -197,15 +205,15 @@ export function buildKenpachi(form: KenpachiForm = 'sealed'): CharacterAsset {
   kosodeSleeves(b, L, o);
   bandage(b, L);
   hakama(b, L, o);
-  choker(b, L);
+  if (!tybw) choker(b, L);
   const haoriSprings = haori(b, L, torso);
   b.autoShade();
   b.lint();
   const base = shihakushoSprings();
   return {
     model: b.build(),
-    springs: [...base.springs, ...haoriSprings.springs],
-    colliders: [...base.colliders, ...haoriSprings.colliders],
+    springs: [...base.springs, ...haoriSprings.springs, ...(hairRig?.springs ?? [])],
+    colliders: [...base.colliders, ...haoriSprings.colliders, ...(hairRig?.colliders ?? [])],
     warnings: b.warnings,
   };
 }
@@ -229,6 +237,83 @@ function hair(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }
     const m: V3 = [c[0] + dir[0] * 1.2, c[1] + dir[1] * 1.2, c[2] + dir[2] * 1.2];
     b.paint('head', sphere(m, 0.7), 'bell', { shade: 3, where: b.isMat('bell') });
   }
+}
+
+/**
+ * TYBW: the spikes grown out and hanging free — a rough crown swept back, three heavy locks over the brow, and the mass
+ * falling down the back to mid-back on three spring bones (mane.1-3), split into locks with ragged ends. The Bankai
+ * flares it into a wild mane (wider, clumps standing out at the sides and over the crown) and bares the brow for the horns.
+ */
+function longHair(b: ModelBuilder, L: Landmarks, hd: { front: number; chin: number }, bankai: boolean): { springs: SpringDef[]; colliders: ColliderDef[] } {
+  const s = L.spec;
+  const c = hd.chin;
+  const R = KENPACHI_RES;
+  const crown: Spike[] = [
+    sp(0, 74, 4.5, 3.0, [0, 0.2, -1.2]),
+    sp(40, 56, 4.5, 3.0, [0.15, 0.1, -1.1]),
+    sp(-40, 56, 4.5, 3.0, [-0.15, 0.1, -1.1]),
+    sp(84, 34, 4, 2.8, [0.2, -0.45, -0.9]),
+    sp(-84, 34, 4, 2.8, [-0.2, -0.45, -0.9]),
+    sp(132, 44, 4, 2.9, [0.1, -0.3, -0.7]),
+    sp(-132, 44, 4, 2.9, [-0.1, -0.3, -0.7]),
+    sp(180, 50, 4, 3.0, [0, -0.3, -0.6]),
+  ];
+  if (bankai)
+    crown.push(
+      sp(62, 44, 7.5, 2.6, [0.6, 0.7, -0.5]), sp(-62, 44, 7.5, 2.6, [-0.6, 0.7, -0.5]),
+      sp(100, 22, 8.5, 2.6, [0.9, 0.35, -0.4]), sp(-100, 22, 8.5, 2.6, [-0.9, 0.35, -0.4]),
+      sp(150, 32, 7.5, 2.6, [0.35, 0.8, -0.6]), sp(-150, 32, 7.5, 2.6, [-0.35, 0.8, -0.6]),
+      sp(180, 64, 7, 2.6, [0, 1, -0.4]),
+    );
+  // locks over the brow, ending above the brow ridges (the eyepatch and the left eye stay clear)
+  const bangs: Bang[] = bankai ? [] : [
+    { x: -3.7, tipY: c + 8.6, lean: -0.9, r: 2.0 },
+    { x: 0.5, tipY: c + 8.1, lean: 0.6, r: 2.2 },
+    { x: 4.3, tipY: c + 8.5, lean: 1.3, r: 2.0 },
+  ];
+  spikeHair(b, L, 'hair', crown, bangs, { tufts: 24, tuftFlow: [0, 0.05, -0.9], hairline: s.chinY + 11, slope: 0.9 });
+  b.carve('head', aabb([-5, hd.chin + 4, hd.front], [5, hd.chin + 8, hd.front + 8]));
+  // the long fall down the back
+  const back = L.headC[2] - s.head.d / 2;
+  const wk = bankai ? 1.28 : 1;
+  b.bone('mane.1', 'head', [0, c + 6, back - 0.5]);
+  b.bone('mane.2', 'mane.1', [0, c - 9, back - 4.5]);
+  b.bone('mane.3', 'mane.2', [0, c - 19, back - 5.5]);
+  const sec = (y0: number, y1: number, z0: number, z1: number, w0: number, w1: number, t0: number, t1: number): Sdf =>
+    fn((x, y, z) => {
+      const k = Math.max(0, Math.min(1, (y0 - y) / (y0 - y1)));
+      const w = (w0 + (w1 - w0) * k) * wk, t = t0 + (t1 - t0) * k, zc = z0 + (z1 - z0) * k;
+      // locks rippling across the width
+      const lock = Math.sin(x * 1.15 + k * 3.4) * 0.7;
+      const ell = Math.hypot(x / w, (z - zc + lock * 0.5) / t) - 1;
+      return Math.max(ell * Math.min(w, t), y - y0, y1 - y);
+    }, [-17, y1 - 1, -24], [17, y0 + 1, 4]);
+  b.add('mane.1', sec(c + 9.5, c - 9.5, back - 1, back - 4.5, 6.6, 8.6, 4.4, 3.4), 'hair');
+  b.add('mane.2', sec(c - 9, c - 19.5, back - 4.5, back - 5.5, 8.6, 8.2, 3.4, 2.7), 'hair');
+  b.add('mane.3', sec(c - 19, c - 25, back - 5.5, back - 6, 8.2, 6.6, 2.7, 2.1), 'hair');
+  // ragged ends: locks of uneven length
+  for (let i = -3; i <= 3; i++) {
+    const len = 3 + (((i * 7 + 11) % 4) + 4) % 4 * 1.2;
+    b.add('mane.3', spike([i * 2.1 * wk, c - 24.5, back - 5.9], [i * 0.06, -1, -0.08], len, 1.45, 0.9, { tip: 0.25 }), 'hair', { thr: 0.3 });
+  }
+  // the Bankai's mane stands out at the sides
+  if (bankai)
+    for (const k of [-1, 1])
+      for (const [y, bone, len] of [[c - 3, 'mane.1', 6], [c - 13, 'mane.2', 6.5], [c - 21, 'mane.3', 5]] as [number, string, number][])
+        b.add(bone, spike([k * 7.6 * wk, y, back - 4.6], [k * 0.9, 0.3, -0.35], len, 2.3, 1.3, { tip: 0.25 }), 'hair', { thr: 0.3 });
+  // strands down the locks
+  b.paint(['mane.1', 'mane.2', 'mane.3'], fn((x) => Math.abs(((x + 30) % 2.3) - 1.15) - 0.3, [-20, c - 36, -26], [20, c + 12, 6]), 'hair', { shade: 4 });
+  // the colliders hug the back (with the haori over it): the tails rest on them instead of being shoved off
+  const springs: SpringDef[] = [
+    { bone: 'mane.1', tail: [0, -15 / R, -4 / R], stiffness: 70, damping: 5, gravity: 8, limit: 40, radius: 0.07 },
+    { bone: 'mane.2', tail: [0, -10 / R, -1 / R], stiffness: 55, damping: 4.5, gravity: 10, limit: 50, radius: 0.07 },
+    { bone: 'mane.3', tail: [0, -8 / R, -0.5 / R], stiffness: 45, damping: 4, gravity: 11, limit: 60, radius: 0.06 },
+  ];
+  const colliders: ColliderDef[] = [
+    { bone: 'chest', offset: [0, 0.07, -0.02], radius: 0.155 },
+    { bone: 'spine', offset: [0, 0.03, -0.02], radius: 0.145 },
+  ];
+  return { springs, colliders };
 }
 
 /** Bankai: two short thick horns out of the upper forehead, curving up and out. */
@@ -359,6 +444,65 @@ function buildEyepatch(): VoxelModel {
   const chain: V3[] = [[-5.0, 0.8, 0.6], [-5.9, 0.9, -1.6], [-6.5, 1.2, -4.2], [-6.6, 1.6, -7.2], [-6.2, 2.2, -9.4]];
   b.add('root', tube(chain, chain.map(() => 0.6)), 'chain', { thr: 0.25 });
   b.paint('root', fn((x, y, z) => Math.abs(((z + 40) % 1.6) - 0.8) - 0.38, [-8, -2, -11], [-4, 4, 2]), 'chain', { shade: 2, where: b.isMat('chain') });
+  b.autoShade({ up: 0.4, open: 2, front: 0.3 });
+  b.lint(2);
+  return b.build();
+}
+
+/**
+ * TYBW: the one-piece strapless eyepatch — a black plate over the right eye with a grey metal rim, nothing holding it.
+ * Same lattice and origin as the old one.
+ */
+function buildEyepatchTybw(): VoxelModel {
+  const b = new ModelBuilder('kenpachi-eyepatch-tybw', KENPACHI_RES);
+  b.mat('patch', ['#2E2E33', '#222226', '#1A1A1E', '#141418'], { base: 2, rough: 0.35, shadeK: 0.9 });
+  b.mat('rim', ['#9A9A9E', '#868689', '#7C7C7C', '#5E5E62'], { base: 2, rough: 0.35, metal: 0.55, shadeK: 0.8 });
+  b.bone('root', null, [0, 0, 0]);
+  const cx = -2.6, cy = 1.2;
+  const ell = (x: number, y: number) => Math.hypot((x - cx) / 2.8, (y - cy) / 2.25);
+  b.add('root', fn((x, y, z) => Math.max(ell(x, y) - 1, -z, z - 2), [cx - 4, cy - 4, -1], [cx + 4, cy + 4, 3]), 'patch');
+  b.carve('root', aabb([-4, 2, 0], [-1, 3, 1]));
+  // the rim: a grey ring round the plate's edge
+  b.paint('root', fn((x, y) => 1 - ell(x, y) - 0.24, [cx - 4, cy - 4, -1], [cx + 4, cy + 4, 3]), 'rim', { where: b.isMat('patch') });
+  b.autoShade({ up: 0.4, open: 2, front: 0.3 });
+  b.lint(2);
+  return b.build();
+}
+
+/**
+ * The torn arm (the Bankai's overload): what is left below the right elbow — the shredded end of the kosode sleeve,
+ * raw flesh, the broken ends of the two forearm bones and blood running down. Origin at the 'elbow.R' socket, the arm
+ * hanging along −Y (the rest pose).
+ */
+function buildStump(): VoxelModel {
+  const b = new ModelBuilder('kenpachi-stump', KENPACHI_RES);
+  b.mat('black', ['#3B3B42', '#2B2B31', '#1E1E23', '#17171B', '#141418'], { base: 2, rough: 0.88, shadeK: 1 });
+  b.mat('flesh', ['#D06A60', '#B5463F', '#963030', '#742226'], { base: 1, rough: 0.45, shadeK: 0.9 });
+  b.mat('bone', ['#F0E8D8', '#DCCFB8', '#BBAA8E'], { base: 0, rough: 0.5 });
+  b.mat('blood', ['#9A1A1E', '#7A0E10', '#5A080B'], { base: 1, rough: 0.25 });
+  b.bone('root', null, [0, 0, 0]);
+  const rng = new Rng(23);
+  // the sleeve's torn end: a ragged tube, deeper tears in a few places
+  const teeth = Array.from({ length: 9 }, () => rng.next());
+  b.add('root', fn((x, y, z) => {
+    const th = Math.atan2(z, x);
+    const u = ((th / (Math.PI * 2)) * 9 + 9) % 9;
+    const hem = -1.2 - teeth[Math.floor(u) % 9] * 2.6 - Math.abs((u % 1) - 0.5) * 1.6;
+    return Math.max(Math.abs(Math.hypot(x, z) - 3.1) - 0.8, y - 1.5, hem - y);
+  }, [-5, -6, -5], [5, 3, 5]), 'black', { thr: 0.25 });
+  // the raw end of the arm
+  b.add('root', blend(1.2, capsule([0, 1, 0], [0, -1.8, 0.2], 2.6, 2.3), ellipsoid([0.3, -2.3, 0.1], [2.2, 1.3, 2.1])), 'flesh');
+  for (let i = 0; i < 5; i++) {
+    const a = rng.next() * Math.PI * 2;
+    b.add('root', sphere([Math.cos(a) * 1.6, -2.6 - rng.next() * 0.8, Math.sin(a) * 1.6], 0.8 + rng.next() * 0.5), 'flesh', { thr: 0.3 });
+  }
+  // the broken bones jutting out, splintered
+  b.add('root', capsule([0.9, -1.5, 0.3], [1.2, -4.6, 0.5], 0.75, 0.55), 'bone', { thr: 0.25 });
+  b.add('root', capsule([-0.9, -1.5, -0.2], [-1.3, -3.9, -0.4], 0.7, 0.5), 'bone', { thr: 0.25 });
+  // blood: the cut face, and runs dripping off it
+  b.paint('root', fn((x, y) => y + 2.4, [-4, -7, -4], [4, 0, 4]), 'blood', { where: b.isMat('flesh') });
+  for (const [x, z, len] of [[1.8, 0.8, 2.8], [-1.6, 1.2, 2], [0.4, -1.9, 3.4]] as [number, number, number][])
+    b.add('root', capsule([x, -2.4, z], [x * 1.05, -2.4 - len, z * 1.05], 0.55, 0.4), 'blood', { thr: 0.3 });
   b.autoShade({ up: 0.4, open: 2, front: 0.3 });
   b.lint(2);
   return b.build();
