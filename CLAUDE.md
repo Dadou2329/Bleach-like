@@ -96,6 +96,15 @@ scope and milestones and `README.md` for controls and modes.
   a Hollow's horns pointing forward) climbs the same four-form ladder; his fire (`ignite`) blocks healing by holding a
   burning target's HP down, his kneels play `weighed_kneel`, and the Bankai's colossus is `TenmaGiant` in
   `vfx/hajun.ts` (his Bankai body ×11 copying his bones; the kit holds its blade `active` through each cut).
+- Graphics robustness: `render/problems.ts` (`reportProblem` — one log the renderer, the engine loop and the mesh
+  workers write to; `halfFloatRenderable`: without it the composer, AO and PMREM fall back to 8-bit / off;
+  `weakGpu`: integrated, mobile and software GPUs default to `QUALITY_LOW`) and `ui/diag.ts` (the panel that shows those
+  problems with Copy report / Simple graphics / Low quality). `GameRenderer.safe` (`?safe`, or set by itself when the
+  composer throws or the first seconds' frames are all black) renders the scene straight to the screen. The engine
+  loop books the next frame before running this one, so a throwing frame never stops the game; the mesh pool copies
+  each volume to its worker and re-runs a failed or hung worker's jobs elsewhere (the main thread last).
+  `tools/shots/compat.mjs` loads the game as a weaker GPU/browser would present itself (`--hide` extensions, `--limits`,
+  `--dpr`, `--lose` a context, `--breakpost`/`--blackpost`, `--brokenworkers`) and reports whether frames are lit.
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.

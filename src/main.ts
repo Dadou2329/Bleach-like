@@ -151,4 +151,16 @@ class FlyControls {
   }
 }
 
-boot();
+boot().catch((e: unknown) => {
+  // the game could not start at all (no WebGL 2, a GPU that refused the context…): say so instead of a blank page
+  console.error('[reishi] boot failed', e);
+  const el = document.getElementById('boot') ?? document.body.appendChild(document.createElement('div'));
+  el.id = 'boot';
+  const msg = e instanceof Error ? e.message : String(e);
+  const gl = /webgl|context/i.test(msg);
+  el.innerHTML = `<div style="max-width:620px;padding:24px;text-align:center;line-height:1.7;letter-spacing:.05em;font-family:system-ui,sans-serif">
+    <div style="font-size:18px;letter-spacing:.3em;margin-bottom:14px">BLEACH : REISHI</div>
+    <div style="font-size:15px;color:#ffb0b0;margin-bottom:10px">${gl ? 'The 3D view could not start: this browser did not give the game a WebGL 2 context.' : 'The game could not start.'}</div>
+    <div style="font-size:13px;color:#bbb">${gl ? 'Turn on hardware acceleration (Chrome: Settings → System; Firefox: Settings → Performance), update the graphics driver, or try another browser.' : ''}</div>
+    <pre style="margin-top:14px;font-size:11px;color:#999;white-space:pre-wrap;text-align:left">${msg.replace(/[<>&]/g, '')}</pre></div>`;
+});

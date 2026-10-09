@@ -12,7 +12,15 @@ npm run dev        # open the printed URL (http://127.0.0.1:5173)
 ```
 
 Pick a fighter and a **mode**, then click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser
-with WebGL2 is required. `?q=low` lowers graphics quality for weaker GPUs.
+with WebGL2 is required. `?q=low` lowers graphics quality for weaker GPUs (integrated, mobile and software GPUs start
+on low by themselves; `?q=high` overrides), and the town shows "Building Karakura Town · n%" on the title screen while
+it is being built.
+
+If the 3D view has trouble on a machine, the game says so in a panel at the bottom left (what failed, the GPU) with
+**Copy report**, **Simple graphics** (`?safe=1`: no post-processing) and **Low quality** buttons. It also recovers by
+itself where it can: a GPU without half-float render targets gets 8-bit buffers, a post-processing stack that throws or
+draws only black is dropped for simple graphics, a GPU reset is recovered from, and if the mesh workers fail the town is
+built on the main thread.
 
 | Mode | What it is |
 |---|---|

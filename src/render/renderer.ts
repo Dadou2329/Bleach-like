@@ -6,6 +6,7 @@ import {
 import { N8AOPostPass } from 'n8ao';
 import { Sky, SKY_DAY, type SkyParams } from './sky';
 import { setCharEnvMap } from './charMaterial';
+import { errorText, gpuInfo, halfFloatRenderable, reportProblem, type GpuInfo } from './problems';
 
 export interface Quality {
   pixelRatio: number;
@@ -14,10 +15,12 @@ export interface Quality {
   ao: boolean;
   bloom: boolean;
   smaa: boolean;
+  /** the screen's device pixel ratio is used up to this much */
+  maxDpr: number;
 }
 
-export const QUALITY_HIGH: Quality = { pixelRatio: 1, shadowMap: 4096, shadowRange: 48, ao: true, bloom: true, smaa: true };
-export const QUALITY_LOW: Quality = { pixelRatio: 0.75, shadowMap: 2048, shadowRange: 36, ao: false, bloom: true, smaa: false };
+export const QUALITY_HIGH: Quality = { pixelRatio: 1, shadowMap: 4096, shadowRange: 48, ao: true, bloom: true, smaa: true, maxDpr: 2 };
+export const QUALITY_LOW: Quality = { pixelRatio: 0.75, shadowMap: 2048, shadowRange: 36, ao: false, bloom: true, smaa: false, maxDpr: 1.5 };
 
 export interface Atmosphere {
   sky: SkyParams;
@@ -98,6 +101,18 @@ export class GameRenderer {
   envMap: THREE.Texture | null = null;
   private pmrem: THREE.PMREMGenerator;
   private time = 0;
+  /** the GPU can draw into half-float targets (HDR buffers, AO, sky reflections); else 8-bit buffers and no AO */
+  readonly floatTargets: boolean;
+  /**
+   * Simple rendering: the scene straight to the screen with ACES, no post stack. Taken when the post stack fails on
+   * this GPU (frames come out black, or it throws); `?safe` forces it.
+   */
+  safe = false;
+  /** frames still to be checked for an all-black image (the title screen's first seconds) */
+  private watchFrames = 900;
+  private blackRun = 0;
+  private frameNo = 0;
+  readonly info: GpuInfo;
   private shadowTarget = new THREE.Vector3();
 
   constructor(container: HTMLElement, quality: Quality = QUALITY_HIGH) {
@@ -108,7 +123,7 @@ export class GameRenderer {
       stencil: false,
       depth: true,
     }));
-    r.setPixelRatio(Math.min(window.devicePixelRatio, 2) * quality.pixelRatio);
+    r.setPixelRatio(Math.min(window.devicePixelRatio, quality.maxDpr) * quality.pixelRatio);
     r.setSize(container.clientWidth || window.innerWidth, container.clientHeight || window.innerHeight);
     r.shadowMap.enabled = true;
     r.shadowMap.type = THREE.PCFShadowMap;
@@ -116,9 +131,31 @@ export class GameRenderer {
     r.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(r.domElement);
     // a lost context renders black until it is restored (a GPU watchdog reset on a very long frame): say so,
-    // so captures that come out black can be told apart from a shader fault
-    r.domElement.addEventListener('webglcontextlost', () => console.warn('[reishi] WebGL context lost'));
-    r.domElement.addEventListener('webglcontextrestored', () => console.warn('[reishi] WebGL context restored'));
+    // so captures that come out black can be told apart from a shader fault (three restores it when the GPU allows)
+    let losses = 0;
+    r.domElement.addEventListener('webglcontextlost', () => {
+      console.warn('[reishi] WebGL context lost');
+      losses++;
+      reportProblem({ id: `ctx-lost-${losses}`, level: losses > 1 ? 'error' : 'warn', title: 'The GPU reset the 3D view (WebGL context lost)', detail: losses > 1 ? 'it keeps happening: try the low graphics settings' : 'recovering…' });
+    });
+    r.domElement.addEventListener('webglcontextrestored', () => {
+      console.warn('[reishi] WebGL context restored');
+      reportProblem({ id: `ctx-lost-${losses}`, level: 'info', title: 'The GPU reset the 3D view and it recovered', resolved: true });
+      this.watchFrames = 600;
+    });
+    // a shader this GPU cannot compile: say which, instead of a silent hole in the picture
+    r.debug.onShaderError = (gl, program, vs, fs) => {
+      const log = [gl.getProgramInfoLog(program), gl.getShaderInfoLog(vs), gl.getShaderInfoLog(fs)].filter((x) => x && x.trim()).join(' | ');
+      console.error('[reishi] shader failed to compile/link on this GPU:', log);
+      reportProblem({ id: 'shader:' + log.slice(0, 120), level: 'error', title: 'A shader failed to compile on this GPU', detail: log.slice(0, 400) });
+    };
+    this.floatTargets = halfFloatRenderable(r);
+    if (!this.floatTargets) {
+      // no HDR buffers here: 8-bit buffers (bloom still works), no AO, no prefiltered reflections
+      this.quality = quality = { ...quality, ao: false };
+      reportProblem({ id: 'no-float-targets', level: 'info', title: 'This GPU cannot render to half-float buffers', detail: 'using 8-bit post-processing buffers, without ambient occlusion' });
+    }
+    this.info = gpuInfo(r, this.floatTargets);
     this.pmrem = new THREE.PMREMGenerator(r);
 
     const w = r.domElement.width, h = r.domElement.height;
@@ -140,7 +177,7 @@ export class GameRenderer {
     this.scene.add(this.sky.mesh);
     this.scene.fog = new THREE.Fog(0xffffff, 80, 320);
 
-    const composer = (this.composer = new EffectComposer(r, { frameBufferType: THREE.HalfFloatType }));
+    const composer = (this.composer = new EffectComposer(r, { frameBufferType: this.floatTargets ? THREE.HalfFloatType : THREE.UnsignedByteType }));
     composer.addPass(new RenderPass(this.scene, this.camera));
     if (quality.ao) {
       const ao = new N8AOPostPass(this.scene, this.camera, w, h);
@@ -190,6 +227,12 @@ export class GameRenderer {
 
   /** Gradient environment (zenith → horizon → ground) with a bright sun spot, prefiltered once. */
   private buildEnvMap(a: Atmosphere): void {
+    // the prefiltered map is drawn into half-float targets
+    if (!this.floatTargets) {
+      this.envMap = null;
+      setCharEnvMap(null);
+      return;
+    }
     const geo = new THREE.SphereGeometry(10, 48, 24);
     const sky = new THREE.Color(a.hemiSky), hor = new THREE.Color(a.fogColor), gnd = new THREE.Color(a.hemiGround);
     const sun = new THREE.Color(a.sunColor).multiplyScalar(6);
@@ -250,7 +293,59 @@ export class GameRenderer {
     this.time += dt;
     this.guardFrame();
     this.sky.update(this.camera, this.atmo.sunDir, this.time);
-    this.composer.render(dt);
+    if (this.safe) {
+      this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      this.renderer.setRenderTarget(null);
+      this.renderer.render(this.scene, this.camera);
+    } else this.composer.render(dt);
+    this.frameNo++;
+    if (this.watchFrames > 0) {
+      this.watchFrames--;
+      if (this.frameNo % 20 === 0) this.checkBlack();
+    }
+  }
+
+  /** go to simple rendering (no post stack) */
+  setSafe(why: string): void {
+    if (this.safe) return;
+    this.safe = true;
+    this.watchFrames = Math.max(this.watchFrames, 300);
+    this.blackRun = 0;
+    reportProblem({ id: 'safe-mode', level: 'warn', title: 'Switched to simple graphics (no post-processing)', detail: why });
+  }
+
+  /**
+   * The first seconds show the title screen over the town: the sky alone is never black. Read a few pixels of the frame
+   * just drawn; if every one is black three checks running, the post stack is failing on this GPU — drop it.
+   */
+  private checkBlack(): void {
+    const gl = this.renderer.getContext();
+    if (gl.isContextLost()) return;
+    const px = new Uint8Array(4);
+    let sum = 0;
+    this.renderer.setRenderTarget(null);
+    for (const [fx, fy] of [[0.5, 0.95], [0.5, 0.5], [0.2, 0.6], [0.8, 0.35], [0.35, 0.15], [0.9, 0.9], [0.1, 0.1]]) {
+      gl.readPixels(Math.floor(gl.drawingBufferWidth * fx), Math.floor(gl.drawingBufferHeight * fy), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+      sum += px[0] + px[1] + px[2];
+    }
+    if (sum > 0) {
+      this.blackRun = 0;
+      return;
+    }
+    if (++this.blackRun < 3) return;
+    this.blackRun = 0;
+    if (!this.safe) this.setSafe('the post-processing stack drew only black on this GPU');
+    else {
+      this.watchFrames = 0;
+      const err = gl.getError();
+      reportProblem({ id: 'black-safe', level: 'error', title: 'The 3D view is still black with simple graphics', detail: `WebGL error ${err}; GPU ${this.info.renderer}` });
+    }
+  }
+
+  /** a frame threw: after a run of them, try without the post stack */
+  renderFailed(e: unknown, streak: number): void {
+    if (streak === 1) reportProblem({ id: 'render:' + String((e as Error)?.message ?? e).slice(0, 80), level: 'error', title: 'Drawing a frame failed', detail: errorText(e) });
+    if (streak === 20 && !this.safe) this.setSafe('drawing frames kept failing: ' + String((e as Error)?.message ?? e).slice(0, 120));
   }
 
   private lastCam = { p: new THREE.Vector3(), q: new THREE.Quaternion(), fov: 62, ok: false };

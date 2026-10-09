@@ -13,6 +13,7 @@ import { SpriteSystem } from './vfx/sprites';
 import { FragmentSystem } from './destruction/fragments';
 import { DestructionSystem } from './destruction/destruction';
 import { EditLog } from './destruction/editLog';
+import { errorText, reportProblem } from './render/problems';
 
 export const SIM_DT = 1 / 60;
 
@@ -120,25 +121,43 @@ export class Engine {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
+    let stepFails = 0, renderFails = 0;
     const loop = () => {
       if (!this.running) return;
+      // the next frame is booked first: one frame that throws must not stop the game (or leave the 3D view blank)
+      requestAnimationFrame(loop);
       const now = performance.now();
       const realDt = Math.min(0.1, (now - this.last) / 1000);
       this.last = now;
-      if (this.paused) this.acc = 0;
-      else if (this.hitstop > 0) this.hitstop = Math.max(0, this.hitstop - realDt);
-      else {
-        this.acc += realDt * this.timeScale;
-        let steps = 0;
-        while (this.acc >= SIM_DT && steps < 4) {
-          this.step(SIM_DT);
-          this.acc -= SIM_DT;
-          steps++;
+      try {
+        if (this.paused) this.acc = 0;
+        else if (this.hitstop > 0) this.hitstop = Math.max(0, this.hitstop - realDt);
+        else {
+          this.acc += realDt * this.timeScale;
+          let steps = 0;
+          while (this.acc >= SIM_DT && steps < 4) {
+            this.step(SIM_DT);
+            this.acc -= SIM_DT;
+            steps++;
+          }
+          if (steps === 4) this.acc = 0;
         }
-        if (steps === 4) this.acc = 0;
+        stepFails = 0;
+      } catch (e) {
+        this.acc = 0;
+        if (++stepFails === 1) {
+          console.error('[reishi] simulation step failed', e);
+          reportProblem({ id: 'step:' + String((e as Error)?.message ?? e).slice(0, 80), level: 'warn', title: 'A simulation step failed', detail: errorText(e) });
+        }
       }
-      this.renderFrame(realDt, this.acc / SIM_DT);
-      requestAnimationFrame(loop);
+      try {
+        this.renderFrame(realDt, this.acc / SIM_DT);
+        renderFails = 0;
+      } catch (e) {
+        renderFails++;
+        if (renderFails === 1) console.error('[reishi] frame failed', e);
+        this.gr.renderFailed(e, renderFails);
+      }
     };
     requestAnimationFrame(loop);
   }

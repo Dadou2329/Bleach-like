@@ -30,6 +30,8 @@ import { unleash } from '../game/sandboxRules';
 import { lockPointer } from '../game/input';
 import { cleanCode, hostLobby, joinLobby, makeCode, NET_VERSION, NetSession, type Transport } from '../net/net';
 import { TownBackdrop } from '../render/backdrop';
+import { probeGpuName, reportProblem, weakGpu } from '../render/problems';
+import { installDiagnostics } from '../ui/diag';
 
 function groundAt(w: VoxelWorld, x: number, z: number): number {
   const vs = w.vs;
@@ -41,12 +43,21 @@ function groundAt(w: VoxelWorld, x: number, z: number): number {
 const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: (f: () => void) => void }).requestIdleCallback ?? ((f: () => void) => setTimeout(f, 1500)))(cb);
 
 export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Promise<void> {
-  const quality = params.get('q') === 'low' ? QUALITY_LOW : QUALITY_HIGH;
+  // graphics: as asked (?q=low|high), else by the GPU — integrated, mobile and software GPUs start on low
+  const qParam = params.get('q');
+  const gpuName = qParam ? null : probeGpuName();
+  const autoLow = !!gpuName && weakGpu(gpuName);
+  const quality = qParam === 'low' || (!qParam && autoLow) ? QUALITY_LOW : QUALITY_HIGH;
+  let diagGr: Engine['gr'] | null = null;
+  installDiagnostics(document.body, () => (diagGr ? diagGr.info : null));
+  if (autoLow) reportProblem({ id: 'auto-low', level: 'info', title: 'Low graphics chosen for this GPU', detail: gpuName ?? '' });
   const arena = params.get('map') === 'arena';
   const mapSeed = Number(params.get('seed') ?? (arena ? 1 : 7));
   const town = arena ? null : generateKarakura(mapSeed);
   const world = town ? town.world : generateTestArena(mapSeed);
   const eng = await Engine.create(app, world, quality);
+  diagGr = eng.gr;
+  if (params.has('safe')) eng.gr.setSafe('asked for (?safe)');
   if (town) {
     // the town carried on past the map's edge, into the haze
     const backdrop = new TownBackdrop({ size: town.size, ground: town.ground, river: town.river });
@@ -377,6 +388,22 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       pause?.show(hold);
       eng.paused = hold;
     });
+  }
+  // the title screen says so while the town is still being built (a slow machine can take a while)
+  {
+    const line = document.createElement('div');
+    line.style.cssText = 'position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:11;pointer-events:none;font:12px "Zen Kaku Gothic New",system-ui,sans-serif;letter-spacing:.25em;color:#cfefff;text-shadow:0 1px 4px #000;opacity:.85';
+    document.body.appendChild(line);
+    let most = 0;
+    const tick = () => {
+      const left = eng.wr.pending;
+      most = Math.max(most, left);
+      if (left > 0 && most > 50) {
+        line.textContent = `BUILDING ${placeName} · ${Math.floor((1 - left / most) * 100)}%`;
+        setTimeout(tick, 400);
+      } else line.remove();
+    };
+    setTimeout(tick, 400);
   }
   if (!started) {
     game.input.enabled = false;
