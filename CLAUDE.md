@@ -81,7 +81,11 @@ scope and milestones and `README.md` for controls and modes.
   opponents believe the fighter stands (a decoy, Kyokkō's bent light): the duel AI fights it and the player's lock-on
   and reticle follow it (`seenCenter()`). Kits that build another roster character while a fight runs (Carbon-Copy's
   copies: `g.spawn` + the entry's kit + a `DuelistAI`) look it up with `rosterById` (`game/registry.ts`), since the
-  roster imports every kit.
+  roster imports every kit. Special characters (originals outside the manga, `RosterEntry.special`: a gold card) each
+  get a page in the start screen's Special characters wiki (`ui/wiki.ts`, `SPECIAL_WIKI`; keep it in step with the
+  kit). Natacha (`natacha.ts`, the user's tribute character — keep her face, freckles and copper hair as they are)
+  climbs four forms with F; her final form flies with `vollFlight` and plays the looping 'nt_float' clip (legs only)
+  whenever nothing else plays, so the gait never walks her in the air.
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -227,7 +231,12 @@ scope and milestones and `README.md` for controls and modes.
   burning skull, Zagai Zekkō's whirl and disc; `TetherBlade` in `vfx/shiro.ts` takes a bead tether, `bore` and
   `pullOwner` for the red-hot Orochiō),
   `vfx/nozarashi.ts` (TYBW Kenpachi: `SpaceRift`, a slit of outer space hanging along a cut; `YachiruSpirit`, Nozarashi
-  rising as a pink spirit into his hand; `CrimsonBlade`, The Perfect Crimson's blade of reiatsu on the cleaver) and
+  rising as a pink spirit into his hand; `CrimsonBlade`, The Perfect Crimson's blade of reiatsu on the cleaver),
+  `vfx/myojo.ts` (Natacha: `starTexture`/`starSprite` (an eight-point sparkle) and `starBurst`; `StarShot` (homing);
+  `StarMarks`; `StarLines`, camera-facing ribbons between moving points; `StarDome`; `CalamityStar`; `NightSky`, the
+  Bankai's night — a SkyTint, a star dome and a Milky Way band riding round the camera, shooting stars, the morning
+  star — that ends with its owner; `FallingStar`; `Constellation` + `GiantSword`; `BlackStar`; `Supernova`; `TimeHalt`;
+  `DawnWall`; `LightPillar`; `passingSky`) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default, 320 m: five roads each way with blocks numbered `(i, j)`, special blocks by

@@ -19,6 +19,8 @@ import { HISAGI_DEF, HisagiKit } from './kits/hisagi';
 import { KIRA_DEF, KiraKit } from './kits/kira';
 import { YUMICHIKA_DEF, YumichikaKit } from './kits/yumichika';
 import { MOMO_DEF, MomoKit } from './kits/momo';
+import { NATACHA_DEF, NatachaKit } from './kits/natacha';
+import { natachaAsset, natachaProp } from '../chars/natacha';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
@@ -154,6 +156,8 @@ export interface RosterEntry {
   era?: string;
   /** the card stands for this era (the character's peak) */
   eraDefault?: boolean;
+  /** an original character outside the manga (a gold card; the start screen's Special characters wiki covers it) */
+  special?: boolean;
   def(): FighterDef;
   kit(f: Fighter, g: Game): Kit;
   /** build the other forms' meshes in idle time so a release does not hitch */
@@ -1099,6 +1103,20 @@ export const ROSTER: RosterEntry[] = [
     kit: (f, g) => new AizenTybwKit(f, g),
     warm: () => {
       for (const k of ['katana', 'chair', 'gag'] as const) buildCached(aizenProp(k), false);
+    },
+  },
+  {
+    id: 'natacha',
+    name: 'Natacha',
+    kanji: '明星',
+    title: 'Star Reader · Royal Guard',
+    color: '#ffd27a',
+    special: true,
+    def: () => ({ ...NATACHA_DEF, speed: { ...NATACHA_DEF.speed } }),
+    kit: (f, g) => new NatachaKit(f, g),
+    warm: () => {
+      for (const k of ['shikai', 'bankai', 'final'] as const) buildCached(natachaAsset(k).model, true);
+      for (const k of ['shikai', 'bankai', 'final', 'halo'] as const) buildCached(natachaProp(k), false);
     },
   },
 ];

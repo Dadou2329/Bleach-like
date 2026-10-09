@@ -1324,6 +1324,28 @@ G state, V flare); press **H** in game for the current character's moves.
       crushing presence. A barrier on his nape stops one blow from behind every 8 s.
     - **Immortal**: the first lethal blow, the Hōgyoku closes him back up; after that he only goes down — the third
       time he stays down.
+- **Special characters** — originals, not from the manga, with a gold card on the start screen and a page each in the
+  **Special characters wiki** (the button under the title) that explains the Zanpakutō, every release and form, every
+  power and its keys:
+  - **Natacha**, 明星, the Star Reader of the Royal Guard — added as a tribute to someone very important to the game's
+    author, her face drawn from her: copper hair in a low twisted bun, freckles, dark brown eyes, a wide smile, a gold
+    necklace with three small stones. She is the strongest fighter in the game, on purpose (docs/kits/natacha.md).
+    - Sealed **Myōjō** (the morning star): an iai string; RMB **Ryūsei**, a flash through the target that cuts every
+      building on the line level at her waist; Q star pebbles that home; E **Tenmaku**, a dome nothing gets into; R
+      **Hoshiyomi**, foresight that answers every blow from behind the attacker; G Bakudō #61.
+    - F: "**Kagayake, Myōjō**". Her freckles glint gold. Her cuts set **star marks**; RMB **Seiza-giri** joins them into
+      a constellation whose lines cut; Q a rain of stars; E **Myōjō-kō**, a gold beam; R **Hoshi-utsuri**, behind the
+      target in a blink; G **Kasei**, a star that drags everyone in and bursts.
+    - F: **Bankai, Ginga Myōjō: Hoshifuru Yoru**. Night falls over the whole map — stars, the Milky Way, shooting stars,
+      the morning star on the horizon — and she heals in it. Star crescents; RMB **Ryūseigun**, a meteor shower; Q the
+      **constellations**: Orion's sword of light splits the city in two, Sagittarius' nine arrows, Scorpius' paralysing
+      sting; E **Amanogawa**, the river of heaven; R **Kuro-boshi**, a black star that swallows shots, ground and
+      enemies; G foresight three times as strong.
+    - F: **Myōjō Kōrin**, the descent of the morning star. Copper-gold hair of light, gold eyes, a halo; she flies,
+      shrugs off every status and barely takes damage. Crescents of light; RMB **Chōshinsei**, a supernova; Q **Seigun
+      Ranbu**, eight stars cutting from eight sides; E the galaxy cannon; R **Hoshi no Toki**, time stopped for every
+      enemy; G **Akatsuki**, the dawn swept across the whole field. F seals everything.
+    - The first time she would die, the morning star brings her back (**Myōjō no Kago**).
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally on a 320 m square: houses (gabled or hipped roofs, gardens, some with
@@ -1347,7 +1369,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`)
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|natacha|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`; `natacha` takes `form=sealed|shikai|bankai|final` and `ntprop` shows `form=katana|saya|shikai|bankai|final|halo`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=N`: Hollow waves (0: none). `/?sandbox`: Sandbox rules.
   `/?join=CODE`: open straight into a Vs Player 2 lobby. `/?net=local`: Vs Player 2 between two tabs of one browser

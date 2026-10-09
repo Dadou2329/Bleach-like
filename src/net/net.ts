@@ -14,7 +14,7 @@ import type { Kit } from '../game/kits/kit';
 import type { Game } from '../game/game';
 
 /** bumped whenever the messages change: both sides must speak the same */
-export const NET_VERSION = 3;
+export const NET_VERSION = 4;
 
 /** the actions a pad carries, one bit each */
 export const NET_ACTIONS: Action[] = ['forward', 'back', 'left', 'right', 'jump', 'descend', 'dash', 'sprint', 'attack', 'heavy', 'skill1', 'skill2', 'skill3', 'release', 'mask', 'flare', 'lock', 'guard'];

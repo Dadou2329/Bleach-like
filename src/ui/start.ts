@@ -1,4 +1,5 @@
 // Start overlay (title, controls, quality) and pause overlay when the pointer lock is released.
+import { SPECIAL_WIKI, openWiki } from './wiki';
 
 const CSS = `
 #start { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(5,5,10,.35), rgba(5,5,10,.82)); font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; color: #f3f1ec; z-index: 10; transition: opacity .5s; }
@@ -43,6 +44,10 @@ const CSS = `
 #start .code { font-family: 'Dela Gothic One', sans-serif; font-size: 28px; letter-spacing: .35em; color: #9fe6ff; margin-top: 8px; user-select: all; }
 #start .status { font-size: 12px; margin-top: 6px; min-height: 16px; opacity: .9; }
 #start .play:disabled { opacity: .45; cursor: default; background: #f3f1ec; }
+#start .wikibtn { pointer-events: auto; cursor: pointer; margin-top: 12px; padding: 7px 18px; font-family: 'Dela Gothic One', sans-serif; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #ffd27a; background: rgba(255,210,122,.08); border: 1px solid rgba(255,210,122,.6); box-shadow: 0 0 14px rgba(255,210,122,.18); }
+#start .wikibtn:hover { background: #ffd27a; color: #141418; }
+#start .card.special { background: linear-gradient(160deg, rgba(40,34,60,.85), rgba(14,16,34,.85)); border-color: rgba(255,210,122,.55); position: relative; }
+#start .card.special::after { content: '✦'; position: absolute; top: 3px; right: 6px; font-size: 11px; color: #ffd27a; }
 #start .ctl { margin-top: 14px; }
 #pause { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(5,5,10,.5); color: #f3f1ec; font-family: 'Dela Gothic One', sans-serif; letter-spacing: .3em; font-size: 26px; z-index: 9; cursor: pointer; }
 `;
@@ -87,6 +92,8 @@ export interface StartFighter {
   era?: string;
   /** the card stands for this era of its group (the character's peak) */
   eraDefault?: boolean;
+  /** an original character (a gold card; explained in the Special characters wiki) */
+  special?: boolean;
 }
 
 export function showStart(parent: HTMLElement, fighters: StartFighter[], init: StartChoice, onPlay: (c: StartChoice) => void, quality: 'high' | 'low', net?: StartNet, map?: { name: string; other: string; href: string }): StartScreen {
@@ -103,13 +110,14 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
   const lead = (g: string) => fighters.find((f) => f.group === g && f.eraDefault) ?? fighters.find((f) => f.group === g)!;
   const shown = fighters.filter((f) => !f.group || lead(f.group) === f);
   const cards = (kind: string) =>
-    shown.map((f) => `<div class="card" data-kind="${kind}" data-id="${f.id}" data-group="${f.group ?? ''}" style="--c:${f.color}"><div class="ck">${f.kanji}</div><div class="cn">${f.name}</div><div class="ct">${f.title}</div></div>`).join('');
+    shown.map((f) => `<div class="card${f.special ? ' special' : ''}" data-kind="${kind}" data-id="${f.id}" data-group="${f.group ?? ''}" style="--c:${f.color}"><div class="ck">${f.kanji}</div><div class="cn">${f.name}</div><div class="ct">${f.title}</div></div>`).join('');
   const eras = (kind: string) => `<div class="eras" data-kind="${kind}"></div>`;
   el.innerHTML = `
     <div class="box">
       <div class="kj">霊子</div>
       <h1>REISHI</h1>
       <div class="sub">a Bleach voxel brawler · Karakura Town</div>
+      <button class="wikibtn">✦ Special characters wiki</button>
       <div class="sec">Mode</div>
       <div class="modes"><button class="mode" data-mode="duel">Vs AI</button><button class="mode" data-mode="sandbox">Sandbox</button><button class="mode" data-mode="online">Vs Player 2</button></div>
       <div class="sbrow"><div class="hint">Walk the city and use everything, without limits: reiatsu never runs out, no cooldowns, no lockouts, forms never time out, and you cannot die. <b>N</b> calls a training opponent, <b>Backspace</b> rebuilds the town.</div><button class="toggle hollows">Hollow waves: off</button></div>
@@ -136,7 +144,7 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
         <div><b>V</b><span>reiatsu flare</span></div>
       </div>
       <div class="opts">Graphics: <b>${quality}</b> · <a href="${url.toString()}">switch to ${other}</a>${map ? ` · Map: <b>${map.name}</b> · <a href="${map.href}">switch to ${map.other}</a>` : ''}</div>
-      <div class="note">Everything is destructible — the ground goes 14 m deep.</div>
+      <div class="note">Everything is destructible — the ground goes 32 m deep.</div>
     </div>`;
   parent.appendChild(el);
   const choice: StartChoice = { ...init };
@@ -205,6 +213,13 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
       refresh();
     }),
   );
+  el.querySelector('.wikibtn')!.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openWiki(el, SPECIAL_WIKI.filter((w) => fighters.some((f) => f.id === w.id)), (id) => {
+      choice.char = id;
+      refresh();
+    });
+  });
   el.querySelector('.hollows')!.addEventListener('click', (e) => {
     e.stopPropagation();
     choice.hollows = !choice.hollows;

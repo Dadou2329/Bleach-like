@@ -90,7 +90,9 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   /** Hollow waves on (Sandbox) */
   let hollowsOn = params.get('hollows') !== null && params.get('hollows') !== '0';
   // ---- duel rival
-  let rivalEntry = rosterEntry(params.get('vs') ?? (playerEntry.id === 'ichigo' || playerEntry.group === 'ichigo' ? ROSTER[ROSTER.length - 1].id : 'ichigo'));
+  // the default rival: Ichigo, or for an Ichigo the last manga character (the special characters are picked on purpose)
+  const lastCanon = ROSTER.filter((r) => !r.special).at(-1)!;
+  let rivalEntry = rosterEntry(params.get('vs') ?? (playerEntry.id === 'ichigo' || playerEntry.group === 'ichigo' ? lastCanon.id : 'ichigo'));
   let rival: Fighter | null = null;
   let rivalKit: Kit | null = null;
   const startDuel = (entry: RosterEntry, dist = 16) => {
