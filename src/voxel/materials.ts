@@ -204,6 +204,8 @@ export function createBaseMaterials(): MaterialTable {
   add({ name: 'decayed', colors: ['#3d362f', '#4a4239', '#574e44', '#62584c'], pattern: 'sand', hardness: 1.5, density: 0.8, flags: S, debris: 'dirt' });
   // a floor turned to lava (Burner Finger 3): a dark red crust over glowing seams, hot yellow veins
   add({ name: 'magma', colors: ['#5a160c', '#8e2412', '#c83a16', '#f0601e'], accent: '#ffc23a', pattern: 'stone', hardness: 4, density: 2.5, flags: S | F_EMISSIVE, debris: 'rock', glow: 1.5 });
+  // Gerard's cape stretched into a wall: heavy red cloth, stiff with reiatsu (it stops bodies and shots; a strong cut tears it)
+  add({ name: 'cape_red', colors: ['#8a121a', '#a3161f', '#b31b25'], pattern: 'none', hardness: 140, density: 0.6, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'charred' });
 
   return t;
 }

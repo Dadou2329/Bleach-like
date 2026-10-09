@@ -48,7 +48,7 @@ scope and milestones and `README.md` for controls and modes.
   Shikai is Sōō Zabimaru, whose Hihiō moves bring the arm out with `showHihio(secs, fist)`); `f.data.quincy` marks a Quincy (Hollow reiatsu is poison to it); the Agent's Shikai and
   the Lost Agent's restored Shikai run an inner `IchigoKit` with `era: 'agent' | 'lostagent'`, and the Soul Society
   entry is `IchigoKit` with `era: 'ss'`, where G lets the Hollow out: `Kit.possessed()` hands the player's body to a
-  `DuelistAI` and the player's only input is the mash that tears the mask off), AI in `game/ai/`, projectiles in
+  `DuelistAI` and the player's only input is the mash that tears the mask off), AI in `game/ai/` (the duel AI measures range to a big target's surface), projectiles in
   `game/projectiles/`. Fighter statuses: `slow`, `dilate`
   (time field: actions and animation crawl too), `agedK/agedT` (more damage taken), `wetT`, `energyTaken`, `knockTaken`,
   `blindT` (Enma Kōrogi: `nearestEnemy` finds no one, the duel AI gropes, the HUD goes dark), `armLockT` (the weapon arm
@@ -149,6 +149,10 @@ scope and milestones and `README.md` for controls and modes.
   lets every blow and drain pass through (`onPhase` sees what passed) except one carrying `DamageOpts.reflected` equal
   to the target — his own power turned back on him (Freund Schild, Shiten Kōshun and Sōgyo no Kotowari's returned
   shots set it; `CeroOpts`/`ShotOpts` carry it). A stance grip with `two` puts the left hand on the weapon too (a rifle)),
+  `game/kits/gerard.ts` (Gerard: one rig scaled for the Godly Size steps (×6/×10/×14) with the hurt capsule, speeds,
+  gait and camera following, Yammy-style; `CapeWall` writes `cape_red` world voxels and removes the ones still there;
+  `TorrentArrow` tunnels and has no `reject`; `SlashWake`; `ShieldThrow`; the tower toss is Meninas' `LiftedChunk`.
+  `data.unforeseen` hides a fighter from The Almighty's foresight),
   `vfx/heat.ts` (Bazz-B: `BurnerBeam`, an instant thin beam boring through every wall on its line; `TwinFlame` and
   its `FlamePillar`s; `LavaField`, the floor's surface turned `molten` in a rolling disc, cooled to `scorched`;
   `ThrownFlameSword`; `FullFingers`, the spiralling cone; `FireRing`, the Burning Stomp's counter-flame; his right hand

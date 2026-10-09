@@ -584,6 +584,25 @@ G state, V flare); press **H** in game for the current character's moves.
     pair (twice the beams); G: **Owl Eyes** (nothing surprises him); F: **Trompete** — the ground dissolves upward
     into a golden trumpet bigger than he is, and its blast is a storm of spherical waves. Killed again, he bursts
     into golden rain and six bird-like remnants fight on.
+- **Gerard Valkyrie**, Sternritter "M" — The Miracle: a laughing giant of a knight in a winged helmet, a red cape
+  pinned at both shoulders, a white X-belt over black, a round bronze shield on his left arm and **Hoffnung**, a black
+  sword with a star in its guard. He wants to be hit: every wound fills **the Miracle** (so does being outnumbered or
+  near death), and when it is full — or a blow would kill him — he grows a **Godly Size** step (13 m, 22 m, 31 m),
+  healed of everything, the helmet gone. A giant tramples whatever it strides through; struck hard at the feet while
+  it walks, it topples. A blade that meets Hoffnung while he swings it is turned back on its wielder ×2.5 — unless the
+  blade is ice (it freezes Hoffnung; a second cuts it in half). Killed at full size his heart rebuilds him in
+  **Aschtonig**; killed again he re-forms as a golden knight whose light burns out, and the skeleton topples. Shift is
+  the Valkyrie Leap at a far target (a crater where he lands) or a shield charge. LMB is Hoffnung and the shield
+  (overhead, bash, cleave, shockwave slam). His moves:
+  - RMB: **Road-Breaker**, driven down through the floor. Q: the **flying slash**. E: the **cape wall**, the red cape
+    stretched across the street. R: **Heilig Bogen** — the hands clasped and pulled apart into a red bow, an arrow of
+    pure power that no guard or shield stops. G: **Blut Vene**. F: **Aschtonig**, the Zeichen drawn in his own blood.
+    V: **Za Mirakuru** — with half a meter, the next step at once; with less, a pulse that finds the hidden.
+  - As a giant: LMB the backhand, the cleave through the buildings, the stomp; RMB **Branch Breaker** (the arm drawn
+    back with a long laugh, the fist into the ground); Q the **tower toss** (the top of a building torn off and
+    hurled); E the **gale breath**; R the **lariat**; G **grab and crush**.
+  - Aschtonig (a Norse helm of light, gold over his limbs, wings at will): Q the **Hoffnung beam**, E the **slash
+    wake** (the arc goes up a beat later), R the **shield throw**, G Heilig Bogen. He shrugs off freezing and binding.
 - **Yoruichi Shihōin**, the Flash Goddess: the fastest Shunpo in the game, trailing afterimages. Her LMB
   string is Hakuda kicks (snap kick, spinning heel, flying knee, double palm, axe heel). Her moves:
   - RMB: the concentrated blow, driven from the hip. The air ahead of the fist breaks walls.

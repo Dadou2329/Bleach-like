@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {
   EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode, Effect,
-  SMAAEffect, VignetteEffect, ChromaticAberrationEffect, HueSaturationEffect, BrightnessContrastEffect,
+  SMAAEffect, VignetteEffect, ChromaticAberrationEffect, HueSaturationEffect, BrightnessContrastEffect, BlendFunction,
 } from 'postprocessing';
 import { N8AOPostPass } from 'n8ao';
 import { Sky, SKY_DAY, type SkyParams } from './sky';
@@ -53,17 +53,22 @@ export const ATMO_DAY: Atmosphere = {
 
 /**
  * Drops NaN / Inf pixels (and caps absurd HDR values) before the bloom: one bad pixel from any shader would
- * otherwise be smeared by the mip-chain blur into a black frame.
+ * otherwise be smeared by the mip-chain blur into a black frame. The alpha is cleaned too — additive layers pile it
+ * up past the half-float range (a wide additive pillar filling the view: Inf), and the blur spreads that just the
+ * same. The result replaces the input outright (SRC): the default NORMAL blend mixes the input back in, and
+ * mix(Inf, x, 1) is NaN.
  */
 class NanGuardEffect extends Effect {
   constructor() {
     super('NanGuardEffect', /* glsl */ `
       void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
         vec3 c = inputColor.rgb;
+        float a = inputColor.a;
         // comparisons with NaN are false, so this also catches NaN where isnan() is optimised away
         bool ok = abs(c.r) + abs(c.g) + abs(c.b) < 1e6 && !any(isnan(c)) && !any(isinf(c));
-        outputColor = ok ? vec4(clamp(c, 0.0, 256.0), inputColor.a) : vec4(0.0, 0.0, 0.0, inputColor.a);
-      }`);
+        bool aok = abs(a) < 1e6 && !isnan(a) && !isinf(a);
+        outputColor = vec4(ok ? clamp(c, 0.0, 256.0) : vec3(0.0), aok ? clamp(a, 0.0, 1.0) : 1.0);
+      }`, { blendFunction: BlendFunction.SRC });
   }
 }
 

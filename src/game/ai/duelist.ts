@@ -96,8 +96,10 @@ export class DuelistAI implements Controller {
     const tp = mirrored ? _m.set(2 * f.pos.x - seen.x, seen.y, 2 * f.pos.z - seen.z) : seen;
     f.faceTarget = t.lure || mirrored ? new THREE.Vector3(tp.x, tp.y + t.def.height * 0.55, tp.z) : t.center();
     _d.set(tp.x - f.pos.x, 0, tp.z - f.pos.z);
-    const dist = Math.max(0.01, _d.length());
-    _d.divideScalar(dist);
+    const raw = Math.max(0.01, _d.length());
+    _d.divideScalar(raw);
+    // a big body is reached at its surface, not its middle (a giant, a god form)
+    const dist = Math.max(0.01, raw - Math.max(0, t.def.radius - 0.35));
     const dy = tp.y - f.pos.y;
     const hp = f.hp / f.maxHp;
 

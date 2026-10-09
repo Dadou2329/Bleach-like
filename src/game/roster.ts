@@ -128,6 +128,8 @@ import { gremmyAsset, gremmyProp } from '../chars/gremmy';
 import { LILLE_DEF, LilleKit } from './kits/lille';
 import { lilleAsset, lilleProp } from '../chars/lille';
 import { jillielAsset, lilleGodProp, remnantAsset, trueFormAsset } from '../chars/lilleGod';
+import { GERARD_DEF, GerardKit } from './kits/gerard';
+import { gerardAsset, gerardProp } from '../chars/gerard';
 import { kyorakuAsset, kyorakuProp } from '../chars/kyoraku';
 import { suifengAsset, suifengProp } from '../chars/suifeng';
 import { ginAsset } from '../chars/gin';
@@ -620,6 +622,21 @@ export const ROSTER: RosterEntry[] = [
       buildCached(remnantAsset().model, true);
       buildCached(lilleProp('diagramm-r'), false);
       for (const k of ['halo-green', 'halo-gold', 'head-god', 'head-owl', 'trompete', 'arm'] as const) buildCached(lilleGodProp(k), false);
+    },
+  },
+  {
+    id: 'gerard',
+    name: 'Gerard Valkyrie',
+    kanji: '奇跡',
+    title: 'Sternritter "M" — The Miracle',
+    color: '#f2d27a',
+    def: () => ({ ...GERARD_DEF, speed: { ...GERARD_DEF.speed } }),
+    kit: (f, g) => new GerardKit(f, g),
+    warm: () => {
+      for (const k of ['bare', 'asch', 'knight', 'bones'] as const) buildCached(gerardAsset(k).model, true);
+      buildCached(gerardAsset('bare', true).model, true);
+      buildCached(gerardAsset('asch', true).model, true);
+      for (const k of ['hoffnung-gold', 'shield-asch', 'bow', 'helm-asch', 'wings'] as const) buildCached(gerardProp(k), false);
     },
   },
   {

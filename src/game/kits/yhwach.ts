@@ -419,7 +419,8 @@ export class YhwachKit implements Kit {
     if (this.form !== 'emperor' && !f.dead) {
       for (const o of g.enemiesOf(f)) {
         const a = o.action;
-        if (!a) {
+        // the Heart of the Soul King (Gerard) never appears in The Almighty's visions
+        if (!a || o.data.unforeseen) {
           this.seenAct.delete(o.id);
           continue;
         }
