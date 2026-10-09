@@ -1142,7 +1142,8 @@ export class DemonParade implements Projectile {
       if (gy !== null) h.p.y += (gy + 0.4 - h.p.y) * Math.min(1, dt * 10);
       // a trail of fire, the ground torn up behind it
       if (Math.random() < 0.7) pool.spawn(Math.random() < 0.4 ? 'black' : Math.random() < 0.5 ? 'violet' : 'crimson', h.p.x - this.dir.x * 1.2, h.p.y, h.p.z - this.dir.z * 1.2, 1, 1.6, 0.6, 1.2, 2);
-      if (Math.random() < dt * 6) g.engine.destruction.carve(new SphereShape(h.p.clone().setY(h.p.y - 0.4), 1, 0.6), { mode: 'smash', power: 500, impulse: 9, dir: UP.clone() });
+      // the ground torn up under the stampede (sparingly: the heads must stay in sight)
+      if (Math.random() < dt * 2) g.engine.destruction.carve(new SphereShape(h.p.clone().setY(h.p.y - 0.4), 1, 0.6), { mode: 'smash', power: 500, impulse: 6, debris: 0.12, dust: 0.4, dir: UP.clone() });
       for (const e of g.enemiesOf(this.owner)) {
         if (e.center().distanceTo(_w.copy(h.p).setY(h.p.y + 0.8)) > e.def.radius + 1.4) continue;
         const n = this.hits.get(e.id) ?? 0;
