@@ -369,7 +369,7 @@ export const SPECIAL_WIKI: WikiEntry[] = [
         kanji: '第六天魔王',
         command: 'Tenka Fubu — 天下布武「第六天魔王」',
         means: 'The realm by force — the Demon King of the Sixth Heaven',
-        look: 'He rises into the air and no longer smiles. Black takes the left side of his face, edged in burning cracks, and that eye burns red in a black socket; two horns like a Hollow\'s grow from his temples and point forward past his face. The haori becomes a robe of black and gold edged in violet fire, a second pair of arms of cracked obsidian rises behind his shoulders with a blade of black fire in each hand, and a wheel of fire with six burning spokes turns at his back. The colossus stays with him.',
+        look: 'He rises into the air and no longer smiles. Black takes the left side of his face, edged in burning cracks, and that eye burns red in a black socket; two horns like a Hollow\'s grow from his temples and point forward past his face, their points burning. The haori becomes a robe of black and gold edged in violet fire, a second pair of arms of cracked obsidian rises behind his shoulders with a blade of black fire in each hand, and a wheel of fire with six burning spokes turns at his back. The colossus stays with him.',
         stats: ['Power ×6.5', 'Damage taken ×0.1', 'Healed to full on release', 'Regenerates 3 % HP and 25 reiatsu per second', 'Flies: Space climbs, Ctrl sinks', 'Never knocked back; immune to every status', 'Enemies within 16 m are slowed and burn black'],
         moves: [
           { key: 'LMB', name: 'Rokudō', kanji: '六道', means: 'the Six Paths (of rebirth)', text: 'Six cuts with both pairs of arms: every cut throws two crescents of black fire 40 m ahead, and the colossus cuts with him.' },

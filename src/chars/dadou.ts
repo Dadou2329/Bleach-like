@@ -108,7 +108,8 @@ function palette(b: ModelBuilder, form: DadouForm): void {
   b.mat('cape', ['#2E2A31', '#232026', '#1A181D', '#151418'], { base: 1, rough: 0.7, shadeK: 0.9 });
   b.mat('capeIn', ['#A81F36', '#8A192C', '#6C1323', '#500E1A'], { base: 1, rough: 0.75 });
   b.mat('horn', ['#4A4046', '#372F35', '#282226', '#1C181B', '#151316'], { base: 1, rough: 0.35, shadeK: 0.85 });
-  b.mat('hornTip', ['#FF3B50'], { glow: 1.5 });
+  b.mat('hornTip', ['#FF2A3C'], { glow: 1.1 });
+  b.mat('hornEmber', ['#9E1A2E'], { glow: 0.45 });
   b.mat('ruby', ['#FF2A48'], { glow: 1.1, rough: 0.1 });
   b.mat('tabi', ['#3A3B41', '#2B2C32', '#202126', '#17171C'], { base: 1, rough: 0.7 });
   b.mat('sole', ['#55555C', '#3E3E45', '#2C2C32'], { base: 1, rough: 0.9 });
@@ -601,12 +602,18 @@ function horns(b: ModelBuilder, hd: { front: number; chin: number }, kind: 'shor
   const c = hd.chin, front = hd.front;
   for (const k of [-1, 1]) {
     if (kind === 'great') {
-      // a Hollow's horns: out of the hair at the temples, out to the side, then forward past his face, the points
-      // turning up and in
-      const pts: V3[] = smoothPath([[k * 4.2, c + 11.0, front - 3.6], [k * 7.0, c + 11.6, front - 3.0], [k * 8.4, c + 11.6, front + 0.8], [k * 8.0, c + 11.8, front + 5.4], [k * 6.6, c + 12.6, front + 9.4]], 4);
-      const rad = pts.map((_, i) => 2.0 * (1 - i / pts.length) + 0.55);
-      b.add('head', tube(pts, rad), 'horn', { thr: 0.25 });
-      b.paint('head', sphere(pts[pts.length - 1], 2.4), 'hornTip', { where: b.isMat('horn') });
+      // a Hollow's horns, like Ichigo's: out of the hair at the temples and straight forward past his face, a little
+      // apart, the points turning up and in; the last third smoulders and the points burn
+      const pts: V3[] = smoothPath([[k * 3.8, c + 11.4, front - 4.2], [k * 5.6, c + 11.9, front - 2.4], [k * 6.6, c + 12.1, front + 1.0], [k * 6.6, c + 12.3, front + 5.0], [k * 5.9, c + 12.9, front + 8.6], [k * 5.0, c + 13.8, front + 11.2]], 4);
+      const n = pts.length - 1;
+      const rad = pts.map((_, i) => 0.42 + 1.9 * Math.pow(1 - i / n, 1.2));
+      b.add('head', tube(pts, rad), 'horn', { thr: 0.2 });
+      pts.forEach((q, i) => {
+        if (i > n * 0.68) b.paint('head', sphere(q, rad[i] + 0.55), 'hornEmber', { where: b.isMat('horn') });
+      });
+      pts.forEach((q, i) => {
+        if (i > n * 0.88) b.paint('head', sphere(q, rad[i] + 0.55), 'hornTip', { where: b.isMat('horn', 'hornEmber') });
+      });
     } else if (kind === 'long') {
       const base: V3 = [k * 4.0, c + 11.2, front - 3.4];
       b.add('head', spike(base, [k * 0.35, 0.75, -0.75], 13, 1.7, 1.3, { tip: 0.55, bend: [0, -0.2, -0.3] }), 'horn', { thr: 0.25 });
