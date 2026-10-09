@@ -120,7 +120,8 @@ export function longCape(b: ModelBuilder, L: Landmarks, torso: Sdf, o: CapeOpts)
     b.paint('chest', ellipsoid([0, sy + 4.4, nz - 3.2], [4.4, 1.6, 2.6]), o.lining, { where: b.isMat(o.mat) });
   }
   const skirt = coatSkirt(b, L, { mat: o.mat, lining: o.lining, yTop: s.waistY - 4, yHem: o.yHem ?? 3, r0: o.r0 ?? 10.2, r1: o.r1 ?? 13.8, openFront: 24, overlap: 4, res: o.res, prefix, depth: 0.92, thick: 1.0 });
-  for (const n of [`${prefix}.F.L`, `${prefix}.F.L.2`, `${prefix}.F.R`, `${prefix}.F.R.2`]) b.carve(n, aabb([-99, -99, -99], [99, 199, 99]));
+  // empty the front panels (a box round the whole skirt: rasterising a far bigger one cost seconds per cape)
+  for (const n of [`${prefix}.F.L`, `${prefix}.F.L.2`, `${prefix}.F.R`, `${prefix}.F.R.2`]) b.carve(n, aabb([-48, -12, -48], [48, s.waistY + 14, 48]));
   return { springs: skirt.springs.filter((sp) => !sp.bone.startsWith(`${prefix}.F.`)), colliders: [] };
 }
 

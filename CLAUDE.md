@@ -1,4 +1,4 @@
-# CLAUDE.md — working on REISHI
+# CLAUDE.md — working on Bleach : Reishi (REISHI)
 
 Bleach fan game: a third-person voxel brawler in Three.js with a fully destructible world. Read `PLAN.md` for
 scope and milestones and `README.md` for controls and modes.
@@ -90,6 +90,12 @@ scope and milestones and `README.md` for controls and modes.
   socket), the grin, the violet cord on his left wrist) climbs the same four-form ladder; his Kyōzō copies are
   `mirrorDef()` + `EvenKit(f, g, { mirror: true })` + a `DuelistAI`, and Kyōzō Hangyaku copies the target through
   `rosterById`. `AfterimagePool.spawn(life, k, xf)` takes a transform (a ghost somewhere else: his mirror shadow).
+  Dadou (`dadou.ts`, the game's author himself, he/him — keep his face from his photos: the thick wavy near-black hair
+  swept back, kept short with the back of the head covered, the thick straight brows, the grin, the gold chain and
+  square pendant; no glasses; in the final form no grin — black over the left side of his face with that eye burning,
+  a Hollow's horns pointing forward) climbs the same four-form ladder; his fire (`ignite`) blocks healing by holding a
+  burning target's HP down, his kneels play `weighed_kneel`, and the Bankai's colossus is `TenmaGiant` in
+  `vfx/hajun.ts` (his Bankai body ×11 copying his bones; the kit holds its blade `active` through each cut).
 - Restoration: `engine.editLog` records every voxel edit; `collect()` + `revert(i)` replay them backwards
   (Sōten Kisshun sweeps a sphere nearest-first) and `fragments.dissolveNear()` removes the falling pieces whose
   voxels go back. Never revert into a fighter's capsule.
@@ -247,6 +253,10 @@ scope and milestones and `README.md` for controls and modes.
   the ground that follows its owner at its own height (`inside()`, `ripple()`, `end()`); `CrystalSpike`; `MirrorPrison`;
   `MirrorWave`; `Kaleidoscope`; `SunPillar`; `JudgmentMirror`, a standing `Reflector` in a frame that cracks;
   `ReleaseLight`) and
+  `vfx/hajun.ts` (Dadou: `HellfirePool`, flame cards in crimson, violet, gold and black (the black ones alpha-blended
+  with a burning edge) and `hellfireAt`/`bodyFire`/`hellFlash`; `HellOrb`; `IronPillars`; `Throne`; `FireRope`;
+  `HellPillar`; `DemonParade`; `TenmaGiant`; `GatesOfHell` (judge a soul or let him walk back out: Jigoku-gaeri);
+  `BurningHells`; `FlameWheel`; `MukenSphere`; `HellMeteor`; `warmHajun()` builds every model up front) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
 - Maps: `maps/karakura.ts` (default, 320 m: five roads each way with blocks numbered `(i, j)`, special blocks by

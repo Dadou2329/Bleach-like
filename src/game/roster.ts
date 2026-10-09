@@ -23,6 +23,9 @@ import { NATACHA_DEF, NatachaKit } from './kits/natacha';
 import { natachaAsset, natachaProp } from '../chars/natacha';
 import { EVEN_DEF, EvenKit } from './kits/even';
 import { evenAsset, evenProp } from '../chars/even';
+import { DADOU_DEF, DadouKit } from './kits/dadou';
+import { dadouAsset, dadouProp } from '../chars/dadou';
+import { hajunModels } from '../vfx/hajun';
 import { SZAYEL_DEF, SzayelKit } from './kits/szayel';
 import { YAMMY_DEF, YammyKit } from './kits/yammy';
 import { ZOMMARI_DEF, ZommariKit } from './kits/zommari';
@@ -1133,6 +1136,21 @@ export const ROSTER: RosterEntry[] = [
     warm: () => {
       for (const k of ['shikai', 'bankai', 'final'] as const) buildCached(evenAsset(k).model, true);
       for (const k of ['shikai', 'bankai', 'final', 'glassesLight', 'aureole'] as const) buildCached(evenProp(k), false);
+    },
+  },
+  {
+    id: 'dadou',
+    name: 'Dadou',
+    kanji: '波旬',
+    title: 'Emperor of Hell',
+    color: '#e8243c',
+    special: true,
+    def: () => ({ ...DADOU_DEF, speed: { ...DADOU_DEF.speed } }),
+    kit: (f, g) => new DadouKit(f, g),
+    warm: () => {
+      for (const k of ['shikai', 'bankai', 'final'] as const) buildCached(dadouAsset(k).model, true);
+      for (const k of ['shikai', 'bankai', 'final', 'halo', 'wheel'] as const) buildCached(dadouProp(k), false);
+      for (const m of hajunModels()) buildCached(m, false);
     },
   },
 ];

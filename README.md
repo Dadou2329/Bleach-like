@@ -1,4 +1,4 @@
-# REISHI 霊子 — a Bleach voxel brawler
+# Bleach : Reishi 霊子 — a voxel brawler
 
 A non-commercial **Bleach fan game**: a third-person action brawler in detailed voxel art, built with
 **Three.js**. The whole world is destructible, and attacks cut, crush and tunnel through it. Balance is not a
@@ -1367,6 +1367,28 @@ G state, V flare); press **H** in game for the current character's moves.
       it ever struck comes back at once. F seals everything.
     - Illusions never hold him (**Shingan**), and the first time he would die it was a reflection that broke
       (**Kagami-gawari**).
+  - **Dadou**, 波旬, the Emperor of Hell — the game's author himself, his face drawn from his photos: thick, wavy
+    near-black hair lifted off the forehead and swept back, thick straight brows, a big open grin, a gold chain with a
+    square pendant. As overpowered as a character can be, on purpose (docs/kits/dadou.md). His Zanpakutō **Hajun**
+    commands Hell's fire — crimson, violet, and a black flame that does not let what it burns heal.
+    - Sealed, in the crimson **Emperor's haori** (gold borders and hem flames, a tall collar, a burning gold
+      chrysanthemum on the back): the **Teiken** string; RMB Hadō #54 **Haien**; Q Hadō #31 **Shakkahō** five times; E
+      **Ōi**, everyone near forced to kneel; R Bakudō #75 **Gochūtekkan**, five iron pillars; G **Gyokuza**: a throne
+      rises and he sits — untouchable — while everyone near kneels and fire erupts under them.
+    - F: "**Hirefuse, Hajun**" — everyone near bows. The haori burns black, two horns, red eyes: cuts throw crescents of
+      black fire; RMB **Kokuen**, a cone of black flame; Q **Onibi**, nine wisps; E **Kensaku**, a rope of fire that
+      drags the target to his feet; R **Gōka**, three pillars of hellfire; G **Hyakki Yakō**, a stampede of demon heads.
+    - F: **Bankai, Tenma Hajun**. The sky turns blood red and a 20 m colossus of black fire in his shape rises behind him
+      and repeats every move. Armour, cape, crown, a halo of fire, a great nodachi; RMB **Jigoku no Mon**, the Gates of
+      Hell; Q **Gokusotsu no Kusari**, chains under everyone within 25 m; E **Tenma no Te**, the colossus's hand; R
+      **Hachinetsu Jigoku**, the ground turned into Hell; G **Daitenma-giri**, a 70 m cut.
+    - F: **Tenka Fubu — Dairokuten Maō**. Black takes half his face and that eye burns; a Hollow's horns point forward;
+      a second pair of arms with blades of black fire and a wheel of fire; he flies, shrugs off every status and barely
+      takes damage. **Rokudō**; RMB **Gokuen-hō**, a 120 m hellfire cannon; Q **Kaen-rin**, the wheel as a buzzsaw; E
+      **Muken**, a sphere of black fire; R **Tenma Kōrin**, the colossus stabs down from above; G **Tenka Fubu**, a
+      ceiling of fire: everyone kneels and 48 meteors fall. F seals everything.
+    - His fire stops healing (**Gokuen**), and the first time he would die the Gates of Hell open behind him and he
+      walks back out one form higher (**Jigoku-gaeri**).
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
 - **Karakura Town**, generated procedurally on a 320 m square: houses (gabled or hipped roofs, gardens, some with
@@ -1390,7 +1412,7 @@ G state, V flare); press **H** in game for the current character's moves.
   **Cero** that drills through buildings. Its mask is the weak point.
 
 ## Developer modes
-- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|natacha|even|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`; `natacha` takes `form=sealed|shikai|bankai|final` and `ntprop` shows `form=katana|saya|shikai|bankai|final|halo`; `even` takes `form=sealed|shikai|bankai|final` (`&glasses=0` without the glasses) and `evprop` shows `form=katana|saya|shikai|bankai|final|glasses|glassesLight|aureole`)
+- `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|natacha|even|dadou|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`; `natacha` takes `form=sealed|shikai|bankai|final` and `ntprop` shows `form=katana|saya|shikai|bankai|final|halo`; `even` takes `form=sealed|shikai|bankai|final` (`&glasses=0` without the glasses) and `evprop` shows `form=katana|saya|shikai|bankai|final|glasses|glassesLight|aureole`; `dadou` takes `form=sealed|shikai|bankai|final` (`&props=0` without the halo, the wheel and the second pair's blades) and `ddprop` shows `form=katana|saya|shikai|bankai|final|halo|wheel`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
 - `/?map=arena`: the small test arena. `/?hollows=N`: Hollow waves (0: none). `/?sandbox`: Sandbox rules.
   `/?join=CODE`: open straight into a Vs Player 2 lobby. `/?net=local`: Vs Player 2 between two tabs of one browser

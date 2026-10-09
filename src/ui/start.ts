@@ -4,8 +4,13 @@ import { SPECIAL_WIKI, openWiki } from './wiki';
 const CSS = `
 #start { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(5,5,10,.35), rgba(5,5,10,.82)); font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; color: #f3f1ec; z-index: 10; transition: opacity .5s; }
 #start .box { width: min(780px, 94vw); max-height: 96vh; overflow-y: auto; text-align: center; pointer-events: auto; }
-#start .kj { font-family: 'Yuji Syuku', serif; font-size: clamp(36px, 7vw, 72px); line-height: 1; color: #f3f1ec; text-shadow: 0 0 26px rgba(125,223,253,.55), 0 4px 0 #000; }
-#start h1 { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(26px, 5vw, 50px); letter-spacing: .35em; margin: 6px 0 2px; padding-left: .35em; text-shadow: 0 3px 0 #000; }
+#start h1 { margin: 0; line-height: 0; }
+#start .logo { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 6px 0 rgba(0,0,0,.55)); }
+#start .logo .w { font-family: 'Dela Gothic One', sans-serif; font-size: 92px; paint-order: stroke; stroke: #0b0b10; stroke-width: 7px; stroke-linejoin: round; }
+#start .logo .kj { font-family: 'Yuji Syuku', serif; font-size: 210px; fill: rgba(125,223,253,.09); }
+#start .logo .kjs { font-family: 'Yuji Syuku', serif; font-size: 30px; fill: #cfefff; letter-spacing: .5em; }
+#start .logo .cut { animation: lgcut 3.2s ease-in-out infinite; }
+@keyframes lgcut { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
 #start .sub { font-size: 14px; letter-spacing: .3em; opacity: .8; text-transform: uppercase; }
 #start .play { margin: 20px auto 6px; display: inline-block; pointer-events: auto; cursor: pointer; font-family: 'Dela Gothic One', sans-serif; font-size: 22px; letter-spacing: .3em; padding: 14px 42px 14px 50px; color: #0b0b10; background: #f3f1ec; border: none; transform: skewX(-12deg); box-shadow: 0 0 0 2px #0b0b10, 0 0 0 4px #f3f1ec, 0 0 30px rgba(125,223,253,.45); }
 #start .play:hover { background: #9fe6ff; }
@@ -51,6 +56,39 @@ const CSS = `
 #start .ctl { margin-top: 14px; }
 #pause { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(5,5,10,.5); color: #f3f1ec; font-family: 'Dela Gothic One', sans-serif; letter-spacing: .3em; font-size: 26px; z-index: 9; cursor: pointer; }
 `;
+
+/**
+ * The title: "BLEACH : REISHI". White-silver BLEACH and reiatsu-blue REISHI, the colon two glowing diamonds, the whole
+ * lockup sliced by one diagonal sword cut — the upper half slid along the cut, a line of light through it — with 霊子
+ * (reishi, spirit particles) in faint calligraphy behind and small under it.
+ */
+const LOGO = `<svg class="logo" viewBox="0 0 1000 250" role="img" aria-label="Bleach : Reishi">
+  <defs>
+    <linearGradient id="lg-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#eef2f7"/><stop offset=".52" stop-color="#c9d2de"/><stop offset="1" stop-color="#8f9bad"/></linearGradient>
+    <linearGradient id="lg-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1fcff"/><stop offset=".45" stop-color="#8fe4fd"/><stop offset=".55" stop-color="#5cc4f2"/><stop offset="1" stop-color="#2d74d0"/></linearGradient>
+    <linearGradient id="lg-blade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fe6ff" stop-opacity="0"/><stop offset=".18" stop-color="#e8fbff"/><stop offset=".82" stop-color="#e8fbff"/><stop offset="1" stop-color="#9fe6ff" stop-opacity="0"/></linearGradient>
+    <filter id="lg-glow" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="lg-blue" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="8" result="b"/><feFlood flood-color="#5cc4f2" flood-opacity=".6"/><feComposite in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="lg-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="lg-top"><polygon points="-40,-40 1040,-40 1040,74 -40,182"/></clipPath>
+    <clipPath id="lg-bot"><polygon points="-40,182 1040,74 1040,290 -40,290"/></clipPath>
+    <g id="lg-words">
+      <text class="w" x="14" y="150" textLength="440" lengthAdjust="spacingAndGlyphs" fill="url(#lg-w)">BLEACH</text>
+      <g filter="url(#lg-soft)" fill="url(#lg-c)" stroke="#0b0b10" stroke-width="3">
+        <rect x="491" y="78" width="18" height="18" transform="rotate(45 500 87)"/>
+        <rect x="491" y="122" width="18" height="18" transform="rotate(45 500 131)"/>
+      </g>
+      <text class="w" x="546" y="150" textLength="440" lengthAdjust="spacingAndGlyphs" fill="url(#lg-c)" filter="url(#lg-blue)">REISHI</text>
+    </g>
+  </defs>
+  <text class="kj" x="500" y="205" text-anchor="middle">霊子</text>
+  <g clip-path="url(#lg-bot)"><use href="#lg-words"/></g>
+  <g clip-path="url(#lg-top)"><use href="#lg-words" transform="translate(13 -1.3)"/></g>
+  <g class="cut" filter="url(#lg-glow)"><line x1="-10" y1="179" x2="1010" y2="77" stroke="url(#lg-blade)" stroke-width="3.2" stroke-linecap="round"/></g>
+  <line x1="300" y1="214" x2="420" y2="214" stroke="#9fe6ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <line x1="580" y1="214" x2="700" y2="214" stroke="#9fe6ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <text class="kjs" x="507" y="225" text-anchor="middle">霊子</text>
+</svg>`;
 
 export interface StartChoice {
   char: string;
@@ -114,9 +152,8 @@ export function showStart(parent: HTMLElement, fighters: StartFighter[], init: S
   const eras = (kind: string) => `<div class="eras" data-kind="${kind}"></div>`;
   el.innerHTML = `
     <div class="box">
-      <div class="kj">霊子</div>
-      <h1>REISHI</h1>
-      <div class="sub">a Bleach voxel brawler · Karakura Town</div>
+      <h1>${LOGO}</h1>
+      <div class="sub">a voxel brawler · Karakura Town</div>
       <button class="wikibtn">✦ Special characters wiki</button>
       <div class="sec">Mode</div>
       <div class="modes"><button class="mode" data-mode="duel">Vs AI</button><button class="mode" data-mode="sandbox">Sandbox</button><button class="mode" data-mode="online">Vs Player 2</button></div>
