@@ -11,8 +11,14 @@ npm install
 npm run dev        # open the printed URL (http://127.0.0.1:5173)
 ```
 
-Click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser with WebGL2 is required.
-`?q=low` lowers graphics quality for weaker GPUs.
+Pick a fighter and a **mode**, then click **PLAY**. The mouse is captured, and **Esc** pauses. A desktop browser
+with WebGL2 is required. `?q=low` lowers graphics quality for weaker GPUs.
+
+| Mode | What it is |
+|---|---|
+| **Vs AI** | a duel against any roster character piloted by the duel AI, round after round |
+| **Sandbox** | walk Karakura and use everything **without limits**: reiatsu never runs out, no cooldowns, no lockouts, forms never time out (masks never crack, Kenpachi's arm never tears) and you cannot die. **N** calls a training opponent, **Backspace** rebuilds the town. Optional **Hollow waves** (a Menos Grande every third wave). |
+| **Vs Player 2** | two players who both have the game. One clicks **Create lobby** and gives the other the five-letter code; the other types it and clicks **Join**. Each picks a fighter; the host presses **START**. The lobby server only introduces the two games — the fight runs peer to peer (WebRTC). The guest follows the host's map. |
 
 | Input | Action |
 |---|---|
@@ -1320,8 +1326,14 @@ G state, V flare); press **H** in game for the current character's moves.
       time he stays down.
 - **Duels**: pick a rival on the start screen, or use `?vs=<id>`. The duel AI pilots any kit; it releases and
   toggles states as its HP drops.
-- **Karakura Town**, generated procedurally: houses, apartments, a shopping street, Karakura High, the Kurosaki
-  Clinic, the river with its bridge, parks and utility poles. Every voxel is destructible. Cut buildings slide
+- **Karakura Town**, generated procedurally: houses (gabled or hipped roofs, some with a carport and a car),
+  apartments, a shopping street, office towers of seven to twelve floors along the main road (parking basements, glass
+  curtain walls, lit floors, a core and a mast), konbini with their striped signs, Karakura High, the Kurosaki Clinic,
+  **Urahara Shop** with its sign and bare yard, a **shrine** (torii, stone lanterns, the copper-roofed hall, the sacred
+  tree), the river with its bridge, parks, street lamps, traffic lights, bus stops, parked cars and utility poles.
+  The ground goes **14 m deep** — topsoil, clay, an old gravel bed, rock, bedrock — with **sewer conduits** under the
+  roads (manholes in the asphalt) and a footing under every building, so the biggest techniques dig real craters.
+  Past the edge the town carries on into the haze toward the hills. Every voxel is destructible. Cut buildings slide
   apart along the cut and shatter into rubble.
 - **Hollows** come in waves with seeded masks. They roar, claw and pounce.
 - Every third wave, a **Menos Grande** tears the sky open (Kūmon), crushes the town as it walks and fires a
@@ -1330,7 +1342,9 @@ G state, V flare); press **H** in game for the current character's moves.
 ## Developer modes
 - `/?mode=model[&char=ichigo|hollow|menos|grimmjow|byakuya|renji|rukia|chad|uryu|yoruichi|urahara|yamamoto|gin|suifeng|kyoraku|kenpachi|ulquiorra|starrk|lilynette|ukitake|harribel|nnoitra|baraggan|komamura|tosen|orihime|mayuri|unohana|shinji|yhwach|hitsugaya|toshiro|aizen|hihio|hollowichigo|isshin|nelliel|ikkaku|rangiku|hisagi|kira|yumichika|momo|szayel|yammy|zommari|aaroniero|kaien|tybw|dangai|agent|fullbring|lizard][&form=bankai|shikai|pantera|murcielago|segunda|traitor|chrysalis|gigante|true|letzt|shunko|raijin|stripped|tybw|hollow|haori|shed|glove|lobos|unzipped|tiburon|patch|santa|arrogante|giant|limbs|masked|grillo|rokuten|yachiru|flower|almighty|soulking][&fairies=1][&fan=1][&eyes=open][&drawn=1|0][&colmillo=1][&mask=1|cracked][&glasses=0][&aura=1][&open=0..1][&broad=1][&wings=1]`: model and animation viewer (`toshiro` takes `form=tybw|tybw-bankai|tybw-hollow|adult`, the adult `&wings=1`; `renji` also takes `form=oken|oken-shikai|soo` with `&orochio=1|hot`; `uryu` also takes `form=sternritter|vollstandig` with `&bow=1`, and `uryuprop` shows `form=bogen|flechette|standspitze|chip`; `hihio` shows Sōō Zabimaru's pieces: `form=hihio|hihio-bare|hand-open|hand-fist|fur-clump|soo-blade|orochio|orochio-hot|skull-flame`)
   (`window.__reishi.view('face')`, `.scrub('slash1', 0.17)`, `.move(9)`).
-- `/?map=arena`: the small test arena. `/?hollows=0`: no waves.
+- `/?map=arena`: the small test arena. `/?hollows=N`: Hollow waves (0: none). `/?sandbox`: Sandbox rules.
+  `/?join=CODE`: open straight into a Vs Player 2 lobby. `/?net=local`: Vs Player 2 between two tabs of one browser
+  (no WebRTC; tests).
 - `/?mode=dev`: destruction playground (fly camera; right-click with tools 1–6).
 - `npm run check`: typecheck and tests. `node tools/shots/shoot.mjs --url "/?..." --script "…"`: headless
   screenshots (SwiftShader). `window.__reishi` exposes `play(n)`, `act('getsuga')`, `menos()`, `freeCam(…)`
@@ -1345,7 +1359,8 @@ G state, V flare); press **H** in game for the current character's moves.
 - `src/anim`: rig, procedural locomotion, keyframed clips, sword IK, foot planting, spring bones.
 - `src/chars`: every fighter's body, forms and weapons (Ichigo, the Shinigami captains and lieutenants, the
   Espada, Uryū, Chad, Yoruichi, Urahara…), Hollows, Menos Grande, and their clips.
-- `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input.
+- `src/game`: fighters, combat, kits, AI, projectiles (Getsuga, Cero), camera, input, Sandbox rules.
+- `src/net`: Vs Player 2 — lobby codes, the WebRTC (PeerJS) and local transports, pad and snapshot sync.
 - `src/vfx`, `src/audio`, `src/ui`: auras, trails, energy shaders, procedural sound, HUD, start screen.
 - `src/maps`: Karakura Town generator and test maps.
 - [`PLAN.md`](PLAN.md): the full plan (roster of about 95 characters, maps, systems, milestones).

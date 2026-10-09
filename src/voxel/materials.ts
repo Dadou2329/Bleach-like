@@ -207,5 +207,19 @@ export function createBaseMaterials(): MaterialTable {
   // Gerard's cape stretched into a wall: heavy red cloth, stiff with reiatsu (it stops bodies and shots; a strong cut tears it)
   add({ name: 'cape_red', colors: ['#8a121a', '#a3161f', '#b31b25'], pattern: 'none', hardness: 140, density: 0.6, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'charred' });
 
+  // --- Karakura v2: streets, towers, the shrine
+  add({ name: 'signal_green', colors: ['#2fd6a0', '#46e2b2', '#62ecc2'], pattern: 'none', hardness: 4, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 2.4 });
+  add({ name: 'sign_green', colors: ['#1f8a4c', '#26985a', '#2fa868'], pattern: 'none', hardness: 6, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 0.9 });
+  add({ name: 'sign_orange', colors: ['#e0761e', '#ec8628', '#f49634'], pattern: 'none', hardness: 6, density: 1, flags: S | F_EMISSIVE, debris: 'glass', glow: 0.9 });
+  add({ name: 'tire', colors: ['#1c1c1f', '#232326', '#2a2a2e'], pattern: 'none', hardness: 12, density: 1.2, flags: S, debris: 'rock' });
+  add({ name: 'car_silver', colors: ['#8e949a', '#9ca2a8', '#aab0b6', '#b8bdc2'], pattern: 'none', hardness: 30, density: 2, flags: S, debris: 'metal', metalness: 0.5, roughness: 0.4 });
+  add({ name: 'torii', colors: ['#b0341e', '#c13d24', '#d0482c'], pattern: 'none', hardness: 10, density: 0.8, flags: S | F_FLAMMABLE, debris: 'wood', onBurn: 'charred' });
+  add({ name: 'shimenawa', colors: ['#b19c64', '#bfaa72', '#cdb880'], pattern: 'none', hardness: 2, density: 0.4, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'ash' });
+  add({ name: 'copper_green', colors: ['#4a786b', '#548678', '#5f9485', '#6aa292'], accent: '#3c6257', pattern: 'tile', hardness: 14, density: 2.0, flags: S, debris: 'metal' });
+  add({ name: 'noren', colors: ['#1f2c4d', '#26365c', '#2e406a'], pattern: 'none', hardness: 1, density: 0.2, flags: S | F_FLAMMABLE, debris: 'cloth', onBurn: 'ash' });
+  add({ name: 'manhole', colors: ['#2d2e30', '#36373a', '#3f4043'], pattern: 'metal', hardness: 70, density: 4, flags: S, debris: 'metal', metalness: 0.5, roughness: 0.6 });
+  add({ name: 'glass_office', colors: ['#24425c', '#2c506c', '#365e7e', '#426c8e'], accent: '#7d97ad', pattern: 'glass', hardness: 4, density: 1.2, flags: S, debris: 'glass', roughness: 0.25 });
+  add({ name: 'cladding', colors: ['#8b9298', '#99a0a6', '#a7aeb4', '#b4bbc0'], accent: '#7a8187', pattern: 'stripe', hardness: 30, density: 2.2, flags: S, debris: 'metal', metalness: 0.3, roughness: 0.5 });
+
   return t;
 }

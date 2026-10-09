@@ -69,4 +69,9 @@ export interface Kit {
    * to the kit (which drives it with its own AI) and only G — fighting it off — still reaches the kit
    */
   possessed?(): boolean;
+  /**
+   * Sandbox ("no limits"): called every step after the generic pass (full reiatsu, cooldowns and lockouts cleared);
+   * a kit with a limit of its own — a mask that cracks, an overload, a form on a clock — keeps it from running out
+   */
+  sandbox?(): void;
 }

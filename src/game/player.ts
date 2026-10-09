@@ -1,13 +1,26 @@
 // Player controller: maps input to fighter intents (camera-relative movement, jump / reishi air-steps /
-// hover, Shunpo / Sonído, lock-on, aim) and to the kit's slots (any character).
+// hover, Shunpo / Sonído, lock-on, aim) and to the kit's slots (any character). The input and the view it is relative
+// to are pluggable: the local keyboard, mouse and camera, or a remote player's pad and view (Vs Player 2).
 import * as THREE from 'three';
 import { VEIL_RANGE, type Controller, type Game } from './game';
 import type { Fighter } from './fighter';
 import type { Kit } from './kits/kit';
+import type { Action } from './input';
 import { TEX_RING } from '../vfx/sprites';
 
 const _f = new THREE.Vector3();
 const _r = new THREE.Vector3();
+
+/** where the presses come from: the local `Input`, or a remote player's pad */
+export interface PadSource {
+  held(a: Action): boolean;
+  pressed(a: Action, windowMs?: number): boolean;
+}
+
+/** what "forward" means for the movement keys: the local camera, or the remote player's view */
+export interface ViewSource {
+  flatForward(out: THREE.Vector3): THREE.Vector3;
+}
 
 export class PlayerController implements Controller {
   lock: Fighter | null = null;
@@ -15,13 +28,15 @@ export class PlayerController implements Controller {
   assist: Fighter | null = null;
   private jumpHeldT = 0;
 
-  constructor(readonly g: Game, readonly f: Fighter, readonly kit: Kit) {
-    g.player = f;
+  /** `local`: this is the person at this machine (camera, HUD, help and mouse look follow it) */
+  constructor(readonly g: Game, readonly f: Fighter, readonly kit: Kit, readonly pad: PadSource = g.input, readonly view: ViewSource = g.cam, readonly local = true) {
+    if (local) g.player = f;
   }
 
   update(dt: number): void {
     const { g, f, kit } = this;
-    const inp = g.input;
+    const inp = this.pad;
+    const hud = this.local ? g.hud : null;
     kit.update(dt);
     // a takeover: the body is not the player's for now; only G — fighting it off — still answers
     if (kit.possessed?.()) {
@@ -31,12 +46,12 @@ export class PlayerController implements Controller {
     // a puppet (someone else's blood in the veins): only the struggle — G — still answers
     if (f.puppetT > 0 && !f.dead) {
       this.lock = null;
-      g.cam.lockTarget = null;
+      if (this.local) g.cam.lockTarget = null;
       if (inp.pressed('mask', 120)) f.puppetT = Math.max(0, f.puppetT - 0.35);
       return;
     }
     // ---- movement wish (camera relative)
-    g.cam.flatForward(_f);
+    this.view.flatForward(_f);
     _r.set(-_f.z, 0, _f.x);
     let mx = 0, mz = 0;
     if (inp.held('forward')) mz += 1;
@@ -60,8 +75,10 @@ export class PlayerController implements Controller {
     if (this.assist && (this.assist.dead || !f.action)) this.assist = null;
     // a lock on someone hiding behind a decoy or bent light holds on where they seem to be
     f.faceTarget = this.lock ? this.lock.seenCenter() : this.assist ? this.assist.center() : null;
-    g.cam.lockTarget = this.lock ? this.lock.seenCenter() : null;
-    if (g.hud) g.hud.lockTarget = this.lock;
+    if (this.local) {
+      g.cam.lockTarget = this.lock ? this.lock.seenCenter() : null;
+      if (g.hud) g.hud.lockTarget = this.lock;
+    }
     if (f.dead) return;
     // ---- jump / air-step / hover (riding a summon, the kit reads jump/descend as climb/dive)
     if (!f.mounted && f.canJump && inp.pressed('jump', 140)) {
@@ -97,8 +114,8 @@ export class PlayerController implements Controller {
       f.dash(d);
     }
     const atk = inp.pressed('attack'), hv = inp.pressed('heavy');
-    if ((atk || hv) && f.disarmT > 0 && !kit.bareHands?.()) g.hud?.showBanner('Disarmed');
-    else if ((atk || hv) && f.armLockT > 0) g.hud?.showBanner('Your arm will not answer');
+    if ((atk || hv) && f.disarmT > 0 && !kit.bareHands?.()) hud?.showBanner('Disarmed');
+    else if ((atk || hv) && f.armLockT > 0) hud?.showBanner('Your arm will not answer');
     else {
       if (atk) { aimAt(); kit.attack(); }
       if (hv) { aimAt(); kit.heavy(); }
@@ -107,18 +124,19 @@ export class PlayerController implements Controller {
     if (inp.pressed('skill2')) { this.assist = null; kit.skill2?.(); }
     if (inp.pressed('skill3')) { this.assist = null; kit.skill3?.(); }
     if (inp.pressed('release', 200)) {
-      if (f.sealT > 0) g.hud?.showBanner('Your power is rejected');
+      if (f.sealT > 0) hud?.showBanner('Your power is rejected');
       else kit.release();
     }
     if (inp.pressed('mask', 200)) {
-      if (f.sealT > 0) g.hud?.showBanner('Your power is rejected');
+      if (f.sealT > 0) hud?.showBanner('Your power is rejected');
       else kit.toggle?.();
     }
     if (inp.pressed('flare', 200)) kit.toggleFlare();
-    if (inp.pressed('help', 200)) g.hud?.toggleHelp();
+    if (this.local && inp.pressed('help', 200)) hud?.toggleHelp();
   }
 
   render(_dt: number): void {
+    if (!this.local) return;
     const inp = this.g.input;
     if (inp.mouseDX || inp.mouseDY) this.g.cam.look(inp.mouseDX * inp.sensitivity, inp.mouseDY * inp.sensitivity);
     if (inp.wheel) this.g.cam.zoom(inp.wheel);

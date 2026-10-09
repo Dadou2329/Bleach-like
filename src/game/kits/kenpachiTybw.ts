@@ -1026,6 +1026,12 @@ export class KenpachiTybwKit extends KenpachiKit {
 
   // ---------------------------------------------------------------- HUD and AI
 
+  /** Sandbox: the Bankai never tears the arm off */
+  sandbox(): void {
+    this.overload = 0;
+    this.bankaiLock = 0;
+  }
+
   override formName(): string {
     if (this.tornT > 0) return `Torn arm · ${Math.ceil(this.tornT)} s`;
     if (this.form === 'bankai') return `Bankai · overload ${Math.round(this.overload)} %`;

@@ -1,7 +1,11 @@
-// Playable sandbox: any roster character in a destructible map, against Hollow waves (with a Menos
-// Grande every third wave) or in a duel against another roster character piloted by the duel AI.
-// URL: ?char=<id> picks the fighter, ?vs=<id> starts a duel, ?map=arena, ?hollows=0, ?autostart,
-// ?watch (the player's fighter is AI-driven too: spectator QA).
+// The game: any roster character in a destructible map, in one of three modes —
+//   Vs AI: a duel against another roster character piloted by the duel AI (rounds);
+//   Sandbox: walk the city with no limits (full reiatsu, no cooldowns, lockouts or form timers, no death), N calls a
+//     training opponent, Backspace rebuilds the town; optionally Hollow waves with a Menos every third wave;
+//   Vs Player 2: two players who have the game, joined by a lobby code (src/net/net.ts).
+// URL: ?char=<id> picks the fighter, ?vs=<id> starts a duel, ?sandbox, ?map=arena, ?hollows=N (0 = none), ?autostart,
+// ?watch (the player's fighter is AI-driven too: spectator QA), ?join=CODE (open straight into a lobby),
+// ?net=local (Vs Player 2 between two tabs of one browser).
 // Exposes window.__reishi for scripted tests (ready, stats, act, tap, cam, spawn, duel, freeze…).
 import * as THREE from 'three';
 import { Engine } from '../engine';
@@ -21,7 +25,11 @@ import type { Fighter } from '../game/fighter';
 import { TEX_GLOW } from '../vfx/sprites';
 import { SphereShape } from '../destruction/shapes';
 import type { CarveMode } from '../destruction/destruction';
-import { pauseOverlay, showStart, type StartChoice } from '../ui/start';
+import { pauseOverlay, showStart, type StartChoice, type StartNet, type StartScreen } from '../ui/start';
+import { unleash } from '../game/sandboxRules';
+import { lockPointer } from '../game/input';
+import { cleanCode, hostLobby, joinLobby, makeCode, NET_VERSION, NetSession, type Transport } from '../net/net';
+import { TownBackdrop } from '../render/backdrop';
 
 function groundAt(w: VoxelWorld, x: number, z: number): number {
   const vs = w.vs;
@@ -38,6 +46,13 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   const town = arena ? null : generateKarakura(Number(params.get('seed') ?? 7));
   const world = town ? town.world : generateTestArena(Number(params.get('seed') ?? 1));
   const eng = await Engine.create(app, world, quality);
+  if (town) {
+    // the town carried on past the map's edge, into the haze
+    const backdrop = new TownBackdrop({ size: town.size, ground: town.ground, river: town.river });
+    eng.gr.scene.add(backdrop.group);
+    const fog = eng.gr.scene.fog as THREE.Fog;
+    eng.renderHooks.push(() => backdrop.update(fog.color));
+  }
   const game = new Game(eng);
   const hud = new Hud(game, app);
   const spawnXZ = town ? new THREE.Vector2(...town.spawn) : new THREE.Vector2(30, 36);
@@ -66,8 +81,13 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   };
   setPlayer(playerEntry);
 
+  // ---- mode
+  let mode: StartChoice['mode'] = params.get('vs') ? 'duel' : 'sandbox';
+  /** Sandbox rules (no limits) */
+  let unlimited = params.has('sandbox');
+  /** Hollow waves on (Sandbox) */
+  let hollowsOn = params.get('hollows') !== null && params.get('hollows') !== '0';
   // ---- duel rival
-  let mode: 'waves' | 'duel' = params.get('vs') ? 'duel' : 'waves';
   let rivalEntry = rosterEntry(params.get('vs') ?? (playerEntry.id === 'ichigo' || playerEntry.group === 'ichigo' ? ROSTER[ROSTER.length - 1].id : 'ichigo'));
   let rival: Fighter | null = null;
   let rivalKit: Kit | null = null;
@@ -82,7 +102,6 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
     rivalKit = entry.kit(rival, game);
     game.controllers.push(new DuelistAI(game, rival, rivalKit, { aggression: Number(params.get('ai') ?? 0.7) }));
     hud.rival = rival;
-    mode = 'duel';
     idle(() => entry.warm?.());
     return rival;
   };
@@ -127,6 +146,8 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   eng.systems.push({
     update: (dt) => {
       if (!started) return;
+      if (mode === 'online') return;
+      if (unlimited && player) unleash(player, kit, dt);
       // knocked out: get back up where you fell
       if (player.dead) {
         playerDeadT += dt;
@@ -148,9 +169,9 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
             hud.showBanner(`${r.name.toUpperCase()}<br><small style="font-size:14px;letter-spacing:6px">ROUND ${round}</small>`, 2.2);
           }
         }
-        if (params.get('hollows') === null) return;
+        if (!hollowsOn) return;
       }
-      if (params.get('hollows') === '0') return;
+      if (!hollowsOn) return;
       const alive = game.fighters.filter((f) => f.team === 1 && !f.dead && f !== rival).length;
       if (alive === 0) waveT -= dt;
       if (alive === 0 && waveT <= 0) {
@@ -167,11 +188,181 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
   });
   if (mode === 'duel') startDuel(rivalEntry);
 
+  // ---- Sandbox hotkeys: N calls a training opponent, Backspace rebuilds the town
+  const rebuild = () => {
+    const vs = world.vs;
+    const c = new THREE.Vector3(W / 2, 0, D / 2);
+    eng.editLog.restore(c.x / vs, c.y / vs, c.z / vs, 1e6, -Infinity, 4_000_000);
+    eng.fragments.dissolveNear(c, 1e4);
+    hud.showBanner('THE TOWN IS WHOLE AGAIN', 2);
+  };
+  window.addEventListener('keydown', (e) => {
+    if (!started || mode !== 'sandbox' || !game.input.enabled) return;
+    if (e.code === 'KeyN') {
+      const pool = ROSTER.filter((r) => r.id !== playerEntry.id && r.group !== playerEntry.group);
+      const r = startDuel(pool[Math.floor(Math.random() * pool.length)], 14);
+      hud.showBanner(`${r.name.toUpperCase()}<br><small style="font-size:14px;letter-spacing:4px">training opponent</small>`, 2);
+    }
+    if (e.code === 'Backspace') {
+      e.preventDefault();
+      rebuild();
+    }
+  });
+
+  // ---- Vs Player 2
+  const localNet = params.get('net') === 'local';
+  const mapName = town ? 'town' : 'arena';
+  const placeName = town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS';
+  let net: Transport | null = null;
+  let session: NetSession | null = null;
+  let netRole: 'host' | 'guest' | null = null;
+  let netCode = '';
+  let peerChar: string | null = null;
+  let remote: { f: Fighter; kit: Kit } | null = null;
+  let netRound = 1;
+  let netDeadT = 0;
+  let startUi: StartScreen | null = null;
+  const hello = () => net?.send({ t: 'hello', char: startUi?.choice.char ?? playerEntry.id, map: mapName, v: NET_VERSION });
+  const lobbyListen = (status: (text: string, ready: boolean) => void) => (m: Parameters<NonNullable<Transport['onMessage']>>[0]) => {
+    if (m.t === 'hello') {
+      if (m.v !== NET_VERSION) {
+        status('Player 2 has another version of the game', false);
+        return;
+      }
+      if (netRole === 'guest' && m.map !== mapName) {
+        // the host's map rules: come back on it and dial again
+        const u = new URL(location.href);
+        if (m.map === 'arena') u.searchParams.set('map', 'arena');
+        else u.searchParams.delete('map');
+        u.searchParams.set('join', netCode);
+        location.href = u.toString();
+        return;
+      }
+      peerChar = rosterEntry(m.char).id;
+      const who = rosterEntry(m.char).name;
+      status(netRole === 'host' ? `Player 2 is in — ${who}. Press START.` : `In the lobby — the host plays ${who}. The host starts the fight.`, netRole === 'host');
+    } else if (m.t === 'start' && netRole === 'guest') {
+      startUi?.close();
+      beginOnline(rosterEntry(m.host).id, rosterEntry(m.guest).id);
+    }
+  };
+  const netUi: StartNet = {
+    host: (status) => {
+      const code = makeCode();
+      netRole = 'host';
+      netCode = code;
+      status(`Lobby open — give player 2 the code ${code}`, false);
+      hostLobby(code, localNet, (t) => {
+        net = t;
+        t.onMessage = lobbyListen(status);
+        t.onClose = () => status('Player 2 left the lobby', false);
+        hello();
+        status('Player 2 is joining…', false);
+      }, (e) => status(`Lobby error: ${e}`, false));
+      return code;
+    },
+    join: (code, status) => {
+      netRole = 'guest';
+      netCode = cleanCode(code);
+      status(`Calling lobby ${netCode}…`, false);
+      joinLobby(netCode, localNet, (t) => {
+        net = t;
+        t.onMessage = lobbyListen(status);
+        t.onClose = () => status('The host closed the lobby', false);
+        hello();
+        status('Connected — waiting for the host', false);
+      }, (e) => status(`Could not join: ${e}`, false));
+    },
+    pick: () => hello(),
+    autoJoin: params.get('join') ? cleanCode(params.get('join')!) : undefined,
+  };
+  /** both fighters at their marks: the host's at the spawn, the guest's 16 m ahead (the same on both machines) */
+  const spawnPair = (hostId: string, guestId: string) => {
+    for (const f of [...game.fighters]) game.remove(f);
+    rival = null;
+    rivalKit = null;
+    const yaw = Math.PI * 0.25;
+    const bx = Math.min(W - 8, Math.max(8, p0.x + Math.sin(yaw) * 16)), bz = Math.min(D - 8, Math.max(8, p0.z + Math.cos(yaw) * 16));
+    const hostE = rosterEntry(hostId), guestE = rosterEntry(guestId);
+    const a = game.spawn(hostE.def(), p0.clone(), 0);
+    a.yaw = yaw;
+    const aKit = hostE.kit(a, game);
+    const b = game.spawn(guestE.def(), new THREE.Vector3(bx, groundAt(world, bx, bz) + 0.05, bz), 1);
+    b.yaw = yaw + Math.PI;
+    const bKit = guestE.kit(b, game);
+    const host = netRole === 'host';
+    player = host ? a : b;
+    kit = host ? aKit : bKit;
+    playerEntry = host ? hostE : guestE;
+    remote = host ? { f: b, kit: bKit } : { f: a, kit: aKit };
+    game.controllers.push(new PlayerController(game, player, kit));
+    game.controllers.push(new PlayerController(game, remote.f, remote.kit, session!.remotePad, session!.remotePad, false));
+    hud.abilityProvider = () => kit.abilities();
+    hud.formProvider = () => kit.formName();
+    hud.rival = remote.f;
+    game.cam.yaw = player.yaw + Math.PI;
+    netDeadT = 0;
+  };
+  const beginOnline = (hostId: string, guestId: string) => {
+    if (!net) return;
+    goLive();
+    mode = 'online';
+    unlimited = false;
+    hollowsOn = false;
+    session = new NetSession(game, net, { me: () => (player ? { f: player, kit } : null), them: () => remote });
+    spawnPair(hostId, guestId);
+    session.onRound = (n) => {
+      netRound = n;
+      spawnPair(hostId, guestId);
+      hud.showBanner(`ROUND ${n}`, 2);
+    };
+    session.onBye = () => {
+      hud.showBanner('PLAYER 2 LEFT<br><small style="font-size:14px;letter-spacing:4px">back to the title in a moment</small>', 4);
+      mode = 'sandbox';
+      setTimeout(() => location.reload(), 4500);
+    };
+    eng.systems.push({
+      update: (dt) => {
+        if (mode !== 'online' || !session) return;
+        session.step(dt);
+        // the host calls the next round a few seconds after someone falls
+        if (netRole === 'host' && (player.dead || remote?.f.dead)) {
+          netDeadT += dt;
+          if (netDeadT > 4.5) {
+            netRound++;
+            net?.send({ t: 'round', n: netRound });
+            spawnPair(hostId, guestId);
+            hud.showBanner(`ROUND ${netRound}`, 2);
+          }
+        }
+      },
+    });
+    const hn = rosterEntry(hostId).name.toUpperCase(), gn = rosterEntry(guestId).name.toUpperCase();
+    hud.showBanner(`${hn} <small>vs</small> ${gn}<br><small style="font-size:14px;letter-spacing:6px">VS PLAYER 2 · ${placeName}</small>`, 3);
+    idle(() => { rosterEntry(hostId).warm?.(); rosterEntry(guestId).warm?.(); });
+  };
+
   document.getElementById('boot')?.remove();
   eng.start();
-  // attract camera until PLAY, then pause whenever the pointer lock is released
+  // attract camera until PLAY, then pause whenever the pointer lock is released (never in Vs Player 2: the match goes on)
   const canvas = eng.gr.renderer.domElement;
   let attractT = 0;
+  let pause: { show: (on: boolean) => void } | null = null;
+  function goLive(): void {
+    if (started && !game.cam.override) return;
+    started = true;
+    game.cam.override = null;
+    game.input.enabled = true;
+    hud.root.style.display = '';
+    game.sfx.unlock();
+    lockPointer(canvas);
+    document.addEventListener('pointerlockchange', () => {
+      const locked = document.pointerLockElement === canvas;
+      const hold = !locked && mode !== 'online';
+      pause?.show(hold);
+      eng.paused = hold;
+    });
+  }
   if (!started) {
     game.input.enabled = false;
     const center = player.pos.clone();
@@ -183,29 +374,31 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
       game.cam.override?.pos.set(center.x + Math.cos(a) * 38, center.y + 22, center.z + Math.sin(a) * 38);
     });
     hud.root.style.display = 'none';
-    const pause = pauseOverlay(app, () => canvas.requestPointerLock?.());
-    const init: StartChoice = { char: playerEntry.id, mode, vs: rivalEntry.id };
-    showStart(app, ROSTER, init, (c) => {
-      started = true;
-      game.cam.override = null;
-      game.input.enabled = true;
-      hud.root.style.display = '';
-      game.sfx.unlock();
-      canvas.requestPointerLock?.();
+    pause = pauseOverlay(app, () => lockPointer(canvas));
+    const init: StartChoice = { char: playerEntry.id, mode, vs: rivalEntry.id, hollows: hollowsOn };
+    const mapLink = new URL(location.href);
+    if (town) mapLink.searchParams.set('map', 'arena');
+    else mapLink.searchParams.delete('map');
+    startUi = showStart(app, ROSTER, init, (c) => {
+      if (c.mode === 'online') {
+        if (!net || !peerChar) return;
+        net.send({ t: 'start', host: c.char, guest: peerChar, map: mapName });
+        beginOnline(c.char, peerChar);
+        return;
+      }
+      goLive();
       if (c.char !== playerEntry.id) setPlayer(rosterEntry(c.char), player.pos.clone(), player.yaw);
       if (c.mode === 'duel') {
+        mode = 'duel';
         const r = startDuel(rosterEntry(c.vs));
-        hud.showBanner(`${player.name.toUpperCase()} <small>vs</small> ${r.name.toUpperCase()}<br><small style="font-size:14px;letter-spacing:6px">${town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS'}</small>`, 3);
+        hud.showBanner(`${player.name.toUpperCase()} <small>vs</small> ${r.name.toUpperCase()}<br><small style="font-size:14px;letter-spacing:6px">${placeName}</small>`, 3);
       } else {
-        mode = 'waves';
-        hud.showBanner(`${town ? 'KARAKURA TOWN' : 'TRAINING GROUNDS'}<br><small style="font-size:14px;letter-spacing:4px">Hollows incoming</small>`, 3);
+        mode = 'sandbox';
+        unlimited = true;
+        hollowsOn = c.hollows;
+        hud.showBanner(`${placeName}<br><small style="font-size:14px;letter-spacing:4px">${c.hollows ? 'Sandbox · Hollows incoming' : 'Sandbox · no limits'}</small>`, 3);
       }
-      document.addEventListener('pointerlockchange', () => {
-        const locked = document.pointerLockElement === canvas;
-        pause.show(!locked);
-        eng.timeScale = locked ? 1 : 0;
-      });
-    }, quality === QUALITY_LOW ? 'low' : 'high');
+    }, quality === QUALITY_LOW ? 'low' : 'high', netUi, { name: town ? 'Karakura Town' : 'Training Grounds', other: town ? 'Training Grounds' : 'Karakura Town', href: mapLink.toString() });
   }
 
   const api = {
@@ -290,7 +483,7 @@ export async function bootSandbox(app: HTMLElement, params: URLSearchParams): Pr
         eng.renderFrame(1 / 60, 1);
       }
     },
-    freeze: (on = true) => { eng.timeScale = on ? 0 : 1; },
+    freeze: (on = true) => { eng.paused = on; },
     /** blast a sphere out of the world (tests: craters to restore, walls to cut) */
     carve: (x: number, y: number, z: number, r: number, mode: CarveMode = 'smash', power = 600) => eng.destruction.carve(new SphereShape(new THREE.Vector3(x, y, z), r), { mode, power }).removed,
     spots: town?.spots ?? {},

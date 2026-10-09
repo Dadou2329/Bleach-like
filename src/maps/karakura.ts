@@ -2,12 +2,16 @@
 // and block-wall gardens, apartment blocks with open corridors, a shopping street with awnings and
 // signs, Karakura High (school, gym, sports ground), the Kurosaki Clinic, a riverside park with sakura,
 // the river with grassy embankments and a road bridge, utility poles with sagging wires.
+// Office towers line the main road, a konbini or two, a shrine, Urahara Shop; street lamps, traffic lights, parked cars.
+// The ground goes 14 m deep (topsoil, clay, an old gravel bed, rock, bedrock), sewer conduits run under the roads and
+// every building stands on its footing, so the biggest techniques dig real craters.
 // Everything is ordinary destructible matter (8 vox/m), built hollow so collapses look right.
 import { Rng } from '../core/rng';
 import { createBaseMaterials } from '../voxel/materials';
 import { VoxelWorld } from '../voxel/world';
 import { Builder } from './build';
 import { tree } from './testArena';
+import { busStop, car, CAR_PAINTS, carport, foundation, hipRoof, konbini, office, sewers, shrine, streetLamp, trafficLight, uraharaShop, type Lot } from './townParts';
 
 export interface TownInfo {
   world: VoxelWorld;
@@ -16,24 +20,36 @@ export interface TownInfo {
   spawn: [number, number];
   /** named spots (metres): school yard, clinic, river, bridge… */
   spots: Record<string, [number, number]>;
+  /** the river's water band along z (metres), for the backdrop to carry it on past the map */
+  river: [number, number];
+  /** the map's side in metres */
+  size: number;
 }
-
-type Lot = { x0: number; z0: number; x1: number; z1: number; face: 'n' | 's' | 'e' | 'w' };
 
 export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
   const mats = createBaseMaterials();
-  const w = VoxelWorld.fromMeters(mats, { x: sizeM, y: 56, z: sizeM }, 0.125);
+  const w = VoxelWorld.fromMeters(mats, { x: sizeM, y: 80, z: sizeM }, 0.125);
   const b = new Builder(w);
   const rng = new Rng(seed);
   const v = (m: number) => b.v(m);
-  const G = v(4);
+  // the ground is deep: 14 m of earth and rock under the streets
+  const G = v(14);
   const id = (n: string) => b.id(n);
   const S = w.sx;
-  // ---- strata
+  // ---- strata: bedrock, rock with a darker seam, the old gravel bed, clay, topsoil, grass
   b.box(0, 0, 0, S, 2, S, id('bedrock'));
-  b.box(0, 2, 0, S, G - 6, S, id('stone'));
-  b.box(0, G - 6, 0, S, G - 1, S, id('dirt'));
+  b.box(0, 2, 0, S, G - v(5), S, id('stone'));
+  b.box(0, G - v(8.5), 0, S, G - v(7.9), S, id('stone_dark'));
+  b.box(0, G - v(5), 0, S, G - v(4.4), S, id('gravel_dark'));
+  b.box(0, G - v(4.4), 0, S, G - v(1), S, id('clay'));
+  b.box(0, G - v(1), 0, S, G - 1, S, id('dirt'));
   b.box(0, G - 1, 0, S, G, S, id('grass'));
+  // boulders in the clay and lenses of dark rock in the stone, for the walls of deep craters
+  for (let i = 0; i < 70; i++) {
+    const x = rng.int(4, S - 4), z = rng.int(4, S - 4);
+    if (rng.chance(0.5)) b.ellipsoid(x, G - v(rng.range(2, 3.8)), z, v(rng.range(0.4, 0.9)), v(rng.range(0.3, 0.6)), v(rng.range(0.4, 0.9)), id('stone'));
+    else b.ellipsoid(x, G - v(rng.range(6, 12)), z, v(rng.range(1.5, 4)), v(rng.range(0.4, 0.9)), v(rng.range(1.5, 4)), id('stone_dark'));
+  }
 
   // ---- river along the south (east-west), with embankments
   const rz0 = v(sizeM * 0.8), rz1 = rz0 + v(16);
@@ -56,10 +72,11 @@ export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
   const roadsX: [number, number][] = [[v(36), v(43)], [v(88), v(98)], [v(140), v(147)]]; // north-south (x ranges)
   const roadsZ: [number, number][] = [[v(28), v(35)], [v(72), v(82)], [v(118), v(125)]]; // east-west (z ranges)
   const north = rz0 - bank - v(3);
-  const asphalt = id('asphalt'), white = id('road_white'), pave = id('pavement'), curb = id('curb');
+  const asphalt = id('asphalt'), white = id('road_white'), pave = id('pavement'), curb = id('curb'), gravel = id('gravel');
   const sw = v(2);
   const roadZ = (z0: number, z1: number, x0 = 0, x1 = S) => {
     b.box(x0, G - 2, z0 - sw, x1, G + 1, z1 + sw, 0);
+    b.box(x0, G - 6, z0 - sw, x1, G - 2, z1 + sw, gravel);
     b.box(x0, G - 2, z0, x1, G, z1, asphalt);
     b.box(x0, G - 1, z0 - sw, x1, G + 1, z0, pave);
     b.box(x0, G - 1, z1, x1, G + 1, z1 + sw, pave);
@@ -72,6 +89,7 @@ export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
   };
   const roadX = (x0: number, x1: number, z0 = 0, z1 = north) => {
     b.box(x0 - sw, G - 2, z0, x1 + sw, G + 1, z1, 0);
+    b.box(x0 - sw, G - 6, z0, x1 + sw, G - 2, z1, gravel);
     b.box(x0, G - 2, z0, x1, G, z1, asphalt);
     b.box(x0 - sw, G - 1, z0, x0, G + 1, z1, pave);
     b.box(x1, G - 1, z0, x1 + sw, G + 1, z1, pave);
@@ -120,7 +138,18 @@ export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
   const schoolBlock = byArea.find((bk) => bk.x0 > v(95) && bk.z0 > v(80))!;
   const parkBlock = blocks.find((bk) => bk.x0 > v(95) && bk.z0 < v(30) && bk.z1 > v(10)) ?? byArea[1];
   const clinicBlock = blocks.find((bk) => bk.x1 < v(90) && bk.x0 > v(40) && bk.z0 > v(80))!;
+  // the shrine: the west block between the first two east-west roads, its torii toward the main road
+  const shrineBlock = blocks.find((bk) => bk.x1 < v(37) && bk.z0 > v(34) && bk.z1 < v(73) && bk !== parkBlock);
+  // Urahara Shop: a lot in the west block beyond the main road
+  const uraharaBlock = blocks.find((bk) => bk.x1 < v(37) && bk.z0 > v(82) && bk.z1 < v(119) && bk !== shrineBlock);
+  const mainZ = (roadsZ[1][0] + roadsZ[1][1]) / 2;
   for (const bk of blocks) {
+    if (bk === shrineBlock) {
+      const face = (bk.z0 + bk.z1) / 2 < mainZ ? 's' : 'n';
+      shrine(b, { ...bk, face }, G, rng);
+      spots.shrine = [toM((bk.x0 + bk.x1) / 2), toM((bk.z0 + bk.z1) / 2)];
+      continue;
+    }
     if (bk === schoolBlock) {
       school(b, bk, G, rng);
       spots.school = [toM((bk.x0 + bk.x1) / 2), toM((bk.z0 + bk.z1) / 2)];
@@ -140,8 +169,18 @@ export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
         spots.clinic = [toM((lot.x0 + lot.x1) / 2), toM((lot.z0 + lot.z1) / 2)];
         return;
       }
+      if (bk === uraharaBlock && li === 2) {
+        uraharaShop(b, lot, G);
+        spots.urahara = [toM((lot.x0 + lot.x1) / 2), toM((lot.z0 + lot.z1) / 2)];
+        return;
+      }
+      const big = lot.x1 - lot.x0 >= v(11) && lot.z1 - lot.z0 >= v(11);
+      const deep = (lot.face === 'n' || lot.face === 's' ? lot.z1 - lot.z0 : lot.x1 - lot.x0) >= v(13);
       const r = rng.next();
-      if (mainRoad && r < 0.55) shop(b, lot, G, rng);
+      if (mainRoad && big && r < 0.34) office(b, lot, G, rng);
+      else if (mainRoad && deep && r < 0.46) konbini(b, lot, G, rng);
+      else if (mainRoad && r < 0.75) shop(b, lot, G, rng);
+      else if (!mainRoad && deep && r < 0.04) konbini(b, lot, G, rng);
       else if (r < 0.22) apartment(b, lot, G, rng);
       else houseJP(b, lot, G, rng);
     });
@@ -171,9 +210,43 @@ export function generateKarakura(seed = 7, sizeM = 192): TownInfo {
       if (rng.chance(0.6)) vending(b, x0 - sw - v(1.4), z0 - sw - v(1.1), G);
       if (rng.chance(0.4)) b.box(x0 - sw - v(0.9), G + 1, z0 - sw - v(2.6), x0 - sw - v(0.3), G + v(1.3), z0 - sw - v(2.1), id('mailbox'));
     }
+  // ---- street lamps: the south kerb of the east-west roads (the poles have the north), both kerbs of the others
+  const nearCross = (x: number) => roadsX.some(([a, c]) => x > a - sw - v(3) && x < c + sw + v(3));
+  const nearCrossZ = (z: number) => roadsZ.some(([a, c]) => z > a - sw - v(3) && z < c + sw + v(3));
+  for (const [, z1] of roadsZ)
+    for (let x = v(10); x < S - v(6); x += v(20)) if (!nearCross(x)) streetLamp(b, x, z1 + sw - 3, G + 1, 0, -1);
+  for (const [x0, x1] of roadsX)
+    for (let z = v(8); z < north - v(4); z += v(20)) {
+      if (nearCrossZ(z)) continue;
+      streetLamp(b, x0 - sw + 2, z, G + 1, 1, 0);
+      if (!nearCrossZ(z + v(10)) && z + v(10) < north - v(4)) streetLamp(b, x1 + sw - 3, z + v(10), G + 1, -1, 0);
+    }
+  // ---- traffic lights where the main road crosses the others
+  {
+    const [z0, z1] = roadsZ[1];
+    for (const [x0, x1] of roadsX) {
+      trafficLight(b, x0 - sw + 2, z0 - sw + 2, G + 1, 0, 1);
+      trafficLight(b, x1 + sw - 3, z1 + sw - 3, G + 1, 0, -1);
+      trafficLight(b, x1 + sw - 3, z0 - sw + 2, G + 1, -1, 0);
+      trafficLight(b, x0 - sw + 2, z1 + sw - 3, G + 1, 1, 0);
+    }
+    // bus stops on the main road
+    for (const x of [v(64), v(124)]) if (!nearCross(x)) busStop(b, x, z1 + 3, G + 1, true);
+  }
+  // ---- cars parked along the kerbs of the quieter roads
+  for (const zi of [0, 2]) {
+    const [z0] = roadsZ[zi];
+    for (let x = v(12); x < S - v(12); x += v(rng.range(14, 30))) if (!nearCross(x) && rng.chance(0.6)) car(b, x, z0 + 9, G, true, id(rng.pick(CAR_PAINTS)), rng.chance(0.5));
+  }
+  for (const xi of [0, 2]) {
+    const [x0] = roadsX[xi];
+    for (let z = v(10); z < north - v(10); z += v(rng.range(16, 30))) if (!nearCrossZ(z) && rng.chance(0.55)) car(b, x0 + 9, z, G, false, id(rng.pick(CAR_PAINTS)), rng.chance(0.5));
+  }
+  // ---- under the streets
+  sewers(b, G, roadsX, roadsZ, north - v(1), S);
   w.compressAll();
   const spawn: [number, number] = [toM(bx0 + (bx1 - bx0) / 2) - 10, toM(roadsZ[1][0] + (roadsZ[1][1] - roadsZ[1][0]) / 2)];
-  return { world: w, ground: toM(G), spawn, spots };
+  return { world: w, ground: toM(G), spawn, spots, river: [toM(rz0), toM(rz1)], size: sizeM };
 }
 
 // ------------------------------------------------------------------------------------------- lots
@@ -278,8 +351,17 @@ function houseJP(b: Builder, lot: Lot, G: number, rng: Rng): void {
   const wall = b.id(rng.pick(WALLS)), roof = b.id(rng.pick(ROOFS));
   const wood = b.id('wood_dark'), win = b.id(rng.chance(0.3) ? 'window_lit' : 'window'), floor = b.id('wood_light');
   const storey = v(2.9), t = 2;
-  // house footprint a bit smaller than the lot (garden)
-  const hx1 = x1 - v(rng.range(0, 2.5)), hz1 = z1 - v(rng.range(0, 2.5));
+  // house footprint a bit smaller than the lot (garden); a wide lot may keep a carport by the gate
+  let hx1 = x1 - v(rng.range(0, 2.5)), hz1 = z1 - v(rng.range(0, 2.5));
+  const front = lot.face === 'n' || lot.face === 's' ? lot.x1 - lot.x0 : lot.z1 - lot.z0;
+  if (front >= v(13) && rng.chance(0.4)) {
+    const cw = v(3.2), cd = v(5.4);
+    if (lot.face === 'n') { carport(b, lot.x1 - cw - v(0.4), lot.z0 + 2, lot.x1 - v(0.4), lot.z0 + 2 + cd, G, false, rng); b.box(lot.x1 - cw - v(0.4), G, lot.z0, lot.x1 - v(0.4), G + v(1.3), lot.z0 + 1, 0); hx1 = Math.min(hx1, lot.x1 - cw - v(1)); }
+    else if (lot.face === 's') { carport(b, lot.x1 - cw - v(0.4), lot.z1 - 2 - cd, lot.x1 - v(0.4), lot.z1 - 2, G, false, rng); b.box(lot.x1 - cw - v(0.4), G, lot.z1 - 1, lot.x1 - v(0.4), G + v(1.3), lot.z1, 0); hx1 = Math.min(hx1, lot.x1 - cw - v(1)); }
+    else if (lot.face === 'w') { carport(b, lot.x0 + 2, lot.z1 - cw - v(0.4), lot.x0 + 2 + cd, lot.z1 - v(0.4), G, true, rng); b.box(lot.x0, G, lot.z1 - cw - v(0.4), lot.x0 + 1, G + v(1.3), lot.z1 - v(0.4), 0); hz1 = Math.min(hz1, lot.z1 - cw - v(1)); }
+    else { carport(b, lot.x1 - 2 - cd, lot.z1 - cw - v(0.4), lot.x1 - 2, lot.z1 - v(0.4), G, true, rng); b.box(lot.x1 - 1, G, lot.z1 - cw - v(0.4), lot.x1, G + v(1.3), lot.z1 - v(0.4), 0); hz1 = Math.min(hz1, lot.z1 - cw - v(1)); }
+  }
+  foundation(b, x0 - 1, z0 - 1, hx1 + 1, hz1 + 1, G, 1.0);
   b.box(x0 - 1, G, z0 - 1, hx1 + 1, G + 2, hz1 + 1, b.id('concrete'));
   const yb = G + 2;
   const floors = rng.chance(0.85) ? 2 : 1;
@@ -325,8 +407,9 @@ function houseJP(b: Builder, lot: Lot, G: number, rng: Rng): void {
       b.box(lot.face === 'w' ? xb + v(1) - 1 : xb, by + 2, z0 + v(1), lot.face === 'w' ? xb + v(1) : xb + 1, by + v(1), hz1 - v(1), rail);
     }
   }
-  // roof
-  gableRoof(b, x0, z0, hx1, hz1, yb + storey * floors, roof, v(0.6));
+  // roof: gabled, or hipped (寄棟) on a third of them
+  if (rng.chance(0.35)) hipRoof(b, x0, z0, hx1, hz1, yb + storey * floors, roof, v(0.6));
+  else gableRoof(b, x0, z0, hx1, hz1, yb + storey * floors, roof, v(0.6));
   // garden: a tree or hedge
   const gx = hx1 + 2 < lot.x1 - v(2) ? hx1 + v(1.2) : lot.x0 + v(1.2);
   if (rng.chance(0.55)) tree(b, Math.min(lot.x1 - v(1.5), gx + v(0.5)), G, lot.z0 + v(2.5), rng);
@@ -343,6 +426,7 @@ function apartment(b: Builder, lot: Lot, G: number, rng: Rng): void {
   const h = floors * storey;
   const wall = b.id(rng.pick(['concrete', 'plaster_cream', 'tile_white', 'plaster_beige'])), slab = b.id('concrete');
   const win = b.id('window'), lit = b.id('window_lit'), rail = b.id('metal'), frame = b.id('metal_dark');
+  foundation(b, x0 - 1, z0 - 1, x1 + 1, z1 + 1, G, 1.6);
   b.walls(x0, G, z0, x1, G + h, z1, 2, wall);
   for (let f = 0; f <= floors; f++) b.box(x0, G + f * storey, z0, x1, G + f * storey + 2, z1, slab);
   const facesX = lot.face === 'n' || lot.face === 's';
@@ -383,6 +467,7 @@ function shop(b: Builder, lot: Lot, G: number, rng: Rng): void {
   const storey = v(3.1);
   const wall = b.id(rng.pick(['plaster_cream', 'plaster_white', 'tile_white', 'brick', 'siding_beige']));
   const glass = b.id('glass'), frame = b.id('metal_dark'), slab = b.id('concrete');
+  foundation(b, x0 - 1, z0 - 1, x1 + 1, z1 + 1, G, 1.2);
   b.walls(x0, G, z0, x1, G + floors * storey, z1, 2, wall);
   for (let f = 0; f <= floors; f++) b.box(x0, G + f * storey, z0, x1, G + f * storey + 2, z1, slab);
   const awn = b.id(rng.pick(['awning_red', 'awning_blue', 'awning_green']));
@@ -428,6 +513,7 @@ function clinic(b: Builder, lot: Lot, G: number): void {
   const x0 = lot.x0 + v(1), z0 = lot.z0 + v(1), x1 = lot.x1 - v(1), z1 = lot.z1 - v(1);
   const wall = b.id('plaster_cream'), wood = b.id('wood_dark'), win = b.id('window'), slab = b.id('concrete');
   const storey = v(3);
+  foundation(b, x0 - 1, z0 - 1, x1 + 1, z1 + 1, G, 1.2);
   b.box(x0 - 1, G, z0 - 1, x1 + 1, G + 2, z1 + 1, slab);
   b.walls(x0, G + 2, z0, x1, G + 2 + storey * 2, z1, 2, wall);
   b.box(x0, G + 2 + storey, z0, x1, G + 2 + storey + 2, z1, slab);
@@ -464,6 +550,7 @@ function school(b: Builder, bk: { x0: number; z0: number; x1: number; z1: number
   const bx0 = bk.x0 + v(4), bx1 = bk.x1 - v(4);
   const bz0 = bk.z0 + v(4), bz1 = bz0 + v(12);
   const floors = 4, storey = v(3.4), h = floors * storey;
+  foundation(b, bx0 - 1, bz0 - 1, bx1 + 1, bz1 + 1, G, 1.8);
   b.walls(bx0, G, bz0, bx1, G + h, bz1, 2, cream);
   for (let f = 0; f <= floors; f++) b.box(bx0, G + f * storey, bz0, bx1, G + f * storey + 2, bz1, slab);
   // interior corridor wall

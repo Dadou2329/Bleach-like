@@ -141,6 +141,8 @@ export class Fighter {
   onHurt: ((amount: number, heavy: boolean) => void) | null = null;
   /** checked when a hit would kill: return true to survive it (the kit sets hp itself) */
   onLethal: (() => boolean) | null = null;
+  /** never dies (Sandbox): a lethal blow leaves 1 HP */
+  immortal = false;
   /** checked before a hit lands: return true to stop it outright (Aizen's raised finger) */
   parry: ((amount: number, from: Fighter | null, o: DamageOpts) => boolean) | null = null;
   /**

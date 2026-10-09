@@ -1038,6 +1038,11 @@ export class ShinjiKit implements Kit {
     else if (g.hud && f === g.player) g.hud.vignette = 0;
   }
 
+  /** Sandbox: the mask holds */
+  sandbox(): void {
+    this.maskT = 0;
+  }
+
   formName(): string {
     const base = this.form === 'bankai' ? 'Bankai — Sakashima Yokoshima Happōfusagari' : this.form === 'shikai' ? 'Shikai — Sakanade' : 'Visored';
     return this.masked ? `${base} · Hollow mask` : base;

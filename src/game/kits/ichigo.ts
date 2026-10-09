@@ -1169,6 +1169,12 @@ export class IchigoKit implements Kit {
     if (f.grounded) g.engine.destruction.carve(new SphereShape(f.pos.clone(), 2.6 * k, 0.4), { mode: 'smash', power: 160, impulse: 14, dust: 1 });
   }
 
+  /** Sandbox: the mask never cracks and the Full Hollow never fades */
+  sandbox(): void {
+    if (this.masked) this.maskT = MASK_TIME;
+    if (this.vasto) this.vastoT = VASTO_TIME;
+  }
+
   formName(): string {
     if (this.vasto) return `Full Hollow · ${Math.max(0, Math.ceil(this.vastoT))} s`;
     if (this.possessT > 0) return `The Hollow · ${Math.ceil(this.possessT)} s · G ×${POSSESS_MASH - this.possessMash} to tear it off`;

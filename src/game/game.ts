@@ -354,7 +354,8 @@ export class Game {
       if (isPlayer) this.shake(o.shake ?? (o.heavy ? 0.35 : 0.15));
     } else if (Math.random() < 0.3) this.sfx.play('hit', t.center(), 0.35);
     t.onHurt?.(dmg, o.heavy === true);
-    if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, dir);
+    if (t.hp <= 0 && t.immortal) t.hp = 1;
+    else if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, dir);
   }
 
   /** Damage over time (rot, poison, burns): the HP drains without a flinch, hitstun, sound or number; it can still kill. */
@@ -364,7 +365,8 @@ export class Game {
     const dmg = amount * power * t.damageTaken;
     t.hp -= dmg;
     if (from) from.stats.damageDealt += dmg;
-    if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, _w.set(0, 0, 0));
+    if (t.hp <= 0 && t.immortal) t.hp = 1;
+    else if (t.hp <= 0 && !(t.onLethal?.() ?? false)) this.kill(t, from, _w.set(0, 0, 0));
   }
 
   kill(t: Fighter, from: Fighter | null, dir: THREE.Vector3): void {

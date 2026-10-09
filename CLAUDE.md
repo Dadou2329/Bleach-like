@@ -230,7 +230,18 @@ scope and milestones and `README.md` for controls and modes.
   rising as a pink spirit into his hand; `CrimsonBlade`, The Perfect Crimson's blade of reiatsu on the cleaver) and
   `vfx/sprites.ts` (glow/dust sprites, atlas: puff, glow, streak, ring; a streak's length is
   `size × (1 + stretch·|v|·0.05)`, so a still streak needs a large stretch).
-- Maps: `maps/karakura.ts` (default), `maps/testArena.ts`, `maps/stage.ts` (viewer).
+- Maps: `maps/karakura.ts` (default: the street grid, lots and special blocks; street level `G` = 14 m, the strata
+  below), `maps/townParts.ts` (sewers and footings, office towers, konbini, the shrine, Urahara Shop, street lamps,
+  traffic lights, bus stops, cars, carports, hip roofs; `lotFrame(lot)` builds in a lot's own street-facing frame),
+  `maps/testArena.ts`, `maps/stage.ts` (viewer). `render/backdrop.ts` draws the town past the map's edge (render only;
+  hills follow the fog colour).
+- Modes (`modes/sandbox.ts`): Vs AI (`startDuel`), Sandbox (`game/sandboxRules.ts`: `unleash()` every step — full
+  reiatsu, cooldown maps `cd*` and `*Cd`/`*Lock` numbers zeroed down to inner kits, `Fighter.immortal`; a kit with its
+  own limit implements `Kit.sandbox()`), Vs Player 2 (`net/net.ts`: lobby codes on PeerJS or `?net=local`
+  BroadcastChannel; each side runs the whole game, sends its pad every step and its own fighter's snapshot every
+  sixth; the other fighter is driven by a `PlayerController` on a `RemotePad` with `local = false` and eased toward its
+  owner's snapshots; HP and death follow the owner; the host calls rounds). Kits must not read `g.input` or the
+  camera directly (the remote fighter's input comes through the controller).
 
 ## Conventions
 - Skills: use `.claude/skills/voxel-art` for any model, map or VFX work (scales, palettes, review

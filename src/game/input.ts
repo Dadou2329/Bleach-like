@@ -31,6 +31,16 @@ export const DEFAULT_BINDINGS: Record<Action, string[]> = {
   debug: ['Backquote'],
 };
 
+/** Capture the mouse; a refusal (no user gesture yet, an embedded frame) is not an error worth surfacing. */
+export function lockPointer(el: HTMLElement): void {
+  try {
+    const r = el.requestPointerLock?.() as unknown as Promise<void> | undefined;
+    r?.catch?.(() => {});
+  } catch {
+    /* refused */
+  }
+}
+
 export class Input {
   private down = new Set<string>();
   private pressAt = new Map<string, number>();
@@ -44,6 +54,8 @@ export class Input {
   bindings = DEFAULT_BINDINGS;
   /** set by the game: ignore gameplay input (menus) */
   enabled = true;
+  /** told of every key or button press while enabled (Vs Player 2 forwards them to the other side) */
+  readonly pressListeners = new Set<(code: string) => void>();
 
   constructor(private el: HTMLElement) {
     window.addEventListener('keydown', (e) => {
@@ -55,7 +67,7 @@ export class Input {
       for (const c of [...this.down]) this.release(c);
     });
     el.addEventListener('mousedown', (e) => {
-      if (!this.locked && this.enabled) el.requestPointerLock?.();
+      if (!this.locked && this.enabled) lockPointer(el);
       this.press('Mouse' + e.button);
     });
     window.addEventListener('mouseup', (e) => this.release('Mouse' + e.button));
@@ -73,6 +85,7 @@ export class Input {
     this.down.add(code);
     this.pressAt.set(code, performance.now());
     this.consumed.delete(code);
+    if (this.enabled) for (const l of this.pressListeners) l(code);
   }
 
   private release(code: string): void {
